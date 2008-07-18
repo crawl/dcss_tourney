@@ -1,0 +1,21 @@
+
+table players -- key: name
+name, team, score_base, team_score_base
+
+table games -- key: player, start_time; 
+player (foreign key: players), start_time, score, race, class, version, lv, uid, character, xl, skill, sk_lev, title, place, branch, lvl, ltyp, hp, maxhp, maxmaxhp, str, int, dex, god, duration, turn, runes, killertype, killer, damage, piety, end_time, terse_msg, verb_msg,
+
+kills_by_ghosts 
+killed_player, killed_start_time, killer
+
+kills_of_ghosts
+player, start_time, ghost
+
+kills_of_uniques
+player, unique
+
+uniques
+unique_name
+
+rune_finds
+player, start_time, rune
