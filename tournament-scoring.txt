@@ -1,4 +1,4 @@
-WINS
+(./)WINS (YOURS)
 ----
 100 points for first win. (Since winning is kind of the goal.)
 50 points for second win that is not a repeat race or class.
@@ -11,25 +11,27 @@ WINS
   class.
 10 extra points for each non-consecutive win that is a repeat race xor class.
 
-SPECIAL WINS
+(./)SPECIAL WINS (CHANGES)
 ------------
 200/50/20 points for fastest win in realtime.
 200/50/20 points for fastest win by turncount.
+(YOURS)
 200/50/20 points for first win scored. 
 200/50/20 points for first 14-rune victory. (Abyss, presumably, to be skipped)
 
-RUNES
+(./)RUNES (YOURS)
 -----
 10 points each time you find a rune for the first time.
 1 point each time you find any rune a second or later time.
 
-UNIQUES
+(./) UNIQUES (YOURS)
 -------
 5 points the first time you kill each unique.
+(CHANGES)
 50/20/10 points for most unique uniques killed; ties broken by who gets
   that number first.
 
-HIGH SCORES
+(./)HIGH SCORES (CHANGES)
 -----------
 5 points per high score in a race/class combination (HuWn, not just Hu)
 5 additional points for each high score that is a win.
@@ -43,12 +45,14 @@ These get you clan points but do not get you points toward the individual
 prize, encouraging specialization on clans but making the hypothetical
 "Best Crawl Player" award based on more "real" metrics.
 
-50/20/10 points for lowest dungeon level reached at XL1.
-2 points per player ghost killed when playing
-N points per ghost kill after dying, where N is the dying character's
+(./)50/20/10 points for lowest dungeon level reached at XL1. (CHANGES)
+(YOURS)
+(./)2 points per player ghost killed when playing
+(./)N points per ghost kill after dying, where N is the dying character's
   XL minus 5. 
-200/50/20 for _clan_ with most high scores in race/class combos.
-100/50/20 for _clan_ with most uniques killed (or all uniques killed
+(CHANGES)
+(./)200/50/20 for _clan_ with most high scores in race/class combos.
+(./)100/50/20 for _clan_ with most uniques killed (or all uniques killed
   first)
 
 CLAN SCORING
