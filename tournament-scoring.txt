@@ -1,0 +1,61 @@
+WINS
+----
+100 points for first win. (Since winning is kind of the goal.)
+50 points for second win that is not a repeat race or class.
+10 points for each win thereafter, repeat or not.
+50 extra points for your first all-rune victory.
+100 extra points for each consecutive win that is not a repeat race or class.
+30 extra points for each consecutive win that is a repeat race xor class.
+10 extra points for each consecutive win that is a repeat race and class.
+30 extra points for each non-consecutive win that is not a repeat race or
+  class.
+10 extra points for each non-consecutive win that is a repeat race xor class.
+
+SPECIAL WINS
+------------
+200/50/20 points for fastest win in realtime.
+200/50/20 points for fastest win by turncount.
+200/50/20 points for first win scored. 
+200/50/20 points for first 14-rune victory. (Abyss, presumably, to be skipped)
+
+RUNES
+-----
+10 points each time you find a rune for the first time.
+1 point each time you find any rune a second or later time.
+
+UNIQUES
+-------
+5 points the first time you kill each unique.
+50/20/10 points for most unique uniques killed; ties broken by who gets
+  that number first.
+
+HIGH SCORES
+-----------
+5 points per high score in a race/class combination (HuWn, not just Hu)
+5 additional points for each high score that is a win.
+10 points per high score in a race.
+10 points per high score in a class.
+200/50/20 points for most high scores in race/class combos.
+
+CLAN POINTS ONLY
+------------
+These get you clan points but do not get you points toward the individual
+prize, encouraging specialization on clans but making the hypothetical
+"Best Crawl Player" award based on more "real" metrics.
+
+50/20/10 points for lowest dungeon level reached at XL1.
+2 points per player ghost killed when playing
+N points per ghost kill after dying, where N is the dying character's
+  XL minus 5. 
+200/50/20 for _clan_ with most high scores in race/class combos.
+100/50/20 for _clan_ with most uniques killed (or all uniques killed
+  first)
+
+CLAN SCORING
+------------
+Sum total of individual points, plus "Clan points only" trophies above.
+Six members or less per clan.
+
+WHEN
+----
+August. 
