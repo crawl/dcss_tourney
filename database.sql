@@ -7,7 +7,7 @@ drop table rune_finds;
 
 
 create table players (name char(20), team varchar(255), score_base bigint, team_score_base bigint);
-alter tabe players add primary key playername (name);
+alter table players add primary key playername (name);
 create table games (
 	player char(20), 
 	start_time datetime, 
@@ -38,6 +38,7 @@ create table games (
 	runes int, 
 	killertype char(20), 
 	killer char(20), 
+        kaux char(255),
 	damage int, 
 	piety int, 
 	end_time datetime, 
