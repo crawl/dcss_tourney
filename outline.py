@@ -60,9 +60,11 @@ def do_milestone_unique(mile):
   if has_killed_unique(this_mile['name'], unique):
     return
   # write to db that this_mile['name'] killed unique
+  # need help here
   assign_points(this_mile['name'], 5)
   if has_killed_all_uniques(this_mile['name']):
     # check to see if anyone else has done it yet, and assign points (50/20/10)
+    # I think this requires doing a query and reacting to it?
   return
 
 def get_unique_name(string):
@@ -70,11 +72,11 @@ def get_unique_name(string):
   stays the same. This function takes the string and returns the name of the
   unique, since we don't care if Sigmund drowned or burned to a crisp or was
   banished or fell down the stairs or choked on his hat."""
-  for name in list_of_uniques: # that list needs to be defined somewhere
+  # list_of_uniques = some_sort_of_query
+  for name in list_of_uniques: 
     if re.search(name, string):
       return name
-  # error here: unique not listed in our list of uniques! Something has 
-  # gone wrong!
+    # otherwise it was a Pan lord or Geryon or someone we don't track
 
 def has_killed_unique(player, unique):
   """Has the player killed this unique yet? Returns 1 or 0"""
@@ -91,6 +93,7 @@ def has_killed_all_uniques(player):
   # basically for each unique, it confirms they are dead, and if it ever
   # fails to confirm, we stop looking. NOTE: put murray at the top to save
   # time, since he's impossible to find :)
+  # list_of_uniques = query_again 
   for name in list_of_uniques:
     state = 0
     for dead in uniques_dead:
@@ -143,7 +146,7 @@ def act_on_logfile_line(line):
   if this_game['ktyp'] == 'winning':
     crunch_winner(this_game) # lots of math to do for winners
   if re.search("\'s ghost",this_game['killer']):
-    ghost = # use split or something on this_game['killer']
+    ghost = this.game['killer'].split("'")[0] #this line tested
     XL = this_game['xl']
     assign_points(ghost, (XL - 5))
   return
