@@ -40,10 +40,12 @@ create table games (
 	killer char(20), 
         kaux char(255),
 	damage int, 
-	piety int, 
+	piety int,
+        penitence int, 
 	end_time datetime, 
 	terse_msg varchar(255), 
-	verb_msg varchar(255)
+	verb_msg varchar(255),
+        nrune int
 	);
 
 alter table games add primary key game (player, start_time);

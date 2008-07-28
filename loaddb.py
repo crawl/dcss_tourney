@@ -50,10 +50,12 @@ logline_to_dbfield = {'v':'version',
                       'killer':'killer',
                       'dam':'damage',
                       'piety':'piety',
+                      'pen':'penitence',
                       'end':'end_time',
                       'tmsg':'terse_msg',
                       'vmsg':'verb_msg',
-                      'kaux':'kaux'}
+                      'kaux':'kaux',
+                      'nrune':'nrune'}
 
 class SqlType:
   def __init__(self, str_to_sql):
@@ -102,9 +104,11 @@ dbfield_to_sqltype = {
         'kaux':char,
 	'damage':sql_int, 
 	'piety':sql_int, 
+        'penitence':sql_int,
 	'end_time':datetime, 
 	'terse_msg':varchar, 
-	'verb_msg':varchar
+	'verb_msg':varchar,
+        'nrune':sql_int
 	}
 
 def parenthesized_string(lst):
@@ -126,3 +130,75 @@ def make_games_insert_query(logdict):
     fields.append(field)
     values.append(type.to_sql(logdict[key]))
   return """insert into games %s values %s;""" % (parenthesized_string(fields), parenthesized_string(values))
+
+
+
+def count_wins(db, player, character_race=None, character_class=None):
+  """Return the number wins recorded for the given player, optionally with 
+     a specific race, class, or both"""
+  query_string = "select count(start_time) from games where killertype='winning' && player='%s' " 
+  query_string = query_string % player
+  if (character_race):
+    query_string += """&& race='%s' """ % (character_race,)
+  if (character_class): 
+    query_string += """&& class='%s' """ % (character_class,)
+  query_string += ";"
+  db.query(query_string)
+  res = db.store_result()
+  ((count,),) = res.fetch_row()
+  return int(count)
+
+def player_exists(db, name):
+  """Return true if the player exists in the player table"""
+  query_string = """select name from players where name='%s';""" % name
+  db.query(query_string)
+  res = db.store_result()
+  rows = res.fetch_row()
+  return len(rows) != 0
+
+def add_player(db, name):
+  """Add the given player with no score yet"""
+  query_string = """insert into players (name, score_base, team_score_base) values ('%s', 0, 0);""" % name
+  db.query(query_string)
+
+def get_player_base_score(db, name):
+  """Return the unchanging part of a player's score"""
+  query_string = """select score_base from players where name='%s';""" % name
+  db.query(query_string)
+  res = db.store_result()
+  if res.num_rows() != 1:
+    raise Exception, "Player not found: %s" % name
+  ((score,),) = res.fetch_row()
+  return int(score)
+
+def get_player_base_team_score(db, name):
+  """Return the unchanging part of a player's team score contribution"""
+  query_string = """select team_score_base from players where name='%s';""" % name
+  db.query(query_string)
+  res = db.store_result()
+  if res.num_rows() != 1:
+    raise Exception, "Player not found: %s" % name
+  ((score,),) = res.fetch_row()
+  return int(score)
+
+def assign_points(db, name, points):
+  """Add points to a player's points in the db"""
+  prev = get_player_base_score(db, name)
+  query_string = """update players set score_base=%s where name='%s';""" % (prev+points, name)
+  db.query(query_string)
+
+def assign_team_points(db, name, points):
+  """Add points to a players team in the db.  The name refers to the player, not the team"""
+  prev = get_player_base_team_score(db, name)
+  query_string = """update players set team_score_base=%s where name='%s';""" % (prev+points, name)
+  db.query(query_string)
+
+def read_file_into_games(db, filename):
+  """Take a database with an open connection, and a name of a file, and 
+  slurp the entire contents of the file into the games table of the database.
+  This is pretty much only for testing."""
+  f = open(filename)
+  for line in f.readlines():
+    d = parse_logline(line.strip())
+    q = make_games_insert_query(d)
+    db.query(q)
