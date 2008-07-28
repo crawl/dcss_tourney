@@ -42,6 +42,8 @@ def act_on_milestone(line):
   function may be called to finish the job on the milestone line. Milestones
   have the same broken :: behavior as logfile lines, yay."""
   this_mile = parse_logline(line)
+  if is_too_early(this_mile['start']):
+    return # games started before the tournament are worth diddly
   if this_mile['type'] == 'unique':
     do_milestone_unique(this_mile)
   if this_mile['type'] == 'rune':
@@ -142,20 +144,28 @@ def act_on_logfile_line(line):
   points (high scores, lowest dungeon level, fastest wins) should be 
   calculated elsewhere."""
   this_game = parse_logline(line)
+  if is_too_early(this_game['start']):
+    return # this game does not count!
   # write this logfile line to the db before doing calculations on it
   if this_game['ktyp'] == 'winning':
     crunch_winner(this_game) # lots of math to do for winners
   if re.search("\'s ghost",this_game['killer']):
     ghost = this.game['killer'].split("'")[0] #this line tested
     XL = this_game['xl']
-    assign_points(ghost, (XL - 5))
+    assign_points(ghost, (XL - 5)) # BUG: can assign negative points!!!
   return
 
 def crunch_winner(game):
   """A game that wins could assign a variety of irrevocable points for a 
   variety of different things. This function needs to calculate them all."""
+  if  
   # oh god I seriously have to write this?
 
+def is_too_early(time):
+  """A game started before the appropriate time doesn't count."""
+  if time < some_constant: # no idea what some_constant is yet
+    return 1 # yes, it's too early 
+  return 0 # no, this game counts 
 
 def whereis(player):
   """We might want to know where a player is, either to display it on the
@@ -207,3 +217,4 @@ def whereis(player):
   if (status != 'won') and (status != 'bailed out'):
     return ("%s the %s (L%s %s)%s %s %s %s%s%s." % (player, sktitle, details['xl'], details['char'], godstr, prestr, prep, replace(details['place'], ';', ':'), datestr, turnstr))
   return ("Whereis information for %s is not currently available." % (player))
+
