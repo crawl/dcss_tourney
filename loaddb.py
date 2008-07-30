@@ -78,6 +78,10 @@ LOG_DB_MAPPINGS = [
 
 LOGLINE_TO_DBFIELD = dict(LOG_DB_MAPPINGS)
 R_MONTH_FIX = re.compile(r'^(\d{4})(\d{2})(.*)')
+R_GHOST_NAME = re.compile(r"^(.*)'s? ghost")
+R_MILESTONE_GHOST_NAME = re.compile(r"the ghost of (.*) the ")
+R_KILL_VICTIM = re.compile(r'^killed (.*)\.$')
+R_RUNE = re.compile(r"found an? (.*) rune")
 
 class SqlType:
   def __init__(self, str_to_sql):
@@ -140,15 +144,28 @@ dbfield_to_sqltype = {
         'nrune':sql_int,
 	}
 
+def apply_dbtypes(game):
+  """Given an xlogline dictionary, replaces all values with munged values
+  that can be inserted directly into a db table. Keys that are not recognized
+  (i.e. not in dbfield_to_sqltype) are ignored."""
+  new_hash = { }
+  for key, value in game.items():
+    if LOGLINE_TO_DBFIELD.has_key(key):
+      new_hash[key] = dbfield_to_sqltype[LOGLINE_TO_DBFIELD[key]].to_sql(value)
+    else:
+      new_hash[key] = value
+  return new_hash
+
 def make_games_insert_query(logdict, filename, offset):
   fields = ["source_file", "source_file_offset"]
   values = [filename, offset]
 
+  dbfields = apply_dbtypes(logdict)
+
   for logkey, sqlkey in LOG_DB_MAPPINGS:
-    if logdict.has_key(logkey):
-      type = dbfield_to_sqltype[sqlkey]
+    if dbfields.has_key(logkey):
       fields.append(sqlkey)
-      values.append(type.to_sql(logdict[logkey]))
+      values.append(dbfields[logkey])
 
   return ('INSERT INTO games (%s) VALUES (%s);' %
             (",".join(fields), ",".join([ "%s" for v in values])),
@@ -223,17 +240,32 @@ def insert_logline(cursor, logdict, filename, offset):
           % (logdict, query, values, e))
     raise
 
-def logfile_offset(cursor, filename):
+def dbfile_offset(cursor, table, filename):
   """Given a db cursor and filename, returns the offset of the last
   logline from that file that was entered in the db."""
 
-  query = '''SELECT MAX(source_file_offset) FROM games
-             WHERE source_file = %s'''
+  query = ('SELECT MAX(source_file_offset) FROM %s ' % table) + \
+          'WHERE source_file = %s'
   cursor.execute(query, filename)
   offset = cursor.fetchone()[0]
   return offset or -1
 
-def logfile_seek(filename, filehandle, offset):
+def logfile_offset(cursor, filename):
+  return dbfile_offset(cursor, 'games', filename)
+
+def milestone_offset(cursor, filename):
+  return dbfile_offset(cursor, 'milestone_bookmark', filename)
+
+def update_db_bookmark(cursor, table, filename, offset):
+  cursor.execute('INSERT INTO ' + table + \
+                   ' (source_file, source_file_offset) VALUES (%s, %s) ' + \
+                   'ON DUPLICATE KEY UPDATE source_file_offset = %s',
+                 [ filename, offset, offset ])
+
+def update_milestone_bookmark(cursor, filename, offset):
+  return update_db_bookmark(cursor, 'milestone_bookmark', filename, offset)
+
+def xlog_seek(filename, filehandle, offset):
   """Given a logfile handle and the offset of the last logfile entry inserted
   in the db, seeks to the last entry and reads past it, positioning the
   read pointer at the start of the first new logfile entry."""
@@ -254,39 +286,136 @@ def logfile_seek(filename, filehandle, offset):
     # Discard one line - the last line added to the db.
     filehandle.readline()
 
-def tail_file_into_games(cursor, filename, filehandle, offset=None):
-  """Given a logfile handle, seeks to the supplied offset if any, and
-  writes all available records into the games table. Returns the fileoffset
-  at the point immediately past the last log entry read."""
-
-  if offset:
-    filehandle.seek(offset)
-
-  inserted = 0
+def read_offset_lines(handle, offset=None):
+  if offset is not None:
+    handle.seek(offset)
   while True:
-    offset = filehandle.tell()
-    line = filehandle.readline()
+    offset = handle.tell()
+    line = handle.readline()
     if not line or not line.endswith("\n"):
+      line = None
+    yield offset, line
+
+def tail_file_lines(filename, filehandle, offset, line_op):
+  """Given a filename and filehandle, seeks to the supplied offset and reads
+  lines, calling the supplied function with the offset and line. Returns the
+  offset that is just past the last newline-terminated line."""
+  inserted = 0
+  for off, line in read_offset_lines(filehandle, offset):
+    offset = off
+    if line is None:
       break
-    d = parse_logline(line.strip())
-    insert_logline(cursor, d, filename, offset)
+
+    line_op(off, line)
+
     inserted += 1
     if inserted % 5000 == 0:
-      print("Inserted %d rows." % inserted)
+      print("Inserted %d rows from %s." % (inserted, filename))
 
   if inserted > 0:
     info("Inserted %d rows." % inserted)
 
   return offset
 
+def extract_ghost_name(killer):
+  return R_GHOST_NAME.findall(killer)[0]
+
+def extract_milestone_ghost_name(milestone):
+  return R_MILESTONE_GHOST_NAME.findall(milestone)[0]
+
+def extract_rune(milestone):
+  return R_RUNE.findall(milestone)[0]
+
+def record_ghost_kill(cursor, game):
+  """Given a game where the character was slain by a ghost, adds an entry in
+  the kills_by_ghosts table."""
+  game = apply_dbtypes(game)
+  cursor.execute('''INSERT INTO kills_by_ghosts
+                    (killed_player, killed_start_time, killer) VALUES
+                    (%s, %s, %s);''',
+                 [ game['name'], game['start'],
+                   extract_ghost_name(game['killer']) ])
+
+def tail_file_into_games(cursor, filename, filehandle, offset=None):
+  """Given a logfile handle, seeks to the supplied offset if any, and
+  writes all available records into the games table. Returns the fileoffset
+  at the point immediately past the last log entry read."""
+
+  def process_logline(offset, line):
+    d = parse_logline(line.strip())
+    killer = d.get('killer') or ''
+    ghost_kill = R_GHOST_NAME.search(killer)
+    cursor.execute('BEGIN;')
+    insert_logline(cursor, d, filename, offset)
+    if ghost_kill:
+      record_ghost_kill(cursor, d)
+    cursor.execute('COMMIT;')
+
+  return tail_file_lines(filename, filehandle, offset, process_logline)
+
+def tail_milestones(cursor, filename, filehandle, offset=None):
+  def process_milestone(offset, line):
+    add_milestone_record(cursor, filename, filehandle, offset, line)
+
+  return tail_file_lines(filename, filehandle, offset, process_milestone)
+
+def extract_kill_victim(kill_message):
+  return R_KILL_VICTIM.findall(kill_message)[0]
+
+def add_unique_milestone(cursor, game):
+  cursor.execute('''INSERT INTO kills_of_uniques (player, monster)
+                    VALUES (%s, %s);''',
+                 [ game['name'], extract_kill_victim(game['milestone']) ])
+
+def add_ghost_milestone(cursor, game):
+  cursor.execute('''INSERT INTO kills_of_ghosts (player, start_time, ghost)
+                    VALUES (%s, %s, %s);''',
+                 [ game['name'], datetime.to_sql(game['time']),
+                   extract_milestone_ghost_name(game['milestone']) ])
+
+def add_rune_milestone(cursor, game):
+  cursor.execute('''INSERT INTO rune_finds (player, start_time, rune)
+                    VALUES (%s, %s, %s);''',
+                 [ game['name'], datetime.to_sql(game['time']),
+                   extract_rune(game['milestone']) ])
+
+MILESTONE_HANDLERS = {
+  'unique' : add_unique_milestone,
+  'ghost' : add_ghost_milestone,
+  'rune' : add_rune_milestone
+}
+
+def add_milestone_record(c, filename, handle, offset, line):
+  d = apply_dbtypes(parse_logline(line.strip()))
+
+  # Start a transaction to ensure that we don't part-update tables.
+  c.execute('BEGIN;')
+  update_milestone_bookmark(c, filename, offset)
+  handler = MILESTONE_HANDLERS.get(d['type'])
+  if handler:
+    handler(c, d)
+  c.execute('COMMIT;')
+
 def read_file_into_games(db, filename, filehandle):
   """Take a database with an open connection, and a name of a file, and
   slurp the entire contents of the file into the games table of the database.
   This is pretty much only for testing."""
   cursor = db.cursor()
-  logfile_seek(filename, filehandle, logfile_offset(cursor, filename))
+  xlog_seek(filename, filehandle, logfile_offset(cursor, filename))
   try:
     return tail_file_into_games(cursor, filename, filehandle)
+  finally:
+    cursor.close()
+
+def read_milestone_file(db, filename, filehandle):
+  """Takes a db with an open connection, the name of a milestone file and
+  an open filehandle into the file and writes the milestones into the
+  appropriate db tables. Also takes care to resume where it left off if
+  interrupted."""
+  cursor = db.cursor()
+  xlog_seek(filename, filehandle, milestone_offset(cursor, filename))
+  try:
+    return tail_milestones(cursor, filename, filehandle)
   finally:
     cursor.close()
 

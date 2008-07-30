@@ -10,11 +10,13 @@ logging.basicConfig(level=logging.DEBUG)
 # Can run as a daemon and tail a number of logfiles and milestones and
 # update the db.
 
-class Logfile:
-  def __init__(self, filename):
+class Xlogfile:
+  def __init__(self, filename, tell_op, tail_op):
     self.filename = filename
     self.handle = None
     self.offset = None
+    self.tell_op = tell_op
+    self.tail_op = tail_op
     self._open()
 
   def _open(self):
@@ -35,14 +37,25 @@ class Logfile:
       return
 
     if not self.offset:
-      loaddb.logfile_seek(self.filename, self.handle,
-                          loaddb.logfile_offset(cursor, self.filename))
+      loaddb.xlog_seek(self.filename, self.handle,
+                       self.tell_op(cursor, self.filename))
 
-    self.offset = loaddb.tail_file_into_games(cursor, self.filename,
-                                              self.handle, self.offset)
+    self.offset = self.tail_op(cursor, self.filename,
+                               self.handle, self.offset)
 
-def tail_logfiles(logs, interval=3):
-  files = [ Logfile(x) for x in logs ]
+class Logfile (Xlogfile):
+  def __init__(self, filename):
+    Xlogfile.__init__(self, filename, loaddb.logfile_offset,
+                      loaddb.tail_file_into_games)
+
+class MilestoneFile (Xlogfile):
+  def __init__(self, filename):
+    Xlogfile.__init__(self, filename, loaddb.milestone_offset,
+                      loaddb.tail_milestones)
+
+def tail_logfiles(logs, milestones, interval=60):
+  files = [ Logfile(x) for x in logs ] + \
+      [ MilestoneFile(x) for x in milestones ]
 
   db = loaddb.connect_db()
   cursor = db.cursor()
@@ -60,4 +73,4 @@ def tail_logfiles(logs, interval=3):
     db.close()
 
 if __name__ == '__main__':
-  tail_logfiles( loaddb.LOGS )
+  tail_logfiles( loaddb.LOGS, loaddb.MILESTONES, 3 )

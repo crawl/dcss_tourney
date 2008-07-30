@@ -56,10 +56,21 @@ create table games (
 
 alter table games add primary key game (player, start_time);
 
-create table kills_by_ghosts (killed_player char(20), killed_start_time datetime, killer char(20));
+-- A table to keep track of the last milestone we've processed. This
+-- will have only one row for one filename.
+CREATE TABLE milestone_bookmark (source_file VARCHAR(150) PRIMARY KEY, source_file_offset BIGINT);
+
+create table kills_by_ghosts (
+    killed_player char(20) NOT NULL,
+    killed_start_time datetime NOT NULL,
+    killer char(20) NOT NULL
+    );
 
 create table kills_of_ghosts (player char(20), start_time datetime, ghost char(20));
 
-create table kills_of_uniques (player char(20), monster char(20));
+create table kills_of_uniques (
+player char(20) NOT NULL,
+monster char(20)
+);
 
 create table rune_finds (player char(20), start_time datetime, rune char(20));
