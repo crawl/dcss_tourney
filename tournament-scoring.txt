@@ -1,4 +1,4 @@
-(./)WINS (YOURS)
+(./)WINS (YOURS) : All covered in outline.py
 ----
 100 points for first win. (Since winning is kind of the goal.)
 50 points for second win that is not a repeat race or class.
@@ -16,20 +16,20 @@
 200/50/20 points for fastest win in realtime.
 200/50/20 points for fastest win by turncount.
 (YOURS)
-200/50/20 points for first win scored. 
-200/50/20 points for first 14-rune victory. (Abyss, presumably, to be skipped)
+200/50/20 points for first win scored. : covered in outline.py
+200/50/20 points for first 15-rune victory. : covered in outline.py
 
-(./)RUNES (YOURS)
+(./)RUNES (YOURS) : covered in outline.py
 -----
 10 points each time you find a rune for the first time.
 1 point each time you find any rune a second or later time.
 
 (./) UNIQUES (YOURS)
 -------
-5 points the first time you kill each unique.
+5 points the first time you kill each unique. : covered in outline.py
 (CHANGES)
 50/20/10 points for most unique uniques killed; ties broken by who gets
-  that number first.
+  that number first. : covered in outline.py iff three people kill all of them
 
 (./)HIGH SCORES (CHANGES)
 -----------
@@ -47,9 +47,9 @@ prize, encouraging specialization on clans but making the hypothetical
 
 (./)50/20/10 points for lowest dungeon level reached at XL1. (CHANGES)
 (YOURS)
-(./)2 points per player ghost killed when playing
-(./)N points per ghost kill after dying, where N is the dying character's
-  XL minus 5. 
+(./)2 points per player ghost killed when playing : covered in outline.py
+(./)N points per ghost kill after dying, where N is the dying character's 
+  XL minus 5. : covered in outline.py
 (CHANGES)
 (./)200/50/20 for _clan_ with most high scores in race/class combos.
 (./)100/50/20 for _clan_ with most uniques killed (or all uniques killed
@@ -57,7 +57,9 @@ prize, encouraging specialization on clans but making the hypothetical
 
 CLAN SCORING
 ------------
-Sum total of individual points, plus "Clan points only" trophies above.
+Sum total of individual points for wins, runes, and uniques, sum total of special wins
+points, sum total of high scores points, 
+plus "Clan points only" trophies above.
 Six members or less per clan.
 
 WHEN

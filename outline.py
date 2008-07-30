@@ -12,9 +12,9 @@
 # 5. Causing the website to be updated with who is currently winning everything
 #    and, if necessary, where players are
 
-# I expect we want a database for some of this (at the very least for storing
-# all the data; that is, after all, what databases do) but for now I am going
-# to try to get basic outlines in place.
+# global variables
+db = "/path/to/db" # since we only have the one, right?
+starttime = # some long number
 
 def parse_logline(logline):
   """This function takes a logfile line, which is mostly separated by colons,
@@ -109,32 +109,16 @@ def do_milestone_rune(mile):
   """When the player gets a rune for the first time, they get ten points.
   After that, they get one point. This one is pretty simple."""
   if #player_already_has_rune:
-    assign_points(mile['name'],1)
+    assign_points(db,mile['name'],1)
     return
   #log that player got rune
-  assign_points(mile['name'], 10)
+  assign_points(db,mile['name'], 10)
   return
 
 def do_milestone_ghost(mile):
   """When you kill a player ghost, you get two clan points! Otherwise this
   isn't terribly remarkable."""
-  assign_clan_points(mile['name'],2)
-  return
-
-def assign_points(player, points):
-  """Actually give points to an individual user account. Points that can't
-  be taken away are given right away to form a player's base score. Points
-  that can be taken away should be calculated when requested but considered
-  differently from this base score, and not added via this function."""
-  #some sort of database write
-  return
-
-def assign_clan_points(player, points):
-  """Actually give points to a player's clan account. Since players might
-  move clans, this should be calculated on a per-player basis and not a 
-  per-clan basis. This allows potential trades. (I am probably thinking too
-  hard here.)
-  #some sort of database write
+  assign_team_points(db,mile['name'],2)
   return
 
 def act_on_logfile_line(line):
@@ -146,24 +130,115 @@ def act_on_logfile_line(line):
   this_game = parse_logline(line)
   if is_too_early(this_game['start']):
     return # this game does not count!
-  # write this logfile line to the db before doing calculations on it
+  make_games_insert_query(line)
   if this_game['ktyp'] == 'winning':
     crunch_winner(this_game) # lots of math to do for winners
   if re.search("\'s ghost",this_game['killer']):
     ghost = this.game['killer'].split("'")[0] #this line tested
     XL = this_game['xl']
-    assign_points(ghost, (XL - 5)) # BUG: can assign negative points!!!
+    if XL>5:
+      assign_points(db,ghost, (XL - 5)) 
   return
 
 def crunch_winner(game):
   """A game that wins could assign a variety of irrevocable points for a 
   variety of different things. This function needs to calculate them all."""
-  if  
-  # oh god I seriously have to write this?
+  if is_all_runer(game): 
+    all_allruners = number_of_allruners_before(game)
+    if all_allruners=0:
+      assign_points(db,game['name'],200)
+    if all_allruners=1:
+      assign_points(db,game['name'],100)
+    if all_allruners=2:
+      assign_points(db,game['name'],50)
+    if it's my first all-rune win:
+      assign_points(db,game['name'],50)
+  all_wins = number_of_wins_before(game)
+  if all_wins=0:
+    assign_points(db,game['name'],200)
+  if all_wins=1:
+    assign_points(db,game['name'],100)
+  if all_wins= 2:
+    assign_points(db,game['name'],50)
+  if it's my first all-rune win:
+    assign_points(db,game['name'],50)
+  my_wins = my_wins_before(game)
+  if my_wins = 0: 
+    assign_points(db,game['name'],100)
+    return # I bet you don't have a streak
+  if my_wins = 1:
+    if count_wins(db, game['name'], game['race'], game['class'])=0:
+      assign_points(db,game['name'],50)
+  if is_on_streak(game):
+    if count_wins(db, game['name'], game['race'], game['class'])>0:
+      assign_points(db,game['name'],10) #lamer 
+    else:
+      if count_wins(db, game['name'], game['race'], None)>0:
+        assign_points(db,game['name'],30) # repeat race
+      else:
+        if count_wins(db, game['name'], None, game['class'])>0:
+	  assign_points(db,game['name'],30) # repeat class
+	else:
+	  assign_points(db,game['name'],100) # non-repeat!
+  else:
+    if count_wins(db, game['name'], game['race'], game['class'])>0:
+      assign_points(db,game['name'],0) # You get NOTHING.
+    else:
+      if count_wins(db, game['name'], game['race'], None)>0:
+        assign_points(db,game['name'],10) # repeat race
+      else:
+        if count_wins(db, game['name'], None, game['class'])>0:
+          assign_points(db,game['name'],10) # repeat class
+        else:
+          assign_points(db,game['name'],30) # non-repeat!
+  assign_points(db,game['name'],10) #every win gets at least 10 points no matter what
+
+def is_on_streak(game):
+  """Was the most recently ended game before this one a win?"""
+  if some db munging:
+    return 1
+  return 0
+
+def is_all_runer(game):
+  """Did this game get every rune? This _might_ require checking the milestones
+  associated with the start time..."""
+  if some db munging:
+    return 1
+  return 0
+
+def number_of_allruners_before(game):
+  """How many all-runers happened before this game? We can stop at 3."""
+  total=0
+  for test_game in (games won before game):
+    if is_all_runer(test_game):
+      total = total + 1
+      if total > 2:
+        return 3
+  return total
+
+def number_of_wins_before(game):
+  """How many wins happened before this game? We can stop at 3."""
+  total=0
+  for test_game in (games before game):
+    if test_game['ktyp']='winning': 
+      total = total + 1
+      if total > 2:
+        return 3
+  return total
+
+def my_wins_before(game):
+  """How many wins did I have before this game? We can stop at 2."""
+  total=0
+  for test_game in (my games before game):
+    if test_game['ktyp']='winning':
+      total=total + 1
+      if total > 1:
+        return 2
+  return total
 
 def is_too_early(time):
   """A game started before the appropriate time doesn't count."""
-  if time < some_constant: # no idea what some_constant is yet
+  if time < start_time
     return 1 # yes, it's too early 
   return 0 # no, this game counts 
 
