@@ -47,7 +47,7 @@ def update_scoring_page(db):
 def get_top_players_in(db):
   """get the top three players in the db by points"""
 
-def get_top_players_in(db):
+def get_top_clans_in(db):
   """get the top three clans in the db""" 
 
 def get_first_victories_in(db):
