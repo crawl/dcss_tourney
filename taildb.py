@@ -73,4 +73,4 @@ def tail_logfiles(logs, milestones, interval=60):
     db.close()
 
 if __name__ == '__main__':
-  tail_logfiles( loaddb.LOGS, loaddb.MILESTONES, 3 )
+  tail_logfiles( loaddb.LOGS, loaddb.MILESTONES, 60 )
