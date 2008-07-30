@@ -12,8 +12,9 @@ MILESTONES = [ 'cao-milestones-0.4' ]
 COMMIT_INTERVAL = 3000
 
 def connect_db():
-  connection = MySQLdb.connect(host='localhost', user='crawl',
-                               db='tournament')
+  connection = MySQLdb.connect(host='localhost',
+                               user='crawl',
+                               db=TOURNAMENT_DB)
   return connection
 
 def parse_logline(logline):
