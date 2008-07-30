@@ -21,7 +21,7 @@ def daemonize(lockfile):
     sys.stderr.write(("Unable to lock %s - check if another " +
                       "process is running.\n")
                      % lockfile)
-    exit(1)
+    sys.exit(1)
 
   print "Starting daemon..."
   pid = os.fork()
@@ -32,4 +32,4 @@ def daemonize(lockfile):
     os.setsid()
     lock_handle(False)
   else:
-    exit(0)
+    sys.exit(0)
