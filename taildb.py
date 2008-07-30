@@ -1,11 +1,12 @@
 import MySQLdb
 import loaddb
 import time
+import crawl_utils
 
 import logging
 from logging import debug, info, warn, error
 
-logging.basicConfig(level=logging.DEBUG)
+BASEDIR = '/home/crawl'
 
 # Can run as a daemon and tail a number of logfiles and milestones and
 # update the db.
@@ -71,4 +72,7 @@ def tail_logfiles(logs, milestones, interval=60):
     db.close()
 
 if __name__ == '__main__':
+  logging.basicConfig(level=logging.DEBUG,
+                      filename = BASEDIR + '/taildb.log')
+  crawl_utils.daemonize(BASEDIR + '/taildb.lock')
   tail_logfiles( loaddb.LOGS, loaddb.MILESTONES, 60 )

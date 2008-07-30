@@ -1,5 +1,6 @@
 import MySQLdb
 import re
+import os
 
 import logging
 from logging import debug, info, warn, error
@@ -10,8 +11,6 @@ LOGS = [ '/home/crawl/chroot/var/games/crawl04/saves/logfile',
        ]
 MILESTONES = [ '/home/crawl/chroot/var/games/crawl04/saves/milestones.txt' ]
 COMMIT_INTERVAL = 3000
-
-logging.basicConfig(level=logging.DEBUG)
 
 def connect_db():
   connection = MySQLdb.connect(host='localhost', user='crawl',
@@ -312,7 +311,7 @@ def tail_file_lines(filename, filehandle, offset, line_op):
 
     inserted += 1
     if inserted % 5000 == 0:
-      print("Inserted %d rows from %s." % (inserted, filename))
+      info("Inserted %d rows from %s." % (inserted, filename))
 
   if inserted > 0:
     info("Inserted %d rows." % inserted)
@@ -424,6 +423,7 @@ def read_milestone_file(db, filename, filehandle):
     cursor.close()
 
 if __name__ == '__main__':
+  logging.basicConfig(level=logging.DEBUG)
   db = connect_db()
   for log in LOGS:
     info("Updating db with %s" % log)
