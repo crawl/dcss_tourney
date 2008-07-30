@@ -262,7 +262,7 @@ def tail_file_into_games(cursor, filename, filehandle, offset=None):
   if offset:
     filehandle.seek(offset)
 
-  offset = -1
+  inserted = 0
   while True:
     offset = filehandle.tell()
     line = filehandle.readline()
@@ -270,6 +270,13 @@ def tail_file_into_games(cursor, filename, filehandle, offset=None):
       break
     d = parse_logline(line.strip())
     insert_logline(cursor, d, filename, offset)
+    inserted += 1
+    if inserted % 5000 == 0:
+      print("Inserted %d rows." % inserted)
+
+  if inserted > 0:
+    info("Inserted %d rows." % inserted)
+
   return offset
 
 def read_file_into_games(db, filename, filehandle):
