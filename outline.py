@@ -293,3 +293,5 @@ def whereis(player):
     return ("%s the %s (L%s %s)%s %s %s %s%s%s." % (player, sktitle, details['xl'], details['char'], godstr, prestr, prep, replace(details['place'], ';', ':'), datestr, turnstr))
   return ("Whereis information for %s is not currently available." % (player))
 
+def get_current_winners_of_temporary_prizes():
+  """is this a function we want, violet?"""
