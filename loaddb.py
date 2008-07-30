@@ -1,4 +1,14 @@
 import MySQLdb
+import re
+
+TOURNAMENT_DB = 'tournament'
+LOGS = [ 'cao-logfile', 'cdo-logfile' ]
+MILESTONES = [ 'cao-milestones', 'cdo-milestones' ]
+
+def connect_db():
+  connection = MySQLdb.connect(host='localhost', user='crawl',
+                               db='tournament')
+  return connection
 
 def parse_logline(logline):
   """This function takes a logfile line, which is mostly separated by colons,
@@ -19,54 +29,67 @@ def parse_logline(logline):
     details[key] = details[key].replace("\n", ":")
   return details 
 
+# The mappings in order so that we can generate our db queries with all the
+# fields in order and generally debug things more easily.
+LOG_DB_MAPPINGS = [
+    [ 'v', 'version' ],
+    [ 'lv', 'lv' ],
+    [ 'name', 'player' ],
+    [ 'uid', 'uid' ],
+    [ 'race', 'race' ],
+    [ 'cls', 'class' ],
+    [ 'char', 'charabbrev' ],
+    [ 'xl', 'xl' ],
+    [ 'sk', 'skill' ],
+    [ 'sklev', 'sk_lev' ],
+    [ 'title', 'title' ],
+    [ 'place', 'place' ],
+    [ 'br', 'branch' ],
+    [ 'lvl', 'lvl' ],
+    [ 'ltyp', 'ltyp' ],
+    [ 'hp', 'hp' ],
+    [ 'mhp', 'maxhp' ],
+    [ 'mmhp', 'maxmaxhp' ],
+    [ 'str', 'strength' ],
+    [ 'int', 'intellegence' ],
+    [ 'dex', 'dexterity' ],
+    [ 'god', 'god' ],
+    [ 'start', 'start_time' ],
+    [ 'dur', 'duration' ],
+    [ 'turn', 'turn' ],
+    [ 'sc', 'score' ],
+    [ 'ktyp', 'killertype' ],
+    [ 'killer', 'killer' ],
+    [ 'dam', 'damage' ],
+    [ 'piety', 'piety' ],
+    [ 'pen', 'penitence' ],
+    [ 'end', 'end_time' ],
+    [ 'tmsg', 'terse_msg' ],
+    [ 'vmsg', 'verb_msg' ],
+    [ 'kaux', 'kaux' ],
+    [ 'nrune', 'nrune' ],
+    [ 'urune', 'runes' ] ]
 
-logline_to_dbfield = {'v':'version',
-                      'lv':'lv',
-                      'name':'player',
-                      'uid':'uid',
-                      'race':'race',
-                      'cls':'class',
-                      'char':'charabbrev',
-                      'xl':'xl',
-                      'sk':'skill',
-                      'sklev':'sk_lev',
-                      'title':'title',
-                      'place':'place',
-                      'br':'branch',
-                      'lvl':'lvl',
-                      'ltyp':'ltyp',
-                      'hp':'hp',
-                      'mhp':'maxhp',
-                      'mmhp':'maxmaxhp',
-                      'str':'strength',
-                      'int':'intellegence',
-                      'dex':'dexterity',
-                      'god':'god',
-                      'start':'start_time',
-                      'dur':'duration',
-                      'turn':'turn',
-                      'sc':'score',
-                      'ktyp':'killertype',
-                      'killer':'killer',
-                      'dam':'damage',
-                      'piety':'piety',
-                      'pen':'penitence',
-                      'end':'end_time',
-                      'tmsg':'terse_msg',
-                      'vmsg':'verb_msg',
-                      'kaux':'kaux',
-                      'nrune':'nrune'}
+LOGLINE_TO_DBFIELD = dict(LOG_DB_MAPPINGS)
+R_MONTH_FIX = re.compile(r'^(\d{4})(\d{2})(.*)')
 
 class SqlType:
   def __init__(self, str_to_sql):
-    print str_to_sql('1')
+    #print str_to_sql('1')
     self.str_to_sql = str_to_sql
-  
+
   def to_sql(self, string):
     return (self.str_to_sql)(string)
 
+def fix_crawl_date(date):
+  def inc_month(match):
+    return "%s%02d%s" % (match.group(1), 1 + int(match.group(2)),
+                         match.group(3))
+  return R_MONTH_FIX.sub(inc_month, date)
+
 char = SqlType(lambda x: '"' + MySQLdb.escape_string(x) + '"')
-datetime = SqlType(lambda x: '"' + x[0:-1] + '"') #remove the trailing 'D'
+#remove the trailing 'D'/'S'
+datetime = SqlType(lambda x: '"' + fix_crawl_date(x[0:-1]) + '"')
 bigint = SqlType(lambda x: str(int(x)))
 sql_int = bigint
 varchar = char
@@ -108,7 +131,7 @@ dbfield_to_sqltype = {
 	'end_time':datetime, 
 	'terse_msg':varchar, 
 	'verb_msg':varchar,
-        'nrune':sql_int
+        'nrune':sql_int,
 	}
 
 def parenthesized_string(lst):
@@ -124,14 +147,14 @@ def parenthesized_string(lst):
 def make_games_insert_query(logdict):
   fields = []
   values = []
-  for key in logdict:
-    field = logline_to_dbfield[key]
-    type = dbfield_to_sqltype[field]
-    fields.append(field)
-    values.append(type.to_sql(logdict[key]))
+
+  for logkey, sqlkey in LOG_DB_MAPPINGS:
+    if logdict.has_key(logkey):
+      type = dbfield_to_sqltype[sqlkey]
+      fields.append(sqlkey)
+      values.append(type.to_sql(logdict[logkey]))
+
   return """insert into games %s values %s;""" % (parenthesized_string(fields), parenthesized_string(values))
-
-
 
 def count_wins(db, player, character_race=None, character_class=None):
   """Return the number wins recorded for the given player, optionally with 
@@ -193,6 +216,14 @@ def assign_team_points(db, name, points):
   query_string = """update players set team_score_base=%s where name='%s';""" % (prev+points, name)
   db.query(query_string)
 
+def insert_logline(db, logdict):
+  q = make_games_insert_query(logdict)
+  try:
+    db.query(q)
+  except Exception, e:
+    print "Error inserting logline %s (query: %s): %s" % (logdict, q, e)
+    raise
+
 def read_file_into_games(db, filename):
   """Take a database with an open connection, and a name of a file, and 
   slurp the entire contents of the file into the games table of the database.
@@ -200,5 +231,13 @@ def read_file_into_games(db, filename):
   f = open(filename)
   for line in f.readlines():
     d = parse_logline(line.strip())
-    q = make_games_insert_query(d)
-    db.query(q)
+    insert_logline(db, d)
+
+if __name__ == '__main__':
+  db = connect_db()
+  for log in LOGS:
+    print "Updating db with %s" % log
+    try:
+      read_file_into_games(db, log)
+    except IOError:
+      print "Error reading %s, skipping it." % log

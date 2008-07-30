@@ -1,19 +1,20 @@
-drop table players;
-drop table games;
-drop table kills_by_ghosts;
-drop table kills_of_ghosts;
-drop table kills_of_uniques;
-drop table rune_finds;
-
+drop table if exists players;
+drop table if exists games;
+drop table if exists kills_by_ghosts;
+drop table if exists kills_of_ghosts;
+drop table if exists kills_of_uniques;
+drop table if exists rune_finds;
 
 create table players (name char(20), team varchar(255), score_base bigint, team_score_base bigint);
 alter table players add primary key playername (name);
+
+-- For mappings of logfile fields to columns, see loaddb.py
 create table games (
 	player char(20), 
 	start_time datetime, 
 	score bigint,
-	race char(10), 
-	class char(10), 
+	race char(20),
+	class char(20),
 	version char(10), 
 	lv char(8),
 	uid int, 
@@ -34,11 +35,11 @@ create table games (
 	dexterity int, 
 	god char(20), 
 	duration int, 
-	turn bigint, 
+	turn bigint,
 	runes int, 
 	killertype char(20), 
-	killer char(20), 
-        kaux char(255),
+	killer char(50),
+        kaux varchar(255),
 	damage int, 
 	piety int,
         penitence int, 
