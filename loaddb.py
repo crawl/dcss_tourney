@@ -4,6 +4,7 @@ import re
 TOURNAMENT_DB = 'tournament'
 LOGS = [ 'cao-logfile', 'cdo-logfile' ]
 MILESTONES = [ 'cao-milestones', 'cdo-milestones' ]
+COMMIT_INTERVAL = 3000
 
 def connect_db():
   connection = MySQLdb.connect(host='localhost', user='crawl',
@@ -87,10 +88,10 @@ def fix_crawl_date(date):
                          match.group(3))
   return R_MONTH_FIX.sub(inc_month, date)
 
-char = SqlType(lambda x: '"' + MySQLdb.escape_string(x) + '"')
-#remove the trailing 'D'/'S'
-datetime = SqlType(lambda x: '"' + fix_crawl_date(x[0:-1]) + '"')
-bigint = SqlType(lambda x: str(int(x)))
+char = SqlType(lambda x: x)
+#remove the trailing 'D'/'S', fixup date
+datetime = SqlType(lambda x: fix_crawl_date(x[0:-1]))
+bigint = SqlType(lambda x: int(x))
 sql_int = bigint
 varchar = char
 
@@ -134,16 +135,6 @@ dbfield_to_sqltype = {
         'nrune':sql_int,
 	}
 
-def parenthesized_string(lst):
-  ret = '('
-  for elt in lst:
-    ret += str(elt)
-    ret += ', '
-  #remove the trailing comma
-  ret = ret[0:-2]
-  ret +=')'
-  return ret
-
 def make_games_insert_query(logdict):
   fields = []
   values = []
@@ -154,7 +145,9 @@ def make_games_insert_query(logdict):
       fields.append(sqlkey)
       values.append(type.to_sql(logdict[logkey]))
 
-  return """insert into games %s values %s;""" % (parenthesized_string(fields), parenthesized_string(values))
+  return ('INSERT INTO games (%s) VALUES (%s);' %
+            (",".join(fields), ",".join([ "%s" for v in values])),
+          values)
 
 def count_wins(db, player, character_race=None, character_class=None):
   """Return the number wins recorded for the given player, optionally with 
@@ -216,12 +209,13 @@ def assign_team_points(db, name, points):
   query_string = """update players set team_score_base=%s where name='%s';""" % (prev+points, name)
   db.query(query_string)
 
-def insert_logline(db, logdict):
-  q = make_games_insert_query(logdict)
+def insert_logline(cursor, logdict):
+  query, values = make_games_insert_query(logdict)
   try:
-    db.query(q)
+    cursor.execute(query, values)
   except Exception, e:
-    print "Error inserting logline %s (query: %s): %s" % (logdict, q, e)
+    print "Error inserting logline %s (query: %s [%s]): %s" \
+        % (logdict, query, values, e)
     raise
 
 def read_file_into_games(db, filename):
@@ -229,9 +223,15 @@ def read_file_into_games(db, filename):
   slurp the entire contents of the file into the games table of the database.
   This is pretty much only for testing."""
   f = open(filename)
-  for line in f.readlines():
-    d = parse_logline(line.strip())
-    insert_logline(db, d)
+  cursor = db.cursor()
+
+  try:
+    for line in f.readlines():
+      d = parse_logline(line.strip())
+      insert_logline(cursor, d)
+  finally:
+    cursor.close()
+    f.close()
 
 if __name__ == '__main__':
   db = connect_db()

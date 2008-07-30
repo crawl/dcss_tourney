@@ -10,6 +10,11 @@ alter table players add primary key playername (name);
 
 -- For mappings of logfile fields to columns, see loaddb.py
 create table games (
+    -- Source logfile
+    source_file varchar(150),
+    -- Offset in the source file.
+    source_file_offset bigint,
+    
 	player char(20), 
 	start_time datetime, 
 	score bigint,
