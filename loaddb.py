@@ -1,10 +1,15 @@
 import MySQLdb
 import re
 
+import logging
+from logging import debug, info, warn, error
+
 TOURNAMENT_DB = 'tournament'
 LOGS = [ 'cao-logfile', 'cdo-logfile' ]
 MILESTONES = [ 'cao-milestones', 'cdo-milestones' ]
 COMMIT_INTERVAL = 3000
+
+logging.basicConfig(level=logging.DEBUG)
 
 def connect_db():
   connection = MySQLdb.connect(host='localhost', user='crawl',
@@ -28,7 +33,7 @@ def parse_logline(logline):
   details = dict([(item[:item.index('=')], item[item.index('=') + 1:]) for item in logline.split(':')])
   for key in details:
     details[key] = details[key].replace("\n", ":")
-  return details 
+  return details
 
 # The mappings in order so that we can generate our db queries with all the
 # fields in order and generally debug things more easily.
@@ -96,48 +101,48 @@ sql_int = bigint
 varchar = char
 
 dbfield_to_sqltype = {
-	'player':char, 
-	'start_time':datetime, 
+	'player':char,
+	'start_time':datetime,
 	'score':bigint,
-	'race':char, 
-	'class':char, 
-	'version':char, 
+	'race':char,
+	'class':char,
+	'version':char,
 	'lv':char,
-	'uid':sql_int, 
-	'charabbrev':char, 
-	'xl':sql_int, 
-	'skill':char, 
-	'sk_lev':sql_int, 
-	'title':varchar, 
-	'place':char, 
-	'branch':char, 
-	'lvl':sql_int, 
-	'ltyp':char, 
-	'hp':sql_int, 
+	'uid':sql_int,
+	'charabbrev':char,
+	'xl':sql_int,
+	'skill':char,
+	'sk_lev':sql_int,
+	'title':varchar,
+	'place':char,
+	'branch':char,
+	'lvl':sql_int,
+	'ltyp':char,
+	'hp':sql_int,
 	'maxhp':sql_int,
- 	'maxmaxhp':sql_int, 
-	'strength':sql_int, 
-	'intellegence':sql_int, 
-	'dexterity':sql_int, 
-	'god':char, 
-	'duration':sql_int, 
-	'turn':bigint, 
-	'runes':sql_int, 
-	'killertype':char, 
-	'killer':char, 
+ 	'maxmaxhp':sql_int,
+	'strength':sql_int,
+	'intellegence':sql_int,
+	'dexterity':sql_int,
+	'god':char,
+	'duration':sql_int,
+	'turn':bigint,
+	'runes':sql_int,
+	'killertype':char,
+	'killer':char,
         'kaux':char,
-	'damage':sql_int, 
-	'piety':sql_int, 
+	'damage':sql_int,
+	'piety':sql_int,
         'penitence':sql_int,
-	'end_time':datetime, 
-	'terse_msg':varchar, 
+	'end_time':datetime,
+	'terse_msg':varchar,
 	'verb_msg':varchar,
         'nrune':sql_int,
 	}
 
-def make_games_insert_query(logdict):
-  fields = []
-  values = []
+def make_games_insert_query(logdict, filename, offset):
+  fields = ["source_file", "source_file_offset"]
+  values = [filename, offset]
 
   for logkey, sqlkey in LOG_DB_MAPPINGS:
     if logdict.has_key(logkey):
@@ -150,13 +155,13 @@ def make_games_insert_query(logdict):
           values)
 
 def count_wins(db, player, character_race=None, character_class=None):
-  """Return the number wins recorded for the given player, optionally with 
+  """Return the number wins recorded for the given player, optionally with
      a specific race, class, or both"""
-  query_string = "select count(start_time) from games where killertype='winning' && player='%s' " 
+  query_string = "select count(start_time) from games where killertype='winning' && player='%s' "
   query_string = query_string % player
   if (character_race):
     query_string += """&& race='%s' """ % (character_race,)
-  if (character_class): 
+  if (character_class):
     query_string += """&& class='%s' """ % (character_class,)
   query_string += ";"
   db.query(query_string)
@@ -209,35 +214,84 @@ def assign_team_points(db, name, points):
   query_string = """update players set team_score_base=%s where name='%s';""" % (prev+points, name)
   db.query(query_string)
 
-def insert_logline(cursor, logdict):
-  query, values = make_games_insert_query(logdict)
+def insert_logline(cursor, logdict, filename, offset):
+  query, values = make_games_insert_query(logdict, filename, offset)
   try:
     cursor.execute(query, values)
   except Exception, e:
-    print "Error inserting logline %s (query: %s [%s]): %s" \
-        % (logdict, query, values, e)
+    error("Error inserting logline %s (query: %s [%s]): %s"
+          % (logdict, query, values, e))
     raise
 
-def read_file_into_games(db, filename):
-  """Take a database with an open connection, and a name of a file, and 
+def logfile_offset(cursor, filename):
+  """Given a db cursor and filename, returns the offset of the last
+  logline from that file that was entered in the db."""
+
+  query = '''SELECT MAX(source_file_offset) FROM games
+             WHERE source_file = %s'''
+  cursor.execute(query, filename)
+  offset = cursor.fetchone()[0]
+  return offset or -1
+
+def logfile_seek(filename, filehandle, offset):
+  """Given a logfile handle and the offset of the last logfile entry inserted
+  in the db, seeks to the last entry and reads past it, positioning the
+  read pointer at the start of the first new logfile entry."""
+
+  info("Seeking to offset %d in logfile %s" % (offset, filename))
+  if offset == -1:
+    filehandle.seek(0)
+  else:
+    filehandle.seek(offset > 0 and offset or (offset - 1))
+    # Sanity-check: the byte immediately preceding this must be "\n".
+    if offset > 0:
+      filehandle.seek(offset - 1)
+      if filehandle.read(1) != '\n':
+        raise IOError("%s: Offset %d is not preceded by newline."
+                      % (filename, offset))
+    else:
+      filehandle.seek(offset)
+    # Discard one line - the last line added to the db.
+    filehandle.readline()
+
+def tail_file_into_games(cursor, filename, filehandle, offset=None):
+  """Given a logfile handle, seeks to the supplied offset if any, and
+  writes all available records into the games table. Returns the fileoffset
+  at the point immediately past the last log entry read."""
+
+  if offset:
+    filehandle.seek(offset)
+
+  offset = -1
+  while True:
+    offset = filehandle.tell()
+    line = filehandle.readline()
+    if not line or not line.endswith("\n"):
+      break
+    d = parse_logline(line.strip())
+    insert_logline(cursor, d, filename, offset)
+  return offset
+
+def read_file_into_games(db, filename, filehandle):
+  """Take a database with an open connection, and a name of a file, and
   slurp the entire contents of the file into the games table of the database.
   This is pretty much only for testing."""
-  f = open(filename)
   cursor = db.cursor()
-
+  logfile_seek(filename, filehandle, logfile_offset(cursor, filename))
   try:
-    for line in f.readlines():
-      d = parse_logline(line.strip())
-      insert_logline(cursor, d)
+    return tail_file_into_games(cursor, filename, filehandle)
   finally:
     cursor.close()
-    f.close()
 
 if __name__ == '__main__':
   db = connect_db()
   for log in LOGS:
-    print "Updating db with %s" % log
+    info("Updating db with %s" % log)
     try:
-      read_file_into_games(db, log)
+      f = open(log)
+      try:
+        read_file_into_games(db, log, f)
+      finally:
+        f.close()
     except IOError:
-      print "Error reading %s, skipping it." % log
+      warn("Error reading %s, skipping it." % log)
