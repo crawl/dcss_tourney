@@ -3,14 +3,17 @@
 # So there are a few problems we have to solve:
 # 1. Intercepting new logfile events
 #    DONE: parsing a logfile line
-#    TO DO: dealing with deaths 
-# 2. Intercepting new milestone events (some of which we care about,
-#    some of which we don't) 
-# 3. Collecting data from whereis files
+#    DONE: dealing with deaths 
+# 2. Intercepting new milestone events 
+#    DONE: parsing a milestone line
+#    How do we write milestone lines into the db?
+# 3. DONE: Collecting data from whereis files
 # 4. Determining who is the winner of various competitions based on the 
-#    ruleset
+#    ruleset: this still needs to be done for the ones that are basically
+#    a complicated query.
 # 5. Causing the website to be updated with who is currently winning everything
-#    and, if necessary, where players are
+#    and, if necessary, where players are: first priority is a "who is winning
+#    the obvious things"
 
 # global variables
 db = "/path/to/db" # since we only have the one, right?
