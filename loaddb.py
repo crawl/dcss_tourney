@@ -6,10 +6,9 @@ import logging
 from logging import debug, info, warn, error
 
 TOURNAMENT_DB = 'tournament'
-LOGS = [ '/home/crawl/chroot/var/games/crawl04/saves/logfile',
-         '/home/henzell/cdo-logfile-0.4',
-       ]
-MILESTONES = [ '/home/crawl/chroot/var/games/crawl04/saves/milestones.txt' ]
+LOGS = [ 'cao-logfile-0.4',
+         'cdo-logfile-0.4' ]
+MILESTONES = [ 'cao-milestones-0.4' ]
 COMMIT_INTERVAL = 3000
 
 def connect_db():

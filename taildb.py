@@ -6,7 +6,7 @@ import crawl_utils
 import logging
 from logging import debug, info, warn, error
 
-BASEDIR = '/home/crawl'
+BASEDIR = '.'
 
 # Can run as a daemon and tail a number of logfiles and milestones and
 # update the db.
