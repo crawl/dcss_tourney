@@ -3,30 +3,14 @@
 <title>Crawl Tournament 2008 Leaderboard</title>
 </head>
 <body>
-We need to display:
- * players with most points 3/2/1
- * clans with most points 3/2/1
- * first victory 3/2/1
- * first allruner 3/2/1
- * fastest win in realtime 3/2/1
- * fastest win by turncount 3/2/1
- * most uniques killed 3/2/1
- * most high scores per race/class combo 3/2/1
- * clan with most uniques killed 3/2/1
- * clan with most high scores per ... 3/2/1
- * lowest DLvl at XL1 3/2/1
- * ten lowest race/class combinations right now
 
 Optional:
- * link to _all_ race/class HS (this should be done eventually)
  * players currently on a streak
- * longest streak
  * links to individual player and clan pages (important eventually)
  * have scoring wins link to a morgue
 
-OK this table thing works out great, I've looked at it in a couple of browsers.
-So what I am going to do is make a template for it and then I guess there will
-be code that fills in the template? Maybe every ten minutes, maybe on page load? 
+We need to fill this in with real data instead of with this fake data, 
+but otherwise I think this works.
 
 <table border=1>
 <tr>
@@ -40,8 +24,57 @@ be code that fills in the template? Maybe every ten minutes, maybe on page load?
 <ul><li>Player1 : time</li><li>Player2 : time</li><li>Player3 : time</li></ul>
 </td>
 </tr>
-<!-- and then there would be more -->
+<tr>
+<td>Fastest Realtime Win
+<ul><li>Player1 : time</li><li>Player2 : time</li><li>Player3 : time</li></ul>
+</td>
+<td>Fastest Turncount Win
+<ul><li>Player1 : turns</li><li>Player2 : turns</li><li>Player3 : turns</li></ul>
+</td>
+<td>First All-Runer
+<ul><li>Player1 : time</li><li>Player2 : time</li><li>Player3 : time</li></ul>
+</td>
+</tr>
+<tr>
+<td>Most Uniques Killed <!-- maybe a link to the list of uniques that count? -->
+<ul><li>Player1 : number</li><li>Player2 : number</li><li>Player3 : number</li></ul>
+</td>
+<td>Most High Scores
+<ul><li>Player1 : number</li><li>Player2 : number</li><li>Player3 : number</li></ul>
+</td>
+<td>Lowest DL at XL 1
+<ul><li>Player1 : DL</li><li>Player2 : DL</li><li>Player3 : DL</li></ul>
+</td>
+</tr>
+<tr>
+<td>Clan Unique Kills
+<ul><li>Clan1 : number</li><li>Clan2 : number</li><li>Clan3 : number</li></ul>
+</td>
+<td>Clan High Scores
+<ul><li>Clan1 : number</li><li>Clan2 : number</li><li>Clan3 : number</li></ul>
+</td>
+<td>Longest Streak <!-- not worth points, though maybe next year --> 
+<ul><li>Player1 : number</li><li>Player2 : number</li><li>Player3 : number</li></ul>
+</td>
+</tr>
 </table>
+
+Easiest Scores to Snipe:
+<ul>
+<li>XxXx : score</li>
+<li>XxXx : score</li>
+<li>XxXx : score</li>
+<li>XxXx : score</li>
+<li>XxXx : score</li>
+<li>XxXx : score</li>
+<li>XxXx : score</li>
+<li>XxXx : score</li>
+<li>XxXx : score</li>
+<li>XxXx : score</li>
+<li>XxXx : score</li>
+</ul>
+
+To see a list of high scores for every race/class combination, <a href="ahahahahahahahaha no">click here</a>.
 
 </body>
 </html>
