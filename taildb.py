@@ -62,11 +62,9 @@ def tail_logfiles(logs, milestones, interval=60):
   try:
     while True:
       for logfile in files:
-        print "Checking " + logfile.filename
         logfile.append(cursor)
       if not interval:
         break
-      print "Sleeping..."
       time.sleep(interval)
   finally:
     cursor.close()
