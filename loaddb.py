@@ -365,15 +365,17 @@ def extract_kill_victim(kill_message):
   return R_KILL_VICTIM.findall(kill_message)[0]
 
 def add_unique_milestone(cursor, game):
-  cursor.execute('''INSERT INTO kills_of_uniques (player, monster)
-                    VALUES (%s, %s);''',
-                 [ game['name'], extract_kill_victim(game['milestone']) ])
+  if not game['milestone'].startswith('banished '):
+    cursor.execute('''INSERT INTO kills_of_uniques (player, monster)
+                      VALUES (%s, %s);''',
+                   [ game['name'], extract_kill_victim(game['milestone']) ])
 
 def add_ghost_milestone(cursor, game):
-  cursor.execute('''INSERT INTO kills_of_ghosts (player, start_time, ghost)
-                    VALUES (%s, %s, %s);''',
-                 [ game['name'], datetime.to_sql(game['time']),
-                   extract_milestone_ghost_name(game['milestone']) ])
+  if not game['milestone'].startswith('banished '):
+    cursor.execute('''INSERT INTO kills_of_ghosts (player, start_time, ghost)
+                      VALUES (%s, %s, %s);''',
+                   [ game['name'], datetime.to_sql(game['time']),
+                     extract_milestone_ghost_name(game['milestone']) ])
 
 def add_rune_milestone(cursor, game):
   cursor.execute('''INSERT INTO rune_finds (player, start_time, rune)
