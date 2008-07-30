@@ -5,8 +5,10 @@ import logging
 from logging import debug, info, warn, error
 
 TOURNAMENT_DB = 'tournament'
-LOGS = [ 'cao-logfile', 'cdo-logfile' ]
-MILESTONES = [ 'cao-milestones', 'cdo-milestones' ]
+LOGS = [ '/home/crawl/chroot/var/games/crawl04/saves/logfile',
+         '/home/henzell/cdo-logfile-0.4',
+       ]
+MILESTONES = [ '/home/crawl/chroot/var/games/crawl04/saves/milestones.txt' ]
 COMMIT_INTERVAL = 3000
 
 logging.basicConfig(level=logging.DEBUG)

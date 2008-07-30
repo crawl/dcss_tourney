@@ -1,4 +1,5 @@
 drop table if exists players;
+drop table if exists milestone_bookmark;
 drop table if exists games;
 drop table if exists kills_by_ghosts;
 drop table if exists kills_of_ghosts;
@@ -51,10 +52,10 @@ create table games (
 	end_time datetime, 
 	terse_msg varchar(255), 
 	verb_msg varchar(255),
-        nrune int
-	);
+        nrune int,
 
-alter table games add primary key game (player, start_time);
+    CONSTRAINT PRIMARY KEY (source_file, source_file_offset)
+	);
 
 -- A table to keep track of the last milestone we've processed. This
 -- will have only one row for one filename.
