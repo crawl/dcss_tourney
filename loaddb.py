@@ -5,7 +5,6 @@ import os
 import logging
 from logging import debug, info, warn, error
 
-
 """ Other people working on scoring: You might want to take a look at
 converting all the methods to look and poke at the db that I wrote to
 use cursors instead of the db handle directly.

@@ -1,0 +1,50 @@
+This is an attempt to track things that we still need to do for the
+tournament in a central place. It'd be awesome if we could keep this
+up-to-date, flagging things that are complete with [DONE], and adding
+whatever we think of when we think of it.
+
+I'm also not entirely sure who's doing what - here's what I think is
+going on, please fix whatever's wrong so we don't duplicate each
+others' work.
+
+
+Front page (rax/violetj?):
+ - Leading player
+ - Leading clan
+ - Fastest realtime win
+ - Fastest turncount win
+ - First 15-rune win
+ - Most uniques killed
+ - Most high scores (across character combinations)
+ - Deepest DL at XL1
+ - Clan Unique Kills
+ - Clan High Scores
+ - Longest streak
+ - Easiest scores to snipe (lowest high-scores for character combinations)
+
+
+General scoring (greensnark?):
+ - Process events as they arrive in logfile / milestones and assign points
+   to players / clans.
+
+
+Team/clan setup (Anym?):
+ - Examine .crawlrc files for clan affiliations.
+
+-----------------------------------------------------------------------
+Open Questions
+
+Clans:
+- Can players leave a clan at any time?
+
+- If a player can leave a clan at any time, we may need to flag
+  logfile and milestone entries with clan id to keep track of clan
+  points.
+
+Website update:
+ - Possibly regenerate pages on events reaching the logfile / milestones.
+
+ - Possibly generate pages on-demand (but this will load cao unless we
+   can cache the generated pages until we know they need to be
+   regenerated, at which point we're back to regenerating pages on
+   events as above.)
