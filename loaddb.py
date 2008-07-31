@@ -63,6 +63,14 @@ def parse_logline(logline):
     details[key] = details[key].replace("\n", ":")
   return details
 
+def xlog_dict(logline):
+  d = parse_logline(logline)
+  # Fixup rune madness where one or the other is set, but not both.
+  if d.get('nrune') is not None or d.get('urune') is not None:
+    d['nrune'] = d.get('nrune') or d.get('urune')
+    d['urune'] = d.get('urune') or d.get('nrune')
+  return d
+
 # The mappings in order so that we can generate our db queries with all the
 # fields in order and generally debug things more easily.
 LOG_DB_MAPPINGS = [
@@ -125,6 +133,43 @@ def fix_crawl_date(date):
                          match.group(3))
   return R_MONTH_FIX.sub(inc_month, date)
 
+class Query:
+  def __init__(self, qstring, *values):
+    self.query = qstring
+    self.values = values
+
+  def append(self, qseg, *values):
+    self.query += qseg
+    self.values += values
+
+  def vappend(self, *values):
+    self.values += values
+
+  def execute(self, cursor):
+    """Executes query on the supplied cursor."""
+    self.query = self.query.strip()
+    if not self.query.endswith(';'):
+      self.query += ';'
+    cursor.execute(self.query, self.values)
+
+  def row(self, cursor):
+    """Executes query and returns the first row tuple, or None if there are no
+    rows."""
+    self.execute(cursor)
+    return cursor.fetchone()
+
+  def count(self, cursor, msg=None, exc=Exception):
+    """Executes a SELECT COUNT(foo) query and returns the count. If there is
+    not at least one row, raises an exception."""
+    self.execute(cursor)
+    row = cursor.fetchone()
+    if row is None:
+      raise exc, (msg or "No rows returned for %s" % self.query)
+    return row[0]
+
+  first = count
+
+
 char = SqlType(lambda x: x)
 #remove the trailing 'D'/'S', fixup date
 datetime = SqlType(lambda x: fix_crawl_date(x[0:-1]))
@@ -172,6 +217,15 @@ dbfield_to_sqltype = {
         'nrune':sql_int,
 	}
 
+def query_do(cursor, query, *values):
+  Query(query, *values).execute(cursor)
+
+def query_first(cursor, query, *values):
+  return Query(query, *values).first(cursor)
+
+def query_row(cursor, query, *values):
+  return Query(query, *values).row(cursor)
+
 def apply_dbtypes(game):
   """Given an xlogline dictionary, replaces all values with munged values
   that can be inserted directly into a db table. Keys that are not recognized
@@ -195,127 +249,127 @@ def make_games_insert_query(logdict, filename, offset):
       fields.append(sqlkey)
       values.append(dbfields[logkey])
 
-  return ('INSERT INTO games (%s) VALUES (%s);' %
-            (",".join(fields), ",".join([ "%s" for v in values])),
-          values)
+  return Query('INSERT INTO games (%s) VALUES (%s);' %
+               (",".join(fields), ",".join([ "%s" for v in values])),
+               *values)
 
-def count_wins(db, player, character_race=None, character_class=None, runes=None):
+def count_wins(c, player, character_race=None, character_class=None, runes=None):
   """Return the number wins recorded for the given player, optionally with
      a specific race, class, minimum number of runes, or any combination"""
-  query_string = "select count(start_time) from games where killertype='winning' && player='%s' "
-  query_string = query_string % player
+  query = Query('''SELECT COUNT(start_time) FROM games
+                   WHERE killertype='winning' AND player=%s''',
+                player)
   if (character_race):
-    query_string += """&& race='%s' """ % (character_race,)
+    query.append(' AND race=%s', character_race)
   if (character_class):
-    query_string += """&& class='%s' """ % (character_class,)
+    query.append(' AND class=%s', character_class)
   if (runes):
-    query_string += """&& runes >= %s """ % runes
-  query_string += ";"
-  db.query(query_string)
-  res = db.store_result()
-  ((count,),) = res.fetch_row()
-  return int(count)
+    query.append(' AND runes >= %s', runes)
+  query.append(';')
+  return query.count(c)
 
-def was_last_game_win(db, player):
+def was_last_game_win(c, player):
   """Return a tuple (race, class) of the last game if the last game the player played was a win.  The "last
      game" is a game such that it has the greatest start time <em>and</em>
      greatest end time for that player (this is to prevent using multiple servers
      to cheese streaks.  If the last game was not a win, return None"""
-  last_start_query_string = """select start_time, end_time from games where player='%s'
-									  order by start_time desc limit 1; """ % player
-  win_end_query_string  = """select start_time, end_time, race, class from games where killertype='winning' && player='%s'
-									  order by end_time desc limit 1; """ % player
-  db.query(win_end_query_string)
-  res = db.store_result()
-  if (res.num_rows() == 0):
+
+  last_start_query = \
+      Query('''SELECT start_time, end_time FROM games WHERE player=%s
+               ORDER BY start_time DESC LIMIT 1;''',
+            player)
+
+  win_end_query = \
+      Query('''SELECT start_time, end_time, race, class FROM games
+               WHERE killertype='winning' AND player=%s
+	       ORDER BY end_time DESC LIMIT 1;''',
+            player)
+
+  res = win_end_query.row(c)
+  if res is None:
     return None
-  ((win_start, win_end, race, character_class),) = res.fetch_row()
-  db.query(last_start_query_string)
-  res = db.store_result()
-  #we've got to have some results, the player won.  This is just their last start
-  ((recent_start, recent_end),) = res.fetch_row()
+
+  win_start, win_end, race, character_class = res
+
+  # we've got to have some results, the player won. This is just their
+  # last start
+  recent_start, recent_end = last_start_query.row(c)
   if recent_start == win_start and recent_end == win_end:
     return race, character_class
   else:
     return None
 
-def num_uniques_killed(db, player):
+def num_uniques_killed(c, player):
   """Return the number of uniques the player has ever killed"""
-  query_string = """select distinct monster from kills_of_uniques where player='%s';""" % player
-  db.query(query_string)
-  res = db.store_result()
-  return int(res.num_rows())
+  query = Query('''SELECT COUNT(DISTINCT monster) FROM kills_of_uniques
+                   WHERE player=%s;''',
+                player)
+  return query.count(c)
 
-def was_unique_killed(db, player, monster):
+def was_unique_killed(c, player, monster):
   """Return whether the player killed the given unique"""
-  query_string = """select monster from kills_of_uniques where player='%s' && monster='%s';""" % (player, monster)
-  db.query(query_string)
-  res = db.store_result()
-  return int(res.num_rows()) > 0
+  query = Query('''SELECT monster FROM kills_of_uniques
+                   WHERE player=%s AND monster=%s LIMIT 1;''',
+                player, monster)
+  return query.row(c) is not None
 
-def player_exists(db, name):
+def player_exists(c, name):
   """Return true if the player exists in the player table"""
-  query_string = """select name from players where name='%s';""" % name
-  db.query(query_string)
-  res = db.store_result()
-  rows = res.fetch_row()
-  return len(rows) != 0
+  query = Query("""SELECT name FROM players WHERE name=%s;""",
+                name)
+  return query.row(c) is not None
 
-def add_player(db, name):
+def add_player(c, name):
   """Add the given player with no score yet"""
-  query_string = """insert into players (name, score_base, team_score_base) values ('%s', 0, 0);""" % name
-  db.query(query_string)
+  query_do(c,
+           """INSERT INTO players (name, score_base, team_score_base)
+              VALUES (%s, 0, 0);""",
+           name)
 
-def get_player_base_score(db, name):
+def get_player_base_score(c, name):
   """Return the unchanging part of a player's score"""
-  query_string = """select score_base from players where name='%s';""" % name
-  db.query(query_string)
-  res = db.store_result()
-  if res.num_rows() != 1:
-    raise Exception, "Player not found: %s" % name
-  ((score,),) = res.fetch_row()
-  return int(score)
+  query = Query("""SELECT score_base FROM players WHERE name=%s;""",
+                name)
+  return query.first(c, "Player not found: %s" % name)
 
-def get_player_base_team_score(db, name):
+def get_player_base_team_score(c, name):
   """Return the unchanging part of a player's team score contribution"""
-  query_string = """select team_score_base from players where name='%s';""" % name
-  db.query(query_string)
-  res = db.store_result()
-  if res.num_rows() != 1:
-    raise Exception, "Player not found: %s" % name
-  ((score,),) = res.fetch_row()
-  return int(score)
+  query = Query("""SELECT team_score_base FROM players WHERE name=%s;""",
+                name)
+  return query.first(c, "Player not found: %s" % name)
 
-def assign_points(db, name, points):
+def assign_points(cursor, name, points):
   """Add points to a player's points in the db"""
-  prev = get_player_base_score(db, name)
-  query_string = """update players set score_base=%s where name='%s';""" % (prev+points, name)
-  db.query(query_string)
+  query_do(cursor,
+           """UPDATE players
+              SET score_base = score_base + %s
+              WHERE name = %s""",
+           points, name)
 
-def assign_team_points(db, name, points):
+def assign_team_points(cursor, name, points):
   """Add points to a players team in the db.  The name refers to the player, not the team"""
-  prev = get_player_base_team_score(db, name)
-  query_string = """update players set team_score_base=%s where name='%s';""" % (prev+points, name)
-  db.query(query_string)
+  query_do(cursor,
+           """UPDATE players
+              SET team_score_base = team_score_base + %s
+              WHERE name=%s;""",
+           points, name)
 
 def insert_logline(cursor, logdict, filename, offset):
-  query, values = make_games_insert_query(logdict, filename, offset)
+  query = make_games_insert_query(logdict, filename, offset)
   try:
-    cursor.execute(query, values)
+    query.execute(cursor)
   except Exception, e:
     error("Error inserting logline %s (query: %s [%s]): %s"
-          % (logdict, query, values, e))
+          % (logdict, query.query, query.values, e))
     raise
 
 def dbfile_offset(cursor, table, filename):
   """Given a db cursor and filename, returns the offset of the last
   logline from that file that was entered in the db."""
-
-  query = ('SELECT MAX(source_file_offset) FROM %s ' % table) + \
-          'WHERE source_file = %s'
-  cursor.execute(query, filename)
-  offset = cursor.fetchone()[0]
-  return offset or -1
+  return query_first(cursor,
+                     ('SELECT MAX(source_file_offset) FROM %s ' % table) + \
+                       'WHERE source_file = %s',
+                     filename) or -1
 
 def logfile_offset(cursor, filename):
   return dbfile_offset(cursor, 'games', filename)
@@ -397,11 +451,11 @@ def record_ghost_kill(cursor, game):
   """Given a game where the character was slain by a ghost, adds an entry in
   the kills_by_ghosts table."""
   game = apply_dbtypes(game)
-  cursor.execute('''INSERT INTO kills_by_ghosts
-                    (killed_player, killed_start_time, killer) VALUES
-                    (%s, %s, %s);''',
-                 [ game['name'], game['start'],
-                   extract_ghost_name(game['killer']) ])
+  query_do(cursor,
+           '''INSERT INTO kills_by_ghosts
+              (killed_player, killed_start_time, killer) VALUES
+              (%s, %s, %s);''',
+           game['name'], game['start'], extract_ghost_name(game['killer']))
 
 def tail_file_into_games(cursor, filename, filehandle, offset=None):
   """Given a logfile handle, seeks to the supplied offset if any, and
@@ -409,7 +463,7 @@ def tail_file_into_games(cursor, filename, filehandle, offset=None):
   at the point immediately past the last log entry read."""
 
   def process_logline(offset, line):
-    d = parse_logline(line.strip())
+    d = xlog_dict(line.strip())
     killer = d.get('killer') or ''
     ghost_kill = R_GHOST_NAME.search(killer)
     cursor.execute('BEGIN;')
@@ -431,22 +485,25 @@ def extract_kill_victim(kill_message):
 
 def add_unique_milestone(cursor, game):
   if not game['milestone'].startswith('banished '):
-    cursor.execute('''INSERT INTO kills_of_uniques (player, monster)
-                      VALUES (%s, %s);''',
-                   [ game['name'], extract_kill_victim(game['milestone']) ])
+    query_do(cursor,
+             '''INSERT INTO kills_of_uniques (player, monster)
+                VALUES (%s, %s);''',
+             game['name'], extract_kill_victim(game['milestone']))
 
 def add_ghost_milestone(cursor, game):
   if not game['milestone'].startswith('banished '):
-    cursor.execute('''INSERT INTO kills_of_ghosts (player, start_time, ghost)
-                      VALUES (%s, %s, %s);''',
-                   [ game['name'], datetime.to_sql(game['time']),
-                     extract_milestone_ghost_name(game['milestone']) ])
+    query_do(cursor,
+             '''INSERT INTO kills_of_ghosts (player, start_time, ghost)
+                VALUES (%s, %s, %s);''',
+             game['name'], datetime.to_sql(game['time']),
+             extract_milestone_ghost_name(game['milestone']))
 
 def add_rune_milestone(cursor, game):
-  cursor.execute('''INSERT INTO rune_finds (player, start_time, rune)
-                    VALUES (%s, %s, %s);''',
-                 [ game['name'], datetime.to_sql(game['time']),
-                   extract_rune(game['milestone']) ])
+  query_do(cursor,
+           '''INSERT INTO rune_finds (player, start_time, rune)
+              VALUES (%s, %s, %s);''',
+           game['name'], datetime.to_sql(game['time']),
+           extract_rune(game['milestone']))
 
 MILESTONE_HANDLERS = {
   'unique' : add_unique_milestone,
