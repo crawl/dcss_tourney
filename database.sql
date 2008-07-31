@@ -1,13 +1,30 @@
-drop table if exists players;
-drop table if exists milestone_bookmark;
-drop table if exists games;
-drop table if exists kills_by_ghosts;
-drop table if exists kills_of_ghosts;
-drop table if exists kills_of_uniques;
-drop table if exists rune_finds;
+DROP TABLE IF EXISTS teams;
+DROP TABLE IF EXISTS players;
+DROP TABLE IF EXISTS team_owners;
+DROP TABLE IF EXISTS milestone_bookmark;
+DROP TABLE IF EXISTS games;
+DROP TABLE IF EXISTS kills_by_ghosts;
+DROP TABLE IF EXISTS kills_of_ghosts;
+DROP TABLE IF EXISTS kills_of_uniques;
+DROP TABLE IF EXISTS rune_finds;
 
-create table players (name char(20), team varchar(255), score_base bigint, team_score_base bigint);
-alter table players add primary key playername (name);
+CREATE TABLE teams (id MEDIUMINT AUTO_INCREMENT PRIMARY KEY,
+                    name VARCHAR(255) UNIQUE NOT NULL);
+
+CREATE TABLE players (
+  name CHAR(20) PRIMARY KEY,
+  team MEDIUMINT,
+  score_base BIGINT,
+  team_score_base BIGINT,
+  FOREIGN KEY (team) REFERENCES teams (id) ON DELETE SET NULL);
+
+-- Mapping table linking teams and their owners.
+CREATE TABLE team_owners (
+  team MEDIUMINT,
+  owner CHAR(20),
+  PRIMARY KEY (team, owner),
+  FOREIGN KEY (team) REFERENCES teams (id) ON DELETE CASCADE,
+  FOREIGN KEY (owner) REFERENCES players (name) ON DELETE CASCADE);
 
 -- For mappings of logfile fields to columns, see loaddb.py
 create table games (

@@ -1,5 +1,6 @@
 *.swp
 *.pyc
+cao-*
 allgames*.txt
 *-logfile
 *.diff
