@@ -17,6 +17,7 @@ CREATE TABLE IF NOT EXISTS players (
 CREATE TABLE teams (
   owner CHAR(20) UNIQUE NOT NULL,
   name VARCHAR(255) UNIQUE NOT NULL,
+  PRIMARY KEY (owner, name),
   FOREIGN KEY (owner) REFERENCES players (name)
   ON DELETE CASCADE
   );
