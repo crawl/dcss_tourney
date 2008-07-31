@@ -21,14 +21,12 @@ def _cursor():
   d = loaddb.connect_db()
   return d.cursor()
 
-def count_wins(c, player=None, character_race=None,
-               character_class=None, runes=None,
-               before=None):
-  """Return the number wins recorded for the given player, optionally with
-     a specific race, class, minimum number of runes, or any combination"""
-  query = Query('''SELECT COUNT(start_time) FROM games
-                   WHERE killertype='winning' ''',
-                player)
+def win_query(selected, order_by = None,
+              player=None, character_race=None,
+              character_class=None, runes=None,
+              before=None):
+  query = Query("SELECT " + selected + " FROM games " +
+                "WHERE killertype='winning' ")
   if player:
     query.append(' AND player=%s', player)
   if (character_race):
@@ -39,8 +37,33 @@ def count_wins(c, player=None, character_race=None,
     query.append(' AND runes >= %s', runes)
   if before:
     query.append(' AND end_time < %s', before)
-  query.append(';')
-  return query.count(c)
+  if order_by:
+    query.append(' ' + order_by)
+  return query
+
+def wins_in_streak_before(c, player, before):
+  """Returns all the wins in the streak before the given game. Caller
+  must ensure that there actually are wins before this game!"""
+  query = Query('''SELECT charabbrev FROM games
+                   WHERE player = %s
+                   AND end_time >
+                         (SELECT MAX(end_time) FROM games
+                          WHERE end_time < %s
+                          AND killertype != 'winning')
+                   AND end_time < %s
+                   ORDER BY end_time''',
+                player, before, before)
+  return [ x[0] for x in query.rows(c) ]
+
+def count_wins(c, **selectors):
+  """Return the number wins recorded for the given player, optionally with
+     a specific race, class, minimum number of runes, or any combination"""
+  return win_query('COUNT(start_time)', **selectors).count(c)
+
+def get_wins(c, **selectors):
+  return [ x[0] for x in
+           win_query('charabbrev', order_by = 'ORDER BY end_time',
+                     **selectors).rows(c) ]
 
 def row_to_xdict(row):
   return dict( zip(LOG_FIELDS, row) )
@@ -134,19 +157,21 @@ def get_player_base_team_score(c, name):
 
 def assign_points(cursor, name, points):
   """Add points to a player's points in the db"""
-  query_do(cursor,
-           """UPDATE players
-              SET score_base = score_base + %s
-              WHERE name = %s""",
-           points, name)
+  if points > 0:
+    query_do(cursor,
+             """UPDATE players
+                SET score_base = score_base + %s
+                WHERE name = %s""",
+             points, name)
 
 def assign_team_points(cursor, name, points):
   """Add points to a players team in the db.  The name refers to the player, not the team"""
-  query_do(cursor,
-           """UPDATE players
-              SET team_score_base = team_score_base + %s
-              WHERE name=%s;""",
-           points, name)
+  if points > 0:
+    query_do(cursor,
+             """UPDATE players
+                SET team_score_base = team_score_base + %s
+                WHERE name=%s;""",
+             points, name)
 
 def has_killed_unique(cursor, player, unique):
   return query_first(cursor,

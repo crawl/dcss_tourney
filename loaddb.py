@@ -6,6 +6,10 @@ import crawl_utils
 import logging
 from logging import debug, info, warn, error
 
+import ConfigParser
+import imp
+import sys
+
 import teams
 
 """ Other people working on scoring: You might want to take a look at
@@ -22,6 +26,7 @@ something.
 --violet
 """
 
+EXTENSION_FILE = 'modules.ext'
 TOURNAMENT_DB = 'tournament'
 LOGS = [ 'cao-logfile-0.4',
          'cdo-logfile-0.4' ]
@@ -29,18 +34,39 @@ MILESTONES = [ 'cao-milestones-0.4' ]
 COMMIT_INTERVAL = 3000
 CRAWLRC_DIRECTORY = '/home/crawl/chroot/dgldir/rcfiles/'
 
+listeners = [ ]
+timers = [ ]
+
 class CrawlEventListener(object):
   """The way this is intended to work is that on receipt of an event
   ... we shoot the messenger. :P"""
-  def score_event(self, cursor, dict):
-    """Return a list of query strings to execute to modify the base scores in the db based on this event"""
-    raise Exception, "Please subclass me!"
-  def insert_event(self, cursor, dict):
-    """Make the database reflect that this event happened."""
-    raise Exception, "Please subclass me!"
-  def execute(self, cursor, dict):
-    """Score the event, start a transaction, execute the score change queries, insert the event, close the transaction"""
-    raise Exception, "Please implement me in this, the superclass"
+  def initialize(self, db):
+    """Called before any processing, do your initialization here."""
+    pass
+  def cleanup(self, db):
+    """Called after we're done processing, do cleanup here."""
+    pass
+  def logfile_event(self, cursor, logdict):
+    """Called for each logfile record. cursor will be in a transaction."""
+    pass
+  def milestone_event(self, cursor, mdict):
+    """Called for each milestone record. cursor will be in a transaction."""
+    pass
+
+class CrawlTimerListener:
+  def run(self, elapsed_time_since_start_seconds):
+    pass
+
+class CrawlTimerState:
+  def __init__(self, interval, listener):
+    self.listener = listener
+    self.interval = interval
+    self.target   = self.interval
+
+  def run(self, elapsed):
+    if self.target <= elapsed:
+      self.listener.run(elapsed)
+      self.target = elapsed + self.interval
 
 def connect_db():
   connection = MySQLdb.connect(host='localhost',
@@ -284,11 +310,9 @@ def apply_dbtypes(game):
       new_hash[key] = value
   return new_hash
 
-def make_games_insert_query(logdict, filename, offset):
+def make_games_insert_query(dbfields, filename, offset):
   fields = ["source_file", "source_file_offset"]
   values = [filename, offset]
-
-  dbfields = apply_dbtypes(logdict)
 
   for logkey, sqlkey in LOG_DB_MAPPINGS:
     if dbfields.has_key(logkey):
@@ -395,12 +419,15 @@ def extract_rune(milestone):
 def record_ghost_kill(cursor, game):
   """Given a game where the character was slain by a ghost, adds an entry in
   the kills_by_ghosts table."""
-  game = apply_dbtypes(game)
   query_do(cursor,
            '''INSERT INTO kills_by_ghosts
               (killed_player, killed_start_time, killer) VALUES
               (%s, %s, %s);''',
            game['name'], game['start'], extract_ghost_name(game['killer']))
+
+def is_ghost_kill(game):
+  killer = game.get('killer') or ''
+  return R_GHOST_NAME.search(killer)
 
 def tail_file_into_games(cursor, filename, filehandle, offset=None):
   """Given a logfile handle, seeks to the supplied offset if any, and
@@ -408,9 +435,8 @@ def tail_file_into_games(cursor, filename, filehandle, offset=None):
   at the point immediately past the last log entry read."""
 
   def process_logline(offset, line):
-    d = xlog_dict(line.strip())
-    killer = d.get('killer') or ''
-    ghost_kill = R_GHOST_NAME.search(killer)
+    d = apply_dbtypes( xlog_dict(line.strip()) )
+    ghost_kill = is_ghost_kill(d)
 
     # Add the player outside the transaction and suppress errors.
     check_add_player(cursor, d['name'])
@@ -420,6 +446,11 @@ def tail_file_into_games(cursor, filename, filehandle, offset=None):
       insert_logline(cursor, d, filename, offset)
       if ghost_kill:
         record_ghost_kill(cursor, d)
+
+      # Tell the listeners to do their thang
+      for listener in listeners:
+        listener.logfile_event(cursor, d)
+
       cursor.execute('COMMIT;')
     except:
       cursor.execute('ROLLBACK;')
@@ -524,6 +555,11 @@ def add_milestone_record(c, filename, handle, offset, line):
     handler = MILESTONE_HANDLERS.get(d['type'])
     if handler:
       handler(c, d)
+
+    # Tell the listeners to do their thang
+    for listener in listeners:
+      listener.milestone_event(c, d)
+
     c.execute('COMMIT;')
   except:
     c.execute('ROLLBACK;')
@@ -552,11 +588,35 @@ def read_milestone_file(db, filename, filehandle):
   finally:
     cursor.close()
 
+def add_listener(listener):
+  listeners.append(listener)
+
+def add_timed(interval, timed):
+  timers.append(CrawlTimerState(interval, timed))
+
+def load_extensions():
+  c = ConfigParser.ConfigParser()
+  c.read(EXTENSION_FILE)
+  for key, filename in c.items('extensions'):
+    filename = filename or key + '.py'
+    print "Loading %s as %s" % (filename, key)
+    module = imp.load_source(key, filename)
+    if 'LISTENER' in dir(module):
+      add_listener(module.LISTENER)
+    if 'TIMER' in dir(module):
+      add_timed(module.TIMER)
+
 if __name__ == '__main__':
   logging.basicConfig(level=logging.DEBUG)
   print "Populating db (one-off) with logfiles and milestones. " + \
       "Running the taildb.py daemon is preferred."
+
+  load_extensions()
+
   db = connect_db()
+
+  for e in listeners:
+    e.initialize(db)
 
   def proc_file(fn, filename):
     info("Updating db with %s" % filename)
@@ -576,3 +636,6 @@ if __name__ == '__main__':
     proc_file(read_milestone_file, milestone)
 
   teams.insert_teams(db.cursor(), teams.get_teams(CRAWLRC_DIRECTORY))
+
+  for e in listeners:
+    e.cleanup(db)

@@ -1,8 +1,9 @@
 #!/usr/bin/python
 
-import MySQLdb
 import loaddb
 import query
+
+from query import assign_points, assign_team_points
 
 # So there are a few problems we have to solve:
 # 1. Intercepting new logfile events
@@ -19,232 +20,158 @@ import query
 #    and, if necessary, where players are: first priority is a "who is winning
 #    the obvious things"
 
-# global variables
-db = loaddb.connect_db()
-cursor = db.cursor()
-
 # Start of the tournament, UTC. FIXME: Set early for testing!
-start_time = '20080701'
+START_TIME = '20080701'
 
 list_of_uniques=("Murray", "Agnes", "Blork", "Boris", "Donald", "Duane", "Edmund", "Erica", "Erolcha", "Frances", "Francis", "Frederick", "Harold", "Iyjb", "Jessica", "Joseph", "Josephine", "Jozef", "Louise", "Margery", "Maud", "Michael", "Norbert", "Norris", "Polyphemus", "Psyche", "Rupert", "Sigmund", "Snorg", "Terence", "Tiamat", "Urug", "Wayne", "Xtahua")
 
-total_uniques = 43 #wow!
+class OutlineListener (loaddb.CrawlEventListener):
+  def logfile_event(self, cursor, logdict):
+    act_on_logfile_line(cursor, logdict)
 
-def parse_logline(logline):
-  """This function takes a logfile line, which is mostly separated by colons,
-  and parses it into a dictionary (which everyone except Python calls a hash).
-  Because the Crawl developers are insane, a double-colon is an escaped colon,
-  and so we have to be careful not to split the logfile on locations like
-  D:7 and such. It also works on milestones and whereis."""
-  # This is taken from Henzell. Yay Henzell!
-  if not logline:
-    # oops something is not right here
-  if logline[0] == ':' or (logline[-1] == ':' and not logline[-2] == ':'):
-    # problem
-  if '\n' in logline:
-    # problem
-  logline = replace(logline, "::", "\n")
-  details = dict([(item[:item.index('=')], item[item.index('=') + 1:]) for item in logline.split(':')])
-  for key in details:
-    details[key] = replace(details[key], "\n", ":")
-  return details
+  def milestone_event(self, cursor, milestone):
+    act_on_milestone(cursor, milestone)
 
-def act_on_milestone(line):
+LISTENER = OutlineListener()
+
+def act_on_milestone(c, this_mile):
   """This function takes a milestone line, which is a string composed of key/
   value pairs separated by colons, and parses it into a dictionary.
   Then, depending on what type of milestone it is (key "type"), another
   function may be called to finish the job on the milestone line. Milestones
   have the same broken :: behavior as logfile lines, yay."""
-  this_mile = parse_logline(line)
   if is_too_early(this_mile['start']):
     return # games started before the tournament are worth diddly
-  if this_mile['type'] == 'unique':
-    do_milestone_unique(this_mile)
+  if this_mile['type'] == 'unique' and \
+        not this_mile['milestone'].startswith('banished '):
+    do_milestone_unique(c, this_mile)
   if this_mile['type'] == 'rune':
-    do_milestone_rune(this_mile)
+    do_milestone_rune(c, this_mile)
   if this_mile['type'] == 'ghost':
-    do_milestone_ghost(this_mile)
-  return
+    do_milestone_ghost(c, this_mile)
 
-def do_milestone_unique(mile):
+def do_milestone_unique(c, mile):
   """This function takes a parsed milestone known to commemorate the death of
   a unique, and checks to see if the player has already killed the unique.
   If so, it does nothing; if not, it marks that the player has killed the
   unique, and checks to see if the player has killed all uniques. If so,
   the player may be awarded points if they are one of the first to do so."""
-  unique = loaddb.extract_unique_name(this_mile['milestone'])
-  if query.has_killed_unique(cursor, this_mile['name'], unique):
+  unique = loaddb.extract_unique_name(mile['milestone'])
+  if query.has_killed_unique(c, mile['name'], unique):
     return
-  # write to db that this_mile['name'] killed unique
-  # need help here
-  assign_points(this_mile['name'], 5)
-  if has_killed_all_uniques(this_mile['name']):
-    # check to see if anyone else has done it yet, and assign points (50/20/10)
-    # I think this requires doing a query and reacting to it?
-  return
+  assign_points(mile['name'], 5)
 
-def get_unique_name(string):
-  """The strings for killing uniques can vary, but the unique name always
-  stays the same. This function takes the string and returns the name of the
-  unique, since we don't care if Sigmund drowned or burned to a crisp or was
-  banished or fell down the stairs or choked on his hat."""
-  for name in list_of_uniques:
-    if re.search(name, string):
-      return name
-    # otherwise it was a Pan lord or Geryon or someone we don't track
-    return "gobbledygook"
-
-def has_killed_all_uniques(player):
-  """Has the player killed every unique in the game? Returns 1 or 0"""
-  uniques_dead = #query db for uniques dead
-  # oh god here comes a state machine! choo choooo!
-  # basically for each unique, it confirms they are dead, and if it ever
-  # fails to confirm, we stop looking. NOTE: put murray at the top to save
-  # time, since he's impossible to find :)
-  for name in list_of_uniques:
-    state = 0
-    for dead in uniques_dead:
-      if name == dead:
-        state = 1
-    if state = 0:
-      return 0
-  return 1
-
-def do_milestone_rune(mile):
+def do_milestone_rune(c, mile):
   """When the player gets a rune for the first time, they get ten points.
   After that, they get one point. This one is pretty simple."""
-  if #player_already_has_rune:
-    assign_points(db,mile['name'],1)
-    return
-  #log that player got rune
-  assign_points(db,mile['name'], 10)
-  return
+  # Check if this player already found this kind of rune. Remember the db
+  # is already updated, so for the first rune the count will be 1.
+  if query.player_count_runes(c, mile['name'],
+                              loaddb.extract_rune(mile['milestone'])) > 1:
+    # player_already_has_rune:
+    assign_points(c, mile['name'], 1)
+  else:
+    # first time getting this rune!
+    assign_points(c, mile['name'], 10)
 
-def do_milestone_ghost(mile):
+def do_milestone_ghost(c, mile):
   """When you kill a player ghost, you get two clan points! Otherwise this
   isn't terribly remarkable."""
-  assign_team_points(db,mile['name'],2)
-  return
+  assign_team_points(c, mile['name'], 2)
 
-def act_on_logfile_line(line):
+def act_on_logfile_line(c, this_game):
   """Actually assign things and write to the db based on a logfile line
   coming through. All lines get written to the db; some will assign
   irrevocable points and those should be assigned immediately. Revocable
   points (high scores, lowest dungeon level, fastest wins) should be
   calculated elsewhere."""
-  this_game = parse_logline(line)
   if is_too_early(this_game['start']):
     return # this game does not count!
-  make_games_insert_query(line)
-  if this_game['ktyp'] == 'winning':
-    crunch_winner(this_game) # lots of math to do for winners
-  if re.search("\'s ghost",this_game['killer']):
-    ghost = this.game['killer'].split("'")[0] #this line tested
-    XL = this_game['xl']
-    if XL>5:
-      assign_points(db,ghost, (XL - 5))
-  return
 
-def crunch_winner(game):
+  if this_game['ktyp'] == 'winning':
+    crunch_winner(c, this_game) # lots of math to do for winners
+
+  if loaddb.is_ghost_kill(this_game):
+    ghost = loaddb.extract_ghost_name(this_game['killer'])
+    XL = this_game['xl']
+    if XL > 5:
+      assign_points(c, ghost, (XL - 5))
+
+def get_points(index, *points):
+  if index < len(points):
+    return points[index];
+  return 0
+
+def repeat_race_class(previous_chars, char):
+  """Returns 0 if the game does not repeat a previous role or class, 1 if
+  it repeats a role xor class, 2 if it repeats a role and a class."""
+  repeats = 0
+  if char[0:2] in [c[0:2] for c in previous_chars]:
+    repeats += 1
+  if char[2:] in [c[2:] for c in previous_chars]:
+    repeats += 1
+  return repeats
+
+def crunch_winner(c, game):
   """A game that wins could assign a variety of irrevocable points for a
   variety of different things. This function needs to calculate them all."""
   if is_all_runer(game):
-    all_allruners = number_of_allruners_before(game)
-    if all_allruners=0:
-      assign_points(db,game['name'],200)
-    if all_allruners=1:
-      assign_points(db,game['name'],100)
-    if all_allruners=2:
-      assign_points(db,game['name'],50)
-    if it's my first all-rune win:
-      assign_points(db,game['name'],50)
-  all_wins = number_of_wins_before(game)
-  if all_wins=0:
-    assign_points(db,game['name'],200)
-  if all_wins=1:
-    assign_points(db,game['name'],100)
-  if all_wins= 2:
-    assign_points(db,game['name'],50)
-  if it's my first all-rune win:
-    assign_points(db,game['name'],50)
-  my_wins = my_wins_before(game)
-  if my_wins = 0:
-    assign_points(db,game['name'],100)
-    return # I bet you don't have a streak
-  if my_wins = 1:
-    if count_wins(db, game['name'], game['race'], game['class'])=0:
-      assign_points(db,game['name'],50)
-  if is_on_streak(game):
-    if count_wins(db, game['name'], game['race'], game['class'])>0:
-      assign_points(db,game['name'],10) #lamer
-    else:
-      if count_wins(db, game['name'], game['race'], None)>0:
-        assign_points(db,game['name'],30) # repeat race
-      else:
-        if count_wins(db, game['name'], None, game['class'])>0:
-	  assign_points(db,game['name'],30) # repeat class
-	else:
-	  assign_points(db,game['name'],100) # non-repeat!
-  else:
-    if count_wins(db, game['name'], game['race'], game['class'])>0:
-      assign_points(db,game['name'],0) # You get NOTHING.
-    else:
-      if count_wins(db, game['name'], game['race'], None)>0:
-        assign_points(db,game['name'],10) # repeat race
-      else:
-        if count_wins(db, game['name'], None, game['class'])>0:
-          assign_points(db,game['name'],10) # repeat class
-        else:
-          assign_points(db,game['name'],30) # non-repeat!
-  assign_points(db,game['name'],10) #every win gets at least 10 points no matter what
+    all_allruners = number_of_allruners_before(c, game)
+    assign_points(c, game['name'], get_points(all_allruners, 200, 100, 50))
 
-def is_on_streak(game):
-  """Was the most recently ended game before this one a win?"""
-  if was_last_game_win(db, game['name']):
-    return 1
-  return 0
+    # If this is my first all-rune win, 50 points!
+    if query.count_wins(c, player = game['name'],
+                        runes = query.MAX_RUNES,
+                        before = game['end']) == 0:
+      assign_points(c, game['name'], 50)
+
+  previous_wins = query.count_wins(c, before = game['end'])
+  assign_points(c, game['name'], get_points(previous_wins, 200, 100, 50))
+
+  my_wins = query.get_wins(c, player = game['name'], before = game['end'])
+  n_my_wins = len(my_wins)
+
+  repeated = 0
+  if n_my_wins > 0:
+    repeated = repeat_race_class(my_wins, game['char'])
+
+  if n_my_wins == 0:
+    # First win! I bet you don't have a streak
+    assign_points(c, game['name'], 100)
+
+  elif n_my_wins == 1 and repeated == 0:
+    # Second win! If neither repeated race or class, bonus!
+    assign_points(c, game['name'], 50)
+
+  else:
+    # Any win gets 10 points at this point.
+    assign_points(c, game['name'], 10)
+
+    # Check if this is a streak. streak_wins will be empty if not on
+    # a streak.
+    streak_wins = query.wins_in_streak_before(c, game['name'], game['end'])
+
+    if streak_wins:
+      streak_repeats = repeat_race_class(streak_wins, game['char'])
+
+      # 100, 30, 10 points for streak games based on no repeat, xor, repeat.
+      assign_points(c, game['name'], get_points(streak_repeats, 100, 30, 10))
+    else:
+      assign_points(c, game['name'], get_points(repeated, 30, 10))
 
 def is_all_runer(game):
   """Did this game get every rune? This _might_ require checking the milestones
   associated with the start time..."""
-  if some db munging:
-    return 1
-  return 0
+  return game['urune'] == query.MAX_RUNES
 
-def number_of_allruners_before(game):
+def number_of_allruners_before(c, game):
   """How many all-runers happened before this game? We can stop at 3."""
-  total=0
-  for test_game in (games won before game):
-    if is_all_runer(test_game):
-      total = total + 1
-      if total > 2:
-        return 3
-  return total
-
-def number_of_wins_before(game):
-  """How many wins happened before this game? We can stop at 3."""
-  total=0
-  for test_game in (games before game):
-    if test_game['ktyp']='winning':
-      total = total + 1
-      if total > 2:
-        return 3
-  return total
-
-def my_wins_before(game):
-  """How many wins did I have before this game? We can stop at 2."""
-  total=0
-  for test_game in (my games before game):
-    if test_game['ktyp']='winning':
-      total=total + 1
-      if total > 1:
-        return 2
-  return total
+  return query.count_wins(c, runes = query.MAX_RUNES, before = game['end'])
 
 def is_too_early(time):
   """A game started before the appropriate time doesn't count."""
   # Games before tournament start are ignored.
-  return time < start_time
+  return time < START_TIME
 
 def whereis(player):
   """We might want to know where a player is, either to display it on the
