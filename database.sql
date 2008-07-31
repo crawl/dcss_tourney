@@ -107,6 +107,8 @@ CREATE TABLE kills_of_uniques (
   monster CHAR(20)
   );
 
+CREATE INDEX kill_uniq_pmons ON kills_of_uniques (player, monster);
+
 CREATE TABLE rune_finds (
   player CHAR(20),
   start_time DATETIME,
