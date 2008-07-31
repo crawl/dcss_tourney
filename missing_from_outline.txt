@@ -1,7 +1,11 @@
 Need:
 
 something to log a unique kill
+ - [DONE] [greensnark] loaddb.py does this when reading milestones.
+ 
 something to see if other people have killed all the uniques, and if so how many (there are 34)
+ - 
+
 something to see if a specific unique is killed -- 
 something to see if a player has gotten a rune yet
 something to log a player getting a rune

@@ -10,6 +10,9 @@ from loaddb import Query, query_do, query_first, query_row
 
 import MySQLdb
 
+# Number of unique uniques
+MAX_UNIQUES = 43
+
 def count_wins(c, player, character_race=None,
                character_class=None, runes=None):
   """Return the number wins recorded for the given player, optionally with
@@ -118,6 +121,15 @@ def has_killed_unique(cursor, player, unique):
                      '''SELECT COUNT(*) FROM kills_of_uniques
                      WHERE player=%s AND monster=%s''',
                      player, unique) > 0
+
+def player_count_runes(cursor, player):
+  return query_first(cursor,
+                     '''SELECT COUNT(rune) FROM rune_finds
+                        WHERE player = %s''',
+                     player)
+
+###################################################################
+# Super experimental team stuff. None of this is set in stone.
 
 def team_exists(cursor, team_name):
   row = query_row(cursor,

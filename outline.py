@@ -27,7 +27,8 @@ cursor = db.cursor()
 start_time = '20080701'
 
 list_of_uniques=("Murray", "Agnes", "Blork", "Boris", "Donald", "Duane", "Edmund", "Erica", "Erolcha", "Frances", "Francis", "Frederick", "Harold", "Iyjb", "Jessica", "Joseph", "Josephine", "Jozef", "Louise", "Margery", "Maud", "Michael", "Norbert", "Norris", "Polyphemus", "Psyche", "Rupert", "Sigmund", "Snorg", "Terence", "Tiamat", "Urug", "Wayne", "Xtahua")
-total_uniques=34 #wow!
+
+total_uniques = 43 #wow!
 
 def parse_logline(logline):
   """This function takes a logfile line, which is mostly separated by colons,

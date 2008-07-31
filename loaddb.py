@@ -396,9 +396,11 @@ def extract_unique_name(kill_message):
 def add_unique_milestone(cursor, game):
   if not game['milestone'].startswith('banished '):
     query_do(cursor,
-             '''INSERT INTO kills_of_uniques (player, monster)
-                VALUES (%s, %s);''',
-             game['name'], extract_unique_name(game['milestone']))
+             '''INSERT INTO kills_of_uniques (player, kill_time, monster)
+                VALUES (%s, %s, %s);''',
+             game['name'],
+             datetime.to_sql(game['time']),
+             extract_unique_name(game['milestone']))
 
 def add_ghost_milestone(cursor, game):
   if not game['milestone'].startswith('banished '):
