@@ -16,9 +16,9 @@ something to tell if it's my first all-rune win -- loaddb.count_wins() now takes
 something to tell if this game is an all-rune win
  - [gs] If you have the game dictionary, d['urune'] == 15, no?
 
-how many all-runers happened before this game? (by anyone, not just by me, can stop at 3)
+how many all-runers happened before this game? (by anyone, not just by me, can stop at 3) -- DONE: Use count_wins
+
 how many wins have happened before this game? (by anyone, not just by me, can stop at 3)
-how many wins do I have so far? -- loaddb.count_wins()
+how many wins do I have so far? -- DONE: loaddb.count_wins()
 
 plus everything in update-page.py
-

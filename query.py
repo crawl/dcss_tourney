@@ -128,11 +128,15 @@ def has_killed_unique(cursor, player, unique):
                      WHERE player=%s AND monster=%s''',
                      player, unique) > 0
 
-def player_count_runes(cursor, player):
-  return query_first(cursor,
-                     '''SELECT COUNT(rune) FROM rune_finds
-                        WHERE player = %s''',
-                     player)
+def player_count_runes(cursor, player, rune=None):
+  """Counts the number of times the player has found runes (or a specific
+  rune."""
+  q = Query('''SELECT COUNT(rune) FROM rune_finds
+               WHERE player = %s''', player)
+  if rune:
+    q.append(' AND rune = %s', rune)
+
+  return q.first(cursor)
 
 ###################################################################
 # Super experimental team stuff. None of this is set in stone.
