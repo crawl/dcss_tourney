@@ -33,3 +33,28 @@ def daemonize(lockfile):
     lock_handle(False)
   else:
     sys.exit(0)
+
+class Memoizer:
+  FLUSH_THRESHOLD = 1000
+
+  """Given a function, caches the results of the function for sets of arguments
+  and returns the cached result where possible. Do not use if you have
+  very large possible combinations of args, or we'll run out of RAM."""
+  def __init__(self, fn, extractor=None):
+    self.fn = fn
+    self.cache = { }
+    self.extractor = extractor or (lambda baz: baz)
+
+  def __call__(self, *args):
+    if len(self.cache) > Memoizer.FLUSH_THRESHOLD:
+      self.flush()
+    key = self.extractor(args)
+    if not self.cache.has_key(key):
+      self.cache[key] = self.fn(*args)
+    return self.cache[key]
+
+  def flush(self):
+    self.cache.clear()
+
+  def record(self, args, value):
+    self.cache[self.extractor(args)] = value

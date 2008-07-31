@@ -26,9 +26,9 @@ CREATE TABLE teams (
 
 -- Mapping table linking teams and their owners.
 CREATE TABLE team_owners (
-  team MEDIUMINT,
   owner CHAR(20),
-  PRIMARY KEY (team, owner),
+  team MEDIUMINT,
+  PRIMARY KEY (owner),
   FOREIGN KEY (team) REFERENCES teams (id) ON DELETE CASCADE,
   FOREIGN KEY (owner) REFERENCES players (name) ON DELETE CASCADE
   );

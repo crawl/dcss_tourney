@@ -12,7 +12,6 @@ import MySQLdb
 
 # Number of unique uniques
 MAX_UNIQUES = 43
-
 MAX_RUNES = 15
 
 def count_wins(c, player=None, character_race=None,
@@ -80,19 +79,6 @@ def was_unique_killed(c, player, monster):
                    WHERE player=%s AND monster=%s LIMIT 1;''',
                 player, monster)
   return query.row(c) is not None
-
-def player_exists(c, name):
-  """Return true if the player exists in the player table"""
-  query = Query("""SELECT name FROM players WHERE name=%s;""",
-                name)
-  return query.row(c) is not None
-
-def add_player(c, name):
-  """Add the given player with no score yet"""
-  query_do(c,
-           """INSERT INTO players (name, score_base, team_score_base)
-              VALUES (%s, 0, 0);""",
-           name)
 
 def get_player_base_score(c, name):
   """Return the unchanging part of a player's score"""
@@ -171,7 +157,7 @@ def wrap_transaction(fn):
 
 def create_team(cursor, team, owner_name):
   """Creates a team with the given name, owned by the named player."""
-  check_add_player(cursor, owner_name)
+  loaddb.check_add_player(cursor, owner_name)
   def _create_team(cursor):
     query_do(cursor, '''INSERT INTO teams (owner, name) VALUES (%s, %s)
                         ON DUPLICATE KEY UPDATE name = %s''',
@@ -188,21 +174,10 @@ def get_team_owners(cursor, team):
                     team)
   return [r[0] for r in rows]
 
-def check_add_player(cursor, player):
-  """Checks whether a player exists in the players table,
-  adds an entry if not, suppressing exceptions."""
-  try:
-    if not player_exists(cursor, player):
-      add_player(cursor, player)
-  except MySQLdb.IntegrityError:
-    # We don't care, this just means someone else added the player
-    # just now
-    pass
-
 def add_player_to_team(cursor, team_owner, player):
   """Adds the named player to the named team. Integrity checks are left to
   the db."""
-  check_add_player(cursor, player)
+  loaddb.check_add_player(cursor, player)
   wrap_transaction(_add_player_to_team)(cursor, team_owner, player)
 
 def players_in_team(cursor, team_owner):

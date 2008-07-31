@@ -1,6 +1,7 @@
 import MySQLdb
 import re
 import os
+import crawl_utils
 
 import logging
 from logging import debug, info, warn, error
@@ -233,6 +234,34 @@ def query_row(cursor, query, *values):
 def query_rows(cursor, query, *values):
   return Query(query, *values).rows(cursor)
 
+def _player_exists(c, name):
+  """Return true if the player exists in the player table"""
+  query = Query("""SELECT name FROM players WHERE name=%s;""",
+                name)
+  return query.row(c) is not None
+
+player_exists = crawl_utils.Memoizer(_player_exists, lambda args: args[1 : ])
+
+def add_player(c, name):
+  """Add the given player with no score yet"""
+  query_do(c,
+           """INSERT INTO players (name, score_base, team_score_base)
+              VALUES (%s, 0, 0);""",
+           name)
+  # And register with the Memoizer to let it know that the player now exists.
+  player_exists.record((c, name), True)
+
+def check_add_player(cursor, player):
+  """Checks whether a player exists in the players table,
+  adds an entry if not, suppressing exceptions."""
+  try:
+    if not player_exists(cursor, player):
+      add_player(cursor, player)
+  except MySQLdb.IntegrityError:
+    # We don't care, this just means someone else added the player
+    # just now. However we do need to update the player_exists cache.
+    player_exists.record((cursor, player), True)
+
 def apply_dbtypes(game):
   """Given an xlogline dictionary, replaces all values with munged values
   that can be inserted directly into a db table. Keys that are not recognized
@@ -372,6 +401,10 @@ def tail_file_into_games(cursor, filename, filehandle, offset=None):
     d = xlog_dict(line.strip())
     killer = d.get('killer') or ''
     ghost_kill = R_GHOST_NAME.search(killer)
+
+    # Add the player outside the transaction and suppress errors.
+    check_add_player(cursor, d['name'])
+
     cursor.execute('BEGIN;')
     try:
       insert_logline(cursor, d, filename, offset)
@@ -425,6 +458,9 @@ MILESTONE_HANDLERS = {
 
 def add_milestone_record(c, filename, handle, offset, line):
   d = apply_dbtypes(parse_logline(line.strip()))
+
+  # Add player entry outside the milestone transaction.
+  check_add_player(c, d['name'])
 
   # Start a transaction to ensure that we don't part-update tables.
   c.execute('BEGIN;')
