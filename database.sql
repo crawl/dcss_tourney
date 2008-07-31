@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS players (
 CREATE TABLE teams (
   owner CHAR(20) UNIQUE NOT NULL,
   name VARCHAR(255) NOT NULL,
-  PRIMARY KEY (owner, name),
+  PRIMARY KEY (owner),
   FOREIGN KEY (owner) REFERENCES players (name)
   ON DELETE CASCADE
   );
@@ -105,6 +105,16 @@ CREATE TABLE kills_of_uniques (
   player CHAR(20) NOT NULL,
   kill_time DATETIME NOT NULL,
   monster CHAR(20)
+  );
+
+-- Keep track of who's killed how many uniques, and when they achieved this.
+CREATE TABLE kunique_times (
+  player CHAR(20) NOT NULL,
+  -- Number of distinct uniques slain.
+  nuniques INT DEFAULT 0 NOT NULL,
+  -- When this number was reached.
+  kill_time DATETIME NOT NULL,
+  FOREIGN KEY (player) REFERENCES players (name) ON DELETE CASCADE
   );
 
 CREATE INDEX kill_uniq_pmons ON kills_of_uniques (player, monster);
