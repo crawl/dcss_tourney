@@ -116,3 +116,21 @@ def has_killed_unique(cursor, player, unique):
                      '''SELECT COUNT(*) FROM kills_of_uniques
                      WHERE player=%s AND monster=%s''',
                      player, unique) > 0
+
+def team_exists(cursor, team_name):
+  row = query_row(cursor,
+                  '''SELECT id FROM teams WHERE name = %s''', team_name)
+  return row is not None
+
+def create_team(cursor, team, owner_name):
+  cursor.execute('BEGIN;')
+  try:
+    query_do(cursor, 'INSERT INTO teams (name) VALUES (%s)', team)
+    query_do(cursor, '''INSERT INTO team_owners (team, owner)
+                        VALUES ((SELECT id FROM teams WHERE name = %s),
+                                 %s)''',
+             team, owner)
+    cursor.execute('COMMIT;')
+  except:
+    cursor.execute('ROLLBACK;')
+    raise

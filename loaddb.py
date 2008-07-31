@@ -366,10 +366,14 @@ def tail_file_into_games(cursor, filename, filehandle, offset=None):
     killer = d.get('killer') or ''
     ghost_kill = R_GHOST_NAME.search(killer)
     cursor.execute('BEGIN;')
-    insert_logline(cursor, d, filename, offset)
-    if ghost_kill:
-      record_ghost_kill(cursor, d)
-    cursor.execute('COMMIT;')
+    try:
+      insert_logline(cursor, d, filename, offset)
+      if ghost_kill:
+        record_ghost_kill(cursor, d)
+      cursor.execute('COMMIT;')
+    except:
+      cursor.execute('ROLLBACK;')
+      raise
 
   return tail_file_lines(filename, filehandle, offset, process_logline)
 
@@ -415,11 +419,15 @@ def add_milestone_record(c, filename, handle, offset, line):
 
   # Start a transaction to ensure that we don't part-update tables.
   c.execute('BEGIN;')
-  update_milestone_bookmark(c, filename, offset)
-  handler = MILESTONE_HANDLERS.get(d['type'])
-  if handler:
-    handler(c, d)
-  c.execute('COMMIT;')
+  try:
+    update_milestone_bookmark(c, filename, offset)
+    handler = MILESTONE_HANDLERS.get(d['type'])
+    if handler:
+      handler(c, d)
+    c.execute('COMMIT;')
+  except:
+    c.execute('ROLLBACK;')
+    raise
 
 def read_file_into_games(db, filename, filehandle):
   """Take a database with an open connection, and a name of a file, and
