@@ -37,14 +37,15 @@ all of the things rax thinks we need...
 
  ----------------------------------------------------------
  - provide functions to calculate points that will change:
-   - Fastest win (realtime)
-   - Fastest win (turn)
-   - 5 points per high score in race/class combo
-   - 5 per high score in combo if win.
-   - 10 per high score in race.
-   - 10 per high score in class.
-   - 200/100/50 for most highscores in combos.
-   - Longest streak 200/100/50.
+   - [DONE] Fastest win (realtime) 200/100/50
+   - [DONE] Fastest win (turn)
+   - [DONE] 5 points per high score in race/class combo
+   - [DONE] 5 per high score in combo if win.
+   - [DONE] 10 per high score in race.
+   - [DONE] 10 per high score in class.
+   - [DONE] 200/100/50 for most highscores in combos.
+   - [DONE] Longest streak 200/100/50.
+   - [DONE] Update players table with score_full as a temp column.
 
    - Clan points for deepest DL reached at XL1 50/20/10
    - Clan points for most high scores in combos 200/100/50

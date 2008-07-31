@@ -6,7 +6,7 @@ import logging
 from logging import debug, info, warn, error
 
 import loaddb
-from loaddb import Query, query_do, query_first, query_row
+from loaddb import Query, query_do, query_first, query_row, query_rows
 
 import MySQLdb
 
@@ -156,10 +156,14 @@ def get_player_base_team_score(c, name):
                 name)
   return query.first(c, "Player not found: %s" % name)
 
+def get_players(c):
+  return [r[0] for r in
+          query_rows(c, 'SELECT name FROM players')]
+
 def assign_points(cursor, point_source, name, points):
   """Add points to a player's points in the db"""
   if points > 0:
-    info("%s: %d points [%s]" % (name, points, point_source))
+    debug("%s: %d points [%s]" % (name, points, point_source))
     query_do(cursor,
              """UPDATE players
                 SET score_base = score_base + %s
@@ -169,7 +173,7 @@ def assign_points(cursor, point_source, name, points):
 def assign_team_points(cursor, point_source, name, points):
   """Add points to a players team in the db.  The name refers to the player, not the team"""
   if points > 0:
-    info("TEAM %s: %d points [%s]" % (name, points, point_source))
+    debug("TEAM %s: %d points [%s]" % (name, points, point_source))
     query_do(cursor,
              """UPDATE players
                 SET team_score_base = team_score_base + %s
@@ -191,6 +195,55 @@ def player_count_runes(cursor, player, rune=None):
     q.append(' AND rune = %s', rune)
 
   return q.first(cursor)
+
+def find_place(rows, player):
+  if rows is None:
+    return -1
+  p = [r[0] for r in rows]
+  if player in p:
+    return p.index(player)
+  else:
+    return -1
+
+def player_fastest_realtime_win_pos(c, player):
+  return find_place(query_rows(c, 'SELECT player FROM fastest_realtime'),
+                    player)
+
+def player_fastest_turn_win_pos(c, player):
+  return find_place(query_rows(c, 'SELECT player FROM fastest_turncount'),
+                    player)
+
+def player_hs_combo_pos(c, player):
+  return find_place(query_rows(c, 'SELECT player FROM combo_hs_scoreboard'),
+                    player)
+
+def player_streak_pos(c, player):
+  return find_place(query_rows(c, 'SELECT player FROM streak_scoreboard'),
+                    player)
+
+def count_hs_combos(c, player):
+  return query_first(c,
+                     '''SELECT COUNT(charabbrev) FROM game_combo_highscores
+                        WHERE player = %s''',
+                     player)
+
+def count_hs_combo_wins(c, player):
+  return query_first(c,
+                     '''SELECT COUNT(charabbrev) FROM game_combo_win_highscores
+                        WHERE player = %s''',
+                     player)
+
+def count_hs_species(c, player):
+  return query_first(c,
+                     '''SELECT COUNT(raceabbr) FROM game_species_highscores
+                        WHERE player=%s''',
+                     player)
+
+def count_hs_classes(c, player):
+  return query_first(c,
+                     '''SELECT COUNT(class) FROM game_class_highscores
+                        WHERE player=%s''',
+                     player)
 
 ###################################################################
 # Super experimental team stuff. None of this is set in stone.

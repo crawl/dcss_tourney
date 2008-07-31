@@ -35,6 +35,9 @@ class OutlineListener (loaddb.CrawlEventListener):
   def milestone_event(self, cursor, milestone):
     act_on_milestone(cursor, milestone)
 
+  def cleanup(self, db):
+    update_player_scores(db.cursor())
+
 LISTENER = OutlineListener()
 
 def act_on_milestone(c, this_mile):
@@ -102,7 +105,7 @@ def act_on_logfile_line(c, this_game):
       assign_points(c, "gkill", ghost, (XL - 5))
 
 def get_points(index, *points):
-  if index < len(points):
+  if index >= 0 and index < len(points):
     return points[index];
   return 0
 
@@ -120,8 +123,8 @@ def crunch_winner(c, game):
   """A game that wins could assign a variety of irrevocable points for a
   variety of different things. This function needs to calculate them all."""
 
-  info("%s win (%s), runes: %d" % (game['name'], game['char'],
-                                   game['urune']))
+  debug("%s win (%s), runes: %d" % (game['name'], game['char'],
+                                    game['urune']))
 
   if is_all_runer(game):
     all_allruners = number_of_allruners_before(c, game)
@@ -164,10 +167,14 @@ def crunch_winner(c, game):
     # a streak.
     streak_wins = query.wins_in_streak_before(c, game['name'], game['end'])
 
-    info("%s win (%s), previous games in streak: %s" %
-         (game['name'], game['char'], streak_wins))
+    debug("%s win (%s), previous games in streak: %s" %
+          (game['name'], game['char'], streak_wins))
 
     if streak_wins:
+      # First update the streaks table. We're still in the logfile transaction
+      # here, so it's safe.
+      loaddb.update_streak_count(c, game, len(streak_wins) + 1)
+
       streak_repeats = repeat_race_class(streak_wins, game['char'])
 
       # 100, 30, 10 points for streak games based on no repeat, xor, repeat.
@@ -244,3 +251,51 @@ def whereis(player):
   if (status != 'won') and (status != 'bailed out'):
     return ("%s the %s (L%s %s)%s %s %s %s%s%s." % (player, sktitle, details['xl'], details['char'], godstr, prestr, prep, replace(details['place'], ';', ':'), datestr, turnstr))
   return ("Whereis information for %s is not currently available." % (player))
+
+
+###################### Additional scoring math ##########################
+
+def say_points(who, what, points):
+  if points > 0:
+    debug("%s: ADD %d points [%s]" % (who, points, what))
+  return points
+
+def player_additional_score(c, player, update=True):
+  """Calculates the player's total score, including unchanging score and the
+  current volatile score."""
+
+  additional = 0
+
+  additional += say_points( player, 'fastest_realtime',
+                            get_points(
+                                query.player_fastest_realtime_win_pos(
+                                      c, player),
+                                200, 100, 50 ) )
+  additional += say_points( player, 'fastest_turncount',
+                            get_points(
+                                query.player_fastest_turn_win_pos(c, player),
+                                200, 100, 50 ) )
+  additional += say_points( player, 'combo_hs',
+                            query.count_hs_combos(c, player) * 5 )
+  additional += say_points( player, 'combo_hs_win',
+                            query.count_hs_combo_wins(c, player) * 5 )
+  additional += say_points( player, 'species_hs',
+                            query.count_hs_species(c, player) * 10 )
+  additional += say_points( player, 'class_hs',
+                            query.count_hs_classes(c, player) * 10 )
+  additional += say_points( player, 'max_combo_hs',
+                            get_points( query.player_hs_combo_pos(c, player),
+                                        200, 100, 50 ) )
+  additional += say_points( player, 'max_streak',
+                            get_points( query.player_streak_pos(c, player),
+                                        200, 100, 50 ) )
+
+  if update:
+    loaddb.update_player_fullscore(c, player, additional)
+
+  return additional
+
+def update_player_scores(c):
+  for p in query.get_players(c):
+    info("Updating full score for %s" % p)
+    player_additional_score(c, p)

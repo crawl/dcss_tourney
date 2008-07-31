@@ -95,6 +95,8 @@ def parse_logline(logline):
 
 def xlog_dict(logline):
   d = parse_logline(logline)
+  # Fake a raceabbr field.
+  d['raceabbr'] = d['char'][0:2]
   # Fixup rune madness where one or the other is set, but not both.
   if d.get('nrune') is not None or d.get('urune') is not None:
     d['nrune'] = d.get('nrune') or d.get('urune')
@@ -109,6 +111,7 @@ LOG_DB_MAPPINGS = [
     [ 'name', 'player' ],
     [ 'uid', 'uid' ],
     [ 'race', 'race' ],
+    [ 'raceabbr', 'raceabbr' ],
     [ 'cls', 'class' ],
     [ 'char', 'charabbrev' ],
     [ 'xl', 'xl' ],
@@ -216,6 +219,7 @@ dbfield_to_sqltype = {
 	'start_time':datetime,
 	'score':bigint,
 	'race':char,
+        'raceabbr':char,
 	'class':char,
 	'version':char,
 	'lv':char,
@@ -297,6 +301,22 @@ def check_add_player(cursor, player):
     # We don't care, this just means someone else added the player
     # just now. However we do need to update the player_exists cache.
     player_exists.record((cursor, player), True)
+
+def update_streak_count(c, game, streak_count):
+  streak_time = game['end']
+  query_do(c,
+           '''INSERT INTO streaks (player, streak, streak_time)
+              VALUES (%s, %s, %s)
+              ON DUPLICATE KEY UPDATE streak = %s, streak_time = %s''',
+           game['name'], streak_count, streak_time,
+           streak_count, streak_time)
+
+def update_player_fullscore(c, player, addition):
+  query_do(c,
+           '''UPDATE players
+              SET score_full = score_base + %s
+              WHERE name = %s''',
+           addition, player)
 
 def apply_dbtypes(game):
   """Given an xlogline dictionary, replaces all values with munged values
@@ -615,7 +635,7 @@ def cleanup_listeners(db):
     e.cleanup(db)
 
 if __name__ == '__main__':
-  logging.basicConfig(level=logging.DEBUG)
+  logging.basicConfig(level=logging.INFO)
   print "Populating db (one-off) with logfiles and milestones. " + \
       "Running the taildb.py daemon is preferred."
 

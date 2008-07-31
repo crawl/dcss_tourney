@@ -8,11 +8,28 @@ DROP TABLE IF EXISTS kills_of_ghosts;
 DROP TABLE IF EXISTS kills_of_uniques;
 DROP TABLE IF EXISTS kunique_times;
 DROP TABLE IF EXISTS rune_finds;
+DROP TABLE IF EXISTS streaks;
+
+DROP VIEW IF EXISTS fastest_realtime;
+DROP VIEW IF EXISTS fastest_turncount;
+DROP VIEW IF EXISTS combo_highscores;
+DROP VIEW IF EXISTS combo_win_highscores;
+DROP VIEW IF EXISTS species_highscores;
+DROP VIEW IF EXISTS class_highscores;
+DROP VIEW IF EXISTS game_species_highscores;
+DROP VIEW IF EXISTS game_class_highscores;
+DROP VIEW IF EXISTS game_combo_highscores;
+DROP VIEW IF EXISTS game_combo_win_highscores;
+DROP VIEW IF EXISTS combo_hs_scoreboard;
+DROP VIEW IF EXISTS streak_scoreboard;
 
 CREATE TABLE IF NOT EXISTS players (
   name CHAR(20) PRIMARY KEY,
   team_captain CHAR(20),
   score_base BIGINT,
+  -- This is the computed score! We will overwrite it each time we
+  -- recalculate it, and it may be null at any point.
+  score_full BIGINT,
   team_score_base BIGINT,
   FOREIGN KEY (team_captain) REFERENCES players (name)
   ON DELETE SET NULL
@@ -46,6 +63,8 @@ CREATE TABLE games (
   start_time DATETIME,
   score BIGINT,
   race CHAR(20),
+  -- Two letter race abbreviation so we can group by it without pain.
+  raceabbr CHAR(2) NOT NULL,
   class CHAR(20),
   version CHAR(10),
   lv CHAR(8),
@@ -82,6 +101,14 @@ CREATE TABLE games (
 
   CONSTRAINT PRIMARY KEY (source_file, source_file_offset)
   );
+
+CREATE INDEX games_ktyp ON games (killertype);
+
+-- Index to help us find fastest wins (time) quick.
+CREATE INDEX games_win_dur ON games (killertype, duration);
+
+-- Index to help us find fastest wins (turncount) quick.
+CREATE INDEX games_win_turn ON games (killertype, turn);
 
 -- A table to keep track of the last milestone we've processed. This
 -- will have only one row for one filename.
@@ -126,3 +153,95 @@ CREATE TABLE rune_finds (
   rune CHAR(20),
   FOREIGN KEY (player) REFERENCES players (name) ON DELETE CASCADE
   );
+
+-- Generated table to keep track of streaks for each player.
+CREATE TABLE streaks (
+  player CHAR(20) PRIMARY KEY,
+  -- Because you just know Stabwound's going to win 128 in a row
+  streak MEDIUMINT NOT NULL,
+  streak_time DATETIME NOT NULL,
+  FOREIGN KEY (player) REFERENCES players (name)
+  );
+
+------------------------------------------------------------------
+-- Views for trophies
+
+-- The three fastest realtime wins.
+CREATE VIEW fastest_realtime AS
+SELECT player, MIN(duration) duration FROM games
+WHERE killertype = 'winning'
+GROUP BY player
+ORDER BY duration
+LIMIT 3;
+
+-- The three fastest wins (turncount)
+CREATE VIEW fastest_turncount AS
+SELECT player, MIN(turn) turn FROM games
+WHERE killertype = 'winning'
+GROUP BY player
+ORDER BY turn
+LIMIT 3;
+
+-- All combo highscores.
+CREATE VIEW combo_highscores AS
+SELECT charabbrev, MAX(score) score
+FROM games
+GROUP BY charabbrev;
+
+-- Winning combo highscores.
+CREATE VIEW combo_win_highscores AS
+SELECT charabbrev, MAX(score) score
+FROM games
+WHERE killertype = 'winning'
+GROUP BY charabbrev;
+
+CREATE VIEW game_combo_highscores AS
+SELECT p.*
+FROM games p,
+     combo_highscores pmax
+WHERE p.charabbrev = pmax.charabbrev
+AND p.score = pmax.score;
+
+CREATE VIEW game_combo_win_highscores AS
+SELECT p.*
+FROM games p,
+     combo_win_highscores pmax
+WHERE p.charabbrev = pmax.charabbrev
+AND p.score = pmax.score;
+
+CREATE VIEW species_highscores AS
+SELECT raceabbr, MAX(score) score
+FROM games
+GROUP BY raceabbr;
+
+CREATE VIEW game_species_highscores AS
+SELECT p.*
+FROM games p,
+     species_highscores pmax
+WHERE p.raceabbr = pmax.raceabbr
+AND p.score = pmax.score;
+
+CREATE VIEW class_highscores AS
+SELECT class, MAX(score) score
+FROM games
+GROUP BY class;
+
+CREATE VIEW game_class_highscores AS
+SELECT p.*
+FROM games p,
+     class_highscores pmax
+WHERE p.class = pmax.class
+AND p.score = pmax.score;
+
+CREATE VIEW combo_hs_scoreboard AS
+SELECT player, COUNT(*) AS nscores
+FROM game_combo_highscores
+GROUP BY player
+ORDER BY nscores DESC
+LIMIT 3;
+
+CREATE VIEW streak_scoreboard AS
+SELECT player, streak
+FROM streaks
+ORDER BY streak DESC, streak_time
+LIMIT 3;
