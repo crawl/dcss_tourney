@@ -11,40 +11,56 @@
 #A player is considered part of a team, if both she "volunteered" to the team's
 #captain by putting the captain's name in her rcfile AND the captain "drafted"
 #her by listing her as a member of the team, that she's also named.
-#That part isn't implemented yet, though.
+
 
 import os
 import fnmatch
 
+import loaddb
+
 def get_teams(directory):
-    '''Searches all *.crawlrc files in the given directory for team
-    information.'''
+    '''Searches all *.crawlrc files in the given directory for team information
+    and returns a dictorary, indexed by team capatains, of tuples of
+    the team name and the set of members.'''
+    teams = {}
     teamname = {}
     draftees = {}
     volunteers = {}
+    players = []
     for filename in os.listdir(directory):
         if fnmatch.fnmatch(filename, '*.crawlrc'):
             player = filename[:-8]
+            players.append(player)
             rcfile = open(filename)
             firstline = rcfile.readline()
             offset = firstline.find('TEAM')
-            if offset == -1:
-                teamname[player] = 'Team_' + player
-                draftees[player] = [player]
-                volunteers[player] = [player]
-            else:
+            if offset != -1:
                 elements = firstline[offset:].rstrip().split(' ')
                 if elements[0] == 'TEAMCAPTAIN':
                     volunteers.setdefault(elements[1], []).append(player)
                 elif elements[0] == 'TEAMNAME':
                     teamname[player] = ''.join(elements[1:])
-                    volunteers.setdefault(elements[1], []).append(player)
+                    volunteers.setdefault(player, []).append(player)
                     secondline = rcfile.readline()
                     offset = firstline.find('TEAM')
                     elements = secondline[offset:].rstrip().split(' ')
                     if elements[0] == 'TEAMMEMBERS':
-                        draftees[player] = elements[1:]
+                        draftees[player] = elements[1:6]
+                        draftees[player].append(player)
                     else:
                         draftees[player] = [player]
-                        volunteers[player] = [player]
+            rcfile.close()
+    for captain in teamname.iterkeys():
+        vset = set(volunteers.get(captain, []))
+        dset = set(draftees.get(captain, []))
+        members = vset.intersection(dset)
+        for name in members:
+            players.remove(name)
+        teams[captain] = (teamname[captain], members)
+    for name in players:
+        teams[name] = ('Team_' + name, set([name]))
+    return teams
 
+def insert_teams(teams):
+    db = loaddb.connect_db()
+    
