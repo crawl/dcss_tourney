@@ -56,6 +56,14 @@ class MilestoneFile (Xlogfile):
     Xlogfile.__init__(self, filename, loaddb.milestone_offset,
                       loaddb.tail_milestones)
 
+def tail_files(files):
+  for logfile in files:
+    logfile.append(cursor)
+
+def interval_work(interval, files):
+  tail_files(files)
+  # Any other stuff can be done here.
+
 def tail_logfiles(logs, milestones, interval=60):
   files = [ Logfile(x) for x in logs ] + \
       [ MilestoneFile(x) for x in milestones ]
@@ -64,8 +72,7 @@ def tail_logfiles(logs, milestones, interval=60):
   cursor = db.cursor()
   try:
     while True:
-      for logfile in files:
-        logfile.append(cursor)
+      interval_work(interval, files)
       if not interval:
         break
       time.sleep(interval)
