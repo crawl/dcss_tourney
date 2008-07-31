@@ -60,7 +60,8 @@ def do_milestone_unique(c, mile):
   unique, and checks to see if the player has killed all uniques. If so,
   the player may be awarded points if they are one of the first to do so."""
   unique = loaddb.extract_unique_name(mile['milestone'])
-  if query.has_killed_unique(c, mile['name'], unique):
+  # DB already has the record for this kill, so == 1 => first kill.
+  if query.count_player_unique_kills(c, mile['name'], unique) > 1:
     return
   assign_points(c, "unique", mile['name'], 5)
 

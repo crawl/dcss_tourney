@@ -176,7 +176,7 @@ def assign_team_points(cursor, point_source, name, points):
                 WHERE name=%s;""",
              points, name)
 
-def has_killed_unique(cursor, player, unique):
+def count_player_unique_kills(cursor, player, unique):
   return query_first(cursor,
                      '''SELECT COUNT(*) FROM kills_of_uniques
                      WHERE player=%s AND monster=%s''',
