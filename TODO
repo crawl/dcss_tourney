@@ -46,6 +46,7 @@ Clans:
 There's also the problem of CAO vs CDO crawlrc. I was thinking we would 
 just force CAO.
 -- Why not just use the team captain's name as key...?
+We are! Yay.
 
 - Can players leave a clan at any time?
 rax and Anym sort of arbitrarily deicded that clans were frozen as of
@@ -55,11 +56,15 @@ Aug 15th.
   logfile and milestone entries with clan id to keep track of clan
   points.
 That is potentially problematic. I'm not sure what to do about that.
+Greensnark says we update every six hours or something. OK!
 
 Website update:
  - Possibly regenerate pages on events reaching the logfile / milestones.
+   That's a lot of updates, but if it works, I think that's a good idea.
 
  - Possibly generate pages on-demand (but this will load cao unless we
    can cache the generated pages until we know they need to be
    regenerated, at which point we're back to regenerating pages on
    events as above.)
+   I think we might as well go with events, unless we think this will 
+   be faster.
