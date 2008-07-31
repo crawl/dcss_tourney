@@ -13,11 +13,11 @@
 
 (./)SPECIAL WINS (CHANGES)
 ------------
-200/50/20 points for fastest win in realtime.
-200/50/20 points for fastest win by turncount.
+200/100/50 points for fastest win in realtime.
+200/100/50 points for fastest win by turncount.
 (YOURS)
-200/50/20 points for first win scored. : covered in outline.py
-200/50/20 points for first 15-rune victory. : covered in outline.py
+200/100/50 points for first win scored. : covered in outline.py
+200/100/50 points for first 15-rune victory. : covered in outline.py
 
 (./)RUNES (YOURS) : covered in outline.py
 -----
@@ -37,7 +37,7 @@
 5 additional points for each high score that is a win.
 10 points per high score in a race.
 10 points per high score in a class.
-200/50/20 points for most high scores in race/class combos.
+200/100/50 points for most high scores in race/class combos.
 
 CLAN POINTS ONLY
 ------------
@@ -51,7 +51,7 @@ prize, encouraging specialization on clans but making the hypothetical
 (./)N points per ghost kill after dying, where N is the dying character's 
   XL minus 5. : covered in outline.py
 (CHANGES)
-(./)200/50/20 for _clan_ with most high scores in race/class combos.
+(./)200/100/50 for _clan_ with most high scores in race/class combos.
 (./)100/50/20 for _clan_ with most uniques killed (or all uniques killed
   first)
 

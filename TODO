@@ -26,18 +26,32 @@ rax doesn't know how to get information out of the db :/
 
 
 General scoring (greensnark?):
- - Process events as they arrive in logfile / milestones and assign points
+
+ -[DONE] Process events as they arrive in logfile / milestones and assign points
    to players / clans.
 In theory outline.py has most of this, but a lot of functions have one or
 two lines where they need db help. The file missing_from_outline.txt shows
 all of the things rax thinks we need...
 
-DB Query functions (greensnark working on this, but feel free to dive in):
-  - Return game dictionaries, optionally selecting and sorting by
-    various criteria, and optionally limiting the number of results. This
-    will be useful for the various game listing pages.
+ - [DONE] Calculate base score for players (including team_base_score).
 
-  - 
+ ----------------------------------------------------------
+ - provide functions to calculate points that will change:
+   - Fastest win (realtime)
+   - Fastest win (turn)
+   - 5 points per high score in race/class combo
+   - 5 per high score in combo if win.
+   - 10 per high score in race.
+   - 10 per high score in class.
+   - 200/100/50 for most highscores in combos.
+   - Longest streak 200/100/50.
+
+   - Clan points for deepest DL reached at XL1 50/20/10
+   - Clan points for most high scores in combos 200/100/50
+   - Clan points for most uniques killed (100/50/20)
+
+   - Clan points: sum all individual points as well.
+  ---------------------------------------------------------
 
 Team/clan setup (Anym?):
  - Examine .crawlrc files for clan affiliations. [DONE]
