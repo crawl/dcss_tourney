@@ -187,6 +187,26 @@ def count_wins(db, player, character_race=None, character_class=None):
   ((count,),) = res.fetch_row()
   return int(count)
 
+def was_last_game_win(db, player):
+  """Return true if the last game the player played was a win.  The "last 
+     game" is a game such that it has the greatest start time <em>and</em> 
+     greatest end time for that player (this is to prevent using multiple servers
+     to cheese streaks"""
+  last_start_query_string = """select start_time, end_time from games where player='%s'
+									  order by start_time desc limit 1; """ % player
+  win_end_query_string  = """select start_time, end_time from games where killertype='winning' && player='%s'
+									  order by end_time desc limit 1; """ % player
+  db.query(win_end_query_string)
+  res = db.store_result()
+  if (res.num_rows() == 0):
+    return False
+  ((win_start, win_end),) = res.fetch_row()
+  db.query(last_start_query_string)
+  res = db.store_result()
+  #we've got to have some results, the player won.  This is just their last start
+  ((recent_start, recent_end),) = res.fetch_row()
+  return recent_start == win_start and recent_end == win_end
+
 def player_exists(db, name):
   """Return true if the player exists in the player table"""
   query_string = """select name from players where name='%s';""" % name
