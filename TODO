@@ -20,12 +20,17 @@ Front page (rax/violetj?):
  - Clan High Scores
  - Longest streak
  - Easiest scores to snipe (lowest high-scores for character combinations)
+There is a script, update-page.py, that should do all of this... except
+that all of the actual db-accessing functions are just stubs, because 
+rax doesn't know how to get information out of the db :/
 
 
 General scoring (greensnark?):
  - Process events as they arrive in logfile / milestones and assign points
    to players / clans.
-
+In theory outline.py has most of this, but a lot of functions have one or
+two lines where they need db help. The file missing_from_outline.txt shows
+all of the things rax thinks we need...
 
 Team/clan setup (Anym?):
  - Examine .crawlrc files for clan affiliations.
@@ -38,12 +43,17 @@ Clans:
 - Defining clans by scanning .crawlrc has the problem that we have no
   idea which .crawlrc is authoritative. i.e. what if two players claim
   to be clan leaders for the same clan?
+There's also the problem of CAO vs CDO crawlrc. I was thinking we would 
+just force CAO.
 
 - Can players leave a clan at any time?
+rax and Anym sort of arbitrarily deicded that clans were frozen as of
+Aug 15th.
 
 - If a player can leave a clan at any time, we may need to flag
   logfile and milestone entries with clan id to keep track of clan
   points.
+That is potentially problematic. I'm not sure what to do about that.
 
 Website update:
  - Possibly regenerate pages on events reaching the logfile / milestones.
