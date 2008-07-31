@@ -13,19 +13,26 @@ import MySQLdb
 # Number of unique uniques
 MAX_UNIQUES = 43
 
-def count_wins(c, player, character_race=None,
-               character_class=None, runes=None):
+MAX_RUNES = 15
+
+def count_wins(c, player=None, character_race=None,
+               character_class=None, runes=None,
+               before=None):
   """Return the number wins recorded for the given player, optionally with
      a specific race, class, minimum number of runes, or any combination"""
   query = Query('''SELECT COUNT(start_time) FROM games
-                   WHERE killertype='winning' AND player=%s''',
+                   WHERE killertype='winning' ''',
                 player)
+  if player:
+    query.append(' AND player=%s', player)
   if (character_race):
     query.append(' AND race=%s', character_race)
   if (character_class):
     query.append(' AND class=%s', character_class)
   if (runes):
     query.append(' AND runes >= %s', runes)
+  if before:
+    query.append(' AND end_time < %s', before)
   query.append(';')
   return query.count(c)
 
@@ -114,7 +121,6 @@ def assign_team_points(cursor, name, points):
               SET team_score_base = team_score_base + %s
               WHERE name=%s;""",
            points, name)
-
 
 def has_killed_unique(cursor, player, unique):
   return query_first(cursor,
