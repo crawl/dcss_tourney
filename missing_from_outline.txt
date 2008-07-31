@@ -1,0 +1,15 @@
+Need:
+
+something to log a unique kill
+something to see if other people have killed all the uniques, and if so how many (there are 34)
+something to see if a specific unique is killed
+something to see if a player has gotten a rune yet
+something to log a player getting a rune
+something to tell if it's my first all-rune win
+something to tell if this game is an all-rune win
+how many all-runers happened before this game? (by anyone, not just by me, can stop at 3)
+how many wins have happened before this game? (by anyone, not just by me, can stop at 3)
+how many wins do I have so far?
+
+plus everything in update-page.py
+
