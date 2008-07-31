@@ -7,7 +7,6 @@ I'm also not entirely sure who's doing what - here's what I think is
 going on, please fix whatever's wrong so we don't duplicate each
 others' work.
 
-
 Front page (rax/violetj?):
  - Leading player
  - Leading clan
@@ -35,6 +34,11 @@ Team/clan setup (Anym?):
 Open Questions
 
 Clans:
+
+- Defining clans by scanning .crawlrc has the problem that we have no
+  idea which .crawlrc is authoritative. i.e. what if two players claim
+  to be clan leaders for the same clan?
+
 - Can players leave a clan at any time?
 
 - If a player can leave a clan at any time, we may need to flag
