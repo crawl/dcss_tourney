@@ -223,25 +223,25 @@ def player_streak_pos(c, player):
 
 def count_hs_combos(c, player):
   return query_first(c,
-                     '''SELECT COUNT(charabbrev) FROM game_combo_highscores
+                     '''SELECT COUNT(*) FROM game_combo_highscores
                         WHERE player = %s''',
                      player)
 
 def count_hs_combo_wins(c, player):
   return query_first(c,
-                     '''SELECT COUNT(charabbrev) FROM game_combo_win_highscores
+                     '''SELECT COUNT(*) FROM game_combo_win_highscores
                         WHERE player = %s''',
                      player)
 
 def count_hs_species(c, player):
   return query_first(c,
-                     '''SELECT COUNT(raceabbr) FROM game_species_highscores
+                     '''SELECT COUNT(*) FROM game_species_highscores
                         WHERE player=%s''',
                      player)
 
 def count_hs_classes(c, player):
   return query_first(c,
-                     '''SELECT COUNT(class) FROM game_class_highscores
+                     '''SELECT COUNT(*) FROM game_class_highscores
                         WHERE player=%s''',
                      player)
 
