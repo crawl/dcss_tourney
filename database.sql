@@ -15,7 +15,7 @@ create table games (
     source_file varchar(150),
     -- Offset in the source file.
     source_file_offset bigint,
-    
+
 	player char(20), 
 	start_time datetime, 
 	score bigint,
@@ -42,17 +42,17 @@ create table games (
 	god char(20), 
 	duration int, 
 	turn bigint,
-	runes int, 
-	killertype char(20), 
+	runes int DEFAULT 0,
+	killertype char(20),
 	killer char(50),
         kaux varchar(255),
-	damage int, 
+	damage int,
 	piety int,
         penitence int, 
 	end_time datetime, 
 	terse_msg varchar(255), 
 	verb_msg varchar(255),
-        nrune int,
+        nrune int DEFAULT 0,
 
     CONSTRAINT PRIMARY KEY (source_file, source_file_offset)
 	);
