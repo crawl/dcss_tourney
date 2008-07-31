@@ -65,8 +65,8 @@ def interval_work(interval, files):
   # Any other stuff can be done here.
 
 def tail_logfiles(logs, milestones, interval=60):
-  files = [ Logfile(x) for x in logs ] + \
-      [ MilestoneFile(x) for x in milestones ]
+  files = [ MilestoneFile(x) for x in milestones ] + \
+      [ Logfile(x) for x in logs ]
 
   db = loaddb.connect_db()
   loaddb.init_listeners(db)

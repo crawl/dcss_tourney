@@ -48,11 +48,12 @@ def wins_in_streak_before(c, player, before):
                    WHERE player = %s
                    AND end_time >
                          (SELECT MAX(end_time) FROM games
-                          WHERE end_time < %s
+                          WHERE player = %s
+                          AND end_time < %s
                           AND killertype != 'winning')
                    AND end_time < %s
                    ORDER BY end_time''',
-                player, before, before)
+                player, player, before, before)
   return [ x[0] for x in query.rows(c) ]
 
 def count_wins(c, **selectors):
@@ -155,18 +156,20 @@ def get_player_base_team_score(c, name):
                 name)
   return query.first(c, "Player not found: %s" % name)
 
-def assign_points(cursor, name, points):
+def assign_points(cursor, point_source, name, points):
   """Add points to a player's points in the db"""
   if points > 0:
+    info("%s: %d points [%s]" % (name, points, point_source))
     query_do(cursor,
              """UPDATE players
                 SET score_base = score_base + %s
                 WHERE name = %s""",
              points, name)
 
-def assign_team_points(cursor, name, points):
+def assign_team_points(cursor, point_source, name, points):
   """Add points to a players team in the db.  The name refers to the player, not the team"""
   if points > 0:
+    info("TEAM %s: %d points [%s]" % (name, points, point_source))
     query_do(cursor,
              """UPDATE players
                 SET team_score_base = team_score_base + %s

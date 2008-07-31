@@ -3,6 +3,9 @@
 import loaddb
 import query
 
+import logging
+from logging import debug, info, warn, error
+
 from query import assign_points, assign_team_points
 
 # So there are a few problems we have to solve:
@@ -59,25 +62,25 @@ def do_milestone_unique(c, mile):
   unique = loaddb.extract_unique_name(mile['milestone'])
   if query.has_killed_unique(c, mile['name'], unique):
     return
-  assign_points(mile['name'], 5)
+  assign_points(c, "unique", mile['name'], 5)
 
 def do_milestone_rune(c, mile):
   """When the player gets a rune for the first time, they get ten points.
   After that, they get one point. This one is pretty simple."""
   # Check if this player already found this kind of rune. Remember the db
   # is already updated, so for the first rune the count will be 1.
-  if query.player_count_runes(c, mile['name'],
-                              loaddb.extract_rune(mile['milestone'])) > 1:
+  rune = loaddb.extract_rune(mile['milestone'])
+  if query.player_count_runes(c, mile['name'], rune) > 1:
     # player_already_has_rune:
-    assign_points(c, mile['name'], 1)
+    assign_points(c, "rune:" + rune, mile['name'], 1)
   else:
     # first time getting this rune!
-    assign_points(c, mile['name'], 10)
+    assign_points(c, "rune_1st:" + rune, mile['name'], 10)
 
 def do_milestone_ghost(c, mile):
   """When you kill a player ghost, you get two clan points! Otherwise this
   isn't terribly remarkable."""
-  assign_team_points(c, mile['name'], 2)
+  assign_team_points(c, "ghost", mile['name'], 2)
 
 def act_on_logfile_line(c, this_game):
   """Actually assign things and write to the db based on a logfile line
@@ -95,7 +98,7 @@ def act_on_logfile_line(c, this_game):
     ghost = loaddb.extract_ghost_name(this_game['killer'])
     XL = this_game['xl']
     if XL > 5:
-      assign_points(c, ghost, (XL - 5))
+      assign_points(c, "gkill", ghost, (XL - 5))
 
 def get_points(index, *points):
   if index < len(points):
@@ -115,18 +118,25 @@ def repeat_race_class(previous_chars, char):
 def crunch_winner(c, game):
   """A game that wins could assign a variety of irrevocable points for a
   variety of different things. This function needs to calculate them all."""
+
+  info("%s win (%s), runes: %d" % (game['name'], game['char'],
+                                   game['urune']))
+
   if is_all_runer(game):
     all_allruners = number_of_allruners_before(c, game)
-    assign_points(c, game['name'], get_points(all_allruners, 200, 100, 50))
+    assign_points(c, "Nth_all_rune_win", game['name'],
+                  get_points(all_allruners, 200, 100, 50))
 
     # If this is my first all-rune win, 50 points!
     if query.count_wins(c, player = game['name'],
                         runes = query.MAX_RUNES,
                         before = game['end']) == 0:
-      assign_points(c, game['name'], 50)
+      assign_points(c, "my_1st_all_rune_win", game['name'], 50)
 
   previous_wins = query.count_wins(c, before = game['end'])
-  assign_points(c, game['name'], get_points(previous_wins, 200, 100, 50))
+  assign_points(c,
+                "Nth_win",
+                game['name'], get_points(previous_wins, 200, 100, 50))
 
   my_wins = query.get_wins(c, player = game['name'], before = game['end'])
   n_my_wins = len(my_wins)
@@ -137,15 +147,15 @@ def crunch_winner(c, game):
 
   if n_my_wins == 0:
     # First win! I bet you don't have a streak
-    assign_points(c, game['name'], 100)
+    assign_points(c, "my_1st_win", game['name'], 100)
 
   elif n_my_wins == 1 and repeated == 0:
     # Second win! If neither repeated race or class, bonus!
-    assign_points(c, game['name'], 50)
+    assign_points(c, "my_2nd_win_norep", game['name'], 50)
 
   else:
     # Any win gets 10 points at this point.
-    assign_points(c, game['name'], 10)
+    assign_points(c, "my_boring_win", game['name'], 10)
 
   # For one or more prior wins, check streaks
   if n_my_wins >= 1:
@@ -153,16 +163,21 @@ def crunch_winner(c, game):
     # a streak.
     streak_wins = query.wins_in_streak_before(c, game['name'], game['end'])
 
+    info("%s win (%s), previous games in streak: %s" %
+         (game['name'], game['char'], streak_wins))
+
     if streak_wins:
       streak_repeats = repeat_race_class(streak_wins, game['char'])
 
       # 100, 30, 10 points for streak games based on no repeat, xor, repeat.
-      assign_points(c, game['name'], get_points(streak_repeats, 100, 30, 10))
+      assign_points(c, "streak_win",
+                    game['name'], get_points(streak_repeats, 100, 30, 10))
 
     # If this is a non-streak win, make sure we're not on the second win,
     # since we've already done the bonus points for that above.
     elif n_my_wins >= 2:
-      assign_points(c, game['name'], get_points(repeated, 30, 10))
+      assign_points(c, "my_nonstreak_norep",
+                    game['name'], get_points(repeated, 30, 10))
 
 def is_all_runer(game):
   """Did this game get every rune? This _might_ require checking the milestones

@@ -635,11 +635,11 @@ if __name__ == '__main__':
     except IOError:
       warn("Error reading %s, skipping it." % log)
 
-  for log in LOGS:
-    proc_file(read_file_into_games, log)
-
   for milestone in MILESTONES:
     proc_file(read_milestone_file, milestone)
+
+  for log in LOGS:
+    proc_file(read_file_into_games, log)
 
   teams.insert_teams(db.cursor(), teams.get_teams(CRAWLRC_DIRECTORY))
 
