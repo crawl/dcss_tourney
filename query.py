@@ -14,6 +14,13 @@ import MySQLdb
 MAX_UNIQUES = 43
 MAX_RUNES = 15
 
+LOG_FIELDS = [ x[1] for x in loaddb.LOG_DB_MAPPINGS ]
+
+def _cursor():
+  """Easy retrieve of cursor to make interactive testing easier."""
+  d = loaddb.connect_db()
+  return d.cursor()
+
 def count_wins(c, player=None, character_race=None,
                character_class=None, runes=None,
                before=None):
@@ -34,6 +41,39 @@ def count_wins(c, player=None, character_race=None,
     query.append(' AND end_time < %s', before)
   query.append(';')
   return query.count(c)
+
+def row_to_xdict(row):
+  return dict( zip(LOG_FIELDS, row) )
+
+def find_games(c, sort_min=None, sort_max=None, limit=1, **dictionary):
+  """Finds all games matching the supplied criteria, all criteria ANDed
+  together."""
+  query = Query('SELECT ' + ",".join(LOG_FIELDS) + ' FROM games')
+  where = ''
+  values = []
+  for key, value in dictionary.items():
+    if len(where):
+      where += ' AND '
+    where += key + " = %s"
+    values.append(value)
+
+  order_by = ''
+  if sort_min:
+    order_by += ' ORDER BY ' + sort
+  elif sort_max:
+    order_by += ' ORDER BY ' + sort_max + ' DESC'
+
+  if where:
+    query.append(' WHERE ' + where, *values)
+
+  if order_by:
+    query.append(order_by)
+
+  if limit:
+    query.append(' LIMIT %d' % limit)
+
+  print "Running " + query.query
+  return [ row_to_xdict(x) for x in query.rows(c) ]
 
 def was_last_game_win(c, player):
   """Return a tuple (race, class) of the last game if the last game the player played was a win.  The "last
