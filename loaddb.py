@@ -491,14 +491,23 @@ def read_milestone_file(db, filename, filehandle):
 
 if __name__ == '__main__':
   logging.basicConfig(level=logging.DEBUG)
+  print "Populating db (one-off) with logfiles and milestones. " + \
+      "Running the taildb.py daemon is preferred."
   db = connect_db()
-  for log in LOGS:
-    info("Updating db with %s" % log)
+
+  def proc_file(fn, filename):
+    info("Updating db with %s" % filename)
     try:
-      f = open(log)
+      f = open(filename)
       try:
-        read_file_into_games(db, log, f)
+        fn(db, filename, f)
       finally:
         f.close()
     except IOError:
       warn("Error reading %s, skipping it." % log)
+
+  for log in LOGS:
+    proc_file(read_file_into_games, log)
+
+  for milestone in MILESTONES:
+    proc_file(read_milestone_file, milestone)
