@@ -1,5 +1,9 @@
 #!/usr/bin/python
 
+import MySQLdb
+import loaddb
+
+
 # So there are a few problems we have to solve:
 # 1. Intercepting new logfile events
 #    DONE: parsing a logfile line
@@ -16,8 +20,9 @@
 #    the obvious things"
 
 # global variables
-db = "/path/to/db" # since we only have the one, right?
-starttime = # some long number
+db = loaddb.connect_db()
+starttime = 0 #  some long number
+list_of_uniques=("Murray", "Agnes", "Blork", "Boris", "Donald", "Duane", "Edmund", "Erica", "Erolcha", "Frances", "Francis", "Frederick", "Harold", "Iyjb", "Jessica", "Joseph", "Josephine", "Jozef", "Louise", "Margery", "Maud", "Michael", "Norbert", "Norris", "Polyphemus", "Psyche", "Rupert", "Sigmund", "Snorg", "Terence", "Tiamat", "Urug", "Wayne", "Xtahua")
 
 def parse_logline(logline):
   """This function takes a logfile line, which is mostly separated by colons,
@@ -98,7 +103,6 @@ def has_killed_all_uniques(player):
   # basically for each unique, it confirms they are dead, and if it ever
   # fails to confirm, we stop looking. NOTE: put murray at the top to save
   # time, since he's impossible to find :)
-  # list_of_uniques = query_again 
   for name in list_of_uniques:
     state = 0
     for dead in uniques_dead:
