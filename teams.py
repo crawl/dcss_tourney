@@ -15,8 +15,9 @@
 
 import os
 import fnmatch
+import re
 
-import loaddb
+import query
 
 def get_teams(directory):
     '''Searches all *.crawlrc files in the given directory for team information
@@ -35,7 +36,7 @@ def get_teams(directory):
             firstline = rcfile.readline()
             offset = firstline.find('TEAM')
             if offset != -1:
-                elements = firstline[offset:].rstrip().split(' ')
+                elements = re.sub('[^\w -]', '', firstline[offset:]).split(' ')
                 if elements[0] == 'TEAMCAPTAIN':
                     volunteers.setdefault(elements[1], []).append(player)
                 elif elements[0] == 'TEAMNAME':
@@ -61,6 +62,9 @@ def get_teams(directory):
         teams[name] = ('Team_' + name, set([name]))
     return teams
 
-def insert_teams(teams):
-    db = loaddb.connect_db()
-    
+def insert_teams(cursor, teams):
+    for captain in teams.iterkey():
+    	query.create_team(cursor, teams[captain][0], captain)
+	for player in teams[captain][1]:
+	    query.add_player_to_team(cursor, captain, player)
+

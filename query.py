@@ -146,7 +146,7 @@ def wrap_transaction(fn):
   """Given a function, returns a function that accepts a cursor and arbitrary
   arguments, calls the function with those args, wrapped in a transaction."""
   def transact(cursor, *args):
-    cursor.execute('BEGIN';)
+    cursor.execute('BEGIN;')
     try:
       fn(cursor, *args)
       cursor.execute('COMMIT;')
@@ -185,7 +185,7 @@ def players_in_team(cursor, team_owner):
   owner first."""
   prows = query_rows(cursor,
                      '''SELECT name FROM players
-                        WHERE team_owner = %s'''
+                        WHERE team_owner = %s''',
                      team_owner)
   players = [x[0] for x in prows]
   players.remove(team_owner)
