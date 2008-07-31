@@ -5,6 +5,33 @@ import os
 import logging
 from logging import debug, info, warn, error
 
+
+""" Other people working on scoring: You might want to take a look at
+converting all the methods to look and poke at the db that I wrote to
+use cursors instead of the db handle directly.
+
+Also, below is my suggestion for a way for dispatch to work, stubbed
+out.  Feel free to do something completely different if I'm cramping
+your style--I expect other people have plenty more time to work on this than
+I.  We may also want these to just dispatch to passed-in functions--we
+could keep the scoring functions for different things in outline.py or
+something.
+
+--violet
+"""
+
+class CrawlEventListener(object):
+  """The way this is intended to work is that on receipt of 
+  def score_event(self, cursor, dict):
+    """Return a list of query strings to execute to modify the base scores in the db based on this event"""
+    raise Exception, "Please subclass me!"
+  def insert_event(self, cursor, dict):
+    """Make the database reflect that this event happened."""
+    raise Exception, "Please subclass me!" 
+  def execute(self, cursor, dict):
+    """Score the event, start a transaction, execute the score change queries, insert the event, close the transaction"""
+    raise Exception, "Please implement me in this, the superclass"
+
 TOURNAMENT_DB = 'tournament'
 LOGS = [ 'cao-logfile-0.4',
          'cdo-logfile-0.4' ]
@@ -172,15 +199,17 @@ def make_games_insert_query(logdict, filename, offset):
             (",".join(fields), ",".join([ "%s" for v in values])),
           values)
 
-def count_wins(db, player, character_race=None, character_class=None):
+def count_wins(db, player, character_race=None, character_class=None, runes=None):
   """Return the number wins recorded for the given player, optionally with
-     a specific race, class, or both"""
+     a specific race, class, minimum number of runes, or any combination"""
   query_string = "select count(start_time) from games where killertype='winning' && player='%s' "
   query_string = query_string % player
   if (character_race):
     query_string += """&& race='%s' """ % (character_race,)
   if (character_class):
     query_string += """&& class='%s' """ % (character_class,)
+  if (runes):
+    query_string += """&& runes >= %s """ % runes
   query_string += ";"
   db.query(query_string)
   res = db.store_result()
