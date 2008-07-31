@@ -6,6 +6,7 @@ import crawl_utils
 import logging
 from logging import debug, info, warn, error
 
+
 """ Other people working on scoring: You might want to take a look at
 converting all the methods to look and poke at the db that I wrote to
 use cursors instead of the db handle directly.
@@ -20,6 +21,12 @@ something.
 --violet
 """
 
+TOURNAMENT_DB = 'tournament'
+LOGS = [ 'cao-logfile-0.4',
+         'cdo-logfile-0.4' ]
+MILESTONES = [ 'cao-milestones-0.4' ]
+COMMIT_INTERVAL = 3000
+
 class CrawlEventListener(object):
   """The way this is intended to work is that on receipt of an event
   ... we shoot the messenger. :P"""
@@ -32,12 +39,6 @@ class CrawlEventListener(object):
   def execute(self, cursor, dict):
     """Score the event, start a transaction, execute the score change queries, insert the event, close the transaction"""
     raise Exception, "Please implement me in this, the superclass"
-
-TOURNAMENT_DB = 'tournament'
-LOGS = [ 'cao-logfile-0.4',
-         'cdo-logfile-0.4' ]
-MILESTONES = [ 'cao-milestones-0.4' ]
-COMMIT_INTERVAL = 3000
 
 def connect_db():
   connection = MySQLdb.connect(host='localhost',

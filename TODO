@@ -32,6 +32,13 @@ In theory outline.py has most of this, but a lot of functions have one or
 two lines where they need db help. The file missing_from_outline.txt shows
 all of the things rax thinks we need...
 
+DB Query functions (greensnark working on this, but feel free to dive in):
+  - Return game dictionaries, optionally selecting and sorting by
+    various criteria, and optionally limiting the number of results. This
+    will be useful for the various game listing pages.
+
+  - 
+
 Team/clan setup (Anym?):
  - Examine .crawlrc files for clan affiliations.
 
