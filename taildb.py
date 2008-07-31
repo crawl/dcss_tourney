@@ -6,6 +6,8 @@ import crawl_utils
 import logging
 from logging import debug, info, warn, error
 
+import teams
+
 BASEDIR = '/home/crawl'
 
 # Can run as a daemon and tail a number of logfiles and milestones and

@@ -6,6 +6,7 @@ import crawl_utils
 import logging
 from logging import debug, info, warn, error
 
+import teams
 
 """ Other people working on scoring: You might want to take a look at
 converting all the methods to look and poke at the db that I wrote to
@@ -26,6 +27,7 @@ LOGS = [ 'cao-logfile-0.4',
          'cdo-logfile-0.4' ]
 MILESTONES = [ 'cao-milestones-0.4' ]
 COMMIT_INTERVAL = 3000
+CRAWLRC_DIRECTORY = '/home/crawl/chroot/dgldir/rcfiles/'
 
 class CrawlEventListener(object):
   """The way this is intended to work is that on receipt of an event
@@ -520,3 +522,5 @@ if __name__ == '__main__':
 
   for milestone in MILESTONES:
     proc_file(read_milestone_file, milestone)
+
+  teams.insert_teams(db.cursor(), teams.get_teams(CRAWLRC_DIRECTORY))

@@ -32,7 +32,7 @@ def get_teams(directory):
         if fnmatch.fnmatch(filename, '*.crawlrc'):
             player = filename[:-8]
             players.append(player)
-            rcfile = open(filename)
+            rcfile = open(os.path.join(directory, filename))
             firstline = rcfile.readline()
             offset = firstline.find('TEAM')
             if offset != -1:
