@@ -21,13 +21,14 @@ something.
 """
 
 class CrawlEventListener(object):
-  """The way this is intended to work is that on receipt of 
+  """The way this is intended to work is that on receipt of an event
+  ... we shoot the messenger. :P"""
   def score_event(self, cursor, dict):
     """Return a list of query strings to execute to modify the base scores in the db based on this event"""
     raise Exception, "Please subclass me!"
   def insert_event(self, cursor, dict):
     """Make the database reflect that this event happened."""
-    raise Exception, "Please subclass me!" 
+    raise Exception, "Please subclass me!"
   def execute(self, cursor, dict):
     """Score the event, start a transaction, execute the score change queries, insert the event, close the transaction"""
     raise Exception, "Please implement me in this, the superclass"
@@ -217,8 +218,8 @@ def count_wins(db, player, character_race=None, character_class=None, runes=None
   return int(count)
 
 def was_last_game_win(db, player):
-  """Return a tuple (race, class) of the last game if the last game the player played was a win.  The "last 
-     game" is a game such that it has the greatest start time <em>and</em> 
+  """Return a tuple (race, class) of the last game if the last game the player played was a win.  The "last
+     game" is a game such that it has the greatest start time <em>and</em>
      greatest end time for that player (this is to prevent using multiple servers
      to cheese streaks.  If the last game was not a win, return None"""
   last_start_query_string = """select start_time, end_time from games where player='%s'
