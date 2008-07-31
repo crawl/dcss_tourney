@@ -63,7 +63,7 @@ def get_teams(directory):
     return teams
 
 def insert_teams(cursor, teams):
-    for captain in teams.iterkey():
+    for captain in teams.iterkeys():
     	query.create_team(cursor, teams[captain][0], captain)
 	for player in teams[captain][1]:
 	    query.add_player_to_team(cursor, captain, player)
