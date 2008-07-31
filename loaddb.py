@@ -188,24 +188,41 @@ def count_wins(db, player, character_race=None, character_class=None):
   return int(count)
 
 def was_last_game_win(db, player):
-  """Return true if the last game the player played was a win.  The "last 
+  """Return a tuple (race, class) of the last game if the last game the player played was a win.  The "last 
      game" is a game such that it has the greatest start time <em>and</em> 
      greatest end time for that player (this is to prevent using multiple servers
-     to cheese streaks"""
+     to cheese streaks.  If the last game was not a win, return None"""
   last_start_query_string = """select start_time, end_time from games where player='%s'
 									  order by start_time desc limit 1; """ % player
-  win_end_query_string  = """select start_time, end_time from games where killertype='winning' && player='%s'
+  win_end_query_string  = """select start_time, end_time, race, class from games where killertype='winning' && player='%s'
 									  order by end_time desc limit 1; """ % player
   db.query(win_end_query_string)
   res = db.store_result()
   if (res.num_rows() == 0):
-    return False
-  ((win_start, win_end),) = res.fetch_row()
+    return None
+  ((win_start, win_end, race, character_class),) = res.fetch_row()
   db.query(last_start_query_string)
   res = db.store_result()
   #we've got to have some results, the player won.  This is just their last start
   ((recent_start, recent_end),) = res.fetch_row()
-  return recent_start == win_start and recent_end == win_end
+  if recent_start == win_start and recent_end == win_end:
+    return race, character_class
+  else:
+    return None
+
+def num_uniques_killed(db, player):
+  """Return the number of uniques the player has ever killed"""
+  query_string = """select distinct monster from kills_of_uniques where player='%s';""" % player
+  db.query(query_string)
+  res = db.store_result()
+  return int(res.num_rows())
+
+def was_unique_killed(db, player, monster):
+  """Return whether the player killed the given unique"""
+  query_string = """select monster from kills_of_uniques where player='%s' && monster='%s';""" % (player, monster)
+  db.query(query_string)
+  res = db.store_result()
+  return int(res.num_rows()) > 0
 
 def player_exists(db, name):
   """Return true if the player exists in the player table"""
