@@ -8,6 +8,8 @@ from logging import debug, info, warn, error
 import loaddb
 from loaddb import Query, query_do, query_first, query_row
 
+import MySQLdb
+
 def count_wins(c, player, character_race=None,
                character_class=None, runes=None):
   """Return the number wins recorded for the given player, optionally with
@@ -122,15 +124,76 @@ def team_exists(cursor, team_name):
                   '''SELECT id FROM teams WHERE name = %s''', team_name)
   return row is not None
 
+def _add_player_to_team(cursor, team, player):
+  query_do(cursor,
+           '''UPDATE players
+              SET team = (SELECT id FROM teams WHERE name = %s)
+              WHERE name = %s''',
+           team, player)
+
+def wrap_transaction(fn):
+  """Given a function, returns a function that accepts a cursor and arbitrary
+  arguments, calls the function with those args, wrapped in a transaction."""
+  def transact(cursor, *args):
+    cursor.execute('BEGIN';)
+    try:
+      fn(cursor, *args)
+      cursor.execute('COMMIT;')
+    except:
+      cursor.execute('ROLLBACK;')
+      raise
+  return transact
+
 def create_team(cursor, team, owner_name):
-  cursor.execute('BEGIN;')
-  try:
+  """Creates a team with the given name, owned by the named player."""
+  check_add_player(cursor, owner_name)
+  def _create_team(cursor):
     query_do(cursor, 'INSERT INTO teams (name) VALUES (%s)', team)
     query_do(cursor, '''INSERT INTO team_owners (team, owner)
                         VALUES ((SELECT id FROM teams WHERE name = %s),
                                  %s)''',
-             team, owner)
-    cursor.execute('COMMIT;')
-  except:
-    cursor.execute('ROLLBACK;')
-    raise
+             team, owner_name)
+    # Add the team owner herself to the team.
+    _add_player_to_team(cursor, team, owner_name)
+
+  wrap_transaction(_create_team)(cursor)
+
+def get_team_owner(cursor, team):
+  row = query_row(cursor,
+                  '''SELECT owner FROM team_owners
+                     WHERE team = (SELECT id FROM teams
+                                   WHERE name = %s)''',
+                  team)
+  if row is None:
+    return None
+  return row[0]
+
+def check_add_player(cursor, player):
+  """Checks whether a player exists in the players table,
+  adds an entry if not, suppressing exceptions."""
+  try:
+    if not player_exists(cursor, player):
+      add_player(cursor, player)
+  except MySQLdb.IntegrityError:
+    # We don't care, this just means someone else added the player
+    # just now
+    pass
+
+def add_player_to_team(cursor, team, player):
+  """Adds the named player to the named team. Integrity checks are left to
+  the db."""
+  check_add_player(cursor, player)
+  wrap_transaction(_add_player_to_team)(cursor, team, player)
+
+def players_in_team(cursor, team):
+  """Returns a list of all the players in the team, with the team's
+  owner first."""
+  prows = query_rows(cursor,
+                     '''SELECT name FROM players
+                        WHERE team = (SELECT id FROM teams WHERE name = %s)''',
+                     team)
+  players = [x[0] for x in prows]
+  leader = get_team_owner(cursor, team)
+  players.remove(leader)
+  players.insert(0, leader)
+  return players

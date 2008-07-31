@@ -27,7 +27,7 @@ CREATE TABLE team_owners (
   FOREIGN KEY (owner) REFERENCES players (name) ON DELETE CASCADE);
 
 -- For mappings of logfile fields to columns, see loaddb.py
-create table games (
+CREATE TABLE games (
     -- Source logfile
     source_file varchar(150),
     -- Offset in the source file.

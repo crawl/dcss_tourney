@@ -158,6 +158,10 @@ class Query:
     self.execute(cursor)
     return cursor.fetchone()
 
+  def rows(self, cursor):
+    self.execute(cursor)
+    return cursor.fetchall()
+
   def count(self, cursor, msg=None, exc=Exception):
     """Executes a SELECT COUNT(foo) query and returns the count. If there is
     not at least one row, raises an exception."""
@@ -225,6 +229,9 @@ def query_first(cursor, query, *values):
 
 def query_row(cursor, query, *values):
   return Query(query, *values).row(cursor)
+
+def query_rows(cursor, query, *values):
+  return Query(query, *values).rows(cursor)
 
 def apply_dbtypes(game):
   """Given an xlogline dictionary, replaces all values with munged values
