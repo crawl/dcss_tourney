@@ -23,6 +23,7 @@ import loaddb
 db = loaddb.connect_db()
 starttime = 0 #  some long number
 list_of_uniques=("Murray", "Agnes", "Blork", "Boris", "Donald", "Duane", "Edmund", "Erica", "Erolcha", "Frances", "Francis", "Frederick", "Harold", "Iyjb", "Jessica", "Joseph", "Josephine", "Jozef", "Louise", "Margery", "Maud", "Michael", "Norbert", "Norris", "Polyphemus", "Psyche", "Rupert", "Sigmund", "Snorg", "Terence", "Tiamat", "Urug", "Wayne", "Xtahua")
+total_uniques=34 #wow!
 
 def parse_logline(logline):
   """This function takes a logfile line, which is mostly separated by colons,
@@ -82,11 +83,11 @@ def get_unique_name(string):
   stays the same. This function takes the string and returns the name of the
   unique, since we don't care if Sigmund drowned or burned to a crisp or was
   banished or fell down the stairs or choked on his hat."""
-  # list_of_uniques = some_sort_of_query
   for name in list_of_uniques: 
     if re.search(name, string):
       return name
     # otherwise it was a Pan lord or Geryon or someone we don't track
+    return "gobbledygook"
 
 def has_killed_unique(player, unique):
   """Has the player killed this unique yet? Returns 1 or 0"""
@@ -202,7 +203,7 @@ def crunch_winner(game):
 
 def is_on_streak(game):
   """Was the most recently ended game before this one a win?"""
-  if some db munging:
+  if was_last_game_win(db, game['name']): 
     return 1
   return 0
 
