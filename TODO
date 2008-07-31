@@ -40,8 +40,10 @@ DB Query functions (greensnark working on this, but feel free to dive in):
   - 
 
 Team/clan setup (Anym?):
- - Examine .crawlrc files for clan affiliations.
-
+ - Examine .crawlrc files for clan affiliations. [DONE]
+ - So far, the function only gets called from loaddb.py. Is still needs
+   to called periodically, probably from taildb.py, and the periodic
+   calls need to stop after the deadline (see below).
 -----------------------------------------------------------------------
 Open Questions
 
