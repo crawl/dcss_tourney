@@ -231,6 +231,13 @@ def query_do(cursor, query, *values):
 def query_first(cursor, query, *values):
   return Query(query, *values).first(cursor)
 
+def query_first_def(cursor, default, query, *values):
+  q = Query(query, *values)
+  row = q.row(cursor)
+  if row is None:
+    return default
+  return row[0]
+
 def query_row(cursor, query, *values):
   return Query(query, *values).row(cursor)
 
@@ -429,14 +436,59 @@ def tail_milestones(cursor, filename, filehandle, offset=None):
 def extract_unique_name(kill_message):
   return R_KILL_UNIQUE.findall(kill_message)[0]
 
+def _player_count_unique_uniques(cursor, player):
+  """Given a player name, counts the number of distinct uniques the player
+  has killed by trawling through the kills_of_uniques table. This is more
+  expensive and lower-level than player_get_nunique_uniques, so use that
+  where possible."""
+  return query_first(cursor,
+                     '''SELECT COUNT(DISTINCT monster)
+                        FROM kills_of_uniques
+                        WHERE player = %s''',
+                     player)
+
+
+def player_get_nunique_uniques(cursor, player):
+  """Given a player name, looks up the number of distinct slain uniques
+  for the player by checking the kunique_times ref table. This is less
+  expensive than player_count_unique_uniques, and should be used unless
+  you know that kunique_times is out-of-date."""
+  return query_first_def(cursor,
+                         0,
+                         '''SELECT nuniques FROM kunique_times
+                            WHERE player = %s''',
+                         player)
+
 def add_unique_milestone(cursor, game):
   if not game['milestone'].startswith('banished '):
+    sqltime = datetime.to_sql(game['time'])
     query_do(cursor,
              '''INSERT INTO kills_of_uniques (player, kill_time, monster)
                 VALUES (%s, %s, %s);''',
              game['name'],
-             datetime.to_sql(game['time']),
+             sqltime,
              extract_unique_name(game['milestone']))
+
+    # Update a convenient lookup table that we can use for trophy calcs.
+    uniqcount = _player_count_unique_uniques(cursor, game['name'])
+    cachecount = player_get_nunique_uniques(cursor, game['name'])
+    if uniqcount > cachecount:
+      if cachecount == 0:
+        query_do(cursor,
+                 '''INSERT INTO kunique_times (player, nuniques, kill_time)
+                    VALUES (%s,
+                            (SELECT COUNT(DISTINCT monster)
+                             FROM kills_of_uniques
+                             WHERE player = %s),
+                            %s)''',
+                 game['name'], game['name'], sqltime)
+      else:
+        query_do(cursor,
+                 '''UPDATE kunique_times
+                    SET nuniques = %s, kill_time = %s
+                    WHERE player = %s
+                    AND nuniques < %s''',
+                 uniqcount, sqltime, game['name'], uniqcount)
 
 def add_ghost_milestone(cursor, game):
   if not game['milestone'].startswith('banished '):

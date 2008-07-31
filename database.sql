@@ -6,6 +6,7 @@ DROP TABLE IF EXISTS games;
 DROP TABLE IF EXISTS kills_by_ghosts;
 DROP TABLE IF EXISTS kills_of_ghosts;
 DROP TABLE IF EXISTS kills_of_uniques;
+DROP TABLE IF EXISTS kunique_times;
 DROP TABLE IF EXISTS rune_finds;
 
 CREATE TABLE IF NOT EXISTS players (
@@ -107,17 +108,17 @@ CREATE TABLE kills_of_uniques (
   monster CHAR(20)
   );
 
+CREATE INDEX kill_uniq_pmons ON kills_of_uniques (player, monster);
+
 -- Keep track of who's killed how many uniques, and when they achieved this.
 CREATE TABLE kunique_times (
-  player CHAR(20) NOT NULL,
+  player CHAR(20) PRIMARY KEY,
   -- Number of distinct uniques slain.
   nuniques INT DEFAULT 0 NOT NULL,
   -- When this number was reached.
   kill_time DATETIME NOT NULL,
   FOREIGN KEY (player) REFERENCES players (name) ON DELETE CASCADE
   );
-
-CREATE INDEX kill_uniq_pmons ON kills_of_uniques (player, monster);
 
 CREATE TABLE rune_finds (
   player CHAR(20),
