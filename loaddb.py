@@ -606,6 +606,14 @@ def load_extensions():
     if 'TIMER' in dir(module):
       add_timed(module.TIMER)
 
+def init_listeners(db):
+  for e in listeners:
+    e.initialize(db)
+
+def cleanup_listeners(db):
+  for e in listeners:
+    e.cleanup(db)
+
 if __name__ == '__main__':
   logging.basicConfig(level=logging.DEBUG)
   print "Populating db (one-off) with logfiles and milestones. " + \
@@ -614,9 +622,7 @@ if __name__ == '__main__':
   load_extensions()
 
   db = connect_db()
-
-  for e in listeners:
-    e.initialize(db)
+  init_listeners(db)
 
   def proc_file(fn, filename):
     info("Updating db with %s" % filename)
@@ -637,5 +643,5 @@ if __name__ == '__main__':
 
   teams.insert_teams(db.cursor(), teams.get_teams(CRAWLRC_DIRECTORY))
 
-  for e in listeners:
-    e.cleanup(db)
+  cleanup_listeners(db)
+  db.close()

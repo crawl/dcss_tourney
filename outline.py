@@ -147,6 +147,8 @@ def crunch_winner(c, game):
     # Any win gets 10 points at this point.
     assign_points(c, game['name'], 10)
 
+  # For one or more prior wins, check streaks
+  if n_my_wins >= 1:
     # Check if this is a streak. streak_wins will be empty if not on
     # a streak.
     streak_wins = query.wins_in_streak_before(c, game['name'], game['end'])
@@ -156,7 +158,10 @@ def crunch_winner(c, game):
 
       # 100, 30, 10 points for streak games based on no repeat, xor, repeat.
       assign_points(c, game['name'], get_points(streak_repeats, 100, 30, 10))
-    else:
+
+    # If this is a non-streak win, make sure we're not on the second win,
+    # since we've already done the bonus points for that above.
+    elif n_my_wins >= 2:
       assign_points(c, game['name'], get_points(repeated, 30, 10))
 
 def is_all_runer(game):
@@ -223,6 +228,3 @@ def whereis(player):
   if (status != 'won') and (status != 'bailed out'):
     return ("%s the %s (L%s %s)%s %s %s %s%s%s." % (player, sktitle, details['xl'], details['char'], godstr, prestr, prep, replace(details['place'], ';', ':'), datestr, turnstr))
   return ("Whereis information for %s is not currently available." % (player))
-
-def get_current_winners_of_temporary_prizes():
-  """is this a function we want, violet?"""

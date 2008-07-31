@@ -69,6 +69,8 @@ def tail_logfiles(logs, milestones, interval=60):
       [ MilestoneFile(x) for x in milestones ]
 
   db = loaddb.connect_db()
+  loaddb.init_listeners(db)
+
   cursor = db.cursor()
   try:
     while True:
@@ -78,9 +80,12 @@ def tail_logfiles(logs, milestones, interval=60):
       time.sleep(interval)
   finally:
     cursor.close()
+    loaddb.cleanup_listeners(db)
     db.close()
 
 if __name__ == '__main__':
+  loaddb.load_extensions()
+
   logging.basicConfig(level=logging.DEBUG,
                       filename = BASEDIR + '/taildb.log')
   crawl_utils.daemonize(BASEDIR + '/taildb.lock')
