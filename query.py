@@ -131,17 +131,20 @@ def player_count_runes(cursor, player):
 ###################################################################
 # Super experimental team stuff. None of this is set in stone.
 
-def team_exists(cursor, team_name):
+def team_exists(cursor, owner):
+  """Returns the name of the team owned by 'owner', or None if there is no
+  team owned by her."""
   row = query_row(cursor,
-                  '''SELECT id FROM teams WHERE name = %s''', team_name)
-  return row is not None
+                  '''SELECT name FROM teams WHERE owner = %s''', owner)
+  if row is None:
+    return None
+  return row[0]
 
-def _add_player_to_team(cursor, team, player):
+def _add_player_to_team(cursor, team_owner, player):
   query_do(cursor,
-           '''UPDATE players
-              SET team = (SELECT id FROM teams WHERE name = %s)
+           '''UPDATE players SET team_captain = %s
               WHERE name = %s''',
-           team, player)
+           team_owner, player)
 
 def wrap_transaction(fn):
   """Given a function, returns a function that accepts a cursor and arbitrary
@@ -160,25 +163,20 @@ def create_team(cursor, team, owner_name):
   """Creates a team with the given name, owned by the named player."""
   check_add_player(cursor, owner_name)
   def _create_team(cursor):
-    query_do(cursor, 'INSERT INTO teams (name) VALUES (%s)', team)
-    query_do(cursor, '''INSERT INTO team_owners (team, owner)
-                        VALUES ((SELECT id FROM teams WHERE name = %s),
-                                 %s)''',
-             team, owner_name)
+    query_do(cursor, '''INSERT INTO teams (owner, name) VALUES (%s, %s)
+                        ON DUPLICATE KEY UPDATE name = %s''',
+             owner_name, team, team)
     # Add the team owner herself to the team.
-    _add_player_to_team(cursor, team, owner_name)
+    _add_player_to_team(cursor, owner_name, owner_name)
 
   wrap_transaction(_create_team)(cursor)
 
-def get_team_owner(cursor, team):
-  row = query_row(cursor,
-                  '''SELECT owner FROM team_owners
-                     WHERE team = (SELECT id FROM teams
-                                   WHERE name = %s)''',
-                  team)
-  if row is None:
-    return None
-  return row[0]
+def get_team_owners(cursor, team):
+  """Returns the owners of all teams with the given name."""
+  rows = query_rows(cursor,
+                    '''SELECT owner FROM teams WHERE name=%s''',
+                    team)
+  return [r[0] for r in rows]
 
 def check_add_player(cursor, player):
   """Checks whether a player exists in the players table,
@@ -191,21 +189,20 @@ def check_add_player(cursor, player):
     # just now
     pass
 
-def add_player_to_team(cursor, team, player):
+def add_player_to_team(cursor, team_owner, player):
   """Adds the named player to the named team. Integrity checks are left to
   the db."""
   check_add_player(cursor, player)
-  wrap_transaction(_add_player_to_team)(cursor, team, player)
+  wrap_transaction(_add_player_to_team)(cursor, team_owner, player)
 
-def players_in_team(cursor, team):
+def players_in_team(cursor, team_owner):
   """Returns a list of all the players in the team, with the team's
   owner first."""
   prows = query_rows(cursor,
                      '''SELECT name FROM players
-                        WHERE team = (SELECT id FROM teams WHERE name = %s)''',
-                     team)
+                        WHERE team_owner = %s'''
+                     team_owner)
   players = [x[0] for x in prows]
-  leader = get_team_owner(cursor, team)
-  players.remove(leader)
-  players.insert(0, leader)
+  players.remove(team_owner)
+  players.insert(0, team_owner)
   return players
