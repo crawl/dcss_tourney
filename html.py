@@ -1,6 +1,6 @@
 import query
 
-STOCK_COLUMNS = \
+STOCK_WIN_COLUMNS = \
     [ ('player', 'Player'),
       ('score', 'Score', True),
       ('charabbrev', 'Character'),
@@ -10,6 +10,20 @@ STOCK_COLUMNS = \
       ('runes', 'Runes'),
       ('end_time', 'Time', True)
     ]
+
+STOCK_COLUMNS = \
+    [ ('player', 'Player'),
+      ('score', 'Score', True),
+      ('charabbrev', 'Character'),
+      ('place', 'Place'),
+      ('verb_msg', 'Death'),
+      ('turn', 'Turns'),
+      ('duration', 'Duration'),
+      ('god', 'God'),
+      ('runes', 'Runes'),
+      ('end_time', 'Time', True)
+    ]
+
 
 def fixup_column(col, data):
   if col.find('time') != -1:
@@ -36,9 +50,48 @@ def pretty_date(date):
                                             date.hour, date.minute,
                                             date.second)
 
+def wrap_tuple(x):
+  if isinstance(x, tuple):
+    return x
+  else:
+    return (x,)
+
+def table_text(headers, data, cls=None, count=True, link=None):
+  if cls:
+    cls = ''' class="%s"''' % cls
+  out = '''<table%s>\n<tr>''' % (cls or '')
+
+  headers = [ wrap_tuple(x) for x in headers ]
+
+  if count:
+    out += "<th></th>"
+  for head in headers:
+    out += "<th>%s</th>" % head[0]
+  out += "</tr>\n"
+  odd = True
+
+  nrow = 0
+  for row in data:
+    nrow += 1
+    out += '''<tr class="%s">''' % (odd and "odd" or "even")
+    odd = not odd
+
+    if count:
+      out += '''<td class="numeric">%s</td>''' % nrow
+
+    for c in range(len(headers)):
+      val = row[c]
+      tcls = isinstance(val, str) and "celltext" or "numeric"
+      out += '''<td class="%s">''' % tcls
+      out += str(val)
+      out += '</td>'
+    out += "</tr>\n"
+  out += '</table>\n'
+  return out
+
 def games_table(games, first=None, excluding=None, columns=None,
-                cls=None, count=True):
-  columns = columns or STOCK_COLUMNS
+                cls=None, count=True, win=True):
+  columns = columns or (win and STOCK_WIN_COLUMNS or STOCK_COLUMNS)
 
   if excluding:
     columns = [c for c in columns if c[0] not in excluding]
@@ -64,6 +117,7 @@ def games_table(games, first=None, excluding=None, columns=None,
   for game in games:
     ngame += 1
     out += '''<tr class="%s">''' % (odd and "odd" or "even")
+    odd = not odd
 
     if count:
       out += '''<td class="numeric">%s</td>''' % ngame
@@ -83,3 +137,32 @@ def games_table(games, first=None, excluding=None, columns=None,
     out += "</tr>\n"
   out += "</table>\n"
   return out
+
+def combo_highscorers(c):
+  hs = query.get_top_combo_highscorers(c)
+  return table_text( [ 'Player', 'Combo scores' ],
+                     hs )
+
+def deepest_xl1_games(c):
+  games = query.get_deepest_xl1_games(c)
+  return games_table(games, first = 'place', win=False)
+
+def hyperlink_games(games, field):
+  hyperlinks = [ query.morgue_link(g) for g in games ]
+  text = [ '<a href="%s">%s</a>' % (link, g[field])
+           for link, g in zip(hyperlinks, games) ]
+  return ", ".join(text)
+
+def best_streaks(c):
+  streaks = query.get_top_streaks(c)
+  # Replace the list of streak games with hyperlinks.
+  for s in streaks:
+    streak_games = s.pop()
+    streak_start = streak_games[0]['start_time']
+    s.insert(2, pretty_date(streak_start))
+    # Also fixup end date.
+    s[3] = pretty_date(s[3])
+    s.append( hyperlink_games(streak_games, 'charabbrev') )
+
+  return table_text( [ 'Player', 'Streak', 'Start', 'End', 'Games' ],
+                     streaks )

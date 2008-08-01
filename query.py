@@ -46,26 +46,57 @@ def win_query(selected, order_by = None,
     query.append(" LIMIT %d" % limit)
   return query
 
+def get_top_streaks(c, how_many = 10):
+  streaks = query_rows(c, '''SELECT player, streak, streak_time
+                             FROM streaks
+                             ORDER BY streak DESC, streak_time
+                             LIMIT %d''' % how_many)
+  # Convert tuples to lists.
+  streaks = [ list(x) for x in streaks ]
+  # And the fourth item in each row has to be a list of the streak games.
+  # And haha, you thought this was easy? :P
+  for streak in streaks:
+    streak.append( get_streak_games(c, streak[0], streak[2]) )
+  return streaks
+
 def get_top_players(c, how_many=10):
   return query_rows(c,
                     '''SELECT name, score_full FROM players
                        ORDER BY score_full DESC
                        LIMIT %d''' % how_many)
 
+def get_top_unique_killers(c, how_many=3):
+  return query_rows(c,
+                    '''SELECT player, nuniques, kill_time FROM kunique_times
+                       ORDER BY nuniques DESC, kill_time
+                       LIMIT %d''' % how_many)
+
+def get_top_combo_highscorers(c, how_many=3):
+  return query_rows(c,
+                    '''SELECT player, nscores FROM combo_hs_scoreboard
+                       ORDER BY nscores DESC LIMIT %d''' % how_many)
+
+def get_deepest_xl1_games(c, how_many=3):
+  return find_games(c, xl = 1, sort_max = 'lvl', limit = how_many)
+
+def get_streak_games(c, player, end_time):
+  q = Query('SELECT ' + ",".join(LOG_FIELDS) + ' FROM games ' +
+            '''WHERE player = %s
+               AND end_time >
+                     (SELECT MAX(end_time) FROM games
+                      WHERE player = %s
+                      AND end_time < %s
+                      AND killertype != 'winning')
+               AND end_time <= %s
+               ORDER BY end_time''',
+            player, player, end_time, end_time)
+  return [ row_to_xdict(x) for x in q.rows(c) ]
+
 def wins_in_streak_before(c, player, before):
   """Returns all the wins in the streak before the given game. Caller
   must ensure that there actually are wins before this game!"""
-  query = Query('''SELECT charabbrev FROM games
-                   WHERE player = %s
-                   AND end_time >
-                         (SELECT MAX(end_time) FROM games
-                          WHERE player = %s
-                          AND end_time < %s
-                          AND killertype != 'winning')
-                   AND end_time < %s
-                   ORDER BY end_time''',
-                player, player, before, before)
-  return [ x[0] for x in query.rows(c) ]
+  streak_games = get_streak_games(c, player, before)
+  return [ x['charabbrev'] for x in streak_games[0 : -1] ]
 
 def count_wins(c, **selectors):
   """Return the number wins recorded for the given player, optionally with
@@ -82,9 +113,13 @@ def get_wins(c, **selectors):
 def row_to_xdict(row):
   return dict( zip(LOG_FIELDS, row) )
 
-def find_games(c, sort_min='end_time', sort_max=None, limit=1, **dictionary):
+def find_games(c, sort_min=None, sort_max=None, limit=1, **dictionary):
   """Finds all games matching the supplied criteria, all criteria ANDed
   together."""
+
+  if sort_min is None and sort_max is None:
+    sort_min = 'end_time'
+
   query = Query('SELECT ' + ",".join(LOG_FIELDS) + ' FROM games')
   where = ''
   values = []

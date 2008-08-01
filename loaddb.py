@@ -269,6 +269,10 @@ def xlog_dict(logline):
   # Fake a raceabbr field.
   if d.get('char'):
     d['raceabbr'] = d['char'][0:2]
+
+  if d.get('tmsg') and not d.get('vmsg'):
+    d['vmsg'] = d['tmsg']
+
   # Fixup rune madness where one or the other is set, but not both.
   if d.get('nrune') is not None or d.get('urune') is not None:
     d['nrune'] = d.get('nrune') or d.get('urune')

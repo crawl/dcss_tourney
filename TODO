@@ -12,13 +12,13 @@ Front page (rax/violetj?):
  - Leading clan
  - [DONE] Fastest realtime win
  - [DONE] Fastest turncount win
- - First 15-rune win
- - Most uniques killed
- - Most high scores (across character combinations)
- - Deepest DL at XL1
+ - [DONE] First 15-rune win
+ - [DONE] Most uniques killed
+ - [DONE] Most high scores (across character combinations)
+ - [DONE] Deepest DL at XL1
  - Clan Unique Kills
  - Clan High Scores
- - Longest streak
+ - [DONE] Longest streak
  - Easiest scores to snipe (lowest high-scores for character combinations)
 There is a script, update-page.py, that should do all of this... except
 that all of the actual db-accessing functions are just stubs, because 

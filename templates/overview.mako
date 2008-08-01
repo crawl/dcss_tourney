@@ -1,3 +1,8 @@
+<%
+   import query, loaddb, html
+   c = attributes['cursor']
+%>
+
 <html>
   <head>
     <title>Crawl Tournament Leaderboard 2008</title>
@@ -32,43 +37,43 @@
       <tr>
         <td class="tdover">
           <h3>Most High Scores</h3>
-          <!-- include file="most-high-scores.mako" -->
+          ${html.combo_highscorers(c)}
         </td>
      
         <td class="tdover">
-	  <h3>Most Uniques Killed</h3>
-	  <!-- include file="most-uniques-killed.mako" -->
-	</td>
+	      <h3>Most Uniques Killed</h3>
+          <%include file="most-uniques-killed.mako"/>
+	    </td>
       </tr>
 
       <tr>
         <td class="tdover">
-	  <h3>Lowest DL at XL1</h3>
-	  <!-- include file="lowest-dl.mako" -->
-	</td>
-
-	<td class="tdover">
-	  <h3>Longest Streak</h3>
-	  <!-- include file="longest-streak.mako -->
-	</td>
+	      <h3>Lowest DL at XL1</h3>
+          ${html.deepest_xl1_games(c)}
+	    </td>
+        
+	    <td class="tdover">
+	      <h3>Longest Streak</h3>
+          ${html.best_streaks(c)}
+	    </td>
       </tr>
 
       <tr>
         <td class="tdover">
-	  <h3>Most High Scores: Clan</h3>
-	  <!-- include file="clan-most-high-scores.mako" -->
-	</td>
+	      <h3>Most High Scores: Clan</h3>
+	      <!-- include file="clan-most-high-scores.mako" -->
+	    </td>
 
-	<td class="tdover">
-	  <h3>Most Uniques Killed: Clan</h3>
-	  <!-- include file="clan-most-uniques-killed.mako" -->
-	</td>
+	    <td class="tdover">
+	      <h3>Most Uniques Killed: Clan</h3>
+	      <!-- include file="clan-most-uniques-killed.mako" -->
+	    </td>
       </tr>
 
       <tr>
         <td class="tdover">
-	  <table>
-	    <tr>
+	      <table>
+	        <tr>
               <td>
                 <h3>Leading Players</h3>
 	        <%include file="overall-scores.mako"/>
@@ -88,7 +93,6 @@
 	</td>
       </tr>
 
-      
     </table>
   </body>
 </html>

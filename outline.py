@@ -52,8 +52,6 @@ def act_on_milestone(c, this_mile):
   Then, depending on what type of milestone it is (key "type"), another
   function may be called to finish the job on the milestone line. Milestones
   have the same broken :: behavior as logfile lines, yay."""
-  if loaddb.is_not_tourney(this_mile):
-    return # games started before the tournament are worth diddly
   if this_mile['type'] == 'unique' and \
         not this_mile['milestone'].startswith('banished '):
     do_milestone_unique(c, this_mile)
@@ -98,9 +96,6 @@ def act_on_logfile_line(c, this_game):
   irrevocable points and those should be assigned immediately. Revocable
   points (high scores, lowest dungeon level, fastest wins) should be
   calculated elsewhere."""
-  if loaddb.is_not_tourney(this_game):
-    return # this game does not count!
-
   if this_game['ktyp'] == 'winning':
     crunch_winner(c, this_game) # lots of math to do for winners
 
