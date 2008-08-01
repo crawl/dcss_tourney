@@ -34,6 +34,10 @@ def tourney_overview(c):
   info("Updating overview page")
   render(c, 'overview')
 
+def team_page(c):
+  info("Updating team page")
+  render(c, 'teams')
+
 def update_scoring_page(c):
   """Master function!"""
   add_to_page(headers)
@@ -105,7 +109,6 @@ def new_table_element(string, function):
   add_to_page("<td>" + string + "\n" + function + "</td>")
 
 
-
 def format_line(data, thing, sortindex):
   """Make a line of the appropriate sort for the thing and sortindex.
   Currently assumes we get things in order... and that sortindex works...
@@ -122,9 +125,15 @@ def add_to_page(string):
   return
 
 # Update tourney overview every 5 mins.
-TIMER = [ loaddb.define_timer( 5 * 60, tourney_overview ) ]
-LISTENER = [ loaddb.define_cleanup(tourney_overview) ]
+TIMER = [ loaddb.define_timer( 5 * 60, tourney_overview ),
+          loaddb.define_timer( 5 * 60, team_page ) ]
+LISTENER = [ loaddb.define_cleanup(tourney_overview),
+             loaddb.define_cleanup(team_page) ]
 
 if __name__ == '__main__':
-  c = query._cursor()
-  tourney_overview(c)
+  db = loaddb.connect_db()
+  try:
+    for l in LISTENER:
+      l.cleanup(db)
+  finally:
+    db.close()
