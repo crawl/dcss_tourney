@@ -4,7 +4,7 @@ import mako.template
 import mako.lookup
 import os
 import os.path
-
+import loaddb
 import query
 
 from logging import debug, info, warn, error
@@ -17,11 +17,6 @@ MAKO_LOOKUP = mako.lookup.TemplateLookup(directories = [ TEMPLATE_DIR ])
 # So we have to update the scoring page pretty frequently.
 # Right now I am just going to pseudocode the basic logic,
 # because I am not actually fluent in Python.
-
-page = "" # aw yeah global variables all up in this I am going to hell
-          # HELL i tell you
-headers = "<html><head><title>Crawl Tournament Leaderboard 2008</title></head><body>\n"
-footers = "</body></html>"
 
 def render(c, page):
   target = "%s/%s.html" % (SCORE_FILE_DIR, page)
@@ -37,6 +32,7 @@ def render(c, page):
     raise
 
 def tourney_overview(c):
+  info("Updating overview page")
   render(c, 'overview')
 
 def update_scoring_page(c):
@@ -125,6 +121,9 @@ def add_to_page(string):
   """put together a page! yeah"""
   page = page + string + "\n"
   return
+
+# Update tourney overview every 5 mins.
+TIMER = [ loaddb.define_timer( 5 * 60, tourney_overview ) ]
 
 if __name__ == '__main__':
   c = query._cursor()

@@ -50,8 +50,12 @@ class CrawlEventListener(object):
     pass
 
 class CrawlTimerListener:
+  def __init__(self, fn=None):
+    self.fn = fn
+
   def run(self, cursor, elapsed_time):
-    pass
+    if self.fn:
+      self.fn(cursor)
 
 class CrawlTimerState:
   def __init__(self, interval, listener):
@@ -711,6 +715,9 @@ def add_listener(listener):
 
 def add_timed(interval, timed):
   TIMERS.append(CrawlTimerState(interval, timed))
+
+def define_timer(interval, fn):
+  return (interval, CrawlTimerListener(fn))
 
 def run_timers(c, elapsed_time):
   for timer in TIMERS:
