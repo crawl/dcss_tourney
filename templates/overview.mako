@@ -63,16 +63,13 @@
       <tr>
         <td class="tdover">
 	      <h3>Most High Scores: Clan</h3>
-	      <!-- include file="clan-most-high-scores.mako" -->
+          ${html.clan_combo_highscores(c)}
 	    </td>
 
-        <%doc>
-        ## We could do the raw number of uniques killed instead.
 	    <td class="tdover">
 	      <h3>Most Uniques Killed: Clan</h3>
-	      <!-- include file="clan-most-uniques-killed.mako" -->
+          ${html.clan_unique_kills(c)}
 	    </td>
-        </%doc>
       </tr>
 
       <tr>
@@ -86,7 +83,7 @@
 
 	          <td> 
 	            <h3>Leading Clans</h3>
-	            <!-- include file="overall-team-scores.mako" -->
+                ${html.best_clans(c)}
 	          </td>
        	    </tr>
 	  </table>

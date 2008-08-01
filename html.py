@@ -166,3 +166,17 @@ def best_streaks(c):
 
   return table_text( [ 'Player', 'Streak', 'Start', 'End', 'Games' ],
                      streaks )
+
+def best_clans(c):
+  clans = query.get_top_clan_scores(c)
+  return table_text( [ 'Clan', 'Captain', 'Points' ],
+                     clans )
+
+def clan_unique_kills(c):
+  ukills = query.get_top_clan_unique_kills(c)
+  return table_text( [ 'Clan', 'Captain', 'Unique Kills' ],
+                     ukills )
+
+def clan_combo_highscores(c):
+  return table_text( [ 'Clan', 'Captain', 'Combo Highscores' ],
+                     query.get_top_clan_combos(c) )

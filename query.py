@@ -58,6 +58,27 @@ def get_top_streaks(c, how_many = 10):
     streak.append( get_streak_games(c, streak[0], streak[2]) )
   return streaks
 
+def get_top_clan_scores(c, how_many=3):
+  clans = query_rows(c, '''SELECT name, owner, total_score
+                           FROM teams
+                           ORDER BY total_score DESC
+                           LIMIT %d''' % how_many)
+  return clans
+
+def get_top_clan_unique_kills(c, how_many=3):
+  return query_rows(c, '''SELECT c.name, u.team_captain, u.kills
+                          FROM teams c, clan_unique_kills u
+                          WHERE c.owner = u.team_captain
+                          ORDER BY u.kills DESC
+                          LIMIT %d''' % how_many)
+
+def get_top_clan_combos(c, how_many = 3):
+  return query_rows(c, '''SELECT c.name, hs.team_captain, hs.combos
+                          FROM teams c, combo_hs_clan_scoreboard hs
+                          WHERE c.owner = hs.team_captain
+                          ORDER BY hs.combos DESC
+                          LIMIT %d''' % how_many)
+
 def _canonicalize_player_name(c, player):
   row = query_row(c, '''SELECT name FROM players WHERE name = %s''',
                   player)
