@@ -3,13 +3,8 @@
    c = attributes['cursor']
 
    game_text = \
-      html.games_table( [ ('player', 'Player'),
-                          ('end_time', 'Time', True),
-                          ('score', 'Score', True),
-                          ('charabbrev', 'Character'),
-                          ('god', 'God'),
-                          ('turn', 'Turns') ],
-                        query.find_games(c, killertype='winning', limit=3) )
+      html.games_table( query.find_games(c, killertype='winning', limit=3),
+                        first = 'end_time' )
 %>
 
 ${game_text}

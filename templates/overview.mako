@@ -1,5 +1,6 @@
 <html>
   <head>
+    <title>Crawl Tournament Leaderboard 2008</title>
     <link rel="stylesheet" type="text/css" href="tourney-score.css"/>
   </head>
   <body>
@@ -28,6 +29,14 @@
         </td>
       </tr>
 
+      <tr>
+        <td class="tdover">
+          <h3>First all-rune wins</h3>
+          <%include file="first-allrune.mako"/>
+        </td>
+      </tr>
+
+      
     </table>
   </body>
 </html>

@@ -4,9 +4,8 @@
 
    game_text = \
       html.games_table( query.find_games(c, killertype='winning',
-                                         sort_min = 'duration',
-                                         limit=3),
-                        first = 'duration' )
+                                         runes = query.MAX_RUNES,
+                                         limit=3) )
 %>
 
 ${game_text}

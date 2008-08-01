@@ -1,5 +1,15 @@
 import query
 
+STOCK_COLUMNS = \
+    [ ('player', 'Player'),
+      ('score', 'Score', True),
+      ('charabbrev', 'Character'),
+      ('turn', 'Turns'),
+      ('duration', 'Duration'),
+      ('god', 'God'),
+      ('runes', 'Runes'),
+      ('end_time', 'Time', True)
+    ]
 
 def fixup_column(col, data):
   if col.find('time') != -1:
@@ -26,7 +36,21 @@ def pretty_date(date):
                                             date.hour, date.minute,
                                             date.second)
 
-def games_table(columns, games, cls=None, count=True):
+def games_table(games, first=None, excluding=None, columns=None,
+                cls=None, count=True):
+  columns = columns or STOCK_COLUMNS
+
+  if excluding:
+    columns = [c for c in columns if c[0] not in excluding]
+
+  if first and not isinstance(first, tuple):
+    first = (first, 1)
+
+  if first and columns[0][0] != first[0]:
+    firstc = [ c for c in columns if c[0] == first[0] ]
+    columns = [ c for c in columns if c[0] != first[0] ]
+    columns.insert( first[1], firstc[0] )
+
   if cls:
     cls = ''' class="%s"''' % cls
   out = '''<table%s>\n<tr>''' % (cls or '')
