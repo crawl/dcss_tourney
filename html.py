@@ -1,11 +1,30 @@
 import query
 
+
 def fixup_column(col, data):
   if col.find('time') != -1:
-    return "%04d-%02d-%02d %02d:%02d:%02d" % (data.year, data.month, data.day,
-                                              data.hour, data.minute,
-                                              data.second)
+    return pretty_date(data)
+  elif col.find('duration') != -1:
+    return pretty_dur(data)
   return data
+
+def pretty_dur(dur):
+  secs = dur % 60
+  dur /= 60
+  mins = dur % 60
+  dur /= 60
+  hours = dur % 24
+  dur /= 24
+  days = dur
+  stime = "%02d:%02d:%02d" % (hours, mins, secs)
+  if days > 0:
+    stime = str(days) + ", " + stime
+  return stime
+
+def pretty_date(date):
+  return "%04d-%02d-%02d %02d:%02d:%02d" % (date.year, date.month, date.day,
+                                            date.hour, date.minute,
+                                            date.second)
 
 def games_table(columns, games, cls=None, count=True):
   if cls:

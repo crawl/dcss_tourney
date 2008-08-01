@@ -16,7 +16,6 @@
         </td>
       </tr>
 
-      <%doc>
       <tr>
         <td class="tdover">
           <h3>Fastest win (turn count)</h3>
@@ -28,7 +27,6 @@
           <%include file="fastest-time.mako"/>
         </td>
       </tr>
-      </%doc>
 
     </table>
   </body>
