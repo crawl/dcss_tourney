@@ -24,6 +24,7 @@ DROP VIEW IF EXISTS clan_total_scores;
 DROP VIEW IF EXISTS clan_unique_kills;
 DROP VIEW IF EXISTS game_combo_win_highscores;
 DROP VIEW IF EXISTS combo_hs_scoreboard;
+DROP VIEW IF EXISTS combo_hs_clan_scoreboard;
 DROP VIEW IF EXISTS streak_scoreboard;
 
 CREATE TABLE IF NOT EXISTS players (
