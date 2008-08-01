@@ -37,10 +37,10 @@ class TeamTimer (loaddb.CrawlTimerListener):
     def run(self, cursor, elapsed):
         insert_teams(cursor, get_teams(loaddb.CRAWLRC_DIRECTORY))
 
-LISTENER = TeamListener()
+LISTENER = [ TeamListener() ]
 
 # Run the timer every 5 minutes to refresh team stats.
-TIMER = [ 5 * 60 , TeamTimer() ]
+TIMER = [ ( 5 * 60 , TeamTimer() ) ]
 
 def get_teams(directory):
     '''Searches all *.crawlrc files in the given directory for team information

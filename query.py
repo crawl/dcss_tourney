@@ -41,6 +41,12 @@ def win_query(selected, order_by = None,
     query.append(' ' + order_by)
   return query
 
+def get_top_players(c, how_many=10):
+  return query_rows(c,
+                    '''SELECT name, score_full FROM players
+                       ORDER BY score_full DESC
+                       LIMIT %d''' % how_many)
+
 def wins_in_streak_before(c, player, before):
   """Returns all the wins in the streak before the given game. Caller
   must ensure that there actually are wins before this game!"""

@@ -1,0 +1,33 @@
+table {
+    border: 1px solid #000;
+    border-collapse: collapse;
+}
+
+col {
+    border-style: 1px solid;
+}
+
+td {
+    margin: 6px;
+    padding: 6px;
+    border: 1px solid #000;
+}
+
+.numeric {
+    text-align: right;
+}
+
+th {
+    font-weight: bold;
+    background: #ffffe0;
+}
+
+table.overview {
+    border: 0px;
+}
+
+.tdover {
+    border: 0px;
+    padding: 2px;
+    margin: 2px;
+}

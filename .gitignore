@@ -1,6 +1,8 @@
 *.swp
 *.pyc
 cao-*
+cdo-*
 allgames*.txt
 *-logfile
 *.diff
+points.out

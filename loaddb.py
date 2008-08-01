@@ -11,12 +11,14 @@ import ConfigParser
 import imp
 import sys
 
-# Log and milestone files. We automatically treat anything containing
-# 'cao' as a local file.
-
-LOCAL_INDICATOR = 'cao'
+# Start of the tournament, UTC.
+START_TIME = '20080801'
+END_TIME   = '20080901'
 
 CDO = 'http://crawl.develz.org/'
+
+# Log and milestone files. A tuple indicates a remote file with t[1]
+# being the URL to wget -c from.
 
 LOGS = [ 'cao-logfile-0.4', ('cdo-logfile-0.4', CDO + 'allgames-rel.txt') ]
 
@@ -409,6 +411,13 @@ dbfield_to_sqltype = {
         'nrune':sql_int,
 	}
 
+def is_not_tourney(game):
+  """A game started before the tourney start or played after the end
+  doesn't count."""
+  start = game['start']
+  end = game.get('end') or game.get('time') or start
+  return start < START_TIME or end >= END_TIME
+
 def query_do(cursor, query, *values):
   Query(query, *values).execute(cursor)
 
@@ -573,6 +582,9 @@ def is_ghost_kill(game):
   return R_GHOST_NAME.search(killer)
 
 def process_log(cursor, filename, offset, d):
+  if is_not_tourney(d):
+    return
+
   ghost_kill = is_ghost_kill(d)
 
   # Add the player outside the transaction and suppress errors.
@@ -671,6 +683,9 @@ MILESTONE_HANDLERS = {
 }
 
 def add_milestone_record(c, filename, offset, d):
+  if is_not_tourney(d):
+    return
+
   # Add player entry outside the milestone transaction.
   check_add_player(c, d['name'])
 
@@ -709,9 +724,11 @@ def load_extensions():
     print "Loading %s as %s" % (filename, key)
     module = imp.load_source(key, filename)
     if 'LISTENER' in dir(module):
-      add_listener(module.LISTENER)
+      for l in module.LISTENER:
+        add_listener(l)
     if 'TIMER' in dir(module):
-      add_timed(*module.TIMER)
+      for t in module.TIMER:
+        add_timed(*t)
 
 def init_listeners(db):
   for e in LISTENERS:

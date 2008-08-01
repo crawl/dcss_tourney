@@ -23,11 +23,6 @@ from query import assign_points, assign_team_points
 #    and, if necessary, where players are: first priority is a "who is winning
 #    the obvious things"
 
-# Start of the tournament, UTC. FIXME: Set early for testing!
-START_TIME = '20080701'
-
-list_of_uniques=("Murray", "Agnes", "Blork", "Boris", "Donald", "Duane", "Edmund", "Erica", "Erolcha", "Frances", "Francis", "Frederick", "Harold", "Iyjb", "Jessica", "Joseph", "Josephine", "Jozef", "Louise", "Margery", "Maud", "Michael", "Norbert", "Norris", "Polyphemus", "Psyche", "Rupert", "Sigmund", "Snorg", "Terence", "Tiamat", "Urug", "Wayne", "Xtahua")
-
 class OutlineListener (loaddb.CrawlEventListener):
   def logfile_event(self, cursor, logdict):
     act_on_logfile_line(cursor, logdict)
@@ -46,10 +41,10 @@ class OutlineTimer (loaddb.CrawlTimerListener):
   def run(self, cursor, elapsed):
     update_player_scores(cursor)
 
-LISTENER = OutlineListener()
+LISTENER = [ OutlineListener() ]
 
 # Update player scores every 5 mins.
-TIMER = [ 5 * 60, OutlineTimer() ]
+TIMER = [ ( 5 * 60, OutlineTimer() ) ]
 
 def act_on_milestone(c, this_mile):
   """This function takes a milestone line, which is a string composed of key/
@@ -57,7 +52,7 @@ def act_on_milestone(c, this_mile):
   Then, depending on what type of milestone it is (key "type"), another
   function may be called to finish the job on the milestone line. Milestones
   have the same broken :: behavior as logfile lines, yay."""
-  if is_too_early(this_mile['start']):
+  if loaddb.is_not_tourney(this_mile):
     return # games started before the tournament are worth diddly
   if this_mile['type'] == 'unique' and \
         not this_mile['milestone'].startswith('banished '):
@@ -77,7 +72,7 @@ def do_milestone_unique(c, mile):
   # DB already has the record for this kill, so == 1 => first kill.
   if query.count_player_unique_kills(c, mile['name'], unique) > 1:
     return
-  assign_points(c, "unique", mile['name'], 5)
+  assign_points(c, "unique:" + unique, mile['name'], 5)
 
 def do_milestone_rune(c, mile):
   """When the player gets a rune for the first time, they get ten points.
@@ -103,7 +98,7 @@ def act_on_logfile_line(c, this_game):
   irrevocable points and those should be assigned immediately. Revocable
   points (high scores, lowest dungeon level, fastest wins) should be
   calculated elsewhere."""
-  if is_too_early(this_game['start']):
+  if loaddb.is_not_tourney(this_game):
     return # this game does not count!
 
   if this_game['ktyp'] == 'winning':
@@ -206,11 +201,6 @@ def is_all_runer(game):
 def number_of_allruners_before(c, game):
   """How many all-runers happened before this game? We can stop at 3."""
   return query.count_wins(c, runes = query.MAX_RUNES, before = game['end'])
-
-def is_too_early(time):
-  """A game started before the appropriate time doesn't count."""
-  # Games before tournament start are ignored.
-  return time < START_TIME
 
 def whereis(player):
   """We might want to know where a player is, either to display it on the

@@ -35,6 +35,8 @@ CREATE TABLE IF NOT EXISTS players (
   ON DELETE SET NULL
   );
 
+CREATE INDEX pscore ON players (score_full);
+
 CREATE TABLE teams (
   owner CHAR(20) UNIQUE NOT NULL,
   name VARCHAR(255) NOT NULL,
