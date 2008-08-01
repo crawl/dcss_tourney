@@ -36,9 +36,20 @@ class OutlineListener (loaddb.CrawlEventListener):
     act_on_milestone(cursor, milestone)
 
   def cleanup(self, db):
-    update_player_scores(db.cursor())
+    cursor = db.cursor()
+    try:
+      update_player_scores(cursor)
+    finally:
+      cursor.close()
+
+class OutlineTimer (loaddb.CrawlTimerListener):
+  def run(self, cursor, elapsed):
+    update_player_scores(cursor)
 
 LISTENER = OutlineListener()
+
+# Update player scores every 5 mins.
+TIMER = [ 5 * 60, OutlineTimer() ]
 
 def act_on_milestone(c, this_mile):
   """This function takes a milestone line, which is a string composed of key/

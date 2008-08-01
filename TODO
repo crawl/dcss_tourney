@@ -27,6 +27,20 @@ rax doesn't know how to get information out of the db :/
 
 General scoring (greensnark?):
 
+ - Grab cdo milestones: milestones-rel.txt from the same path as cdo logs.
+
+ - Crippling bug: we currently process logfile entries as they arrive
+   to calculate first win, etc. but this is WRONG given multiple
+   logfiles from multiple servers! Damn, this needs serious refactoring.
+
+ - Threaded logfile read:
+    - Make sure all logfiles are up-to-date before loaddb / taildb runs AND
+    - Read from all logfiles concurrently, threaded so that we pull entries
+      from the logfile with the lowest end-time. Same goes for milestones,
+      but threaded on milestone time field. The threading allows us to
+      retain our simplistic model of logfile / milestone updates to
+      calculate points.
+
  -[DONE] Process events as they arrive in logfile / milestones and assign points
    to players / clans.
 In theory outline.py has most of this, but a lot of functions have one or

@@ -6,8 +6,6 @@ import crawl_utils
 import logging
 from logging import debug, info, warn, error
 
-import teams
-
 BASEDIR = '/home/crawl'
 
 # Can run as a daemon and tail a number of logfiles and milestones and
@@ -56,12 +54,12 @@ class MilestoneFile (Xlogfile):
     Xlogfile.__init__(self, filename, loaddb.milestone_offset,
                       loaddb.tail_milestones)
 
-def tail_files(files):
+def tail_files(cursor, files):
   for logfile in files:
     logfile.append(cursor)
 
-def interval_work(interval, files):
-  tail_files(files)
+def interval_work(cursor, interval, files):
+  tail_files(cursor, files)
   # Any other stuff can be done here.
 
 def tail_logfiles(logs, milestones, interval=60):
@@ -72,12 +70,15 @@ def tail_logfiles(logs, milestones, interval=60):
   loaddb.init_listeners(db)
 
   cursor = db.cursor()
+  elapsed_time = 0
   try:
     while True:
-      interval_work(interval, files)
+      interval_work(cursor, interval, files)
       if not interval:
         break
+      loaddb.run_timers(cursor, elapsed_time)
       time.sleep(interval)
+      elapsed_time += interval
   finally:
     cursor.close()
     loaddb.cleanup_listeners(db)

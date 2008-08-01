@@ -1,3 +1,4 @@
 # Extensions to basic db dump go here.
 [extensions]
 outline =
+teams = 

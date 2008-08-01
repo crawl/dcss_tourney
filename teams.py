@@ -18,6 +18,29 @@ import fnmatch
 import re
 
 import query
+import loaddb
+
+import logging
+from logging import debug, info, warn, error
+
+# Register listener and timer.
+
+class TeamListener (loaddb.CrawlEventListener):
+    def cleanup(self, db):
+        cursor = db.cursor()
+        try:
+            insert_teams(cursor, get_teams(loaddb.CRAWLRC_DIRECTORY))
+        finally:
+            cursor.close()
+
+class TeamTimer (loaddb.CrawlTimerListener):
+    def run(self, cursor, elapsed):
+        insert_teams(cursor, get_teams(loaddb.CRAWLRC_DIRECTORY))
+
+LISTENER = TeamListener()
+
+# Run the timer every 5 minutes to refresh team stats.
+TIMER = [ 5 * 60 , TeamTimer() ]
 
 def get_teams(directory):
     '''Searches all *.crawlrc files in the given directory for team information
@@ -63,8 +86,8 @@ def get_teams(directory):
     return teams
 
 def insert_teams(cursor, teams):
+    info("Updating team information.")
     for captain in teams.iterkeys():
     	query.create_team(cursor, teams[captain][0], captain)
 	for player in teams[captain][1]:
 	    query.add_player_to_team(cursor, captain, player)
-

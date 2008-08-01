@@ -10,22 +10,6 @@ import ConfigParser
 import imp
 import sys
 
-import teams
-
-""" Other people working on scoring: You might want to take a look at
-converting all the methods to look and poke at the db that I wrote to
-use cursors instead of the db handle directly.
-
-Also, below is my suggestion for a way for dispatch to work, stubbed
-out.  Feel free to do something completely different if I'm cramping
-your style--I expect other people have plenty more time to work on this than
-I.  We may also want these to just dispatch to passed-in functions--we
-could keep the scoring functions for different things in outline.py or
-something.
-
---violet
-"""
-
 EXTENSION_FILE = 'modules.ext'
 TOURNAMENT_DB = 'tournament'
 LOGS = [ 'cao-logfile-0.4',
@@ -34,8 +18,8 @@ MILESTONES = [ 'cao-milestones-0.4' ]
 COMMIT_INTERVAL = 3000
 CRAWLRC_DIRECTORY = '/home/crawl/chroot/dgldir/rcfiles/'
 
-listeners = [ ]
-timers = [ ]
+LISTENERS = [ ]
+TIMERS = [ ]
 
 class CrawlEventListener(object):
   """The way this is intended to work is that on receipt of an event
@@ -54,18 +38,19 @@ class CrawlEventListener(object):
     pass
 
 class CrawlTimerListener:
-  def run(self, elapsed_time_since_start_seconds):
+  def run(self, cursor, elapsed_time):
     pass
 
 class CrawlTimerState:
   def __init__(self, interval, listener):
     self.listener = listener
     self.interval = interval
-    self.target   = self.interval
+    # Fire the first event immediately.
+    self.target   = 0
 
-  def run(self, elapsed):
+  def run(self, cursor, elapsed):
     if self.target <= elapsed:
-      self.listener.run(elapsed)
+      self.listener.run(cursor, elapsed)
       self.target = elapsed + self.interval
 
 def connect_db():
@@ -468,7 +453,7 @@ def tail_file_into_games(cursor, filename, filehandle, offset=None):
         record_ghost_kill(cursor, d)
 
       # Tell the listeners to do their thang
-      for listener in listeners:
+      for listener in LISTENERS:
         listener.logfile_event(cursor, d)
 
       cursor.execute('COMMIT;')
@@ -577,7 +562,7 @@ def add_milestone_record(c, filename, handle, offset, line):
       handler(c, d)
 
     # Tell the listeners to do their thang
-    for listener in listeners:
+    for listener in LISTENERS:
       listener.milestone_event(c, d)
 
     c.execute('COMMIT;')
@@ -609,10 +594,14 @@ def read_milestone_file(db, filename, filehandle):
     cursor.close()
 
 def add_listener(listener):
-  listeners.append(listener)
+  LISTENERS.append(listener)
 
 def add_timed(interval, timed):
-  timers.append(CrawlTimerState(interval, timed))
+  TIMERS.append(CrawlTimerState(interval, timed))
+
+def run_timers(c, elapsed_time):
+  for timer in TIMERS:
+    timer.run(c, elapsed_time)
 
 def load_extensions():
   c = ConfigParser.ConfigParser()
@@ -624,14 +613,14 @@ def load_extensions():
     if 'LISTENER' in dir(module):
       add_listener(module.LISTENER)
     if 'TIMER' in dir(module):
-      add_timed(module.TIMER)
+      add_timed(*module.TIMER)
 
 def init_listeners(db):
-  for e in listeners:
+  for e in LISTENERS:
     e.initialize(db)
 
 def cleanup_listeners(db):
-  for e in listeners:
+  for e in LISTENERS:
     e.cleanup(db)
 
 if __name__ == '__main__':
@@ -660,8 +649,6 @@ if __name__ == '__main__':
 
   for log in LOGS:
     proc_file(read_file_into_games, log)
-
-  teams.insert_teams(db.cursor(), teams.get_teams(CRAWLRC_DIRECTORY))
 
   cleanup_listeners(db)
   db.close()
