@@ -28,7 +28,7 @@
 -------
 5 points the first time you kill each unique. : covered in outline.py
 (CHANGES)
-50/20/10 points for most unique uniques killed; ties broken by who gets
+*50/20/10 points for most unique uniques killed; ties broken by who gets
   that number first. : covered in outline.py iff three people kill all of them
 
 (./)HIGH SCORES (CHANGES)
@@ -45,7 +45,7 @@ These get you clan points but do not get you points toward the individual
 prize, encouraging specialization on clans but making the hypothetical
 "Best Crawl Player" award based on more "real" metrics.
 
-(./)50/20/10 points for lowest dungeon level reached at XL1. (CHANGES)
+*(./)50/20/10 points for lowest dungeon level reached at XL1. (CHANGES)
 (YOURS)
 (./)2 points per player ghost killed when playing : covered in outline.py
 (./)N points per ghost kill after dying, where N is the dying character's 
