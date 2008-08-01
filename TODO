@@ -91,10 +91,13 @@ all of the things rax thinks we need...
   ---------------------------------------------------------
 
 Team/clan setup (Anym?):
- - Examine .crawlrc files for clan affiliations. [DONE]
- - So far, the function only gets called from loaddb.py. Is still needs
-   to called periodically, probably from taildb.py, and the periodic
-   calls need to stop after the deadline (see below).
+ - [DONE] Examine .crawlrc files for clan affiliations and add them to the
+   database.
+ - [DONE] Update the clan affiliations periodically.
+
+ - Freeze clan affiliations by the deadine, Aug 15 12:00:00 UTC, i.e.
+   tournament halftime.
+
 -----------------------------------------------------------------------
 Open Questions
 
