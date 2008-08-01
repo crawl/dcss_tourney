@@ -216,6 +216,19 @@ def get_players(c):
   return [r[0] for r in
           query_rows(c, 'SELECT name FROM players')]
 
+def get_clans(c):
+  return [r[0] for r in query_rows(c, 'SELECT owner FROM teams')]
+
+def say_points(who, what, points):
+  if points > 0:
+    debug("%s: ADD %d points [%s]" % (who, points, what))
+  return points
+
+def get_points(index, *points):
+  if index >= 0 and index < len(points):
+    return points[index];
+  return 0
+
 def assign_points(cursor, point_source, name, points):
   """Add points to a player's points in the db"""
   if points > 0:
@@ -235,6 +248,15 @@ def assign_team_points(cursor, point_source, name, points):
                 SET team_score_base = team_score_base + %s
                 WHERE name=%s;""",
              points, name)
+
+def set_clan_points(c, captain, points):
+  debug("TEAM %s: additional points = %d" % (captain, points))
+  query_do(c, '''UPDATE teams
+                 SET total_score =
+                    (SELECT score FROM clan_total_scores
+                     WHERE team_captain = %s) + %s
+                 WHERE owner = %s''',
+           captain, points, captain)
 
 def count_player_unique_kills(cursor, player, unique):
   return query_first(cursor,
@@ -276,6 +298,18 @@ def player_hs_combo_pos(c, player):
 def player_streak_pos(c, player):
   return find_place(query_rows(c, 'SELECT player FROM streak_scoreboard'),
                     player)
+
+def clan_combo_pos(c, owner):
+  return find_place(query_rows(c,
+                               '''SELECT team_captain FROM
+                                  combo_hs_clan_scoreboard'''),
+                    owner)
+
+def clan_unique_pos(c, owner, limit=3):
+  return find_place(query_rows(c,
+                               '''SELECT team_captain FROM
+                                  clan_unique_kills LIMIT %d''' % limit),
+                    owner)
 
 def count_hs_combos(c, player):
   return query_first(c,

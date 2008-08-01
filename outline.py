@@ -6,7 +6,7 @@ import query
 import logging
 from logging import debug, info, warn, error
 
-from query import assign_points, assign_team_points
+from query import assign_points, assign_team_points, say_points, get_points
 
 # So there are a few problems we have to solve:
 # 1. Intercepting new logfile events
@@ -104,11 +104,6 @@ def act_on_logfile_line(c, this_game):
     XL = this_game['xl']
     if XL > 5:
       assign_points(c, "gkill", ghost, (XL - 5))
-
-def get_points(index, *points):
-  if index >= 0 and index < len(points):
-    return points[index];
-  return 0
 
 def repeat_race_class(previous_chars, char):
   """Returns 0 if the game does not repeat a previous role or class, 1 if
@@ -250,11 +245,6 @@ def whereis(player):
 
 
 ###################### Additional scoring math ##########################
-
-def say_points(who, what, points):
-  if points > 0:
-    debug("%s: ADD %d points [%s]" % (who, points, what))
-  return points
 
 def player_additional_score(c, player, update=True):
   """Calculates the player's total score, including unchanging score and the

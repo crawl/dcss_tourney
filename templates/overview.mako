@@ -18,7 +18,6 @@
 	  <h3>First all-rune wins</h3>
 	  <%include file="first-allrune.mako"/>
  	</td>
-				     
         <td class="tdover">
           <h3>First Victory</h3>
           <%include file="first-victory.mako"/>
@@ -67,10 +66,13 @@
 	      <!-- include file="clan-most-high-scores.mako" -->
 	    </td>
 
+        <%doc>
+        ## We could do the raw number of uniques killed instead.
 	    <td class="tdover">
 	      <h3>Most Uniques Killed: Clan</h3>
 	      <!-- include file="clan-most-uniques-killed.mako" -->
 	    </td>
+        </%doc>
       </tr>
 
       <tr>

@@ -19,6 +19,8 @@ import re
 
 import query
 import loaddb
+import query
+from query import say_points, get_points
 
 import logging
 from logging import debug, info, warn, error
@@ -30,12 +32,14 @@ class TeamListener (loaddb.CrawlEventListener):
         cursor = db.cursor()
         try:
             insert_teams(cursor, get_teams(loaddb.CRAWLRC_DIRECTORY))
+            update_clan_scores(cursor)
         finally:
             cursor.close()
 
 class TeamTimer (loaddb.CrawlTimerListener):
     def run(self, cursor, elapsed):
         insert_teams(cursor, get_teams(loaddb.CRAWLRC_DIRECTORY))
+        update_clan_scores(cursor)
 
 LISTENER = [ TeamListener() ]
 
@@ -100,3 +104,24 @@ def insert_teams(cursor, teams):
         query.create_team(cursor, teams[captain][0], captain)
         for player in teams[captain][1]:
             query.add_player_to_team(cursor, captain, player)
+
+
+# Team scoring. Putting it here because this we know the teams have
+# been created in the db at this point.
+
+def clan_additional_score(c, owner):
+  additional = 0
+  clan = "CLAN %s" % owner
+  additional += say_points( clan, 'combo_scores',
+                            get_points( query.clan_combo_pos(c, owner),
+                                        200, 100, 50 ) )
+  additional += say_points( clan, 'unique_scores',
+                            get_points( query.clan_unique_pos(c, owner),
+                                        100, 50, 20 ) )
+  # Clan that gets all uniques first. :P
+  query.set_clan_points(c, owner, additional)
+
+def update_clan_scores(c):
+  for clan in query.get_clans(c):
+    info("Updating full score for clan %s" % clan)
+    clan_additional_score(c, clan)

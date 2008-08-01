@@ -19,6 +19,9 @@ DROP VIEW IF EXISTS class_highscores;
 DROP VIEW IF EXISTS game_species_highscores;
 DROP VIEW IF EXISTS game_class_highscores;
 DROP VIEW IF EXISTS game_combo_highscores;
+DROP VIEW IF EXISTS clan_combo_highscores;
+DROP VIEW IF EXISTS clan_total_scores;
+DROP VIEW IF EXISTS clan_unique_kills;
 DROP VIEW IF EXISTS game_combo_win_highscores;
 DROP VIEW IF EXISTS combo_hs_scoreboard;
 DROP VIEW IF EXISTS streak_scoreboard;
@@ -40,6 +43,8 @@ CREATE INDEX pscore ON players (score_full);
 CREATE TABLE teams (
   owner CHAR(20) UNIQUE NOT NULL,
   name VARCHAR(255) NOT NULL,
+  -- Clan total score, will be recomputed at intervals.
+  total_score BIGINT DEFAULT 0 NOT NULL,
   PRIMARY KEY (owner),
   FOREIGN KEY (owner) REFERENCES players (name)
   ON DELETE CASCADE
@@ -134,7 +139,8 @@ CREATE TABLE kills_of_ghosts (
 CREATE TABLE kills_of_uniques (
   player CHAR(20) NOT NULL,
   kill_time DATETIME NOT NULL,
-  monster CHAR(20)
+  monster CHAR(20),
+  FOREIGN KEY (player) REFERENCES players (name)
   );
 
 CREATE INDEX kill_uniq_pmons ON kills_of_uniques (player, monster);
@@ -203,6 +209,34 @@ FROM games p,
      combo_highscores pmax
 WHERE p.charabbrev = pmax.charabbrev
 AND p.score = pmax.score;
+
+CREATE VIEW clan_combo_highscores AS
+SELECT p.team_captain, g.*
+FROM game_combo_highscores g, players p
+WHERE g.player = p.name
+AND p.team_captain IS NOT NULL;
+
+CREATE VIEW combo_hs_clan_scoreboard AS
+SELECT team_captain, COUNT(*) AS combos
+FROM clan_combo_highscores
+GROUP BY team_captain
+ORDER BY combos DESC
+LIMIT 10;
+
+CREATE VIEW clan_total_scores AS
+SELECT team_captain, (SUM(score_full) + SUM(team_score_base)) score
+FROM players
+WHERE team_captain IS NOT NULL
+GROUP BY team_captain
+ORDER BY score DESC;
+
+CREATE VIEW clan_unique_kills AS
+SELECT p.team_captain, COUNT(*) kills
+FROM kills_of_uniques k, players p
+WHERE k.player = p.name
+AND p.team_captain IS NOT NULL
+GROUP BY p.team_captain
+ORDER BY kills DESC;
 
 CREATE VIEW game_combo_win_highscores AS
 SELECT p.*
