@@ -1,16 +1,15 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <%
    import crawl_utils, loaddb, query
    c = attributes['cursor']
 %>
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
   <head>
-    <title class="bordered">Teams</title>
+    <title>Teams</title>
     <link rel="stylesheet" type="text/css" href="tourney-score.css"/>
   </head>
   <body>
-    <table>
+    <table class="bordered">
       <tr>
         <th>Teamname</th>
         <th>Captain</th>
@@ -27,7 +26,7 @@
       % for captain in teamnames.iterkeys():
       <tr>
         <td>${teamnames[captain]}</td>
-        <td><a href="${crawl_utils.player_link(captain)}">${captain}</a></td>
+        <td><a href="${crawl_utils.player_link(query.canonicalize_player_name(c, captain))}">${query.canonicalize_player_name(c, captain)}</a></td>
         <td><a href="${crawl_utils.player_link(teammembers[captain][0])}">${teammembers[captain][0]}</a>
         % for name in teammembers[captain][1:]:
         , <a href="${crawl_utils.player_link(name)}">${name}</a>
