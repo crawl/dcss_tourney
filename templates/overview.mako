@@ -1,8 +1,3 @@
-<%
-   import loaddb, query
-   c = attributes['cursor']
-%>
-
 <html>
   <head>
     <link rel="stylesheet" type="text/css" href="tourney-score.css"/>
