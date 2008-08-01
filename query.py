@@ -14,7 +14,10 @@ import MySQLdb
 MAX_UNIQUES = 43
 MAX_RUNES = 15
 
-LOG_FIELDS = [ x[1] for x in loaddb.LOG_DB_MAPPINGS ]
+LOG_FIELDS = [ 'source_file' ] + [ x[1] for x in loaddb.LOG_DB_MAPPINGS ]
+
+CAO_MORGUE_BASE = 'http://crawl.akrasiac.org/rawdata'
+CDO_MORGUE_BASE = 'http://crawl.develz.org/morgues/stable'
 
 def _cursor():
   """Easy retrieve of cursor to make interactive testing easier."""
@@ -24,7 +27,7 @@ def _cursor():
 def win_query(selected, order_by = None,
               player=None, character_race=None,
               character_class=None, runes=None,
-              before=None):
+              before=None, limit=None):
   query = Query("SELECT " + selected + " FROM games " +
                 "WHERE killertype='winning' ")
   if player:
@@ -39,6 +42,8 @@ def win_query(selected, order_by = None,
     query.append(' AND end_time < %s', before)
   if order_by:
     query.append(' ' + order_by)
+  if limit:
+    query.append(" LIMIT %d" % limit)
   return query
 
 def get_top_players(c, how_many=10):
@@ -68,6 +73,8 @@ def count_wins(c, **selectors):
   return win_query('COUNT(start_time)', **selectors).count(c)
 
 def get_wins(c, **selectors):
+  """Returns the charabbrevs for wins matching the provided criteria,
+  ordered with earlier wins first."""
   return [ x[0] for x in
            win_query('charabbrev', order_by = 'ORDER BY end_time',
                      **selectors).rows(c) ]
@@ -75,7 +82,7 @@ def get_wins(c, **selectors):
 def row_to_xdict(row):
   return dict( zip(LOG_FIELDS, row) )
 
-def find_games(c, sort_min=None, sort_max=None, limit=1, **dictionary):
+def find_games(c, sort_min='end_time', sort_max=None, limit=1, **dictionary):
   """Finds all games matching the supplied criteria, all criteria ANDed
   together."""
   query = Query('SELECT ' + ",".join(LOG_FIELDS) + ' FROM games')
@@ -89,7 +96,7 @@ def find_games(c, sort_min=None, sort_max=None, limit=1, **dictionary):
 
   order_by = ''
   if sort_min:
-    order_by += ' ORDER BY ' + sort
+    order_by += ' ORDER BY ' + sort_min
   elif sort_max:
     order_by += ' ORDER BY ' + sort_max + ' DESC'
 
@@ -102,8 +109,21 @@ def find_games(c, sort_min=None, sort_max=None, limit=1, **dictionary):
   if limit:
     query.append(' LIMIT %d' % limit)
 
-  print "Running " + query.query
   return [ row_to_xdict(x) for x in query.rows(c) ]
+
+def format_time(time):
+  return "%04d%02d%02d-%02d%02d%02d" % (time.year, time.month, time.day,
+                                       time.hour, time.minute, time.second)
+
+def morgue_link(xdict):
+  """Returns a hyperlink to the morgue file for a dictionary that contains
+  all fields in the games table."""
+  src = xdict['source_file']
+  name = xdict['player']
+
+  stime = format_time( xdict['end_time'] )
+  base = src.find('cao') >= 0 and CAO_MORGUE_BASE or CDO_MORGUE_BASE
+  return "%s/%s/morgue-%s-%s.txt" % (base, name, name, stime)
 
 def was_last_game_win(c, player):
   """Return a tuple (race, class) of the last game if the last game the player played was a win.  The "last
