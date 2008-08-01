@@ -1,5 +1,12 @@
 import query
 
+def fixup_column(col, data):
+  if col.find('time') != -1:
+    return "%04d-%02d-%02d %02d:%02d:%02d" % (data.year, data.month, data.day,
+                                              data.hour, data.minute,
+                                              data.second)
+  return data
+
 def games_table(columns, games, cls=None, count=True):
   if cls:
     cls = ''' class="%s"''' % cls
@@ -19,7 +26,7 @@ def games_table(columns, games, cls=None, count=True):
       out += '''<td class="numeric">%s</td>''' % ngame
 
     for c in columns:
-      val = game.get(c[0]) or ''
+      val = fixup_column(c[0], game.get(c[0]) or '')
       tcls = isinstance(val, str) and "celltext" or "numeric"
       out += '''<td class="%s">''' % tcls
 

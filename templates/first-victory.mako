@@ -4,6 +4,7 @@
 
    game_text = \
       html.games_table( [ ('player', 'Player'),
+                          ('end_time', 'Time', True),
                           ('score', 'Score', True),
                           ('charabbrev', 'Character'),
                           ('god', 'God'),
