@@ -1,5 +1,5 @@
 <%
-   import query, loaddb, html
+   import query, loaddb, html, time
    c = attributes['cursor']
 
    title = "Crawl Tournament Leaderboard 2008"
@@ -96,5 +96,8 @@
       </tr>
 
     </table>
+    <div class="updatetime">
+      Last updated ${html.pretty_time(time.gmtime())} UTC.
+    </div>
   </body>
 </html>

@@ -50,6 +50,12 @@ def pretty_date(date):
                                             date.hour, date.minute,
                                             date.second)
 
+def pretty_time(time):
+  return "%04d-%02d-%02d %02d:%02d:%02d" % (time.tm_year, time.tm_mon,
+                                            time.tm_mday,
+                                            time.tm_hour, time.tm_min,
+                                            time.tm_sec)
+
 def wrap_tuple(x):
   if isinstance(x, tuple):
     return x
