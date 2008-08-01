@@ -1,5 +1,5 @@
 <%
-   import loaddb, query
+   import crawl_utils, loaddb, query
    c = attributes['cursor']
 %>
 
@@ -30,8 +30,12 @@
       % for captain in teamnames.iterkeys():
       <tr>
         <td>${teamnames[captain]}</td>
-        <td>${captain}</td>
-        <td>${teammembers[captain]}</td>
+        <td><a href="${crawl_utils.player_link(captain)}">${captain}</a></td>
+        <td><a href="${crawl_utils.player_link(teammembers[captain][0])}">${teammembers[captain][0]}</a>
+        % for name in teammembers[captain][1:]:
+        , <a href="${crawl_utils.player_link(name)}">${name}</a>
+        % endfor    	
+        </td>
       </tr>
       % endfor
     </tbody>
