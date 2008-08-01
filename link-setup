@@ -1,5 +1,4 @@
 #!/bin/bash
 
 ln -s /home/crawl/chroot/var/games/crawl04/saves/logfile cao-logfile-0.4
-ln -s /home/henzell/cdo-logfile-0.4 cdo-logfile-0.4
 ln -s /home/crawl/chroot/var/games/crawl04/saves/milestones.txt cao-milestones-0.4

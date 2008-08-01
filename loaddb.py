@@ -1,6 +1,7 @@
 import MySQLdb
 import re
 import os
+import os.path
 import crawl_utils
 
 import logging
@@ -10,11 +11,20 @@ import ConfigParser
 import imp
 import sys
 
+# Log and milestone files. We automatically treat anything containing
+# 'cao' as a local file.
+
+LOCAL_INDICATOR = 'cao'
+
+CDO = 'http://crawl.develz.org/'
+
+LOGS = [ 'cao-logfile-0.4', ('cdo-logfile-0.4', CDO + 'allgames-rel.txt') ]
+
+MILESTONES = [ 'cao-milestones-0.4',
+               ('cdo-milestones-0.4', CDO + 'milestones-rel.txt') ]
+
 EXTENSION_FILE = 'modules.ext'
 TOURNAMENT_DB = 'tournament'
-LOGS = [ 'cao-logfile-0.4',
-         'cdo-logfile-0.4' ]
-MILESTONES = [ 'cao-milestones-0.4' ]
 COMMIT_INTERVAL = 3000
 CRAWLRC_DIRECTORY = '/home/crawl/chroot/dgldir/rcfiles/'
 
@@ -53,6 +63,165 @@ class CrawlTimerState:
       self.listener.run(cursor, elapsed)
       self.target = elapsed + self.interval
 
+#########################################################################
+# xlogfile classes. xlogfiles are a colon-separated-field,
+# newline-terminated-record key=val format. Colons in values are
+# escaped by doubling. Originally created by Eidolos for NetHack logs
+# on n.a.o, and adopted by Crawl as well.
+
+# These classes merely read lines from the logfile, and do not parse them.
+
+class Xlogline:
+  """A dictionary from an Xlogfile, along with information about where and
+  when it came from."""
+  def __init__(self, owner, filename, offset, time, xdict, processor):
+    self.owner = owner
+    self.filename = filename
+    self.offset = offset
+    self.time = time
+    if not time:
+      raise Exception, \
+          "Xlogline time missing from %s:%d: %s" % (filename, offset, xdict)
+    self.xdict = xdict
+    self.processor = processor
+
+  def __cmp__(self, other):
+    ltime = self.time
+    rtime = other.time
+    # Descending time sort order, so that later dates go first.
+    if ltime > rtime:
+      return -1
+    elif ltime < rtime:
+      return 1
+    else:
+      return 0
+
+  def process(self, cursor):
+    self.processor(cursor, self.filename, self.offset, self.xdict)
+
+class Xlogfile:
+  def __init__(self, filename, tell_op, proc_op):
+    if isinstance(filename, tuple):
+      self.local = False
+      self.filename = filename[0]
+      self.url = filename[1]
+    else:
+      self.local = True
+      self.filename = filename
+    self.handle = None
+    self.offset = None
+    self.tell_op = tell_op
+    self.proc_op = proc_op
+    self.size  = None
+
+  def reinit(self):
+    """Reinitialize for a further read from this file."""
+    # If this is a local file, take a snapshot of the file size here.
+    # We will not read past this point. This is important because local
+    # files grow constantly, whereas remote files grow only when we pull
+    # them from the remote server, so we should not read past the point
+    # in the local file corresponding to the point where we pulled from the
+    # remote server.
+    if self.local:
+      self.size = os.path.getsize(self.filename)
+    else:
+      self.fetch_remote()
+
+  def fetch_remote(self):
+    info("Fetching remote %s to %s with wget -c" % (self.url, self.filename))
+    res = os.system("wget -q -c %s -O %s" % (self.url, self.filename))
+    if res != 0:
+      raise IOError, "Failed to fetch %s with wget" % self.url
+
+  def _open(self):
+    try:
+      self.handle = open(self.filename)
+    except:
+      warn("Cannot open %s" % self.filename)
+      pass
+
+  def have_handle(self):
+    if self.handle:
+      return True
+    self._open()
+    return self.handle
+
+  def line(self, cursor):
+    if not self.have_handle():
+      return
+
+    if not self.offset:
+      xlog_seek(self.filename, self.handle,
+                self.tell_op(cursor, self.filename))
+      self.offset = self.handle.tell()
+
+    # Don't read beyond the last snapshot size for local files.
+    if self.local and self.offset >= self.size:
+      return None
+
+    line = self.handle.readline()
+    newoffset = self.handle.tell()
+    if not line or not line.endswith("\n") or \
+          (self.local and newoffset > self.size):
+      # Reset to last read
+      self.handle.seek(self.offset)
+      return None
+
+    xdict = apply_dbtypes( xlog_dict(line) )
+    if xdict.get('time'):
+      xdict['time'] = datetime.to_sql(xdict['time'])
+
+    xline = Xlogline( self, self.filename, self.offset,
+                      xdict.get('end') or xdict.get('time'),
+                      xdict, self.proc_op )
+
+    # Advance offset past the line just read.
+    self.offset = newoffset
+    return xline
+
+
+class Logfile (Xlogfile):
+  def __init__(self, filename):
+    Xlogfile.__init__(self, filename, logfile_offset, process_log)
+
+class MilestoneFile (Xlogfile):
+  def __init__(self, filename):
+    Xlogfile.__init__(self, filename, milestone_offset, add_milestone_record)
+
+class MasterXlogReader:
+  """Given a list of Xlogfile objects, calls the process operation on the oldest
+  line from all the logfiles, and keeps doing this until all lines have been
+  processed in chronological order."""
+  def __init__(self, xlogs):
+    self.xlogs = xlogs
+
+  def reinit(self):
+    for x in self.xlogs:
+      x.reinit()
+
+  def tail_all(self, cursor):
+    self.reinit()
+    lines = [ line for line in [ x.line(cursor) for x in self.xlogs ]
+              if line ]
+
+    proc = 0
+    while lines:
+      # Sort dates in descending order.
+      lines.sort()
+      # And pick the oldest.
+      oldest = lines.pop()
+      # Grab a replacement for the one we're going to read from the same file:
+      newline = oldest.owner.line(cursor)
+      if newline:
+        lines.append(newline)
+      # And process the line
+      oldest.process(cursor)
+      proc += 1
+      if proc % 3000 == 0:
+        info("Processed %d lines." % proc)
+    if proc > 0:
+      info("Done processing %d lines." % proc)
+
 def connect_db():
   connection = MySQLdb.connect(host='localhost',
                                user='crawl',
@@ -79,9 +248,10 @@ def parse_logline(logline):
   return details
 
 def xlog_dict(logline):
-  d = parse_logline(logline)
+  d = parse_logline(logline.strip())
   # Fake a raceabbr field.
-  d['raceabbr'] = d['char'][0:2]
+  if d.get('char'):
+    d['raceabbr'] = d['char'][0:2]
   # Fixup rune madness where one or the other is set, but not both.
   if d.get('nrune') is not None or d.get('urune') is not None:
     d['nrune'] = d.get('nrune') or d.get('urune')
@@ -190,7 +360,6 @@ class Query:
     return row[0]
 
   first = count
-
 
 char = SqlType(lambda x: x)
 #remove the trailing 'D'/'S', fixup date
@@ -381,37 +550,6 @@ def xlog_seek(filename, filehandle, offset):
     # Discard one line - the last line added to the db.
     filehandle.readline()
 
-def read_offset_lines(handle, offset=None):
-  if offset is not None:
-    handle.seek(offset)
-  while True:
-    offset = handle.tell()
-    line = handle.readline()
-    if not line or not line.endswith("\n"):
-      line = None
-    yield offset, line
-
-def tail_file_lines(filename, filehandle, offset, line_op):
-  """Given a filename and filehandle, seeks to the supplied offset and reads
-  lines, calling the supplied function with the offset and line. Returns the
-  offset that is just past the last newline-terminated line."""
-  inserted = 0
-  for off, line in read_offset_lines(filehandle, offset):
-    offset = off
-    if line is None:
-      break
-
-    line_op(off, line)
-
-    inserted += 1
-    if inserted % 5000 == 0:
-      info("Inserted %d rows from %s." % (inserted, filename))
-
-  if inserted > 0:
-    info("Inserted %d rows." % inserted)
-
-  return offset
-
 def extract_ghost_name(killer):
   return R_GHOST_NAME.findall(killer)[0]
 
@@ -434,40 +572,26 @@ def is_ghost_kill(game):
   killer = game.get('killer') or ''
   return R_GHOST_NAME.search(killer)
 
-def tail_file_into_games(cursor, filename, filehandle, offset=None):
-  """Given a logfile handle, seeks to the supplied offset if any, and
-  writes all available records into the games table. Returns the fileoffset
-  at the point immediately past the last log entry read."""
+def process_log(cursor, filename, offset, d):
+  ghost_kill = is_ghost_kill(d)
 
-  def process_logline(offset, line):
-    d = apply_dbtypes( xlog_dict(line.strip()) )
-    ghost_kill = is_ghost_kill(d)
+  # Add the player outside the transaction and suppress errors.
+  check_add_player(cursor, d['name'])
 
-    # Add the player outside the transaction and suppress errors.
-    check_add_player(cursor, d['name'])
+  cursor.execute('BEGIN;')
+  try:
+    insert_logline(cursor, d, filename, offset)
+    if ghost_kill:
+      record_ghost_kill(cursor, d)
 
-    cursor.execute('BEGIN;')
-    try:
-      insert_logline(cursor, d, filename, offset)
-      if ghost_kill:
-        record_ghost_kill(cursor, d)
+    # Tell the listeners to do their thang
+    for listener in LISTENERS:
+      listener.logfile_event(cursor, d)
 
-      # Tell the listeners to do their thang
-      for listener in LISTENERS:
-        listener.logfile_event(cursor, d)
-
-      cursor.execute('COMMIT;')
-    except:
-      cursor.execute('ROLLBACK;')
-      raise
-
-  return tail_file_lines(filename, filehandle, offset, process_logline)
-
-def tail_milestones(cursor, filename, filehandle, offset=None):
-  def process_milestone(offset, line):
-    add_milestone_record(cursor, filename, filehandle, offset, line)
-
-  return tail_file_lines(filename, filehandle, offset, process_milestone)
+    cursor.execute('COMMIT;')
+  except:
+    cursor.execute('ROLLBACK;')
+    raise
 
 def extract_unique_name(kill_message):
   return R_KILL_UNIQUE.findall(kill_message)[0]
@@ -497,7 +621,7 @@ def player_get_nunique_uniques(cursor, player):
 
 def add_unique_milestone(cursor, game):
   if not game['milestone'].startswith('banished '):
-    sqltime = datetime.to_sql(game['time'])
+    sqltime = game['time']
     query_do(cursor,
              '''INSERT INTO kills_of_uniques (player, kill_time, monster)
                 VALUES (%s, %s, %s);''',
@@ -531,15 +655,14 @@ def add_ghost_milestone(cursor, game):
     query_do(cursor,
              '''INSERT INTO kills_of_ghosts (player, start_time, ghost)
                 VALUES (%s, %s, %s);''',
-             game['name'], datetime.to_sql(game['time']),
+             game['name'], game['time'],
              extract_milestone_ghost_name(game['milestone']))
 
 def add_rune_milestone(cursor, game):
   query_do(cursor,
            '''INSERT INTO rune_finds (player, start_time, rune)
               VALUES (%s, %s, %s);''',
-           game['name'], datetime.to_sql(game['time']),
-           extract_rune(game['milestone']))
+           game['name'], game['time'], extract_rune(game['milestone']))
 
 MILESTONE_HANDLERS = {
   'unique' : add_unique_milestone,
@@ -547,9 +670,7 @@ MILESTONE_HANDLERS = {
   'rune' : add_rune_milestone
 }
 
-def add_milestone_record(c, filename, handle, offset, line):
-  d = apply_dbtypes(parse_logline(line.strip()))
-
+def add_milestone_record(c, filename, offset, d):
   # Add player entry outside the milestone transaction.
   check_add_player(c, d['name'])
 
@@ -569,29 +690,6 @@ def add_milestone_record(c, filename, handle, offset, line):
   except:
     c.execute('ROLLBACK;')
     raise
-
-def read_file_into_games(db, filename, filehandle):
-  """Take a database with an open connection, and a name of a file, and
-  slurp the entire contents of the file into the games table of the database.
-  This is pretty much only for testing."""
-  cursor = db.cursor()
-  xlog_seek(filename, filehandle, logfile_offset(cursor, filename))
-  try:
-    return tail_file_into_games(cursor, filename, filehandle)
-  finally:
-    cursor.close()
-
-def read_milestone_file(db, filename, filehandle):
-  """Takes a db with an open connection, the name of a milestone file and
-  an open filehandle into the file and writes the milestones into the
-  appropriate db tables. Also takes care to resume where it left off if
-  interrupted."""
-  cursor = db.cursor()
-  xlog_seek(filename, filehandle, milestone_offset(cursor, filename))
-  try:
-    return tail_milestones(cursor, filename, filehandle)
-  finally:
-    cursor.close()
 
 def add_listener(listener):
   LISTENERS.append(listener)
@@ -623,6 +721,11 @@ def cleanup_listeners(db):
   for e in LISTENERS:
     e.cleanup(db)
 
+def create_master_reader():
+  processors = [ MilestoneFile(x) for x in MILESTONES ] + \
+      [ Logfile(x) for x in LOGS ]
+  return MasterXlogReader(processors)
+
 if __name__ == '__main__':
   logging.basicConfig(level=logging.INFO)
   print "Populating db (one-off) with logfiles and milestones. " + \
@@ -644,11 +747,12 @@ if __name__ == '__main__':
     except IOError:
       warn("Error reading %s, skipping it." % log)
 
-  for milestone in MILESTONES:
-    proc_file(read_milestone_file, milestone)
-
-  for log in LOGS:
-    proc_file(read_file_into_games, log)
+  cursor = db.cursor()
+  try:
+    master = create_master_reader()
+    master.tail_all(cursor)
+  finally:
+    cursor.close()
 
   cleanup_listeners(db)
   db.close()
