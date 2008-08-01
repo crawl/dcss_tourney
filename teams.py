@@ -53,24 +53,33 @@ def get_teams(directory):
     players = []
     for filename in os.listdir(directory):
         if fnmatch.fnmatch(filename, '*.crawlrc'):
-            player = filename[:-8]
+            player = filename[:-8].lower()
             players.append(player)
             rcfile = open(os.path.join(directory, filename))
-            firstline = rcfile.readline()
-            offset = firstline.find('TEAM')
+            line = rcfile.readline()
+            offset = line.find('TEAM')
             if offset != -1:
-                elements = re.sub('[^\w -]', '', firstline[offset:]).split(' ')
+                elements = re.sub('[^\w -]', '', line[offset:]).split(' ')
                 if elements[0] == 'TEAMCAPTAIN':
-                    volunteers.setdefault(elements[1], []).append(player)
-                elif elements[0] == 'TEAMNAME':
-                    teamname[player] = ''.join(elements[1:])
+                    if len(elements) < 2:
+                        elements.append(player)
+                    volunteers.setdefault(elements[1].lower(), []).append(player)
+                    line = rcfile.readline()
+                    offset = line.find('TEAM')
+                    elements = re.sub('[^\w -]', '', line[offset:]).split(' ')
+                if elements[0] == 'TEAMNAME':
+                    teamname[player] = ''.join(elements[1:]) or ('Team_' + player)
                     volunteers.setdefault(player, []).append(player)
-                    secondline = rcfile.readline()
-                    offset = firstline.find('TEAM')
-                    elements = secondline[offset:].rstrip().split(' ')
+                    line = rcfile.readline()
+                    offset = line.find('TEAM')
+                    elements = re.sub('[^\w -]', '', line[offset:]).split(' ')
                     if elements[0] == 'TEAMMEMBERS':
-                        draftees[player] = elements[1:6]
-                        draftees[player].append(player)
+                        draftedones = [name.lower() for name in elements[1:7]]
+                        if player in draftedones:
+                            draftees[player] = draftedones
+                        else:
+                            draftees[player] = draftedones[:5]
+                            draftees[player].append(player)
                     else:
                         draftees[player] = [player]
             rcfile.close()
@@ -88,6 +97,6 @@ def get_teams(directory):
 def insert_teams(cursor, teams):
     info("Updating team information.")
     for captain in teams.iterkeys():
-    	query.create_team(cursor, teams[captain][0], captain)
-	for player in teams[captain][1]:
-	    query.add_player_to_team(cursor, captain, player)
+        query.create_team(cursor, teams[captain][0], captain)
+        for player in teams[captain][1]:
+            query.add_player_to_team(cursor, captain, player)
