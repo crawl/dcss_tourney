@@ -728,6 +728,8 @@ def create_master_reader():
 
 if __name__ == '__main__':
   logging.basicConfig(level=logging.INFO)
+
+  crawl_utils.lock_or_die()
   print "Populating db (one-off) with logfiles and milestones. " + \
       "Running the taildb.py daemon is preferred."
 

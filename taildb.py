@@ -6,8 +6,6 @@ import crawl_utils
 import logging
 from logging import debug, info, warn, error
 
-BASEDIR = '/home/crawl'
-
 # Can run as a daemon and tail a number of logfiles and milestones and
 # update the db.
 def interval_work(cursor, interval, master):
@@ -38,6 +36,6 @@ if __name__ == '__main__':
   loaddb.load_extensions()
 
   logging.basicConfig(level=logging.DEBUG,
-                      filename = BASEDIR + '/taildb.log')
-  crawl_utils.daemonize(BASEDIR + '/taildb.lock')
+                      filename = crawl_utils.BASEDIR + '/taildb.log')
+  crawl_utils.daemonize()
   tail_logfiles( loaddb.LOGS, loaddb.MILESTONES, 60 )

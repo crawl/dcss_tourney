@@ -4,6 +4,8 @@ import fcntl
 import sys
 
 LOCK = None
+BASEDIR = '/home/crawl'
+LOCKFILE = BASEDIR + '/tourney-py.lock'
 
 def lock_handle(check_only=True):
   if check_only:
@@ -11,7 +13,17 @@ def lock_handle(check_only=True):
   else:
     fcntl.flock(LOCK, fcntl.LOCK_EX)
 
-def daemonize(lockfile):
+def lock_or_die(lockfile = LOCKFILE):
+  global LOCK
+  LOCK = open(lockfile, 'w')
+  try:
+    lock_handle()
+  except IOError:
+    sys.stderr.write("%s is locked, perhaps there's someone else running?\n" %
+                     lockfile)
+    sys.exit(1)
+
+def daemonize(lockfile = LOCKFILE):
   global LOCK
   # Lock, then fork.
   LOCK = open(lockfile, 'w')
