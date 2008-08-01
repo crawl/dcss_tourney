@@ -1,13 +1,18 @@
-table {
+div.heading {
+    text-align: center;
+    border-bottom: 1px solid #000;
+}
+
+table.bordered {
     border: 1px solid #000;
     border-collapse: collapse;
 }
 
-col {
-    border-style: 1px solid;
+td {
+    vertical-align: top;
 }
 
-td {
+table.bordered td {
     margin: 6px;
     padding: 6px;
     border: 1px solid #000;
@@ -21,10 +26,21 @@ td {
 th {
     font-weight: bold;
     background: #ffffe0;
+    padding-left: 3px;
+    padding-right: 3px;
 }
 
 table.overview {
     border: 0px;
+}
+
+table.grouping {
+    border: 0px;
+}
+
+table.grouping td {
+    padding-left: 15px;
+    padding-right: 15px;
 }
 
 .tdover {

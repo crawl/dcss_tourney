@@ -1,4 +1,4 @@
-import query, crawl_utils
+import query, crawl_utils, time
 
 STOCK_WIN_COLUMNS = \
     [ ('player', 'Player'),
@@ -56,13 +56,18 @@ def pretty_time(time):
                                             time.tm_hour, time.tm_min,
                                             time.tm_sec)
 
+def update_time():
+  return '''<div class="updatetime">
+            Last updated %s UTC.
+            </div>''' % pretty_time(time.gmtime())
+
 def wrap_tuple(x):
   if isinstance(x, tuple):
     return x
   else:
     return (x,)
 
-def table_text(headers, data, cls=None, count=True, link=None):
+def table_text(headers, data, cls='bordered', count=True, link=None):
   if cls:
     cls = ''' class="%s"''' % cls
   out = '''<table%s>\n<tr>''' % (cls or '')
@@ -77,6 +82,11 @@ def table_text(headers, data, cls=None, count=True, link=None):
   odd = True
 
   nrow = 0
+
+  ncols = len(headers) + (count and 1 or 0)
+  if not data:
+    out += '''<tr><td colspan='%s'>No data</td></tr>''' % ncols
+
   for row in data:
     nrow += 1
     out += '''<tr class="%s">''' % (odd and "odd" or "even")
@@ -96,7 +106,7 @@ def table_text(headers, data, cls=None, count=True, link=None):
   return out
 
 def games_table(games, first=None, excluding=None, columns=None,
-                cls=None, count=True, win=True):
+                cls='bordered', count=True, win=True):
   columns = columns or (win and STOCK_WIN_COLUMNS or STOCK_COLUMNS)
 
   if excluding:
@@ -120,6 +130,11 @@ def games_table(games, first=None, excluding=None, columns=None,
   out += "</tr>\n"
   odd = True
   ngame = 0
+
+  ncols = len(columns) + (count and 1 or 0)
+  if not games:
+    out += '''<tr><td colspan='%s'>No data</td></tr>''' % ncols
+
   for game in games:
     ngame += 1
     out += '''<tr class="%s">''' % (odd and "odd" or "even")
