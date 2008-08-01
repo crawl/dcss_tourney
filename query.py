@@ -8,6 +8,8 @@ from logging import debug, info, warn, error
 import loaddb
 from loaddb import Query, query_do, query_first, query_row, query_rows
 
+import crawl_utils
+
 import MySQLdb
 
 # Number of unique uniques
@@ -55,6 +57,16 @@ def get_top_streaks(c, how_many = 10):
   for streak in streaks:
     streak.append( get_streak_games(c, streak[0], streak[2]) )
   return streaks
+
+def _canonicalize_player_name(c, player):
+  row = query_row(c, '''SELECT name FROM players WHERE name = %s''',
+                  player)
+  if row:
+    return row[0]
+  return None
+
+canonicalize_player_name = \
+    crawl_utils.Memoizer(_canonicalize_player_name, lambda args: args[1:])
 
 def get_top_players(c, how_many=10):
   return query_rows(c,
