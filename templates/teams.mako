@@ -10,17 +10,14 @@
     <link rel="stylesheet" type="text/css" href="tourney-score.css"/>
   </head>
   <body>
-    <table class="overview">
-    <thead>
+    <table>
       <tr>
         <th>Teamname</th>
         <th>Captain</th>
         <th>Members</th>
       </tr>
-    <thead>
-    <tbody>
       <%
-        players = query.query_rows(c, '''SELECT teams.owner, teams.name, players.name FROM players, teams WHERE players.team_captain != players.name AND players.team_captain = teams.owner''')
+        players = query.query_rows(c, '''SELECT teams.owner, teams.name, players.name FROM players, teams WHERE players.team_captain = teams.owner''')
         teamnames = {}
         teammembers = {}
         for row in players:
@@ -38,7 +35,6 @@
         </td>
       </tr>
       % endfor
-    </tbody>
     </table>
   </body>
 </html>

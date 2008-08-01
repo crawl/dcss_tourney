@@ -17,7 +17,6 @@ import os
 import fnmatch
 import re
 
-import query
 import loaddb
 import query
 from query import say_points, get_points
@@ -91,11 +90,11 @@ def get_teams(directory):
         vset = set(volunteers.get(captain, []))
         dset = set(draftees.get(captain, []))
         members = vset.intersection(dset)
-        for name in members:
-            players.remove(name)
+#        for name in members:
+#            players.remove(name)
         teams[captain] = (teamname[captain], members)
-    for name in players:
-        teams[name] = ('Team_' + name, set([name]))
+#    for name in players:
+#        teams[name] = ('Team_' + name, set([name]))
     return teams
 
 def insert_teams(cursor, teams):
