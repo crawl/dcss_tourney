@@ -67,13 +67,19 @@
 
       <tr>
         <td class="tdover">
-          <h3>Leading Players</h3>
-	  <%include file="overall-scores.mako"/>
-	</td>
+	  <table>
+	    <tr>
+              <td>
+                <h3>Leading Players</h3>
+	        <%include file="overall-scores.mako"/>
+	      </td>
 
-	<td class="tdover">
-	  <h3>Leading Clans</h3>
-	  <!-- include file="overall-team-scores.mako" -->
+	      <td> 
+	        <h3>Leading Clans</h3>
+	        <!-- include file="overall-team-scores.mako" -->
+	      </td>
+       	    </tr>
+	  </table>
 	</td>
 
 	<td class="tdover">
