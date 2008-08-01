@@ -6,12 +6,11 @@ import os
 import os.path
 import loaddb
 import query
+import crawl_utils
 
 from logging import debug, info, warn, error
 
-SCORE_FILE_DIR = '/var/www/crawl/tourney'
 TEMPLATE_DIR = os.path.abspath('templates')
-
 MAKO_LOOKUP = mako.lookup.TemplateLookup(directories = [ TEMPLATE_DIR ])
 
 # So we have to update the scoring page pretty frequently.
@@ -19,7 +18,7 @@ MAKO_LOOKUP = mako.lookup.TemplateLookup(directories = [ TEMPLATE_DIR ])
 # because I am not actually fluent in Python.
 
 def render(c, page):
-  target = "%s/%s.html" % (SCORE_FILE_DIR, page)
+  target = "%s/%s.html" % (crawl_utils.SCORE_FILE_DIR, page)
   t = MAKO_LOOKUP.get_template(page + '.mako')
   try:
     f = open(target, 'w')

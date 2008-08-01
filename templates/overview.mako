@@ -1,14 +1,17 @@
 <%
    import query, loaddb, html
    c = attributes['cursor']
+
+   title = "Crawl Tournament Leaderboard 2008"
 %>
 
 <html>
   <head>
-    <title>Crawl Tournament Leaderboard 2008</title>
+    <title>${title}</title>
     <link rel="stylesheet" type="text/css" href="tourney-score.css"/>
   </head>
   <body>
+    <h1>${title}</h1>
     <table class="overview">
       <tr>
         <td class="tdover">
@@ -39,7 +42,7 @@
           <h3>Most High Scores</h3>
           ${html.combo_highscorers(c)}
         </td>
-     
+
         <td class="tdover">
 	      <h3>Most Uniques Killed</h3>
           <%include file="most-uniques-killed.mako"/>
@@ -51,7 +54,7 @@
 	      <h3>Lowest DL at XL1</h3>
           ${html.deepest_xl1_games(c)}
 	    </td>
-        
+
 	    <td class="tdover">
 	      <h3>Longest Streak</h3>
           ${html.best_streaks(c)}
@@ -76,13 +79,13 @@
 	        <tr>
               <td>
                 <h3>Leading Players</h3>
-	        <%include file="overall-scores.mako"/>
-	      </td>
+	            <%include file="overall-scores.mako"/>
+	          </td>
 
-	      <td> 
-	        <h3>Leading Clans</h3>
-	        <!-- include file="overall-team-scores.mako" -->
-	      </td>
+	          <td> 
+	            <h3>Leading Clans</h3>
+	            <!-- include file="overall-team-scores.mako" -->
+	          </td>
        	    </tr>
 	  </table>
 	</td>

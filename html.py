@@ -1,4 +1,4 @@
-import query
+import query, crawl_utils
 
 STOCK_WIN_COLUMNS = \
     [ ('player', 'Player'),
@@ -129,7 +129,7 @@ def games_table(games, first=None, excluding=None, columns=None,
 
       need_link = len(c) >= 3 and c[2]
       if need_link:
-        out += r'<a href="%s">' % query.morgue_link(game)
+        out += r'<a href="%s">' % crawl_utils.morgue_link(game)
       out += str(val)
       if need_link:
         out += '</a>'
@@ -148,7 +148,7 @@ def deepest_xl1_games(c):
   return games_table(games, first = 'place', win=False)
 
 def hyperlink_games(games, field):
-  hyperlinks = [ query.morgue_link(g) for g in games ]
+  hyperlinks = [ crawl_utils.morgue_link(g) for g in games ]
   text = [ '<a href="%s">%s</a>' % (link, g[field])
            for link, g in zip(hyperlinks, games) ]
   return ", ".join(text)

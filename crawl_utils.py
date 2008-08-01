@@ -1,4 +1,5 @@
 import os
+import os.path
 import logging
 import fcntl
 import sys
@@ -6,6 +7,19 @@ import sys
 LOCK = None
 BASEDIR = '/home/crawl'
 LOCKFILE = BASEDIR + '/tourney-py.lock'
+SCORE_FILE_DIR = '/var/www/crawl/tourney'
+PLAYER_FILE_DIR = SCORE_FILE_DIR + '/players'
+
+
+CAO_MORGUE_BASE = 'http://crawl.akrasiac.org/rawdata'
+CDO_MORGUE_BASE = 'http://crawl.develz.org/morgues/stable'
+CAO_PLAYER_BASE = 'http://crawl.akrasiac.org/tourney/players'
+
+if not os.path.exists(SCORE_FILE_DIR):
+  os.makedirs(SCORE_FILE_DIR)
+
+if not os.path.exists(PLAYER_FILE_DIR):
+  os.makedirs(PLAYER_FILE_DIR)
 
 def lock_handle(check_only=True):
   if check_only:
@@ -70,3 +84,21 @@ class Memoizer:
 
   def record(self, args, value):
     self.cache[self.extractor(args)] = value
+
+
+def format_time(time):
+  return "%04d%02d%02d-%02d%02d%02d" % (time.year, time.month, time.day,
+                                       time.hour, time.minute, time.second)
+
+def player_link(player):
+  return "%s/%s.html" % (CAO_PLAYER_BASE, player)
+
+def morgue_link(xdict):
+  """Returns a hyperlink to the morgue file for a dictionary that contains
+  all fields in the games table."""
+  src = xdict['source_file']
+  name = xdict['player']
+
+  stime = format_time( xdict['end_time'] )
+  base = src.find('cao') >= 0 and CAO_MORGUE_BASE or CDO_MORGUE_BASE
+  return "%s/%s/morgue-%s-%s.txt" % (base, name, name, stime)
