@@ -124,6 +124,7 @@ def add_to_page(string):
 
 # Update tourney overview every 5 mins.
 TIMER = [ loaddb.define_timer( 5 * 60, tourney_overview ) ]
+LISTENER = [ loaddb.define_cleanup(tourney_overview) ]
 
 if __name__ == '__main__':
   c = query._cursor()

@@ -49,6 +49,17 @@ class CrawlEventListener(object):
     """Called for each milestone record. cursor will be in a transaction."""
     pass
 
+class CrawlCleanupListener (CrawlEventListener):
+  def __init__(self, fn):
+    self.fn = fn
+
+  def cleanup(self, db):
+    c = db.cursor()
+    try:
+      self.fn(c)
+    finally:
+      c.close()
+
 class CrawlTimerListener:
   def __init__(self, fn=None):
     self.fn = fn
@@ -719,6 +730,9 @@ def add_timed(interval, timed):
 def define_timer(interval, fn):
   return (interval, CrawlTimerListener(fn))
 
+def define_cleanup(fn):
+  return CrawlCleanupListener(fn)
+
 def run_timers(c, elapsed_time):
   for timer in TIMERS:
     timer.run(c, elapsed_time)
@@ -726,9 +740,13 @@ def run_timers(c, elapsed_time):
 def load_extensions():
   c = ConfigParser.ConfigParser()
   c.read(EXTENSION_FILE)
-  for key, filename in c.items('extensions'):
-    filename = filename or key + '.py'
-    print "Loading %s as %s" % (filename, key)
+
+  exts = c.get('extensions', 'ext') or ''
+
+  for ext in exts.split(','):
+    key = ext.strip()
+    filename = key + '.py'
+    info("Loading %s as %s" % (filename, key))
     module = imp.load_source(key, filename)
     if 'LISTENER' in dir(module):
       for l in module.LISTENER:
