@@ -58,7 +58,7 @@ def get_top_streaks(c, how_many = 10):
     streak.append( get_streak_games(c, streak[0], streak[2]) )
   return streaks
 
-def get_top_clan_scores(c, how_many=3):
+def get_top_clan_scores(c, how_many=10):
   clans = query_rows(c, '''SELECT name, owner, total_score
                            FROM teams
                            ORDER BY total_score DESC
