@@ -100,6 +100,7 @@ def get_teams(directory):
 def insert_teams(cursor, teams):
     info("Updating team information.")
     for captain in teams.iterkeys():
+        captain = query.canonicalize_player_name(cursor, captain)
         query.create_team(cursor, teams[captain][0], captain)
         for player in teams[captain][1]:
             query.add_player_to_team(cursor, captain, player)
