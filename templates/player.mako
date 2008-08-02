@@ -7,7 +7,7 @@
    stats = query.get_player_stats(c, player)
 
    won_games = query.find_games(c, player = player, killertype = 'winning',
-                                sort_max = 'end_time')
+                                sort_max = 'end_time', limit=None)
    recent_games = query.find_games(c, player = player, sort_max = 'end_time',
                                    limit = 15)
 

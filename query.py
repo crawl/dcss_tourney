@@ -131,10 +131,10 @@ def get_streak_games(c, player, end_time):
   q = Query('SELECT ' + ",".join(LOG_FIELDS) + ' FROM games ' +
             '''WHERE player = %s
                AND end_time >
-                     (SELECT MAX(end_time) FROM games
-                      WHERE player = %s
-                      AND end_time < %s
-                      AND killertype != 'winning')
+                     COALESCE((SELECT MAX(end_time) FROM games
+                               WHERE player = %s
+                               AND end_time < %s
+                               AND killertype != 'winning'), DATE('19700101'))
                AND end_time <= %s
                ORDER BY end_time''',
             player, player, end_time, end_time)
