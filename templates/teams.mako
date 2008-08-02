@@ -37,7 +37,7 @@
          %>
         % for captain in team_order:
         <tr>
-          <td>${teamnames[captain]}</td>
+          <td><a href="${crawl_utils.clan_link(query.canonicalize_player_name(c, captain))}">${teamnames[captain]}</a></td>
           <td><a href="${crawl_utils.player_link(query.canonicalize_player_name(c, captain))}">${query.canonicalize_player_name(c, captain)}</a></td>
           <td><a href="${crawl_utils.player_link(teammembers[captain][0])}">${teammembers[captain][0]}</a>
             % for name in teammembers[captain][1:]:
