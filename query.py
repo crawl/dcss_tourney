@@ -25,6 +25,8 @@ def _cursor():
   return d.cursor()
 
 def _filter_invalid_where(d):
+  if is_not_tourney(d):
+    return None
   status = d['status']
   if status in [ 'quit', 'won', 'bailed out', 'dead' ]:
     return None
@@ -42,6 +44,8 @@ def whereis_player(name):
     try:
       line = f.readline()
       d = loaddb.apply_dbtypes( loaddb.xlog_dict(line) )
+      if d.get('time'):
+        d['time'] = loaddb.datetime.to_sql(d['time'])
       return _filter_invalid_where(d)
     finally:
       f.close()

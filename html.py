@@ -94,7 +94,7 @@ def pretty_dur(dur):
 def pretty_date(date):
   if isinstance(date, str):
     m = R_STR_DATE.search(date)
-    return "%s-%s-%s %s-%s-%s" % (m.group(1), m.group(2), m.group(3),
+    return "%s-%s-%s %s:%s:%s" % (m.group(1), m.group(2), m.group(3),
                                   m.group(4), m.group(5), m.group(6))
 
   return "%04d-%02d-%02d %02d:%02d:%02d" % (date.year, date.month, date.day,
