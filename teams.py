@@ -130,7 +130,7 @@ def clan_additional_score(c, owner):
 
   uscore_pos = query.clan_unique_pos(c, owner)
   additional += log_temp_clan_points( c, owner,
-                                      'unique_scores_Nth:%d' % (uscore_pos + 1),
+                                      'unique_kills_Nth:%d' % (uscore_pos + 1),
                                       get_points(
                                               uscore_pos,
                                               100, 50, 20 ) )
