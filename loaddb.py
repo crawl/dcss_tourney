@@ -259,7 +259,8 @@ def parse_logline(logline):
   if '\n' in logline:
     raise Exception, "more than one line"
   logline = logline.replace("::", "\n")
-  details = dict([(item[:item.index('=')], item[item.index('=') + 1:]) for item in logline.split(':')])
+  details = dict([(item[:item.index('=')], item[item.index('=') + 1:])
+                  for item in logline.split(':')])
   for key in details:
     details[key] = details[key].replace("\n", ":")
   return details

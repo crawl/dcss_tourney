@@ -9,6 +9,7 @@ import loaddb
 from loaddb import Query, query_do, query_first, query_row, query_rows
 
 import crawl_utils
+import os.path
 
 import MySQLdb
 
@@ -22,6 +23,30 @@ def _cursor():
   """Easy retrieve of cursor to make interactive testing easier."""
   d = loaddb.connect_db()
   return d.cursor()
+
+def _filter_invalid_where(d):
+  status = d['status']
+  if status in [ 'quit', 'won', 'bailed out', 'dead' ]:
+    return None
+  else:
+    d['status'] = status.title() or 'Active'
+    return d
+
+def whereis_player(name):
+  where_path = '%s/%s/%s.where' % (crawl_utils.RAWDATA_PATH, name, name)
+  if not os.path.exists(where_path):
+    return None
+
+  try:
+    f = open(where_path)
+    try:
+      line = f.readline()
+      d = loaddb.apply_dbtypes( loaddb.xlog_dict(line) )
+      return _filter_invalid_where(d)
+    finally:
+      f.close()
+  except:
+    return None
 
 def win_query(selected, order_by = None,
               player=None, character_race=None,

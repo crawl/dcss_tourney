@@ -194,58 +194,6 @@ def number_of_allruners_before(c, game):
   """How many all-runers happened before this game? We can stop at 3."""
   return query.count_wins(c, runes = query.MAX_RUNES, before = game['end'])
 
-def whereis(player):
-  """We might want to know where a player is, either to display it on the
-  website or to... well, I can't think of another reason. This function
-  will give us a string to put on the site at the top of a player page
-  or something similar."""
-  # This is basically all pulled out of Henzell. Thanks, Henzell!
-  # It's much messier than what I've done so far, but I want to
-  # avoid duplicating known-done work.
-  rawdatapath = "/home/crawl/chroot/dgldir/ttyrec/"
-  try:
-    whereline = open(rawdatapath + '%s/%s.where' % (player, player)).readlines()[0][:-1]
-  except IOError:
-    return ("No whereis info for %s." % player)
-  details = parse_logline(whereline)
-  version = details['v']
-  if ':' in details['place']:
-    prep = 'on'
-  else:
-    prep = 'in'
-  prestr = godstr = datestr = turnstr_suffix = turnstr = ''
-  try:
-    godstr = ', a worshipper of %s,' % details['god']
-  except KeyError:
-    godstr = ''
-  try:
-    month = str(int(details['time'][4:6]) + 1)
-    if len(month) < 2:
-      month = '0' + month
-    datestr = ' on %s-%s-%s' % (details['time'][0:4], month,
-                                details['time'][6:8])
-  except KeyError:
-    datestr = ''
-  nturns = int(details['turn'])
-  status = details['status']
-  if int(details['turn']) != 1:
-    turnstr_suffix = 's'
-  turnstr = ' after %d turn%s' % (int(details['turn']), turnstr_suffix)
-  if status == 'saved':
-    prestr = 'last saved'
-  elif status in [ 'dead', 'quit', 'won', 'bailed out' ]:
-    return ("%s is currently dead." % (player))
-    # This should be changed to say where they died, but the Henzell
-    # way to do that calls a ruby script so I am going to write my own.
-  elif status == 'active':
-    prestr = 'is currently'
-    datestr = ''
-  sktitle = game_skill_title(details)
-  if (status != 'won') and (status != 'bailed out'):
-    return ("%s the %s (L%s %s)%s %s %s %s%s%s." % (player, sktitle, details['xl'], details['char'], godstr, prestr, prep, replace(details['place'], ';', ':'), datestr, turnstr))
-  return ("Whereis information for %s is not currently available." % (player))
-
-
 ###################### Additional scoring math ##########################
 
 def player_additional_score(c, player):

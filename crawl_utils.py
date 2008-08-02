@@ -22,6 +22,8 @@ CAO_CLAN_BASE = '%s/clans' % CAO_TOURNEY_BASE
 
 CAO_OVERVIEW = '''<a href="%s/overview.html">Overview</a>''' % CAO_TOURNEY_BASE
 
+RAWDATA_PATH = '/var/www/crawl/rawdata'
+
 MKDIRS = [ SCORE_FILE_DIR, PLAYER_FILE_DIR, CLAN_FILE_DIR ]
 
 for d in MKDIRS:

@@ -28,8 +28,8 @@
       <div class="page_content">
 
         <h2>Combo Scoreboard</h2>
-        <div class="fine_print">
-          Highest scoring game for each species-class combination played\
+        <div class="fineprint">
+          Highest scoring game for each species-class combination played
           in the tournament.
         </div>
 

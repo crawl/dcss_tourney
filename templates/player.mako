@@ -16,6 +16,8 @@
    audit = query.audit_trail_player_points(c, player)
    audit_team = query.audit_trail_player_team_points(c, player)
 
+   whereis = html.whereis(False, player)
+
    def point_breakdown(audit):
      if not audit:
        return '<tr><td colspan="3">No points</td></tr>'
@@ -77,6 +79,18 @@
               </tr>
             </table>
           </div>
+
+          %if whereis:
+          <div class="game_table">
+            <h3>Ongoing Game (cao)</h3>
+            <div class="fineprint">
+              On-going information is from the crawl.akrasiac.org server only,
+              and may be inaccurate if the player is active on alternate
+              servers.
+            </div>
+            ${whereis}
+          </div>
+          %endif
 
           <div class="game_table">
             <h3>Games won (reverse chronological)</h3>

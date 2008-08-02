@@ -166,9 +166,10 @@ table.grouping {
 }
 
 div.fineprint {
-    text-align: center;
     font-size: xx-small;
     color: #aaa;
+    padding: 0px;
+    margin-top: 2px;
 }
 
 body.simple_left_align div.updatetime {

@@ -44,7 +44,7 @@
         <div>
           <h2>Top Scores</h1>
 
-          <div class="fine_print">
+          <div class="fineprint">
             Note: Tournament points are not based on top scores.
           </div>
 

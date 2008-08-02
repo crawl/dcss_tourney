@@ -1,6 +1,7 @@
 import query, crawl_utils, time
 
 from crawl_utils import clan_link, player_link, linked_text
+import re
 
 STOCK_WIN_COLUMNS = \
     [ ('player', 'Player'),
@@ -54,7 +55,18 @@ EXT_COLUMNS = \
       ('end_time', 'Date')
     ]
 
+WHERE_COLUMNS = \
+    [ ('race', 'Species'),
+      ('cls', 'Class'),
+      ('god', 'God'),
+      ('title', 'Title'),
+      ('place', 'Place'),
+      ('xl', 'XL'),
+      ('turn', 'Turns'),
+      ('time', 'Time')
+    ]
 
+R_STR_DATE = re.compile(r'^(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})')
 
 def fixup_column(col, data, game):
   if col.find('time') != -1:
@@ -79,6 +91,11 @@ def pretty_dur(dur):
   return stime
 
 def pretty_date(date):
+  if isinstance(date, str):
+    m = R_STR_DATE.search(date)
+    return "%s-%s-%s %s-%s-%s" % (m.group(1), m.group(2), m.group(3),
+                                  m.group(4), m.group(5), m.group(6))
+
   return "%04d-%02d-%02d %02d:%02d:%02d" % (date.year, date.month, date.day,
                                             date.hour, date.minute,
                                             date.second)
@@ -190,7 +207,7 @@ def games_table(games, first=None, excluding=None, columns=None,
     ngame += 1
 
     ocls = odd and "odd" or "even"
-    if game['killertype'] == 'winning':
+    if game.get('killertype') == 'winning':
       ocls = "win_" + ocls
 
     out += '''<tr class="%s">''' % ocls
@@ -301,3 +318,15 @@ def clan_affiliation(c, player):
 
   clan_html += ", ".join(plinks)
   return clan_html
+
+def whereis(show_name, *players):
+  where = [ query.whereis_player(p) for p in players ]
+  where = [ w for w in where if w ]
+  including = [ ]
+  if show_name:
+    including.append( (0, ('name', 'Player') ) )
+
+  if not where:
+    return ''
+  return games_table(where, columns=WHERE_COLUMNS, including=including,
+                     count=False)
