@@ -312,7 +312,7 @@ def get_clan_stats(c, captain):
 
 def get_player_stats(c, name):
   """Returns a dictionary of miscellaneous stats for the player."""
-  points = query_row(c, '''SELECT score_full, team_score_base
+  points = query_row(c, '''SELECT score_full, team_score_full
                            FROM players WHERE name = %s''',
                      name)
   if points is None:

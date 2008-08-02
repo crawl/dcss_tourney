@@ -24,8 +24,8 @@ Other pages:
    [DONE] * Players in clan <link to players>
    [DONE] * Overall points
    [DONE] * Individual player point contrib.
-   [DONE] * Point breakdown (show points from individual players + applicable clan
-     trophies if any).
+   [DONE] * Point breakdown (show points from individual players +
+            applicable clan trophies if any).
    * whereis for each player.
    [DONE] * Games won by all clan members.
    [DONE] * Recent games completed by all clan members.
@@ -35,10 +35,10 @@ Other pages:
    [DONE] * Top 15 scores?
 
  - Combo scoreboard
-   * Highest score for each combo played.
+   [DONE] * Highest score for each combo played.
 
 Front page (rax/violetj?):
- - Add games played / won.
+ - [DONE] Add games played / won.
 
  - [DONE] Leading player
  - [DONE] Leading clan
