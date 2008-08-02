@@ -11,6 +11,7 @@ Other pages:
 ------------
  - Per player page.
    * Clan affiliation <link to clan>
+   * Point breakdown?
    * Overall points
    * Games won
    * Recent games completed
@@ -28,6 +29,8 @@ Other pages:
    * Highest score for each combo played.
 
 Front page (rax/violetj?):
+ - Add games played / won.
+
  - [DONE] Leading player
  - [DONE] Leading clan
  - [DONE] Fastest realtime win
