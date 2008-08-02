@@ -179,9 +179,10 @@ def crunch_winner(c, game):
       assign_points(c, "streak_win",
                     game['name'], get_points(streak_repeats, 100, 30, 10))
 
-    # If this is a non-streak win, make sure we're not on the second win,
-    # since we've already done the bonus points for that above.
-    elif n_my_wins >= 2:
+    # If this is a non-streak win, make sure we're not on the second
+    # win with no repeats, since we've already done the bonus points
+    # for that above.
+    elif n_my_wins >= 2 or (n_my_wins == 1 and repeated == 1):
       assign_points(c, "my_nonstreak_norep",
                     game['name'], get_points(repeated, 30, 10))
 
