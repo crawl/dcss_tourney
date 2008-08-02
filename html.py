@@ -98,6 +98,12 @@ def wrap_tuple(x):
   else:
     return (x,)
 
+def is_player_header(header):
+  return header in ['Player', 'Captain']
+
+def is_clan_header(header):
+  return header in ['Clan', 'Team', 'Teamname']
+
 def table_text(headers, data, cls='bordered', count=True, link=None):
   if cls:
     cls = ''' class="%s"''' % cls
@@ -128,9 +134,13 @@ def table_text(headers, data, cls='bordered', count=True, link=None):
 
     for c in range(len(headers)):
       val = row[c]
+      header = headers[c]
       tcls = isinstance(val, str) and "celltext" or "numeric"
       out += '''<td class="%s">''' % tcls
-      out += str(val)
+      val = str(val)
+      if is_player_header(header[0]):
+        val = linked_text(val, player_link)
+      out += val
       out += '</td>'
     out += "</tr>\n"
   out += '</table>\n'
@@ -187,6 +197,8 @@ def games_table(games, first=None, excluding=None, columns=None,
       need_link = len(c) >= 3 and c[2]
       if need_link:
         out += r'<a href="%s">' % crawl_utils.morgue_link(game)
+      elif is_player_header(c[1]):
+        val = linked_text(val, player_link)
       out += str(val)
       if need_link:
         out += '</a>'
