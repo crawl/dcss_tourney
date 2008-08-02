@@ -114,13 +114,19 @@ def insert_teams(cursor, teams):
 def clan_additional_score(c, owner):
   additional = 0
   query.audit_flush_clan(c, owner)
-  additional += log_temp_clan_points( c, owner, 'combo_scores',
+
+  combo_pos = query.clan_combo_pos(c, owner)
+  additional += log_temp_clan_points( c, owner,
+                                      'combo_scores_Nth:%d' % (combo_pos + 1),
                                       get_points(
-                                              query.clan_combo_pos(c, owner),
+                                              combo_pos,
                                               200, 100, 50 ) )
-  additional += log_temp_clan_points( c, owner, 'unique_scores',
+
+  uscore_pos = query.clan_unique_pos(c, owner)
+  additional += log_temp_clan_points( c, owner,
+                                      'unique_scores_Nth:%d' % (uscore_pos + 1),
                                       get_points(
-                                              query.clan_unique_pos(c, owner),
+                                              uscore_pos,
                                               100, 50, 20 ) )
   query.set_clan_points(c, owner, additional)
 

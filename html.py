@@ -267,11 +267,11 @@ def best_clans(c):
 
 def clan_unique_kills(c):
   ukills = fixup_clan_rows(query.get_top_clan_unique_kills(c))
-  return table_text( [ 'Clan', 'Captain', 'Unique Kills' ],
+  return table_text( [ 'Clan', 'Captain', 'Kills' ],
                      ukills )
 
 def clan_combo_highscores(c):
-  return table_text( [ 'Clan', 'Captain', 'Combo Highscores' ],
+  return table_text( [ 'Clan', 'Captain', 'Scores' ],
                      fixup_clan_rows(query.get_top_clan_combos(c)) )
 
 def clan_affiliation(c, player):

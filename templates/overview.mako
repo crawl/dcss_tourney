@@ -75,19 +75,30 @@
             </div>
           </td>
 
-          <!-- Column two, row two -->
+        </tr>
+      <table>
+    </div>
+
+    <hr/>
+
+    <div class="row">
+      <table class="grouping">
+        <tr>
+          <!-- Column one, row two -->
           <td>
             <div>
               <h3>Most High Scores</h3>
               ${html.combo_highscorers(c)}
             </div>
+          </td>
+          <td>
             <div>
 	          <h3>Most Uniques Killed</h3>
               <%include file="most-uniques-killed.mako"/>
             </div>
           </td>
         </tr>
-      <table>
+      </table>
     </div>
 
     <hr/>
@@ -100,7 +111,7 @@
 	          <h3>Longest Streak</h3>
               ${html.best_streaks(c)}
             </div>
-            
+
             <div>
 	          <h3>Lowest DL at XL1</h3>
               ${html.deepest_xl1_games(c)}

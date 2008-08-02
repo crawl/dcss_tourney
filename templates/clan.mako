@@ -10,7 +10,8 @@
    name = cinfo[0]
    won_games = query.find_clan_games(c, captain,
                                      killertype = 'winning',
-                                     sort_max = 'end_time')
+                                     sort_max = 'end_time',
+                                     limit=None)
    recent_games = query.find_clan_games(c, captain,
                                         sort_max = 'end_time', limit = 20)
 
