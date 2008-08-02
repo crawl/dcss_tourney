@@ -16,6 +16,7 @@
 import os
 import fnmatch
 import re
+import datetime
 
 import loaddb
 import query
@@ -44,6 +45,8 @@ LISTENER = [ TeamListener() ]
 
 # Run the timer every 5 minutes to refresh team stats.
 TIMER = [ ( 5 * 60 , TeamTimer() ) ]
+
+DEADLINE = datetime.datetime(2008, 8, 16, 12) # Aug 16, 12:00
 
 def get_teams(directory):
     '''Searches all *.crawlrc files in the given directory for team information
@@ -98,15 +101,18 @@ def get_teams(directory):
     return teams
 
 def insert_teams(cursor, teams):
-    info("Updating team information.")
-    for captain in teams.iterkeys():
-        loaddb.check_add_player(cursor, captain)
-        canon_cap = query.canonicalize_player_name(cursor, captain)
-        if canon_cap:
-            query.create_team(cursor, teams[captain][0], canon_cap)
-            for player in teams[captain][1]:
-                query.add_player_to_team(cursor, canon_cap, player)
-
+    now = datetime.datetime.utcnow()
+    if (now < DEADLINE):
+        info("Updating team information.")
+        for captain in teams.iterkeys():
+            loaddb.check_add_player(cursor, captain)
+            canon_cap = query.canonicalize_player_name(cursor, captain)
+            if canon_cap:
+                query.create_team(cursor, teams[captain][0], canon_cap)
+                for player in teams[captain][1]:
+                    query.add_player_to_team(cursor, canon_cap, player)
+    else:
+        info("Team information frozen.")
 
 # Team scoring. Putting it here because this we know the teams have
 # been created in the db at this point.
