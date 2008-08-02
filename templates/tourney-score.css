@@ -1,6 +1,49 @@
 div.heading {
     text-align: center;
-    border-bottom: 1px solid #000;
+}
+
+div.heading_left {
+    text-align: left;
+}
+
+div.player_clan {
+    width: 50%;
+    background: #ffffe0;
+    border: 1px solid #000;
+    padding: 15px;
+}
+
+div.content {
+    position: relative;
+}
+
+div.player_status {
+    position: absolute;
+    top: 0px;
+    right: 10px;
+    padding-left: 15px;
+    border-left: 1px solid #000;
+}
+
+.page_back {
+    background: #ccc;
+}
+
+.page {
+    border: 2px solid #333;
+    background: #ffffff;
+    margin: 20px;
+    width: 70%;
+    padding: 20px;
+}
+
+.page div {
+    margin-top: 10px;
+}
+
+.inline_heading {
+    font-weight: bold;
+    /* font-family: sans-serif; */
 }
 
 table.bordered {
@@ -19,15 +62,40 @@ table.bordered td {
     vertical-align: top;
 }
 
-.numeric {
-    text-align: right;
-}
-
 th {
     font-weight: bold;
     background: #ffffe0;
     padding-left: 3px;
     padding-right: 3px;
+}
+
+table.bordered th {
+    border: 1px solid #000;
+}
+
+table.grouping td {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+tr.odd {
+    background: #fff;
+}
+
+tr.even {
+    background: #eee;
+}
+
+tr.win_odd {
+    background: #fafaff;
+}
+
+tr.win_even {
+    background: #ffefb0;
+}
+
+.numeric {
+    text-align: right;
 }
 
 table.overview {
@@ -36,11 +104,6 @@ table.overview {
 
 table.grouping {
     border: 0px;
-}
-
-table.grouping td {
-    padding-left: 15px;
-    padding-right: 15px;
 }
 
 .tdover {

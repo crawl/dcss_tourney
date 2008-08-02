@@ -8,18 +8,21 @@ LOCK = None
 BASEDIR = '/home/crawl'
 LOCKFILE = BASEDIR + '/tourney-py.lock'
 SCORE_FILE_DIR = '/var/www/crawl/tourney'
-PLAYER_FILE_DIR = SCORE_FILE_DIR + '/players'
-
+PLAYER_BASE = 'players'
+CLAN_BASE = 'players'
+PLAYER_FILE_DIR = SCORE_FILE_DIR + '/' + PLAYER_BASE
+CLAN_FILE_DIR = SCORE_FILE_DIR + '/' + CLAN_BASE
 
 CAO_MORGUE_BASE = 'http://crawl.akrasiac.org/rawdata'
 CDO_MORGUE_BASE = 'http://crawl.develz.org/morgues/stable'
 CAO_PLAYER_BASE = 'http://crawl.akrasiac.org/tourney/players'
+CAO_CLAN_BASE = 'http://crawl.akrasiac.org/tourney/clans'
 
-if not os.path.exists(SCORE_FILE_DIR):
-  os.makedirs(SCORE_FILE_DIR)
+MKDIRS = [ SCORE_FILE_DIR, PLAYER_FILE_DIR, CLAN_FILE_DIR ]
 
-if not os.path.exists(PLAYER_FILE_DIR):
-  os.makedirs(PLAYER_FILE_DIR)
+for d in MKDIRS:
+  if not os.path.exists(d):
+    os.makedirs(d)
 
 def lock_handle(check_only=True):
   if check_only:
@@ -93,6 +96,9 @@ def format_time(time):
 def player_link(player):
   return "%s/%s.html" % (CAO_PLAYER_BASE, player)
 
+def clan_link(clan):
+  return "%s/%s.html" % (CAO_CLAN_BASE, clan)
+
 def morgue_link(xdict):
   """Returns a hyperlink to the morgue file for a dictionary that contains
   all fields in the games table."""
@@ -102,3 +108,7 @@ def morgue_link(xdict):
   stime = format_time( xdict['end_time'] )
   base = src.find('cao') >= 0 and CAO_MORGUE_BASE or CDO_MORGUE_BASE
   return "%s/%s/morgue-%s-%s.txt" % (base, name, name, stime)
+
+def linked_text(key, link_fn, text=None):
+  link = link_fn(key)
+  return '<a href="%s">%s</a>' % (link, text or key)

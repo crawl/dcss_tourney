@@ -14,6 +14,7 @@
     <div class="heading">
       <h1>${title}</h1>
     </div>
+    <hr/>
     <div class="first_row">
 	  <table class="grouping">
 	    <tr>

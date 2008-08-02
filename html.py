@@ -1,5 +1,7 @@
 import query, crawl_utils, time
 
+from crawl_utils import clan_link, player_link, linked_text
+
 STOCK_WIN_COLUMNS = \
     [ ('player', 'Player'),
       ('score', 'Score', True),
@@ -9,6 +11,19 @@ STOCK_WIN_COLUMNS = \
       ('god', 'God'),
       ('runes', 'Runes'),
       ('end_time', 'Time', True)
+    ]
+
+EXT_WIN_COLUMNS = \
+    [ ('score', 'Score', True),
+      ('race', 'Species'),
+      ('class', 'Class'),
+      ('god', 'God'),
+      ('title', 'Title'),
+      ('xl', 'XL'),
+      ('turn', 'Turns'),
+      ('duration', 'Duration'),
+      ('runes', 'Runes'),
+      ('end_time', 'Date')
     ]
 
 STOCK_COLUMNS = \
@@ -24,12 +39,28 @@ STOCK_COLUMNS = \
       ('end_time', 'Time', True)
     ]
 
+EXT_COLUMNS = \
+    [ ('score', 'Score', True),
+      ('race', 'Species'),
+      ('class', 'Class'),
+      ('god', 'God'),
+      ('title', 'Title'),
+      ('place', 'Place'),
+      ('vmsg', 'Death'),
+      ('xl', 'XL'),
+      ('turn', 'Turns'),
+      ('duration', 'Duration'),
+      ('runes', 'Runes'),
+      ('end_time', 'Date')
+    ]
 
-def fixup_column(col, data):
+def fixup_column(col, data, game):
   if col.find('time') != -1:
     return pretty_date(data)
   elif col.find('duration') != -1:
     return pretty_dur(data)
+  elif col == 'place' and game.get('killertype') == 'winning':
+    return ''
   return data
 
 def pretty_dur(dur):
@@ -137,14 +168,19 @@ def games_table(games, first=None, excluding=None, columns=None,
 
   for game in games:
     ngame += 1
-    out += '''<tr class="%s">''' % (odd and "odd" or "even")
+
+    ocls = odd and "odd" or "even"
+    if game['killertype'] == 'winning':
+      ocls = "win_" + ocls
+
+    out += '''<tr class="%s">''' % ocls
     odd = not odd
 
     if count:
       out += '''<td class="numeric">%s</td>''' % ngame
 
     for c in columns:
-      val = fixup_column(c[0], game.get(c[0]) or '')
+      val = fixup_column(c[0], game.get(c[0]) or '', game)
       tcls = isinstance(val, str) and "celltext" or "numeric"
       out += '''<td class="%s">''' % tcls
 
@@ -158,6 +194,15 @@ def games_table(games, first=None, excluding=None, columns=None,
     out += "</tr>\n"
   out += "</table>\n"
   return out
+
+def full_games_table(games, **pars):
+  if not pars.get('columns'):
+    if pars.has_key('win'):
+      win = pars['win']
+    else:
+      win = True
+    pars['columns'] = win and EXT_WIN_COLUMNS or EXT_COLUMNS
+  return games_table(games, **pars)
 
 def combo_highscorers(c):
   hs = query.get_top_combo_highscorers(c)
@@ -201,3 +246,22 @@ def clan_unique_kills(c):
 def clan_combo_highscores(c):
   return table_text( [ 'Clan', 'Captain', 'Combo Highscores' ],
                      query.get_top_clan_combos(c) )
+
+def clan_affiliation(c, player):
+  # Clan affiliation info is clan name, followed by a list of players,
+  # captain first, or None if the player is not in a clan.
+  clan_info = query.get_clan_info(c, player)
+  if clan_info is None:
+    return "None"
+
+  clan_name, players = clan_info
+  clan_html = linked_text(players[0], clan_link, clan_name) + " - "
+
+  plinks = [ linked_text(players[0], player_link) + " (captain)" ]
+
+  other_players = sorted(players[1:])
+  for p in other_players:
+    plinks.append( linked_text(p, player_link) )
+
+  clan_html += ", ".join(plinks)
+  return clan_html

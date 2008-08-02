@@ -221,6 +221,39 @@ def was_unique_killed(c, player, monster):
                 player, monster)
   return query.row(c) is not None
 
+def calc_perc(num, den):
+  if den <= 0:
+    return 0.0
+  else:
+    return num * 100.0 / den
+
+def get_player_stats(c, name):
+  """Returns a dictionary of miscellaneous stats for the player."""
+  points = query_row(c, '''SELECT score_full, team_score_base
+                           FROM players WHERE name = %s''',
+                     name)
+  if points is None:
+    return { }
+
+  stats = { }
+  stats['points'] = points[0]
+  stats['team_points'] = points[1]
+
+  # Get win/played stats.
+  stats['played'] = \
+      query_first(c,
+                  """SELECT COUNT(*) FROM games
+                     WHERE player = %s AND killertype = 'winning'""",
+                  name)
+
+  stats['won'] = \
+      query_first(c,
+                  """SELECT COUNT(*) FROM games WHERE player = %s""",
+                  name)
+
+  stats['win_perc'] = "%.2f%%" % calc_perc(stats['won'], stats['played'])
+  return stats
+
 def get_player_base_score(c, name):
   """Return the unchanging part of a player's score"""
   query = Query("""SELECT score_base FROM players WHERE name=%s;""",
@@ -417,9 +450,29 @@ def players_in_team(cursor, team_owner):
   owner first."""
   prows = query_rows(cursor,
                      '''SELECT name FROM players
-                        WHERE team_owner = %s''',
+                        WHERE team_captain = %s''',
                      team_owner)
   players = [x[0] for x in prows]
   players.remove(team_owner)
   players.insert(0, team_owner)
   return players
+
+def get_clan_info(c, player):
+  """Given a player name, returns a tuple of clan name and a list of
+  players in the clan, with clan captain first, or None if the player is
+  not in a clan."""
+  captain = query_row(c, '''SELECT team_captain FROM players
+                            WHERE name = %s''',
+                      player)
+  if captain is None or captain[0] is None:
+    return None
+
+  captain = captain[0]
+
+  team_name = query_row(c, '''SELECT name FROM teams WHERE owner = %s''',
+                        captain)
+  if team_name is None or team_name[0] is None:
+    return None
+
+  team_name = team_name[0]
+  return (team_name, players_in_team(c, captain))
