@@ -253,19 +253,26 @@ def best_streaks(c):
   return table_text( [ 'Player', 'Streak', 'Start', 'End', 'Games' ],
                      streaks )
 
+
+def fixup_clan_rows(rows):
+  rows = [ list(r) for r in rows ]
+  for clan in rows:
+    clan[0] = linked_text(clan[1], clan_link, clan[0])
+  return rows
+
 def best_clans(c):
-  clans = query.get_top_clan_scores(c)
+  clans = fixup_clan_rows(query.get_top_clan_scores(c))
   return table_text( [ 'Clan', 'Captain', 'Points' ],
                      clans )
 
 def clan_unique_kills(c):
-  ukills = query.get_top_clan_unique_kills(c)
+  ukills = fixup_clan_rows(query.get_top_clan_unique_kills(c))
   return table_text( [ 'Clan', 'Captain', 'Unique Kills' ],
                      ukills )
 
 def clan_combo_highscores(c):
   return table_text( [ 'Clan', 'Captain', 'Combo Highscores' ],
-                     query.get_top_clan_combos(c) )
+                     fixup_clan_rows(query.get_top_clan_combos(c)) )
 
 def clan_affiliation(c, player):
   # Clan affiliation info is clan name, followed by a list of players,
