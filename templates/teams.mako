@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <%
-   import crawl_utils, loaddb, query
+   import crawl_utils, loaddb, query, html
    c = attributes['cursor']
 %>
 <html>
@@ -30,10 +30,12 @@
         <td><a href="${crawl_utils.player_link(teammembers[captain][0])}">${teammembers[captain][0]}</a>
         % for name in teammembers[captain][1:]:
         , <a href="${crawl_utils.player_link(name)}">${name}</a>
-        % endfor    	
+        % endfor
         </td>
       </tr>
       % endfor
     </table>
+
+    ${html.update_time()}
   </body>
 </html>

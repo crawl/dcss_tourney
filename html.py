@@ -46,7 +46,7 @@ EXT_COLUMNS = \
       ('god', 'God'),
       ('title', 'Title'),
       ('place', 'Place'),
-      ('vmsg', 'Death'),
+      ('verb_msg', 'Death'),
       ('xl', 'XL'),
       ('turn', 'Turns'),
       ('duration', 'Duration'),
@@ -164,7 +164,7 @@ def games_table(games, first=None, excluding=None, columns=None,
 
   ncols = len(columns) + (count and 1 or 0)
   if not games:
-    out += '''<tr><td colspan='%s'>No data</td></tr>''' % ncols
+    out += '''<tr><td colspan='%s'>No games</td></tr>''' % ncols
 
   for game in games:
     ngame += 1

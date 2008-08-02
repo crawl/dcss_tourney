@@ -45,6 +45,16 @@ def win_query(selected, order_by = None,
     query.append(" LIMIT %d" % limit)
   return query
 
+def get_player_best_streak_games(c, player):
+  streaks = query_row(c, '''SELECT streak_time
+                            FROM streaks
+                            WHERE player = %s''',
+                      player)
+  if streaks is None:
+    return []
+
+  return get_streak_games(c, player, streaks[0])
+
 def get_top_streaks(c, how_many = 10):
   streaks = query_rows(c, '''SELECT player, streak, streak_time
                              FROM streaks
@@ -240,13 +250,13 @@ def get_player_stats(c, name):
   stats['team_points'] = points[1]
 
   # Get win/played stats.
-  stats['played'] = \
+  stats['won'] = \
       query_first(c,
                   """SELECT COUNT(*) FROM games
                      WHERE player = %s AND killertype = 'winning'""",
                   name)
 
-  stats['won'] = \
+  stats['played'] = \
       query_first(c,
                   """SELECT COUNT(*) FROM games WHERE player = %s""",
                   name)

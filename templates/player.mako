@@ -10,6 +10,8 @@
                                 sort_max = 'end_time')
    recent_games = query.find_games(c, player = player, sort_max = 'end_time',
                                    limit = 15)
+
+   streak_games = query.get_player_best_streak_games(c, player)
  %>
 <html>
   <head>
@@ -56,12 +58,22 @@
           ${html.full_games_table(won_games, count=False)}
         </div>
 
+        % if streak_games:
+        <div class="game_table">
+          <h3>Longest streak of wins</h3>
+          ${html.full_games_table(streak_games)}
+        </div>
+        % endif
+
         <div class="game_table">
           <h3>Recent Games</h3>
           ${html.full_games_table(recent_games, count=False, win=False)}
         </div>
       </div>
 
+      <hr/>
+      ${html.update_time()}
     </div> <!-- page -->
+
   </body>
 </html>
