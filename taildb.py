@@ -36,6 +36,5 @@ if __name__ == '__main__':
   logging.basicConfig(level=logging.DEBUG,
                       filename = (crawl_utils.BASEDIR + '/taildb.log'))
   loaddb.load_extensions()
-  loaddb.load_extensions()
   crawl_utils.daemonize()
   tail_logfiles( loaddb.LOGS, loaddb.MILESTONES, 60 )
