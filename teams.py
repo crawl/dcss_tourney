@@ -100,10 +100,12 @@ def get_teams(directory):
 def insert_teams(cursor, teams):
     info("Updating team information.")
     for captain in teams.iterkeys():
+        loaddb.check_add_player(cursor, captain)
         canon_cap = query.canonicalize_player_name(cursor, captain)
-        query.create_team(cursor, teams[captain][0], canon_cap)
-        for player in teams[captain][1]:
-            query.add_player_to_team(cursor, canon_cap, player)
+        if canon_cap:
+            query.create_team(cursor, teams[captain][0], canon_cap)
+            for player in teams[captain][1]:
+                query.add_player_to_team(cursor, canon_cap, player)
 
 
 # Team scoring. Putting it here because this we know the teams have
