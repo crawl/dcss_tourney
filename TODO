@@ -14,14 +14,14 @@ Other pages:
    * If there's a game in progress, where is the player.
    [DONE] * Overall points
    [DONE] * Games won
-   * Point breakdown?
+   [DONE] * Point breakdown?
    [DONE] * Recent games completed
 
  - Per clan page
    [DONE] * Players in clan <link to players>
    [DONE] * Overall points
-   * Individual player point contrib.
-   * Point breakdown (show points from individual players + applicable clan
+   [DONE] * Individual player point contrib.
+   [DONE] * Point breakdown (show points from individual players + applicable clan
      trophies if any).
    * whereis for each player.
    [DONE] * Games won by all clan members.

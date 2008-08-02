@@ -34,8 +34,10 @@ CREATE TABLE IF NOT EXISTS players (
   score_base BIGINT,
   -- This is the computed score! We will overwrite it each time we
   -- recalculate it, and it may be null at any point.
-  score_full BIGINT,
+  score_full BIGINT DEFAULT 0,
   team_score_base BIGINT,
+  -- This is also computed and will be overwritten each time.
+  team_score_full BIGINT DEFAULT 0,
   FOREIGN KEY (team_captain) REFERENCES players (name)
   ON DELETE SET NULL
   );
@@ -243,7 +245,7 @@ ORDER BY combos DESC
 LIMIT 10;
 
 CREATE VIEW clan_total_scores AS
-SELECT team_captain, (SUM(score_full) + SUM(team_score_base)) score
+SELECT team_captain, (SUM(score_full) + SUM(team_score_full)) score
 FROM players
 WHERE team_captain IS NOT NULL
 GROUP BY team_captain

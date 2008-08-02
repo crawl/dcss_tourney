@@ -19,7 +19,7 @@ import re
 
 import loaddb
 import query
-from query import say_points, get_points
+from query import say_points, get_points, log_temp_clan_points
 
 import logging
 from logging import debug, info, warn, error
@@ -113,14 +113,15 @@ def insert_teams(cursor, teams):
 
 def clan_additional_score(c, owner):
   additional = 0
-  clan = "CLAN %s" % owner
-  additional += say_points( clan, 'combo_scores',
-                            get_points( query.clan_combo_pos(c, owner),
-                                        200, 100, 50 ) )
-  additional += say_points( clan, 'unique_scores',
-                            get_points( query.clan_unique_pos(c, owner),
-                                        100, 50, 20 ) )
-  # Clan that gets all uniques first. :P
+  query.audit_flush_clan(c, owner)
+  additional += log_temp_clan_points( c, owner, 'combo_scores',
+                                      get_points(
+                                              query.clan_combo_pos(c, owner),
+                                              200, 100, 50 ) )
+  additional += log_temp_clan_points( c, owner, 'unique_scores',
+                                      get_points(
+                                              query.clan_unique_pos(c, owner),
+                                              100, 50, 20 ) )
   query.set_clan_points(c, owner, additional)
 
 def update_clan_scores(c):

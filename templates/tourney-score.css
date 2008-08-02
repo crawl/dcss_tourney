@@ -79,8 +79,11 @@ table.bordered td {
     vertical-align: top;
 }
 
+table.bordered td.blank {
+    border: 0px;
+}
+
 td.legend {
-    vertical-align: center;
 }
 
 th {
@@ -95,6 +98,11 @@ table.bordered th {
 }
 
 table.grouping td {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+table.grouping th {
     padding-left: 15px;
     padding-right: 15px;
 }

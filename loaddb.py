@@ -493,12 +493,13 @@ def update_streak_count(c, game, streak_count):
            game['name'], streak_count, streak_time,
            streak_count, streak_time)
 
-def update_player_fullscore(c, player, addition):
+def update_player_fullscore(c, player, addition, team_addition):
   query_do(c,
            '''UPDATE players
-              SET score_full = score_base + %s
+              SET score_full = score_base + %s,
+                  team_score_full = team_score_base + %s
               WHERE name = %s''',
-           addition, player)
+           addition, team_addition, player)
 
 def apply_dbtypes(game):
   """Given an xlogline dictionary, replaces all values with munged values

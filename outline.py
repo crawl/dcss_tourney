@@ -6,7 +6,8 @@ import query
 import logging
 from logging import debug, info, warn, error
 
-from query import assign_points, assign_team_points, log_temp_points, get_points
+from query import assign_points, assign_team_points
+from query import log_temp_points, log_temp_team_points, get_points
 
 # So there are a few problems we have to solve:
 # 1. Intercepting new logfile events
@@ -252,6 +253,7 @@ def player_additional_score(c, player):
   current volatile score."""
 
   additional = 0
+  add_team = 0
 
   c.execute('BEGIN;')
   try:
@@ -293,7 +295,12 @@ def player_additional_score(c, player):
                                    'max_streak_Nth:%d' % (streak_pos + 1),
                                    get_points(streak_pos, 200, 100, 50 ) )
 
-    loaddb.update_player_fullscore(c, player, additional)
+    xl1_dive_pos = query.player_xl1_dive_pos(c, player)
+    add_team += log_temp_team_points( c, player,
+                                      'xl1_dive_Nth:%d' % (xl1_dive_pos + 1),
+                                      get_points(xl1_dive_pos, 50, 20, 10) )
+
+    loaddb.update_player_fullscore(c, player, additional, add_team)
     c.execute('COMMIT;')
   except:
     c.execute('ROLLBACK;')

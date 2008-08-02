@@ -21,6 +21,42 @@
    recent_html = html.games_table(recent_games, columns=html.EXT_COLUMNS,
                              including=[(1, ('player', 'Player'))],
                              count=False)
+
+   clan_player_points = query.audit_clan_player_points(c, captain)
+   clan_points = query.audit_clan_points(c, captain)
+
+   def player_point_breakdown():
+     text = ''
+     total = 0
+     for name, score in clan_player_points:
+       text += '''<tr class="point_temp">
+                    <td>%s</td>
+                    <td class="numeric">%s</td>
+                  </tr>''' % (name, score)
+       total += score
+     text += '''<tr><th>Total</th><th class="numeric">%s</th></tr>''' % total
+     return text
+
+   def clan_point_breakdown():
+     text = ''
+     total = 0
+     for source, points in clan_points:
+       text += '''<tr class="point_temp">
+                    <td>%s</td>
+                    <td class="numeric">%s</td>
+                  </tr>''' % (source, points)
+       total += points
+     text += '''<tr><th>Total</th><th class="numeric">%s</th></tr>''' % total
+     return text
+
+   blank_row = '''<tr>
+                    <td class="blank">&nbsp;</td>
+                    <td class="blank">&nbsp;</td>
+                  </tr>'''
+
+
+   grand_total = sum( [ x[1] for x in clan_player_points ] +
+                      [ x[1] for x in clan_points ] )
  %>
 <html>
   <head>
@@ -68,6 +104,36 @@
           <div class="game_table">
             <h3>Recent Games</h3>
             ${recent_html}
+          </div>
+
+          <hr/>
+
+          <div class="audit_table">
+            <h3>Score Breakdown</h3>
+            <table class="bordered">
+              %if clan_player_points:
+              <tr>
+                <th>Player</th> <th>Points</th>
+              </tr>
+              ${player_point_breakdown()}
+                %if clan_points:
+                  ${blank_row}
+                %endif
+              %endif
+              %if clan_points:
+              <tr>
+                <th>Source</th> <th>Points</th>
+              </tr>
+              ${clan_point_breakdown()}
+              %endif
+              %if clan_points and clan_player_points:
+                ${blank_row}
+                <tr>
+                  <th>Grand Total</th>
+                  <th class="numeric">${grand_total}</th>
+                </tr>
+              %endif
+            </table>
           </div>
         </div>
       </div>

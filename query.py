@@ -354,6 +354,34 @@ def audit_trail_player_points(c, player):
                     ORDER BY temp, total DESC, n DESC''',
                     player)
 
+def audit_trail_player_team_points(c, player):
+  return query_rows(c,
+                    '''SELECT temp, point_source, SUM(team_points) total,
+                          COUNT(*) n
+                       FROM player_points
+                       WHERE player=%s AND team_points > 0
+                       GROUP BY temp, point_source
+                       ORDER BY temp, total DESC, n DESC''',
+                    player)
+
+def audit_clan_player_points(c, captain):
+  """Gets the total points contributed to a clan by each player in the clan."""
+  return query_rows(c,
+                    '''SELECT name, (score_full + team_score_base) points
+                       FROM players
+                       WHERE team_captain = %s
+                       ORDER BY points DESC''',
+                    captain)
+
+def audit_clan_points(c, captain):
+  return query_rows(c,
+                    '''SELECT point_source, SUM(points) p
+                       FROM clan_points
+                       WHERE captain = %s
+                       GROUP BY point_source
+                       ORDER BY p DESC''',
+                    captain)
+
 def audit_record_points(c, who, what, points, temp, credited='points'):
   if points > 0:
     # Update the audit table.
@@ -362,16 +390,37 @@ def audit_record_points(c, who, what, points, temp, credited='points'):
                    VALUES (%s, %s, %s, %s)''',
              who, temp and 1 or 0, points, what)
 
+def clan_audit_record_points(c, captain, what, points):
+  if points > 0:
+    query_do(c, '''INSERT INTO clan_points (captain, points, point_source)
+                   VALUES (%s, %s, %s)''',
+             captain, points, what)
+
 def audit_flush_player(c, player):
   """Discards temporary points assigned to the player from the audit table."""
   query_do(c, '''DELETE FROM player_points
                  WHERE player = %s AND temp = 1''',
            player)
 
+def audit_flush_clan(c, captain):
+  query_do(c, '''DELETE FROM clan_points WHERE captain = %s''', captain)
+
 def log_temp_points(c, who, what, points):
   if points > 0:
     say_points(who, what, points)
     audit_record_points(c, who, what, points, True)
+  return points
+
+def log_temp_team_points(c, who, what, points):
+  if points > 0:
+    say_points(who + '(c)', what, points)
+    audit_record_points(c, who, what, points, True, credited = 'team_points')
+  return points
+
+def log_temp_clan_points(c, captain, what, points):
+  if points > 0:
+    say_points('CLAN:' + captain, what, points)
+    clan_audit_record_points(c, captain, what, points)
   return points
 
 def get_points(index, *points):
@@ -394,6 +443,8 @@ def assign_team_points(cursor, point_source, name, points):
   """Add points to a players team in the db.  The name refers to the player, not the team"""
   if points > 0:
     debug("TEAM %s: %d points [%s]" % (name, points, point_source))
+    audit_record_points(cursor, name, point_source, points, False,
+                        credited = 'team_points')
     query_do(cursor,
              """UPDATE players
                 SET team_score_base = team_score_base + %s
@@ -448,6 +499,10 @@ def player_hs_combo_pos(c, player):
 
 def player_streak_pos(c, player):
   return find_place(query_rows(c, 'SELECT player FROM streak_scoreboard'),
+                    player)
+
+def player_xl1_dive_pos(c, player):
+  return find_place([ [ g['player'] ] for g in get_deepest_xl1_games(c) ],
                     player)
 
 def clan_combo_pos(c, owner):

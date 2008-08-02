@@ -14,8 +14,11 @@
    streak_games = query.get_player_best_streak_games(c, player)
 
    audit = query.audit_trail_player_points(c, player)
+   audit_team = query.audit_trail_player_team_points(c, player)
 
-   def point_breakdown():
+   def point_breakdown(audit):
+     if not audit:
+       return '<tr><td colspan="3">No points</td></tr>'
      text = ''
      total = 0
      n = 0
@@ -94,22 +97,32 @@
 
           <hr/>
           <div class="audit_table">
-            <h3>Points Breakdown</h3>
+            <h3>Score Breakdown</h3>
             <table class="grouping">
               <tr>
                 <td>
+                  <h4>Player points</h4>
                   <table class="bordered">
                     <tr>
                       <th>N</th> <th>Points</th> <th>Source</th>
                     </tr>
-                    ${point_breakdown()}
+                    ${point_breakdown(audit)}
                   </table>
                 </td>
-                <td class="legend">
+
+                <td>
+                  <h4>Team points</h4>
                   <table class="bordered">
                     <tr>
-                      <th>Legend</th>
+                      <th>N</th> <th>Points</th> <th>Source</th>
                     </tr>
+                    ${point_breakdown(audit_team)}
+                  </table>
+                </td>
+
+                <td class="legend">
+                  <h4>Legend</h4>
+                  <table class="bordered">
                     <tr class="point_perm">
                       <td>Permanent points</td>
                     </tr>
