@@ -63,7 +63,8 @@ WHERE_COLUMNS = \
       ('place', 'Place'),
       ('xl', 'XL'),
       ('turn', 'Turns'),
-      ('time', 'Time')
+      ('time', 'Time'),
+      ('status', 'Status')
     ]
 
 R_STR_DATE = re.compile(r'^(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})')
