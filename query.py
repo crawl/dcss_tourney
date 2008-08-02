@@ -237,6 +237,20 @@ def calc_perc(num, den):
   else:
     return num * 100.0 / den
 
+def get_all_player_stats(c):
+  q = Query('''SELECT p.name, p.score_full,
+                      (SELECT COUNT(*) FROM games
+                       WHERE player = p.name
+                       AND killertype = 'winning') wincount,
+                      (SELECT COUNT(*) FROM games
+                       WHERE player = p.name) playcount
+               FROM players p
+               ORDER BY p.score_full DESC''')
+  rows = [ list(r) for r in q.rows(c) ]
+  for row in rows:
+    row.append( calc_perc( row[2], row[3] ) )
+  return rows
+
 def get_player_stats(c, name):
   """Returns a dictionary of miscellaneous stats for the player."""
   points = query_row(c, '''SELECT score_full, team_score_base

@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS players (
   FOREIGN KEY (team_captain) REFERENCES players (name)
   ON DELETE SET NULL
   );
-
+  
 CREATE INDEX pscore ON players (score_full);
 
 CREATE TABLE teams (
@@ -111,6 +111,7 @@ CREATE TABLE games (
   );
 
 CREATE INDEX games_ktyp ON games (killertype);
+CREATE INDEX games_p_ktyp ON games (player, killertype);
 
 -- Index to help us find fastest wins (time) quick.
 CREATE INDEX games_win_dur ON games (killertype, duration);

@@ -70,10 +70,8 @@
           ${html.full_games_table(recent_games, count=False, win=False)}
         </div>
       </div>
-
-      <hr/>
-      ${html.update_time()}
     </div> <!-- page -->
 
+    ${html.update_time()}
   </body>
 </html>
