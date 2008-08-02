@@ -79,11 +79,11 @@ table.grouping td {
 }
 
 tr.odd {
-    background: #fff;
+    background: #ffffff;
 }
 
 tr.even {
-    background: #eee;
+    background: #fafafa;
 }
 
 tr.win_odd {
@@ -91,7 +91,7 @@ tr.win_odd {
 }
 
 tr.win_even {
-    background: #ffefb0;
+    background: #fdfdff;
 }
 
 .numeric {
