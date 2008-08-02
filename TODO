@@ -106,8 +106,7 @@ Team/clan setup (Anym?):
  - [DONE] Examine .crawlrc files for clan affiliations and add them to the
    database.
  - [DONE] Update the clan affiliations periodically.
-
- - Freeze clan affiliations by the deadine, Aug 15 12:00:00 UTC, i.e.
+ - [DONE] Freeze clan affiliations by the deadine, Aug 16 12:00:00 UTC, i.e.
    tournament halftime.
 
 -----------------------------------------------------------------------
@@ -126,6 +125,8 @@ We are! Yay.
 - Can players leave a clan at any time?
 rax and Anym sort of arbitrarily deicded that clans were frozen as of
 Aug 15th.
+-- I, Anym, even more arbitratily, decided to change that to noon on Aug 16th,
+   as that's the tournament's exact halftime, if I'm not mistaken.
 
 - If a player can leave a clan at any time, we may need to flag
   logfile and milestone entries with clan id to keep track of clan
