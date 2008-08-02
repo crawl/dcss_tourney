@@ -17,6 +17,11 @@ div.content {
     position: relative;
 }
 
+div.content_centered {
+    horizontal-align: center;
+    text-align: center;
+}
+
 div.player_status {
     position: absolute;
     top: 0px;
@@ -115,4 +120,10 @@ table.grouping {
     width: 100%;
     text-align: center;
     font-size: xx-small;
+}
+
+body.simple_left_align div.updatetime {
+    padding-top: 20px;
+    font-size: xx-small;
+    text-align: left;
 }
