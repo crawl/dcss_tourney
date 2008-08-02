@@ -413,7 +413,7 @@ def count_player_unique_kills(cursor, player, unique):
   return query_first(cursor,
                      '''SELECT COUNT(*) FROM kills_of_uniques
                      WHERE player=%s AND monster=%s''',
-                     player, unique) > 0
+                     player, unique)
 
 def player_count_runes(cursor, player, rune=None):
   """Counts the number of times the player has found runes (or a specific
