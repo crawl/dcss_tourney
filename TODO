@@ -8,13 +8,13 @@ going on, please fix whatever's wrong so we don't duplicate each
 others' work.
 
 
-Bad combo score for Stabwound?
+[FIXED] Bad combo score for Stabwound?
 
 Other pages:
 ------------
  - Per player page.
    [DONE] * Clan affiliation <link to clan>
-   * If there's a game in progress, where is the player.
+   [DONE] * If there's a game in progress, where is the player.
    [DONE] * Overall points
    [DONE] * Games won
    [DONE] * Point breakdown?
@@ -26,7 +26,7 @@ Other pages:
    [DONE] * Individual player point contrib.
    [DONE] * Point breakdown (show points from individual players +
             applicable clan trophies if any).
-   * whereis for each player.
+   [DONE] * whereis for each player.
    [DONE] * Games won by all clan members.
    [DONE] * Recent games completed by all clan members.
 

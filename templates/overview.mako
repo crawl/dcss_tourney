@@ -55,6 +55,12 @@
                   <h3>Fastest Win (real time)</h3>
                   <%include file="fastest-time.mako"/>
                 </div>
+
+                <div class="fineprint">
+                  These are wins by the three best players, not necessarily
+                  the three fastest wins (only the best game of a
+                  player is shown).
+                </div>
               </td>
             </tr>
           </table>

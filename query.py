@@ -80,6 +80,22 @@ def get_player_best_streak_games(c, player):
 
   return get_streak_games(c, player, streaks[0])
 
+def get_fastest_time_player_games(c):
+  fields = ",".join([ 'g.' + x for x in LOG_FIELDS ])
+  games = query_rows(c, '''SELECT %s FROM fastest_realtime f, games g
+                           WHERE f.player = g.player
+                           AND g.killertype = 'winning'
+                           AND g.duration = f.duration''' % fields)
+  return [ row_to_xdict(r) for r in games ]
+
+def get_fastest_turn_player_games(c):
+  fields = ",".join([ 'g.' + x for x in LOG_FIELDS ])
+  games = query_rows(c, '''SELECT %s FROM fastest_turncount f, games g
+                           WHERE f.player = g.player
+                           AND g.killertype = 'winning'
+                           AND g.turn = f.turn''' % fields)
+  return [ row_to_xdict(r) for r in games ]
+
 def get_top_streaks(c, how_many = 10):
   streaks = query_rows(c, '''SELECT player, streak, streak_time
                              FROM streaks
