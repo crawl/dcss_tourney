@@ -83,15 +83,15 @@ tr.odd {
 }
 
 tr.even {
-    background: #fafafa;
+    background: #fdfdfd;
 }
 
 tr.win_odd {
-    background: #fafaff;
+    background: #f0fff0;
 }
 
 tr.win_even {
-    background: #fdfdff;
+    background: #f0ffff;
 }
 
 .numeric {
