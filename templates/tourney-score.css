@@ -38,11 +38,25 @@ div.player_status {
     border: 2px solid #333;
     background: #ffffff;
     margin: 20px;
+}
+
+.page_content {
     padding: 20px;
 }
 
-.page div {
-    margin-top: 10px;
+div.toplinks {
+    margin-top: 0px;
+    background: #faffff;
+    text-color: #ccc;
+    text-align: right;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-right: 15px;
+}
+
+div.toplinks a:hover {
+    text-decoration: none;
+    background-color: #ff0;
 }
 
 .inline_heading {

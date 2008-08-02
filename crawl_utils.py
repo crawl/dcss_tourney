@@ -15,8 +15,10 @@ CLAN_FILE_DIR = SCORE_FILE_DIR + '/' + CLAN_BASE
 
 CAO_MORGUE_BASE = 'http://crawl.akrasiac.org/rawdata'
 CDO_MORGUE_BASE = 'http://crawl.develz.org/morgues/stable'
-CAO_PLAYER_BASE = 'http://crawl.akrasiac.org/tourney/players'
-CAO_CLAN_BASE = 'http://crawl.akrasiac.org/tourney/clans'
+CAO_BASE = 'http://crawl.akrasiac.org'
+CAO_TOURNEY_BASE = '%s/tourney' % CAO_BASE
+CAO_PLAYER_BASE = '%s/players' % CAO_TOURNEY_BASE
+CAO_CLAN_BASE = '%s/clans' % CAO_TOURNEY_BASE
 
 MKDIRS = [ SCORE_FILE_DIR, PLAYER_FILE_DIR, CLAN_FILE_DIR ]
 

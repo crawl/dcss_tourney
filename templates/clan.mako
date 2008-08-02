@@ -30,41 +30,45 @@
 
   <body class="page_back">
     <div class="page">
-      <div class="heading_left">
-        <h1>Clan ${name}</h1>
-      </div>
+      <%include file="toplink.mako"/>
 
-      <hr/>
-
-      <div class="content">
-        <div class="player_clan">
-          <span class="inline_heading">Clan: </span>
-          ${html.clan_affiliation(c, captain)}
+      <div class="page_content">
+        <div class="heading_left">
+          <h1>Clan ${name}</h1>
         </div>
 
-        <div class="player_status">
-          <table class="bordered">
-            <tr>
-              <th>Tourney points total</th>
-              <td class="numeric">${stats['points']}</td>
-            </tr>
+        <hr/>
 
-            <tr>
-              <th>Games won / played</th>
-              <td>${stats['won']} / ${stats['played']}
-                (${stats['win_perc']})</td>
-            </tr>
-          </table>
-        </div>
+        <div class="content">
+          <div class="player_clan">
+            <span class="inline_heading">Clan: </span>
+            ${html.clan_affiliation(c, captain)}
+          </div>
 
-        <div class="game_table">
-          <h3>Games won</h3>
-          ${won_html}
-        </div>
+          <div class="player_status">
+            <table class="bordered">
+              <tr>
+                <th>Tourney points total</th>
+                <td class="numeric">${stats['points']}</td>
+              </tr>
 
-        <div class="game_table">
-          <h3>Recent Games</h3>
-          ${recent_html}
+              <tr>
+                <th>Games won / played</th>
+                <td>${stats['won']} / ${stats['played']}
+                  (${stats['win_perc']})</td>
+              </tr>
+            </table>
+          </div>
+
+          <div class="game_table">
+            <h3>Games won</h3>
+            ${won_html}
+          </div>
+
+          <div class="game_table">
+            <h3>Recent Games</h3>
+            ${recent_html}
+          </div>
         </div>
       </div>
     </div> <!-- page -->

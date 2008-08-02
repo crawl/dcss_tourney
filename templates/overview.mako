@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="tourney-score.css"/>
   </head>
   <body>
+    <%include file="toplink.mako"/>
     <div class="heading">
       <h1>${title}</h1>
     </div>

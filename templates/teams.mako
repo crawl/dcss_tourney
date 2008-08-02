@@ -8,8 +8,10 @@
     <title>Teams</title>
     <link rel="stylesheet" type="text/css" href="tourney-score.css"/>
   </head>
-  <body class="simple_left_align">
-    <div>
+  <body class="page_back">
+    <div class="page">
+      <%include file="toplink.mako"/>
+      <div class="page_content">
       <h2>Teams</h2>
       <table class="bordered">
         <tr>
@@ -45,8 +47,8 @@
         </tr>
         % endfor
       </table>
+      </div>
     </div>
-
     ${html.update_time()}
   </body>
 </html>

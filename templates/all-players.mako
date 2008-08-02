@@ -15,6 +15,7 @@
 
   <body class="page_back">
     <div class="page">
+      <%include file="toplink.mako"/>
       <div class="heading_left">
         <h1>All Players</h1>
       </div>
