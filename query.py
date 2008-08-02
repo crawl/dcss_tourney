@@ -270,7 +270,7 @@ def get_all_player_stats(c):
                ORDER BY p.score_full DESC''')
   rows = [ list(r) for r in q.rows(c) ]
   for row in rows:
-    row.append( calc_perc( row[2], row[3] ) )
+    row.append( "%.2f%%" % calc_perc( row[2], row[3] ) )
   return rows
 
 def get_clan_stats(c, captain):

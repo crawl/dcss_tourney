@@ -16,16 +16,19 @@
   <body class="page_back">
     <div class="page">
       <%include file="toplink.mako"/>
-      <div class="heading_left">
-        <h1>All Players</h1>
-      </div>
 
-      <hr/>
+      <div class="page_content">
+        <div class="heading_left">
+          <h1>All Players</h1>
+        </div>
 
-      <div class="content">
-        ${html.table_text( [ 'Player', 'Points', 'Games Won', 'Games Played',
-                             'Win %' ],
-                           stats )}
+        <hr/>
+
+        <div class="content">
+          ${html.table_text( [ 'Player', 'Points', 'Games Won', 'Games Played',
+                               'Win %' ],
+          stats )}
+        </div>
       </div>
     </div>
     ${html.update_time()}
