@@ -29,6 +29,14 @@ div.player_status {
     border-left: 1px solid #000;
 }
 
+div.inset {
+    background: #ffffe0;
+    padding: 10px;
+    border: 1px solid #000;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
 .page_back {
     background: #ccc;
 }
@@ -155,6 +163,12 @@ table.grouping {
     width: 100%;
     text-align: center;
     font-size: xx-small;
+}
+
+div.fineprint {
+    text-align: center;
+    font-size: xx-small;
+    color: #aaa;
 }
 
 body.simple_left_align div.updatetime {

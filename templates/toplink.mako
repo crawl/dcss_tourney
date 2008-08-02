@@ -6,6 +6,10 @@
 &nbsp;
 <a href="${CAO_TOURNEY_BASE}/teams.html">Clans</a>
 &nbsp;
+<a href="${CAO_TOURNEY_BASE}/scoreboard.html">Combos</a>
+&nbsp;
+<a href="${CAO_TOURNEY_BASE}/scoreboard.html">Scoreboard</a>
+&nbsp;
 <a href="${CAO_TOURNEY_BASE}">Tourney Home</a>
 &nbsp;
 <a href="${CAO_BASE}">crawl.akrasiac.org</a>

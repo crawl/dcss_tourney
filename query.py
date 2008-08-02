@@ -89,6 +89,14 @@ def get_top_clan_combos(c, how_many = 3):
                           ORDER BY hs.combos DESC
                           LIMIT %d''' % how_many)
 
+def get_combo_scores(c, how_many = None):
+  query = Query("SELECT " + ",".join(LOG_FIELDS) +
+                """ FROM game_combo_highscores
+                   ORDER BY score DESC""")
+  if how_many:
+    query.append(" LIMIT %d" % how_many)
+  return [ row_to_xdict(x) for x in query.rows(c) ]
+
 def _canonicalize_player_name(c, player):
   row = query_row(c, '''SELECT name FROM players WHERE name = %s''',
                   player)
@@ -258,6 +266,15 @@ def calc_perc(num, den):
     return 0.0
   else:
     return num * 100.0 / den
+
+def get_all_game_stats(c):
+  played = query_first(c, '''SELECT COUNT(*) FROM games''')
+  won = query_first(c, """SELECT COUNT(*) FROM games
+                          WHERE killertype='winning'""")
+  win_perc = "%.2f%%" % calc_perc(won, played)
+  return { 'played' : played,
+           'won' : won,
+           'win_perc' : win_perc }
 
 def get_all_player_stats(c):
   q = Query('''SELECT p.name, p.score_full,

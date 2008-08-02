@@ -54,6 +54,8 @@ EXT_COLUMNS = \
       ('end_time', 'Date')
     ]
 
+
+
 def fixup_column(col, data, game):
   if col.find('time') != -1:
     return pretty_date(data)
@@ -223,6 +225,13 @@ def full_games_table(games, **pars):
       win = True
     pars['columns'] = win and EXT_WIN_COLUMNS or EXT_COLUMNS
   return games_table(games, **pars)
+
+def ext_games_table(games, win=True, **pars):
+  cols = win and EXT_WIN_COLUMNS or EXT_COLUMNS
+  pars.setdefault('including', []).append((1, ('player', 'Player')))
+  return games_table(games, columns=EXT_COLUMNS,
+                     count=False,
+                     **pars)
 
 def combo_highscorers(c):
   hs = query.get_top_combo_highscorers(c)

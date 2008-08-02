@@ -15,13 +15,8 @@
    recent_games = query.find_clan_games(c, captain,
                                         sort_max = 'end_time', limit = 20)
 
-   won_html = html.games_table(won_games, columns=html.EXT_WIN_COLUMNS,
-                             including=[(1, ('player', 'Player'))],
-                             count=False)
-
-   recent_html = html.games_table(recent_games, columns=html.EXT_COLUMNS,
-                             including=[(1, ('player', 'Player'))],
-                             count=False)
+   won_html = html.ext_games_table(won_games)
+   recent_html = html.ext_games_table(recent_games, win=False)
 
    clan_player_points = query.audit_clan_player_points(c, captain)
    clan_points = query.audit_clan_points(c, captain)

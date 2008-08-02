@@ -20,6 +20,8 @@ CAO_TOURNEY_BASE = '%s/tourney' % CAO_BASE
 CAO_PLAYER_BASE = '%s/players' % CAO_TOURNEY_BASE
 CAO_CLAN_BASE = '%s/clans' % CAO_TOURNEY_BASE
 
+CAO_OVERVIEW = '''<a href="%s/overview.html">Overview</a>''' % CAO_TOURNEY_BASE
+
 MKDIRS = [ SCORE_FILE_DIR, PLAYER_FILE_DIR, CLAN_FILE_DIR ]
 
 for d in MKDIRS:

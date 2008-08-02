@@ -7,6 +7,9 @@ I'm also not entirely sure who's doing what - here's what I think is
 going on, please fix whatever's wrong so we don't duplicate each
 others' work.
 
+
+Bad combo score for Stabwound?
+
 Other pages:
 ------------
  - Per player page.
@@ -28,7 +31,8 @@ Other pages:
    [DONE] * Recent games completed by all clan members.
 
  - Tourney scoreboard
-   * Top 50 scores?
+   [DONE] * Say how many games played, won.
+   [DONE] * Top 15 scores?
 
  - Combo scoreboard
    * Highest score for each combo played.
