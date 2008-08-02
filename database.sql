@@ -8,6 +8,8 @@ DROP TABLE IF EXISTS kills_of_uniques;
 DROP TABLE IF EXISTS kunique_times;
 DROP TABLE IF EXISTS rune_finds;
 DROP TABLE IF EXISTS streaks;
+DROP TABLE IF EXISTS player_points;
+DROP TABLE IF EXISTS clan_points;
 
 DROP VIEW IF EXISTS fastest_realtime;
 DROP VIEW IF EXISTS fastest_turncount;
@@ -161,6 +163,31 @@ CREATE TABLE streaks (
   streak MEDIUMINT NOT NULL,
   streak_time DATETIME NOT NULL,
   FOREIGN KEY (player) REFERENCES players (name)
+  );
+
+------------------------------------------------------------------
+-- Audit table for point assignment. Tracks both permanent and
+-- temporary points.
+
+CREATE TABLE player_points (
+  id BIGINT AUTO_INCREMENT PRIMARY KEY,
+  player CHAR(20) NOT NULL,
+  temp BOOLEAN DEFAULT 0,
+  points MEDIUMINT NOT NULL DEFAULT 0,
+  team_points MEDIUMINT NOT NULL DEFAULT 0,
+  point_source VARCHAR(150) NOT NULL,
+  FOREIGN KEY (player) REFERENCES players (name)
+  );
+
+CREATE INDEX point_player_src ON player_points (player, point_source);
+
+-- Clan point assignments.
+CREATE TABLE clan_points (
+  id BIGINT AUTO_INCREMENT PRIMARY KEY,
+  captain CHAR(20) NOT NULL,
+  points MEDIUMINT NOT NULL DEFAULT 0,
+  point_source VARCHAR(150) NOT NULL,
+  FOREIGN KEY (captain) REFERENCES players (name)
   );
 
 ------------------------------------------------------------------

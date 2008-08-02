@@ -12,6 +12,27 @@
                                    limit = 15)
 
    streak_games = query.get_player_best_streak_games(c, player)
+
+   audit = query.audit_trail_player_points(c, player)
+
+   def point_breakdown():
+     text = ''
+     total = 0
+     n = 0
+     for entry in audit:
+       cls = entry[0] and 'point_temp' or 'point_perm'
+       text += '<tr class="%s">' % cls
+       text += '''<td class="numeric">%s</td>
+                  <td class="numeric">%s</td>
+                  <td>%s</td>''' % \
+               (entry[3], entry[2], entry[1])
+       text += '</tr>\n'
+       n += entry[3]
+       total += entry[2]
+     text += '''<tr><th class="numeric">%d</th>
+                    <th class="numeric">%d</th>
+                    <th>Total</th>''' % (n, total)
+     return text
  %>
 <html>
   <head>
@@ -69,6 +90,36 @@
           <div class="game_table">
             <h3>Recent Games</h3>
             ${html.full_games_table(recent_games, count=False, win=False)}
+          </div>
+
+          <hr/>
+          <div class="audit_table">
+            <h3>Points Breakdown</h3>
+            <table class="grouping">
+              <tr>
+                <td>
+                  <table class="bordered">
+                    <tr>
+                      <th>N</th> <th>Points</th> <th>Source</th>
+                    </tr>
+                    ${point_breakdown()}
+                  </table>
+                </td>
+                <td class="legend">
+                  <table class="bordered">
+                    <tr>
+                      <th>Legend</th>
+                    </tr>
+                    <tr class="point_perm">
+                      <td>Permanent points</td>
+                    </tr>
+                    <tr class="point_temp">
+                      <td>Provisional points</td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
           </div>
         </div>
       </div> <!-- content -->

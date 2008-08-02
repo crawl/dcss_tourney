@@ -18,7 +18,6 @@ div.content {
 }
 
 div.content_centered {
-    horizontal-align: center;
     text-align: center;
 }
 
@@ -47,7 +46,7 @@ div.player_status {
 div.toplinks {
     margin-top: 0px;
     background: #faffff;
-    text-color: #ccc;
+    color: #ccc;
     text-align: right;
     padding-top: 3px;
     padding-bottom: 3px;
@@ -80,6 +79,10 @@ table.bordered td {
     vertical-align: top;
 }
 
+td.legend {
+    vertical-align: center;
+}
+
 th {
     font-weight: bold;
     background: #ffffe0;
@@ -110,6 +113,16 @@ tr.win_odd {
 
 tr.win_even {
     background: #f0ffff;
+}
+
+tr.point_temp {
+    font-family: Monospace;
+    color: #aaa;
+}
+
+tr.point_perm {
+    font-family: Monospace;
+    color: #000;
 }
 
 .numeric {

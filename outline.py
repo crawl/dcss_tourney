@@ -6,7 +6,7 @@ import query
 import logging
 from logging import debug, info, warn, error
 
-from query import assign_points, assign_team_points, say_points, get_points
+from query import assign_points, assign_team_points, log_temp_points, get_points
 
 # So there are a few problems we have to solve:
 # 1. Intercepting new logfile events
@@ -70,7 +70,7 @@ def do_milestone_unique(c, mile):
   # DB already has the record for this kill, so == 1 => first kill.
   if query.count_player_unique_kills(c, mile['name'], unique) > 1:
     return
-  assign_points(c, "unique:" + unique, mile['name'], 5)
+  assign_points(c, "unique", mile['name'], 5)
 
 def do_milestone_rune(c, mile):
   """When the player gets a rune for the first time, they get ten points.
@@ -103,7 +103,7 @@ def act_on_logfile_line(c, this_game):
     ghost = loaddb.extract_ghost_name(this_game['killer'])
     XL = this_game['xl']
     if XL > 5:
-      assign_points(c, "gkill", ghost, (XL - 5))
+      assign_team_points(c, "gkill", ghost, (XL - 5))
 
 def repeat_race_class(previous_chars, char):
   """Returns 0 if the game does not repeat a previous role or class, 1 if
@@ -124,7 +124,8 @@ def crunch_winner(c, game):
 
   if is_all_runer(game):
     all_allruners = number_of_allruners_before(c, game)
-    assign_points(c, "Nth_all_rune_win", game['name'],
+    assign_points(c, "nth_all_rune_win:%d" % (all_allruners + 1),
+                  game['name'],
                   get_points(all_allruners, 200, 100, 50))
 
     # If this is my first all-rune win, 50 points!
@@ -135,7 +136,7 @@ def crunch_winner(c, game):
 
   previous_wins = query.count_wins(c, before = game['end'])
   assign_points(c,
-                "Nth_win",
+                "nth_win:%d" % (previous_wins + 1),
                 game['name'], get_points(previous_wins, 200, 100, 50))
 
   my_wins = query.get_wins(c, player = game['name'], before = game['end'])
@@ -155,7 +156,7 @@ def crunch_winner(c, game):
 
   else:
     # Any win gets 10 points at this point.
-    assign_points(c, "my_boring_win", game['name'], 10)
+    assign_points(c, "my_win", game['name'], 10)
 
   # For one or more prior wins, check streaks
   if n_my_wins >= 1:
@@ -246,38 +247,57 @@ def whereis(player):
 
 ###################### Additional scoring math ##########################
 
-def player_additional_score(c, player, update=True):
+def player_additional_score(c, player):
   """Calculates the player's total score, including unchanging score and the
   current volatile score."""
 
   additional = 0
 
-  additional += say_points( player, 'fastest_realtime',
-                            get_points(
-                                query.player_fastest_realtime_win_pos(
-                                      c, player),
-                                200, 100, 50 ) )
-  additional += say_points( player, 'fastest_turncount',
-                            get_points(
-                                query.player_fastest_turn_win_pos(c, player),
-                                200, 100, 50 ) )
-  additional += say_points( player, 'combo_hs',
-                            query.count_hs_combos(c, player) * 5 )
-  additional += say_points( player, 'combo_hs_win',
-                            query.count_hs_combo_wins(c, player) * 5 )
-  additional += say_points( player, 'species_hs',
-                            query.count_hs_species(c, player) * 10 )
-  additional += say_points( player, 'class_hs',
-                            query.count_hs_classes(c, player) * 10 )
-  additional += say_points( player, 'max_combo_hs',
-                            get_points( query.player_hs_combo_pos(c, player),
-                                        200, 100, 50 ) )
-  additional += say_points( player, 'max_streak',
-                            get_points( query.player_streak_pos(c, player),
-                                        200, 100, 50 ) )
+  c.execute('BEGIN;')
+  try:
+    query.audit_flush_player(c, player)
+    rt_pos = query.player_fastest_realtime_win_pos(c, player)
+    additional += log_temp_points( c, player,
+                                   'fastest_realtime:%d' % (rt_pos + 1),
+                                   get_points(rt_pos, 200, 100, 50 ) )
 
-  if update:
+    tc_pos = query.player_fastest_turn_win_pos(c, player)
+    additional += log_temp_points( c, player,
+                                   'fastest_turncount:%d' % (tc_pos + 1),
+                                   get_points(tc_pos, 200, 100, 50 ) )
+
+    combo_hs = query.count_hs_combos(c, player)
+    additional += log_temp_points( c, player, 'combo_hs:%d' % combo_hs,
+                                   combo_hs * 5 )
+
+    combo_hs_win = query.count_hs_combo_wins(c, player)
+    additional += log_temp_points( c, player, 'combo_hs_win:%d' % combo_hs_win,
+                                   combo_hs_win * 5 )
+
+    species_hs = query.count_hs_species(c, player)
+    additional += log_temp_points( c, player, 'species_hs:%d' % species_hs,
+                                   species_hs * 10 )
+
+    class_hs = query.count_hs_classes(c, player)
+    additional += log_temp_points( c, player, 'class_hs:%d' % class_hs,
+                                   class_hs * 10 )
+
+    combo_hs_pos = query.player_hs_combo_pos(c, player)
+    additional += log_temp_points( c, player,
+                                   'max_combo_hs_Nth:%d' % (combo_hs_pos + 1),
+                                   get_points(
+                                       combo_hs_pos, 200, 100, 50 ) )
+
+    streak_pos = query.player_streak_pos(c, player)
+    additional += log_temp_points( c, player,
+                                   'max_streak_Nth:%d' % (streak_pos + 1),
+                                   get_points(streak_pos, 200, 100, 50 ) )
+
     loaddb.update_player_fullscore(c, player, additional)
+    c.execute('COMMIT;')
+  except:
+    c.execute('ROLLBACK;')
+    raise
 
   return additional
 

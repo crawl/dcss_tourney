@@ -344,6 +344,36 @@ def say_points(who, what, points):
     debug("%s: ADD %d points [%s]" % (who, points, what))
   return points
 
+def audit_trail_player_points(c, player):
+  """Gets the audit trail for the points assigned to the player."""
+  return query_rows(c,
+                    '''SELECT temp, point_source, SUM(points) total, COUNT(*) n
+                    FROM player_points
+                    WHERE player=%s AND points > 0
+                    GROUP BY temp, point_source
+                    ORDER BY temp, total DESC, n DESC''',
+                    player)
+
+def audit_record_points(c, who, what, points, temp, credited='points'):
+  if points > 0:
+    # Update the audit table.
+    query_do(c, 'INSERT INTO player_points (player, temp, ' + credited + ',' +
+                '''                         point_source)
+                   VALUES (%s, %s, %s, %s)''',
+             who, temp and 1 or 0, points, what)
+
+def audit_flush_player(c, player):
+  """Discards temporary points assigned to the player from the audit table."""
+  query_do(c, '''DELETE FROM player_points
+                 WHERE player = %s AND temp = 1''',
+           player)
+
+def log_temp_points(c, who, what, points):
+  if points > 0:
+    say_points(who, what, points)
+    audit_record_points(c, who, what, points, True)
+  return points
+
 def get_points(index, *points):
   if index >= 0 and index < len(points):
     return points[index];
@@ -353,6 +383,7 @@ def assign_points(cursor, point_source, name, points):
   """Add points to a player's points in the db"""
   if points > 0:
     debug("%s: %d points [%s]" % (name, points, point_source))
+    audit_record_points(cursor, name, point_source, points, False)
     query_do(cursor,
              """UPDATE players
                 SET score_base = score_base + %s
