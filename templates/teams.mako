@@ -24,13 +24,16 @@
                                   FROM players, teams
                                   WHERE players.team_captain = teams.owner
                                   ORDER BY teams.owner''')
+           team_order = [ ]
            teamnames = {}
            teammembers = {}
            for row in players:
+             if row[0] not in team_order:
+               team_order.append(row[0])
              teamnames[row[0]] = row[1]
              teammembers.setdefault(row[0], []).append(row[2])
          %>
-        % for captain in teamnames.iterkeys():
+        % for captain in team_order:
         <tr>
           <td>${teamnames[captain]}</td>
           <td><a href="${crawl_utils.player_link(query.canonicalize_player_name(c, captain))}">${query.canonicalize_player_name(c, captain)}</a></td>
