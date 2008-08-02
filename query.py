@@ -25,7 +25,7 @@ def _cursor():
   return d.cursor()
 
 def _filter_invalid_where(d):
-  if is_not_tourney(d):
+  if loaddb.is_not_tourney(d):
     return None
   status = d['status']
   if status in [ 'quit', 'won', 'bailed out', 'dead' ]:
