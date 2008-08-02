@@ -402,6 +402,7 @@ def team_exists(cursor, owner):
   return row[0]
 
 def _add_player_to_team(cursor, team_owner, player):
+  canon_owner = canonicalize_player_name(team_owner)
   query_do(cursor,
            '''UPDATE players SET team_captain = %s
               WHERE name = %s''',
@@ -454,8 +455,7 @@ def players_in_team(cursor, team_owner):
                      '''SELECT name FROM players
                         WHERE team_captain = %s''',
                      team_owner)
-  players = [x[0] for x in prows]
-  players.remove(team_owner)
+  players = [x[0] for x in prows if x[0].lower() != team_owner.lower()]
   players.insert(0, team_owner)
   return players
 
