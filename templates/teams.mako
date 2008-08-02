@@ -10,6 +10,7 @@
   </head>
   <body class="simple_left_align">
     <div>
+      <h2>Teams</h2>
       <table class="bordered">
         <tr>
           <th>Teamname</th>
@@ -17,7 +18,12 @@
           <th>Members</th>
         </tr>
         <%
-           players = query.query_rows(c, '''SELECT teams.owner, teams.name, players.name FROM players, teams WHERE players.team_captain = teams.owner''')
+           players = \
+              query.query_rows(c,
+                               '''SELECT teams.owner, teams.name, players.name
+                                  FROM players, teams
+                                  WHERE players.team_captain = teams.owner
+                                  ORDER BY teams.owner''')
            teamnames = {}
            teammembers = {}
            for row in players:
