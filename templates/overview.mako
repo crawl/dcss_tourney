@@ -16,7 +16,7 @@
       <h1>${title}</h1>
     </div>
     <hr/>
-    <div class="first_row">
+    <div class="row">
 	  <table class="grouping">
 	    <tr>
           <!-- Column one -->
@@ -35,8 +35,16 @@
             </div>
 	      </td>
  
-          <!-- Column three. You totally didn't see that coming, did you? -->
-         <td>
+       	</tr>
+	  </table>
+    </div>
+
+    <hr/>
+
+    <div class="row">
+      <table class="grouping">
+        <tr>
+          <td>
             <div>
               <h3>Fastest win (turn count)</h3>
               <%include file="fastest-turn.mako"/>
@@ -46,13 +54,13 @@
               <%include file="fastest-time.mako"/>
             </div>
           </td>
-       	</tr>
-	  </table>
+        </tr>
+      </table>
     </div>
 
     <hr/>
-    
-    <div class="second_row">
+
+    <div class="row">
       <table class="grouping">
         <tr>
           <!-- Column one, row two -->
@@ -84,19 +92,15 @@
 
     <hr/>
 
-    <div class="row_three">
+    <div class="row">
       <table class="grouping">
         <tr>
-          <!-- Column one, row three -->
           <td>
             <div>
 	          <h3>Longest Streak</h3>
               ${html.best_streaks(c)}
             </div>
-	      </td>
-
-          <!-- Column two, row three -->
-          <td>
+            
             <div>
 	          <h3>Lowest DL at XL1</h3>
               ${html.deepest_xl1_games(c)}
@@ -109,7 +113,7 @@
 
     <hr/>
 
-    <div class="row_four">
+    <div class="row">
       <table class="grouping">
         <tr>
           <td>
