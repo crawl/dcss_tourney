@@ -6,7 +6,7 @@
 &nbsp;
 <a href="${CAO_TOURNEY_BASE}/teams.html">Clans</a>
 &nbsp;
-<a href="${CAO_TOURNEY_BASE}/scoreboard.html">Combos</a>
+<a href="${CAO_TOURNEY_BASE}/combo-scoreboard.html">Combos</a>
 &nbsp;
 <a href="${CAO_TOURNEY_BASE}/scoreboard.html">Scoreboard</a>
 &nbsp;
