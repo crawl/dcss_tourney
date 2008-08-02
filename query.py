@@ -153,6 +153,28 @@ def get_wins(c, **selectors):
 def row_to_xdict(row):
   return dict( zip(LOG_FIELDS, row) )
 
+def find_clan_games(c, captain, sort_min=None, sort_max=None, limit=1,
+                    **dictionary):
+  if sort_min is None and sort_max is None:
+    sort_min = 'end_time'
+
+  query = Query('SELECT ' + ",".join(LOG_FIELDS) + ' FROM games g, players p ' +
+                '''WHERE g.player = p.name
+                   AND p.team_captain = %s''',
+                captain)
+  for key, value in dictionary.items():
+    query.append(' AND ' + key + ' = %s', value)
+
+  if sort_min:
+    query.append(' ORDER BY ' + sort_min)
+  elif sort_max:
+    query.append(' ORDER BY ' + sort_max + ' DESC')
+
+  if limit:
+    query.append(' LIMIT %d' % limit)
+
+  return [ row_to_xdict(x) for x in query.rows(c) ]
+
 def find_games(c, sort_min=None, sort_max=None, limit=1, **dictionary):
   """Finds all games matching the supplied criteria, all criteria ANDed
   together."""
@@ -250,6 +272,26 @@ def get_all_player_stats(c):
   for row in rows:
     row.append( calc_perc( row[2], row[3] ) )
   return rows
+
+def get_clan_stats(c, captain):
+  stats = { }
+  points = query_row(c, '''SELECT total_score FROM teams
+                           WHERE owner = %s''',
+                     captain)
+  if points is not None:
+    stats['points'] = points[0]
+
+  stats['won'] = query_first(c, '''SELECT COUNT(*) FROM games g, players p
+                                   WHERE p.name = g.player
+                                   AND killertype = 'winning'
+                                   AND p.team_captain = %s''',
+                             captain)
+  stats['played'] = query_first(c, '''SELECT COUNT(*) FROM games g, players p
+                                       WHERE p.name = g.player
+                                       AND p.team_captain = %s''',
+                                 captain)
+  stats['win_perc' ] = "%.2f%%" % calc_perc(stats['won'], stats['played'])
+  return stats
 
 def get_player_stats(c, name):
   """Returns a dictionary of miscellaneous stats for the player."""
@@ -456,12 +498,8 @@ def create_team(cursor, team, owner_name):
 
   wrap_transaction(_create_team)(cursor)
 
-def get_team_owners(cursor, team):
-  """Returns the owners of all teams with the given name."""
-  rows = query_rows(cursor,
-                    '''SELECT owner FROM teams WHERE name=%s''',
-                    team)
-  return [r[0] for r in rows]
+def get_team_captains(c):
+  return [r[0] for r in query_rows(c, 'SELECT owner FROM teams')]
 
 def add_player_to_team(cursor, team_owner, player):
   """Adds the named player to the named team. Integrity checks are left to

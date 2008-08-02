@@ -147,11 +147,19 @@ def table_text(headers, data, cls='bordered', count=True, link=None):
   return out
 
 def games_table(games, first=None, excluding=None, columns=None,
+                including=None,
                 cls='bordered', count=True, win=True):
   columns = columns or (win and STOCK_WIN_COLUMNS or STOCK_COLUMNS)
 
+  # Copy columns.
+  columns = list(columns)
+
   if excluding:
     columns = [c for c in columns if c[0] not in excluding]
+
+  if including:
+    for pos, col in including:
+      columns.insert(pos, col)
 
   if first and not isinstance(first, tuple):
     first = (first, 1)

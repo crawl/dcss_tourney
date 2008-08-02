@@ -9,7 +9,7 @@ BASEDIR = '/home/crawl'
 LOCKFILE = BASEDIR + '/tourney-py.lock'
 SCORE_FILE_DIR = '/var/www/crawl/tourney'
 PLAYER_BASE = 'players'
-CLAN_BASE = 'players'
+CLAN_BASE = 'clans'
 PLAYER_FILE_DIR = SCORE_FILE_DIR + '/' + PLAYER_BASE
 CLAN_FILE_DIR = SCORE_FILE_DIR + '/' + CLAN_BASE
 

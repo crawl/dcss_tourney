@@ -2,27 +2,36 @@
    import loaddb, query, crawl_utils, html
 
    c = attributes['cursor']
-   player = attributes['player']
+   captain = attributes['captain']
 
-   stats = query.get_player_stats(c, player)
+   cinfo = query.get_clan_info(c, captain)
+   stats = query.get_clan_stats(c, captain)
 
-   won_games = query.find_games(c, player = player, killertype = 'winning',
-                                sort_max = 'end_time')
-   recent_games = query.find_games(c, player = player, sort_max = 'end_time',
-                                   limit = 15)
+   name = cinfo[0]
+   won_games = query.find_clan_games(c, captain,
+                                     killertype = 'winning',
+                                     sort_max = 'end_time')
+   recent_games = query.find_clan_games(c, captain,
+                                        sort_max = 'end_time', limit = 20)
 
-   streak_games = query.get_player_best_streak_games(c, player)
+   won_html = html.games_table(won_games, columns=html.EXT_WIN_COLUMNS,
+                             including=[(1, ('player', 'Player'))],
+                             count=False)
+
+   recent_html = html.games_table(recent_games, columns=html.EXT_COLUMNS,
+                             including=[(1, ('player', 'Player'))],
+                             count=False)
  %>
 <html>
   <head>
-    <title>${player}</title>
+    <title>${name}</title>
     <link rel="stylesheet" type="text/css" href="../tourney-score.css">
   </head>
 
   <body class="page_back">
     <div class="page">
       <div class="heading_left">
-        <h1>Player information for ${player}</h1>
+        <h1>Clan ${name}</h1>
       </div>
 
       <hr/>
@@ -30,7 +39,7 @@
       <div class="content">
         <div class="player_clan">
           <span class="inline_heading">Clan: </span>
-          ${html.clan_affiliation(c, player)}
+          ${html.clan_affiliation(c, captain)}
         </div>
 
         <div class="player_status">
@@ -41,10 +50,6 @@
             </tr>
 
             <tr>
-              <th>Tourney team points</th>
-              <td class="numeric">${stats['team_points']}</td>
-            </tr>
-            <tr>
               <th>Games won / played</th>
               <td>${stats['won']} / ${stats['played']}
                 (${stats['win_perc']})</td>
@@ -53,20 +58,13 @@
         </div>
 
         <div class="game_table">
-          <h3>Games won (reverse chronological)</h3>
-          ${html.full_games_table(won_games, count=False)}
+          <h3>Games won</h3>
+          ${won_html}
         </div>
-
-        % if streak_games:
-        <div class="game_table">
-          <h3>Longest streak of wins</h3>
-          ${html.full_games_table(streak_games)}
-        </div>
-        % endif
 
         <div class="game_table">
           <h3>Recent Games</h3>
-          ${html.full_games_table(recent_games, count=False, win=False)}
+          ${recent_html}
         </div>
       </div>
     </div> <!-- page -->

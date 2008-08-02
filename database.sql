@@ -1,6 +1,5 @@
 DROP TABLE IF EXISTS players;
 DROP TABLE IF EXISTS teams;
-DROP TABLE IF EXISTS team_owners;
 DROP TABLE IF EXISTS milestone_bookmark;
 DROP TABLE IF EXISTS games;
 DROP TABLE IF EXISTS kills_by_ghosts;
@@ -49,15 +48,6 @@ CREATE TABLE teams (
   PRIMARY KEY (owner),
   FOREIGN KEY (owner) REFERENCES players (name)
   ON DELETE CASCADE
-  );
-
--- Mapping table linking teams and their owners.
-CREATE TABLE team_owners (
-  owner CHAR(20),
-  team MEDIUMINT,
-  PRIMARY KEY (owner),
-  FOREIGN KEY (team) REFERENCES teams (id) ON DELETE CASCADE,
-  FOREIGN KEY (owner) REFERENCES players (name) ON DELETE CASCADE
   );
 
 -- For mappings of logfile fields to columns, see loaddb.py

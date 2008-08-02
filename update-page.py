@@ -44,9 +44,16 @@ def player_pages(c):
     player_page(c, p)
   render(c, 'all-players')
 
-def team_page(c):
-  info("Updating team page")
+def team_page(c, captain):
+  info("Updating team page for captain %s" % captain)
+  render(c, 'clan', dest = ('%s/%s' % (crawl_utils.CLAN_BASE, captain)),
+         pars = { 'captain' : captain })
+
+def team_pages(c):
+  info("Updating teams page")
   render(c, 'teams')
+  for captain in query.get_team_captains(c):
+    team_page(c, captain)
 
 def player_page(c, player):
   info("Updating player page for %s" % player)
@@ -55,11 +62,11 @@ def player_page(c, player):
 
 # Update tourney overview every 5 mins.
 TIMER = [ loaddb.define_timer( 5 * 60, tourney_overview ),
-          loaddb.define_timer( 5 * 60, team_page ),
+          loaddb.define_timer( 5 * 60, team_pages ),
           loaddb.define_timer( 5 * 60, player_pages )
           ]
 LISTENER = [ loaddb.define_cleanup(tourney_overview),
-             loaddb.define_cleanup(team_page),
+             loaddb.define_cleanup(team_pages),
              loaddb.define_cleanup(player_pages)
              ]
 
