@@ -93,7 +93,7 @@
           %endif
 
           <div class="game_table">
-            <h3>Games won (reverse chronological)</h3>
+            <h3>Wins</h3>
             ${html.full_games_table(won_games, count=False)}
           </div>
 

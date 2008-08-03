@@ -108,7 +108,7 @@
           %endif
 
           <div class="game_table">
-            <h3>Games won</h3>
+            <h3>Wins</h3>
             ${won_html}
           </div>
 
