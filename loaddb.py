@@ -265,6 +265,26 @@ def parse_logline(logline):
     details[key] = details[key].replace("\n", ":")
   return details
 
+def xlog_set_killer_group(d):
+  killer = d.get('killer')
+  if not killer:
+    ktyp = d.get('ktyp')
+    if ktyp:
+      d['kgroup'] = ktyp
+    return
+
+  m = R_GHOST_NAME.search(killer)
+  if m:
+    d['kgroup'] = 'player ghost'
+    return
+
+  m = R_HYDRA.search(killer)
+  if m:
+    d['kgroup'] = 'hydra'
+    return
+
+  d['kgroup'] = killer
+
 def xlog_dict(logline):
   d = parse_logline(logline.strip())
   # Fake a raceabbr field.
@@ -278,6 +298,9 @@ def xlog_dict(logline):
   if d.get('nrune') is not None or d.get('urune') is not None:
     d['nrune'] = d.get('nrune') or d.get('urune')
     d['urune'] = d.get('urune') or d.get('nrune')
+
+  xlog_set_killer_group(d)
+
   return d
 
 # The mappings in order so that we can generate our db queries with all the
@@ -312,6 +335,7 @@ LOG_DB_MAPPINGS = [
     [ 'sc', 'score' ],
     [ 'ktyp', 'killertype' ],
     [ 'killer', 'killer' ],
+    [ 'kgroup', 'kgroup' ],
     [ 'dam', 'damage' ],
     [ 'piety', 'piety' ],
     [ 'pen', 'penitence' ],
@@ -328,6 +352,7 @@ R_GHOST_NAME = re.compile(r"^(.*)'s? ghost")
 R_MILESTONE_GHOST_NAME = re.compile(r"the ghost of (.*) the ")
 R_KILL_UNIQUE = re.compile(r'^killed (.*)\.$')
 R_RUNE = re.compile(r"found an? (.*) rune")
+R_HYDRA = re.compile(r'^an? (\w+)-headed hydra')
 
 class SqlType:
   def __init__(self, str_to_sql):
@@ -421,6 +446,7 @@ dbfield_to_sqltype = {
 	'runes':sql_int,
 	'killertype':char,
 	'killer':char,
+        'kgroup' : char,
         'kaux':char,
 	'damage':sql_int,
 	'piety':sql_int,

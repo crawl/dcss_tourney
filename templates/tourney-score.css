@@ -47,6 +47,13 @@ div.inset {
     margin: 20px;
 }
 
+.page_narrow {
+    border: 2px solid #333;
+    background: #ffffff;
+    margin: 20px;
+    width: 70%;
+}
+
 .page_content {
     padding: 20px;
 }

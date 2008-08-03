@@ -10,8 +10,7 @@ from loaddb import Query, query_do, query_first, query_row, query_rows
 
 import crawl_utils
 import os.path
-
-import MySQLdb
+import re
 
 # Number of unique uniques
 MAX_UNIQUES = 43
@@ -141,6 +140,74 @@ def get_combo_scores(c, how_many = None):
   if how_many:
     query.append(" LIMIT %d" % how_many)
   return [ row_to_xdict(x) for x in query.rows(c) ]
+
+def get_gkills(c):
+  rows = query_rows(c,
+                    """SELECT killer, COUNT(*) kills
+                       FROM games
+                       WHERE kgroup='player ghost'
+                       GROUP BY killer
+                       ORDER BY kills DESC""")
+  rows = [ list(r) for r in rows ]
+  for r in rows:
+    ghost = r[0]
+    victims = query_rows(c,
+                         """SELECT player, COUNT(*) ntimes FROM games
+                            WHERE killer = %s
+                            GROUP BY player
+                            ORDER BY ntimes DESC""",
+                         ghost)
+    r.append(victims)
+  return rows
+
+def get_death_causes(c):
+  rows = query_rows(c,
+                    """SELECT g.kgroup, g.killertype, COUNT(*) killcount,
+                              (SELECT player FROM games
+                               WHERE kgroup = g.kgroup
+                               ORDER BY end_time DESC
+                               LIMIT 1) latest
+                       FROM games g
+                       WHERE g.killertype NOT IN ('winning',
+                                                  'quitting',
+                                                  'leaving')
+                       GROUP BY g.kgroup, g.killertype""")
+
+  def combine_deaths(killer, p, n):
+    if p[1] == 'beam':
+      ranged = p[2]
+      melee = n[2]
+    else:
+      ranged = n[2]
+      melee = p[2]
+    return "%s (%d melee, %d ranged)" % (killer, melee, ranged)
+
+  # Now to fix up the rows.
+  clean_rows = [ ]
+  last = None
+
+  total = 0
+  for r in rows:
+    killer = r[0]
+    total += r[2]
+    if last and last[0] == killer:
+      clean_rows.pop()
+      killer = combine_deaths(killer, last, r)
+      clean_rows.append( [ killer, last[2] + r[2], r[3] ] )
+    else:
+      clean_rows.append( [ killer, r[2], r[3] ] )
+    last = r
+
+  clean_rows.sort(lambda a,b: int(b[1] - a[1]))
+
+  r_art = re.compile(r'^an? ')
+
+  for r in clean_rows:
+    r[0] = r_art.sub('', r[0])
+    r[2] = crawl_utils.linked_text(r[2], crawl_utils.player_link)
+    r.insert(1, "%.2f%%" % calc_perc(r[1], total))
+
+  return clean_rows
 
 def _canonicalize_player_name(c, player):
   row = query_row(c, '''SELECT name FROM players WHERE name = %s''',

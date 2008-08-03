@@ -124,10 +124,13 @@ def is_player_header(header):
 def is_clan_header(header):
   return header in ['Clan', 'Team', 'Teamname']
 
-def table_text(headers, data, cls='bordered', count=True, link=None):
+def table_text(headers, data, cls='bordered', count=True, link=None,
+               width=None):
   if cls:
     cls = ''' class="%s"''' % cls
-  out = '''<table%s>\n<tr>''' % (cls or '')
+  if width:
+    width = ' width="%s%%"' % width
+  out = '''<table%s%s>\n<tr>''' % (cls or '', width or '')
 
   headers = [ wrap_tuple(x) for x in headers ]
 
@@ -155,7 +158,8 @@ def table_text(headers, data, cls='bordered', count=True, link=None):
     for c in range(len(headers)):
       val = row[c]
       header = headers[c]
-      tcls = isinstance(val, str) and "celltext" or "numeric"
+      tcls = (isinstance(val, str) and not val.endswith('%')) \
+          and "celltext" or "numeric"
       out += '''<td class="%s">''' % tcls
       val = str(val)
       if is_player_header(header[0]):

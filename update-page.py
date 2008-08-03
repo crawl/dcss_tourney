@@ -46,6 +46,8 @@ def player_pages(c):
   render(c, 'scoreboard')
   render(c, 'combo-scoreboard')
   render(c, 'combo-leaders')
+  render(c, 'killers')
+  render(c, 'gkills')
 
 def team_page(c, captain):
   info("Updating team page for captain %s" % captain)

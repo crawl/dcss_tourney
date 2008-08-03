@@ -92,6 +92,7 @@ CREATE TABLE games (
   runes INT DEFAULT 0,
   killertype CHAR(20),
   killer CHAR(50),
+  kgroup CHAR(50),
   kaux VARCHAR(255),
   damage INT,
   piety INT,
@@ -104,6 +105,7 @@ CREATE TABLE games (
   CONSTRAINT PRIMARY KEY (source_file, source_file_offset)
   );
 
+CREATE INDEX games_kgrp ON games (kgroup);
 CREATE INDEX games_ktyp ON games (killertype);
 CREATE INDEX games_p_ktyp ON games (player, killertype);
 
