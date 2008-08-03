@@ -21,21 +21,17 @@
 
         <div class="content">
           <div class="sidebar">
-            <table class="bordered" style="width: 90%;">
-              <tr>
-                <th>Miscellaneous Statistics</th>
-              </tr>
-              <tr>
-                <td style="text-align: center;">
-                  <a href="killers.html">Top Killers</a>
-                </td>
-              </tr>
-              <tr>
-                <td style="text-align: center;">
-                  <a href="gkills.html">Ghost Kills</a>
-                </td>
-              </tr>
-            </table>
+            <div class="sidebar_title">
+              <h4>Miscellaneous Statistics</h4>
+            </div>
+            <div class="sidebar_content">
+              <p>
+                <a href="killers.html">Top Killers</a>
+              </p>
+              <p>
+                <a href="gkills.html">Ghost Kills</a>
+              </p>
+            </div>
           </div>
 
           <div class="row">

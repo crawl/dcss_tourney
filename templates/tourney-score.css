@@ -35,7 +35,18 @@ div.sidebar {
     right: 10px;
     padding-left: 15px;
     border-left: 1px solid #000;
-    width: 30%;
+}
+
+div.sidebar_title {
+    padding: 0px 20px 0px 20px;
+    background: #ffffe0;
+    border: 1px solid #000;
+}
+
+div.sidebar_content {
+    padding: 0px 20px 0px 20px;
+    background: white;
+    border: 1px solid #000;
 }
 
 div.inset {
