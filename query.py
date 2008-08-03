@@ -413,7 +413,7 @@ def audit_trail_player_points(c, player):
                     FROM player_points
                     WHERE player=%s AND points > 0
                     GROUP BY temp, point_source
-                    ORDER BY temp, total DESC, n DESC''',
+                    ORDER BY temp, total DESC, n DESC, point_source''',
                     player)
 
 def audit_trail_player_team_points(c, player):
@@ -423,7 +423,7 @@ def audit_trail_player_team_points(c, player):
                        FROM player_points
                        WHERE player=%s AND team_points > 0
                        GROUP BY temp, point_source
-                       ORDER BY temp, total DESC, n DESC''',
+                       ORDER BY temp, total DESC, n DESC, point_source''',
                     player)
 
 def audit_clan_player_points(c, captain):
@@ -432,7 +432,7 @@ def audit_clan_player_points(c, captain):
                     '''SELECT name, (score_full + team_score_base) points
                        FROM players
                        WHERE team_captain = %s
-                       ORDER BY points DESC''',
+                       ORDER BY points DESC, name''',
                     captain)
 
 def audit_clan_points(c, captain):
@@ -441,7 +441,7 @@ def audit_clan_points(c, captain):
                        FROM clan_points
                        WHERE captain = %s
                        GROUP BY point_source
-                       ORDER BY p DESC''',
+                       ORDER BY p DESC, point_source''',
                     captain)
 
 def audit_record_points(c, who, what, points, temp, credited='points'):
