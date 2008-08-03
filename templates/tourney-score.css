@@ -29,6 +29,15 @@ div.player_status {
     border-left: 1px solid #000;
 }
 
+div.sidebar {
+    position: absolute;
+    top: 0px;
+    right: 10px;
+    padding-left: 15px;
+    border-left: 1px solid #000;
+    width: 30%;
+}
+
 div.inset {
     background: #ffffe0;
     padding: 10px;
