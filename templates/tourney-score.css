@@ -124,11 +124,13 @@ tr.even {
 }
 
 tr.win_odd {
-    background: #f0fff0;
+    font-weight: bold;
+    background: #ffffff;
 }
 
 tr.win_even {
-    background: #f0ffff;
+    font-weight: bold;
+    background: #fdfdfd;
 }
 
 tr.point_temp {
