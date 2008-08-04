@@ -389,18 +389,27 @@ def get_all_game_stats(c):
            'win_perc' : win_perc }
 
 def get_all_player_stats(c):
-  q = Query('''SELECT p.name, p.score_full,
+  q = Query('''SELECT p.name, p.team_captain, t.name, p.score_full,
                       (SELECT COUNT(*) FROM games
                        WHERE player = p.name
                        AND killertype = 'winning') wincount,
                       (SELECT COUNT(*) FROM games
                        WHERE player = p.name) playcount
-               FROM players p
+               FROM players p LEFT JOIN teams t
+               ON p.team_captain = t.owner
                ORDER BY p.score_full DESC''')
   rows = [ list(r) for r in q.rows(c) ]
-  for row in rows:
-    row.append( "%.2f%%" % calc_perc( row[2], row[3] ) )
-  return rows
+  clean_rows = [ ]
+  for r in rows:
+    captain = r[1]
+    r = r[0:1] + r[2:]
+    if captain is None:
+      r[1] = ''
+    else:
+      r[1] = crawl_utils.linked_text(captain, crawl_utils.clan_link, r[1])
+    r.append( "%.2f%%" % calc_perc( r[3], r[4] ) )
+    clean_rows.append(r)
+  return clean_rows
 
 def get_clan_stats(c, captain):
   stats = { }
