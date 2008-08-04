@@ -21,10 +21,14 @@ def tail_logfiles(logs, milestones, interval=60):
   master = loaddb.create_master_reader()
   try:
     while True:
-      interval_work(cursor, interval, master)
-      if not interval:
-        break
-      loaddb.run_timers(cursor, elapsed_time)
+      try:
+        interval_work(cursor, interval, master)
+        if not interval:
+          break
+        loaddb.run_timers(cursor, elapsed_time)
+      except IOError, e:
+        error("IOError: %s" % e)
+
       time.sleep(interval)
       elapsed_time += interval
   finally:
