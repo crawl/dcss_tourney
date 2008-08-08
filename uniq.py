@@ -6,3 +6,5 @@ UNIQUES = [ "Ijyb", "Blork the orc", "Urug", "Erolcha", "Snorg", "Polyphemus",
             "Duane", "Norris", "Frederick", "Margery", "Mnoleg", "Lom Lobon",
             "Cerebov", "Gloorx Vloq", "Geryon", "Dispater", "Asmodeus",
             "Ereshkigal" ]
+
+UNIQUES.sort()
