@@ -303,7 +303,7 @@ def clan_combo_highscores(c):
   return table_text( [ 'Clan', 'Captain', 'Scores' ],
                      fixup_clan_rows(query.get_top_clan_combos(c)) )
 
-def clan_affiliation(c, player):
+def clan_affiliation(c, player, include_clan=True):
   # Clan affiliation info is clan name, followed by a list of players,
   # captain first, or None if the player is not in a clan.
   clan_info = query.get_clan_info(c, player)
@@ -311,7 +311,10 @@ def clan_affiliation(c, player):
     return "None"
 
   clan_name, players = clan_info
-  clan_html = linked_text(players[0], clan_link, clan_name) + " - "
+  if include_clan:
+    clan_html = linked_text(players[0], clan_link, clan_name) + " - "
+  else:
+    clan_html = ''
 
   plinks = [ linked_text(players[0], player_link) + " (captain)" ]
 

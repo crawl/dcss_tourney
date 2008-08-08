@@ -12,41 +12,30 @@
     <div class="page">
       <%include file="toplink.mako"/>
       <div class="page_content">
-      <h2>Teams</h2>
-      <table class="bordered">
-        <tr>
-          <th>Teamname</th>
-          <th>Captain</th>
-          <th>Members</th>
-        </tr>
         <%
-           players = \
+           teams = \
               query.query_rows(c,
-                               '''SELECT teams.owner, teams.name, players.name
-                                  FROM players, teams
-                                  WHERE players.team_captain = teams.owner
-                                  ORDER BY teams.owner''')
-           team_order = [ ]
-           teamnames = {}
-           teammembers = {}
-           for row in players:
-             if row[0] not in team_order:
-               team_order.append(row[0])
-             teamnames[row[0]] = row[1]
-             teammembers.setdefault(row[0], []).append(row[2])
-         %>
-        % for captain in team_order:
-        <tr>
-          <td><a href="${crawl_utils.clan_link(query.canonicalize_player_name(c, captain))}">${teamnames[captain]}</a></td>
-          <td><a href="${crawl_utils.player_link(query.canonicalize_player_name(c, captain))}">${query.canonicalize_player_name(c, captain)}</a></td>
-          <td><a href="${crawl_utils.player_link(teammembers[captain][0])}">${teammembers[captain][0]}</a>
-            % for name in teammembers[captain][1:]:
-            , <a href="${crawl_utils.player_link(name)}">${name}</a>
-            % endfor
-          </td>
-        </tr>
-        % endfor
-      </table>
+                               '''SELECT total_score, name, owner
+                                  FROM teams
+                                  ORDER BY total_score DESC, name''')
+           teams = [ list(x) for x in teams ]
+
+           for team in teams:
+             captain = team.pop()
+             team[1] = html.linked_text(captain, crawl_utils.clan_link,
+                                        team[1])
+             team.append( html.clan_affiliation(c, captain, False) )
+
+           table = html.table_text( [ 'Score', 'Team', 'Players' ],
+                                    teams, cls='bordered_centered' )
+        %>
+
+        <div class="content_centered">
+          <div class="centerable">
+            <h2>Teams</h2>
+            ${table}
+          </div>
+        </div>
       </div>
     </div>
     ${html.update_time()}
