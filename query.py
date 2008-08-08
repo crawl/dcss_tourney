@@ -682,6 +682,9 @@ def count_hs_classes(c, player):
 ###################################################################
 # Super experimental team stuff. None of this is set in stone.
 
+def drop_teams(c):
+  query_do(c, 'TRUNCATE TABLE teams')
+
 def team_exists(cursor, owner):
   """Returns the name of the team owned by 'owner', or None if there is no
   team owned by her."""

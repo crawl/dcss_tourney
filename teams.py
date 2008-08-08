@@ -104,6 +104,7 @@ def insert_teams(cursor, teams):
     now = datetime.datetime.utcnow()
     if (now < DEADLINE):
         info("Updating team information.")
+        query.drop_teams(cursor)
         for captain in teams.iterkeys():
             loaddb.check_add_player(cursor, captain)
             canon_cap = query.canonicalize_player_name(cursor, captain)
