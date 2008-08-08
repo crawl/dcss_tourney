@@ -31,7 +31,9 @@
         %>
 
         <div class="centerable">
-          <h2>Teams</h2>
+          <div class="content_centered">
+            <h2>Teams</h2>
+          </div>
           ${table}
         </div>
       </div>
