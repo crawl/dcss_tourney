@@ -30,11 +30,9 @@
                                     teams, cls='bordered_centered' )
         %>
 
-        <div class="content_centered">
-          <div class="centerable">
-            <h2>Teams</h2>
-            ${table}
-          </div>
+        <div class="centerable">
+          <h2>Teams</h2>
+          ${table}
         </div>
       </div>
     </div>
