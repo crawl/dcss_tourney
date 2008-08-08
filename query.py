@@ -9,6 +9,7 @@ import loaddb
 from loaddb import Query, query_do, query_first, query_row, query_rows
 
 import crawl_utils
+import uniq
 import os.path
 import re
 
@@ -638,6 +639,16 @@ def player_hs_combo_pos(c, player):
 def player_streak_pos(c, player):
   return find_place(query_rows(c, 'SELECT player FROM streak_scoreboard'),
                     player)
+
+def player_uniques_killed(c, player):
+  rows = query_rows(c, '''SELECT DISTINCT monster FROM kills_of_uniques
+                          WHERE player = %s ORDER BY monster''',
+                    player)
+  return [ row[0] for row in rows ]
+
+def uniques_unkilled(uniques_killed):
+  killset = set(uniques_killed)
+  return [ u for u in uniq.UNIQUES if u not in killset ]
 
 def player_xl1_dive_pos(c, player):
   return find_place([ [ g['player'] ] for g in get_deepest_xl1_games(c) ],

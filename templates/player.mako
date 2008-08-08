@@ -38,6 +38,10 @@
                     <th class="numeric">%d</th>
                     <th>Total</th>''' % (n, total)
      return text
+
+   uniq_slain = query.player_uniques_killed(c, player)
+   uniq_unslain = query.uniques_unkilled(uniq_slain)
+
  %>
 <html>
   <head>
@@ -85,7 +89,7 @@
             <h3>Ongoing Game (cao)</h3>
             <div class="fineprint">
               On-going information is from the crawl.akrasiac.org server only,
-              and may be inaccurate if the player is active on alternate
+              and may be inaccurate if the player is active on other
               servers.
             </div>
             ${whereis}
@@ -110,6 +114,29 @@
           </div>
 
           <hr/>
+
+          % if uniq_slain:
+          <div>
+            <table class="bordered">
+              <tr>
+                <th>Uniques Slain</th>
+                <td>${", ".join(uniq_slain)}</td>
+              </tr>
+              % if len(uniq_slain) > len(uniq_unslain):
+                <tr>
+                  <th>Uniques Left</th>
+                  % if uniq_unslain:
+                  <td>${", ".join(uniq_unslain)}</td>
+                  % else:
+                  <td>None</td>
+                  % endif
+                </tr>
+              % endif
+            </table>
+          </div>
+          <hr/>
+          % endif
+
           <div class="audit_table">
             <h3>Score Breakdown</h3>
             <table class="grouping">

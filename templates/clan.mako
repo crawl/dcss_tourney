@@ -100,7 +100,7 @@
             <h3>Ongoing Games (cao)</h3>
             <div class="fineprint">
               On-going information is from the crawl.akrasiac.org server only,
-              and may be inaccurate if players are active on alternate
+              and may be inaccurate if players are active on other
               servers.
             </div>
             ${clan_whereis}
