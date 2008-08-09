@@ -37,7 +37,11 @@
 
         <div class="inset">
           <div>
-          <bold>${len(unplayed)} combos have not been played:</bold>
+          % if unplayed:
+          <b>${len(unplayed)} combos have not been played:</b>
+          % else:
+          <b>All combos have been played at least once.</b>
+          % endif
           </div>
           ${", ".join(unplayed)}
         </div>
