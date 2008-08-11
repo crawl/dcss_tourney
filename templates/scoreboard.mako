@@ -22,10 +22,25 @@
       <%include file="toplink.mako"/>
 
       <div class="page_content">
+        <div class="content">
+
+        <div class="sidebar">
+          <div>
+            <h4>Miscellaneous Statistics</h4>
+          </div>
+          <div class="sidebar_content">
+            <p>
+              <a href="killers.html">Top Killers</a>
+            </p>
+            <p>
+              <a href="gkills.html">Ghost Kills</a>
+            </p>
+          </div>
+        </div>
 
         <%include file="games-overview.mako"/>
 
-        <hr/>
+        <hr style="width: 50%; margin-left: 0px;"/>
 
         <div>
           <h2>Fastest Wins (turncount)</h2>
@@ -51,6 +66,7 @@
           ${html.ext_games_table(top_scores)}
         </div>
 
+        </div>
       </div>
     </div>
 

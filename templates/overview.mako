@@ -20,20 +20,6 @@
         <hr/>
 
         <div class="content">
-          <div class="sidebar">
-            <div class="sidebar_title">
-              <h4>Miscellaneous Statistics</h4>
-            </div>
-            <div class="sidebar_content">
-              <p>
-                <a href="killers.html">Top Killers</a>
-              </p>
-              <p>
-                <a href="gkills.html">Ghost Kills</a>
-              </p>
-            </div>
-          </div>
-
           <div class="row">
 	        <table class="grouping">
 	          <tr>
@@ -52,7 +38,7 @@
                     ${html.best_clans(c)}
                   </div>
 	            </td>
-                
+
        	      </tr>
 	        </table>
           </div>
