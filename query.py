@@ -34,7 +34,22 @@ def _filter_invalid_where(d):
     d['status'] = status.title() or 'Active'
     return d
 
+def canonical_where_name(name):
+  test = '%s/%s' % (crawl_utils.RAWDATA_PATH, name)
+  if os.path.exists(test):
+    return name
+  names = os.listdir(crawl_utils.RAWDATA_PATH)
+  names = [ x for x in names if x.lower() == name.lower() ]
+  if names:
+    return names[0]
+  else:
+    return None
+
 def whereis_player(name):
+  name = canonical_where_name(name)
+  if name is None:
+    return name
+
   where_path = '%s/%s/%s.where' % (crawl_utils.RAWDATA_PATH, name, name)
   if not os.path.exists(where_path):
     return None
