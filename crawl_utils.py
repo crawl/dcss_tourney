@@ -4,6 +4,9 @@ import logging
 import fcntl
 import sys
 
+# Update every 29 minutes.
+UPDATE_INTERVAL = 29 * 60
+
 LOCK = None
 BASEDIR = '/home/crawl'
 LOCKFILE = BASEDIR + '/tourney-py.lock'

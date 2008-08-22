@@ -5,6 +5,7 @@ import query
 
 import logging
 from logging import debug, info, warn, error
+import crawl_utils
 
 from query import assign_points, assign_team_points
 from query import log_temp_points, log_temp_team_points, get_points
@@ -44,8 +45,8 @@ class OutlineTimer (loaddb.CrawlTimerListener):
 
 LISTENER = [ OutlineListener() ]
 
-# Update player scores every 5 mins.
-TIMER = [ ( 5 * 60, OutlineTimer() ) ]
+# Update player scores every so often.
+TIMER = [ ( crawl_utils.UPDATE_INTERVAL, OutlineTimer() ) ]
 
 def act_on_milestone(c, this_mile):
   """This function takes a milestone line, which is a string composed of key/

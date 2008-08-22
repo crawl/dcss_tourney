@@ -66,9 +66,10 @@ def player_page(c, player):
          pars = { 'player' : player })
 
 # Update tourney overview every 5 mins.
-TIMER = [ loaddb.define_timer( 5 * 60, tourney_overview ),
-          loaddb.define_timer( 5 * 60, team_pages ),
-          loaddb.define_timer( 5 * 60, player_pages )
+INTERVAL = crawl_utils.UPDATE_INTERVAL
+TIMER = [ loaddb.define_timer( INTERVAL, tourney_overview ),
+          loaddb.define_timer( INTERVAL, team_pages ),
+          loaddb.define_timer( INTERVAL, player_pages )
           ]
 LISTENER = [ loaddb.define_cleanup(tourney_overview),
              loaddb.define_cleanup(team_pages),

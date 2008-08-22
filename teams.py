@@ -20,6 +20,7 @@ import datetime
 
 import loaddb
 import query
+import crawl_utils
 from query import say_points, get_points, log_temp_clan_points
 
 import logging
@@ -43,8 +44,8 @@ class TeamTimer (loaddb.CrawlTimerListener):
 
 LISTENER = [ TeamListener() ]
 
-# Run the timer every 5 minutes to refresh team stats.
-TIMER = [ ( 5 * 60 , TeamTimer() ) ]
+# Run the timer every so often to refresh team stats.
+TIMER = [ ( crawl_utils.UPDATE_INTERVAL , TeamTimer() ) ]
 
 DEADLINE = datetime.datetime(2008, 8, 16, 12) # Aug 16, 12:00
 
