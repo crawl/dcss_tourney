@@ -514,7 +514,7 @@ def check_add_player(cursor, player):
 def longest_streak_count(c, player):
   return query_first_def(c, 0,
                          """SELECT streak FROM streaks
-                            WHERE player = ?""",
+                            WHERE player = %s""",
                          player)
 
 def update_streak_count(c, game, streak_count):
