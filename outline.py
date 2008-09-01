@@ -170,9 +170,11 @@ def crunch_winner(c, game):
           (game['name'], game['char'], streak_wins))
 
     if streak_wins:
+      streak_len = len(streak_wins) + 1
       # First update the streaks table. We're still in the logfile transaction
       # here, so it's safe.
-      loaddb.update_streak_count(c, game, len(streak_wins) + 1)
+      if streak_len > loaddb.longest_streak_count(c, game['name']):
+        loaddb.update_streak_count(c, game, streak_len)
 
       streak_repeats = repeat_race_class(streak_wins, game['char'])
 

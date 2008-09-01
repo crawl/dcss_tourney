@@ -511,6 +511,12 @@ def check_add_player(cursor, player):
     # just now. However we do need to update the player_exists cache.
     player_exists.record((cursor, player), True)
 
+def longest_streak_count(c, player):
+  return query_first_def(c, 0,
+                         """SELECT streak FROM streaks
+                            WHERE player = ?""",
+                         player)
+
 def update_streak_count(c, game, streak_count):
   streak_time = game['end']
   query_do(c,
