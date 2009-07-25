@@ -10,10 +10,26 @@ Legend: ] done + tested
     - Add a script to define the bonus combo.
     - Allow user to specify the combo, but ensure it has not already been
       won (by checking Henzell's db) before placing the bonus.
-      
+  - Best ziggurat levels reached, ties broken by first player to do so.
+    Needs Ziggurat milestone.
+  - Rune at lowest XL, tie broken by first.
+  - Most unique deaths. Score for being killed by most uniques.
+  - 
+
+- Test scoring for max uniques killed.
+
+- New logfile fields for Crawl:
+   - total creatures killed. (kills=N)
+
 - New milestones for Crawl:
    god.worship <- Worshipping a new god
    god.renounce <- Renouncing an existing god.
+   zig.complete <- completing a ziggurat.
+
+- Fix CSS to look better, also tweak layout to allow for banner space.
+
+- Modify player page to show player's banners.
+   
 - Update list of uniques.
 - Update list of combos.
 - Test code on 0.4 logfile (so we have lots of games)
@@ -69,11 +85,11 @@ UNIQUES
 
 HIGH SCORES
 -----------
-5 points per high score in a race/class combination (HuWn, not just Hu)
-5 additional points for each high score that is a win.
-10 points per high score in a race.
-10 points per high score in a class.
-200/100/50 points for most high scores in race/class combos.
+]5 points per high score in a race/class combination (HuWn, not just Hu)
+]5 additional points for each high score that is a win.
+]10 points per high score in a race.
+]10 points per high score in a class.
+]200/100/50 points for most high scores in race/class combos.
 
 CLAN POINTS ONLY
 ------------
@@ -81,15 +97,15 @@ These get you clan points but do not get you points toward the individual
 prize, encouraging specialization on clans but making the hypothetical
 "Best Crawl Player" award based on more "real" metrics.
 
-200/100/50 for fewest creatures killed (including by summons, &c.) in a win.
+]200/100/50 for fewest creatures killed (including by summons, &c.) in a win.
 200/100/50 for deepest level reached in a Ziggurat. Completing the Ziggurat
            (exiting to the dungeon from Zig:27) is also noted and is better
            than merely reaching Zig:27.
-50/20/10 points for lowest dungeon level reached at XL1.
+]50/20/10 points for lowest dungeon level reached at XL1.
 50/20/10 points for lowest XL at which a rune is picked up.
 50/20/10 points for "Most Unique Deaths" trophy: Killed by the most unique uniques.
-2 points per player ghost killed when playing
-N points per ghost kill after dying, where N is the dying character's
+]2 points per player ghost killed when playing
+]N points per ghost kill after dying, where N is the dying character's
  XL minus 5.
 
 Greensnark said nothing across clans but we already have code for:

@@ -263,6 +263,18 @@ def player_additional_score(c, player):
                                    'max_streak_Nth:%d' % (streak_pos + 1),
                                    get_points(streak_pos, 200, 100, 50 ) )
 
+    uniq_kill_pos = query.player_unique_kill_pos(c, player)
+    addditional += log_temp_points( c, player,
+                                    'top_uniq_killer:%d' % (uniq_kill_pos + 1),
+                                    get_points(uniq_kill_pos, 50, 20, 10 ) )
+
+
+    pacific_win_pos = query.player_pacific_win_pos(c, player)
+    add_team += log_temp_team_points(c, player,
+                                     ('top_pacific_win:%d'
+                                      % (pacific_win_pos + 1)),
+                                     get_points(
+
     xl1_dive_pos = query.player_xl1_dive_pos(c, player)
     add_team += log_temp_team_points( c, player,
                                       'xl1_dive_Nth:%d' % (xl1_dive_pos + 1),

@@ -100,8 +100,8 @@ def win_query(selected, order_by = None,
   return query
 
 def get_player_won_gods(c, player):
-  "Returns the names of all the gods that the player has won games with,
-wins counting only if the player has not switched gods during the game."
+  """Returns the names of all the gods that the player has won games with,
+wins counting only if the player has not switched gods during the game."""
   return query_first_col(c,
                          "SELECT god FROM player_won_gods WHERE player = %s",
                          player)
@@ -685,6 +685,17 @@ def player_hs_combo_pos(c, player):
 def player_streak_pos(c, player):
   return find_place(query_rows(c, 'SELECT player FROM streak_scoreboard'),
                     player)
+
+def player_unique_kill_pos(c, player):
+  return find_place(
+    query_rows(c, '''SELECT player FROM kunique_times
+                   ORDER BY nuniques DESC, kill_time
+                      LIMIT 3'''))
+
+def player_pacific_win_pos(c, player):
+  return find_place(
+    query_rows(c, '''SELECT player FROM most_pacific_wins'''),
+    player)
 
 def player_uniques_killed(c, player):
   rows = query_rows(c, '''SELECT DISTINCT monster FROM kills_of_uniques

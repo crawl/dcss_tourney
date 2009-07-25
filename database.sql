@@ -98,6 +98,8 @@ CREATE TABLE games (
   killer CHAR(50),
   kgroup CHAR(50),
   kaux VARCHAR(255),
+  -- Kills may be null.
+  kills INT,
   damage INT,
   piety INT,
   penitence INT,
@@ -112,8 +114,12 @@ CREATE TABLE games (
 CREATE INDEX games_source_offset ON games (source_file, source_file_offset);
 
 CREATE INDEX games_kgrp ON games (kgroup);
+CREATE INDEX games_charabbrev_score ON games (charabbrev, score);
 CREATE INDEX games_ktyp ON games (killertype);
 CREATE INDEX games_p_ktyp ON games (player, killertype);
+
+-- Index to find games with fewest kills.
+CREATE INDEX games_kills ON games (killertype, kills);
 
 -- Index to help us find fastest wins (time) quick.
 CREATE INDEX games_win_dur ON games (killertype, duration);
@@ -279,6 +285,13 @@ SELECT id, player, turn
  WHERE killertype = 'winning'
 ORDER BY turn, end_time
 LIMIT 3;
+
+CREATE VIEW most_pacific_wins AS
+SELECT id, player, kills
+  FROM games
+ WHERE killertype = 'winning' AND kills IS NOT NULL
+ORDER BY kills
+ LIMIT 3;
 
 -- All combo highscores.
 CREATE VIEW combo_highscores AS

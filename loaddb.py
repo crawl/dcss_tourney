@@ -370,6 +370,7 @@ LOG_DB_MAPPINGS = [
     [ 'tmsg', 'terse_msg' ],
     [ 'vmsg', 'verb_msg' ],
     [ 'kaux', 'kaux' ],
+    [ 'kills', 'kills' ],
     [ 'nrune', 'nrune' ],
     [ 'urune', 'runes' ],
     ]
@@ -522,6 +523,7 @@ dbfield_to_sqltype = {
 	'terse_msg':varchar,
 	'verb_msg':varchar,
         'nrune':sql_int,
+        'kills': sql_int,
 	}
 
 def is_not_tourney(game):
