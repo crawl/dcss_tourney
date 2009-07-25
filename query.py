@@ -67,6 +67,15 @@ def whereis_player(name):
   except:
     return None
 
+def did_change_god(c, game):
+  """Returns true if the player changed gods during the game, by checking
+  for a god.renounce milestone."""
+  return (query_first(c,
+                      '''SELECT COUNT(*) FROM milestones
+                          WHERE player = %s AND start = %s
+                            AND verb = 'god.renounce' ''',
+                      game['player'], game['start_time']) > 0)
+
 def win_query(selected, order_by = None,
               player=None, character_race=None,
               character_class=None, runes=None,
@@ -286,6 +295,13 @@ def get_wins(c, **selectors):
            win_query('charabbrev', order_by = 'ORDER BY end_time',
                      **selectors).rows(c) ]
 
+def get_winning_games(c, **selectors):
+  """Returns the games for wins matching the provided criteria, ordered
+  with earlier wins first. Exactly the same as get_wins, but returns
+  the xlog dictionaries instead of the charabbrev"""
+  return find_games(c, sort_max='end_time', limit=None,
+                    killertype='winning', **selectors)
+
 def row_to_xdict(row):
   return dict( zip(LOG_FIELDS, row) )
 
@@ -321,11 +337,19 @@ def find_games(c, sort_min=None, sort_max=None, limit=1, **dictionary):
   query = Query('SELECT ' + ",".join(LOG_FIELDS) + ' FROM games')
   where = ''
   values = []
-  for key, value in dictionary.items():
+
+  def append_where(where, clause, *newvalues):
     if len(where):
       where += ' AND '
-    where += key + " = %s"
-    values.append(value)
+    where += clause
+    for v in newvalues:
+      values.append(v)
+
+  for key, value in dictionary.items():
+    if key == 'before':
+      append_where(where, "end_time < %s", value)
+    else:
+      append_where(where, key + " = %s", value)
 
   order_by = ''
   if sort_min:

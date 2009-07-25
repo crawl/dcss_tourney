@@ -1,26 +1,35 @@
-Test code on 0.4 logfile (so we have lots of games)
-Rewire scripts to use 0.5 logfile once everything's tested and ok.
+Legend: ] done + tested
+        * done, not tested
+
+- Add new scoring rules.
+- New milestones for Crawl:
+   god.worship <- Worshipping a new god
+   god.renounce <- Renouncing an existing god.
+- Update list of uniques.
+- Update list of combos.
+- Test code on 0.4 logfile (so we have lots of games)
+- Rewire scripts to use 0.5 logfile once everything's tested and ok.
 
 Trophies for 2009:
 
 WINS:
 ----
-100 points for first win. (Since winning is kind of the goal.)
-50 points for second win that is not a repeat race or class.
-10 points for each win thereafter, repeat or not.
-50 extra points for your first all-rune victory.
-100 extra points for each consecutive win that is not a repeat race or class.
-30 extra points for each consecutive win that is a repeat race xor class.
-10 extra points for each consecutive win that is a repeat race and class.
-30 extra points for each non-consecutive win that is not a repeat race or
+]100 points for first win. (Since winning is kind of the goal.)
+]50 points for second win that is not a repeat race or class.
+]10 points for each win thereafter, repeat or not.
+]50 extra points for your first all-rune victory.
+]100 extra points for each consecutive win that is not a repeat race or class.
+]30 extra points for each consecutive win that is a repeat race xor class.
+]10 extra points for each consecutive win that is a repeat race and class.
+]30 extra points for each non-consecutive win that is not a repeat race or
  class.
-10 extra points for each non-consecutive win that is a repeat race xor class.
+]10 extra points for each non-consecutive win that is a repeat race xor class.
 
-20 extra points for each win with a new god (including "No God"). This does
-not apply if you changed gods during the game.
+*20 extra points for each win with a new god (including "No God").
+ This does not apply if you changed gods during the game.
 
-For streak wins, "Repeat" means "in that streak;" for non-streak wins,
-"repeat" means "ever."
+(For streak wins, "Repeat" means "in that streak;" for non-streak
+wins, "repeat" means "ever.")
 
 SPECIAL WINS
 ------------

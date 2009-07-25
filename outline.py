@@ -117,6 +117,14 @@ def repeat_race_class(previous_chars, char):
     repeats += 1
   return repeats
 
+def is_god_repeated(previous_wins, g):
+  """Returns true if the god in the current game was already used by
+the player in a previous winning game. The gods checked are the gods
+at end of game."""
+  def god(g):
+    return g.get('god') or ''
+  return god(g) in [god(x) for x in previous_wins]
+
 def crunch_winner(c, game):
   """A game that wins could assign a variety of irrevocable points for a
   variety of different things. This function needs to calculate them all."""
@@ -141,12 +149,19 @@ def crunch_winner(c, game):
                 "nth_win:%d" % (previous_wins + 1),
                 game['name'], get_points(previous_wins, 200, 100, 50))
 
-  my_wins = query.get_wins(c, player = game['name'], before = game['end'])
+  my_wins = query.get_winning_games(c, player = game['name'],
+                                    before = game['end'])
   n_my_wins = len(my_wins)
+
+  # Assign 20 extra points for winning with a god that you haven't used before.
+  if not is_god_repeated(my_wins, game) and not query.did_change_god(game):
+    god = (game.get('god') or 'atheist').lower()
+    assign_points(c, "my_win_" + god, 20)
 
   repeated = 0
   if n_my_wins > 0:
-    repeated = repeat_race_class(my_wins, game['char'])
+    repeated = repeat_race_class([x['charabbrev'] for x in my_wins],
+                                 game['char'])
 
   if n_my_wins == 0:
     # First win! I bet you don't have a streak

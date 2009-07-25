@@ -1,4 +1,5 @@
 DROP TABLE IF EXISTS players;
+DROP TABLE IF EXISTS milestones;
 DROP TABLE IF EXISTS teams;
 DROP TABLE IF EXISTS milestone_bookmark;
 DROP TABLE IF EXISTS games;
@@ -56,6 +57,8 @@ CREATE TABLE teams (
 
 -- For mappings of logfile fields to columns, see loaddb.py
 CREATE TABLE games (
+  id BIGINT AUTO_INCREMENT,
+  
   -- Source logfile
   source_file VARCHAR(150),
   -- Offset in the source file.
@@ -84,7 +87,7 @@ CREATE TABLE games (
   maxhp INT,
   maxmaxhp INT,
   strength INT,
-  intellegence INT,
+  intelligence INT,
   dexterity INT,
   god CHAR(20),
   duration INT,
@@ -102,8 +105,10 @@ CREATE TABLE games (
   verb_msg VARCHAR(255),
   nrune INT DEFAULT 0,
 
-  CONSTRAINT PRIMARY KEY (source_file, source_file_offset)
+  CONSTRAINT PRIMARY KEY (id)
   );
+
+CREATE INDEX games_source_offset ON games (source_file, source_file_offset);
 
 CREATE INDEX games_kgrp ON games (kgroup);
 CREATE INDEX games_ktyp ON games (killertype);
@@ -114,6 +119,63 @@ CREATE INDEX games_win_dur ON games (killertype, duration);
 
 -- Index to help us find fastest wins (turncount) quick.
 CREATE INDEX games_win_turn ON games (killertype, turn);
+
+CREATE TABLE milestones (
+  id BIGINT AUTO_INCREMENT PRIMARY KEY,
+  -- Source milestone file
+  source_file VARCHAR(150),
+
+  -- The actual game that this milestone is linked with.
+  game_id BIGINT,
+
+  version VARCHAR(10),
+  cv VARCHAR(10),
+  player VARCHAR(20),
+  race VARCHAR(20),
+  raceabbr CHAR(2) NOT NULL,
+  class VARCHAR(20),
+  charabbrev CHAR(4),
+  xl INT,
+  skill VARCHAR(16),
+  sk_lev INT,
+  title VARCHAR(50),
+  place VARCHAR(16),
+
+  branch VARCHAR(16),
+  lvl INT,
+  ltyp VARCHAR(16),
+  hp INT,
+  maxhp INT,
+  maxmaxhp INT,
+  strength INT,
+  intelligence INT,
+  dexterity INT,
+  god VARCHAR(50),
+  duration BIGINT,
+  turn BIGINT,
+  runes INT,
+  nrune INT,
+
+  -- Game start time.
+  start_time DATETIME,
+
+  -- Milestone time.
+  milestone_time DATETIME,
+
+  -- Known milestones: abyss.enter, abyss.exit, rune, orb, ghost, uniq,
+  -- uniq.ban, br.enter, br.end.
+  verb VARCHAR(20),
+  noun VARCHAR(100),
+
+  -- The actual milestone message.
+  milestone VARCHAR(255),
+
+  FOREIGN KEY (game_id) REFERENCES games (id)
+  ON DELETE SET NULL
+);
+
+-- To find milestones belonging to a particular game.
+CREATE INDEX milestone_lookup_by_time ON milestones (player, start_time, verb);
 
 -- A table to keep track of the last milestone we've processed. This
 -- will have only one row for one filename.

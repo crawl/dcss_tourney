@@ -192,9 +192,6 @@ class Xlogfile:
         self.offset = newoffset
       else:
         xdict = apply_dbtypes( xlog_dict(line) )
-        if xdict.get('time'):
-          xdict['time'] = datetime.to_sql(xdict['time'])
-
         xline = Xlogline( self, self.filename, self.offset,
                           xdict.get('end') or xdict.get('time'),
                           xdict, self.proc_op )
@@ -291,6 +288,28 @@ def xlog_set_killer_group(d):
 
   d['kgroup'] = killer
 
+def xlog_milestone_fixup(d):
+  for field in [x for x in ['lv', 'uid'] if d.has_key(x)]:
+    del d[field]
+  verb = d['type']
+  milestone = d['milestone']
+  noun = None
+  if verb == 'uniq':
+    match = R_MILE_UNIQ.findall(milestone)
+    if match[0][0] == 'banished':
+      verb = 'uniq.ban'
+    noun = match[0][1]
+  if verb == 'ghost':
+    match = R_MILE_GHOST.findall(milestone)
+    if match[0][0] == 'banished':
+      verb = 'ghost.ban'
+    noun = match[0][1]
+  if verb == 'rune':
+    noun = R_RUNE.findall(milestone)[0]
+  noun = noun or milestone
+  d['verb'] = verb
+  d['noun'] = noun
+
 def xlog_dict(logline):
   d = parse_logline(logline.strip())
   # Fake a raceabbr field.
@@ -305,6 +324,8 @@ def xlog_dict(logline):
     d['nrune'] = d.get('nrune') or d.get('urune')
     d['urune'] = d.get('urune') or d.get('nrune')
 
+  if d.has_key('milestone'):
+    xlog_milestone_fixup(d)
   xlog_set_killer_group(d)
 
   return d
@@ -332,7 +353,7 @@ LOG_DB_MAPPINGS = [
     [ 'mhp', 'maxhp' ],
     [ 'mmhp', 'maxmaxhp' ],
     [ 'str', 'strength' ],
-    [ 'int', 'intellegence' ],
+    [ 'int', 'intelligence' ],
     [ 'dex', 'dexterity' ],
     [ 'god', 'god' ],
     [ 'start', 'start_time' ],
@@ -350,13 +371,52 @@ LOG_DB_MAPPINGS = [
     [ 'vmsg', 'verb_msg' ],
     [ 'kaux', 'kaux' ],
     [ 'nrune', 'nrune' ],
-    [ 'urune', 'runes' ] ]
+    [ 'urune', 'runes' ],
+    ]
+
+MILE_DB_MAPPINGS = [
+    [ 'v', 'version' ],
+    [ 'lv', 'lv' ],
+    [ 'name', 'player' ],
+    [ 'uid', 'uid' ],
+    [ 'race', 'race' ],
+    [ 'raceabbr', 'raceabbr' ],
+    [ 'cls', 'class' ],
+    [ 'char', 'charabbrev' ],
+    [ 'xl', 'xl' ],
+    [ 'sk', 'skill' ],
+    [ 'sklev', 'sk_lev' ],
+    [ 'title', 'title' ],
+    [ 'place', 'place' ],
+    [ 'br', 'branch' ],
+    [ 'lvl', 'lvl' ],
+    [ 'ltyp', 'ltyp' ],
+    [ 'hp', 'hp' ],
+    [ 'mhp', 'maxhp' ],
+    [ 'mmhp', 'maxmaxhp' ],
+    [ 'str', 'strength' ],
+    [ 'int', 'intelligence' ],
+    [ 'dex', 'dexterity' ],
+    [ 'god', 'god' ],
+    [ 'start', 'start_time' ],
+    [ 'dur', 'duration' ],
+    [ 'turn', 'turn' ],
+    [ 'dam', 'damage' ],
+    [ 'piety', 'piety' ],
+    [ 'nrune', 'nrune' ],
+    [ 'urune', 'runes' ],
+    [ 'time', 'milestone_time' ],
+    ]
 
 LOGLINE_TO_DBFIELD = dict(LOG_DB_MAPPINGS)
+COMBINED_LOG_TO_DB = dict(LOG_DB_MAPPINGS + MILE_DB_MAPPINGS)
+
 R_MONTH_FIX = re.compile(r'^(\d{4})(\d{2})(.*)')
 R_GHOST_NAME = re.compile(r"^(.*)'s? ghost")
 R_MILESTONE_GHOST_NAME = re.compile(r"the ghost of (.*) the ")
 R_KILL_UNIQUE = re.compile(r'^killed (.*)\.$')
+R_MILE_UNIQ = re.compile(r'^\w+ (.*)\.$')
+R_MILE_GHOST = re.compile(r'^\w+ the ghost of (\S+)')
 R_RUNE = re.compile(r"found an? (.*) rune")
 R_HYDRA = re.compile(r'^an? (\w+)-headed hydra')
 
@@ -458,6 +518,7 @@ dbfield_to_sqltype = {
 	'piety':sql_int,
         'penitence':sql_int,
 	'end_time':datetime,
+        'milestone_time':datetime,
 	'terse_msg':varchar,
 	'verb_msg':varchar,
         'nrune':sql_int,
@@ -546,33 +607,40 @@ def apply_dbtypes(game):
   (i.e. not in dbfield_to_sqltype) are ignored."""
   new_hash = { }
   for key, value in game.items():
-    if LOGLINE_TO_DBFIELD.has_key(key):
-      new_hash[key] = dbfield_to_sqltype[LOGLINE_TO_DBFIELD[key]].to_sql(value)
+    if (COMBINED_LOG_TO_DB.has_key(key) and
+        dbfield_to_sqltype.has_key(COMBINED_LOG_TO_DB[key])):
+      new_hash[key] = dbfield_to_sqltype[COMBINED_LOG_TO_DB[key]].to_sql(value)
     else:
       new_hash[key] = value
   return new_hash
 
-def make_games_insert_query(dbfields, filename, offset):
-  fields = ["source_file", "source_file_offset"]
-  values = [filename, offset]
-
-  for logkey, sqlkey in LOG_DB_MAPPINGS:
-    if dbfields.has_key(logkey):
+def make_xlog_db_query(db_mappings, xdict, filename, offset, table):
+  fields = ['source_file']
+  values = [filename]
+  if offset is not None and offset != False:
+    fields.append('source_file_offset')
+    values.append(offset)
+  for logkey, sqlkey in db_mappings:
+    if xdict.has_key(logkey):
       fields.append(sqlkey)
-      values.append(dbfields[logkey])
-
-  return Query('INSERT INTO games (%s) VALUES (%s);' %
-               (",".join(fields), ",".join([ "%s" for v in values])),
+      values.append(xdict[logkey])
+  return Query('INSERT INTO %s (%s) VALUES (%s);' %
+               (table, ",".join(fields), ",".join([ "%s" for v in values])),
                *values)
 
-def insert_logline(cursor, logdict, filename, offset):
-  query = make_games_insert_query(logdict, filename, offset)
+def insert_xlog_db(cursor, xdict, filename, offset):
+  milestone = xdict.has_key('milestone')
+  db_mappings = milestone and MILE_DB_MAPPINGS or LOG_DB_MAPPINGS
+  thingname = milestone and 'milestone' or 'logline'
+  table = milestone and 'milestones' or 'games'
+  save_offset = not milestone
+  query = make_xlog_db_query(db_mappings, xdict, filename,
+                             save_offset and offset, table)
   try:
     query.execute(cursor)
   except Exception, e:
-    error("Error inserting logline %s (query: %s [%s]): %s"
-          % (logdict, query.query, query.values, e))
-    raise
+    error("Error inserting %s %s (query: %s [%s]): %s"
+          % (thingname, milestone, query.query, query.values, e))
 
 def dbfile_offset(cursor, table, filename):
   """Given a db cursor and filename, returns the offset of the last
@@ -651,7 +719,7 @@ def process_log(cursor, filename, offset, d):
 
   cursor.execute('BEGIN;')
   try:
-    insert_logline(cursor, d, filename, offset)
+    insert_xlog_db(cursor, d, filename, offset)
     if ghost_kill:
       record_ghost_kill(cursor, d)
 
@@ -752,6 +820,7 @@ def add_milestone_record(c, filename, offset, d):
   c.execute('BEGIN;')
   try:
     update_milestone_bookmark(c, filename, offset)
+    insert_xlog_db(c, d, filename, offset)
     handler = MILESTONE_HANDLERS.get(d['type'])
     if handler:
       handler(c, d)
