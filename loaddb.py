@@ -12,8 +12,10 @@ import imp
 import sys
 
 # Start of the tournament, UTC.
-START_TIME = '20080801'
-END_TIME   = '20080901'
+START_TIME = '20080901'
+
+# Just for testing:
+END_TIME   = '20090101'
 
 CDO = 'http://crawl.develz.org/'
 
@@ -167,35 +169,39 @@ class Xlogfile:
     if not self.have_handle():
       return
 
-    if not self.offset:
-      xlog_seek(self.filename, self.handle,
-                self.tell_op(cursor, self.filename))
-      self.offset = self.handle.tell()
+    while True:
+      if not self.offset:
+        xlog_seek(self.filename, self.handle,
+                  self.tell_op(cursor, self.filename))
+        self.offset = self.handle.tell()
 
-    # Don't read beyond the last snapshot size for local files.
-    if self.local and self.offset >= self.size:
-      return None
+      # Don't read beyond the last snapshot size for local files.
+      if self.local and self.offset >= self.size:
+        return None
 
-    line = self.handle.readline()
-    newoffset = self.handle.tell()
-    if not line or not line.endswith("\n") or \
-          (self.local and newoffset > self.size):
-      # Reset to last read
-      self.handle.seek(self.offset)
-      return None
+      line = self.handle.readline()
+      newoffset = self.handle.tell()
+      if not line or not line.endswith("\n") or \
+            (self.local and newoffset > self.size):
+        # Reset to last read
+        self.handle.seek(self.offset)
+        return None
 
-    xdict = apply_dbtypes( xlog_dict(line) )
-    if xdict.get('time'):
-      xdict['time'] = datetime.to_sql(xdict['time'])
+      # If this is a blank line, advance the offset and keep reading.
+      if not line.strip():
+        self.offset = newoffset
+      else:
+        xdict = apply_dbtypes( xlog_dict(line) )
+        if xdict.get('time'):
+          xdict['time'] = datetime.to_sql(xdict['time'])
 
-    xline = Xlogline( self, self.filename, self.offset,
-                      xdict.get('end') or xdict.get('time'),
-                      xdict, self.proc_op )
+        xline = Xlogline( self, self.filename, self.offset,
+                          xdict.get('end') or xdict.get('time'),
+                          xdict, self.proc_op )
 
-    # Advance offset past the line just read.
-    self.offset = newoffset
-    return xline
-
+        # Advance offset past the line just read.
+        self.offset = newoffset
+        return xline
 
 class Logfile (Xlogfile):
   def __init__(self, filename):
