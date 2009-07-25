@@ -591,18 +591,26 @@ def audit_flush_clan(c, captain):
   query_do(c, '''DELETE FROM clan_points WHERE captain = %s''', captain)
 
 def log_temp_points(c, who, what, points):
+  """Assign provisional points to a player."""
   if points > 0:
     say_points(who, what, points)
     audit_record_points(c, who, what, points, True)
   return points
 
 def log_temp_team_points(c, who, what, points):
+  """Assign provisional team points to a player. Team points are added only
+  to the player's team, not to the player's individual score, but they
+  still 'belong' to the player."""
   if points > 0:
     say_points(who + '(c)', what, points)
     audit_record_points(c, who, what, points, True, credited = 'team_points')
   return points
 
 def log_temp_clan_points(c, captain, what, points):
+  """Assign provisional clan points to the clan, given the captain of the clan.
+  Clan points belong to the clan as a whole, not to any of the individual
+  players. Clan points are always provisional, since the players in a clan
+  are free to leave/rejoin at any time."""
   if points > 0:
     say_points('CLAN:' + captain, what, points)
     clan_audit_record_points(c, captain, what, points)
@@ -662,6 +670,9 @@ def player_count_runes(cursor, player, rune=None):
   return q.first(cursor)
 
 def find_place(rows, player):
+  """Given a list of one-tuple rows, returns the index at which the given
+  player name occurs in the one-tuples, or -1 if the player name is not
+  present in the list."""
   if rows is None:
     return -1
   p = [r[0] for r in rows]
@@ -669,6 +680,22 @@ def find_place(rows, player):
     return p.index(player)
   else:
     return -1
+
+def find_place_numeric(rows, player):
+  """Given a list of two-tuple rows, returns the index at which the given
+  player name occurs in the two-tuples, or -1 if the player name is not
+  present in the list. The second element of each tuple is considered to be
+  a score. If any element has the same score as a preceding element, it is
+  treated as being at the same index."""
+  index = -1
+  last_num = None
+  for r in rows:
+    if last_num != r[1]:
+      index += 1
+    last_num = r[1]
+    if r[0] == player:
+      return index
+  return -1
 
 def player_fastest_realtime_win_pos(c, player):
   return find_place(query_rows(c, 'SELECT player FROM fastest_realtime'),
@@ -679,12 +706,14 @@ def player_fastest_turn_win_pos(c, player):
                     player)
 
 def player_hs_combo_pos(c, player):
-  return find_place(query_rows(c, 'SELECT player FROM combo_hs_scoreboard'),
-                    player)
+  return find_place_numeric(
+    query_rows(c, 'SELECT player, nscores FROM combo_hs_scoreboard'),
+    player)
 
 def player_streak_pos(c, player):
-  return find_place(query_rows(c, 'SELECT player FROM streak_scoreboard'),
-                    player)
+  return find_place_numeric(
+    query_rows(c, 'SELECT player, streak FROM streak_scoreboard'),
+    player)
 
 def player_unique_kill_pos(c, player):
   return find_place(
@@ -712,16 +741,18 @@ def player_xl1_dive_pos(c, player):
                     player)
 
 def clan_combo_pos(c, owner):
-  return find_place(query_rows(c,
-                               '''SELECT team_captain FROM
-                                  combo_hs_clan_scoreboard'''),
-                    owner)
+  return find_place_numeric(
+    query_rows(c,
+               '''SELECT team_captain, combos FROM
+                         combo_hs_clan_scoreboard LIMIT 3'''),
+    owner)
 
 def clan_unique_pos(c, owner, limit=3):
-  return find_place(query_rows(c,
-                               '''SELECT team_captain FROM
-                                  clan_unique_kills LIMIT %d''' % limit),
-                    owner)
+  return find_place_numeric(
+    query_rows(c,
+               '''SELECT team_captain, kills FROM
+                         clan_unique_kills LIMIT %d''' % limit),
+    owner)
 
 def count_hs_combos(c, player):
   return query_first(c,

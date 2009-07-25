@@ -108,11 +108,9 @@ prize, encouraging specialization on clans but making the hypothetical
 ]N points per ghost kill after dying, where N is the dying character's
  XL minus 5.
 
-Greensnark said nothing across clans but we already have code for:
-
-200/100/50 for _clan_ with most high scores in race/class combos.
-100/50/20 for _clan_ with most uniques killed (or all uniques killed
- first)
+] 200/100/50 for _clan_ with most high scores in race/class combos.
+] 100/50/20 for _clan_ with most uniques killed. If two clans have the same
+            unique count, they get the same number of points.
 
 +10 points to each clan for each Skill brought up to 27 by any of its players.
 

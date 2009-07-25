@@ -1,3 +1,6 @@
+-- Use InnoDB for transaction support.
+SET storage_engine=InnoDB;
+
 DROP TABLE IF EXISTS players;
 DROP TABLE IF EXISTS milestones;
 DROP TABLE IF EXISTS teams;
@@ -31,8 +34,8 @@ DROP VIEW IF EXISTS combo_hs_clan_scoreboard;
 DROP VIEW IF EXISTS streak_scoreboard;
 
 CREATE TABLE IF NOT EXISTS players (
-  name CHAR(20) PRIMARY KEY,
-  team_captain CHAR(20),
+  name VARCHAR(20) PRIMARY KEY,
+  team_captain VARCHAR(20),
   score_base BIGINT,
   -- This is the computed score! We will overwrite it each time we
   -- recalculate it, and it may be null at any point.
@@ -47,7 +50,7 @@ CREATE TABLE IF NOT EXISTS players (
 CREATE INDEX pscore ON players (score_full);
 
 CREATE TABLE teams (
-  owner CHAR(20) UNIQUE NOT NULL,
+  owner VARCHAR(20) UNIQUE NOT NULL,
   name VARCHAR(255) NOT NULL,
   -- Clan total score, will be recomputed at intervals.
   total_score BIGINT DEFAULT 0 NOT NULL,
@@ -334,12 +337,13 @@ GROUP BY team_captain
 ORDER BY score DESC;
 
 CREATE VIEW clan_unique_kills AS
-SELECT p.team_captain, COUNT(*) kills
-FROM kills_of_uniques k, players p
-WHERE k.player = p.name
-AND p.team_captain IS NOT NULL
+SELECT p.team_captain AS team_captain, COUNT(DISTINCT monster) AS kills
+FROM players p INNER JOIN kills_of_uniques k
+                       ON p.name = k.player
+WHERE p.team_captain IS NOT NULL
 GROUP BY p.team_captain
-ORDER BY kills DESC;
+ORDER BY kills DESC
+LIMIT 10;
 
 CREATE VIEW game_combo_win_highscores AS
 SELECT p.*
