@@ -74,7 +74,7 @@ TIMER = [ loaddb.define_timer( INTERVAL, tourney_overview ),
 LISTENER = [ loaddb.define_cleanup(tourney_overview),
              loaddb.define_cleanup(team_pages),
              loaddb.define_cleanup(player_pages)
-             ]
+           ]
 
 if __name__ == '__main__':
   db = loaddb.connect_db()

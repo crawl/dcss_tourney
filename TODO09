@@ -2,6 +2,15 @@ Legend: ] done + tested
         * done, not tested
 
 - Add new scoring rules.
+  - 100 bonus points for combo chosen at start of week:
+    - We want to be able to track all bonus combos.
+    - A win is eligible for bonus if a bonus was announced before the game
+      was finished, and the bonus has not expired before the game was finished.
+    - Track bonuses in a flat file?
+    - Add a script to define the bonus combo.
+    - Allow user to specify the combo, but ensure it has not already been
+      won (by checking Henzell's db) before placing the bonus.
+      
 - New milestones for Crawl:
    god.worship <- Worshipping a new god
    god.renounce <- Renouncing an existing god.
@@ -28,31 +37,35 @@ WINS:
 *20 extra points for each win with a new god (including "No God").
  This does not apply if you changed gods during the game.
 
+** Check if gods that have not yet been played show correctly.
+
 (For streak wins, "Repeat" means "in that streak;" for non-streak
 wins, "repeat" means "ever.")
 
 SPECIAL WINS
 ------------
-200/100/50 points for fastest win in realtime.
-200/100/50 points for fastest win by turncount.
-200/100/50 points for first win scored.
-200/100/50 points for first 15-rune victory.
+]200/100/50 points for fastest win in realtime.
+]200/100/50 points for fastest win by turncount.
+]200/100/50 points for first win scored.
+]200/100/50 points for first 15-rune victory.
 
 100 bonus points for winning a character class and race combination
 decided at random at the beginning of each week based on a random pass
-over all of the unwon combinations on CAO. This bonus applies only to
-games started after the announcement, and 
+over all of the unwon combinations on CAO.
+
+
+
 
 RUNES
 -----
-10 points each time you find each type of rune for the first time.
-1 point each time you find any rune a second or later time.
+]10 points each time you find each type of rune for the first time.
+]1 point each time you find any rune a second or later time.
 
 UNIQUES
 -------
-5 points the first time you kill each unique.
-50/20/10 points for most unique uniques killed; ties broken by who gets
- that number first.
+] 5 points the first time you kill each unique.
+] 50/20/10 points for most unique uniques killed; ties broken by who gets
+] that number first.
 
 HIGH SCORES
 -----------

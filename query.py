@@ -8,6 +8,7 @@ from logging import debug, info, warn, error
 import loaddb
 from loaddb import Query, query_do, query_first, query_row, query_rows
 
+import crawl
 import crawl_utils
 import uniq
 import os.path
@@ -98,6 +99,13 @@ def win_query(selected, order_by = None,
     query.append(" LIMIT %d" % limit)
   return query
 
+def get_player_won_gods(c, player):
+  "Returns the names of all the gods that the player has won games with,
+wins counting only if the player has not switched gods during the game."
+  return query_first_col(c,
+                         "SELECT god FROM player_won_gods WHERE player = %s",
+                         player)
+
 def get_player_best_streak_games(c, player):
   streaks = query_row(c, '''SELECT streak_time
                             FROM streaks
@@ -111,17 +119,13 @@ def get_player_best_streak_games(c, player):
 def get_fastest_time_player_games(c):
   fields = ",".join([ 'g.' + x for x in LOG_FIELDS ])
   games = query_rows(c, '''SELECT %s FROM fastest_realtime f, games g
-                           WHERE f.player = g.player
-                           AND g.killertype = 'winning'
-                           AND g.duration = f.duration''' % fields)
+                           INNER JOIN ON f.id = g.id''' % fields)
   return [ row_to_xdict(r) for r in games ]
 
 def get_fastest_turn_player_games(c):
   fields = ",".join([ 'g.' + x for x in LOG_FIELDS ])
   games = query_rows(c, '''SELECT %s FROM fastest_turncount f, games g
-                           WHERE f.player = g.player
-                           AND g.killertype = 'winning'
-                           AND g.turn = f.turn''' % fields)
+                           INNER JOIN ON f.id = g.id''' % fields)
   return [ row_to_xdict(r) for r in games ]
 
 def get_top_streaks(c, how_many = 10):
@@ -522,6 +526,9 @@ def say_points(who, what, points):
     debug("%s: ADD %d points [%s]" % (who, points, what))
   return points
 
+def record_won_god(c, player, god):
+  query_do(c, "INSERT INTO player_won_gods VALUES (%s, %s)", player, god)
+
 def audit_trail_player_points(c, player):
   """Gets the audit trail for the points assigned to the player."""
   return query_rows(c,
@@ -816,3 +823,7 @@ def get_clan_info(c, player):
 
   team_name = team_name[0]
   return (team_name, players_in_team(c, captain))
+
+def find_remaining_gods(used_gods):
+  used_god_set = set([x or 'No God' for x in used_gods])
+  return [god for god in crawl.GODS if god not in used_god_set]

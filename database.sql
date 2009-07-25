@@ -9,6 +9,7 @@ DROP TABLE IF EXISTS kills_of_uniques;
 DROP TABLE IF EXISTS kunique_times;
 DROP TABLE IF EXISTS rune_finds;
 DROP TABLE IF EXISTS streaks;
+DROP TABLE IF EXISTS player_won_gods;
 DROP TABLE IF EXISTS player_points;
 DROP TABLE IF EXISTS clan_points;
 
@@ -64,7 +65,7 @@ CREATE TABLE games (
   -- Offset in the source file.
   source_file_offset BIGINT,
 
-  player CHAR(20),
+  player VARCHAR(20),
   start_time DATETIME,
   score BIGINT,
   race CHAR(20),
@@ -89,7 +90,7 @@ CREATE TABLE games (
   strength INT,
   intelligence INT,
   dexterity INT,
-  god CHAR(20),
+  god VARCHAR(20),
   duration INT,
   turn BIGINT,
   runes INT DEFAULT 0,
@@ -207,7 +208,7 @@ CREATE INDEX kill_uniq_pmons ON kills_of_uniques (player, monster);
 
 -- Keep track of who's killed how many uniques, and when they achieved this.
 CREATE TABLE kunique_times (
-  player CHAR(20) PRIMARY KEY,
+  player VARCHAR(20) PRIMARY KEY,
   -- Number of distinct uniques slain.
   nuniques INT DEFAULT 0 NOT NULL,
   -- When this number was reached.
@@ -230,6 +231,12 @@ CREATE TABLE streaks (
   streak_time DATETIME NOT NULL,
   FOREIGN KEY (player) REFERENCES players (name)
   );
+
+CREATE TABLE player_won_gods (
+  player VARCHAR(20),
+  god VARCHAR(20),
+  FOREIGN KEY (player) REFERENCES players (name) ON DELETE CASCADE
+);
 
 -- Audit table for point assignment. Tracks both permanent and
 -- temporary points.
@@ -257,20 +264,20 @@ CREATE TABLE clan_points (
 
 -- Views for trophies
 
--- The three fastest realtime wins.
+-- The three fastest realtime wins. Ties are broken by who got there first.
 CREATE VIEW fastest_realtime AS
-SELECT player, MIN(duration) duration FROM games
-WHERE killertype = 'winning'
-GROUP BY player
-ORDER BY duration
-LIMIT 3;
+SELECT id, player, duration
+  FROM games
+ WHERE killertype = 'winning'
+ ORDER BY duration, end_time
+ LIMIT 3;
 
 -- The three fastest wins (turncount)
 CREATE VIEW fastest_turncount AS
-SELECT player, MIN(turn) turn FROM games
-WHERE killertype = 'winning'
-GROUP BY player
-ORDER BY turn
+SELECT id, player, turn
+  FROM games
+ WHERE killertype = 'winning'
+ORDER BY turn, end_time
 LIMIT 3;
 
 -- All combo highscores.

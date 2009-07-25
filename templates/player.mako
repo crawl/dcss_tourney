@@ -13,6 +13,8 @@
 
    streak_games = query.get_player_best_streak_games(c, player)
 
+   won_gods = query.get_player_won_gods(c)
+
    audit = query.audit_trail_player_points(c, player)
    audit_team = query.audit_trail_player_team_points(c, player)
 
@@ -107,6 +109,23 @@
             ${html.full_games_table(streak_games)}
           </div>
           % endif
+
+          % if won_gods:
+          <div id="won-gods">
+            <h3>Winning Gods:</h3>
+            <p>
+              ${", ".join(won_gods)}
+            </p>
+            <p class="fineprint">
+              All gods that ${player} has won games with, without changing
+              gods (or renouncing and rejoining gods) during the game.
+            </p>
+
+            <h3>Remaining Gods:</h3>
+            <p>
+              ${", ".join(query.find_remaining_gods(won_gods))}
+            </p>
+          </div>
 
           <div class="game_table">
             <h3>Recent Games</h3>

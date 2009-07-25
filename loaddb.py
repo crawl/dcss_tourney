@@ -550,6 +550,10 @@ def query_row(cursor, query, *values):
 def query_rows(cursor, query, *values):
   return Query(query, *values).rows(cursor)
 
+def query_first_col(cursor, query, *values):
+  rows = query_rows(cursor, query, *values)
+  return [x[0] for x in rows]
+
 def _player_exists(c, name):
   """Return true if the player exists in the player table"""
   query = Query("""SELECT name FROM players WHERE name=%s;""",
@@ -775,12 +779,8 @@ def add_unique_milestone(cursor, game):
       if cachecount == 0:
         query_do(cursor,
                  '''INSERT INTO kunique_times (player, nuniques, kill_time)
-                    VALUES (%s,
-                            (SELECT COUNT(DISTINCT monster)
-                             FROM kills_of_uniques
-                             WHERE player = %s),
-                            %s)''',
-                 game['name'], game['name'], sqltime)
+                    VALUES (%s, %s, %s)''',
+                 game['name'], uniqcount, sqltime)
       else:
         query_do(cursor,
                  '''UPDATE kunique_times
