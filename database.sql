@@ -169,7 +169,6 @@ CREATE TABLE streaks (
   FOREIGN KEY (player) REFERENCES players (name)
   );
 
-------------------------------------------------------------------
 -- Audit table for point assignment. Tracks both permanent and
 -- temporary points.
 
@@ -194,7 +193,6 @@ CREATE TABLE clan_points (
   FOREIGN KEY (captain) REFERENCES players (name)
   );
 
-------------------------------------------------------------------
 -- Views for trophies
 
 -- The three fastest realtime wins.

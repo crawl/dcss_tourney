@@ -1,3 +1,6 @@
+Test code on 0.4 logfile (so we have lots of games)
+Rewire scripts to use 0.5 logfile once everything's tested and ok.
+
 Trophies for 2009:
 
 WINS:
@@ -77,7 +80,10 @@ Greensnark said nothing across clans but we already have code for:
 
 CLAN SCORING
 ------------
-Sum total of individual points for wins, runes, and uniques, sum total of special wins
+
+Sum total of individual points for wins, runes, and uniques, sum total
+of special wins
+
 points, sum total of high scores points,
 plus "Clan points only" trophies above.
 Six members or less per clan.

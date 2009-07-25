@@ -20,10 +20,10 @@ CDO = 'http://crawl.develz.org/'
 # Log and milestone files. A tuple indicates a remote file with t[1]
 # being the URL to wget -c from.
 
-LOGS = [ 'cao-logfile-0.4', ('cdo-logfile-0.4', CDO + 'allgames-rel.txt') ]
+LOGS = [ 'cao-logfile-0.4', ('cdo-logfile-0.4', CDO + 'allgames-0.4.txt') ]
 
 MILESTONES = [ 'cao-milestones-0.4',
-               ('cdo-milestones-0.4', CDO + 'milestones-rel.txt') ]
+               ('cdo-milestones-0.4', CDO + 'milestones-0.4.txt') ]
 
 EXTENSION_FILE = 'modules.ext'
 TOURNAMENT_DB = 'tournament'
