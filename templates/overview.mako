@@ -117,9 +117,20 @@
             <table class="grouping">
               <tr>
                 <td>
+                  
                   <div>
 	                <h3>Longest Streak</h3>
                     ${html.best_streaks(c)}
+                  </div>
+                  
+                  <div>
+                    <h3>Ziggurat Raiders</h3>
+                    ${html.best_ziggurats(c)}
+                  </div>
+
+                  <div>
+                    <h3>Runes fetched at lowest XL</h3>
+                    ${html.youngest_rune_finds(c)}
                   </div>
 
                   <div>

@@ -136,6 +136,12 @@ def clan_additional_score(c, owner):
                                       get_points(
                                               uscore_pos,
                                               100, 50, 20 ) )
+
+  clan_maxed_skills = query.clan_maxed_skills(c, owner)
+  for skill in clan_maxed_skills:
+      additional += log_temp_clan_points( c, owner,
+                                          'maxed:%s' % skill,
+                                          10 )
   query.set_clan_points(c, owner, additional)
 
 def update_clan_scores(c):

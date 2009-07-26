@@ -2,10 +2,12 @@
 
 import loaddb
 import query
+import banner
 
 import logging
 from logging import debug, info, warn, error
 import crawl_utils
+import uniq
 
 from query import assign_points, assign_team_points
 from query import log_temp_points, log_temp_team_points, get_points
@@ -86,6 +88,8 @@ def do_milestone_rune(c, mile):
   else:
     # first time getting this rune!
     assign_points(c, "rune_1st:" + rune, mile['name'], 10)
+  player = mile['name']
+  banner.safe_award_banner(c, player, 'Rune')
 
 def do_milestone_ghost(c, mile):
   """When you kill a player ghost, you get two clan points! Otherwise this
@@ -98,14 +102,40 @@ def act_on_logfile_line(c, this_game):
   irrevocable points and those should be assigned immediately. Revocable
   points (high scores, lowest dungeon level, fastest wins) should be
   calculated elsewhere."""
-  if this_game['ktyp'] == 'winning':
+  if this_ga
+  me['ktyp'] == 'winning':
     crunch_winner(c, this_game) # lots of math to do for winners
+
+  crunch_misc(c, this_game)
 
   if loaddb.is_ghost_kill(this_game):
     ghost = loaddb.extract_ghost_name(this_game['killer'])
     XL = this_game['xl']
     if XL > 5:
       assign_team_points(c, "gkill", ghost, (XL - 5))
+
+def crunch_misc(c, g):
+  ktyp = g['ktyp']
+
+  def strip_unique_qualifier(x):
+    if ',' in x:
+      p = x.index(',')
+      return x[:p]
+    return x
+
+  killer = strip_unique_qualifier(g.get('killer') or '')
+  player = g['name']
+  if uniq.is_uniq(killer):
+    query_do(c,
+             '''INSERT INTO deaths_to_uniques
+                            (player, uniq, start_time, end_time)
+                     VALUES (%s, %s, %s, %s)''',
+             player, killer, g['start'], g['end'])
+
+  if g.has_key('maxskills'):
+    maxed_skills = g['maxskills'].split(",")
+    for sk in maxed_skills:
+      query.register_maxed_skill(c, player, sk)
 
 def repeat_race_class(previous_chars, char):
   """Returns 0 if the game does not repeat a previous role or class, 1 if
@@ -223,72 +253,123 @@ def player_additional_score(c, player):
   additional = 0
   add_team = 0
 
-  c.execute('BEGIN;')
-  try:
-    query.audit_flush_player(c, player)
-    rt_pos = query.player_fastest_realtime_win_pos(c, player)
-    additional += log_temp_points( c, player,
-                                   'fastest_realtime:%d' % (rt_pos + 1),
-                                   get_points(rt_pos, 200, 100, 50 ) )
+  query.audit_flush_player(c, player)
+  rt_pos = query.player_fastest_realtime_win_pos(c, player)
+  additional += log_temp_points( c, player,
+                                 'fastest_realtime:%d' % (rt_pos + 1),
+                                 get_points(rt_pos, 200, 100, 50 ) )
 
-    tc_pos = query.player_fastest_turn_win_pos(c, player)
-    additional += log_temp_points( c, player,
-                                   'fastest_turncount:%d' % (tc_pos + 1),
-                                   get_points(tc_pos, 200, 100, 50 ) )
+  tc_pos = query.player_fastest_turn_win_pos(c, player)
+  additional += log_temp_points( c, player,
+                                 'fastest_turncount:%d' % (tc_pos + 1),
+                                 get_points(tc_pos, 200, 100, 50 ) )
 
-    combo_hs = query.count_hs_combos(c, player)
-    additional += log_temp_points( c, player, 'combo_hs:%d' % combo_hs,
-                                   combo_hs * 5 )
+  combo_hs = query.count_hs_combos(c, player)
+  additional += log_temp_points( c, player, 'combo_hs:%d' % combo_hs,
+                                 combo_hs * 5 )
 
-    combo_hs_win = query.count_hs_combo_wins(c, player)
-    additional += log_temp_points( c, player, 'combo_hs_win:%d' % combo_hs_win,
-                                   combo_hs_win * 5 )
+  combo_hs_win = query.count_hs_combo_wins(c, player)
+  additional += log_temp_points( c, player, 'combo_hs_win:%d' % combo_hs_win,
+                                 combo_hs_win * 5 )
 
-    species_hs = query.count_hs_species(c, player)
-    additional += log_temp_points( c, player, 'species_hs:%d' % species_hs,
-                                   species_hs * 10 )
+  species_hs = query.count_hs_species(c, player)
+  additional += log_temp_points( c, player, 'species_hs:%d' % species_hs,
+                                 species_hs * 10 )
 
-    class_hs = query.count_hs_classes(c, player)
-    additional += log_temp_points( c, player, 'class_hs:%d' % class_hs,
-                                   class_hs * 10 )
+  class_hs = query.count_hs_classes(c, player)
+  additional += log_temp_points( c, player, 'class_hs:%d' % class_hs,
+                                 class_hs * 10 )
 
-    combo_hs_pos = query.player_hs_combo_pos(c, player)
-    additional += log_temp_points( c, player,
-                                   'max_combo_hs_Nth:%d' % (combo_hs_pos + 1),
-                                   get_points(
-                                       combo_hs_pos, 200, 100, 50 ) )
+  combo_hs_pos = query.player_hs_combo_pos(c, player)
+  additional += log_temp_points( c, player,
+                                 'max_combo_hs_Nth:%d' % (combo_hs_pos + 1),
+                                 get_points(combo_hs_pos, 200, 100, 50 ) )
 
-    streak_pos = query.player_streak_pos(c, player)
-    additional += log_temp_points( c, player,
-                                   'max_streak_Nth:%d' % (streak_pos + 1),
-                                   get_points(streak_pos, 200, 100, 50 ) )
+  streak_pos = query.player_streak_pos(c, player)
+  additional += log_temp_points( c, player,
+                                 'max_streak_Nth:%d' % (streak_pos + 1),
+                                 get_points(streak_pos, 200, 100, 50 ) )
 
-    uniq_kill_pos = query.player_unique_kill_pos(c, player)
-    addditional += log_temp_points( c, player,
-                                    'top_uniq_killer:%d' % (uniq_kill_pos + 1),
-                                    get_points(uniq_kill_pos, 50, 20, 10 ) )
+  uniq_kill_pos = query.player_unique_kill_pos(c, player)
+  addditional += log_temp_points( c, player,
+                                  'top_uniq_killer:%d' % (uniq_kill_pos + 1),
+                                  get_points(uniq_kill_pos, 50, 20, 10 ) )
 
 
-    pacific_win_pos = query.player_pacific_win_pos(c, player)
-    add_team += log_temp_team_points(c, player,
-                                     ('top_pacific_win:%d'
-                                      % (pacific_win_pos + 1)),
-                                     get_points(
+  pacific_win_pos = query.player_pacific_win_pos(c, player)
+  add_team += log_temp_team_points(c, player,
+                                   ('top_pacific_win:%d'
+                                    % (pacific_win_pos + 1)),
+                                   get_points(pacific_win_pos, 200, 100, 50))
 
-    xl1_dive_pos = query.player_xl1_dive_pos(c, player)
-    add_team += log_temp_team_points( c, player,
-                                      'xl1_dive_Nth:%d' % (xl1_dive_pos + 1),
-                                      get_points(xl1_dive_pos, 50, 20, 10) )
+  xl1_dive_pos = query.player_xl1_dive_pos(c, player)
+  add_team += log_temp_team_points( c, player,
+                                    'xl1_dive_Nth:%d' % (xl1_dive_pos + 1),
+                                    get_points(xl1_dive_pos, 50, 20, 10) )
 
-    loaddb.update_player_fullscore(c, player, additional, add_team)
-    c.execute('COMMIT;')
-  except:
-    c.execute('ROLLBACK;')
-    raise
+  ziggurat_dive_pos = query.player_ziggurat_dive_pos(c, player)
+  add_team += log_temp_team_points( c, player,
+                                    'zig_rank:%d' % (ziggurat_dive_pos + 1),
+                                    get_points(ziggurat_dive_pos,
+                                               200, 100, 50))
 
+
+  rune_dive_pos = query.player_rune_dive_pos(c, player)
+  add_team += log_temp_team_points( c, player,
+                                    'rune_dive_rank:%d' % (rune_dive_pos + 1),
+                                    get_points(rune_dive_pos, 50, 20, 10) )
+
+  most_deaths_to_uniques_pos = query.player_deaths_to_uniques_pos(c, player)
+  add_team += log_temp_team_points( c, player,
+                                    'deaths_to_uniques_Nth:%d'
+                                    % (most_deaths_to_uniques_pos + 1),
+                                    get_points(most_deaths_to_uniques_pos,
+                                               50, 20, 10))
+
+  loaddb.update_player_fullscore(c, player, additional, add_team)
   return additional
 
 def update_player_scores(c):
+  wrap_transaction(safe_update_player_scores)(c)
+
+def award_player_banners(c, banner, players):
+  if players:
+    for p in players:
+      banner.safe_award_banner(c, p, banner)
+
+def safe_update_player_scores(c):
   for p in query.get_players(c):
     info("Updating full score for %s" % p)
     player_additional_score(c, p)
+
+  # Award moose & squirrel banners.
+  award_player_banners(c, 'Moose',
+                       query_first_col(c, '''SELECT DISTINCT player
+                                             FROM double_boris_kills'''))
+  # Award 'Atheist' banners
+  award_player_banners(c, 'Atheist,'
+                       query_first_col(c, '''SELECT DISTINCT player
+                                               FROM atheist_wins'''))
+
+  # Award 'Scythe' banners
+  award_player_banners(c, 'Scythe',
+                       query_first_col(c, '''SELECT player
+                                             FROM super_sigmund_kills'''))
+
+  # Award 'Orb' banner for wins.
+  award_player_banners(c, 'Orb',
+                       query_first_col(c, '''SELECT DISTINCT player
+                                               FROM games
+                                              WHERE killertype='winning' '''))
+
+  award_player_banners(c, 'Free Will',
+                       query_first_col(c, '''SELECT DISTINCT player
+                                             FROM free_will_wins'''))
+  award_player_banners(c, 'Ghostbuster',
+                       query_first_col(c,
+                                       '''SELECT player FROM ghostbusters'''))
+
+  award_player_banners(c, 'Shopaholic',
+                       query_first_col(c,
+                                       '''SELECT DISTINCT player
+                                            FROM compulsive_shoppers'''))

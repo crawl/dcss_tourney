@@ -1,0 +1,47 @@
+#! /usr/bin/python
+
+import crawl
+
+def player_has_banner(c, player, banner):
+  return query_first_def(c, None,
+                         '''SELECT banner FROM player_banners
+                             WHERE player = %s AND banner = %s''',
+                         player, banner)
+
+def safe_award_banner(c, player, banner):
+  if not player_has_banner(c, player):
+    award_banner(c, player, banner)
+
+def award_banner(c, player, banner):
+  query_do(c, '''INSERT INTO player_banners VALUES (%s, %s)''',
+           player, banner)
+
+def pantheon(c, player):
+  distinct_gods = [god for god in query.player_distinct_gods()
+                   if god and god != 'No God']
+  if len(distinct_gods) == len(crawl.GODS) - 1:
+    award_banner(c, player, 'Pantheon')
+
+def heretic(c, player):
+  gods_renounced = query.player_distinct_renounced_gods()
+  gods_mollified = query.player_distinct_mollified_gods()
+  if (len(gods_mollified) == len(gods_renounced)
+      and len(gods_mollified) == len(crawl.GODS) - 1):
+    award_banner(c, player, 'Heretic')
+
+BANNERS = [['Pantheon', pantheon],
+           ['Heretic', heretic],
+           ['Rune', None],
+           ['Moose & Squirrel', None],
+           ['Atheist', atheist],
+           ['Scythe', scythe],
+           ['Orb', orb],
+           ['Shop', shop],
+           ['Free Will', free_will],
+           ['Ghostbuster', ghostbuster]]
+
+def process_banners(c, player):
+  existing_banners = set(query.get_player_banners(c, player))
+  for banner in [b for b in BANNERS if b[0] not in existing_banners]:
+    if banner[1]:
+      banner[1](c, player)

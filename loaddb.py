@@ -306,6 +306,12 @@ def xlog_milestone_fixup(d):
     noun = match[0][1]
   if verb == 'rune':
     noun = R_RUNE.findall(milestone)[0]
+  if verb == 'god.worship':
+    noun = R_GOD_WORSHIP.findall(milestone)[0]
+  elif verb == 'god.renounce':
+    noun = R_GOD_RENOUNCE.findall(milestone)[0]
+  elif verb == 'god.mollify':
+    noun = R_GOD_MOLLIFY.findall(milestone)[0]
   noun = noun or milestone
   d['verb'] = verb
   d['noun'] = noun
@@ -373,6 +379,9 @@ LOG_DB_MAPPINGS = [
     [ 'kills', 'kills' ],
     [ 'nrune', 'nrune' ],
     [ 'urune', 'runes' ],
+    [ 'gold', 'gold' ],
+    [ 'goldfound', 'gold_found' ],
+    [ 'goldspent', 'gold_spent' ]
     ]
 
 MILE_DB_MAPPINGS = [
@@ -420,6 +429,10 @@ R_MILE_UNIQ = re.compile(r'^\w+ (.*)\.$')
 R_MILE_GHOST = re.compile(r'^\w+ the ghost of (\S+)')
 R_RUNE = re.compile(r"found an? (.*) rune")
 R_HYDRA = re.compile(r'^an? (\w+)-headed hydra')
+R_PLACE_DEPTH = re.compile(r'^\w+:(\d+)')
+R_GOD_WORSHIP = re.compile(r'^became a worshipper of (.*)\.$')
+R_GOD_MOLLIFY = re.compile(r'^mollified (.*)\.$')
+R_GOD_RENOUNCE = re.compile(r'^abandoned (.*)\.$')
 
 class SqlType:
   def __init__(self, str_to_sql):
@@ -524,6 +537,9 @@ dbfield_to_sqltype = {
 	'verb_msg':varchar,
         'nrune':sql_int,
         'kills': sql_int,
+        'gold': sql_int,
+        'gold_found': sql_int,
+        'gold_spent': sql_int
 	}
 
 def is_not_tourney(game):
@@ -801,14 +817,43 @@ def add_ghost_milestone(cursor, game):
 
 def add_rune_milestone(cursor, game):
   query_do(cursor,
-           '''INSERT INTO rune_finds (player, start_time, rune)
-              VALUES (%s, %s, %s);''',
-           game['name'], game['time'], extract_rune(game['milestone']))
+           '''INSERT INTO rune_finds (player, start_time, rune_time, rune)
+              VALUES (%s, %s, %s, %s);''',
+           game['name'], game['start'], game['time'],
+           extract_rune(game['milestone']))
+
+def add_ziggurat_milestone(c, g):
+  place = g['place']
+  mtype = g['type']
+  level = int(R_PLACE_DEPTH.findall(place)[0])
+  depth = level * 2
+  # Leaving a ziggurat level by the exit gets more props than merely
+  # entering the level.
+  if mtype == 'zig.exit':
+    depth += 1
+  player = g['name']
+  deepest = query.player_ziggurat_deepest(c, g['name'])
+  if depth > deepest:
+    if deepest == 0:
+      query_do(c,
+               '''INSERT INTO ziggurats (player, deepest, place, zig_time,
+                                         start_time)
+                                VALUERS (%s, %s, %s, %s, %s)''',
+               player, depth, place, g['time'], g['start'])
+    else:
+      query_do(c,
+               '''UPDATE ziggurats SET deepest = %s, place = %s,
+                                       zig_time = %s, start_time = %s
+                                 WHERE player = %s''',
+               depth, place, g['time'], g['start'], player)
 
 MILESTONE_HANDLERS = {
   'unique' : add_unique_milestone,
   'ghost' : add_ghost_milestone,
-  'rune' : add_rune_milestone
+  'rune' : add_rune_milestone,
+  'zig.enter': add_ziggurat_milestone,
+  'zig': add_ziggurat_milestone,
+  'zig.exit': add_ziggurat_milestone,
 }
 
 def add_milestone_record(c, filename, offset, d):

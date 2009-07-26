@@ -803,13 +803,15 @@ def wrap_transaction(fn):
   """Given a function, returns a function that accepts a cursor and arbitrary
   arguments, calls the function with those args, wrapped in a transaction."""
   def transact(cursor, *args):
+    result = None
     cursor.execute('BEGIN;')
     try:
-      fn(cursor, *args)
+      result = fn(cursor, *args)
       cursor.execute('COMMIT;')
     except:
       cursor.execute('ROLLBACK;')
       raise
+    return result
   return transact
 
 def create_team(cursor, team, owner_name):
@@ -869,3 +871,83 @@ def get_clan_info(c, player):
 def find_remaining_gods(used_gods):
   used_god_set = set([x or 'No God' for x in used_gods])
   return [god for god in crawl.GODS if god not in used_god_set]
+
+def player_ziggurat_deepest(c, player):
+  return query_first_def(c, 0,
+                         '''SELECT deepest FROM ziggurats WHERE player = %s''',
+                         player)
+
+def get_top_ziggurats(c):
+  rows = query_rows(c, '''SELECT player, place, deepest, zig_time
+                            FROM best_ziggurat_dives
+                           LIMIT 3''')
+  # Convert to lists for doctoring.
+  rows = [list(x) for x in rows]
+  for r in rows:
+    # Distinguish between entering and leaving ziggurat levels.
+    if r[2] % 2 == 1:
+      r[1] += " (out)"
+  return [[x[0], x[1], x[3]] for x in rows]
+
+def player_ziggurat_dive_pos(c, player):
+  return find_place([x[0]] for x in get_top_ziggurats(c), player)
+
+def player_rune_dive_pos(c, player):
+  return find_place(query_rows(c, '''SELECT player FROM youngest_rune_finds
+                                      LIMIT 3'''),
+                    player)
+
+def youngest_rune_finds(c):
+  return query_rows(c, '''SELECT player, rune, xl, rune_time
+                            FROM youngest_rune_finds''')
+
+def player_deaths_to_uniques_pos(c, player):
+  return find_place_numeric(
+    query_rows(c, '''SELECT player, deaths FROM most_deaths_to_uniques'''),
+    player)
+
+def register_maxed_skill(c, player, sk):
+  if not query_first_def(c, None, '''SELECT player
+                                       FROM player_maxed_skills
+                                      WHERE player = %s AND skill = %s''',
+                         player, sk):
+    query_do(c, '''INSERT INTO player_maxed_skills (player, skill)
+                                            VALUES (%s, %s)''',
+             player, sk)
+
+def clan_maxed_skills(c, captain):
+  skills = query_first_col(c, '''SELECT DISTINCT skill
+                                   FROM player_maxed_skills ps, players p
+                                  WHERE ps.player = p.name
+                                    AND p.team_captain = %s''',
+                           captain)
+  return skills
+
+def get_player_banners(c, player):
+  return query_first_col(c, '''SELECT banner FROM player_banners
+                                WHERE player = %s''',
+                         player)
+
+def player_distinct_gods(c, player):
+  """Returns the list of gods that the player has worshipped at end of game.
+  This does not check for renouncing gods, etc. during the game, so it
+  should not be used for trophies that carry points."""
+  gods = query_first_col(c, '''SELECT DISTINCT god FROM
+                                          FROM games
+                                         WHERE player = %s''',
+                         player)
+  return gods
+
+def player_distinct_renounced_gods(c, player):
+  return query_first_col(c, '''SELECT DISTINCT noun
+                                 FROM milestones
+                                WHERE player = %s
+                                  AND verb = 'god.renounce' ''',
+                         player)
+
+def player_distinct_mollified_gods(c, player):
+  return query_first_col(c, '''SELECT DISTINCT noun
+                                 FROM milestones
+                                WHERE player = %s
+                                  AND verb = 'god.mollify' ''',
+                         player)

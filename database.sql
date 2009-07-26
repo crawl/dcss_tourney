@@ -1,6 +1,5 @@
 -- Use InnoDB for transaction support.
 SET storage_engine=InnoDB;
-
 DROP TABLE IF EXISTS players;
 DROP TABLE IF EXISTS milestones;
 DROP TABLE IF EXISTS teams;
@@ -11,10 +10,14 @@ DROP TABLE IF EXISTS kills_of_ghosts;
 DROP TABLE IF EXISTS kills_of_uniques;
 DROP TABLE IF EXISTS kunique_times;
 DROP TABLE IF EXISTS rune_finds;
+DROP TABLE IF EXISTS ziggurats;
 DROP TABLE IF EXISTS streaks;
 DROP TABLE IF EXISTS player_won_gods;
 DROP TABLE IF EXISTS player_points;
 DROP TABLE IF EXISTS clan_points;
+DROP TABLE IF EXISTS deaths_to_uniques;
+DROP TABLE IF EXISTS player_maxed_skills;
+DROP TABLE IF EXISTS player_banners;
 
 DROP VIEW IF EXISTS fastest_realtime;
 DROP VIEW IF EXISTS fastest_turncount;
@@ -32,6 +35,15 @@ DROP VIEW IF EXISTS game_combo_win_highscores;
 DROP VIEW IF EXISTS combo_hs_scoreboard;
 DROP VIEW IF EXISTS combo_hs_clan_scoreboard;
 DROP VIEW IF EXISTS streak_scoreboard;
+DROP VIEW IF EXISTS best_ziggurat_dives;
+DROP VIEW IF EXISTS youngest_rune_finds;
+DROP VIEW IF EXISTS most_deaths_to_uniques;
+DROP VIEW IF EXISTS double_boris_kills;
+DROP VIEW IF EXISTS atheist_wins;
+DROP VIEW IF EXISTS super_sigmund_kills;
+DROP VIEW IF EXISTS free_will_wins;
+DROP VIEW IF EXISTS ghostbusters;
+DROP VIEW IF EXISTS compulsive_shoppers;
 
 CREATE TABLE IF NOT EXISTS players (
   name VARCHAR(20) PRIMARY KEY,
@@ -71,16 +83,16 @@ CREATE TABLE games (
   player VARCHAR(20),
   start_time DATETIME,
   score BIGINT,
-  race CHAR(20),
+  race VARCHAR(20),
   -- Two letter race abbreviation so we can group by it without pain.
   raceabbr CHAR(2) NOT NULL,
-  class CHAR(20),
+  class VARCHAR(20),
   version CHAR(10),
   lv CHAR(8),
   uid INT,
   charabbrev CHAR(4),
   xl INT,
-  skill CHAR(16),
+  skill VARCHAR(16),
   sk_lev INT,
   title VARCHAR(255),
   place CHAR(16),
@@ -97,7 +109,7 @@ CREATE TABLE games (
   duration INT,
   turn BIGINT,
   runes INT DEFAULT 0,
-  killertype CHAR(20),
+  killertype VARCHAR(20),
   killer CHAR(50),
   kgroup CHAR(50),
   kaux VARCHAR(255),
@@ -106,6 +118,9 @@ CREATE TABLE games (
   damage INT,
   piety INT,
   penitence INT,
+  gold INT,
+  gold_found INT,
+  gold_spent INT,
   end_time DATETIME,
   terse_msg VARCHAR(255),
   verb_msg VARCHAR(255),
@@ -184,6 +199,8 @@ CREATE TABLE milestones (
   ON DELETE SET NULL
 );
 
+CREATE INDEX milestone_verb ON milestones (player, verb);
+CREATE INDEX milestone_noun ON milestones (noun, verb, player, start_time);
 -- To find milestones belonging to a particular game.
 CREATE INDEX milestone_lookup_by_time ON milestones (player, start_time, verb);
 
@@ -195,21 +212,21 @@ CREATE TABLE milestone_bookmark (
   );
 
 CREATE TABLE kills_by_ghosts (
-  killed_player CHAR(20) NOT NULL,
+  killed_player VARCHAR(20) NOT NULL,
   killed_start_time DATETIME NOT NULL,
-  killer CHAR(20) NOT NULL
+  killer VARCHAR(20) NOT NULL
   );
 
 CREATE TABLE kills_of_ghosts (
-  player CHAR(20),
+  player VARCHAR(20),
   start_time DATETIME,
-  ghost CHAR(20)
+  ghost VARCHAR(20)
   );
 
 CREATE TABLE kills_of_uniques (
-  player CHAR(20) NOT NULL,
+  player VARCHAR(20) NOT NULL,
   kill_time DATETIME NOT NULL,
-  monster CHAR(20),
+  monster VARCHAR(20),
   FOREIGN KEY (player) REFERENCES players (name)
   );
 
@@ -226,15 +243,28 @@ CREATE TABLE kunique_times (
   );
 
 CREATE TABLE rune_finds (
-  player CHAR(20),
+  player VARCHAR(20),
   start_time DATETIME,
-  rune CHAR(20),
+  rune_time DATETIME,
+  rune VARCHAR(20),
+  xl INT,
   FOREIGN KEY (player) REFERENCES players (name) ON DELETE CASCADE
   );
 
+CREATE TABLE ziggurats (
+  player VARCHAR(20),
+  deepest INT NOT NULL,
+  place VARCHAR(10) NOT NULL,
+  zig_time DATETIME NOT NULL,
+  -- Game start time, with player name can be used to locate the relevant game.
+  start_time DATETIME NOT NULL,
+  FOREIGN KEY (player) REFERENCES players (name)
+  );
+CREATE INDEX ziggurat_depths ON ziggurats (deepest, zig_time);
+
 -- Generated table to keep track of streaks for each player.
 CREATE TABLE streaks (
-  player CHAR(20) PRIMARY KEY,
+  player VARCHAR(20) PRIMARY KEY,
   -- Because you just know Stabwound's going to win 128 in a row
   streak MEDIUMINT NOT NULL,
   streak_time DATETIME NOT NULL,
@@ -252,7 +282,7 @@ CREATE TABLE player_won_gods (
 
 CREATE TABLE player_points (
   id BIGINT AUTO_INCREMENT PRIMARY KEY,
-  player CHAR(20) NOT NULL,
+  player VARCHAR(20) NOT NULL,
   temp BOOLEAN DEFAULT 0,
   points MEDIUMINT NOT NULL DEFAULT 0,
   team_points MEDIUMINT NOT NULL DEFAULT 0,
@@ -265,10 +295,36 @@ CREATE INDEX point_player_src ON player_points (player, point_source);
 -- Clan point assignments.
 CREATE TABLE clan_points (
   id BIGINT AUTO_INCREMENT PRIMARY KEY,
-  captain CHAR(20) NOT NULL,
+  captain VARCHAR(20) NOT NULL,
   points MEDIUMINT NOT NULL DEFAULT 0,
   point_source VARCHAR(150) NOT NULL,
   FOREIGN KEY (captain) REFERENCES players (name)
+  );
+
+CREATE TABLE deaths_to_uniques (
+  player  VARCHAR(20),
+  uniq    VARCHAR(50),
+  start_time DATETIME,
+  end_time   DATETIME,
+  FOREIGN KEY (player) REFERENCES players (name)
+  );
+
+CREATE TABLE player_maxed_skills (
+  player VARCHAR(20),
+  skill VARCHAR(25),
+  PRIMARY KEY (player, skill),
+  FOREIGN KEY (player) REFERENCES players (name)
+  );
+CREATE INDEX player_maxed_sk ON player_maxed_skills (player, skill);
+
+-- Tracks banners won by each player. Banners (badges?) are permanent
+-- decorations, so once a player has earned a banner, there's no need to
+-- check it again.
+CREATE TABLE player_banners (
+  player VARCHAR(20),
+  banner VARCHAR(50),
+  PRIMARY KEY (player, banner),
+  FOREIGN KEY (player) REFERENCES players (name)
   );
 
 -- Views for trophies
@@ -388,3 +444,68 @@ SELECT player, streak
 FROM streaks
 ORDER BY streak DESC, streak_time
 LIMIT 3;
+
+CREATE VIEW best_ziggurat_dives AS
+SELECT player, deepest, place, zig_time, start_time
+  FROM ziggurats
+ORDER BY deepest DESC, zig_time
+LIMIT 3;
+
+CREATE VIEW youngest_rune_finds AS
+SELECT player, rune, start_time, rune_time, xl
+  FROM rune_finds
+ORDER BY xl, rune_time
+ LIMIT 5;
+
+CREATE VIEW most_deaths_to_uniques AS
+SELECT player, COUNT(DISTINCT uniq) AS deaths
+  FROM deaths_to_uniques
+GROUP BY player
+ORDER BY deaths DESC
+   LIMIT 3;
+
+CREATE VIEW double_boris_kills AS
+  SELECT player, COUNT(*) AS boris_kills
+    FROM milestone
+   WHERE noun='Boris'
+     AND verb='uniq'
+GROUP BY player, start_time
+  HAVING boris_kills >= 2
+ORDER BY boris_kills DESC;
+
+CREATE VIEW atheist_wins AS
+SELECT g.*
+  FROM games g
+ WHERE g.killertype = 'winning' AND g.god IS NULL AND g.raceabbr != 'DG'
+   AND NOT EXISTS (SELECT noun FROM milestones m
+                    WHERE m.player = g.player AND m.start_time = g.start_time
+                      AND verb = 'god.renounce' LIMIT 1);
+
+CREATE VIEW super_sigmund_kills AS
+SELECT player, COUNT(*) AS sigmund_kills
+  FROM kills_of_uniques
+ WHERE monster = 'Sigmund'
+GROUP BY player
+  HAVING sigmund_kills >= 27
+ORDER BY sigmund_kills DESC;
+
+CREATE VIEW free_will_wins AS
+SELECT *
+  FROM games
+ WHERE ((class = 'Fire Elementalist' AND skill = 'Ice Magic') OR
+        (class = 'Ice Elementalist' AND skill = 'Fire Magic'))
+   AND killertype = 'winning';
+
+CREATE VIEW ghostbusters AS
+SELECT player, COUNT(*) AS ghost_kills
+  FROM milestones
+ WHERE verb = 'ghost'
+GROUP BY player
+  HAVING ghost_kills >= 10
+ORDER BY ghost_kills DESC;
+
+CREATE VIEW compulsive_shoppers AS
+SELECT *
+  FROM games
+ WHERE gold_spent >= 5000
+   AND gold < 50;
