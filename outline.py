@@ -254,30 +254,7 @@ def record_points(point_map, player, points, team_points):
 def player_additional_score(c, player, pmap):
   """Calculates the player's total score, including unchanging score and the
   current volatile score. Best-of-X trophies are not calculated here."""
-
-  additional = 0
-  add_team = 0
-
-  combo_hs = query.count_hs_combos(c, player)
-  additional += log_temp_points( c, player, 'combo_hs:%d' % combo_hs,
-                                 combo_hs * 5 )
-
-  combo_hs_win = query.count_hs_combo_wins(c, player)
-  additional += log_temp_points( c, player, 'combo_hs_win:%d' % combo_hs_win,
-                                 combo_hs_win * 5 )
-
-  species_hs = query.count_hs_species(c, player)
-  additional += log_temp_points( c, player, 'species_hs:%d' % species_hs,
-                                 species_hs * 10 )
-
-  class_hs = query.count_hs_classes(c, player)
-  additional += log_temp_points( c, player, 'class_hs:%d' % class_hs,
-                                 class_hs * 10 )
-
   banner.process_banners(c, player)
-  record_points(pmap, player, additional, False)
-  record_points(pmap, player, add_team, True)
-  return additional
 
 def update_player_scores(c):
   wrap_transaction(safe_update_player_scores)(c)
@@ -388,18 +365,31 @@ def check_banners(c):
                                             FROM compulsive_shoppers'''))
 
 
+def check_misc_points(c, pmap):
+  def award_misc_points(key, multiplier, rows):
+    for r in rows:
+      player = r[0]
+      points = r[1] * multiplier
+      record_points(pmap, player, points, team_points=False)
+      log_temp_points(c, player, key % r[1], points)
+  award_misc_points('combo_hs:%d', 5, query.all_hs_combos(c))
+  award_misc_points('combo_hs_win:%d', 5, query.all_hs_combo_wins(c))
+  award_misc_points('species_hs:%d', 10, query.all_hs_species(c))
+  award_misc_points('class_hs:%d', 10, query.all_hs_classes(c))
+
 def safe_update_player_scores(c):
   players = query.get_players(c)
 
-  for p in players:
-    query.audit_flush_player(c, p)
+  query.audit_flush_player(c)
   banner.flush_temp_banners(c)
 
   pmap = { }
-  for p in players:
-    info("Updating full score for %s" % p)
-    player_additional_score(c, p, pmap)
 
+  for p in players:
+    print "Processing banners for " + p
+    banner.process_banners(c, p)
+
+  check_misc_points(c, pmap)
   check_temp_trophies(c, pmap)
   check_banners(c)
 

@@ -580,11 +580,10 @@ def clan_audit_record_points(c, captain, what, points):
                    VALUES (%s, %s, %s)''',
              captain, points, what)
 
-def audit_flush_player(c, player):
-  """Discards temporary points assigned to the player from the audit table."""
+def audit_flush_player(c):
+  """Discards temporary points assigned to players from the audit table."""
   query_do(c, '''DELETE FROM player_points
-                 WHERE player = %s AND temp = 1''',
-           player)
+                 WHERE temp = 1''')
 
 def audit_flush_clan(c, captain):
   query_do(c, '''DELETE FROM clan_points WHERE captain = %s''', captain)
@@ -762,6 +761,26 @@ def clan_unique_pos(c, owner, limit=3):
                '''SELECT team_captain, kills FROM
                          clan_unique_kills LIMIT %d''' % limit),
     owner)
+
+def all_hs_combos(c):
+  return query_rows(c,
+                     '''SELECT player, COUNT(*) FROM game_combo_highscores
+                        GROUP BY player''')
+
+def all_hs_combo_wins(c):
+  return query_rows(c,
+                     '''SELECT player, COUNT(*) FROM game_combo_win_highscores
+                        GROUP BY player''')
+
+def all_hs_species(c):
+  return query_rows(c,
+                    '''SELECT player, COUNT(*) FROM game_species_highscores
+                       GROUP BY player''')
+
+def all_hs_classes(c):
+  return query_rows(c,
+                     '''SELECT player, COUNT(*) FROM game_species_highscores
+                        GROUP BY player''')
 
 def count_hs_combos(c, player):
   return query_first(c,
