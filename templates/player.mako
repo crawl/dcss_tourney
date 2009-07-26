@@ -13,7 +13,7 @@
 
    streak_games = query.get_player_best_streak_games(c, player)
 
-   won_gods = query.get_player_won_gods(c, player)
+   won_gods = [x or 'No God' for x in query.get_player_won_gods(c, player)]
 
    audit = query.audit_trail_player_points(c, player)
    audit_team = query.audit_trail_player_team_points(c, player)
@@ -113,9 +113,10 @@
           % if won_gods:
           <div id="won-gods">
             <h3>Winning Gods:</h3>
-            <p>
+            <div class="bordered inline">
               ${", ".join(won_gods)}
-            </p>
+            </div>
+
             <p class="fineprint">
               All gods that ${player} has won games with, without changing
               gods (or renouncing and rejoining gods) during the game.
@@ -138,6 +139,10 @@
           % if uniq_slain:
           <div>
             <table class="bordered">
+              <colgroup>
+                 <col width="10%">
+                 <col width="85%">
+              </colgroup>
               <tr>
                 <th>Uniques Slain</th>
                 <td>${", ".join(uniq_slain)}</td>

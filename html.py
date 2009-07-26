@@ -219,7 +219,7 @@ def games_table(games, first=None, excluding=None, columns=None,
 
     ocls = odd and "odd" or "even"
     if game.get('killertype') == 'winning':
-      ocls = "win_" + ocls
+      ocls += " win"
 
     out += '''<tr class="%s">''' % ocls
     odd = not odd

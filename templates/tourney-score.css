@@ -1,19 +1,75 @@
 body {
-    font-family: Sans-Serif;
+  font-family: "Trebuchet MS", "Tahoma", "Verdana", "Sans-Serif";
+  font-size: 12px;
+  background: #fff;
+  padding: 8px 20px;
 }
 
-div.heading {
-    text-align: center;
+h1, h2, h3, h4, h5 {
+  font-family: "Lucida Grande", "Trebuchet MS", "Sans-Serif";
 }
 
-div.heading_left {
-    text-align: left;
+h3 {
+  margin-bottom: 3px;
+}
+
+hr {
+  color: #ccc;
+  height: 1px;
+  border: 1px solid #ccc;
+}
+
+table {
+  border-collapse: collapse;
+  border: 1px solid #ccc;
+  font-size: 11px;
+}
+
+td, th {
+  text-align: left;
+  padding: 2px 4px;
+}
+
+th {
+  border-top: 2px solid #ddd;
+  border-bottom: 2px solid #ddd;
+}
+
+a {
+  color: #54b;
+}
+
+a:visited {
+  color: #300;
+}
+
+.numeric {
+  text-align: right;
+}
+
+tr.even td {
+  background: #f0ffe0;
+}
+
+tr.odd td, tr.even td {
+  color: #666;
+}
+
+tr.win td {
+  font-weight: bold;
+  color: #000;
+}
+
+#last_updated {
+  color: #888;
+  font-size: 8px;
+  margin-top: 15px;
 }
 
 div.player_clan {
     width: 50%;
     background: #ffffe0;
-    border: 1px solid #000;
+    border: 1px solid #ddd;
     padding: 15px;
 }
 
@@ -108,12 +164,17 @@ div.toplinks a:hover {
 }
 
 table.bordered {
-    border: 1px solid #000;
+    border: 1px solid #ddd;
     border-collapse: collapse;
 }
 
+div.bordered {
+  border: 1px solid #ddd;
+  padding: 7px 8px;
+}
+
 table.bordered_centered {
-    border: 1px solid #000;
+    border: 1px solid #ddd;
     border-collapse: collapse;
     margin-left: auto;
     margin-right: auto;
@@ -126,14 +187,14 @@ td {
 table.bordered td {
     margin: 6px;
     padding: 6px;
-    border: 1px solid #000;
+    border: 1px solid #ddd;
     vertical-align: top;
 }
 
 table.bordered_centered td {
     margin: 6px;
     padding: 6px;
-    border: 1px solid #000;
+    border: 1px solid #ddd;
     vertical-align: top;
 }
 
@@ -152,11 +213,11 @@ th {
 }
 
 table.bordered th {
-    border: 1px solid #000;
+  border: 1px solid #bbb;
 }
 
 table.bordered_centered th {
-    border: 1px solid #000;
+  border: 1px solid #bbb;
 }
 
 table.grouping td {
@@ -167,24 +228,6 @@ table.grouping td {
 table.grouping th {
     padding-left: 15px;
     padding-right: 15px;
-}
-
-tr.odd {
-    background: #ffffff;
-}
-
-tr.even {
-    background: #fdfdfd;
-}
-
-tr.win_odd {
-    font-weight: bold;
-    background: #ffffff;
-}
-
-tr.win_even {
-    font-weight: bold;
-    background: #fdfdfd;
 }
 
 tr.point_temp {
@@ -206,7 +249,11 @@ table.overview {
 }
 
 table.grouping {
-    border: 0px;
+  border: 0;
+}
+
+table.grouping > td, table.grouping > th {
+  border: 0;
 }
 
 .tdover {
@@ -221,9 +268,9 @@ table.grouping {
     font-size: xx-small;
 }
 
-div.fineprint {
-    font-size: xx-small;
-    color: #aaa;
+.fineprint {
+    font-size: 10px;
+    color: #666;
     padding: 0px;
     margin-top: 2px;
 }
@@ -232,4 +279,8 @@ body.simple_left_align div.updatetime {
     padding-top: 20px;
     font-size: xx-small;
     text-align: left;
+}
+
+div.inline {
+  display: table-cell;
 }
