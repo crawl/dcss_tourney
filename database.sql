@@ -1,5 +1,5 @@
--- Use InnoDB for transaction support.
-SET storage_engine=InnoDB;
+-- Use InnoDB for transaction support?
+-- SET storage_engine=InnoDB;
 
 DROP TABLE IF EXISTS player_points;
 DROP TABLE IF EXISTS clan_points;
