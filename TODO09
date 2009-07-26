@@ -10,23 +10,46 @@ Legend: ] done + tested
     - Add a script to define the bonus combo.
     - Allow user to specify the combo, but ensure it has not already been
       won (by checking Henzell's db) before placing the bonus.
-  - Best ziggurat levels reached, ties broken by first player to do so.
-    Needs Ziggurat milestone.
-  - Rune at lowest XL, tie broken by first.
-  - Most unique deaths. Score for being killed by most uniques.
-  - 
+  - Clan points for best ziggurat levels reached, ties broken by first player
+    to do so. Needs Ziggurat milestone. 200/100/50
+  - Clan points for Rune at lowest XL, tie broken by first. 50/20/10
+  - Clan points for most unique deaths.
+    Score for being killed by most uniques. 50/20/10
+  - Clan exclusive points:
+    +10 points to each clan for each unique skill brought up to 27 by any of
+     its players.
+  - Banners:
+    - Pantheon (chose all gods, not including No God, across all games
+      by player)
+    - Xom Prefers a Heretic (has abandoned and mollified every god) across
+      all games.
+    - Has at least one rune (discovered knowledge).
+    - Moose & Squirrel killed Boris at least twice in a game.
+    - Atheist: won a character that never took a god and was not a DG.
+      Specifically check for no god.worship and no god.renounce
+    - Scythe: Award for killing Sigmund 27 times.
+    - Orb: Banner for winning.
+    - Shop Until you Drop:
+      Spent more than 5000 gold and ended with less than 50.
+    - Free Will: End with highest title in Ice as FE, or highest title in Fire
+      as IE.
+    - Ghostbuster: Killed 10 or more ghosts.
 
 - Test scoring for max uniques killed.
 
 - New logfile fields for Crawl:
-   - total creatures killed. (kills=N)
+   ]- total creatures killed. (kills=N)
+   ]- all maxed skills.
 
 - New milestones for Crawl:
-   god.worship <- Worshipping a new god
-   god.renounce <- Renouncing an existing god.
-   zig.complete <- completing a ziggurat.
+   ]god.worship <- Worshipping a new god
+   ]god.renounce <- Renouncing an existing god.
+   ]zig <- each level in ziggurat.
+   ]zig.exit <- completing a ziggurat.
 
 - Fix CSS to look better, also tweak layout to allow for banner space.
+
+- Player page should show banners and all trophies.
 
 - Modify player page to show player's banners.
    
@@ -118,9 +141,7 @@ CLAN SCORING
 ------------
 
 Sum total of individual points for wins, runes, and uniques, sum total
-of special wins
-
-points, sum total of high scores points,
+of special wins points, sum total of high scores points,
 plus "Clan points only" trophies above.
 Six members or less per clan.
 
