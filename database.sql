@@ -1,23 +1,24 @@
 -- Use InnoDB for transaction support.
 SET storage_engine=InnoDB;
-DROP TABLE IF EXISTS players;
-DROP TABLE IF EXISTS milestones;
-DROP TABLE IF EXISTS teams;
-DROP TABLE IF EXISTS milestone_bookmark;
-DROP TABLE IF EXISTS games;
-DROP TABLE IF EXISTS kills_by_ghosts;
-DROP TABLE IF EXISTS kills_of_ghosts;
-DROP TABLE IF EXISTS kills_of_uniques;
-DROP TABLE IF EXISTS kunique_times;
-DROP TABLE IF EXISTS rune_finds;
-DROP TABLE IF EXISTS ziggurats;
-DROP TABLE IF EXISTS streaks;
-DROP TABLE IF EXISTS player_won_gods;
+
 DROP TABLE IF EXISTS player_points;
 DROP TABLE IF EXISTS clan_points;
 DROP TABLE IF EXISTS deaths_to_uniques;
 DROP TABLE IF EXISTS player_maxed_skills;
 DROP TABLE IF EXISTS player_banners;
+DROP TABLE IF EXISTS player_won_gods;
+DROP TABLE IF EXISTS streaks;
+DROP TABLE IF EXISTS ziggurats;
+DROP TABLE IF EXISTS rune_finds;
+DROP TABLE IF EXISTS kunique_times;
+DROP TABLE IF EXISTS kills_of_uniques;
+DROP TABLE IF EXISTS kills_of_ghosts;
+DROP TABLE IF EXISTS kills_by_ghosts;
+DROP TABLE IF EXISTS milestone_bookmark;
+DROP TABLE IF EXISTS milestones;
+DROP TABLE IF EXISTS games;
+DROP TABLE IF EXISTS teams;
+DROP TABLE IF EXISTS players;
 
 DROP VIEW IF EXISTS fastest_realtime;
 DROP VIEW IF EXISTS fastest_turncount;
@@ -44,6 +45,7 @@ DROP VIEW IF EXISTS super_sigmund_kills;
 DROP VIEW IF EXISTS free_will_wins;
 DROP VIEW IF EXISTS ghostbusters;
 DROP VIEW IF EXISTS compulsive_shoppers;
+DROP VIEW IF EXISTS most_pacific_wins;
 
 CREATE TABLE IF NOT EXISTS players (
   name VARCHAR(20) PRIMARY KEY,
@@ -466,7 +468,7 @@ ORDER BY deaths DESC
 
 CREATE VIEW double_boris_kills AS
   SELECT player, COUNT(*) AS boris_kills
-    FROM milestone
+    FROM milestones
    WHERE noun='Boris'
      AND verb='uniq'
 GROUP BY player, start_time
