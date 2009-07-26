@@ -696,23 +696,29 @@ def find_place_numeric(rows, player):
       return index
   return -1
 
+def player_fastest_realtime_win_best(c):
+  return query_rows(c, 'SELECT player FROM fastest_realtime')
+
 def player_fastest_realtime_win_pos(c, player):
-  return find_place(query_rows(c, 'SELECT player FROM fastest_realtime'),
-                    player)
+  return find_place(player_fastest_realtime_win_best(c), player)
+
+def player_fastest_turn_win_best(c):
+  return query_rows(c, 'SELECT player FROM fastest_turncount')
 
 def player_fastest_turn_win_pos(c, player):
-  return find_place(query_rows(c, 'SELECT player FROM fastest_turncount'),
-                    player)
+  return find_place(player_fastest_turn_win_best(c), player)
+
+def player_hs_combo_best(c):
+  return query_rows(c, 'SELECT player, nscores FROM combo_hs_scoreboard')
 
 def player_hs_combo_pos(c, player):
-  return find_place_numeric(
-    query_rows(c, 'SELECT player, nscores FROM combo_hs_scoreboard'),
-    player)
+  return find_place_numeric(player_hs_combo_best(c), player)
+
+def player_streak_best(c):
+  return query_rows(c, 'SELECT player, streak FROM streak_scoreboard')
 
 def player_streak_pos(c, player):
-  return find_place_numeric(
-    query_rows(c, 'SELECT player, streak FROM streak_scoreboard'),
-    player)
+  return find_place(player_streak_best(c), player)
 
 def player_unique_kill_pos(c, player):
   return find_place(
@@ -721,10 +727,11 @@ def player_unique_kill_pos(c, player):
                       LIMIT 3'''),
     player)
 
+def player_pacific_win_best(c):
+  return query_rows(c, '''SELECT player FROM most_pacific_wins''')
+
 def player_pacific_win_pos(c, player):
-  return find_place(
-    query_rows(c, '''SELECT player FROM most_pacific_wins'''),
-    player)
+  return find_place(player_pacific_win_best(c), player)
 
 def player_uniques_killed(c, player):
   rows = query_rows(c, '''SELECT DISTINCT monster FROM kills_of_uniques
@@ -736,9 +743,11 @@ def uniques_unkilled(uniques_killed):
   killset = set(uniques_killed)
   return [ u for u in uniq.UNIQUES if u not in killset ]
 
+def player_xl1_dive_best(c):
+  return [ [g['player']] for g in get_deepest_xl1_games(c) ]
+
 def player_xl1_dive_pos(c, player):
-  return find_place([ [ g['player'] ] for g in get_deepest_xl1_games(c) ],
-                    player)
+  return find_place(player_xl1_dive_best(c), player)
 
 def clan_combo_pos(c, owner):
   return find_place_numeric(
@@ -892,19 +901,23 @@ def get_top_ziggurats(c):
 def player_ziggurat_dive_pos(c, player):
   return find_place([x[0] for x in get_top_ziggurats(c)], player)
 
+def player_rune_dive_best(c):
+  return query_rows(c, '''SELECT player FROM youngest_rune_finds
+                                      LIMIT 3''')
+
 def player_rune_dive_pos(c, player):
-  return find_place(query_rows(c, '''SELECT player FROM youngest_rune_finds
-                                      LIMIT 3'''),
-                    player)
+  return find_place(player_rune_dive_best(c), player)
 
 def youngest_rune_finds(c):
   return query_rows(c, '''SELECT player, rune, xl, rune_time
                             FROM youngest_rune_finds''')
 
+def player_deaths_to_uniques_best(c):
+  return query_rows(c, '''SELECT player, deaths FROM most_deaths_to_uniques''')
+
 def player_deaths_to_uniques_pos(c, player):
   return find_place_numeric(
-    query_rows(c, '''SELECT player, deaths FROM most_deaths_to_uniques'''),
-    player)
+    player_deaths_to_uniques_best(c), player)
 
 def register_maxed_skill(c, player, sk):
   if not query_first_def(c, None, '''SELECT player
@@ -932,9 +945,9 @@ def player_distinct_gods(c, player):
   """Returns the list of gods that the player has worshipped at end of game.
   This does not check for renouncing gods, etc. during the game, so it
   should not be used for trophies that carry points."""
-  gods = query_first_col(c, '''SELECT DISTINCT god FROM
+  gods = query_first_col(c, '''SELECT DISTINCT god
                                           FROM games
-                                         WHERE player = %s''',
+                                         WHERE player = %s ''',
                          player)
   return gods
 

@@ -325,6 +325,8 @@ CREATE INDEX player_maxed_sk ON player_maxed_skills (player, skill);
 CREATE TABLE player_banners (
   player VARCHAR(20),
   banner VARCHAR(50),
+  prestige INT NOT NULL,
+  temp BOOLEAN,
   PRIMARY KEY (player, banner),
   FOREIGN KEY (player) REFERENCES players (name)
   );

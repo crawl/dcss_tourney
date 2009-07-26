@@ -90,7 +90,7 @@ def do_milestone_rune(c, mile):
     # first time getting this rune!
     assign_points(c, "rune_1st:" + rune, mile['name'], 10)
   player = mile['name']
-  banner.safe_award_banner(c, player, 'Rune')
+  banner.safe_award_banner(c, player, 'Rune', 0)
 
 def do_milestone_ghost(c, mile):
   """When you kill a player ghost, you get two clan points! Otherwise this
@@ -246,23 +246,17 @@ def number_of_allruners_before(c, game):
 
 ###################### Additional scoring math ##########################
 
-def player_additional_score(c, player):
+def record_points(point_map, player, points, team_points):
+  pdef = point_map.get(player) or { 'team': 0, 'you': 0 }
+  pdef[team_points and 'team' or 'you'] += points
+  point_map[player] = pdef
+
+def player_additional_score(c, player, pmap):
   """Calculates the player's total score, including unchanging score and the
-  current volatile score."""
+  current volatile score. Best-of-X trophies are not calculated here."""
 
   additional = 0
   add_team = 0
-
-  query.audit_flush_player(c, player)
-  rt_pos = query.player_fastest_realtime_win_pos(c, player)
-  additional += log_temp_points( c, player,
-                                 'fastest_realtime:%d' % (rt_pos + 1),
-                                 get_points(rt_pos, 200, 100, 50 ) )
-
-  tc_pos = query.player_fastest_turn_win_pos(c, player)
-  additional += log_temp_points( c, player,
-                                 'fastest_turncount:%d' % (tc_pos + 1),
-                                 get_points(tc_pos, 200, 100, 50 ) )
 
   combo_hs = query.count_hs_combos(c, player)
   additional += log_temp_points( c, player, 'combo_hs:%d' % combo_hs,
@@ -280,53 +274,9 @@ def player_additional_score(c, player):
   additional += log_temp_points( c, player, 'class_hs:%d' % class_hs,
                                  class_hs * 10 )
 
-  combo_hs_pos = query.player_hs_combo_pos(c, player)
-  additional += log_temp_points( c, player,
-                                 'max_combo_hs_Nth:%d' % (combo_hs_pos + 1),
-                                 get_points(combo_hs_pos, 200, 100, 50 ) )
-
-  streak_pos = query.player_streak_pos(c, player)
-  additional += log_temp_points( c, player,
-                                 'max_streak_Nth:%d' % (streak_pos + 1),
-                                 get_points(streak_pos, 200, 100, 50 ) )
-
-  uniq_kill_pos = query.player_unique_kill_pos(c, player)
-  additional += log_temp_points( c, player,
-                                  'top_uniq_killer:%d' % (uniq_kill_pos + 1),
-                                  get_points(uniq_kill_pos, 50, 20, 10 ) )
-
-
-  pacific_win_pos = query.player_pacific_win_pos(c, player)
-  add_team += log_temp_team_points(c, player,
-                                   ('top_pacific_win:%d'
-                                    % (pacific_win_pos + 1)),
-                                   get_points(pacific_win_pos, 200, 100, 50))
-
-  xl1_dive_pos = query.player_xl1_dive_pos(c, player)
-  add_team += log_temp_team_points( c, player,
-                                    'xl1_dive_Nth:%d' % (xl1_dive_pos + 1),
-                                    get_points(xl1_dive_pos, 50, 20, 10) )
-
-  ziggurat_dive_pos = query.player_ziggurat_dive_pos(c, player)
-  add_team += log_temp_team_points( c, player,
-                                    'zig_rank:%d' % (ziggurat_dive_pos + 1),
-                                    get_points(ziggurat_dive_pos,
-                                               200, 100, 50))
-
-
-  rune_dive_pos = query.player_rune_dive_pos(c, player)
-  add_team += log_temp_team_points( c, player,
-                                    'rune_dive_rank:%d' % (rune_dive_pos + 1),
-                                    get_points(rune_dive_pos, 50, 20, 10) )
-
-  most_deaths_to_uniques_pos = query.player_deaths_to_uniques_pos(c, player)
-  add_team += log_temp_team_points( c, player,
-                                    'deaths_to_uniques_Nth:%d'
-                                    % (most_deaths_to_uniques_pos + 1),
-                                    get_points(most_deaths_to_uniques_pos,
-                                               50, 20, 10))
-
-  loaddb.update_player_fullscore(c, player, additional, add_team)
+  banner.process_banners(c, player)
+  record_points(pmap, player, additional, False)
+  record_points(pmap, player, add_team, True)
   return additional
 
 def update_player_scores(c):
@@ -335,13 +285,76 @@ def update_player_scores(c):
 def award_player_banners(c, banner_name, players):
   if players:
     for p in players:
-      banner.safe_award_banner(c, p, banner_name)
+      banner.safe_award_banner(c, p, banner_name, 0)
 
-def safe_update_player_scores(c):
-  for p in query.get_players(c):
-    info("Updating full score for %s" % p)
-    player_additional_score(c, p)
+def award_temp_trophy(c, point_map,
+                      player_rows, key, points,
+                      can_share_places=False, team_points=False):
+  place = -1
+  last_value = None
 
+  def do_points(player, title, points):
+    record_points(point_map, player, points, team_points)
+    if team_points:
+      log_temp_team_points(c, player, title, points)
+    else:
+      log_temp_points(c, player, title, points)
+    banner.award_banner(c, player, title, points, temp=True)
+
+  for row in player_rows:
+    if not can_share_places or row[1] != last_value:
+      place += 1
+    if can_share_places:
+      last_value = row[1]
+    if place < len(points):
+      title = key % (place + 1)
+      p = points[place]
+      player = row[0]
+      do_points(player, title, p)
+
+def apply_point_map(c, pmap):
+  for player, points in pmap.iteritems():
+    loaddb.update_player_fullscore(c, player,
+                                   points['you'],
+                                   points['team'])
+
+def check_temp_trophies(c, pmap):
+  award_temp_trophy(c, pmap, query.player_fastest_realtime_win_best(c),
+                    'fastest_realtime:%d', [200, 100, 50])
+
+  award_temp_trophy(c, pmap, query.player_fastest_turn_win_best(c),
+                    'fastest_turncount:%d', [200, 100, 50])
+
+  award_temp_trophy(c, pmap, query.player_hs_combo_best(c),
+                    'max_combo_hs_Nth:%d', [200, 100, 50],
+                    can_share_places=True)
+
+  award_temp_trophy(c, pmap, query.player_streak_best(c),
+                    'max_streak_Nth:%d', [200, 100, 50])
+
+  award_temp_trophy(c, pmap, query.get_top_unique_killers(c),
+                    'top_uniq_killer:%d', [50, 20, 10])
+
+  award_temp_trophy(c, pmap, query.player_pacific_win_best(c),
+                    'top_pacific_win:%d', [200, 100, 50],
+                    team_points=True)
+
+  award_temp_trophy(c, pmap, query.player_xl1_dive_best(c),
+                    'xl1_dive_Nth:%d', [50, 20, 10],
+                    team_points=True)
+
+  award_temp_trophy(c, pmap, query.get_top_ziggurats(c),
+                    'zig_rank:%d', [200, 100, 50], team_points=True)
+
+  award_temp_trophy(c, pmap, query.player_rune_dive_best(c),
+                    'rune_dive_rank:%d', [50, 20, 10], team_points=True)
+
+  award_temp_trophy(c, pmap, query.player_deaths_to_uniques_best(c),
+                    'deaths_to_uniques_Nth:%d', [50, 20, 10],
+                    can_share_places=True,
+                    team_points=True)
+
+def check_banners(c):
   # Award moose & squirrel banners.
   award_player_banners(c, 'Moose',
                        query_first_col(c, '''SELECT DISTINCT player
@@ -373,3 +386,21 @@ def safe_update_player_scores(c):
                        query_first_col(c,
                                        '''SELECT DISTINCT player
                                             FROM compulsive_shoppers'''))
+
+
+def safe_update_player_scores(c):
+  players = query.get_players(c)
+
+  for p in players:
+    query.audit_flush_player(c, p)
+  banner.flush_temp_banners(c)
+
+  pmap = { }
+  for p in players:
+    info("Updating full score for %s" % p)
+    player_additional_score(c, p, pmap)
+
+  check_temp_trophies(c, pmap)
+  check_banners(c)
+
+  apply_point_map(c, pmap)
