@@ -79,7 +79,13 @@ def fixup_column(col, data, game):
   return data
 
 def pretty_dur(dur):
-  secs = dur % 60
+  if not dur:
+    return ""
+  try:
+    secs = dur % 60
+  except:
+    print "FAIL on %s" % dur
+    raise
   dur /= 60
   mins = dur % 60
   dur /= 60
@@ -283,7 +289,7 @@ def youngest_rune_finds(c):
   runes = query.youngest_rune_finds(c)
   runes = [list(r) for r in runes]
   for r in runes:
-    r[2] = pretty_time(r[2])
+    r[3] = pretty_date(r[3])
   return table_text([ 'Player', 'Rune', 'XL', 'Time' ], runes)
 
 def best_streaks(c):

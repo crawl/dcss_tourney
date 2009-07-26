@@ -10,7 +10,7 @@ import crawl_utils
 import uniq
 
 from loaddb import query_do, query_first_col
-from query import assign_points, assign_team_points
+from query import assign_points, assign_team_points, wrap_transaction
 from query import log_temp_points, log_temp_team_points, get_points
 
 # So there are a few problems we have to solve:
@@ -291,7 +291,7 @@ def player_additional_score(c, player):
                                  get_points(streak_pos, 200, 100, 50 ) )
 
   uniq_kill_pos = query.player_unique_kill_pos(c, player)
-  addditional += log_temp_points( c, player,
+  additional += log_temp_points( c, player,
                                   'top_uniq_killer:%d' % (uniq_kill_pos + 1),
                                   get_points(uniq_kill_pos, 50, 20, 10 ) )
 
@@ -332,10 +332,10 @@ def player_additional_score(c, player):
 def update_player_scores(c):
   wrap_transaction(safe_update_player_scores)(c)
 
-def award_player_banners(c, banner, players):
+def award_player_banners(c, banner_name, players):
   if players:
     for p in players:
-      banner.safe_award_banner(c, p, banner)
+      banner.safe_award_banner(c, p, banner_name)
 
 def safe_update_player_scores(c):
   for p in query.get_players(c):

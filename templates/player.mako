@@ -13,7 +13,7 @@
 
    streak_games = query.get_player_best_streak_games(c, player)
 
-   won_gods = query.get_player_won_gods(c)
+   won_gods = query.get_player_won_gods(c, player)
 
    audit = query.audit_trail_player_points(c, player)
    audit_team = query.audit_trail_player_team_points(c, player)
@@ -126,6 +126,7 @@
               ${", ".join(query.find_remaining_gods(won_gods))}
             </p>
           </div>
+          % endif
 
           <div class="game_table">
             <h3>Recent Games</h3>

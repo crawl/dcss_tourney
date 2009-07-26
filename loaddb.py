@@ -817,10 +817,10 @@ def add_ghost_milestone(cursor, game):
 
 def add_rune_milestone(cursor, game):
   query_do(cursor,
-           '''INSERT INTO rune_finds (player, start_time, rune_time, rune)
-              VALUES (%s, %s, %s, %s);''',
+           '''INSERT INTO rune_finds (player, start_time, rune_time, rune, xl)
+              VALUES (%s, %s, %s, %s, %s);''',
            game['name'], game['start'], game['time'],
-           extract_rune(game['milestone']))
+           extract_rune(game['milestone']), game['xl'])
 
 def add_ziggurat_milestone(c, g):
   place = g['place']

@@ -7,6 +7,7 @@ from logging import debug, info, warn, error
 
 import loaddb
 from loaddb import Query, query_do, query_first, query_row, query_rows
+from loaddb import query_first_col
 
 import crawl
 import crawl_utils
@@ -119,13 +120,13 @@ def get_player_best_streak_games(c, player):
 def get_fastest_time_player_games(c):
   fields = ",".join([ 'g.' + x for x in LOG_FIELDS ])
   games = query_rows(c, '''SELECT %s FROM fastest_realtime f, games g
-                           INNER JOIN ON f.id = g.id''' % fields)
+                           WHERE f.id = g.id''' % fields)
   return [ row_to_xdict(r) for r in games ]
 
 def get_fastest_turn_player_games(c):
   fields = ",".join([ 'g.' + x for x in LOG_FIELDS ])
   games = query_rows(c, '''SELECT %s FROM fastest_turncount f, games g
-                           INNER JOIN ON f.id = g.id''' % fields)
+                           WHERE f.id = g.id''' % fields)
   return [ row_to_xdict(r) for r in games ]
 
 def get_top_streaks(c, how_many = 10):
@@ -339,13 +340,11 @@ def find_games(c, sort_min=None, sort_max=None, limit=1, **dictionary):
     sort_min = 'end_time'
 
   query = Query('SELECT ' + ",".join(LOG_FIELDS) + ' FROM games')
-  where = ''
+  where = []
   values = []
 
   def append_where(where, clause, *newvalues):
-    if len(where):
-      where += ' AND '
-    where += clause
+    where.append(clause)
     for v in newvalues:
       values.append(v)
 
@@ -362,7 +361,7 @@ def find_games(c, sort_min=None, sort_max=None, limit=1, **dictionary):
     order_by += ' ORDER BY ' + sort_max + ' DESC'
 
   if where:
-    query.append(' WHERE ' + where, *values)
+    query.append(' WHERE ' + ' AND '.join(where), *values)
 
   if order_by:
     query.append(order_by)
@@ -719,7 +718,8 @@ def player_unique_kill_pos(c, player):
   return find_place(
     query_rows(c, '''SELECT player FROM kunique_times
                    ORDER BY nuniques DESC, kill_time
-                      LIMIT 3'''))
+                      LIMIT 3'''),
+    player)
 
 def player_pacific_win_pos(c, player):
   return find_place(
