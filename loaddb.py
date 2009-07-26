@@ -11,21 +11,19 @@ import ConfigParser
 import imp
 import sys
 
-# Start of the tournament, UTC.
-START_TIME = '20080901'
-
-# Just for testing:
-END_TIME   = '20090101'
+# Start of the tournament, UTC. Set to Jul 1 for testing.
+START_TIME = '20090701'
+END_TIME   = '20090901'
 
 CDO = 'http://crawl.develz.org/'
 
 # Log and milestone files. A tuple indicates a remote file with t[1]
 # being the URL to wget -c from.
 
-LOGS = [ 'cao-logfile-0.4', ('cdo-logfile-0.4', CDO + 'allgames-0.4.txt') ]
+LOGS = [ 'cao-logfile-0.5', ('cdo-logfile-0.5', CDO + 'allgames-0.5.txt') ]
 
-MILESTONES = [ 'cao-milestones-0.4',
-               ('cdo-milestones-0.4', CDO + 'milestones-0.4.txt') ]
+MILESTONES = [ 'cao-milestones-0.5',
+               ('cdo-milestones-0.5', CDO + 'milestones-0.5.txt') ]
 
 EXTENSION_FILE = 'modules.ext'
 TOURNAMENT_DB = 'tournament'

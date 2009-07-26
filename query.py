@@ -74,9 +74,9 @@ def did_change_god(c, game):
   for a god.renounce milestone."""
   return (query_first(c,
                       '''SELECT COUNT(*) FROM milestones
-                          WHERE player = %s AND start = %s
+                          WHERE player = %s AND start_time = %s
                             AND verb = 'god.renounce' ''',
-                      game['player'], game['start_time']) > 0)
+                      game['name'], game['start']) > 0)
 
 def win_query(selected, order_by = None,
               player=None, character_race=None,
