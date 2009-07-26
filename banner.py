@@ -1,5 +1,6 @@
 #! /usr/bin/python
 
+from loaddb import query_first_def, query_do
 import crawl
 
 def player_has_banner(c, player, banner):
@@ -9,7 +10,7 @@ def player_has_banner(c, player, banner):
                          player, banner)
 
 def safe_award_banner(c, player, banner):
-  if not player_has_banner(c, player):
+  if not player_has_banner(c, player, banner):
     award_banner(c, player, banner)
 
 def award_banner(c, player, banner):
@@ -33,12 +34,12 @@ BANNERS = [['Pantheon', pantheon],
            ['Heretic', heretic],
            ['Rune', None],
            ['Moose & Squirrel', None],
-           ['Atheist', atheist],
-           ['Scythe', scythe],
-           ['Orb', orb],
-           ['Shop', shop],
-           ['Free Will', free_will],
-           ['Ghostbuster', ghostbuster]]
+           ['Atheist', None],
+           ['Scythe', None],
+           ['Orb', None],
+           ['Shopaholic', None],
+           ['Free Will', None],
+           ['Ghostbuster', None]]
 
 def process_banners(c, player):
   existing_banners = set(query.get_player_banners(c, player))

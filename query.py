@@ -890,7 +890,7 @@ def get_top_ziggurats(c):
   return [[x[0], x[1], x[3]] for x in rows]
 
 def player_ziggurat_dive_pos(c, player):
-  return find_place([x[0]] for x in get_top_ziggurats(c), player)
+  return find_place([x[0] for x in get_top_ziggurats(c)], player)
 
 def player_rune_dive_pos(c, player):
   return find_place(query_rows(c, '''SELECT player FROM youngest_rune_finds

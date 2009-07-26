@@ -9,6 +9,7 @@ from logging import debug, info, warn, error
 import crawl_utils
 import uniq
 
+from loaddb import query_do, query_first_col
 from query import assign_points, assign_team_points
 from query import log_temp_points, log_temp_team_points, get_points
 
@@ -102,8 +103,7 @@ def act_on_logfile_line(c, this_game):
   irrevocable points and those should be assigned immediately. Revocable
   points (high scores, lowest dungeon level, fastest wins) should be
   calculated elsewhere."""
-  if this_ga
-  me['ktyp'] == 'winning':
+  if this_game['ktyp'] == 'winning':
     crunch_winner(c, this_game) # lots of math to do for winners
 
   crunch_misc(c, this_game)
@@ -347,7 +347,7 @@ def safe_update_player_scores(c):
                        query_first_col(c, '''SELECT DISTINCT player
                                              FROM double_boris_kills'''))
   # Award 'Atheist' banners
-  award_player_banners(c, 'Atheist,'
+  award_player_banners(c, 'Atheist,',
                        query_first_col(c, '''SELECT DISTINCT player
                                                FROM atheist_wins'''))
 
