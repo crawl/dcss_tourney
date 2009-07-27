@@ -60,6 +60,16 @@
           <h1>Player information for ${player}</h1>
         </div>
 
+        <div id="player-banners">
+          % for banner in banners:
+            <div>
+              <img src="${banner[0]}" alt="${banner[1]}"
+                   title=${banner[1]}" width="150" height="55"
+                   border="0" />
+            </div>
+          % endfor
+        </div>
+
         <hr/>
 
         <div class="content">
