@@ -185,9 +185,9 @@ def crunch_winner(c, game):
 
   # Assign 20 extra points for winning with a god that you haven't used before.
   if not is_god_repeated(my_wins, game) and not query.did_change_god(c, game):
-    god = (game.get('god') or 'atheist').lower()
+    god = (game.get('god') or 'none').lower().replace(' ', '_')
     query.record_won_god(c, game['name'], game.get('god') or '')
-    assign_points(c, game['name'], "my_win_" + god, 20)
+    assign_points(c, "win_god:" + god, game['name'], 20)
 
   repeated = 0
   if n_my_wins > 0:

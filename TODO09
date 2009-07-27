@@ -12,6 +12,10 @@ Legend: ] done + tested
     - Allow user to specify the combo, but ensure it has not already been
       won (by checking Henzell's db) before placing the bonus.
 
+  - 20 extra points for win with new god should correctly ignore god renunciations
+    etc. in past games. This is best done by checking the point audit table itself
+    for previously awarded god points, instead of the full games table.
+
   - Show table for best zig levels reached
   - Show table for rune at lowest XL
   - Show table for most unique deaths
@@ -43,7 +47,6 @@ Legend: ] done + tested
 - Fix CSS to look better, also tweak layout to allow for banner space.
 - Player page should show banners and all trophies.
 - Update list of combos.
-- Rewire scripts to use 0.5 logfile once everything's tested and ok.
 
 --------------------------------------------------------------------------
 
