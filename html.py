@@ -123,6 +123,8 @@ def pretty_date(date):
 
   if isinstance(date, str):
     m = R_STR_DATE.search(date)
+    if not m:
+      return date
     return "%s-%s-%s %s:%s:%s" % (m.group(1), m.group(2), m.group(3),
                                   m.group(4), m.group(5), m.group(6))
 
