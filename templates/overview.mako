@@ -2,7 +2,7 @@
    import query, loaddb, html, time
    c = attributes['cursor']
 
-   title = "Crawl Tournament Leaderboard 2008"
+   title = "Crawl Tournament Leaderboard 2009"
 %>
 
 <html>
