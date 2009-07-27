@@ -390,7 +390,7 @@ def banner_image(banner):
   banner_subkey = _strip_banner_suffix(banner)
   img = BANNER_IMAGES.get(banner) or BANNER_IMAGES.get(banner_subkey)
   if img and img[0]:
-    img[0] = crawl_utils.banner_link(img[0])
+    return (crawl_utils.banner_link(img[0]), img[1])
   return img
 
 def banner_images(banners):

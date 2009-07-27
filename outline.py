@@ -337,7 +337,7 @@ def check_banners(c):
                        query_first_col(c, '''SELECT DISTINCT player
                                              FROM double_boris_kills'''))
   # Award 'Atheist' banners
-  award_player_banners(c, 'atheist,',
+  award_player_banners(c, 'atheist',
                        query_first_col(c, '''SELECT DISTINCT player
                                                FROM atheist_wins'''))
 

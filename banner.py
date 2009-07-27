@@ -58,6 +58,7 @@ def assign_top_player_banners(c):
                             LIMIT 3''')
   def do_banner(r, nth):
     award_banner(c, r[0], 'top_player_Nth:%d' % (nth + 1), 1000, temp=True)
+    return True
   query.do_place_numeric(rows, do_banner)
 
 def award_clan_banner(c, captain, banner, prestige):
@@ -74,4 +75,5 @@ def assign_top_clan_banners(c):
                             LIMIT 3''')
   def do_banner(r, nth):
     award_clan_banner(c, r[0], 'top_clan_Nth:%d' % (nth + 1), 1000)
+    return True
   query.do_place_numeric(rows, do_banner)
