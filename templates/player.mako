@@ -53,21 +53,16 @@
   </head>
 
   <body class="page_back">
-    <div class="page">
+    <div class="page bannered">
       <%include file="toplink.mako"/>
-      <div class="page_content">
+
+      <div id="player-banners">
+        ${html.banner_div(banners)}
+      </div>
+      
+      <div class="page_content content-bannered">
         <div class="heading_left">
           <h1>Player information for ${player}</h1>
-        </div>
-
-        <div id="player-banners">
-          % for banner in banners:
-            <div>
-              <img src="${banner[0]}" alt="${banner[1]}"
-                   title=${banner[1]}" width="150" height="55"
-                   border="0" />
-            </div>
-          % endfor
         </div>
 
         <hr/>

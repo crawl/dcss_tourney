@@ -396,3 +396,16 @@ def banner_image(banner):
 def banner_images(banners):
   images = [banner_image(x) for x in banners]
   return [i for i in images if i and i[0]]
+
+def banner_div(all_banners):
+  res = ''
+  banner_n = 1
+  for b in all_banners:
+    # width="150" height="55"
+    res += '''<div>
+              <img src="%s" alt="%s"
+                   title="%s" width="150" height="55"
+                   border="0" id="banner-%d" class="banner" />
+              </div>''' % (b[0], b[1], b[1], banner_n)
+    banner_n += 1
+  return res
