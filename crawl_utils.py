@@ -8,7 +8,7 @@ import sys
 UPDATE_INTERVAL = 29 * 60
 
 LOCK = None
-BASEDIR = '/home/crawl'
+BASEDIR = '/home/snark'
 LOCKFILE = BASEDIR + '/tourney-py.lock'
 SCORE_FILE_DIR = '/var/www/crawl/tourney09'
 PLAYER_BASE = 'players'
