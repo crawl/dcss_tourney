@@ -3,6 +3,26 @@ import query, crawl_utils, time
 from crawl_utils import clan_link, player_link, linked_text
 import re
 
+BANNER_IMAGES = \
+    { 'pantheon': [ 'thepantheon.png', 'The Pantheon' ],
+      'rune'    : [ 'discoveredlanguage.png', 'Runic Literacy' ],
+      'heretic' : [ 'Xomprefersaheretic.png', 'Xom Prefers a Heretic' ],
+      'top_player_Nth:1': [ '1player.png', 'Best Player: 1st' ],
+      'top_player_Nth:2': [ '2player.png', 'Best Player: 2nd' ],
+      'top_player_Nth:3': [ '3player.png', 'Best Player: 3rd' ],
+      'top_clan_Nth:1':   [ '1clan.png', 'Best Clan: 1st' ],
+      'top_clan_Nth:2':   [ '2clan.png', 'Best Clan: 2nd' ],
+      'top_clan_Nth:3':   [ '3clan.png', 'Best Clan: 3rd' ],
+      'orb'     : [ 'theorb.png', 'The Orb' ],
+      'atheist' : [ 'theatheist.png', 'The Atheist' ],
+      'free_will': [ 'freewill.png', 'Free Will' ],
+      'ghostbuster': [ 'ghostbuster.png', 'Ghostbuster (TM)' ],
+      'moose'   : [ 'mooseandsquirrel.png', 'Moose and Squirrel' ],
+      'cartographer': [ 'd1cartographer.png', 'D:1 Cartographer' ],
+      'bonus_combo': [ 'nemechoice.png', "Nemelex' Choice" ],
+      'shopaholic': [ 'shopuntilyoudrop.png', 'Shop Until You Drop' ],
+      'scythe' : [ 'thescythe.png', 'The Scythe' ] }
+
 STOCK_WIN_COLUMNS = \
     [ ('player', 'Player'),
       ('score', 'Score', True),
@@ -360,3 +380,19 @@ def whereis(show_name, *players):
     return ''
   return games_table(where, columns=WHERE_COLUMNS, including=including,
                      count=False)
+
+def _strip_banner_suffix(banner):
+  if ':' in banner:
+    return banner[ : banner.index(':')]
+  return banner
+
+def banner_image(banner):
+  banner_subkey = _strip_banner_suffix(banner)
+  img = BANNER_IMAGES.get(banner) or BANNER_IMAGES.get(banner_subkey)
+  if img and img[0]:
+    img[0] = crawl_utils.banner_link(img[0])
+  return img
+
+def banner_images(banners):
+  images = [banner_image(x) for x in banners]
+  return [i for i in images if i and i[0]]

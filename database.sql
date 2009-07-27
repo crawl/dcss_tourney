@@ -5,6 +5,7 @@ DROP TABLE IF EXISTS player_points;
 DROP TABLE IF EXISTS clan_points;
 DROP TABLE IF EXISTS deaths_to_uniques;
 DROP TABLE IF EXISTS player_maxed_skills;
+DROP TABLE IF EXISTS clan_banners;
 DROP TABLE IF EXISTS player_banners;
 DROP TABLE IF EXISTS player_won_gods;
 DROP TABLE IF EXISTS streaks;
@@ -330,6 +331,16 @@ CREATE TABLE player_banners (
   PRIMARY KEY (player, banner),
   FOREIGN KEY (player) REFERENCES players (name)
   );
+CREATE INDEX player_banners_player ON player_banners (player);
+
+CREATE TABLE clan_banners (
+  team_captain VARCHAR(20),
+  banner VARCHAR(50),
+  prestige INT NOT NULL,
+  PRIMARY KEY (team_captain, banner),
+  FOREIGN KEY (team_captain) REFERENCES players (name)
+);
+CREATE INDEX clan_banners_captain ON clan_banners (team_captain);
 
 -- Views for trophies
 

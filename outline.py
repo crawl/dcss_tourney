@@ -90,7 +90,7 @@ def do_milestone_rune(c, mile):
     # first time getting this rune!
     assign_points(c, "rune_1st:" + rune, mile['name'], 10)
   player = mile['name']
-  banner.safe_award_banner(c, player, 'Rune', 0)
+  banner.safe_award_banner(c, player, 'rune', 0)
 
 def do_milestone_ghost(c, mile):
   """When you kill a player ghost, you get two clan points! Otherwise this
@@ -333,33 +333,33 @@ def check_temp_trophies(c, pmap):
 
 def check_banners(c):
   # Award moose & squirrel banners.
-  award_player_banners(c, 'Moose',
+  award_player_banners(c, 'moose',
                        query_first_col(c, '''SELECT DISTINCT player
                                              FROM double_boris_kills'''))
   # Award 'Atheist' banners
-  award_player_banners(c, 'Atheist,',
+  award_player_banners(c, 'atheist,',
                        query_first_col(c, '''SELECT DISTINCT player
                                                FROM atheist_wins'''))
 
   # Award 'Scythe' banners
-  award_player_banners(c, 'Scythe',
+  award_player_banners(c, 'scythe',
                        query_first_col(c, '''SELECT player
                                              FROM super_sigmund_kills'''))
 
   # Award 'Orb' banner for wins.
-  award_player_banners(c, 'Orb',
+  award_player_banners(c, 'orb',
                        query_first_col(c, '''SELECT DISTINCT player
                                                FROM games
                                               WHERE killertype='winning' '''))
 
-  award_player_banners(c, 'Free Will',
+  award_player_banners(c, 'free_will',
                        query_first_col(c, '''SELECT DISTINCT player
                                              FROM free_will_wins'''))
-  award_player_banners(c, 'Ghostbuster',
+  award_player_banners(c, 'ghostbuster',
                        query_first_col(c,
                                        '''SELECT player FROM ghostbusters'''))
 
-  award_player_banners(c, 'Shopaholic',
+  award_player_banners(c, 'shopaholic',
                        query_first_col(c,
                                        '''SELECT DISTINCT player
                                             FROM compulsive_shoppers'''))
@@ -392,5 +392,7 @@ def safe_update_player_scores(c):
   check_misc_points(c, pmap)
   check_temp_trophies(c, pmap)
   check_banners(c)
-
   apply_point_map(c, pmap)
+
+  # And award overall top banners.
+  banner.assign_top_player_banners(c)

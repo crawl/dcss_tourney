@@ -22,6 +22,7 @@ import loaddb
 import query
 import crawl_utils
 from query import say_points, get_points, log_temp_clan_points
+import banner
 
 import logging
 from logging import debug, info, warn, error
@@ -145,6 +146,8 @@ def clan_additional_score(c, owner):
   query.set_clan_points(c, owner, additional)
 
 def update_clan_scores(c):
+  banner.flush_clan_banners(c)
   for clan in query.get_clans(c):
     info("Updating full score for clan %s" % clan)
     clan_additional_score(c, clan)
+  banner.assign_top_clan_banners(c)

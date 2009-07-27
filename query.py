@@ -679,6 +679,16 @@ def find_place(rows, player):
   else:
     return -1
 
+def do_place_numeric(rows, callfn):
+  index = -1
+  last_num = None
+  for r in rows:
+    if last_num != r[1]:
+      index += 1
+    last_num = r[1]
+    if not callfn(r, index):
+      break
+
 def find_place_numeric(rows, player):
   """Given a list of two-tuple rows, returns the index at which the given
   player name occurs in the two-tuples, or -1 if the player name is not
@@ -957,7 +967,8 @@ def clan_maxed_skills(c, captain):
 
 def get_player_banners(c, player):
   return query_first_col(c, '''SELECT banner FROM player_banners
-                                WHERE player = %s''',
+                                WHERE player = %s
+                                ORDER BY prestige DESC, banner''',
                          player)
 
 def player_distinct_gods(c, player):

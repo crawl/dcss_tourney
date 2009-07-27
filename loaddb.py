@@ -922,8 +922,8 @@ def cleanup_listeners(db):
     e.cleanup(db)
 
 def create_master_reader():
-  processors = [ MilestoneFile(x) for x in MILESTONES ] + \
-      [ Logfile(x) for x in LOGS ]
+  processors = ([ MilestoneFile(x) for x in MILESTONES ] +
+                [ Logfile(x) for x in LOGS ])
   return MasterXlogReader(processors)
 
 if __name__ == '__main__':

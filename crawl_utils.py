@@ -23,6 +23,7 @@ CAO_BASE = (('tecumseh' in os.getcwd())
             and 'file:///var/www/crawl'
             or 'http://crawl.akrasiac.org')
 CAO_TOURNEY_BASE = '%s/tourney09' % CAO_BASE
+CAO_IMAGE_BASE = CAO_TOURNEY_BASE + '/images'
 CAO_PLAYER_BASE = '%s/players' % CAO_TOURNEY_BASE
 CAO_CLAN_BASE = '%s/clans' % CAO_TOURNEY_BASE
 
@@ -110,6 +111,9 @@ def player_link(player):
 
 def clan_link(clan):
   return "%s/%s.html" % (CAO_CLAN_BASE, clan)
+
+def banner_link(banner):
+  return CAO_IMAGE_BASE + '/' + banner
 
 def morgue_link(xdict):
   """Returns a hyperlink to the morgue file for a dictionary that contains
