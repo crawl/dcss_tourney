@@ -413,6 +413,9 @@ MILE_DB_MAPPINGS = [
     [ 'piety', 'piety' ],
     [ 'nrune', 'nrune' ],
     [ 'urune', 'runes' ],
+    [ 'verb', 'verb' ],
+    [ 'noun', 'noun' ],
+    [ 'milestone', 'milestone' ],
     [ 'time', 'milestone_time' ],
     ]
 
