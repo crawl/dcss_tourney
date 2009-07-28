@@ -950,7 +950,28 @@ def youngest_rune_finds(c):
                             FROM youngest_rune_finds''')
 
 def player_deaths_to_uniques_best(c):
+  """Returns the players who have died to the most uniques and the number of
+  distinct uniques they've died to."""
   return query_rows(c, '''SELECT player, deaths FROM most_deaths_to_uniques''')
+
+def most_deaths_to_uniques(c):
+  """Returns the players who have died to the most uniques and the distinct
+  uniques they've died to, sorted in alphabetical order."""
+  players = query_first_col(c, '''SELECT player FROM most_deaths_to_uniques''')
+  rows = query_rows(c, '''SELECT player, uniq
+                            FROM deaths_to_uniques
+                           WHERE player IN
+                                 (SELECT player FROM most_deaths_to_uniques)''')
+  pmap = { }
+  for player, uniq in rows:
+    ulist = pmap.get(player) or set()
+    ulist.add(uniq)
+    pmap[player] = ulist
+  result = [[x, pmap[x]] for x in players]
+  for r in result:
+    r[1] = list(r[1])
+    r[1].sort()
+  return result
 
 def player_deaths_to_uniques_pos(c, player):
   return find_place_numeric(

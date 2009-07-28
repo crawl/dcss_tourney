@@ -312,6 +312,8 @@ CREATE TABLE deaths_to_uniques (
   end_time   DATETIME,
   FOREIGN KEY (player) REFERENCES players (name)
   );
+CREATE INDEX deaths_to_uniques_p ON deaths_to_uniques (player);
+
 
 CREATE TABLE player_maxed_skills (
   player VARCHAR(20),

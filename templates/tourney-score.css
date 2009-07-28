@@ -238,13 +238,11 @@ table.bordered_centered th {
 }
 
 table.grouping td {
-    padding-left: 15px;
-    padding-right: 15px;
+  padding-right: 25px;
 }
 
 table.grouping th {
-    padding-left: 15px;
-    padding-right: 15px;
+  padding-right: 25px;
 }
 
 tr.point_temp {

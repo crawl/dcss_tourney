@@ -317,6 +317,13 @@ def youngest_rune_finds(c):
     r[3] = pretty_date(r[3])
   return table_text([ 'Player', 'Rune', 'XL', 'Time' ], runes)
 
+def most_deaths_to_uniques(c):
+  rows = query.most_deaths_to_uniques(c)
+  for r in rows:
+    r.insert(1, len(r[1]))
+    r[2] = ", ".join(r[2])
+  return table_text([ 'Player', '#', 'Uniques'], rows)
+
 def best_streaks(c):
   streaks = query.get_top_streaks(c)
   # Replace the list of streak games with hyperlinks.
