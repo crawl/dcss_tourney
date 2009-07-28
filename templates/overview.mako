@@ -103,6 +103,9 @@
             <div>
               <h3>Runes fetched at lowest XL</h3>
               ${html.youngest_rune_finds(c)}
+              <p class="fineprint">
+                Note: the abyssal rune is not eligible.
+              </p>
             </div>
 
             <div>

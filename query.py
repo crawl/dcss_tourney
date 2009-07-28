@@ -953,7 +953,7 @@ def player_rune_dive_pos(c, player):
 
 def youngest_rune_finds(c):
   return query_rows(c, '''SELECT player, rune, xl, rune_time
-                            FROM youngest_rune_finds''')
+                            FROM youngest_rune_finds LIMIT 3''')
 
 def player_deaths_to_uniques_best(c):
   """Returns the players who have died to the most uniques and the number of

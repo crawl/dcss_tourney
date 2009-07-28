@@ -483,6 +483,7 @@ LIMIT 3;
 CREATE VIEW youngest_rune_finds AS
 SELECT player, rune, start_time, rune_time, xl
   FROM rune_finds
+ WHERE rune != 'abyssal'
 ORDER BY xl, rune_time
  LIMIT 5;
 
