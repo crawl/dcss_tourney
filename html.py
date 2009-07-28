@@ -322,7 +322,7 @@ def most_deaths_to_uniques(c):
   for r in rows:
     r.insert(1, len(r[1]))
     r[2] = ", ".join(r[2])
-  return table_text([ 'Player', '#', 'Uniques'], rows)
+  return table_text([ 'Player', '#', 'Uniques', 'Time'], rows)
 
 def best_streaks(c):
   streaks = query.get_top_streaks(c)

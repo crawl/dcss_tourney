@@ -108,6 +108,7 @@
             <div>
               <h3>Most Deaths to Uniques</h3>
               ${html.most_deaths_to_uniques(c)}
+            </div>
           </div>
 
           <hr/>

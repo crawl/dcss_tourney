@@ -3,6 +3,7 @@
 
 DROP TABLE IF EXISTS player_points;
 DROP TABLE IF EXISTS clan_points;
+DROP TABLE IF EXISTS deaths_to_distinct_uniques;
 DROP TABLE IF EXISTS deaths_to_uniques;
 DROP TABLE IF EXISTS player_maxed_skills;
 DROP TABLE IF EXISTS clan_banners;
@@ -314,6 +315,15 @@ CREATE TABLE deaths_to_uniques (
   );
 CREATE INDEX deaths_to_uniques_p ON deaths_to_uniques (player);
 
+CREATE TABLE deaths_to_distinct_uniques (
+  player VARCHAR(20),
+  ndeaths INT,
+  death_time DATETIME,
+  PRIMARY KEY (player),
+  FOREIGN KEY (player) REFERENCES players (name)
+  );
+CREATE INDEX deaths_to_distinct_uniques_p
+ON deaths_to_distinct_uniques (player, ndeaths);
 
 CREATE TABLE player_maxed_skills (
   player VARCHAR(20),
@@ -476,11 +486,10 @@ ORDER BY xl, rune_time
  LIMIT 5;
 
 CREATE VIEW most_deaths_to_uniques AS
-SELECT player, COUNT(DISTINCT uniq) AS deaths
-  FROM deaths_to_uniques
-GROUP BY player
-ORDER BY deaths DESC
-   LIMIT 3;
+SELECT player, ndeaths, death_time
+  FROM deaths_to_distinct_uniques
+ORDER BY ndeaths DESC, death_time
+ LIMIT 3;
 
 CREATE VIEW double_boris_kills AS
   SELECT player, COUNT(*) AS boris_kills

@@ -131,6 +131,11 @@ def crunch_misc(c, g):
                             (player, uniq, start_time, end_time)
                      VALUES (%s, %s, %s, %s)''',
              player, killer, g['start'], g['end'])
+    cuniqdeaths = query.count_deaths_to_distinct_uniques(c, player)
+    olduniqdeaths = query.lookup_deaths_to_distinct_uniques(c, player)
+    if cuniqdeaths > olduniqdeaths:
+      query.update_deaths_to_distinct_uniques(c, player, cuniqdeaths,
+                                              g['end'])
 
   if g.has_key('maxskills'):
     maxed_skills = g['maxskills'].split(",")

@@ -952,12 +952,13 @@ def youngest_rune_finds(c):
 def player_deaths_to_uniques_best(c):
   """Returns the players who have died to the most uniques and the number of
   distinct uniques they've died to."""
-  return query_rows(c, '''SELECT player, deaths FROM most_deaths_to_uniques''')
+  return query_rows(c, '''SELECT player, ndeaths, death_time
+                            FROM most_deaths_to_uniques''')
 
 def most_deaths_to_uniques(c):
   """Returns the players who have died to the most uniques and the distinct
   uniques they've died to, sorted in alphabetical order."""
-  players = query_first_col(c, '''SELECT player FROM most_deaths_to_uniques''')
+  players = [[r[0], r[2]] for r in player_deaths_to_uniques_best(c)]
   rows = query_rows(c, '''SELECT player, uniq
                             FROM deaths_to_uniques
                            WHERE player IN
@@ -967,7 +968,7 @@ def most_deaths_to_uniques(c):
     ulist = pmap.get(player) or set()
     ulist.add(uniq)
     pmap[player] = ulist
-  result = [[x, pmap[x]] for x in players]
+  result = [[x[0], pmap[x[0]], x[1]] for x in players]
   for r in result:
     r[1] = list(r[1])
     r[1].sort()
@@ -1023,3 +1024,22 @@ def player_distinct_mollified_gods(c, player):
                                 WHERE player = %s
                                   AND verb = 'god.mollify' ''',
                          player)
+
+def count_deaths_to_distinct_uniques(c, player):
+  return query_first(c, '''SELECT COUNT(DISTINCT uniq)
+                             FROM deaths_to_uniques
+                             WHERE player = %s''',
+                     player)
+
+def lookup_deaths_to_distinct_uniques(c, player):
+  return query_first_def(c, 0,
+                         '''SELECT ndeaths
+                              FROM deaths_to_distinct_uniques
+                             WHERE player = %s''',
+                         player)
+
+def update_deaths_to_distinct_uniques(c, player, ndeaths, time):
+  query_do(c, '''INSERT INTO deaths_to_distinct_uniques
+                      VALUES (%s, %s, %s)
+                 ON DUPLICATE KEY UPDATE ndeaths = %s, death_time = %s''',
+           player, ndeaths, time, ndeaths, time)
