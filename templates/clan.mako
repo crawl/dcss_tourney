@@ -56,6 +56,8 @@
 
    grand_total = sum( [ x[1] for x in clan_player_points ] +
                       [ x[1] for x in clan_points ] )
+
+   banners = html.banner_images(query.get_clan_banners(c, captain))
  %>
 <html>
   <head>
@@ -67,7 +69,11 @@
     <div class="page">
       <%include file="toplink.mako"/>
 
-      <div class="page_content">
+      <div id="player-banners">
+        ${html.banner_div(banners)}
+      </div>
+      
+      <div class="page_content content-bannered">
         <div class="heading_left">
           <h1>Clan ${name}</h1>
         </div>

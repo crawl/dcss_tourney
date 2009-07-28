@@ -1001,6 +1001,12 @@ def clan_maxed_skills(c, captain):
                            captain)
   return skills
 
+def get_clan_banners(c, captain):
+  return query_first_col(c, '''SELECT banner FROM clan_banners
+                                WHERE team_captain = %s
+                                ORDER BY prestige DESC, banner''',
+                         captain)
+
 def get_player_banners(c, player):
   return query_first_col(c, '''SELECT banner FROM player_banners
                                 WHERE player = %s
