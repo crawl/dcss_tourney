@@ -135,6 +135,7 @@ CREATE TABLE games (
 
 CREATE INDEX games_source_offset ON games (source_file, source_file_offset);
 
+CREATE INDEX games_scores ON games (player, score);
 CREATE INDEX games_kgrp ON games (kgroup);
 CREATE INDEX games_charabbrev_score ON games (charabbrev, score);
 CREATE INDEX games_ktyp ON games (killertype);

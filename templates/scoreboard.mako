@@ -59,10 +59,6 @@
         <div>
           <h2>Top Scores</h1>
 
-          <div class="fineprint">
-            Note: Tournament points are not based on top scores.
-          </div>
-
           ${html.ext_games_table(top_scores)}
         </div>
 

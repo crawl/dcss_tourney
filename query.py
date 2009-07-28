@@ -117,6 +117,12 @@ def get_player_best_streak_games(c, player):
 
   return get_streak_games(c, player, streaks[0])
 
+def player_top_scores(c, limit=5):
+  return query_rows(c, '''SELECT player, score
+                            FROM games
+                        ORDER BY score DESC
+                           LIMIT %d''' % limit)
+
 def get_fastest_time_player_games(c):
   fields = ",".join([ 'g.' + x for x in LOG_FIELDS ])
   games = query_rows(c, '''SELECT %s FROM fastest_realtime f, games g

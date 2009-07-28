@@ -301,6 +301,9 @@ def apply_point_map(c, pmap):
                                    points['team'])
 
 def check_temp_trophies(c, pmap):
+  award_temp_trophy(c, pmap, query.player_top_scores(c),
+                    'top_score_Nth:%d', [200, 100, 50],
+                    can_share_places=True)
   award_temp_trophy(c, pmap, query.player_fastest_realtime_win_best(c),
                     'fastest_realtime:%d', [200, 100, 50])
 

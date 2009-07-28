@@ -3,8 +3,6 @@ Legend: ] done + tested
 
  
 - Add new scoring rules.
-  - Add bonus points for best score. 200/100/50
-
   - 100 bonus points for combo chosen at start of week:
     - We want to be able to track all bonus combos.
     - A win is eligible for bonus if a bonus was announced before the game
@@ -15,7 +13,6 @@ Legend: ] done + tested
       won (by checking Henzell's db) before placing the bonus.
     - Award Nemelex Choice banner to player winning the special.
 
-  - Don't show cartographer unless at least one game is played.
   - Make the banners links to a banners page explaining what each one is?
 
   - Exclude abyssal rune from lowest-xl finds.

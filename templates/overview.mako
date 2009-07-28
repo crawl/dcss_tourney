@@ -3,6 +3,7 @@
    c = attributes['cursor']
 
    title = "Crawl Tournament Leaderboard 2009"
+   top_scores = query.find_games(c, sort_max='score', limit=3)
 %>
 
 <html>
@@ -54,6 +55,10 @@
               <h3>Fastest Win (real time)</h3>
               <%include file="fastest-time.mako"/>
             </div>
+
+            <div>
+              <h3>Top Scores</h3>
+              ${html.ext_games_table(top_scores)}
           </div>
 
           <hr/>
