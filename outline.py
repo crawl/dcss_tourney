@@ -115,7 +115,10 @@ def act_on_logfile_line(c, this_game):
       assign_team_points(c, "gkill", ghost, (XL - 5))
 
 def crunch_misc(c, g):
+  player = g['name']
   ktyp = g['ktyp']
+
+  banner.safe_award_banner(c, player, 'cartographer', 0)
 
   def strip_unique_qualifier(x):
     if ',' in x:
@@ -124,7 +127,6 @@ def crunch_misc(c, g):
     return x
 
   killer = strip_unique_qualifier(g.get('killer') or '')
-  player = g['name']
   if uniq.is_uniq(killer):
     query_do(c,
              '''INSERT INTO deaths_to_uniques

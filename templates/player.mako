@@ -43,8 +43,7 @@
 
    uniq_slain = query.player_uniques_killed(c, player)
    uniq_unslain = query.uniques_unkilled(uniq_slain)
-   banners = html.banner_images(query.get_player_banners(c, player)
-                                + ['cartographer'])
+   banners = html.banner_images(query.get_player_banners(c, player))
  %>
 <html>
   <head>
