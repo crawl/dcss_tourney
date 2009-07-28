@@ -90,7 +90,7 @@ def do_milestone_rune(c, mile):
     # first time getting this rune!
     assign_points(c, "rune_1st:" + rune, mile['name'], 10)
   player = mile['name']
-  banner.safe_award_banner(c, player, 'rune', 0)
+  banner.safe_award_banner(c, player, 'rune', 6)
 
 def do_milestone_ghost(c, mile):
   """When you kill a player ghost, you get two clan points! Otherwise this
