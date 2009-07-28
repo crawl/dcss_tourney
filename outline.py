@@ -13,6 +13,8 @@ from loaddb import query_do, query_first_col
 from query import assign_points, assign_team_points, wrap_transaction
 from query import log_temp_points, log_temp_team_points, get_points
 
+import nemchoice
+
 # So there are a few problems we have to solve:
 # 1. Intercepting new logfile events
 #    DONE: parsing a logfile line
@@ -158,8 +160,16 @@ def crunch_winner(c, game):
   """A game that wins could assign a variety of irrevocable points for a
   variety of different things. This function needs to calculate them all."""
 
-  debug("%s win (%s), runes: %d" % (game['name'], game['char'],
-                                    game['urune']))
+  player = game['name']
+  charabbrev = game['char']
+
+  debug("%s win (%s), runes: %d" % (player, charabbrev, game['urune']))
+
+  if nemchoice.is_nemelex_choice(charabbrev, game['end']):
+    ban = 'nemelex_choice:' + charabbrev
+    if not banner.player_has_banner(c, player, ban):
+      assign_points(c, ban, player, 100)
+      banner.award_banner(c, player, ban, 100, temp=False)
 
   if is_all_runer(game):
     all_allruners = number_of_allruners_before(c, game)

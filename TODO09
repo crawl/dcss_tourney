@@ -1,17 +1,12 @@
 Legend: ] done + tested
         * done, not tested
-        
+
 - Add new scoring rules.
   - 100 bonus points for combo chosen at start of week:
-    - We want to be able to track all bonus combos.
-    - A win is eligible for bonus if a bonus was announced before the game
-      was finished, and the bonus has not expired before the game was finished.
-    - Track bonuses in a flat file?
-    - Add a script to define the bonus combo.
-    - Allow user to specify the combo, but ensure it has not already been
-      won (by checking Henzell's db) before placing the bonus.
-    - Award Nemelex Choice banner to player winning the special.
+    - Show chosen bonus combo in overview along with Nemelex' Choice banner.
 
+  - Show clan banners for top clans.
+    
   - Make the banners links to a banners page explaining what each one is?
 
   - Show time in where info correctly.

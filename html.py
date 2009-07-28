@@ -19,7 +19,7 @@ BANNER_IMAGES = \
       'ghostbuster': [ 'ghostbuster.png', 'Ghostbuster (TM)' ],
       'moose'   : [ 'mooseandsquirrel.png', 'Moose and Squirrel' ],
       'cartographer': [ 'd1cartographer.png', 'D:1 Cartographer' ],
-      'bonus_combo': [ 'nemechoice.png', "Nemelex' Choice" ],
+      'nemelex_choice': [ 'nemechoice.png', "Nemelex' Choice" ],
       'shopaholic': [ 'shopuntilyoudrop.png', 'Shop Until You Drop' ],
       'scythe' : [ 'thescythe.png', 'The Scythe' ] }
 
@@ -407,7 +407,14 @@ def banner_image(banner):
 
 def banner_images(banners):
   images = [banner_image(x) for x in banners]
-  return [i for i in images if i and i[0]]
+  images = [i for i in images if i and i[0]]
+  seen_images = set()
+  deduped = []
+  for i in images:
+    if not i[1] in seen_images:
+      deduped.append(i)
+      seen_images.add(i[1])
+  return deduped
 
 def banner_div(all_banners):
   res = ''
