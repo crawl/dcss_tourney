@@ -121,7 +121,7 @@ def pretty_date(date):
   if not date:
     return ''
 
-  if isinstance(date, str):
+  if type(date) in [str, unicode]:
     m = R_STR_DATE.search(date)
     if not m:
       return date
