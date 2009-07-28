@@ -10,6 +10,7 @@ h1, h2, h3, h4, h5 {
 }
 
 h3 {
+  margin-top: 10px;
   margin-bottom: 3px;
 }
 
@@ -320,4 +321,15 @@ img.banner {
 
 #banner-4 {
   left: 3px;
+}
+
+.nemelex h3 {
+  display: inline;
+  margin-right: 9px;
+}
+
+.nemelex span {
+  background: #f6ecf9;
+  padding: 2px 4px;
+  font-weight: bold;
 }

@@ -405,6 +405,17 @@ def banner_image(banner):
     return (crawl_utils.banner_link(img[0]), img[1])
   return img
 
+def banner_img_for(b, nth):
+  return '''<div>
+              <img src="%s" alt="%s"
+                   title="%s" width="150" height="55"
+                   border="0" id="banner-%d" class="banner" />
+              </div>''' % (b[0], b[1], b[1], nth)
+
+def banner_named(name):
+  img = banner_image(name)
+  return banner_img_for(img, 0)
+
 def banner_images(banners):
   images = [banner_image(x) for x in banners]
   images = [i for i in images if i and i[0]]
@@ -420,11 +431,6 @@ def banner_div(all_banners):
   res = ''
   banner_n = 1
   for b in all_banners:
-    # width="150" height="55"
-    res += '''<div>
-              <img src="%s" alt="%s"
-                   title="%s" width="150" height="55"
-                   border="0" id="banner-%d" class="banner" />
-              </div>''' % (b[0], b[1], b[1], banner_n)
+    res += banner_img_for(b, banner_n)
     banner_n += 1
   return res

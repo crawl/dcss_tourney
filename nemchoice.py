@@ -22,6 +22,12 @@ def _to_date(when):
     when = when[:-1]
   return datetime.strptime(when, '%Y%m%d%H%M%S')
 
+def current_nemelex_choice():
+  return NEMELEX_COMBOS and NEMELEX_COMBOS[-1]
+
+def previous_nemelex_choices():
+  return NEMELEX_COMBOS and [x[0] for x in NEMELEX_COMBOS[:-1]] or []
+
 def is_nemelex_choice(combo, when):
   """Returns true if the given combo for a game that ended at the given
   datetime is a chosen combo for the Nemelex' Choice banner."""
