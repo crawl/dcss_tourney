@@ -129,9 +129,9 @@
             </p>
 
             <h3>Remaining Gods:</h3>
-            <p>
-              ${", ".join(query.find_remaining_gods(won_gods))}
-            </p>
+            <div class="bordered inline">
+              ${", ".join(query.find_remaining_gods(won_gods)) or 'None'}
+            </div>
           </div>
           % endif
 

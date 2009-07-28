@@ -279,6 +279,7 @@ CREATE TABLE player_won_gods (
   god VARCHAR(20),
   FOREIGN KEY (player) REFERENCES players (name) ON DELETE CASCADE
 );
+CREATE INDEX player_won_gods_pg ON player_won_gods (player, god);
 
 -- Audit table for point assignment. Tracks both permanent and
 -- temporary points.

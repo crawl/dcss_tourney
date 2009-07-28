@@ -7,7 +7,7 @@ from logging import debug, info, warn, error
 
 import loaddb
 from loaddb import Query, query_do, query_first, query_row, query_rows
-from loaddb import query_first_col
+from loaddb import query_first_col, query_first_def
 
 import crawl
 import crawl_utils
@@ -524,6 +524,14 @@ def say_points(who, what, points):
   if points > 0:
     debug("%s: ADD %d points [%s]" % (who, points, what))
   return points
+
+def is_god_repeated(c, player, god):
+  """Returns true if the player has already won a game with the
+  specified god."""
+  return query_first_def(c, False,
+                         '''SELECT god FROM player_won_gods
+                             WHERE player = %s AND god = %s''',
+                         player, god)
 
 def record_won_god(c, player, god):
   query_do(c, "INSERT INTO player_won_gods VALUES (%s, %s)", player, god)

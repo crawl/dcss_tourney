@@ -147,14 +147,6 @@ def repeat_race_class(previous_chars, char):
     repeats += 1
   return repeats
 
-def is_god_repeated(previous_wins, g):
-  """Returns true if the god in the current game was already used by
-the player in a previous winning game. The gods checked are the gods
-at end of game."""
-  def god(g):
-    return g.get('god') or ''
-  return god(g) in [god(x) for x in previous_wins]
-
 def crunch_winner(c, game):
   """A game that wins could assign a variety of irrevocable points for a
   variety of different things. This function needs to calculate them all."""
@@ -183,11 +175,17 @@ def crunch_winner(c, game):
                                     before = game['end'])
   n_my_wins = len(my_wins)
 
+  def game_god(game):
+    return game.get('god') or ''
+
+  def banner_god(game):
+    return (game.get('god') or 'none').lower().replace(' ', '_')
+
   # Assign 20 extra points for winning with a god that you haven't used before.
-  if not is_god_repeated(my_wins, game) and not query.did_change_god(c, game):
-    god = (game.get('god') or 'none').lower().replace(' ', '_')
-    query.record_won_god(c, game['name'], game.get('god') or '')
-    assign_points(c, "win_god:" + god, game['name'], 20)
+  if (not query.is_god_repeated(c, game['name'], game_god(game))
+      and not query.did_change_god(c, game)):
+    query.record_won_god(c, game['name'], game_god(game))
+    assign_points(c, "win_god:" + banner_god(game), game['name'], 20)
 
   repeated = 0
   if n_my_wins > 0:
@@ -259,10 +257,10 @@ def player_additional_score(c, player, pmap):
 def update_player_scores(c):
   wrap_transaction(safe_update_player_scores)(c)
 
-def award_player_banners(c, banner_name, players):
+def award_player_banners(c, banner_name, players, prestige=0):
   if players:
     for p in players:
-      banner.safe_award_banner(c, p, banner_name, 0)
+      banner.safe_award_banner(c, p, banner_name, prestige)
 
 def award_temp_trophy(c, point_map,
                       player_rows, key, points,
@@ -335,34 +333,41 @@ def check_banners(c):
   # Award moose & squirrel banners.
   award_player_banners(c, 'moose',
                        query_first_col(c, '''SELECT DISTINCT player
-                                             FROM double_boris_kills'''))
+                                             FROM double_boris_kills'''),
+                       9)
   # Award 'Atheist' banners
   award_player_banners(c, 'atheist',
                        query_first_col(c, '''SELECT DISTINCT player
-                                               FROM atheist_wins'''))
+                                               FROM atheist_wins'''),
+                       11)
 
   # Award 'Scythe' banners
   award_player_banners(c, 'scythe',
                        query_first_col(c, '''SELECT player
-                                             FROM super_sigmund_kills'''))
+                                             FROM super_sigmund_kills'''),
+                       9)
 
   # Award 'Orb' banner for wins.
   award_player_banners(c, 'orb',
                        query_first_col(c, '''SELECT DISTINCT player
                                                FROM games
-                                              WHERE killertype='winning' '''))
+                                              WHERE killertype='winning' '''),
+                       10)
 
   award_player_banners(c, 'free_will',
                        query_first_col(c, '''SELECT DISTINCT player
-                                             FROM free_will_wins'''))
+                                             FROM free_will_wins'''),
+                       12)
   award_player_banners(c, 'ghostbuster',
                        query_first_col(c,
-                                       '''SELECT player FROM ghostbusters'''))
+                                       '''SELECT player FROM ghostbusters'''),
+                       3)
 
   award_player_banners(c, 'shopaholic',
                        query_first_col(c,
                                        '''SELECT DISTINCT player
-                                            FROM compulsive_shoppers'''))
+                                            FROM compulsive_shoppers'''),
+                       3)
 
 
 def check_misc_points(c, pmap):
