@@ -156,7 +156,7 @@ div.inset {
 }
 
 .page_content {
-    padding: 12px 35px;
+    padding: 12px 35px 30px 35px;
 }
 
 /*
@@ -183,6 +183,11 @@ div.toplinks a:hover {
 .inline_heading {
     font-weight: bold;
     /* font-family: sans-serif; */
+}
+
+table.grouping td, table.grouping th {
+  padding: 0;
+  padding-right: 25px;
 }
 
 table.bordered {
@@ -240,14 +245,6 @@ table.bordered th {
 
 table.bordered_centered th {
   border: 1px solid #bbb;
-}
-
-table.grouping td {
-  padding-right: 25px;
-}
-
-table.grouping th {
-  padding-right: 25px;
 }
 
 tr.point_temp {

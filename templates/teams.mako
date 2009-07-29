@@ -27,13 +27,12 @@
              team.append( html.clan_affiliation(c, captain, False) )
 
            table = html.table_text( [ 'Score', 'Team', 'Players' ],
-                                    teams, cls='bordered_centered' )
+                                    teams, cls='bordered' )
         %>
 
-        <div class="centerable">
-          <div class="content_centered">
-            <h2>Teams</h2>
-          </div>
+        <h1>Teams</h1>
+        <hr/>
+        <div class="content">
           ${table}
         </div>
       </div>

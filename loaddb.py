@@ -12,7 +12,7 @@ import imp
 import sys
 
 # Start and end of the tournament, UTC.
-START_TIME = '20090801'
+START_TIME = '20090701'
 END_TIME   = '20090901'
 
 CDO = 'http://crawl.develz.org/'
