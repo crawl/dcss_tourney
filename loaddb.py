@@ -11,8 +11,8 @@ import ConfigParser
 import imp
 import sys
 
-# Start of the tournament, UTC. Set to Jul 1 for testing.
-START_TIME = '20090701'
+# Start and end of the tournament, UTC.
+START_TIME = '20090801'
 END_TIME   = '20090901'
 
 CDO = 'http://crawl.develz.org/'
