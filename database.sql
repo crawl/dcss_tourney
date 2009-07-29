@@ -9,6 +9,8 @@ DROP TABLE IF EXISTS player_maxed_skills;
 DROP TABLE IF EXISTS clan_banners;
 DROP TABLE IF EXISTS player_banners;
 DROP TABLE IF EXISTS player_won_gods;
+DROP TABLE IF EXISTS active_streaks;
+DROP TABLE IF EXISTS most_recent_character;
 DROP TABLE IF EXISTS streaks;
 DROP TABLE IF EXISTS ziggurats;
 DROP TABLE IF EXISTS rune_finds;
