@@ -41,4 +41,4 @@ if __name__ == '__main__':
                       filename = (crawl_utils.BASEDIR + '/taildb.log'))
   loaddb.load_extensions()
   crawl_utils.daemonize()
-  tail_logfiles( loaddb.LOGS, loaddb.MILESTONES, 60 )
+  tail_logfiles( loaddb.LOGS, loaddb.MILESTONES, 130 )
