@@ -171,6 +171,7 @@ def get_top_streaks(c, how_many = 10):
 def get_top_clan_scores(c, how_many=10):
   clans = query_rows(c, '''SELECT name, owner, total_score
                            FROM teams
+                           WHERE total_score > 0
                            ORDER BY total_score DESC
                            LIMIT %d''' % how_many)
   return clans
