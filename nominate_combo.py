@@ -18,6 +18,7 @@ import sys
 import html
 import os.path
 from datetime import datetime, timedelta
+import time
 
 NOMINEE_FILE = 'nemelex-combos.txt'
 COMBO_VALIDITY_MINIMUM_DAYS = 10
