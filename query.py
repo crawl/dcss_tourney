@@ -278,6 +278,7 @@ canonicalize_player_name = \
 def get_top_players(c, how_many=10):
   return query_rows(c,
                     '''SELECT name, score_full FROM players
+                        WHERE score_full > 0
                        ORDER BY score_full DESC
                        LIMIT %d''' % how_many)
 
