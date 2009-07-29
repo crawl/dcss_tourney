@@ -4,8 +4,8 @@ import logging
 import fcntl
 import sys
 
-# Update every 29 minutes.
-UPDATE_INTERVAL = 29 * 60
+# Update every so often (seconds)
+UPDATE_INTERVAL = 7 * 60
 
 LOCK = None
 BASEDIR = '/home/snark'
