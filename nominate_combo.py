@@ -69,13 +69,16 @@ def bail(message):
   print '-------------------------------------'
   sys.exit(1)
 
+def parse_time(when):
+  return datetime(*(time.strptime(when, DATE_FORMAT)[0:6]))
+
 def find_previous_nominees():
   if os.path.exists(NOMINEE_FILE):
     f = open(NOMINEE_FILE)
     nominees = [x.strip().split() for x in f.readlines()
                 if not x.strip().startswith('#')]
     return [{'combo': x[0],
-             'time': datetime.strptime(x[1] + ' ' + x[2], DATE_FORMAT)}
+             'time': parse_time(x[1] + ' ' + x[2])}
             for x in nominees]
   return []
 
