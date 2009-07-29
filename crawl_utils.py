@@ -127,4 +127,4 @@ def morgue_link(xdict):
 
 def linked_text(key, link_fn, text=None):
   link = link_fn(key)
-  return '<a href="%s">%s</a>' % (link, text or key)
+  return '<a href="%s">%s</a>' % (link, (text or key).replace('_', ' '))
