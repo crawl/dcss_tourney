@@ -20,6 +20,10 @@
       <div class="page_content">
         <div class="heading">
           <h1>${title}</h1>
+          <p class="fineprint">
+            Tournament starts Aug 1, 2009 at midnight UTC, and ends on
+            Sep 1, 2009 at midnight UTC.
+          </p>
         </div>
         <hr/>
 
