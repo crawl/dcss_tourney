@@ -14,6 +14,8 @@ import crawl_utils
 import uniq
 import os.path
 import re
+import datetime
+import time
 
 # Number of unique uniques
 MAX_UNIQUES = 43
@@ -35,6 +37,11 @@ def _filter_invalid_where(d):
   else:
     d['status'] = status.title() or 'Active'
     return d
+
+def time_from_str(when):
+  if when.endswith('D') or when.endswith('S'):
+    when = when[:-1]
+  return datetime(*(time.strptime(when, '%Y%m%d%H%M%S')[0:6]))
 
 def canonical_where_name(name):
   test = '%s/%s' % (crawl_utils.RAWDATA_PATH, name)
@@ -61,8 +68,6 @@ def whereis_player(name):
     try:
       line = f.readline()
       d = loaddb.apply_dbtypes( loaddb.xlog_dict(line) )
-      if d.get('time'):
-        d['time'] = loaddb.datetime.to_sql(d['time'])
       return _filter_invalid_where(d)
     finally:
       f.close()
@@ -135,18 +140,31 @@ def get_fastest_turn_player_games(c):
                            WHERE f.id = g.id''' % fields)
   return [ row_to_xdict(r) for r in games ]
 
-def get_top_streaks(c, how_many = 10):
+def get_top_streaks_from(c, table, min_streak, how_many,
+                         add_next_game=False):
   streaks = query_rows(c, '''SELECT player, streak, streak_time
-                             FROM streaks
+                             FROM %s
+                             WHERE streak >= %s
                              ORDER BY streak DESC, streak_time
-                             LIMIT %d''' % how_many)
+                             LIMIT %d''' % (table, '%s', how_many),
+                       min_streak)
   # Convert tuples to lists.
   streaks = [ list(x) for x in streaks ]
   # And the fourth item in each row has to be a list of the streak games.
   # And haha, you thought this was easy? :P
   for streak in streaks:
     streak.append( get_streak_games(c, streak[0], streak[2]) )
+    if add_next_game:
+      streak.append(
+        find_most_recent_character_since(c, streak[0], streak[2]) or '?')
   return streaks
+
+def get_top_active_streaks(c, how_many = 3):
+  return get_top_streaks_from(c, 'active_streaks', 2, how_many,
+                              add_next_game=True)
+
+def get_top_streaks(c, how_many = 10):
+  return get_top_streaks_from(c, 'streaks', 2, how_many)
 
 def get_top_clan_scores(c, how_many=10):
   clans = query_rows(c, '''SELECT name, owner, total_score
@@ -1061,3 +1079,36 @@ def update_deaths_to_distinct_uniques(c, player, ndeaths, time):
                       VALUES (%s, %s, %s)
                  ON DUPLICATE KEY UPDATE ndeaths = %s, death_time = %s''',
            player, ndeaths, time, ndeaths, time)
+
+def update_active_streak(c, player, end_time):
+  query_do(c, '''INSERT INTO active_streaks
+                             (player, streak_time)
+                      VALUES (%s, %s)
+                 ON DUPLICATE KEY UPDATE streak = streak + 1,
+                                         streak_time = %s''',
+           player, end_time, end_time)
+
+def kill_active_streak(c, player):
+  query_do(c, '''DELETE FROM active_streaks WHERE player = %s''', player)
+
+def find_most_recent_character_since(c, player, time):
+  row = query_row(c, '''SELECT charabbrev, update_time
+                          FROM most_recent_character
+                         WHERE player = %s''', player)
+  # If the most recent character is newer than the date specified, return that.
+  if row[1] > time:
+    return row[0]
+
+  # Otherwise, look for where info.
+  where = whereis_player(player)
+  if where and time_from_str(where['time']) > time:
+    return where['char']
+
+  # No idea!
+  return None
+
+def update_most_recent_character(c, player, char, time):
+  query_do(c, '''INSERT INTO most_recent_character VALUES (%s, %s, %s)
+                 ON DUPLICATE KEY UPDATE charabbrev = %s,
+                                         update_time = %s''',
+           player, char, time, char, time)

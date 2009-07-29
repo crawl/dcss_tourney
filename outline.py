@@ -60,6 +60,8 @@ def act_on_milestone(c, this_mile):
   Then, depending on what type of milestone it is (key "type"), another
   function may be called to finish the job on the milestone line. Milestones
   have the same broken :: behavior as logfile lines, yay."""
+  query.update_most_recent_character(c, this_mile['name'],
+                                     this_mile['char'], this_mile['time'])
   if this_mile['type'] == 'unique' and \
         not this_mile['milestone'].startswith('banished '):
     do_milestone_unique(c, this_mile)
@@ -124,6 +126,9 @@ def crunch_misc(c, g):
   player = g['name']
   ktyp = g['ktyp']
 
+  if ktyp != 'winning':
+    query.kill_active_streak(c, player)
+
   banner.safe_award_banner(c, player, 'cartographer', 0)
 
   def strip_unique_qualifier(x):
@@ -166,6 +171,8 @@ def crunch_winner(c, game):
 
   player = game['name']
   charabbrev = game['char']
+
+  query.update_active_streak(c, player, game['end'])
 
   debug("%s win (%s), runes: %d" % (player, charabbrev, game['urune']))
 

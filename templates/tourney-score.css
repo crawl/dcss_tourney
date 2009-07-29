@@ -199,14 +199,13 @@ table.bordered_centered {
 }
 
 td {
-    vertical-align: top;
+  vertical-align: top;
 }
 
 table.bordered td {
-    margin: 6px;
-    padding: 6px;
-    border: 1px solid #ddd;
-    vertical-align: top;
+  padding: 6px;
+  border: 1px solid #ddd;
+  vertical-align: top;
 }
 
 table.bordered_centered td {
@@ -231,6 +230,7 @@ th {
 }
 
 table.bordered th {
+  padding: 6px;
   border: 1px solid #bbb;
 }
 

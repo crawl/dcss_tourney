@@ -268,6 +268,21 @@ CREATE TABLE ziggurats (
   );
 CREATE INDEX ziggurat_depths ON ziggurats (deepest, zig_time);
 
+CREATE TABLE active_streaks (
+  player VARCHAR(20) PRIMARY KEY,
+  streak MEDIUMINT DEFAULT 1,
+  streak_time DATETIME NOT NULL,
+  FOREIGN KEY (player) REFERENCES players (name)
+  );
+
+-- This is to show the last character played under 'active streaks'
+CREATE TABLE most_recent_character (
+  player VARCHAR(20) PRIMARY KEY,
+  charabbrev CHAR(4) NOT NULL,
+  update_time DATETIME NOT NULL,
+  FOREIGN KEY (player) REFERENCES players (name)
+  );
+
 -- Generated table to keep track of streaks for each player.
 CREATE TABLE streaks (
   player VARCHAR(20) PRIMARY KEY,

@@ -72,7 +72,6 @@
                     ${html.best_clans(c)}
                   </div>
 	            </td>
-
        	      </tr>
 	        </table>
           </div>
@@ -92,6 +91,7 @@
             <div>
               <h3>Top Scores</h3>
               ${html.games_table(top_scores)}
+            </div>
           </div>
 
           <hr/>
@@ -111,23 +111,40 @@
 
           <div class="row">
             <div>
-              <h3>Most High Scores</h3>
-              ${html.combo_highscorers(c)}
+	          <h3>Longest Streak</h3>
+              ${html.best_streaks(c)}
             </div>
+
             <div>
-	          <h3>Most Uniques Killed</h3>
-              <%include file="most-uniques-killed.mako"/>
+              <h3>Active Streaks</h3>
+              ${html.best_active_streaks(c)}
             </div>
           </div>
 
           <hr/>
 
           <div class="row">
-            <div>
-	          <h3>Longest Streak</h3>
-              ${html.best_streaks(c)}
-            </div>
+            <table class="grouping" cellspacing="0" cellpadding="0">
+              <tr>
+                <td>
+                  <div>
+                    <h3>Most High Scores</h3>
+                    ${html.combo_highscorers(c)}
+                  </div>
+                </td>
+                <td>
+                  <div>
+	                <h3>Most Uniques Killed</h3>
+                    <%include file="most-uniques-killed.mako"/>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </div>
 
+          <hr/>
+
+          <div class="row">
             <div>
               <h3>Ziggurat Raiders</h3>
               ${html.best_ziggurats(c)}

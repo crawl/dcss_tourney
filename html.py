@@ -326,20 +326,28 @@ def most_deaths_to_uniques(c):
     r[2] = ", ".join(r[2])
   return table_text([ 'Player', '#', 'Uniques', 'Time'], rows)
 
+def streak_table(streaks, active=False):
+  # Replace the list of streak games with hyperlinks.
+  result = []
+  for s in streaks:
+    games = s[3]
+    game_text = hyperlink_games(games, 'charabbrev')
+    if active:
+      game_text += ", " + s[4]
+    row = [s[0], s[1], pretty_date(games[0]['start_time']),
+           pretty_date(s[2]), game_text]
+    result.append(row)
+
+  return table_text( [ 'Player', 'Streak', 'Start',
+                       active and 'Last Win' or 'End', 'Games' ],
+                     result )
+
+def best_active_streaks(c):
+  return streak_table(query.get_top_active_streaks(c), active=True)
+
 def best_streaks(c):
   streaks = query.get_top_streaks(c)
-  # Replace the list of streak games with hyperlinks.
-  for s in streaks:
-    streak_games = s.pop()
-    streak_start = streak_games[0]['start_time']
-    s.insert(2, pretty_date(streak_start))
-    # Also fixup end date.
-    s[3] = pretty_date(s[3])
-    s.append( hyperlink_games(streak_games, 'charabbrev') )
-
-  return table_text( [ 'Player', 'Streak', 'Start', 'End', 'Games' ],
-                     streaks )
-
+  return streak_table(streaks)
 
 def fixup_clan_rows(rows):
   rows = [ list(r) for r in rows ]
