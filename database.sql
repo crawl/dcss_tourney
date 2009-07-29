@@ -522,9 +522,12 @@ ORDER BY sigmund_kills DESC;
 CREATE VIEW free_will_wins AS
 SELECT *
   FROM games
- WHERE ((class = 'Fire Elementalist' AND skill = 'Ice Magic') OR
-        (class = 'Ice Elementalist' AND skill = 'Fire Magic'))
-   AND killertype = 'winning';
+ WHERE killertype = 'winning'
+   AND ((class = 'Fire Elementalist' AND skill = 'Ice Magic') OR
+        (class = 'Ice Elementalist' AND skill = 'Fire Magic') OR
+        (class = 'Earth Elementalist' AND skill = 'Air Magic') OR
+        (class = 'Air Elementalist' AND skill = 'Earth Magic'))
+   AND sk_lev = 27;
 
 CREATE VIEW ghostbusters AS
 SELECT player, COUNT(*) AS ghost_kills
