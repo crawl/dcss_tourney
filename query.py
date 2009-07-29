@@ -14,7 +14,7 @@ import crawl_utils
 import uniq
 import os.path
 import re
-import datetime
+from datetime import datetime
 import time
 
 # Number of unique uniques
@@ -39,6 +39,8 @@ def _filter_invalid_where(d):
     return d
 
 def time_from_str(when):
+  if type(when, datetime):
+    return when
   if when.endswith('D') or when.endswith('S'):
     when = when[:-1]
   return datetime(*(time.strptime(when, '%Y%m%d%H%M%S')[0:6]))
