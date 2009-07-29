@@ -5,7 +5,9 @@ import re
 
 BANNER_IMAGES = \
     { 'pantheon': [ 'thepantheon.png', 'The Pantheon' ],
-      'rune'    : [ 'discoveredlanguage.png', 'Runic Literacy' ],
+      'discovered_language': [ 'discoveredlanguage.png',
+                               'Discovered Language' ],
+      'runic_literacy': [ 'runicliteracy.png', 'Runic Literacy' ],
       'heretic' : [ 'Xomprefersaheretic.png', 'Xom Prefers a Heretic' ],
       'top_player_Nth:1': [ '1player.png', 'Best Player: 1st' ],
       'top_player_Nth:2': [ '2player.png', 'Best Player: 2nd' ],

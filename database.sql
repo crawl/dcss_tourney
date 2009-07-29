@@ -255,6 +255,7 @@ CREATE TABLE rune_finds (
   xl INT,
   FOREIGN KEY (player) REFERENCES players (name) ON DELETE CASCADE
   );
+CREATE INDEX rune_finds_p ON rune_finds (player, rune);
 
 CREATE TABLE ziggurats (
   player VARCHAR(20),

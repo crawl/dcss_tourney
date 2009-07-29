@@ -7,6 +7,7 @@ import banner
 import logging
 from logging import debug, info, warn, error
 import crawl_utils
+import crawl
 import uniq
 
 from loaddb import query_do, query_first_col
@@ -92,7 +93,10 @@ def do_milestone_rune(c, mile):
     # first time getting this rune!
     assign_points(c, "rune_1st:" + rune, mile['name'], 10)
   player = mile['name']
-  banner.safe_award_banner(c, player, 'rune', 6)
+  banner.safe_award_banner(c, player, 'discovered_language', 6)
+  if (not banner.player_has_banner(c, player, 'runic_literacy')
+      and query.player_count_distinct_runes(c, player) == crawl.NRUNES):
+    banner.award_banner(c, player, 'runic_literacy', 12)
 
 def do_milestone_ghost(c, mile):
   """When you kill a player ghost, you get two clan points! Otherwise this
