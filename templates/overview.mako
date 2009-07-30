@@ -38,8 +38,8 @@
                   <span>${cnemelex[0]}</span>, chosen on ${cnemelex[1]} UTC
                   <p class="fineprint">
                     100 bonus points for any player winning a ${cnemelex[0]}
-                    while the offer lasts! Only your first winning ${cnemelex[0]}
-                    counts.
+                    during the tournament! Only your first
+                    winning ${cnemelex[0]} counts.
                   </p>
 
                   % if pnemelex:
