@@ -12,7 +12,7 @@
 &nbsp;
 <a href="${CAO_TOURNEY_BASE}/scoreboard.html">Scoreboard</a>
 &nbsp;
-<a href="${CAO_TOURNEY_BASE}">Tourney Home</a>
+<a href="http://crawl.akrasiac.org/tourney-awards.txt">Tourney Rules</a>
 &nbsp;
 <a href="${CAO_BASE}">crawl.akrasiac.org</a>
 </div>
