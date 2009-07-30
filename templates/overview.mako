@@ -37,7 +37,7 @@
                   <h3>Nemelex' Choice: </h3>
                   <span>${cnemelex[0]}</span>, chosen on ${cnemelex[1]} UTC
                   <p class="fineprint">
-                    100 bonus points for any player winning a ${cnemelex[0]}
+                    100 beonus points for any player winning ${cnemelex[0]}
                     during the tournament! Only your first
                     winning ${cnemelex[0]} counts.
                   </p>
