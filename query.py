@@ -1062,7 +1062,8 @@ def player_distinct_mollified_gods(c, player):
   return query_first_col(c, '''SELECT DISTINCT noun
                                  FROM milestones
                                 WHERE player = %s
-                                  AND verb = 'god.mollify' ''',
+                                  AND verb = 'god.mollify'
+                                  AND (noun != god OR god IS NULL)''',
                          player)
 
 def count_deaths_to_distinct_uniques(c, player):
