@@ -54,6 +54,7 @@ def process_banners(c, player):
 def assign_top_player_banners(c):
   rows = query_rows(c, '''SELECT name, score_full
                             FROM players
+                           WHERE score_full > 0
                            ORDER BY score_full DESC, name
                             LIMIT 3''')
   def do_banner(r, nth):
@@ -71,6 +72,7 @@ def flush_clan_banners(c):
 def assign_top_clan_banners(c):
   rows = query_rows(c, '''SELECT owner, total_score
                             FROM teams
+                           WHERE total_score > 0
                            ORDER BY total_score DESC, name
                             LIMIT 3''')
   def do_banner(r, nth):

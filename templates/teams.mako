@@ -5,7 +5,7 @@
 %>
 <html>
   <head>
-    <title>Teams</title>
+    <title>Clans</title>
     <link rel="stylesheet" type="text/css" href="tourney-score.css"/>
   </head>
   <body class="page_back">
