@@ -338,3 +338,34 @@ img.banner {
   padding: 2px 4px;
   font-weight: bold;
 }
+
+.information ul {
+  margin-top: 8px;
+  padding-left: 18px;
+}
+
+.information span {
+  font-weight: bold;
+  color: #b73;
+}
+
+.information b {
+  color: #852;
+}
+
+pre {
+  background: #f0ffe0;
+  border:1px solid #e0eae0;
+  padding: 8px 10px;
+  display: table-cell;
+}
+
+.banner-desc h2 {
+  margin-bottom: 2px;
+}
+
+.banner-desc hr {
+  color: #dfdfdf;
+  height: 1px;
+  border: 1px dotted #dfdfdf;
+}

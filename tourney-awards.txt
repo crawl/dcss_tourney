@@ -1,0 +1,150 @@
+Hello all! Welcome to the rules for the crawl.akrasiac.org 2009 Dungeon
+Crawl Stone Soup Tournament. The simple part: Play on crawl.akrasiac.org
+or crawl.develz.org and all of your games that start after midnight UTC
+on August 1 will count toward the tournament. 
+
+If you wish to be a member of a clan, which may contain six or fewer
+members, you need to add a line to the top of your CAO rcfile like this:
+"# TEAMCAPTAIN nameofcaptain". This should be the very first line of
+your rcfile, with no blank lines or comments appearing before this line.
+
+The # is important to make sure Crawl doesn't try to parse the team data
+as an option. The team captain must put more information in her
+.crawlrc, specifically these two lines:
+
+"# TEAMNAME nameofteam"
+"# TEAMMEMBERS player1 player2 player3 player4 player5"
+
+Again, these lines should be the very first two lines in the team
+captain's rcfile, with no blank lines or anything else appearing before
+these lines.
+
+Clan names must contain only alphanumeric characters, underscores,
+and hyphens. Once a player's username is in the captain's rc and the
+captain's username is in the player's rc and our script checks for
+updates, the players will be in the same clan!
+
+The big change this year will be the addition of award banners: Things
+you can get that put you on a list as achieving a certain goal in the
+tournament. Some of them are pretty standard: Rune, Win. Some of them are
+a little goofier and it's theoretically possible to win the tournament
+without getting them. How did we come up with these banners, you might
+ask? Well, I asked each of the Crawl gods to contribute something,
+and what they came up with is at the end...
+
+WINS:
+----
+100 points for first win. (Since winning is kind of the goal.)
+50 points for second win that is not a repeat race or class.
+10 points for each win thereafter, repeat or not.
+50 extra points for your first all-rune victory.
+100 extra points for each consecutive win that is not a repeat race or class.
+30 extra points for each consecutive win that is a repeat race xor class.
+10 extra points for each consecutive win that is a repeat race and class.
+30 extra points for each non-consecutive win that is not a repeat race or
+  class.
+10 extra points for each non-consecutive win that is a repeat race xor class.
+
+For streak wins, "Repeat" means "in that streak;" for non-streak wins, "repeat"
+means "ever."
+
+SPECIAL WINS 
+------------
+200/100/50 points for fastest win in realtime.
+200/100/50 points for fastest win by turncount.
+200/100/50 points for first win scored. 
+200/100/50 points for first 15-rune victory. 
+
+RUNES 
+-----
+10 points each time you find each type of rune for the first time.
+1 point each time you find any rune a second or later time.
+
+UNIQUES 
+-------
+5 points the first time you kill each unique. 
+50/20/10 points for most unique uniques killed; ties broken by who gets
+  that number first. 
+
+HIGH SCORES 
+-----------
+5 points per high score in a race/class combination (HuWn, not just Hu)
+5 additional points for each high score that is a win.
+10 points per high score in a race.
+10 points per high score in a class.
+200/100/50 points for most high scores in race/class combos.
+200/100/50 points for highest single game score overall.
+
+CLAN POINTS ONLY
+------------
+These get you clan points but do not get you points toward the individual
+prize, encouraging specialization on clans but making the hypothetical
+"Best Crawl Player" award based on more "real" metrics.
+
+50/20/10 points for lowest dungeon level reached at XL1. 
+2 points per player ghost killed when playing 
+N points per ghost kill after dying, where N is the dying character's 
+  XL minus 5. 
+200/100/50 for _clan_ with most high scores in race/class combos.
+100/50/20 for _clan_ with most uniques killed (or all uniques killed
+  first)
+
+CLAN SCORING
+------------
+Sum total of individual points for wins, runes, and uniques, sum total of special wins
+points, sum total of high scores points, 
+plus "Clan points only" trophies above.
+Six members or less per clan.
+
+SPECIAL BANNERS
+---------------
+Okawaru is all about winning, all the time, and thus will award THE ORB
+to any player who successfully wins.
+
+Trog, who hates spellcasters, would like to award THE SCYTHE to any
+player who kills Sigmund twenty-seven times over the course of the month.
+
+Makhleb thinks players shouldn't need gods to get items, and encourages
+the player to SHOP UNTIL YOU DROP, ending a game in which she obtained
+at least 5000 gold with 50 or less.
+
+XOM PREFERS A HERETIC and thinks it would be hilarious if a player
+managed to mollify every god over the course of the whole month.
+
+Nemelex wants to see players struggle and loves randomness, and so will
+give the NEMELEX' CHOICE award to anyone who wins an unwon combo randomly
+chosen and announced periodically throughout the tournament.
+
+Vehumet hates spellcasters who make a mockery of mighty magics, and so
+will give you the MOOSE AND SQUIRREL award for killing Boris twice in
+a single game.
+
+Sif Muna thinks it's great when a spellcaster shows FREE WILL and
+maximizes the elemental spell skill opposite from their starting class:
+So, for example, a player who maxed out Ice Magic as a Fire Elementalist
+would get this award.
+
+Zin thinks an education is crucial to maintaining a healthy mutation-free
+lifestyle, and so will award any player who achieves RUNIC LITERACY,
+collecting each rune at least once.
+
+The Shining One thinks it's about time that the player DISCOVERED LANGUAGE
+by finding her first rune.
+
+Elyvilon thinks it's important to check out what all the gods have to
+offer and thus wil give THE PANTHEON to any player who acquires every
+god as not a starting god over the course of the tournament.
+
+Kiku is a terrible god and, recognizing this, will give followers and
+other players the D:1 CARTOGRAPHER award just for showing up. Thanks,
+Kiku!
+
+Yredememnul thinks that only living players should dabble with the undead,
+and so will give the GHOSTBUSTER award to anyone who kills at least ten
+player ghosts during the month.
+
+Beogh believes that teamwork is important, and so will give Orcish
+adulation to the TOP CLAN in the tournament.
+
+Lugonu, who hates the other gods, would like to award THE ATHEIST to
+any winning player who never takes a god when she had the option to do so.
