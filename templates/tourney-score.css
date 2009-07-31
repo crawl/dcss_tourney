@@ -369,3 +369,24 @@ pre {
   height: 1px;
   border: 1px dotted #dfdfdf;
 }
+
+.banner-desc div img {
+  float: left;
+  margin-right: 8px;
+  margin-top: 1px;
+  margin-bottom: 8px;
+}
+
+.banner-desc div p {
+  width: 40%;
+  max-width: 430px;
+  float: left;
+}
+
+.banner-desc div {
+  clear: both;
+}
+
+.banner-desc hr {
+  clear: both;
+}
