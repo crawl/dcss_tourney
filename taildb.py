@@ -2,6 +2,7 @@ import MySQLdb
 import loaddb
 import time
 import crawl_utils
+import query
 
 import logging
 from logging import debug, info, warn, error

@@ -3,6 +3,7 @@ import re
 import os
 import os.path
 import crawl_utils
+import query
 
 import logging
 from logging import debug, info, warn, error
