@@ -160,7 +160,8 @@ def is_clan_header(header):
 
 
 def eplayer_link(name):
-  return player_link( canonicalize_player_name(loaddb.active_cursor(), name) )
+  return player_link(
+    query.canonicalize_player_name(loaddb.active_cursor(), name) )
 
 def table_text(headers, data, cls='bordered', count=True, link=None,
                width=None):
