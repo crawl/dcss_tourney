@@ -103,7 +103,8 @@ def do_milestone_rune(c, mile):
 def do_milestone_ghost(c, mile):
   """When you kill a player ghost, you get two clan points! Otherwise this
   isn't terribly remarkable."""
-  assign_team_points(c, "ghost", mile['name'], 2)
+  if not mile['milestone'].startswith('banished'):
+    assign_team_points(c, "ghost", mile['name'], 2)
 
 def act_on_logfile_line(c, this_game):
   """Actually assign things and write to the db based on a logfile line
