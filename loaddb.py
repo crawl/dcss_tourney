@@ -3,7 +3,6 @@ import re
 import os
 import os.path
 import crawl_utils
-import query
 
 import logging
 from logging import debug, info, warn, error
@@ -551,6 +550,16 @@ def is_not_tourney(game):
   end = game.get('end') or game.get('time') or start
   return start < START_TIME or end >= END_TIME
 
+_active_cursor = None
+
+def set_active_cursor(c):
+  global _active_cursor
+  _active_cursor = c
+
+def active_cursor():
+  global _active_cursor
+  return _active_cursor
+
 def query_do(cursor, query, *values):
   Query(query, *values).execute(cursor)
 
@@ -954,12 +963,12 @@ if __name__ == '__main__':
       warn("Error reading %s, skipping it." % log)
 
   cursor = db.cursor()
-  query.set_active_cursor(cursor)
+  set_active_cursor(cursor)
   try:
     master = create_master_reader()
     master.tail_all(cursor)
   finally:
-    query.set_active_cursor(None)
+    set_active_cursor(None)
     cursor.close()
 
   cleanup_listeners(db)

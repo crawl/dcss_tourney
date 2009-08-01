@@ -1,4 +1,5 @@
 import query, crawl_utils, time
+import loaddb
 
 from crawl_utils import clan_link, player_link, linked_text
 import re
@@ -159,7 +160,7 @@ def is_clan_header(header):
 
 
 def eplayer_link(name):
-  return player_link( canonicalize_player_name(query.active_cursor(), name) )
+  return player_link( canonicalize_player_name(loaddb.active_cursor(), name) )
 
 def table_text(headers, data, cls='bordered', count=True, link=None,
                width=None):
@@ -200,7 +201,7 @@ def table_text(headers, data, cls='bordered', count=True, link=None,
       out += '''<td class="%s">''' % tcls
       val = str(val)
       if is_player_header(header[0]):
-        val = linked_text(val, player_link)
+        val = linked_text(val, eplayer_link)
       out += val
       out += '</td>'
     out += "</tr>\n"
@@ -267,7 +268,7 @@ def games_table(games, first=None, excluding=None, columns=None,
       if need_link:
         out += r'<a href="%s">' % crawl_utils.morgue_link(game)
       elif is_player_header(c[1]):
-        val = linked_text(val, player_link)
+        val = linked_text(val, eplayer_link)
       out += str(val)
       if need_link:
         out += '</a>'
@@ -386,11 +387,11 @@ def clan_affiliation(c, player, include_clan=True):
   else:
     clan_html = ''
 
-  plinks = [ linked_text(players[0], player_link) + " (captain)" ]
+  plinks = [ linked_text(players[0], eplayer_link) + " (captain)" ]
 
   other_players = sorted(players[1:])
   for p in other_players:
-    plinks.append( linked_text(p, player_link) )
+    plinks.append( linked_text(p, eplayer_link) )
 
   clan_html += ", ".join(plinks)
   return clan_html

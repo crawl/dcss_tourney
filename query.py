@@ -23,16 +23,6 @@ MAX_RUNES = 15
 
 LOG_FIELDS = [ 'source_file' ] + [ x[1] for x in loaddb.LOG_DB_MAPPINGS ]
 
-_active_cursor = None
-
-def set_active_cursor(c):
-  global _active_cursor
-  _active_cursor = c
-
-def active_cursor():
-  global _active_cursor
-  return _active_cursor
-
 def _cursor():
   """Easy retrieve of cursor to make interactive testing easier."""
   d = loaddb.connect_db()
