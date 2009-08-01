@@ -273,9 +273,9 @@ def number_of_allruners_before(c, game):
 ###################### Additional scoring math ##########################
 
 def record_points(point_map, player, points, team_points):
-  pdef = point_map.get(player) or { 'team': 0, 'you': 0 }
+  pdef = point_map.get(player.lower()) or { 'team': 0, 'you': 0 }
   pdef[team_points and 'team' or 'you'] += points
-  point_map[player] = pdef
+  point_map[player.lower()] = pdef
 
 def player_additional_score(c, player, pmap):
   """Calculates the player's total score, including unchanging score and the
@@ -422,6 +422,7 @@ def safe_update_player_scores(c):
   pmap = { }
 
   for p in players:
+    record_points(pmap, p, 0, team_points=False)
     print "Processing banners for " + p
     banner.process_banners(c, p)
 
