@@ -4,8 +4,6 @@ import logging
 import fcntl
 import sys
 
-from query import canonicalize_player_name
-
 # Update every so often (seconds)
 UPDATE_INTERVAL = 7 * 60
 
@@ -109,7 +107,7 @@ def format_time(time):
                                        time.hour, time.minute, time.second)
 
 def player_link(player):
-  return "%s/%s.html" % (CAO_PLAYER_BASE, canonicalize_player_name(player))
+  return "%s/%s.html" % (CAO_PLAYER_BASE, player)
 
 def clan_link(clan):
   return "%s/%s.html" % (CAO_CLAN_BASE, clan)

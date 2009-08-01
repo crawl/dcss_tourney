@@ -16,6 +16,7 @@ def tail_logfiles(logs, milestones, interval=60):
   loaddb.init_listeners(db)
 
   cursor = db.cursor()
+  query.set_active_cursor(cursor)
   elapsed_time = 0
 
   master = loaddb.create_master_reader()
@@ -32,6 +33,7 @@ def tail_logfiles(logs, milestones, interval=60):
       time.sleep(interval)
       elapsed_time += interval
   finally:
+    query.set_active_cursor(None)
     cursor.close()
     loaddb.cleanup_listeners(db)
     db.close()

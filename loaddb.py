@@ -953,10 +953,12 @@ if __name__ == '__main__':
       warn("Error reading %s, skipping it." % log)
 
   cursor = db.cursor()
+  query.set_active_cursor(cursor)
   try:
     master = create_master_reader()
     master.tail_all(cursor)
   finally:
+    query.set_active_cursor(None)
     cursor.close()
 
   cleanup_listeners(db)
