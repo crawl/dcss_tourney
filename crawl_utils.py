@@ -4,6 +4,8 @@ import logging
 import fcntl
 import sys
 
+from query import canonicalize_player_name
+
 # Update every so often (seconds)
 UPDATE_INTERVAL = 7 * 60
 
