@@ -292,6 +292,10 @@ def xlog_milestone_fixup(d):
   verb = d['type']
   milestone = d['milestone']
   noun = None
+
+  if verb == 'unique':
+    verb = 'uniq'
+
   if verb == 'uniq':
     match = R_MILE_UNIQ.findall(milestone)
     if match[0][0] == 'banished':
