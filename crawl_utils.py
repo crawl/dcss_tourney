@@ -107,7 +107,7 @@ def format_time(time):
                                        time.hour, time.minute, time.second)
 
 def player_link(player):
-  return "%s/%s.html" % (CAO_PLAYER_BASE, player)
+  return "%s/%s.html" % (CAO_PLAYER_BASE, player.lower())
 
 def clan_link(clan):
   return "%s/%s.html" % (CAO_CLAN_BASE, clan)

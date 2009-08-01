@@ -39,7 +39,7 @@ def _filter_invalid_where(d):
     return d
 
 def time_from_str(when):
-  if type(when, datetime):
+  if isinstance(when, datetime):
     return when
   if when.endswith('D') or when.endswith('S'):
     when = when[:-1]

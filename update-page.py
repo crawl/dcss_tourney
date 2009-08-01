@@ -62,7 +62,8 @@ def team_pages(c):
 
 def player_page(c, player):
   info("Updating player page for %s" % player)
-  render(c, 'player', dest = ('%s/%s' % (crawl_utils.PLAYER_BASE, player)),
+  render(c, 'player',
+         dest = ('%s/%s' % (crawl_utils.PLAYER_BASE, player.lower())),
          pars = { 'player' : player })
 
 # Update tourney overview every 5 mins.

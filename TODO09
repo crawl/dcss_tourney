@@ -1,6 +1,10 @@
 Legend: ] done + tested
         * done, not tested
 
+- When generating player page, check for the existence of an existing
+  page on a different case, and delete if so? Or perhaps just lowercase
+  all player page names for link URL and html gen (easy!)
+        
 --------------------------------------------------------------------------
 
 Trophies for 2009:
