@@ -587,7 +587,7 @@ def audit_trail_player_team_points(c, player):
 def audit_clan_player_points(c, captain):
   """Gets the total points contributed to a clan by each player in the clan."""
   return query_rows(c,
-                    '''SELECT name, (score_full + team_score_base) points
+                    '''SELECT name, (score_full + team_score_full) points
                        FROM players
                        WHERE team_captain = %s
                        ORDER BY points DESC, name''',
