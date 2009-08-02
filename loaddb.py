@@ -858,7 +858,7 @@ def add_ziggurat_milestone(c, g):
       query_do(c,
                '''INSERT INTO ziggurats (player, deepest, place, zig_time,
                                          start_time)
-                                VALUERS (%s, %s, %s, %s, %s)''',
+                                VALUES (%s, %s, %s, %s, %s)''',
                player, depth, place, g['time'], g['start'])
     else:
       query_do(c,
