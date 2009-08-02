@@ -211,7 +211,8 @@ def crunch_winner(c, game):
     return (game.get('god') or 'none').lower().replace(' ', '_')
 
   # Assign 20 extra points for winning with a god that you haven't used before.
-  if (not query.is_god_repeated(c, game['name'], game_god(game))
+  if (not game['char'].startswith('DG')
+      and not query.is_god_repeated(c, game['name'], game_god(game))
       and not query.did_change_god(c, game)):
     query.record_won_god(c, game['name'], game_god(game))
     assign_points(c, "win_god:" + banner_god(game), game['name'], 20)
