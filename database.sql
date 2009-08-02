@@ -523,7 +523,9 @@ ORDER BY boris_kills DESC;
 CREATE VIEW atheist_wins AS
 SELECT g.*
   FROM games g
- WHERE g.killertype = 'winning' AND g.god IS NULL AND g.raceabbr != 'DG'
+ WHERE g.killertype = 'winning'
+   AND (g.god IS NULL OR g.god = '')
+   AND g.raceabbr != 'DG'
    AND NOT EXISTS (SELECT noun FROM milestones m
                     WHERE m.player = g.player AND m.start_time = g.start_time
                       AND verb = 'god.renounce' LIMIT 1);
