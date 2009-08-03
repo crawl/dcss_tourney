@@ -45,6 +45,8 @@
    uniq_unslain = query.uniques_unkilled(uniq_slain)
    banners = html.banner_images(query.get_player_banners(c, player))
  %>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+          "http://www.w3.org/TR/html4/strict.dtd">
 <html>
   <head>
     <title>${player}</title>

@@ -59,6 +59,8 @@
 
    banners = html.banner_images(query.get_clan_banners(c, captain))
  %>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+          "http://www.w3.org/TR/html4/strict.dtd">
 <html>
   <head>
     <title>${name}</title>
@@ -72,7 +74,7 @@
       <div id="player-banners">
         ${html.banner_div(banners)}
       </div>
-      
+
       <div class="page_content content-bannered">
         <div class="heading_left">
           <h1>Clan ${name.replace('_', ' ')}</h1>
