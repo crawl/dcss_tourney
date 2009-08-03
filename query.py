@@ -835,7 +835,7 @@ def all_hs_species(c):
 
 def all_hs_classes(c):
   return query_rows(c,
-                     '''SELECT player, COUNT(*) FROM game_classes_highscores
+                     '''SELECT player, COUNT(*) FROM game_class_highscores
                         GROUP BY player''')
 
 def count_hs_combos(c, player):
