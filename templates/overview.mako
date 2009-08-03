@@ -84,11 +84,11 @@
 
           <div class="row">
             <div>
-              <h3>Fastest win (turn count)</h3>
+              <h3>Fastest Win (Turn Count)</h3>
               <%include file="fastest-turn.mako"/>
             </div>
             <div>
-              <h3>Fastest Win (real time)</h3>
+              <h3>Fastest Win (Real Time)</h3>
               <%include file="fastest-time.mako"/>
             </div>
 
@@ -106,7 +106,7 @@
               <%include file="first-victory.mako"/>
             </div>
             <div>
-	          <h3>First all-rune wins</h3>
+	          <h3>First All-Rune Wins</h3>
 	          <%include file="first-allrune.mako"/>
             </div>
           </div>
@@ -155,7 +155,7 @@
             </div>
 
             <div>
-              <h3>Runes fetched at lowest XL</h3>
+              <h3>Runes Fetched at Lowest XL</h3>
               ${html.youngest_rune_finds(c)}
               <p class="fineprint">
                 Note: the abyssal rune is not eligible.

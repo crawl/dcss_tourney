@@ -4,7 +4,6 @@ Legend: ] done + tested
 - Lowercase team captain names on clan pages.
 - Renumber based on identical values for places where we're assigning
   shared slots (top players, top clans, deaths to uniques, kills of uniques).
-- Fix inconsistent case in headings on overview page.
 - Write blacklist script to scan ttyrecs and blacklist games that
   abused undead bug.
         
