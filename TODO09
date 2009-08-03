@@ -1,6 +1,8 @@
 Legend: ] done + tested
         * done, not tested
 
+- Show highest combo scores, species, classes, plus same for wins.
+        
 - Write blacklist script to scan ttyrecs and blacklist games that
   abused undead bug.
         
