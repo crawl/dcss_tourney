@@ -430,7 +430,7 @@ def banner_img_for(b, nth):
   return '''<div>
               <img src="%s" alt="%s"
                    title="%s" width="150" height="55"
-                   border="0" id="banner-%d" class="banner" />
+                   id="banner-%d" class="banner">
               </div>''' % (b[0], b[1], b[1], nth)
 
 def banner_named(name):

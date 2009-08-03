@@ -9,6 +9,8 @@ h1, h2, h3, h4, h5 {
   font-family: "Lucida Grande", "Trebuchet MS", "Sans-Serif";
 }
 
+img { border: 0; }
+
 h1 {
   margin-bottom: 3px;
 }
