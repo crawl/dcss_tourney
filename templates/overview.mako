@@ -12,8 +12,10 @@
           "http://www.w3.org/TR/html4/strict.dtd">
 <html>
   <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
     <title>${title}</title>
-    <link rel="stylesheet" type="text/css" href="tourney-score.css"/>
+    <link rel="stylesheet" type="text/css" href="tourney-score.css">
   </head>
   <body class="page_back">
     <div class="page">
@@ -26,7 +28,7 @@
             Sep 1, 2009 at midnight UTC.
           </p>
         </div>
-        <hr/>
+        <hr>
 
         <div class="content">
 
@@ -56,7 +58,7 @@
             </table>
           </div>
 
-          <hr/>
+          <hr>
           % endif
 
           <div class="row">
@@ -81,7 +83,7 @@
 	        </table>
           </div>
 
-          <hr/>
+          <hr>
 
           <div class="row">
             <div>
@@ -99,7 +101,7 @@
             </div>
           </div>
 
-          <hr/>
+          <hr>
 
           <div class="row">
             <div>
@@ -112,7 +114,7 @@
             </div>
           </div>
 
-          <hr/>
+          <hr>
 
           <div class="row">
             <div>
@@ -126,7 +128,7 @@
             </div>
           </div>
 
-          <hr/>
+          <hr>
 
           <div class="row">
             <table class="grouping" cellspacing="0" cellpadding="0">
@@ -147,7 +149,7 @@
             </table>
           </div>
 
-          <hr/>
+          <hr>
 
           <div class="row">
             <div>
@@ -174,7 +176,7 @@
             </div>
           </div>
 
-          <hr/>
+          <hr>
 
           <div class="row">
 	        <table class="grouping" cellpadding="0" cellspacing="0">

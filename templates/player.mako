@@ -49,6 +49,8 @@
           "http://www.w3.org/TR/html4/strict.dtd">
 <html>
   <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
     <title>${player}</title>
     <link rel="stylesheet" type="text/css" href="../tourney-score.css">
   </head>
@@ -66,7 +68,7 @@
           <h1>Player information for ${player}</h1>
         </div>
 
-        <hr/>
+        <hr>
 
         <div class="content">
           <div class="player_clan">
@@ -141,7 +143,7 @@
             ${html.full_games_table(recent_games, count=False, win=False)}
           </div>
 
-          <hr/>
+          <hr>
 
           % if uniq_slain:
           <div>
@@ -166,7 +168,7 @@
               % endif
             </table>
           </div>
-          <hr/>
+          <hr>
           % endif
 
           <div class="audit_table">

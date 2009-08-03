@@ -14,6 +14,8 @@
           "http://www.w3.org/TR/html4/strict.dtd">
 <html>
   <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
     <title>Scoreboard</title>
     <link rel="stylesheet" type="text/css" href="tourney-score.css">
   </head>
@@ -41,21 +43,21 @@
 
         <%include file="games-overview.mako"/>
 
-        <hr style="width: 50%; margin-left: 0px;"/>
+        <hr style="width: 50%; margin-left: 0px;">
 
         <div>
           <h2>Fastest Wins (turncount)</h2>
           ${html.ext_games_table(fastest_turns)}
         </div>
 
-        <hr/>
+        <hr>
         
         <div>
           <h2>Fastest Wins (real time)</h2>
           ${html.ext_games_table(fastest_time)}
         </div>
 
-        <hr/>
+        <hr>
 
         <div>
           <h2>Top Scores</h1>

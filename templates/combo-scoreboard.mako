@@ -18,6 +18,8 @@
           "http://www.w3.org/TR/html4/strict.dtd">
 <html>
   <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
     <title>Combo Scoreboard</title>
     <link rel="stylesheet" type="text/css" href="tourney-score.css">
   </head>

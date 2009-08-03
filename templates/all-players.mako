@@ -9,6 +9,7 @@
           "http://www.w3.org/TR/html4/strict.dtd">
 <html>
   <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>All Players</title>
     <link rel="stylesheet" type="text/css" href="tourney-score.css">
   </head>
@@ -23,7 +24,7 @@
           <h1>All Players</h1>
         </div>
 
-        <hr/>
+        <hr>
 
         <div class="content">
           ${html.table_text( [ 'Player', 'Clan', 'Points',

@@ -63,6 +63,8 @@
           "http://www.w3.org/TR/html4/strict.dtd">
 <html>
   <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
     <title>${name}</title>
     <link rel="stylesheet" type="text/css" href="../tourney-score.css">
   </head>
@@ -80,7 +82,7 @@
           <h1>Clan ${name.replace('_', ' ')}</h1>
         </div>
 
-        <hr/>
+        <hr>
 
         <div class="content">
           <div class="player_clan">
@@ -125,7 +127,7 @@
             ${recent_html}
           </div>
 
-          <hr/>
+          <hr>
 
           <div class="audit_table">
             <h3>Score Breakdown</h3>
