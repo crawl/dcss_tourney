@@ -1,8 +1,10 @@
 Legend: ] done + tested
         * done, not tested
 
-- Lowercase teram captain names on clan pages.
-- Fix mikee not getting moose and squirrel banner.
+- Lowercase team captain names on clan pages.
+- Fix inconsistent case in headings on overview page.
+- Write blacklist script to scan ttyrecs and blacklist games that
+  abused undead bug.
         
 --------------------------------------------------------------------------
 
