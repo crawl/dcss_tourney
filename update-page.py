@@ -51,7 +51,7 @@ def player_pages(c):
 
 def team_page(c, captain):
   info("Updating team page for captain %s" % captain)
-  render(c, 'clan', dest = ('%s/%s' % (crawl_utils.CLAN_BASE, captain)),
+  render(c, 'clan', dest = ('%s/%s' % (crawl_utils.CLAN_BASE, captain.lower())),
          pars = { 'captain' : captain })
 
 def team_pages(c):

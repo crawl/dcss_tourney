@@ -160,7 +160,7 @@ def is_clan_header(header):
 
 
 def table_text(headers, data, cls='bordered', count=True, link=None,
-               width=None):
+               width=None, place_column=-1, stub_text='No data'):
   if cls:
     cls = ''' class="%s"''' % cls
   if width:
@@ -180,15 +180,23 @@ def table_text(headers, data, cls='bordered', count=True, link=None,
 
   ncols = len(headers) + (count and 1 or 0)
   if not data:
-    out += '''<tr><td colspan='%s'>No data</td></tr>''' % ncols
+    out += '''<tr><td colspan='%s'>%s</td></tr>''' % (ncols, stub_text)
+
+  nplace = 0
+  last_value = None
 
   for row in data:
     nrow += 1
     out += '''<tr class="%s">''' % (odd and "odd" or "even")
     odd = not odd
 
+    if place_column == -1 or last_value != row[place_column]:
+      nplace += 1
+    if place_column != -1:
+      last_value = row[place_column]
+
     if count:
-      out += '''<td class="numeric">%s</td>''' % nrow
+      out += '''<td class="numeric">%s</td>''' % nplace
 
     for c in range(len(headers)):
       val = row[c]
@@ -360,16 +368,17 @@ def fixup_clan_rows(rows):
 def best_clans(c):
   clans = fixup_clan_rows(query.get_top_clan_scores(c))
   return table_text( [ 'Clan', 'Captain', 'Points' ],
-                     clans )
+                     clans, place_column=2 )
 
 def clan_unique_kills(c):
   ukills = fixup_clan_rows(query.get_top_clan_unique_kills(c))
   return table_text( [ 'Clan', 'Captain', 'Kills' ],
-                     ukills )
+                     ukills, place_column=2 )
 
 def clan_combo_highscores(c):
   return table_text( [ 'Clan', 'Captain', 'Scores' ],
-                     fixup_clan_rows(query.get_top_clan_combos(c)) )
+                     fixup_clan_rows(query.get_top_clan_combos(c)),
+                     place_column=2 )
 
 def clan_affiliation(c, player, include_clan=True):
   # Clan affiliation info is clan name, followed by a list of players,

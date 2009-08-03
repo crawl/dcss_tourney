@@ -1,9 +1,6 @@
 Legend: ] done + tested
         * done, not tested
 
-- Lowercase team captain names on clan pages.
-- Renumber based on identical values for places where we're assigning
-  shared slots (top players, top clans, deaths to uniques, kills of uniques).
 - Write blacklist script to scan ttyrecs and blacklist games that
   abused undead bug.
         

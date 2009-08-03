@@ -359,7 +359,7 @@ def check_temp_trophies(c, pmap):
 
   award_temp_trophy(c, pmap, query.player_deaths_to_uniques_best(c),
                     'deaths_to_uniques_Nth:%d', [50, 20, 10],
-                    can_share_places=True,
+                    can_share_places=False,
                     team_points=True)
 
 def check_banners(c):

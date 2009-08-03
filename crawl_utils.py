@@ -110,7 +110,7 @@ def player_link(player):
   return "%s/%s.html" % (CAO_PLAYER_BASE, player.lower())
 
 def clan_link(clan):
-  return "%s/%s.html" % (CAO_CLAN_BASE, clan)
+  return "%s/%s.html" % (CAO_CLAN_BASE, clan.lower())
 
 def banner_link(banner):
   return CAO_IMAGE_BASE + '/' + banner
