@@ -190,10 +190,14 @@ def get_top_clan_combos(c, how_many = 3):
                           ORDER BY hs.combos DESC
                           LIMIT %d''' % how_many)
 
-def get_combo_scores(c, how_many = None):
+def get_combo_scores(c, how_many=None, player=None):
   query = Query("SELECT " + ",".join(LOG_FIELDS) +
-                """ FROM game_combo_highscores
-                   ORDER BY score DESC""")
+                (""" FROM game_combo_highscores
+                       %s
+                     ORDER BY score DESC, charabbrev""" %
+                 (player and 'WHERE player = %s' or '')))
+  if player is not None:
+    query.vappend(player)
   if how_many:
     query.append(" LIMIT %d" % how_many)
   return [ row_to_xdict(x) for x in query.rows(c) ]
@@ -852,11 +856,27 @@ def count_hs_species(c, player):
                         WHERE player=%s''',
                      player)
 
+def game_hs_species(c, player):
+  return [ row_to_xdict(x) for x in
+           query_rows(c,
+                     ("SELECT " + ",".join(LOG_FIELDS)
+                      + "  FROM game_species_highscores "
+                      + " WHERE player=%s ORDER BY score DESC, charabbrev"),
+                     player) ]
+
 def count_hs_classes(c, player):
   return query_first(c,
                      '''SELECT COUNT(*) FROM game_class_highscores
                         WHERE player=%s''',
                      player)
+
+def game_hs_classes(c, player):
+  return [ row_to_xdict(x) for x in
+           query_rows(c,
+                     ("SELECT " + ",".join(LOG_FIELDS)
+                      + "  FROM game_class_highscores "
+                      + " WHERE player=%s ORDER BY score DESC, charabbrev"),
+                     player) ]
 
 ###################################################################
 # Super experimental team stuff. None of this is set in stone.

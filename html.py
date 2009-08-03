@@ -455,3 +455,47 @@ def banner_div(all_banners):
     res += banner_img_for(b, banner_n)
     banner_n += 1
   return res
+
+def _scored_win_text(g, text):
+  if g['killertype'] == 'winning':
+    text += '*'
+  return text
+
+def player_combo_scores(c, player):
+  games = query.get_combo_scores(c, player=player)
+  games = [ [ crawl_utils.linked_text(g, crawl_utils.morgue_link,
+                                      _scored_win_text(g, g['charabbrev'])),
+              g['score'] ]
+            for g in games ]
+  return [ ["Character", "Score"] ] + games
+
+def player_species_scores(c, player):
+  games = query.game_hs_species(c, player)
+
+  games = [
+    [ crawl_utils.linked_text(g, crawl_utils.morgue_link,
+                              _scored_win_text(g, g['charabbrev'][:2])),
+      g['score'] ]
+    for g in games ]
+  return [ ["Species", "Score"] ] + games
+
+def player_class_scores(c, player):
+  games = query.game_hs_classes(c, player)
+  games = [
+    [ crawl_utils.linked_text(g, crawl_utils.morgue_link,
+                              _scored_win_text(g, g['charabbrev'][2:])),
+      g['score'] ]
+    for g in games ]
+  return [ ["Class", "Score"] ] + games
+
+def player_scores_block(c, scores, title):
+  if scores:
+    asterisk = [ s for s in scores if '*' in s[0] ]
+    score_table = table_text(scores[0], scores[1:], stub_text='None')
+    text = """<h3>%(title)s</h3>
+              %(score_table)s
+              """ % {'title': title, 'score_table': score_table}
+    if asterisk:
+      text += "<p class='fineprint'>* Winning Game</p>"
+    return text
+  return ""

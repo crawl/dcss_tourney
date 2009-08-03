@@ -44,6 +44,11 @@
    uniq_slain = query.player_uniques_killed(c, player)
    uniq_unslain = query.uniques_unkilled(uniq_slain)
    banners = html.banner_images(query.get_player_banners(c, player))
+
+   combo_highscores = html.player_combo_scores(c, player)
+   species_highscores = html.player_species_scores(c, player)
+   class_highscores = html.player_class_scores(c, player)
+   asterisk = """<p class='fineprint'>* Winning Game</p>"""
  %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
           "http://www.w3.org/TR/html4/strict.dtd">
@@ -62,7 +67,7 @@
       <div id="player-banners">
         ${html.banner_div(banners)}
       </div>
-      
+
       <div class="page_content content-bannered">
         <div class="heading_left">
           <h1>Player information for ${player}</h1>
@@ -169,6 +174,30 @@
             </table>
           </div>
           <hr>
+          % endif
+
+          % if combo_highscores or species_highscores or class_highscores:
+            <div>
+              <table class="grouping">
+                <tr>
+                  <td>
+                    ${html.player_scores_block(c, combo_highscores,
+                                              'Combo Highscores')}
+                  </td>
+
+                  <td>
+                    ${html.player_scores_block(c, species_highscores,
+                                               'Species Highscores')}
+                  </td>
+
+                  <td>
+                    ${html.player_scores_block(c, class_highscores,
+                                               'Class Highscores')}
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <hr>
           % endif
 
           <div class="audit_table">
