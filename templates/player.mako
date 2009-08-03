@@ -178,24 +178,12 @@
 
           % if combo_highscores or species_highscores or class_highscores:
             <div>
-              <table class="grouping">
-                <tr>
-                  <td>
-                    ${html.player_scores_block(c, combo_highscores,
-                                              'Combo Highscores')}
-                  </td>
-
-                  <td>
-                    ${html.player_scores_block(c, species_highscores,
-                                               'Species Highscores')}
-                  </td>
-
-                  <td>
-                    ${html.player_scores_block(c, class_highscores,
-                                               'Class Highscores')}
-                  </td>
-                </tr>
-              </table>
+              ${html.player_scores_block(c, combo_highscores,
+                                         'Combo Highscores')}
+              ${html.player_scores_block(c, species_highscores,
+                                         'Species Highscores')}
+              ${html.player_scores_block(c, class_highscores,
+                                         'Class Highscores')}
             </div>
             <hr>
           % endif

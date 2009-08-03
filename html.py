@@ -467,7 +467,7 @@ def player_combo_scores(c, player):
                                       _scored_win_text(g, g['charabbrev'])),
               g['score'] ]
             for g in games ]
-  return [ ["Character", "Score"] ] + games
+  return games
 
 def player_species_scores(c, player):
   games = query.game_hs_species(c, player)
@@ -477,7 +477,7 @@ def player_species_scores(c, player):
                               _scored_win_text(g, g['charabbrev'][:2])),
       g['score'] ]
     for g in games ]
-  return [ ["Species", "Score"] ] + games
+  return games
 
 def player_class_scores(c, player):
   games = query.game_hs_classes(c, player)
@@ -486,16 +486,19 @@ def player_class_scores(c, player):
                               _scored_win_text(g, g['charabbrev'][2:])),
       g['score'] ]
     for g in games ]
-  return [ ["Class", "Score"] ] + games
+  return games
 
 def player_scores_block(c, scores, title):
-  if scores:
-    asterisk = [ s for s in scores if '*' in s[0] ]
-    score_table = table_text(scores[0], scores[1:], stub_text='None')
-    text = """<h3>%(title)s</h3>
-              %(score_table)s
-              """ % {'title': title, 'score_table': score_table}
-    if asterisk:
-      text += "<p class='fineprint'>* Winning Game</p>"
-    return text
-  return ""
+  asterisk = [ s for s in scores if '*' in s[0] ]
+  score_table = (scores
+                 and (", ".join([ "%s&nbsp;(%d)" % (s[0], s[1])
+                                  for s in scores ]))
+                 or "None")
+  text = """<h3>%(title)s</h3>
+              <div class="inset inline bordered">
+                %(score_table)s
+              </div>
+         """ % {'title': title, 'score_table': score_table}
+  if asterisk:
+    text += "<p class='fineprint'>* Winning Game</p>"
+  return text
