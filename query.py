@@ -192,7 +192,7 @@ def get_top_clan_combos(c, how_many = 3):
 
 def get_combo_scores(c, how_many=None, player=None):
   query = Query("SELECT " + ",".join(LOG_FIELDS) +
-                (""" FROM game_combo_highscores
+                (""" FROM combo_highscores
                        %s
                      ORDER BY score DESC, charabbrev""" %
                  (player and 'WHERE player = %s' or '')))
@@ -820,7 +820,7 @@ def clan_unique_pos(c, owner, limit=3):
 
 def all_hs_combos(c):
   return query_rows(c,
-                     '''SELECT player, COUNT(*) FROM game_combo_highscores
+                     '''SELECT player, COUNT(*) FROM combo_highscores
                         GROUP BY player''')
 
 def all_hs_combo_wins(c):
@@ -830,17 +830,17 @@ def all_hs_combo_wins(c):
 
 def all_hs_species(c):
   return query_rows(c,
-                    '''SELECT player, COUNT(*) FROM game_species_highscores
+                    '''SELECT player, COUNT(*) FROM species_highscores
                        GROUP BY player''')
 
 def all_hs_classes(c):
   return query_rows(c,
-                     '''SELECT player, COUNT(*) FROM game_class_highscores
+                     '''SELECT player, COUNT(*) FROM class_highscores
                         GROUP BY player''')
 
 def count_hs_combos(c, player):
   return query_first(c,
-                     '''SELECT COUNT(*) FROM game_combo_highscores
+                     '''SELECT COUNT(*) FROM combo_highscores
                         WHERE player = %s''',
                      player)
 
@@ -852,7 +852,7 @@ def count_hs_combo_wins(c, player):
 
 def count_hs_species(c, player):
   return query_first(c,
-                     '''SELECT COUNT(*) FROM game_species_highscores
+                     '''SELECT COUNT(*) FROM species_highscores
                         WHERE player=%s''',
                      player)
 
@@ -860,13 +860,13 @@ def game_hs_species(c, player):
   return [ row_to_xdict(x) for x in
            query_rows(c,
                      ("SELECT " + ",".join(LOG_FIELDS)
-                      + "  FROM game_species_highscores "
+                      + "  FROM species_highscores "
                       + " WHERE player=%s ORDER BY score DESC, charabbrev"),
                      player) ]
 
 def count_hs_classes(c, player):
   return query_first(c,
-                     '''SELECT COUNT(*) FROM game_class_highscores
+                     '''SELECT COUNT(*) FROM class_highscores
                         WHERE player=%s''',
                      player)
 
@@ -874,7 +874,7 @@ def game_hs_classes(c, player):
   return [ row_to_xdict(x) for x in
            query_rows(c,
                      ("SELECT " + ",".join(LOG_FIELDS)
-                      + "  FROM game_class_highscores "
+                      + "  FROM class_highscores "
                       + " WHERE player=%s ORDER BY score DESC, charabbrev"),
                      player) ]
 

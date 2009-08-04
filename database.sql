@@ -20,15 +20,17 @@ DROP TABLE IF EXISTS kills_of_ghosts;
 DROP TABLE IF EXISTS kills_by_ghosts;
 DROP TABLE IF EXISTS milestone_bookmark;
 DROP TABLE IF EXISTS milestones;
+DROP VIEW IF EXISTS class_highscores;
+DROP VIEW IF EXISTS species_highscores;
+DROP VIEW IF EXISTS combo_highscores;
+DROP TABLE IF EXISTS combo_highscores;
 DROP TABLE IF EXISTS games;
 DROP TABLE IF EXISTS teams;
 DROP TABLE IF EXISTS players;
 
 DROP VIEW IF EXISTS fastest_realtime;
 DROP VIEW IF EXISTS fastest_turncount;
-DROP VIEW IF EXISTS combo_highscores;
 DROP VIEW IF EXISTS combo_win_highscores;
-DROP VIEW IF EXISTS species_highscores;
 DROP VIEW IF EXISTS class_highscores;
 DROP VIEW IF EXISTS game_species_highscores;
 DROP VIEW IF EXISTS game_class_highscores;
@@ -151,6 +153,25 @@ CREATE INDEX games_win_dur ON games (killertype, duration);
 
 -- Index to help us find fastest wins (turncount) quick.
 CREATE INDEX games_win_turn ON games (killertype, turn);
+
+CREATE TABLE combo_highscores AS
+SELECT * FROM games;
+ALTER TABLE combo_highscores DROP COLUMN id;
+
+CREATE INDEX ch_player ON combo_highscores (player, killertype, score);
+CREATE INDEX ch_killer ON combo_highscores (killertype);
+
+CREATE TABLE species_highscores AS
+SELECT * FROM games;
+ALTER TABLE species_highscores DROP COLUMN id;
+CREATE INDEX sh_player ON species_highscores (player, killertype, score);
+CREATE INDEX sh_killer ON species_highscores (killertype);
+
+CREATE TABLE class_highscores AS
+SELECT * FROM games;
+ALTER TABLE class_highscores DROP COLUMN id;
+CREATE INDEX clh_player ON class_highscores (player, killertype, score);
+CREATE INDEX clh_killer ON class_highscores (killertype);
 
 CREATE TABLE milestones (
   id BIGINT AUTO_INCREMENT PRIMARY KEY,
@@ -399,29 +420,9 @@ SELECT id, player, kills
 ORDER BY kills
  LIMIT 3;
 
--- All combo highscores.
-CREATE VIEW combo_highscores AS
-SELECT charabbrev, MAX(score) score
-FROM games
-GROUP BY charabbrev;
-
--- Winning combo highscores.
-CREATE VIEW combo_win_highscores AS
-SELECT charabbrev, MAX(score) score
-FROM games
-WHERE killertype = 'winning'
-GROUP BY charabbrev;
-
-CREATE VIEW game_combo_highscores AS
-SELECT p.*
-FROM games p,
-     combo_highscores pmax
-WHERE p.charabbrev = pmax.charabbrev
-AND p.score = pmax.score;
-
 CREATE VIEW clan_combo_highscores AS
 SELECT p.team_captain, g.*
-FROM game_combo_highscores g, players p
+FROM combo_highscores g, players p
 WHERE g.player = p.name
 AND p.team_captain IS NOT NULL;
 
@@ -449,39 +450,13 @@ ORDER BY kills DESC
 LIMIT 10;
 
 CREATE VIEW game_combo_win_highscores AS
-SELECT p.*
-FROM games p,
-     combo_win_highscores pmax
-WHERE p.charabbrev = pmax.charabbrev
-AND p.score = pmax.score;
-
-CREATE VIEW species_highscores AS
-SELECT raceabbr, MAX(score) score
-FROM games
-GROUP BY raceabbr;
-
-CREATE VIEW game_species_highscores AS
-SELECT p.*
-FROM games p,
-     species_highscores pmax
-WHERE p.raceabbr = pmax.raceabbr
-AND p.score = pmax.score;
-
-CREATE VIEW class_highscores AS
-SELECT class, MAX(score) score
-FROM games
-GROUP BY class;
-
-CREATE VIEW game_class_highscores AS
-SELECT p.*
-FROM games p,
-     class_highscores pmax
-WHERE p.class = pmax.class
-AND p.score = pmax.score;
+SELECT *
+FROM combo_highscores
+WHERE killertype = 'winning';
 
 CREATE VIEW combo_hs_scoreboard AS
 SELECT player, COUNT(*) AS nscores
-FROM game_combo_highscores
+FROM combo_highscores
 GROUP BY player
 ORDER BY nscores DESC
 LIMIT 3;

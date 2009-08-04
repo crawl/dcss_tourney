@@ -678,6 +678,39 @@ def insert_xlog_db(cursor, xdict, filename, offset):
   except Exception, e:
     error("Error inserting %s %s (query: %s [%s]): %s"
           % (thingname, milestone, query.query, query.values, e))
+    raise
+
+def update_highscore_table(c, xdict, filename, offset, table, field, value):
+  existing_score = query_first_def(c, 0,
+                                   "SELECT score FROM " + table +
+                                   " WHERE " + field + " = %s",
+                                   value)
+  if xdict['sc'] > existing_score:
+    if existing_score > 0:
+      query_do(c, "DELETE FROM " + table + " WHERE " + field + " = %s",
+               value)
+    iq = make_xlog_db_query(LOG_DB_MAPPINGS, xdict, filename, offset,
+                            table)
+    try:
+      iq.execute(c)
+    except Exception, e:
+      error("Error inserting %s into %s (query: %s [%s]): %s"
+            % (xdict, table, iq.query, iq.values, e))
+      raise
+
+def update_highscores(c, xdict, filename, offset):
+  update_highscore_table(c, xdict, filename, offset,
+                         table="combo_highscores",
+                         field="charabbrev",
+                         value=xdict['char'])
+  update_highscore_table(c, xdict, filename, offset,
+                         table="class_highscores",
+                         field="class",
+                         value=xdict['cls'])
+  update_highscore_table(c, xdict, filename, offset,
+                         table="species_highscores",
+                         field="raceabbr",
+                         value=xdict['char'][:2])
 
 def dbfile_offset(cursor, table, filename):
   """Given a db cursor and filename, returns the offset of the last
@@ -757,6 +790,10 @@ def process_log(cursor, filename, offset, d):
   cursor.execute('BEGIN;')
   try:
     insert_xlog_db(cursor, d, filename, offset)
+
+    if not d.get('milestone'):
+      update_highscores(cursor, d, filename, offset)
+
     if ghost_kill:
       record_ghost_kill(cursor, d)
 
