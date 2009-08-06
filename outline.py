@@ -175,7 +175,7 @@ def crunch_winner(c, game):
 
   query.update_active_streak(c, player, game['end'])
 
-  debug("%s win (%s), runes: %d" % (player, charabbrev, game['urune']))
+  debug("%s win (%s), runes: %d" % (player, charabbrev, game.get('urune') or 0))
 
   if nemchoice.is_nemelex_choice(charabbrev, game['end']):
     ban = 'nemelex_choice:' + charabbrev

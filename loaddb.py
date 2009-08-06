@@ -327,6 +327,10 @@ def xlog_dict(logline):
   if d.get('tmsg') and not d.get('vmsg'):
     d['vmsg'] = d['tmsg']
 
+  if not d.get('nrune') and not d.get('urune'):
+    d['nrune'] = 0
+    d['urune'] = 0
+
   # Fixup rune madness where one or the other is set, but not both.
   if d.get('nrune') is not None or d.get('urune') is not None:
     d['nrune'] = d.get('nrune') or d.get('urune')
