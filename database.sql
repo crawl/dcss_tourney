@@ -24,6 +24,8 @@ DROP VIEW IF EXISTS class_highscores;
 DROP VIEW IF EXISTS species_highscores;
 DROP VIEW IF EXISTS combo_highscores;
 DROP TABLE IF EXISTS combo_highscores;
+DROP TABLE IF EXISTS class_highscores;
+DROP TABLE IF EXISTS species_highscores;
 DROP TABLE IF EXISTS games;
 DROP TABLE IF EXISTS teams;
 DROP TABLE IF EXISTS players;
