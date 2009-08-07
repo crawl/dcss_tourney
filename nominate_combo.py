@@ -139,12 +139,22 @@ def apply_combo(combo):
          "valid at least until %s")
         % (combo, html.pretty_date(validity)))
 
+def filter_combos(combos, filters):
+  race_set = set([x[:2] for x in filters])
+  class_set = set([x[2:] for x in filters])
+  return [x for x in combos if x[:2] not in race_set and x[2:] not in class_set]
+  
 def pick_unwon_combo():
   pcombo = find_previous_nominees()
   assert_validity(pcombo)
   pcombo_names = [x['combo'] for x in pcombo]
 
   all_unwon = get_unwon_combos()
+
+  # Try not to force a repeat race or class if possible.
+  filtered_unwon = filter_combos(all_unwon, pcombo_names)
+  if filtered_unwon:
+    all_unwon = filtered_unwon
 
   def is_real_combo(combo, existing_combos):
     return combo in all_unwon
@@ -201,7 +211,6 @@ if __name__ == '__main__':
   try:
     print "Selecting a combo to nominate for Nemelex' Choice"
     taildb_needs_restart = stop_taildb_and_lock()
-    print "Need restart: %s" % taildb_needs_restart
     random.seed()
     pick_unwon_combo()
     crawl_utils.clear_taildb_stop_request()
