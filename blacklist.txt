@@ -1,0 +1,1 @@
+name=stupidnub:turn=2282:char=SpAr:killer=an ogre-mage:place=D::22

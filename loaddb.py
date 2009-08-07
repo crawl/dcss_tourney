@@ -25,6 +25,7 @@ LOGS = [ 'cao-logfile-0.5', ('cdo-logfile-0.5', CDO + 'allgames-0.5.txt') ]
 MILESTONES = [ 'cao-milestones-0.5',
                ('cdo-milestones-0.5', CDO + 'milestones-0.5.txt') ]
 
+BLACKLIST_FILE = 'blacklist.txt'
 EXTENSION_FILE = 'modules.ext'
 TOURNAMENT_DB = 'tournament'
 COMMIT_INTERVAL = 3000
@@ -32,6 +33,26 @@ CRAWLRC_DIRECTORY = '/home/crawl/chroot/dgldir/rcfiles/'
 
 LISTENERS = [ ]
 TIMERS = [ ]
+
+class Blacklist(object):
+  def __init__(self, filename):
+    self.filename = filename
+    if os.path.exists(filename):
+      info("Loading blacklist from " + filename)
+      self.load_blacklist()
+
+  def load_blacklist(self):
+    fh = open(self.filename)
+    lines = fh.readlines()
+    fh.close()
+    self.blacklist = [apply_dbtypes(parse_logline(x.strip()))
+                      for x in lines if x.strip()]
+
+  def is_blacklisted(self, game):
+    for b in self.blacklist:
+      if xlog_match(b, game):
+        return True
+    return False
 
 class CrawlEventListener(object):
   """The way this is intended to work is that on receipt of an event
@@ -117,7 +138,7 @@ class Xlogline:
     self.processor(cursor, self.filename, self.offset, self.xdict)
 
 class Xlogfile:
-  def __init__(self, filename, tell_op, proc_op):
+  def __init__(self, filename, tell_op, proc_op, blacklist=None):
     if isinstance(filename, tuple):
       self.local = False
       self.filename = filename[0]
@@ -130,6 +151,7 @@ class Xlogfile:
     self.tell_op = tell_op
     self.proc_op = proc_op
     self.size  = None
+    self.blacklist = blacklist
 
   def reinit(self):
     """Reinitialize for a further read from this file."""
@@ -185,22 +207,29 @@ class Xlogfile:
         self.handle.seek(self.offset)
         return None
 
+      self.offset = newoffset
       # If this is a blank line, advance the offset and keep reading.
       if not line.strip():
-        self.offset = newoffset
-      else:
-        xdict = apply_dbtypes( xlog_dict(line) )
-        xline = Xlogline( self, self.filename, self.offset,
-                          xdict.get('end') or xdict.get('time'),
-                          xdict, self.proc_op )
+        return
 
-        # Advance offset past the line just read.
-        self.offset = newoffset
-        return xline
+      xdict = apply_dbtypes( xlog_dict(line) )
+      if self.blacklist and self.blacklist.is_blacklisted(xdict):
+        # Blacklisted games are mauled here:
+        xdict['ktyp'] = 'blacklist'
+        xdict['place'] = 'D:1'
+        xdict['xl'] = 1
+        xdict['lvl'] = 1
+        xdict['tmsg'] = 'was blacklisted.'
+        xdict['vmsg'] = 'was blacklisted.'
+
+      xline = Xlogline( self, self.filename, self.offset,
+                        xdict.get('end') or xdict.get('time'),
+                        xdict, self.proc_op )
+      return xline
 
 class Logfile (Xlogfile):
-  def __init__(self, filename):
-    Xlogfile.__init__(self, filename, logfile_offset, process_log)
+  def __init__(self, filename, blacklist):
+    Xlogfile.__init__(self, filename, logfile_offset, process_log, blacklist)
 
 class MilestoneFile (Xlogfile):
   def __init__(self, filename):
@@ -317,6 +346,14 @@ def xlog_milestone_fixup(d):
   noun = noun or milestone
   d['verb'] = verb
   d['noun'] = noun
+
+def xlog_match(ref, target):
+  """Returns True if all keys in the given reference dictionary are
+associated with the same values in the target dictionary."""
+  for key in ref.keys():
+    if ref[key] != target.get(key):
+      return False
+  return True
 
 def xlog_dict(logline):
   d = parse_logline(logline.strip())
@@ -985,8 +1022,9 @@ def cleanup_listeners(db):
     e.cleanup(db)
 
 def create_master_reader():
+  blacklist = Blacklist(BLACKLIST_FILE)
   processors = ([ MilestoneFile(x) for x in MILESTONES ] +
-                [ Logfile(x) for x in LOGS ])
+                [ Logfile(x, blacklist) for x in LOGS ])
   return MasterXlogReader(processors)
 
 if __name__ == '__main__':
