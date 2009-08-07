@@ -305,6 +305,11 @@ def deepest_xl1_games(c):
   games = query.get_deepest_xl1_games(c)
   return games_table(games, first = 'place', win=False)
 
+def most_pacific_wins(c):
+  games = query.most_pacific_wins(c)
+  return games_table(games,
+                     columns = STOCK_WIN_COLUMNS + [('kills', 'Kills')])
+
 def hyperlink_games(games, field):
   hyperlinks = [ crawl_utils.morgue_link(g) for g in games ]
   text = [ '<a href="%s">%s</a>' % (link, g[field])

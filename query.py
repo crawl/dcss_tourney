@@ -161,11 +161,11 @@ def get_top_streaks_from(c, table, min_streak, how_many,
         find_most_recent_character_since(c, streak[0], streak[2]) or '?')
   return streaks
 
-def get_top_active_streaks(c, how_many = 3):
+def get_top_active_streaks(c, how_many = 10):
   return get_top_streaks_from(c, 'active_streaks', 2, how_many,
                               add_next_game=True)
 
-def get_top_streaks(c, how_many = 10):
+def get_top_streaks(c, how_many = 3):
   return get_top_streaks_from(c, 'streaks', 2, how_many)
 
 def get_top_clan_scores(c, how_many=10):
@@ -300,6 +300,15 @@ def get_top_combo_highscorers(c, how_many=3):
 
 def get_deepest_xl1_games(c, how_many=3):
   return find_games(c, xl = 1, sort_max = 'lvl', limit = how_many)
+
+def most_pacific_wins(c, how_many=3):
+  fields = ",".join(['g.' + x for x in LOG_FIELDS])
+  rows = query_rows(c,
+                    "SELECT " + fields + " FROM " +
+                    ''' most_pacific_wins m, games g
+                       WHERE m.id = g.id''')
+  games = [ row_to_xdict(x) for x in rows ]
+  return games
 
 def get_streak_games(c, player, end_time):
   q = Query('SELECT ' + ",".join(LOG_FIELDS) + ' FROM games ' +
