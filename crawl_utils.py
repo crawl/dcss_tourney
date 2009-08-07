@@ -30,6 +30,7 @@ CAO_CLAN_BASE = '%s/clans' % CAO_TOURNEY_BASE
 CAO_OVERVIEW = '''<a href="%s/overview.html">Overview</a>''' % CAO_TOURNEY_BASE
 
 RAWDATA_PATH = '/var/www/crawl/rawdata'
+TAILDB_STOP_REQUEST_FILE = os.path.join(BASEDIR, 'taildb.stop')
 
 MKDIRS = [ SCORE_FILE_DIR, PLAYER_FILE_DIR, CLAN_FILE_DIR ]
 
@@ -37,11 +38,32 @@ for d in MKDIRS:
   if not os.path.exists(d):
     os.makedirs(d)
 
+
+def write_taildb_stop_request():
+  f = open(TAILDB_STOP_REQUEST_FILE, 'w')
+  f.write("\n")
+  f.close()
+
+def clear_taildb_stop_request():
+  if os.path.exists(TAILDB_STOP_REQUEST_FILE):
+    os.unlink(TAILDB_STOP_REQUEST_FILE)
+
+def taildb_stop_requested():
+  return os.path.exists(TAILDB_STOP_REQUEST_FILE)
+
+def unlock_handle():
+  fcntl.flock(LOCK, fcntl.LOCK_UN)
+
 def lock_handle(check_only=True):
   if check_only:
     fcntl.flock(LOCK, fcntl.LOCK_EX | fcntl.LOCK_NB)
   else:
     fcntl.flock(LOCK, fcntl.LOCK_EX)
+
+def lock_or_throw(lockfile = LOCKFILE):
+  global LOCK
+  LOCK = open(lockfile, 'w')
+  lock_handle()
 
 def lock_or_die(lockfile = LOCKFILE):
   global LOCK

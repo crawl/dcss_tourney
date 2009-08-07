@@ -12,6 +12,7 @@
 # - The DB will probably have to be dumped after a combo is inserted to
 #   make sure no wins get missed.
 
+import MySQLdb
 import crawl_utils
 import random
 import sys
@@ -19,6 +20,7 @@ import html
 import os.path
 from datetime import datetime, timedelta
 import time
+from loaddb import query_first
 
 NOMINEE_FILE = 'nemelex-combos.txt'
 COMBO_VALIDITY_MINIMUM_DAYS = 10
@@ -28,9 +30,13 @@ UNWON_FILE = '/home/henzell/henzell/unwon.txt'
 
 EXCLUDED_COMBOS = ['GhPa']
 
-# Skip obsolete and new races
-EXCLUDED_RACES = ['GE', 'El', 'HD', 'Gn', 'DD']
+# Skip obsolete and new races, skip Mu because players tend to farm and lag the server
+EXCLUDED_RACES = ['GE', 'El', 'HD', 'Gn', 'OM', 'DD', 'Mu']
 EXCLUDED_CLASSES = ['Ar']
+
+AUTOMATIC = __name__ == '__main__' and [x for x in sys.argv if x == '--auto']
+
+g_henzell_db = None
 
 def _clean_unwon_lines(lines):
   def extract_character(l):
@@ -52,8 +58,32 @@ def get_unwon_combos():
   f.close()
   return _clean_unwon_lines(lines)
 
+def _connect_henzell_db():
+  db = MySQLdb.connect(host='localhost',
+                       user='henzell',
+                       db='henzell')
+  return db
+
+def with_henzell_cursor(action):
+  global g_henzell_db
+  if not g_henzell_db:
+    g_henzell_db = _connect_henzell_db()
+  cursor = g_henzell_db.cursor()
+  res = None
+  try:
+    res = action(cursor)
+  finally:
+    cursor.close()
+  return res
+
 def is_still_unwon(combo):
-  return True
+  def is_combo_unwon(c):
+    q = query_first(c, 
+                    '''SELECT COUNT(*) FROM logrecord 
+                       WHERE charabbrev = %s AND ktyp = 'winning' ''',
+                    combo)
+    return q == 0
+  return with_henzell_cursor(is_combo_unwon)
 
 def find_random_unwon(all_unwon):
   trials = 0
@@ -87,6 +117,9 @@ def assert_validity(pcombo):
   if not pcombo:
     return
   last = pcombo[-1]
+  # Don't check validity period.
+  if True:
+    return
   if (last and ((datetime.utcnow() - last['time']).days
                   < COMBO_VALIDITY_MINIMUM_DAYS)):
     bail(
@@ -109,7 +142,7 @@ def apply_combo(combo):
 def pick_unwon_combo():
   pcombo = find_previous_nominees()
   assert_validity(pcombo)
-  pcombo_names = [x[0] for x in pcombo]
+  pcombo_names = [x['combo'] for x in pcombo]
 
   all_unwon = get_unwon_combos()
 
@@ -125,8 +158,10 @@ def pick_unwon_combo():
       raise Exception("Failed to choose a random unwon combo!")
     print("\n---> %s as the next Nemelex' Choice? (effective immediately)"
           % chosen)
-    print "Hit Enter to continue, or enter an alternative combo, or ^C to cancel"
-    combo = sys.stdin.readline().strip()
+    combo = None
+    if not AUTOMATIC:
+      print "Hit Enter to continue, or enter an alternative combo, or ^C to cancel"
+      combo = sys.stdin.readline().strip()
     if combo:
       if not is_real_combo(combo, all_unwon):
         print(combo + " is not a valid combo. You may use one of " +
@@ -142,12 +177,36 @@ def pick_unwon_combo():
       return apply_combo(combo)
     return apply_combo(chosen)
 
+def stop_taildb_and_lock():
+  taildb_running = False
+  while True:
+    try:
+      crawl_utils.lock_or_throw()
+      return taildb_running
+    except IOError:
+      if not taildb_running:
+        crawl_utils.write_taildb_stop_request()
+        print "taildb.py appears to be running, requesting it to stop."
+      taildb_running = True
+    print "Waiting..."
+    time.sleep(2)
+
+def restart_taildb():
+  if not os.path.exists('taildb.py'):
+    raise Exception("Cannot find taildb.py script!")
+  print "Restarting taildb.py"
+  os.system('python taildb.py')
+
 if __name__ == '__main__':
   try:
     print "Selecting a combo to nominate for Nemelex' Choice"
-    print "Please kill taildb.py if it's running and restart after we're done here."
-    crawl_utils.lock_or_die()
+    taildb_needs_restart = stop_taildb_and_lock()
+    print "Need restart: %s" % taildb_needs_restart
     random.seed()
     pick_unwon_combo()
+    crawl_utils.clear_taildb_stop_request()
+    if taildb_needs_restart:
+      crawl_utils.unlock_handle()
+      restart_taildb()
   except KeyboardInterrupt:
     print "\nAborted by user."
