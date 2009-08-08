@@ -48,6 +48,10 @@
                   % if pnemelex:
                   <h3>Nemelex' Previous Choices: </h3>
                   ${", ".join(['<span>' + x + '</span>' for x in pnemelex])}
+                  <p class="fineprint">
+                    All previous Nemelex' Choices also remain valid during the
+                    tournament.
+                  </p>
                   % endif
                 </td>
 
