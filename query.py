@@ -930,6 +930,10 @@ def create_team(cursor, team, owner_name):
     query_do(cursor, '''INSERT INTO teams (owner, name) VALUES (%s, %s)
                         ON DUPLICATE KEY UPDATE name = %s''',
              owner_name, team, team)
+    # Flush everyone from the team, in case a player was removed.
+    query_do(cursor, '''UPDATE players SET team_captain = NULL
+                         WHERE team_captain = %s''',
+             owner_name)
     # Add the team owner herself to the team.
     _add_player_to_team(cursor, owner_name, owner_name)
 
