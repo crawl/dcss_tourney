@@ -177,11 +177,21 @@ def get_top_clan_scores(c, how_many=10):
   return clans
 
 def get_top_clan_unique_kills(c, how_many=3):
-  return query_rows(c, '''SELECT c.name, u.team_captain, u.kills
+  rows = query_rows(c, '''SELECT c.name, u.team_captain, u.kills
                           FROM teams c, clan_unique_kills u
                           WHERE c.owner = u.team_captain
-                          ORDER BY u.kills DESC
-                          LIMIT %d''' % how_many)
+                            AND u.kills > 0
+                          ORDER BY u.kills DESC''')
+  result_rows = []
+  count = 0
+  pkills = 0
+  for r in rows:
+    if r[2] != pkills:
+      count += 1
+    if count >= how_many:
+      break
+    pkills = r[2]
+  return result_rows
 
 def get_top_clan_combos(c, how_many = 3):
   return query_rows(c, '''SELECT c.name, hs.team_captain, hs.combos
@@ -824,7 +834,8 @@ def clan_unique_pos(c, owner, limit=3):
   return find_place_numeric(
     query_rows(c,
                '''SELECT team_captain, kills FROM
-                         clan_unique_kills'''),
+                         clan_unique_kills
+                   WHERE kills > 0'''),
     owner)
 
 def all_hs_combos(c):
