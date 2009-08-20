@@ -186,6 +186,7 @@ def get_top_clan_unique_kills(c, how_many=3):
   count = 0
   pkills = 0
   for r in rows:
+    result_rows.append(rows)
     if r[2] != pkills:
       count += 1
     if count >= how_many:
