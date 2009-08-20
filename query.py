@@ -824,7 +824,7 @@ def clan_unique_pos(c, owner, limit=3):
   return find_place_numeric(
     query_rows(c,
                '''SELECT team_captain, kills FROM
-                         clan_unique_kills LIMIT %d''' % limit),
+                         clan_unique_kills'''),
     owner)
 
 def all_hs_combos(c):

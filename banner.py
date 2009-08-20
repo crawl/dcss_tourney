@@ -74,7 +74,7 @@ def assign_top_clan_banners(c):
                             FROM teams
                            WHERE total_score > 0
                            ORDER BY total_score DESC, name
-                            LIMIT 3''')
+                           LIMIT 3''')
   def do_banner(r, nth):
     award_clan_banner(c, r[0], 'top_clan_Nth:%d' % (nth + 1), 1000)
     return True
