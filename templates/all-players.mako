@@ -30,7 +30,8 @@
           ${html.table_text( [ 'Player', 'Clan', 'Points',
                                'Games Won', 'Games Played',
                                'Win %' ],
-          stats )}
+                             stats,
+                             place_column=2 )}
         </div>
       </div>
     </div>
