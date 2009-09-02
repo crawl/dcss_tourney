@@ -582,7 +582,7 @@ def is_god_repeated(c, player, god):
   specified god."""
   return query_first_def(c, False,
                          '''SELECT god FROM player_won_gods
-                             WHERE player = %s AND god = %s''',
+                             WHERE player = %s AND COALESCE(god, '') = %s''',
                          player, god)
 
 def record_won_god(c, player, god):
