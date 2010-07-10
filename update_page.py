@@ -49,6 +49,10 @@ def player_pages(c):
   render(c, 'killers')
   render(c, 'gkills')
 
+def index_page(c):
+  info("Updating index page")
+  render(c, 'index')
+
 def team_page(c, captain):
   info("Updating team page for captain %s" % captain)
   render(c, 'clan', dest = ('%s/%s' % (crawl_utils.CLAN_BASE, captain.lower())),

@@ -8,9 +8,12 @@ import sys
 UPDATE_INTERVAL = 7 * 60
 
 LOCK = None
-BASEDIR = '/home/snark'
+BASEDIR = os.environ['HOME']
 LOCKFILE = BASEDIR + '/tourney-py.lock'
-SCORE_FILE_DIR = '/var/www/crawl/tourney09'
+SCORE_FILE_DIR = 'html.tourney10'
+
+SCORE_CSS = 'tourney-score.css'
+SCORE_CSS_PATH = SCORE_FILE_DIR + "/" + SCORE_CSS
 PLAYER_BASE = 'players'
 CLAN_BASE = 'clans'
 PLAYER_FILE_DIR = SCORE_FILE_DIR + '/' + PLAYER_BASE
@@ -22,7 +25,7 @@ CDO_MORGUE_BASE = 'http://crawl.develz.org/morgues/stable'
 CAO_BASE = (('tecumseh' in os.getcwd())
             and 'file:///var/www/crawl'
             or 'http://crawl.akrasiac.org')
-CAO_TOURNEY_BASE = '%s/tourney09' % CAO_BASE
+CAO_TOURNEY_BASE = '%s/tourney10' % CAO_BASE
 CAO_IMAGE_BASE = CAO_TOURNEY_BASE + '/images'
 CAO_PLAYER_BASE = '%s/players' % CAO_TOURNEY_BASE
 CAO_CLAN_BASE = '%s/clans' % CAO_TOURNEY_BASE
@@ -34,10 +37,19 @@ TAILDB_STOP_REQUEST_FILE = os.path.join(BASEDIR, 'taildb.stop')
 
 MKDIRS = [ SCORE_FILE_DIR, PLAYER_FILE_DIR, CLAN_FILE_DIR ]
 
-for d in MKDIRS:
-  if not os.path.exists(d):
-    os.makedirs(d)
+def setup_scoring_dirs():
+  for d in MKDIRS:
+    if not os.path.exists(d):
+      os.makedirs(d)
+  if not os.path.exists(SCORE_CSS_PATH):
+    os.system("ln -s %s/templates/%s %s" % (os.getcwd(), SCORE_CSS,
+                                            SCORE_CSS_PATH))
 
+  images_link = SCORE_FILE_DIR + "/images"
+  if not os.path.exists(images_link):
+    os.system("ln -s %s/images %s" % (os.getcwd(), images_link))
+
+setup_scoring_dirs()
 
 def write_taildb_stop_request():
   f = open(TAILDB_STOP_REQUEST_FILE, 'w')

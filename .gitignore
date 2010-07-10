@@ -10,3 +10,4 @@ allgames*.txt
 *-logfile
 *.diff
 points.out
+html.tourney*

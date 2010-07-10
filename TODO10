@@ -1,8 +1,54 @@
 Tournament todo for 2010:
 
-* Nail down final set of rules
+* Proposals dropped:
 
-* Final banners
+  - Clans as independent entities.
+
+  - Proposal to award +20 points for getting a god to max piety -- for 2010
+    let's keep the old system of requiring the player to not change a god.
+
+* Nail down final set of rules:
+
+  - Review email thread
+  
+  - Decide on clan status.
+
+* Final banners:
+
+  - Fedhas: Fruit basket: find every type of fruit in one game.
+
+  - Cheibriados: RELAXED (last win of the tournament,
+    i.e. win with latest starting time)
+
+* Update the rules html with:
+
+  - New rules:
+
+    * Remove bonus points for 200/100/50 for highest scoring game.
+
+    * 100/50/10 CLAN points for first/second/third wins of the tournament.
+
+    * +50 points for picking up a rune instead of the old.
+
+    * +20 CLAN points for each Crawl win with a combo not previously won in
+      the tournament.
+
+    * First Sprint win: 200/100/50
+
+    * 50 points for first Sprint win for a player
+    
+      20 points for subsequent Sprint wins that repeat neither species nor
+      class. No extra points for Sprint streaks.
+
+      +10 CLAN points for a Sprint win with species+class combo not
+      previously won in the tournament.
+
+    * Sprint will be activated on Aug 15.
+
+  - New banners
+
+* New Nemelex' Choice plan:
+  - Pick 0.7-valid character that has < 2 wins since 0.4
 
 * For the new banners, talk to Poor_Yurik or one of the other artists
   on ##crawl-ev.
@@ -15,3 +61,8 @@ Tournament todo for 2010:
 
 * Run tournament test run for July.
 
+* Put 0.7 up on cao, set up Sprint menu on CAO for testing, hardwired
+  to new Sprint map.
+
+* Sprint should be activatable by a one-line change to the launch
+  script.

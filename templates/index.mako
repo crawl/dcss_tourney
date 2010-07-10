@@ -1,38 +1,26 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
-           "http://www.w3.org/TR/html4/strict.dtd">
+<%
+   version = "0.7"
+   year    = "2010"
+   title   = "Crawl %s Tournament Information" % year
+ %>
+<!DOCTYPE html>
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Crawl 2009 Tournament Information</title>
+    <title>${title}</title>
     <link rel="stylesheet" type="text/css" href="tourney-score.css">
   </head>
   <body class="page_back">
     <div class="page information">
 
-      <div class="toplinks">
-        <a href="http://crawl.akrasiac.org/tourney09/overview.html">Overview</a>
-        &nbsp;
-        <a href="http://crawl.akrasiac.org/tourney09/all-players.html">Players</a>
-        &nbsp;
-        <a href="http://crawl.akrasiac.org/tourney09/teams.html">Clans</a>
-        &nbsp;
-        <a href="http://crawl.akrasiac.org/tourney09/combo-leaders.html">Combo Standings</a>
-        &nbsp;
-        <a href="http://crawl.akrasiac.org/tourney09/combo-scoreboard.html">Combo Scoreboard</a>
-        &nbsp;
-        <a href="http://crawl.akrasiac.org/tourney09/scoreboard.html">Scoreboard</a>
-        &nbsp;
-        <a href="http://crawl.akrasiac.org/tourney09/">Tourney Rules</a>
-        &nbsp;
-        <a href="http://crawl.akrasiac.org">crawl.akrasiac.org</a>
-      </div>
+      <%include file="toplink.mako"/>
 
       <div class="page_content">
         <div class="heading">
-          <h1>Crawl 2009 Tournament Information</h1>
+          <h1>${title}</h1>
           <p class="fineprint">
-            Tournament starts Aug 1, 2009 at midnight UTC, and ends on
-            Sep 1, 2009 at midnight UTC.
+            Tournament starts Aug 1, ${year} at midnight UTC, and ends on
+            Sep 1, ${year} at midnight UTC.
           </p>
         </div>
         <hr>
@@ -41,17 +29,27 @@
 
           <p>
             Hello all! Welcome to the rules for the crawl.akrasiac.org
-            2009 Dungeon Crawl Stone Soup Tournament. The simple part:
+            ${year} Dungeon Crawl Stone Soup Tournament. The simple part:
             Play on <a href="http://crawl.akrasiac.org">crawl.akrasiac.org</a>
             or <a href="http://crawl.develz.org">crawl.develz.org</a> and all of
-            your Crawl 0.5.1 games that <b>start after midnight UTC on
+            your Crawl ${version} games that <b>start after midnight UTC on
             August 1</b> will count toward the tournament.
           </p>
 
           <p>
-            If you wish to be a member of a clan, which may contain
-            six or fewer members, you need to add a line to the top of
-            your CAO rcfile like this:
+            This year's tournament will include Dungeon Sprint. We'll
+            activate Dungeon Sprint with a new Sprint map on August
+            15, a little before midnight UTC, and Sprint games started
+            after August 15 0000 UTC (midnight UTC) on
+            crawl.akrasiac.org or crawl.develz.org will be scored for
+            the tournament.
+          </p>
+
+          <p>
+            Participants in the tournament may form clans of six or
+            fewer players. If you wish to be a member of a clan, you
+            need to add a line to the top of your CAO rcfile like
+            this:
           </p>
 
           <pre>
@@ -79,6 +77,16 @@
             else appearing before these lines.
           </p>
 
+          <div class="inset">
+            <p>
+              <span class="inline_heading">For emphasis:</span> clan membership lines should be added to
+              your crawl.akrasiac.org .crawlrc. Even if you're playing
+              your games on crawl.develz.org, you must add clan
+              membership information to your crawl.akrasiac.org
+              .crawlrc.
+            </p>
+          </div>
+
           <p>
             Clan names must contain only alphanumeric characters,
             underscores, and hyphens. Once a player's username is in
@@ -102,55 +110,57 @@
           <hr>
 
           <div>
-            <h2>WINS:</h2>
-            <ul>
-              <li>
-                <span>100 points</span> for first win. (Since winning
-                is kind of the goal.)
-              </li>
-              <li>
-                <span>50 points</span> for second win that is not a
-                repeat race or class.
-              </li>
-              <li>
-                <span>10 points</span> for each win thereafter, repeat
-                or not.
-              </li>
-              <li>
-                <span>50 extra points</span> for your first all-rune
-                victory.
-              </li>
-              <li>
-                <span>100 extra points</span> for each consecutive win
-                that is not a repeat race or class.
-              </li>
+            <h2>WINS</h2>
+            <p>
+              <span>100 points</span> for first win. (Since winning
+              is kind of the goal.)
+            </p>
 
-              <li>
-                <span>30 extra points</span> for each consecutive win
-                that is a repeat race xor class.
-              </li>
+            <p>
+              <span>50 points</span> for second win that is not a
+              repeat race or class.
+            </p>
 
-              <li>
-                <span>10 extra points</span> for each consecutive win
-                that is a repeat race and class.
-              </li>
+            <p>
+              <span>10 points</span> for each win thereafter, repeat
+              or not.
+            </p>
 
-              <li>
-                <span>30 extra points</span> for each non-consecutive
-                win that is not a repeat race or class.
-              </li>
+            <p>
+              <span>50 extra points</span> for your first all-rune
+              victory.
+            </p>
 
-              <li>
-                <span>10 extra points</span> for each non-consecutive
-                win that is a repeat race xor class.
-              </li>
+            <p>
+              <span>100 extra points</span> for each consecutive win
+              that is not a repeat race or class.
+            </p>
 
-              <li>
-                <span>20 extra points</span> for each win with a new
-                god (including "No God"). This does not apply if you
-                changed gods during the game.
-              </li>
-            </ul>
+            <p>
+              <span>30 extra points</span> for each consecutive win
+              that is a repeat race xor class.
+            </p>
+
+            <p>
+              <span>10 extra points</span> for each consecutive win
+              that is a repeat race and class.
+            </p>
+
+            <p>
+              <span>30 extra points</span> for each non-consecutive
+              win that is not a repeat race or class.
+            </p>
+
+            <p>
+              <span>10 extra points</span> for each non-consecutive
+              win that is a repeat race xor class.
+            </p>
+
+            <p>
+              <span>20 extra points</span> for each win with a new
+              god (including "No God"). This does not apply if you
+              changed gods during the game.
+            </p>
 
             <p>
               For streak wins, "Repeat" means "in that streak;" for
