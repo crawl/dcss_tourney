@@ -528,7 +528,7 @@
               <p>
                 Elyvilon thinks it's important to check out what all
                 the gods have to offer and thus will
-                give <a name="pantheon">THE PANTHEON</a> to any player
+                give <a name="pantheon">THE&nbsp;PANTHEON</a> to any player
                 who acquires every god as not a starting god over the
                 course of the tournament.
               </p>
@@ -545,7 +545,7 @@
               <p>
                 Kiku is a terrible god and, recognizing this, will
                 give followers and other players the
-                <a name="cartographer">D:1 CARTOGRAPHER</a>
+                <a name="cartographer">D:1&nbsp;CARTOGRAPHER</a>
                 award just for showing up. Thanks, Kiku!
               </p>
             </div>
@@ -593,9 +593,55 @@
                    >
               <p>
                 Lugonu, who hates the other gods, would like to
-                award <a name="atheist">THE ATHEIST</a> to any winning
+                award <a name="atheist">THE&nbsp;ATHEIST</a> to any winning
                 player who never takes a god when she had the option
                 to do so.
+              </p>
+            </div>
+
+            <hr>
+
+            <div>
+              <img src="images/fedhas.png"
+                   alt="Fruit Basket"
+                   title="Fruit Basket"
+                   width="150" height="55"
+                   >
+              <p>
+                Fedhas is extraordinarily fond of fruit and
+                vegetables, and will award <a name="fruit_basket">THE
+                FRUIT BASKET</a> to a player who finds every kind of
+                fruit (pear, apple, choko, snozzcumber, apricot,
+                orange, banana, strawberry, rambutan, lemon, grape,
+                sultana, lychee) over the course of the tournament.
+              </p>
+            </div>
+
+            <hr>
+
+            <div>
+              <img src="images/cheibriados.png"
+                   alt="The Hare"
+                   title="The Hare"
+                   width="150" height="55"
+                   >
+              <p>
+                Cheibriados deplores unseemly haste, and will
+                award <a name="hare">THE HARE</a> to the player who
+                wins the last game started during the tournament.
+              </p>
+            </div>
+
+            <hr>
+
+            <div>
+              <img src="images/jiyva.png"
+                   alt="TBD"
+                   title="TBD"
+                   width="150" height="55"
+                   >
+              <p>
+                Jiyva TBD
               </p>
             </div>
 
