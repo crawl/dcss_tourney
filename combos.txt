@@ -1,7 +1,6 @@
 HuFi
 HuWz
 HuPr
-HuTh
 HuGl
 HuNe
 HuPa
@@ -16,7 +15,6 @@ HuSu
 HuAE
 HuEE
 HuCr
-HuDK
 HuVM
 HuCK
 HuTm
@@ -27,10 +25,10 @@ HuMo
 HuWr
 HuWn
 HuAr
+HuAM
 HEFi
 HEWz
 HEPr
-HETh
 HEGl
 HENe
 HEPa
@@ -45,7 +43,6 @@ HESu
 HEAE
 HEEE
 HECr
-HEDK
 HEVM
 HECK
 HETm
@@ -56,10 +53,10 @@ HEMo
 HEWr
 HEWn
 HEAr
+HEAM
 DEFi
 DEWz
 DEPr
-DETh
 DEGl
 DENe
 DEPa
@@ -74,7 +71,6 @@ DESu
 DEAE
 DEEE
 DECr
-DEDK
 DEVM
 DECK
 DETm
@@ -85,10 +81,10 @@ DEMo
 DEWr
 DEWn
 DEAr
+DEAM
 SEFi
 SEWz
 SEPr
-SETh
 SEGl
 SENe
 SEPa
@@ -103,7 +99,6 @@ SESu
 SEAE
 SEEE
 SECr
-SEDK
 SEVM
 SECK
 SETm
@@ -114,10 +109,10 @@ SEMo
 SEWr
 SEWn
 SEAr
+SEAM
 MDFi
 MDWz
 MDPr
-MDTh
 MDGl
 MDNe
 MDPa
@@ -132,7 +127,6 @@ MDSu
 MDAE
 MDEE
 MDCr
-MDDK
 MDVM
 MDCK
 MDTm
@@ -143,10 +137,10 @@ MDMo
 MDWr
 MDWn
 MDAr
+MDAM
 HaFi
 HaWz
 HaPr
-HaTh
 HaGl
 HaNe
 HaPa
@@ -161,7 +155,6 @@ HaSu
 HaAE
 HaEE
 HaCr
-HaDK
 HaVM
 HaCK
 HaTm
@@ -172,10 +165,10 @@ HaMo
 HaWr
 HaWn
 HaAr
+HaAM
 HOFi
 HOWz
 HOPr
-HOTh
 HOGl
 HONe
 HOPa
@@ -190,7 +183,6 @@ HOSu
 HOAE
 HOEE
 HOCr
-HODK
 HOVM
 HOCK
 HOTm
@@ -201,10 +193,10 @@ HOMo
 HOWr
 HOWn
 HOAr
+HOAM
 KoFi
 KoWz
 KoPr
-KoTh
 KoGl
 KoNe
 KoPa
@@ -219,7 +211,6 @@ KoSu
 KoAE
 KoEE
 KoCr
-KoDK
 KoVM
 KoCK
 KoTm
@@ -230,10 +221,10 @@ KoMo
 KoWr
 KoWn
 KoAr
+KoAM
 MuFi
 MuWz
 MuPr
-MuTh
 MuGl
 MuNe
 MuAs
@@ -247,7 +238,6 @@ MuSu
 MuAE
 MuEE
 MuCr
-MuDK
 MuVM
 MuCK
 MuTm
@@ -257,10 +247,10 @@ MuMo
 MuWr
 MuWn
 MuAr
+MuAM
 NaFi
 NaWz
 NaPr
-NaTh
 NaGl
 NaNe
 NaPa
@@ -275,7 +265,6 @@ NaSu
 NaAE
 NaEE
 NaCr
-NaDK
 NaVM
 NaCK
 NaTm
@@ -286,10 +275,10 @@ NaMo
 NaWr
 NaWn
 NaAr
+NaAM
 OgFi
 OgWz
 OgPr
-OgTh
 OgGl
 OgNe
 OgPa
@@ -304,7 +293,6 @@ OgSu
 OgAE
 OgEE
 OgCr
-OgDK
 OgVM
 OgCK
 OgTm
@@ -315,10 +303,10 @@ OgMo
 OgWr
 OgWn
 OgAr
+OgAM
 TrFi
 TrWz
 TrPr
-TrTh
 TrGl
 TrNe
 TrPa
@@ -333,7 +321,6 @@ TrSu
 TrAE
 TrEE
 TrCr
-TrDK
 TrVM
 TrCK
 TrTm
@@ -344,10 +331,10 @@ TrMo
 TrWr
 TrWn
 TrAr
+TrAM
 DrFi
 DrWz
 DrPr
-DrTh
 DrGl
 DrNe
 DrPa
@@ -362,7 +349,6 @@ DrSu
 DrAE
 DrEE
 DrCr
-DrDK
 DrVM
 DrCK
 DrTm
@@ -373,10 +359,10 @@ DrMo
 DrWr
 DrWn
 DrAr
+DrAM
 CeFi
 CeWz
 CePr
-CeTh
 CeGl
 CeNe
 CePa
@@ -391,7 +377,6 @@ CeSu
 CeAE
 CeEE
 CeCr
-CeDK
 CeVM
 CeCK
 CeTm
@@ -402,9 +387,9 @@ CeMo
 CeWr
 CeWn
 CeAr
+CeAM
 DGFi
 DGWz
-DGTh
 DGGl
 DGNe
 DGAs
@@ -417,7 +402,6 @@ DGSu
 DGAE
 DGEE
 DGCr
-DGDK
 DGVM
 DGTm
 DGRe
@@ -426,10 +410,10 @@ DGMo
 DGWr
 DGWn
 DGAr
+DGAM
 SpFi
 SpWz
 SpPr
-SpTh
 SpGl
 SpNe
 SpPa
@@ -444,7 +428,6 @@ SpSu
 SpAE
 SpEE
 SpCr
-SpDK
 SpVM
 SpCK
 SpTm
@@ -455,10 +438,10 @@ SpMo
 SpWr
 SpWn
 SpAr
+SpAM
 MiFi
 MiWz
 MiPr
-MiTh
 MiGl
 MiNe
 MiPa
@@ -473,7 +456,6 @@ MiSu
 MiAE
 MiEE
 MiCr
-MiDK
 MiVM
 MiCK
 MiTm
@@ -484,10 +466,10 @@ MiMo
 MiWr
 MiWn
 MiAr
+MiAM
 DSFi
 DSWz
 DSPr
-DSTh
 DSGl
 DSNe
 DSAs
@@ -501,7 +483,6 @@ DSSu
 DSAE
 DSEE
 DSCr
-DSDK
 DSVM
 DSCK
 DSTm
@@ -511,10 +492,10 @@ DSMo
 DSWr
 DSWn
 DSAr
+DSAM
 GhFi
 GhWz
 GhPr
-GhTh
 GhGl
 GhNe
 GhAs
@@ -528,7 +509,6 @@ GhSu
 GhAE
 GhEE
 GhCr
-GhDK
 GhVM
 GhCK
 GhTm
@@ -538,10 +518,10 @@ GhMo
 GhWr
 GhWn
 GhAr
+GhAM
 KeFi
 KeWz
 KePr
-KeTh
 KeGl
 KeNe
 KePa
@@ -556,7 +536,6 @@ KeSu
 KeAE
 KeEE
 KeCr
-KeDK
 KeVM
 KeCK
 KeTm
@@ -567,10 +546,10 @@ KeMo
 KeWr
 KeWn
 KeAr
+KeAM
 MfFi
 MfWz
 MfPr
-MfTh
 MfGl
 MfNe
 MfPa
@@ -585,7 +564,6 @@ MfSu
 MfAE
 MfEE
 MfCr
-MfDK
 MfVM
 MfCK
 MfTm
@@ -596,10 +574,10 @@ MfMo
 MfWr
 MfWn
 MfAr
+MfAM
 VpFi
 VpWz
 VpPr
-VpTh
 VpGl
 VpNe
 VpAs
@@ -613,7 +591,6 @@ VpSu
 VpAE
 VpEE
 VpCr
-VpDK
 VpVM
 VpCK
 VpTm
@@ -623,10 +600,10 @@ VpMo
 VpWr
 VpWn
 VpAr
+VpAM
 DDFi
 DDWz
 DDPr
-DDTh
 DDGl
 DDNe
 DDPa
@@ -641,7 +618,6 @@ DDSu
 DDAE
 DDEE
 DDCr
-DDDK
 DDVM
 DDCK
 DDTm
@@ -652,3 +628,4 @@ DDMo
 DDWr
 DDWn
 DDAr
+DDAM
