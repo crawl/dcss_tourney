@@ -12,8 +12,13 @@ import imp
 import sys
 
 # Start and end of the tournament, UTC.
-START_TIME = '20090801'
-END_TIME   = '20090901'
+START_TIME = '20100801'
+END_TIME   = '20100901'
+
+GAME_VERSION = '0.7'
+
+SPRINT_START_TIME = '20100815'
+SPRINT_END_TIME = END_TIME
 
 CDO = 'http://crawl.develz.org/'
 
@@ -588,12 +593,25 @@ dbfield_to_sqltype = {
         'gold_spent': sql_int
 	}
 
+def game_is_sprint(game):
+  return 'spr' in game['lv']
+
 def is_not_tourney(game):
   """A game started before the tourney start or played after the end
   doesn't count."""
   start = game['start']
   end = game.get('end') or game.get('time') or start
-  return start < START_TIME or end >= END_TIME
+
+  sprint = game_is_sprint(game)
+
+  # Is this the game version we want?
+  if not game['v'].startswith(GAME_VERSION):
+    return True
+
+  if sprint:
+    return start < SPRINT_START_TIME or end >= SPRINT_END_TIME
+  else:
+    return start < START_TIME or end >= END_TIME
 
 _active_cursor = None
 
