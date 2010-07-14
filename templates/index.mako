@@ -188,6 +188,12 @@
             </p>
 
             <p>
+              <span>100 bonus points</span> for the win with the last
+              starting time (among tournament wins) in the tournament
+              (<a href="#hare">THE HARE</a> banner).
+            </p>
+
+            <p>
               <span>100 bonus points</span> for winning Nemelex'
               Choice characters - a character class and race
               combination decided at random at the beginning of each
@@ -666,7 +672,9 @@
               <p>
                 Cheibriados deplores unseemly haste, and will
                 award <a name="hare">THE HARE</a> to the player who
-                wins the last game started during the tournament.
+                wins the game that was started last (among winning
+                games) in the tournament (<span>100 points</span>
+                for the winning game with the latest starting time).
               </p>
             </div>
 
@@ -681,9 +689,9 @@
               <p>
                 Jiyva relishes item destruction in all its splendid
                 forms, and will crown <a name="royal_jelly">ROYAL
-                JELLY</a> a player who destroys the Orb of Zot.
+                JELLY</a> a player who destroys the Orb of Zot
                 (<span>50 points</span> for a player's first game to
-                earn this banner.)
+                earn this banner).
               </p>
             </div>
 
@@ -724,16 +732,24 @@
             <h3>General</h3>
 
             <p class="added">
+              <span>100 bonus points</span> for the win with the last
+              starting time (among tournament wins) in the tournament
+              (<a href="#hare">THE HARE</a> banner).
+
+              <span class="added">[NEW]</span>
+            </p>
+
+            <p class="added">
               <span>50 points</span> for a player's first game to destroy
-              the Orb of Zot. (<a href="#royal_jelly">ROYAL JELLY</a> banner.)
+              the Orb of Zot (<a href="#royal_jelly">ROYAL JELLY</a> banner).
 
               <span class="added">[NEW]</span>
             </p>
 
             <p class="added">
               <span>20 bonus points</span> for winning games without
-              visiting the Lair. (<a href="#demon_prince">DEMON PRINCE</a>
-              banner.)
+              visiting the Lair (<a href="#demon_prince">DEMON PRINCE</a>
+              banner).
 
               <span class="added">[NEW]</span>
             </p>
