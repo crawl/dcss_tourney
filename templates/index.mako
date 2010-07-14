@@ -655,9 +655,9 @@
                 Fedhas is extraordinarily fond of fruit and
                 vegetables, and will award <a name="fruit_basket">THE
                 FRUIT BASKET</a> to a player who finds every kind of
-                fruit (pear, apple, choko, snozzcumber, apricot,
-                orange, banana, strawberry, rambutan, lemon, grape,
-                sultana, lychee) over the course of the tournament.
+                fruit (pear, apple, choko, apricot, orange, banana,
+                strawberry, rambutan, lemon, grape, sultana, lychee)
+                over the course of the tournament.
               </p>
             </div>
 
