@@ -198,6 +198,10 @@
               Choices that you manage during the tournament.
             </p>
 
+            <p>
+              <span>20 bonus points</span> for winning games without
+              visiting the Lair.
+            </p>
           </div>
 
           <hr>
@@ -215,19 +219,12 @@
           <hr>
 
           <div>
-            <h2>UNIQUES</h2>
-
-            <p><span>5 points</span> the first time you kill each
-              unique.</p>
-
-            <p><span>50/20/10 points</span> for most unique uniques
-              killed; ties broken by who gets that number first.</p>
-          </div>
-
-          <hr>
-
-          <div>
             <h2>HIGH SCORES</h2>
+
+            <p>
+              <span>200/100/50 points</span> for highest single game
+              score overall.
+            </p>
 
             <p>
               <span>5 points</span> per high score in a race/class combination
@@ -248,6 +245,30 @@
               race/class combos.
             </p>
 
+          </div>
+
+          <hr>
+
+          <div>
+            <h2>EXTRAS</h2>
+
+            <p>
+              <span>20 points</span> for a player's first game where
+              she destroys the Orb of Zot
+              (<a href="#royal_jelly">ROYAL JELLY</a> banner)
+            </p>
+          </div>
+
+          <hr>
+
+          <div>
+            <h2>UNIQUES</h2>
+
+            <p><span>5 points</span> the first time you kill each
+              unique.</p>
+
+            <p><span>50/20/10 points</span> for most unique uniques
+              killed; ties broken by who gets that number first.</p>
           </div>
 
           <hr>
@@ -326,6 +347,20 @@
               We'll be actvating a new Sprint map shortly before midnight
               August 15th (i.e. at Aug 15 0000 UTC). Sprint games started on
               or after Aug 15 0000 UTC will be scored for the tournament.
+            </p>
+
+            <p>
+              Sprint games will award points only for the rules
+              described here. Banners and other special points do
+              not apply to Sprint.
+            </p>
+
+            <p>
+              Sprint scoring is entirely separate from regular Crawl
+              scoring. In particular, playing Sprint games will not
+              interrupt your Crawl streaks and winning Sprint games
+              will not deprive you of points for winning Crawl games
+              repeating the same species/class.
             </p>
 
             <p>
@@ -538,15 +573,18 @@
 
             <div>
               <img src="images/d1cartographer.png"
-                   alt="D:1 Cartographer"
-                   title="D:1 Cartographer"
+                   alt="Demon Prince"
+                   title="Demon Prince"
                    width="150" height="55"
                    >
               <p>
-                Kiku is a terrible god and, recognizing this, will
-                give followers and other players the
-                <a name="cartographer">D:1&nbsp;CARTOGRAPHER</a>
-                award just for showing up. Thanks, Kiku!
+                Kikubaaqudgha disapproves of players taking the easy
+                route through the Lair, and will recognise any player
+                who wins without hanging out with the distressingly
+                cute chordates of the Lair as
+                a <a name="demon_prince">DEMON PRINCE</a>. (<span>+20
+                points</span> for each game won without visiting the
+                Lair.)
               </p>
             </div>
 
@@ -636,12 +674,16 @@
 
             <div>
               <img src="images/jiyva.png"
-                   alt="TBD"
-                   title="TBD"
+                   alt="Royal Jelly"
+                   title="Royal Jelly"
                    width="150" height="55"
                    >
               <p>
-                Jiyva TBD
+                Jiyva relishes item destruction in all its splendid
+                forms, and will crown <a name="royal_jelly">ROYAL
+                JELLY</a> a player who destroys the Orb of Zot.
+                (<span>50 points</span> for a player's first game to
+                earn this banner.)
               </p>
             </div>
 
@@ -681,10 +723,19 @@
 
             <h3>General</h3>
 
-            <p class="removed">
-              <span>200/100/50 points</span> for highest single game
-              score overall.
-              <span class="removed">[REMOVED]</span>
+            <p class="added">
+              <span>50 points</span> for a player's first game to destroy
+              the Orb of Zot. (<a href="#royal_jelly">ROYAL JELLY</a> banner.)
+
+              <span class="added">[NEW]</span>
+            </p>
+
+            <p class="added">
+              <span>20 bonus points</span> for winning games without
+              visiting the Lair. (<a href="#demon_prince">DEMON PRINCE</a>
+              banner.)
+
+              <span class="added">[NEW]</span>
             </p>
 
             <p class="removed">
