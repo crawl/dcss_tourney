@@ -1,46 +1,48 @@
 Tournament todo for 2010:
 
-* Crawl changes needed:
-  - Fedhas banner (log fruit found).
-
-* Proposals dropped:
-
-  - Clans as independent entities.
-
-  - Proposal to award +20 points for getting a god to max piety -- for 2010
-    let's keep the old system of requiring the player to not change a god.
-
-* Nail down final set of rules:
-
-  - Review email thread
-  
-  - Decide on clan status.
-
 * Show characters won in the tournament for both Crawl and Sprint (this
   is for the extra points for unwon combos)
 
-* Final banners:
+* Banner images and text pending (due is on this)
 
-  - Fedhas: Fruit basket: find every type of fruit in one game.
+* Banner Kiku: win without visiting Lair + 20 points for each win.
 
-  - Cheibriados: RELAXED (last win of the tournament,
-    i.e. win with latest starting time)
+* Banner Fedhas: Fruit basket: find every type of fruit in one game.
+    
+* Banner Cheibriados: THE HARE (last win of the tournament) + 100 points
 
-  - Jiyva: destroying the orb.
+* Banner Jiyva: destroying the orb + 50 points
 
-* New Nemelex' Choice plan:
+* Implement Nemelex' Choice plan:
   - Pick 0.7-valid character that has < 2 wins since 0.4
+  - Make sure Nemelex' Choice works correctly without needing manual kicks
+    to the tourney scripts
 
-* due is on banners
+* Remove 50/20/10 for lowest DL at XL1
 
-* Add support for Sprint games to the tournament scripts.
+* Points for finding each rune first -> 50
 
-* Update scripts for 2010 rules.
+* 20 clan points for winning a previous unwon character in the tourney.
+
+* Exclude slimy rune from candidates for lowest-xl-rune-find points.
+
+* Sprint: 200/100/50 for first Sprint win.
+
+* Sprint: 50 points for player's first Sprint win.
+
+* Sprint: 20 points for player's subsequent Sprint win without repeating
+  race or class.
+
+* Sprint: 10 clan points for player's Sprint win with a combo previously unwon
+  in the tournament.
+
+* Carefully review each rule from http://crawl.akrasiac.org/tourney10/ and
+  make sure it's coded.
 
 * Run tournament test run for July.
 
 * Put 0.7 up on cao, set up Sprint menu on CAO for testing, hardwired
   to new Sprint map.
 
-* Sprint should be activatable by a one-line change to the launch
-  script.
+* Sprint+new map should be activatable by a one-line change to the
+  launch script on both cao and cdo.

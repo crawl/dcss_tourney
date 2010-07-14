@@ -754,6 +754,13 @@
               <span class="added">[NEW]</span>
             </p>
 
+            <p class="added">
+              <span>20 clan points</span> for winning a character that was
+              not previously won in the tournament
+
+              <span class="added">[NEW]</span>
+            </p>
+
             <p class="removed">
               <span>50/20/10 clan points</span> for lowest dungeon level
               reached at XL1.
