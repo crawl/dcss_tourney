@@ -186,21 +186,21 @@
           <hr>
 
           <div class="row">
-	        <table class="grouping" cellpadding="0" cellspacing="0">
+	    <table class="grouping" cellpadding="0" cellspacing="0">
               <tr>
                 <td>
                   <div>
-	                <h3>Most High Scores: Clan</h3>
+	            <h3>Most High Scores: Clan</h3>
                     ${html.clan_combo_highscores(c)}
                   </div>
-	            </td>
+	        </td>
 
-	            <td>
+	        <td>
                   <div>
-	                <h3>Most Uniques Killed: Clan</h3>
+	            <h3>Most Uniques Killed: Clan</h3>
                     ${html.clan_unique_kills(c)}
                   </div>
-	            </td>
+	        </td>
               </tr>
             </table>
           </div>

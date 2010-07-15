@@ -7,7 +7,12 @@ UNIQUES = [ "Ijyb", "Blork the orc", "Urug", "Erolcha", "Snorg",
             "Cerebov", "Gloorx Vloq", "Geryon", "Dispater", "Asmodeus",
             "Ereshkigal", "Nessos", "Azrael",
             "Prince Ribbit", "the royal jelly", "Dissolution", "Sonja",
-            "Nergalle", "Saint Roka", "Roxanne", "Eustachio" ]
+            "Nergalle", "Saint Roka", "Roxanne", "Eustachio",
+
+            "the Enchantress", "the Lernaean hydra", "Dowan", "Duvessa",
+            "Grum", "Crazy Yiuf", "Gastronok", "Pikel", "Menkaure",
+            "Khufu", "Ilsuiw", "Aizul", "Mara", "Purgy", "Grinder",
+            "Kirke", "Nikola", "Maurice" ]
 
 UNIQ_SET = set(UNIQUES)
 

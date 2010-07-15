@@ -10,11 +10,6 @@ Tournament todo for 2010:
 
 * Banner Jiyva: destroying the orb + 50 points
 
-* Implement Nemelex' Choice plan:
-  - Pick 0.7-valid character that has < 2 wins since 0.4
-  - Make sure Nemelex' Choice works correctly without needing manual kicks
-    to the tourney scripts
-
 * HTML changes:
   - Remove deepest dive table
   - Sprint combos won and unwon.
@@ -23,6 +18,13 @@ Tournament todo for 2010:
   - Winner of the Hare banner on overview
   - All sprint wins on player page.
 
+---------------------------------------------------------------------  
+
+* Implement Nemelex' Choice plan:
+  - Pick 0.7-valid character that has < 2 wins since 0.4
+  - Make sure Nemelex' Choice works correctly without needing manual kicks
+    to the tourney scripts
+  
 * Carefully review each rule from http://crawl.akrasiac.org/tourney10/ and
   make sure it's coded.
 
