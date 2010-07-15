@@ -24,7 +24,9 @@ BANNER_IMAGES = \
       'cartographer': [ 'd1cartographer.png', 'D:1 Cartographer' ],
       'nemelex_choice': [ 'nemechoice.png', "Nemelex' Choice" ],
       'shopaholic': [ 'shopuntilyoudrop.png', 'Shop Until You Drop' ],
-      'scythe' : [ 'thescythe.png', 'The Scythe' ] }
+      'scythe' : [ 'thescythe.png', 'The Scythe' ],
+      'lairless_win' : [ 'kiku.png', 'Lairless Leaver' ],
+    }
 
 STOCK_WIN_COLUMNS = \
     [ ('player', 'Player'),

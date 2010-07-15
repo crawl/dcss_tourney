@@ -229,6 +229,12 @@ def crunch_winner(c, game):
   # Award 'Orb' banner for wins.
   banner.safe_award_banner(c, player, 'orb', 10)
 
+  if not query.game_did_visit_lair(c, player, game_start(game)):
+    # 20 bonus points for winning without doing the Lair
+    assign_points(c, player, 'lairless_win', 20)
+    # And the banner:
+    banner.safe_award_banner(c, player, 'lairless_win', 15)
+
   query.update_active_streak(c, player, game['end'])
 
   debug("%s win (%s), runes: %d" % (player, charabbrev, game.get('urune') or 0))
@@ -424,18 +430,16 @@ def check_temp_trophies(c, pmap):
                     team_points=True)
 
 def check_banners(c):
-  # Award moose & squirrel banners.
   award_player_banners(c, 'moose',
                        query_first_col(c, '''SELECT DISTINCT player
                                              FROM double_boris_kills'''),
                        9)
-  # Award 'Atheist' banners
+
   award_player_banners(c, 'atheist',
                        query_first_col(c, '''SELECT DISTINCT player
                                                FROM atheist_wins'''),
                        11)
 
-  # Award 'Scythe' banners
   award_player_banners(c, 'scythe',
                        query_first_col(c, '''SELECT player
                                              FROM super_sigmund_kills'''),
