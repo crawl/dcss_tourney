@@ -1,4 +1,4 @@
-UNIQUES = [ "Ijyb", "Blork the orc", "Urug", "Erolcha", "Snorg",
+UNIQUES = [ "Ijyb", "Blork", "Urug", "Erolcha", "Snorg",
             "Antaeus", "Xtahua", "Tiamat", "Boris", "Murray", "Terence",
             "Jessica", "Sigmund", "Edmund", "Psyche", "Donald", "Michael",
             "Joseph", "Erica", "Josephine", "Harold", "Norbert", "Jozef",

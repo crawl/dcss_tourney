@@ -1,22 +1,24 @@
 Tournament todo for 2010:
 
 * Banner images and text pending (due is on this)
-
-* Banner Kiku: win without visiting Lair + 20 points for each win.
-
-* Banner Fedhas: Fruit basket: find every type of fruit in one game.
     
 * Banner Cheibriados: THE HARE (last win of the tournament) + 100 points
 
 * Banner Jiyva: destroying the orb + 50 points
 
 * HTML changes:
+  Overview:
   - Remove deepest dive table
+  - First sprint wins
+  - Winner of the Hare banner
+
+  Combo pages:
   - Sprint combos won and unwon.
   - Crawl combos won and unwon.
-  - First sprint wins on overview page.
-  - Winner of the Hare banner on overview
+
+  User page:
   - All sprint wins on player page.
+  - Fruit found and missing.
 
 ---------------------------------------------------------------------  
 

@@ -21,11 +21,11 @@ BANNER_IMAGES = \
       'free_will': [ 'freewill.png', 'Free Will' ],
       'ghostbuster': [ 'ghostbuster.png', 'Ghostbuster (TM)' ],
       'moose'   : [ 'mooseandsquirrel.png', 'Moose and Squirrel' ],
-      'cartographer': [ 'd1cartographer.png', 'D:1 Cartographer' ],
       'nemelex_choice': [ 'nemechoice.png', "Nemelex' Choice" ],
       'shopaholic': [ 'shopuntilyoudrop.png', 'Shop Until You Drop' ],
       'scythe' : [ 'thescythe.png', 'The Scythe' ],
       'lairless_win' : [ 'kiku.png', 'Lairless Leaver' ],
+      'fruit_basket' : [ 'fedhas.png', 'Fruit Basket' ]
     }
 
 STOCK_WIN_COLUMNS = \

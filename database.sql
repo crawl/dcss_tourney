@@ -66,6 +66,9 @@ CREATE TABLE IF NOT EXISTS players (
   team_score_base BIGINT,
   -- This is also computed and will be overwritten each time.
   team_score_full BIGINT DEFAULT 0,
+
+  fruit_mask INT DEFAULT 0,
+  
   FOREIGN KEY (team_captain) REFERENCES players (name)
   ON DELETE SET NULL
   );

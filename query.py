@@ -323,6 +323,13 @@ def _canonicalize_player_name(c, player):
 canonicalize_player_name = \
     crawl_utils.Memoizer(_canonicalize_player_name, lambda args: args[1:])
 
+def player_update_get_fruit_mask(c, player, fruit_mask):
+  """Updates the player's fruit mask and returns the new fruit mask."""
+  query_do(c, '''UPDATE players SET fruit_mask = fruit_mask | %s
+                  WHERE name = %s''', fruit_mask, player)
+  return query_first(c, '''SELECT fruit_mask FROM players WHERE name = %s''',
+                     player)
+
 def get_top_players(c, how_many=10):
   return query_rows(c,
                     '''SELECT name, score_full FROM players
