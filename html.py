@@ -26,7 +26,8 @@ BANNER_IMAGES = \
       'scythe' : [ 'thescythe.png', 'The Scythe' ],
       'lairless_win' : [ 'kiku.png', 'Lairless Leaver' ],
       'fruit_basket' : [ 'fedhas.png', 'Fruit Basket' ],
-      'the_hare' : ['che.png', 'The Hare']
+      'the_hare' : [ 'che.png', 'The Hare' ],
+      'royal_jelly' : [ 'jiyva.png', 'Royal Jelly' ]
     }
 
 STOCK_WIN_COLUMNS = \

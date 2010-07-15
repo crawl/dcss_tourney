@@ -54,21 +54,35 @@ LISTENER = [ OutlineListener() ]
 # Update player scores every so often.
 TIMER = [ ( crawl_utils.UPDATE_INTERVAL, OutlineTimer() ) ]
 
-def act_on_milestone(c, this_mile):
+def milestone_type(m):
+  return m['type']
+
+def milestone_desc(m):
+  return m['milestone']
+
+def act_on_milestone(c, mile):
   """This function takes a milestone line, which is a string composed of key/
   value pairs separated by colons, and parses it into a dictionary.
   Then, depending on what type of milestone it is (key "type"), another
   function may be called to finish the job on the milestone line. Milestones
   have the same broken :: behavior as logfile lines, yay."""
-  query.update_most_recent_character(c, this_mile['name'],
-                                     this_mile['char'], this_mile['time'])
-  if this_mile['type'] == 'unique' and \
-        not this_mile['milestone'].startswith('banished '):
-    do_milestone_unique(c, this_mile)
-  if this_mile['type'] == 'rune':
-    do_milestone_rune(c, this_mile)
-  if this_mile['type'] == 'ghost':
-    do_milestone_ghost(c, this_mile)
+
+  player = game_player(mile)
+  query.update_most_recent_character(c, player,
+                                     game_character(mile),
+                                     mile['time'])
+
+  miletype = milestone_type(mile)
+  if miletype == 'unique' and not milestone_desc(mile).startswith('banished '):
+    do_milestone_unique(c, mile)
+  if miletype == 'rune':
+    do_milestone_rune(c, mile)
+  elif miletype == 'ghost':
+    do_milestone_ghost(c, mile)
+  elif miletype == 'orb.destroy':
+    # 50 points for first time player destroys the Orb (Royal Jelly banner).
+    if banner.safe_award_banner(c, player, 'royal_jelly', 15):
+      assign_points(c, "royal_jelly", player, 50)
 
 def do_milestone_unique(c, mile):
   """This function takes a parsed milestone known to commemorate the death of
