@@ -15,7 +15,7 @@ import sys
 START_TIME = '20100801'
 END_TIME   = '20100901'
 
-GAME_VERSION = '0.7'
+GAME_VERSION = '0.'
 
 SPRINT_START_TIME = '20100815'
 SPRINT_END_TIME = END_TIME
@@ -25,10 +25,18 @@ CDO = 'http://crawl.develz.org/'
 # Log and milestone files. A tuple indicates a remote file with t[1]
 # being the URL to wget -c from.
 
-LOGS = [ 'cao-logfile-0.5', ('cdo-logfile-0.5', CDO + 'allgames-0.5.txt') ]
+# FIXME: Point at 0.7 release logs:
+LOGS = [ 'cao-logfile-0.6',
+         ('cdo-logfile-0.6', CDO + 'allgames-0.6.txt'),
+         ('cdo-logfile-svn', CDO + 'allgames-svn.txt'),
+         # And Sprint
+         ('cdo-logfile-spr', CDO + 'allgames-spr.txt') ]
 
-MILESTONES = [ 'cao-milestones-0.5',
-               ('cdo-milestones-0.5', CDO + 'milestones-0.5.txt') ]
+MILESTONES = [ 'cao-milestones-0.6',
+               ('cdo-milestones-0.6', CDO + 'milestones-0.6.txt'),
+               ('cdo-milestones-svn', CDO + 'milestones-svn.txt'),
+               ('cdo-milestones-spr', CDO + 'milestones-spr.txt')
+             ]
 
 BLACKLIST_FILE = 'blacklist.txt'
 EXTENSION_FILE = 'modules.ext'
