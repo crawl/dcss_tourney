@@ -26,6 +26,7 @@ DROP VIEW IF EXISTS combo_highscores;
 DROP TABLE IF EXISTS combo_highscores;
 DROP TABLE IF EXISTS class_highscores;
 DROP TABLE IF EXISTS species_highscores;
+DROP TABLE IF EXISTS sprint_games;
 DROP TABLE IF EXISTS games;
 DROP TABLE IF EXISTS teams;
 DROP TABLE IF EXISTS players;
@@ -135,6 +136,9 @@ CREATE TABLE games (
   terse_msg VARCHAR(255),
   verb_msg VARCHAR(255),
   nrune INT DEFAULT 0,
+
+  mapname VARCHAR(80) DEFAULT '',
+  mapdesc VARCHAR(80) DEFAULT '',
 
   CONSTRAINT PRIMARY KEY (id)
   );
@@ -478,7 +482,7 @@ LIMIT 3;
 CREATE VIEW youngest_rune_finds AS
 SELECT player, rune, start_time, rune_time, xl
   FROM rune_finds
- WHERE rune != 'abyssal'
+ WHERE rune != 'abyssal' AND rune != 'slimy'
 ORDER BY xl, rune_time
  LIMIT 5;
 
@@ -538,3 +542,19 @@ SELECT *
   FROM games
  WHERE gold_spent >= 5000
    AND gold < 50;
+
+   
+-- Sprint scoring
+
+-- Sprint table for games.
+CREATE TABLE sprint_games AS
+SELECT * FROM games LIMIT 1;
+TRUNCATE TABLE sprint_games;
+ALTER TABLE spr_logrecord ADD PRIMARY KEY (id);
+ALTER TABLE spr_logrecord CHANGE COLUMN id id BIGINT AUTO_INCREMENT;
+
+CREATE INDEX sprint_games_source_offset ON
+sprint_games (source_file, source_file_offset);
+
+CREATE INDEX sprint_games_ktyp ON sprint_games (killertype);
+CREATE INDEX sprint_games_player ON sprint_games (player);

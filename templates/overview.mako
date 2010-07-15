@@ -178,11 +178,6 @@
             </div>
 
             <div>
-	          <h3>Lowest DL at XL1</h3>
-              ${html.deepest_xl1_games(c)}
-            </div>
-
-            <div>
               <h3>Most Deaths to Uniques</h3>
               ${html.most_deaths_to_uniques(c)}
             </div>

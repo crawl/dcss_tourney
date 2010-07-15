@@ -10,7 +10,7 @@ import crawl_utils
 import crawl
 import uniq
 
-from loaddb import query_do, query_first_col
+from loaddb import query_do, query_first_col, game_is_sprint
 from query import assign_points, assign_team_points, wrap_transaction
 from query import log_temp_points, log_temp_team_points, get_points
 
@@ -92,8 +92,8 @@ def do_milestone_rune(c, mile):
     # player_already_has_rune:
     assign_points(c, "rune:" + rune, mile['name'], 1)
   else:
-    # first time getting this rune!
-    assign_points(c, "rune_1st:" + rune, mile['name'], 10)
+    # 50 points for the first time the player finds a rune.
+    assign_points(c, "rune_1st:" + rune, mile['name'], 50)
   player = mile['name']
   banner.safe_award_banner(c, player, 'discovered_language', 6)
   if (not banner.player_has_banner(c, player, 'runic_literacy')
@@ -112,7 +112,15 @@ def act_on_logfile_line(c, this_game):
   irrevocable points and those should be assigned immediately. Revocable
   points (high scores, lowest dungeon level, fastest wins) should be
   calculated elsewhere."""
-  if this_game['ktyp'] == 'winning':
+
+  sprint = game_is_sprint(this_game)
+
+  # Early exit for sprint games.
+  if sprint:
+    calc_sprint_game_stats(c, this_game)
+    return
+
+  if game_is_win(this_game):
     crunch_winner(c, this_game) # lots of math to do for winners
 
   crunch_misc(c, this_game)
@@ -166,12 +174,60 @@ def repeat_race_class(previous_chars, char):
     repeats += 1
   return repeats
 
+def game_is_win(g):
+  return g.has_key('ktyp') and g['ktyp'] == 'winning'
+
+def game_player(g):
+  return g['name']
+
+def game_end_time(g):
+  return g['end']
+
+def game_character(g):
+  return g['char']
+
+def calc_sprint_game_stats(c, g):
+  "Assign points for sprint games."
+
+  # Non-winners get off the bus here.
+  if not game_is_win(g):
+    return
+
+  # 200/100/50 points for first Sprint wins of the tournament. Only
+  # the player's first win is considered.
+  player = game_player(g)
+  game_end = game_end_time(g)
+  previous_winners = query.sprint_player_win_counts_before(c, game_end)
+  if not [x for x in previous_winners if x[0] == player]:
+    n_previous_winners = len(previous_winners)
+    assign_points(c, 'sprint_nth_win:%d' % (n_previous_winners + 1),
+                  player, get_points(n_previous_winners, 200, 100, 50))
+    # 50 points for the player's first Sprint win.
+    assign_points(c, 'sprint_my_1st_win', player, 50)
+  else:
+    previous_wins = query.sprint_player_wins_before(c, player, game_end)
+    repeats = repeat_race_class(previous_wins, game_character(g))
+    # 20 points for second and later Sprint wins that repeat neither sp nor cls.
+    assign_points(c, 'sprint_win', player, get_points(repeats, 20))
+
+  # 10 clan points for winning with a previously unwon Sprint combo.
+  charabbrev = game_character(g)
+  if query.first_win_for_combo(c, charabbrev, game_end, sprint = True):
+    assign_team_points(c, 'sprint_combo_first_win:' + charabbrev, player, 10)
+
 def crunch_winner(c, game):
   """A game that wins could assign a variety of irrevocable points for a
   variety of different things. This function needs to calculate them all."""
 
   player = game['name']
-  charabbrev = game['char']
+  charabbrev = game_character(game)
+
+  # 20 clan points for first win for a particular combo in the tournament.
+  if query.first_win_for_combo(c, charabbrev):
+    assign_team_points(c, "combo_first_win:" + charabbrev, player, 20)
+
+  # Award 'Orb' banner for wins.
+  banner.safe_award_banner(c, player, 'orb', 10)
 
   query.update_active_streak(c, player, game['end'])
 
@@ -274,9 +330,10 @@ def number_of_allruners_before(c, game):
 ###################### Additional scoring math ##########################
 
 def record_points(point_map, player, points, team_points):
-  pdef = point_map.get(player.lower()) or { 'team': 0, 'you': 0 }
+  lplayer = player.lower()
+  pdef = point_map.get(lplayer) or { 'team': 0, 'you': 0 }
   pdef[team_points and 'team' or 'you'] += points
-  point_map[player.lower()] = pdef
+  point_map[lplayer] = pdef
 
 def player_additional_score(c, player, pmap):
   """Calculates the player's total score, including unchanging score and the
@@ -305,16 +362,20 @@ def award_temp_trophy(c, point_map,
       log_temp_points(c, player, title, points)
     banner.award_banner(c, player, title, points, temp=True)
 
+  npoints = len(points)
   for row in player_rows:
     if not can_share_places or row[1] != last_value:
       place += 1
     if can_share_places:
       last_value = row[1]
-    if place < len(points):
-      title = key % (place + 1)
-      p = points[place]
-      player = row[0]
-      do_points(player, title, p)
+
+    if place >= npoints:
+      break
+
+    title = key % (place + 1)
+    p = points[place]
+    player = row[0]
+    do_points(player, title, p)
 
 def apply_point_map(c, pmap):
   for player, points in pmap.iteritems():
@@ -346,9 +407,10 @@ def check_temp_trophies(c, pmap):
                     'top_pacific_win:%d', [200, 100, 50],
                     team_points=True)
 
-  award_temp_trophy(c, pmap, query.player_xl1_dive_best(c),
-                    'xl1_dive_Nth:%d', [50, 20, 10],
-                    team_points=True)
+  # [snark] xl1 dive disabled for 2010 tourney.
+  #award_temp_trophy(c, pmap, query.player_xl1_dive_best(c),
+  #                  'xl1_dive_Nth:%d', [50, 20, 10],
+  #                  team_points=True)
 
   award_temp_trophy(c, pmap, query.get_top_ziggurats(c),
                     'zig_rank:%d', [200, 100, 50], team_points=True)
@@ -378,13 +440,6 @@ def check_banners(c):
                        query_first_col(c, '''SELECT player
                                              FROM super_sigmund_kills'''),
                        9)
-
-  # Award 'Orb' banner for wins.
-  award_player_banners(c, 'orb',
-                       query_first_col(c, '''SELECT DISTINCT player
-                                               FROM games
-                                              WHERE killertype='winning' '''),
-                       10)
 
   award_player_banners(c, 'free_will',
                        query_first_col(c, '''SELECT DISTINCT player

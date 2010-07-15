@@ -798,7 +798,9 @@
             <p>
               <span>200/100/50 points</span> for the first Sprint wins
               in the tournament. Sprint scoring starts on Aug 15 at
-              0000 UTC.
+              0000 UTC. Note: only the player's <b>first</b> Sprint win
+              is considered for this, so winning three Sprint games before
+              anybody else will earn 200 points, not 200+100+50.
             </p>
 
             <p>

@@ -12,12 +12,13 @@ import imp
 import sys
 
 # Start and end of the tournament, UTC.
-START_TIME = '20100801'
-END_TIME   = '20100901'
+# FIXME: Testing values, fix for tourney
+START_TIME = '20100601'
+END_TIME   = '20100801'
 
 GAME_VERSION = '0.'
 
-SPRINT_START_TIME = '20100815'
+SPRINT_START_TIME = '20100701'
 SPRINT_END_TIME = END_TIME
 
 CDO = 'http://crawl.develz.org/'
@@ -34,8 +35,7 @@ LOGS = [ 'cao-logfile-0.6',
 
 MILESTONES = [ 'cao-milestones-0.6',
                ('cdo-milestones-0.6', CDO + 'milestones-0.6.txt'),
-               ('cdo-milestones-svn', CDO + 'milestones-svn.txt'),
-               ('cdo-milestones-spr', CDO + 'milestones-spr.txt')
+               ('cdo-milestones-svn', CDO + 'milestones-svn.txt')
              ]
 
 BLACKLIST_FILE = 'blacklist.txt'
@@ -604,6 +604,9 @@ dbfield_to_sqltype = {
 def game_is_sprint(game):
   return 'spr' in game['lv']
 
+def record_is_milestone(rec):
+  return rec.has_key('milestone')
+
 def is_not_tourney(game):
   """A game started before the tourney start or played after the end
   doesn't count."""
@@ -617,7 +620,10 @@ def is_not_tourney(game):
     return True
 
   if sprint:
-    return start < SPRINT_START_TIME or end >= SPRINT_END_TIME
+    # Sprint milestones are ignored.
+    # FIXME: Check for map and ignore maps that aren't dungeon_sprint_mu.
+    return (record_is_milestone(game) or
+            start < SPRINT_START_TIME or end >= SPRINT_END_TIME)
   else:
     return start < START_TIME or end >= END_TIME
 
@@ -733,10 +739,17 @@ def make_xlog_db_query(db_mappings, xdict, filename, offset, table):
                *values)
 
 def insert_xlog_db(cursor, xdict, filename, offset):
-  milestone = xdict.has_key('milestone')
+  milestone = record_is_milestone(xdict)
+  sprint = game_is_sprint(xdict)
+  # Ignore Sprint milestones if any, we don't use them for anything.
+  if milestone and sprint:
+    return
   db_mappings = milestone and MILE_DB_MAPPINGS or LOG_DB_MAPPINGS
   thingname = milestone and 'milestone' or 'logline'
   table = milestone and 'milestones' or 'games'
+  if sprint:
+    table = 'sprint_games'
+    thingname = 'sprint logline'
   save_offset = not milestone
   query = make_xlog_db_query(db_mappings, xdict, filename,
                              save_offset and offset, table)
@@ -785,10 +798,11 @@ def dbfile_offset(cursor, table, filename):
   return query_first(cursor,
                      ('SELECT MAX(source_file_offset) FROM %s ' % table) + \
                        'WHERE source_file = %s',
-                     filename) or -1
+                     filename)
 
 def logfile_offset(cursor, filename):
-  return dbfile_offset(cursor, 'games', filename)
+  return (dbfile_offset(cursor, 'games', filename) or
+          dbfile_offset(cursor, 'sprint_games', filename))
 
 def milestone_offset(cursor, filename):
   return dbfile_offset(cursor, 'milestone_bookmark', filename)

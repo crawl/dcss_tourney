@@ -88,9 +88,11 @@ def did_change_god(c, game):
 def win_query(selected, order_by = None,
               player=None, character_race=None,
               character_class=None, runes=None,
-              before=None, limit=None):
-  query = Query("SELECT " + selected + " FROM games " +
-                "WHERE killertype='winning' ")
+              before=None, limit=None, sprint=False):
+
+  table = sprint and 'sprint_games' or 'games'
+  query = Query("SELECT " + selected + " FROM " + table +
+                " WHERE killertype='winning' ")
   if player:
     query.append(' AND player=%s', player)
   if (character_race):
@@ -106,6 +108,36 @@ def win_query(selected, order_by = None,
   if limit:
     query.append(" LIMIT %d" % limit)
   return query
+
+def sprint_player_win_counts_before(c, end_time):
+  """Returns a list of players who have won Sprint games before the supplied
+  time and the number of games they've won."""
+  return query_rows(c, """SELECT player, COUNT(*) FROM sprint_games
+                          WHERE killertype = 'winning' AND end_time < %s
+                          GROUP BY player""", end_time)
+
+def sprint_player_wins_before(c, player, end_time):
+  """Returns a list of the winning characters for the given player before the
+  provided end time."""
+  return query_first_col(c, """SELECT DISTINCT charabbrev FROM sprint_games
+                                WHERE killertype = 'winning' AND player = %s
+                                  AND end_time < %s""",
+                         player, end_time)
+
+def sprint_won_characters_before(c, end_time):
+  """Returns a list of the winning characters for all players before the
+  provided end time."""
+  return query_first_col(c, """SELECT DISTINCT charabbrev FROM sprint_games
+                                WHERE killertype = 'winning'
+                                  AND end_time < %s""",
+                         end_time)
+
+def first_win_for_combo(c, charabbrev, game_end, sprint = False):
+  table = sprint and 'sprint_games' or 'games'
+  return query_first(c, "SELECT COUNT(*) FROM " + table +
+                        """ WHERE killertype = 'winning' AND charabbrev = %s
+                              AND end_time < %s""",
+                     charabbrev, game_end) == 0
 
 def get_player_won_gods(c, player):
   """Returns the names of all the gods that the player has won games with,

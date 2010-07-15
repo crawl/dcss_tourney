@@ -14,6 +14,7 @@ def flush_temp_banners(c):
   query_do(c, '''DELETE FROM player_banners WHERE temp = true''')
 
 def safe_award_banner(c, player, banner, prestige, temp=False):
+  """Award a banner after checking that the player doesn't already have it."""
   if not player_has_banner(c, player, banner):
     award_banner(c, player, banner, prestige, temp)
 
