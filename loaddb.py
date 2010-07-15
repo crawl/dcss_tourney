@@ -1,6 +1,7 @@
 import MySQLdb
 import re
 import os
+import datetime
 import os.path
 import crawl_utils
 
@@ -15,6 +16,8 @@ import sys
 # FIXME: Testing values, fix for tourney
 START_TIME = '20100601'
 END_TIME   = '20100801'
+
+DATE_FORMAT = '%Y%m%d'
 
 GAME_VERSION = '0.'
 
@@ -626,6 +629,10 @@ def is_not_tourney(game):
             start < SPRINT_START_TIME or end >= SPRINT_END_TIME)
   else:
     return start < START_TIME or end >= END_TIME
+
+def in_sprint_window():
+  nowtime = datetime.utcnow().strftime(DATE_FORMAT)
+  return nowtime > SPRINT_START_TIME
 
 _active_cursor = None
 

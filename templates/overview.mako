@@ -5,6 +5,8 @@
    title = "Crawl Tournament Leaderboard 2009"
    top_scores = query.find_games(c, sort_max='score', limit=3)
 
+   in_sprint_window = loaddb.in_sprint_window()
+
    cnemelex = nemchoice.current_nemelex_choice()
    pnemelex = nemchoice.previous_nemelex_choices()
 %>
@@ -113,16 +115,23 @@
               <%include file="first-victory.mako"/>
             </div>
             <div>
-	          <h3>First All-Rune Wins</h3>
-	          <%include file="first-allrune.mako"/>
+	      <h3>First All-Rune Wins</h3>
+	      <%include file="first-allrune.mako"/>
             </div>
+
+            % if in_sprint_window:
+            <div>
+              <h3>First Sprint Victory</h3>
+              <%include file="first-sprint-victory.mako"/>
+            </div>
+            % endif
           </div>
 
           <hr>
 
           <div class="row">
             <div>
-	          <h3>Longest Streak</h3>
+	      <h3>Longest Streak</h3>
               ${html.best_streaks(c)}
             </div>
 

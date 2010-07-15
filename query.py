@@ -132,6 +132,16 @@ def sprint_won_characters_before(c, end_time):
                                   AND end_time < %s""",
                          end_time)
 
+def sprint_find_first_victories(c, limit=3):
+  """Returns a list of Sprint winning games, considering only the
+  first Sprint win of each player."""
+  return [row_to_xdict(x) for x in
+          query_rows(c, "SELECT " + logfile_fields() + " FROM sprint_games " +
+                     """ WHERE id IN (SELECT MIN(id) AS gid FROM sprint_games
+                                     WHERE killertype = 'winning'
+                                     GROUP BY name
+                                     ORDER BY gid LIMIT %d)""" % limit)]
+
 def first_win_for_combo(c, charabbrev, game_end, sprint = False):
   table = sprint and 'sprint_games' or 'games'
   return query_first(c, "SELECT COUNT(*) FROM " + table +
@@ -165,14 +175,20 @@ def player_top_scores(c, limit=5):
 def player_last_started_win(c):
   return query_rows(c, '''SELECT player, end_time FROM last_started_win''')
 
+def logfile_fields(prefix):
+  if prefix:
+    return ",".join([ prefix + x for x in LOG_FIELDS ])
+  else:
+    return ",".join(LOG_FIELDS)
+
 def get_fastest_time_player_games(c):
-  fields = ",".join([ 'g.' + x for x in LOG_FIELDS ])
+  fields = logfile_fields('g.')
   games = query_rows(c, '''SELECT %s FROM fastest_realtime f, games g
                            WHERE f.id = g.id''' % fields)
   return [ row_to_xdict(r) for r in games ]
 
 def get_fastest_turn_player_games(c):
-  fields = ",".join([ 'g.' + x for x in LOG_FIELDS ])
+  fields = logfile_fields('g.')
   games = query_rows(c, '''SELECT %s FROM fastest_turncount f, games g
                            WHERE f.id = g.id''' % fields)
   return [ row_to_xdict(r) for r in games ]
