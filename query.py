@@ -162,6 +162,9 @@ def player_top_scores(c, limit=5):
                         ORDER BY score DESC
                            LIMIT %d''' % limit)
 
+def player_last_started_win(c):
+  return query_rows(c, '''SELECT player, end_time FROM last_started_win''')
+
 def get_fastest_time_player_games(c):
   fields = ",".join([ 'g.' + x for x in LOG_FIELDS ])
   games = query_rows(c, '''SELECT %s FROM fastest_realtime f, games g

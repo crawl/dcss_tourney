@@ -55,6 +55,7 @@ DROP VIEW IF EXISTS free_will_wins;
 DROP VIEW IF EXISTS ghostbusters;
 DROP VIEW IF EXISTS compulsive_shoppers;
 DROP VIEW IF EXISTS most_pacific_wins;
+DROP VIEW IF EXISTS last_started_win;
 
 CREATE TABLE IF NOT EXISTS players (
   name VARCHAR(20) PRIMARY KEY,
@@ -147,6 +148,8 @@ CREATE TABLE games (
   );
 
 CREATE INDEX games_source_offset ON games (source_file, source_file_offset);
+
+CREATE INDEX games_start_time_ktyp ON games (start_time, killertype);
 
 CREATE INDEX games_scores ON games (player, score);
 CREATE INDEX games_kgrp ON games (kgroup);
@@ -414,6 +417,13 @@ SELECT id, player, duration
  ORDER BY duration, end_time
  LIMIT 3;
 
+-- If there's a tie on start time, break it by seeing which game finished first.
+CREATE VIEW last_started_win AS
+SELECT *
+  FROM games
+ WHERE killertype = 'winning'
+ORDER BY start_time DESC, end_time LIMIT 1;
+
 -- The three fastest wins (turncount)
 CREATE VIEW fastest_turncount AS
 SELECT id, player, turn
@@ -546,15 +556,14 @@ SELECT *
  WHERE gold_spent >= 5000
    AND gold < 50;
 
-   
 -- Sprint scoring
 
 -- Sprint table for games.
 CREATE TABLE sprint_games AS
 SELECT * FROM games LIMIT 1;
 TRUNCATE TABLE sprint_games;
-ALTER TABLE spr_logrecord ADD PRIMARY KEY (id);
-ALTER TABLE spr_logrecord CHANGE COLUMN id id BIGINT AUTO_INCREMENT;
+ALTER TABLE sprint_games ADD PRIMARY KEY (id);
+ALTER TABLE sprint_games CHANGE COLUMN id id BIGINT AUTO_INCREMENT;
 
 CREATE INDEX sprint_games_source_offset ON
 sprint_games (source_file, source_file_offset);

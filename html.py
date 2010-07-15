@@ -25,7 +25,8 @@ BANNER_IMAGES = \
       'shopaholic': [ 'shopuntilyoudrop.png', 'Shop Until You Drop' ],
       'scythe' : [ 'thescythe.png', 'The Scythe' ],
       'lairless_win' : [ 'kiku.png', 'Lairless Leaver' ],
-      'fruit_basket' : [ 'fedhas.png', 'Fruit Basket' ]
+      'fruit_basket' : [ 'fedhas.png', 'Fruit Basket' ],
+      'the_hare' : ['che.png', 'The Hare']
     }
 
 STOCK_WIN_COLUMNS = \

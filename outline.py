@@ -383,6 +383,12 @@ def award_temp_trophy(c, point_map,
       log_temp_points(c, player, title, points)
     banner.award_banner(c, player, title, points, temp=True)
 
+  def place_title(title_key, nth):
+    if '%' in title_key:
+      return title_key % (place + 1)
+    else:
+      return title_key
+
   npoints = len(points)
   for row in player_rows:
     if not can_share_places or row[1] != last_value:
@@ -393,7 +399,7 @@ def award_temp_trophy(c, point_map,
     if place >= npoints:
       break
 
-    title = key % (place + 1)
+    title = place_title(key, place)
     p = points[place]
     player = row[0]
     do_points(player, title, p)
@@ -405,6 +411,9 @@ def apply_point_map(c, pmap):
                                    points['team'])
 
 def check_temp_trophies(c, pmap):
+  award_temp_trophy(c, pmap, query.player_last_started_win(c),
+                    "the_hare", [100])
+
   award_temp_trophy(c, pmap, query.player_top_scores(c),
                     'top_score_Nth:%d', [200, 100, 50],
                     can_share_places=True)
