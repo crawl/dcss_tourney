@@ -346,6 +346,18 @@ def xlog_set_killer_group(d):
 
   d['kgroup'] = killer
 
+
+def strip_unique_qualifier(x):
+  if 'Lernaean' in x:
+    return 'the Lernaean hydra'
+  if ',' in x:
+    p = x.index(',')
+    return x[:p]
+  if ' the ' in x:
+    p = x.index(' the ')
+    return x[:p]
+  return x
+
 def xlog_milestone_fixup(d):
   for field in [x for x in ['uid'] if d.has_key(x)]:
     del d[field]
@@ -360,7 +372,7 @@ def xlog_milestone_fixup(d):
     match = R_MILE_UNIQ.findall(milestone)
     if match[0][0] == 'banished':
       verb = 'uniq.ban'
-    noun = match[0][1]
+    noun = strip_unique_qualifier(match[0][1])
 
   if verb == 'br.enter':
     noun = R_BRANCH_ENTER.findall(d['place'])[0]

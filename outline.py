@@ -73,7 +73,7 @@ def act_on_milestone(c, mile):
                                      mile['time'])
 
   miletype = milestone_type(mile)
-  if miletype == 'unique' and not milestone_desc(mile).startswith('banished '):
+  if miletype == 'uniq' and not milestone_desc(mile).startswith('banished '):
     do_milestone_unique(c, mile)
   if miletype == 'rune':
     do_milestone_rune(c, mile)
