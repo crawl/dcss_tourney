@@ -6,7 +6,7 @@ import MySQLdb
 import combos
 import sys
 import random
-from loaddb import query_rows
+from loaddb import query_rows, query_first
 from nominate_combo import assert_validity, apply_combo, parse_time
 from nominate_combo import find_previous_nominees, filter_combos
 
@@ -23,7 +23,7 @@ def eligible_combos(c):
   # cheap or encourage scumming.
   unusable = query_rows(c,
                         """SELECT charabbrev, COUNT(*) AS wins FROM logrecord
-                            WHERE killertype = 'winning'
+                            WHERE killer = 'winning'
                               AND race NOT IN ('Deep Dwarf', 'Mummy')
                          GROUP BY charabbrev
                            HAVING wins >= 2""")
@@ -66,8 +66,6 @@ def pick_combo(all_unwon):
   pcombo = find_previous_nominees(TARGETFILE)
   assert_validity(pcombo)
   pcombo_names = [x['combo'] for x in pcombo]
-
-  all_unwon = get_unwon_combos()
 
   # Try not to force a repeat race or class if possible.
   filtered_unwon = filter_combos(all_unwon, pcombo_names)
