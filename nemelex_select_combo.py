@@ -18,15 +18,17 @@ TARGETFILE = 'nemelex-choice-out.txt'
 
 AUTOMATIC = __name__ == '__main__' and [x for x in sys.argv if x == '--auto']
 
+MAX_WINS = 1
+
 def eligible_combos(c):
   # Pick low-winning combos, excluding the species that are either too
   # cheap or encourage scumming.
   unusable = query_rows(c,
                         """SELECT charabbrev, COUNT(*) AS wins FROM logrecord
-                            WHERE killer = 'winning'
+                            WHERE killer = 'winning' AND cv >= '0.4'
                               AND race NOT IN ('Deep Dwarf', 'Mummy')
                          GROUP BY charabbrev
-                           HAVING wins >= 2""")
+                           HAVING wins > %d""" % MAX_WINS)
   unusable_combos = set([x[0] for x in unusable])
   return [x for x in combos.VALID_COMBOS if x not in unusable_combos]
 
@@ -49,9 +51,9 @@ def is_still_unwon(combo):
   def is_combo_unwon(c):
     q = query_first(c,
                     '''SELECT COUNT(*) FROM logrecord
-                       WHERE charabbrev = %s AND ktyp = 'winning' ''',
+                       WHERE charabbrev = %s AND ktyp = 'winning' AND cv >= '0.4' ''',
                     combo)
-    return q == 0
+    return q <= MAX_WINS
   return with_henzell_cursor(is_combo_unwon)
 
 def find_random_unwon(all_unwon):
