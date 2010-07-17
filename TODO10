@@ -3,10 +3,6 @@ Tournament todo for 2010:
 * Banner images and text pending (due is on this)
 
 * HTML changes:
-  Overview:
-  - First sprint wins
-  - Winner of the Hare banner
-
   Combo pages:
   - Sprint combos won and unwon.
   - Crawl combos won and unwon.
@@ -27,8 +23,6 @@ Tournament todo for 2010:
 * Carefully review each rule from http://crawl.akrasiac.org/tourney10/ and
   make sure it's coded.
 
-* Restrict Sprint scoring to new map.
-
 * Check Nemelex mollification.
 
 * Run tournament test run for July.
@@ -38,6 +32,8 @@ Tournament todo for 2010:
 * Put 0.7 up on cao, set up Sprint menu on CAO for testing, hardwired
   to new Sprint map.
 
+* Restrict Sprint scoring to new map.
+  
 * Remove all test-run code.
   
 * Sprint+new map should be activatable by a one-line change to the

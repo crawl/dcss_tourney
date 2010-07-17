@@ -449,7 +449,12 @@ def find_games(c, sort_min=None, sort_max=None, limit=1, **dictionary):
   if sort_min is None and sort_max is None:
     sort_min = 'end_time'
 
-  query = Query('SELECT ' + ",".join(LOG_FIELDS) + ' FROM games')
+  sprint = dictionary.has_key('sprint') and dictionary['sprint']
+  if dictionary.has_key('sprint'):
+    del dictionary['sprint']
+  table = sprint and 'sprint_games' or 'games'
+
+  query = Query('SELECT ' + ",".join(LOG_FIELDS) + ' FROM ' + table)
   where = []
   values = []
 

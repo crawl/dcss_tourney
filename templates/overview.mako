@@ -9,6 +9,9 @@
 
    cnemelex = nemchoice.current_nemelex_choice()
    pnemelex = nemchoice.previous_nemelex_choices()
+
+   recent_wins = query.get_winning_games(limit = 5)
+   recent_sprint_wins = query.get_winning_games(limit = 5, sprint = True)
 %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
           "http://www.w3.org/TR/html4/strict.dtd">
@@ -125,6 +128,7 @@
               <%include file="first-sprint-victory.mako"/>
             </div>
             % endif
+
           </div>
 
           <hr>
@@ -142,6 +146,25 @@
           </div>
 
           <hr>
+
+          % if recent_wins or recent_sprint_wins:
+          <div class="row">
+            % if recent_wins:
+            <div>
+              <h3>Recent Wins</h3>
+              ${html.games_table(recent_wins)}
+            </div>
+            % endif
+
+            % if recent_sprint_wins:
+            <div>
+              <h3>Recent Sprint Wins</h3>
+              ${html.games_table(recent_sprint_wins)}
+            </div>
+            % endif
+          </div>
+          <hr>
+          % endif
 
           <div class="row">
             <table class="grouping" cellspacing="0" cellpadding="0">
