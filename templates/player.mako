@@ -224,6 +224,7 @@
               </tr>
             </table>
           </div>
+          <hr>
           %endif
 
           % if combo_highscores or species_highscores or class_highscores:
