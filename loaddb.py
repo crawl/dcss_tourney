@@ -392,6 +392,7 @@ def xlog_milestone_fixup(d):
     noun = R_GOD_MOLLIFY.findall(milestone)[0]
   noun = noun or milestone
   d['verb'] = verb
+  d['type'] = verb
   d['noun'] = noun
 
 def xlog_match(ref, target):

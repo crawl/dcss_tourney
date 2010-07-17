@@ -166,15 +166,6 @@ def crunch_misc(c, g):
 
   check_fedhas_banner(c, g)
 
-  def strip_unique_qualifier(x):
-    if ',' in x:
-      p = x.index(',')
-      return x[:p]
-    if ' the ' in x:
-      p = x.index(' the ')
-      return x[:p]
-    return x
-
   killer = strip_unique_qualifier(g.get('killer') or '')
   if uniq.is_uniq(killer):
     query_do(c,
