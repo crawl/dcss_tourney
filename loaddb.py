@@ -942,7 +942,7 @@ def process_log(cursor, filename, offset, d):
     raise
 
 def extract_unique_name(kill_message):
-  return R_KILL_UNIQUE.findall(kill_message)[0]
+  return strip_unique_qualifier(R_KILL_UNIQUE.findall(kill_message)[0])
 
 def _player_count_unique_uniques(cursor, player):
   """Given a player name, counts the number of distinct uniques the player
@@ -1043,7 +1043,7 @@ def add_ziggurat_milestone(c, g):
                depth, place, g['time'], g['start'], player)
 
 MILESTONE_HANDLERS = {
-  'unique' : add_unique_milestone,
+  'uniq' : add_unique_milestone,
   'ghost' : add_ghost_milestone,
   'rune' : add_rune_milestone,
   'zig.enter': add_ziggurat_milestone,

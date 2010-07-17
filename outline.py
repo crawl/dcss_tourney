@@ -166,7 +166,7 @@ def crunch_misc(c, g):
 
   check_fedhas_banner(c, g)
 
-  killer = strip_unique_qualifier(g.get('killer') or '')
+  killer = loaddb.strip_unique_qualifier(g.get('killer') or '')
   if uniq.is_uniq(killer):
     query_do(c,
              '''INSERT INTO deaths_to_uniques
