@@ -69,8 +69,8 @@
           </p>
 
           <p>
-            The team captain must put more information in her
-            .crawlrc, specifically these two lines:
+            The team captain must have the name of her team and the
+            other team members in her .crawlrc, like this:
           </p>
 
           <pre>
@@ -81,6 +81,11 @@
             Again, these lines should be the very first two lines in
             the team captain's rcfile, with no blank lines or anything
             else appearing before these lines.
+          </p>
+
+          <p>
+            <span>Note:</span> The team captain should <b>not</b>
+            include a TEAMCAPTAIN line her .crawlrc.
           </p>
 
           <div class="inset">
