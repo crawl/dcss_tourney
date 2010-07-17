@@ -32,7 +32,8 @@ def eligible_combos(c):
   return [x for x in combos.VALID_COMBOS
           if (x not in unusable_combos
               and not x.startswith('DD')
-              and not x.startswith('Mu'))]
+              and not x.startswith('Mu')
+              and not x.endswith('AM'))]
 
 def _connect_henzell_db():
   db = MySQLdb.connect(host='localhost',
