@@ -22,7 +22,8 @@ CLAN_FILE_DIR = SCORE_FILE_DIR + '/' + CLAN_BASE
 CAO_MORGUE_BASE = 'http://crawl.akrasiac.org/rawdata'
 CDO_MORGUE_BASE = 'http://crawl.develz.org/morgues/stable'
 # Use file URLs when testing on greensnark's machines.
-CAO_BASE = (('tecumseh' in os.getcwd())
+CAO_BASE = (('tecumseh' in os.getcwd()
+             or 'tecumseh' == os.environ.get('USER'))
             and 'file:///var/www/crawl'
             or 'http://crawl.akrasiac.org')
 CAO_TOURNEY_BASE = '%s/tourney10' % CAO_BASE

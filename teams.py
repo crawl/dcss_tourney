@@ -54,6 +54,8 @@ def get_teams(directory):
     '''Searches all *.crawlrc files in the given directory for team information
     and returns a dictorary, indexed by team capatains, of tuples of
     the team name and the set of members.'''
+    if not os.path.exists(directory):
+        return
     teams = {}
     teamname = {}
     draftees = {}

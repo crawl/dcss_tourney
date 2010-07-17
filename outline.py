@@ -153,7 +153,7 @@ def check_fedhas_banner(c, g):
   fruit_mask = game_fruit_mask(g)
   if fruit_mask:
     player = game_player(g)
-    full_fruit_mask = query.player_update_fruit_mask(c, player, fruit_mask)
+    full_fruit_mask = query.player_update_get_fruit_mask(c, player, fruit_mask)
     if crawl.fruit_basket_complete(full_fruit_mask):
       banner.safe_award_banner(c, 'fruit_basket', player, 11)
 
@@ -212,6 +212,9 @@ def game_player(g):
 def game_end_time(g):
   return g['end']
 
+def game_start_time(g):
+  return g['start']
+
 def game_character(g):
   return g['char']
 
@@ -250,25 +253,26 @@ def crunch_winner(c, game):
 
   player = game['name']
   charabbrev = game_character(game)
+  game_end = game_end_time(game)
 
   # 20 clan points for first win for a particular combo in the tournament.
-  if query.first_win_for_combo(c, charabbrev):
+  if query.first_win_for_combo(c, charabbrev, game_end):
     assign_team_points(c, "combo_first_win:" + charabbrev, player, 20)
 
   # Award 'Orb' banner for wins.
   banner.safe_award_banner(c, player, 'orb', 10)
 
-  if not query.game_did_visit_lair(c, player, game_start(game)):
+  if not query.game_did_visit_lair(c, player, game_start_time(game)):
     # 20 bonus points for winning without doing the Lair
     assign_points(c, player, 'lairless_win', 20)
     # And the banner:
     banner.safe_award_banner(c, player, 'lairless_win', 15)
 
-  query.update_active_streak(c, player, game['end'])
+  query.update_active_streak(c, player, game_end)
 
   debug("%s win (%s), runes: %d" % (player, charabbrev, game.get('urune') or 0))
 
-  if nemchoice.is_nemelex_choice(charabbrev, game['end']):
+  if nemchoice.is_nemelex_choice(charabbrev, game_end):
     ban = 'nemelex_choice:' + charabbrev
     if not banner.player_has_banner(c, player, ban):
       assign_points(c, ban, player, 100)
@@ -283,16 +287,16 @@ def crunch_winner(c, game):
     # If this is my first all-rune win, 50 points!
     if query.count_wins(c, player = game['name'],
                         runes = query.MAX_RUNES,
-                        before = game['end']) == 0:
+                        before = game_end) == 0:
       assign_points(c, "my_1st_all_rune_win", game['name'], 50)
 
-  previous_wins = query.count_wins(c, before = game['end'])
+  previous_wins = query.count_wins(c, before = game_end)
   assign_points(c,
                 "nth_win:%d" % (previous_wins + 1),
                 game['name'], get_points(previous_wins, 200, 100, 50))
 
   my_wins = query.get_winning_games(c, player = game['name'],
-                                    before = game['end'])
+                                    before = game_end)
   n_my_wins = len(my_wins)
 
   def game_god(game):
@@ -328,7 +332,7 @@ def crunch_winner(c, game):
   if n_my_wins >= 1:
     # Check if this is a streak. streak_wins will be empty if not on
     # a streak.
-    streak_wins = query.wins_in_streak_before(c, game['name'], game['end'])
+    streak_wins = query.wins_in_streak_before(c, game['name'], game_end)
 
     debug("%s win (%s), previous games in streak: %s" %
           (game['name'], game['char'], streak_wins))

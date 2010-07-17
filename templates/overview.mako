@@ -2,7 +2,8 @@
    import query, loaddb, html, time, nemchoice
    c = attributes['cursor']
 
-   title = "Crawl Tournament Leaderboard 2009"
+   year = loaddb.T_YEAR
+   title = "Crawl Tournament Leaderboard %s" % year
    top_scores = query.find_games(c, sort_max='score', limit=3)
 
    in_sprint_window = loaddb.in_sprint_window()
@@ -10,8 +11,8 @@
    cnemelex = nemchoice.current_nemelex_choice()
    pnemelex = nemchoice.previous_nemelex_choices()
 
-   recent_wins = query.get_winning_games(limit = 5)
-   recent_sprint_wins = query.get_winning_games(limit = 5, sprint = True)
+   recent_wins = query.get_winning_games(c, limit = 5)
+   recent_sprint_wins = query.get_winning_games(c, limit = 5, sprint = True)
 %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
           "http://www.w3.org/TR/html4/strict.dtd">
@@ -29,8 +30,8 @@
         <div class="heading">
           <h1>${title}</h1>
           <p class="fineprint">
-            Tournament starts Aug 1, 2009 at midnight UTC, and ends on
-            Sep 1, 2009 at midnight UTC.
+            Tournament starts Aug 1, ${year} at midnight UTC, and ends on
+            Sep 1, ${year} at midnight UTC.
           </p>
         </div>
         <hr>

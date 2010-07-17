@@ -12,6 +12,10 @@ import ConfigParser
 import imp
 import sys
 
+# Used only for display
+T_YEAR = '2010'
+T_VERSION = '0.7'
+
 # Start and end of the tournament, UTC.
 # FIXME: Testing values, fix for tourney
 START_TIME = '20100601'
@@ -151,7 +155,11 @@ class Xlogline:
       return 0
 
   def process(self, cursor):
-    self.processor(cursor, self.filename, self.offset, self.xdict)
+    try:
+      self.processor(cursor, self.filename, self.offset, self.xdict)
+    except:
+      sys.stderr.write("Error processing: " + xlog_str(self.xdict) + "\n")
+      raise
 
 class Xlogfile:
   def __init__(self, filename, tell_op, proc_op, blacklist=None):
@@ -201,6 +209,15 @@ class Xlogfile:
     self._open()
     return self.handle
 
+  def apply_blacklist(self, xdict):
+    # Blacklisted games are mauled here:
+    xdict['ktyp'] = 'blacklist'
+    xdict['place'] = 'D:1'
+    xdict['xl'] = 1
+    xdict['lvl'] = 1
+    xdict['tmsg'] = 'was blacklisted.'
+    xdict['vmsg'] = 'was blacklisted.'
+
   def line(self, cursor):
     if not self.have_handle():
       return
@@ -228,15 +245,13 @@ class Xlogfile:
       if not line.strip():
         return
 
-      xdict = apply_dbtypes( xlog_dict(line) )
-      if self.blacklist and self.blacklist.is_blacklisted(xdict):
-        # Blacklisted games are mauled here:
-        xdict['ktyp'] = 'blacklist'
-        xdict['place'] = 'D:1'
-        xdict['xl'] = 1
-        xdict['lvl'] = 1
-        xdict['tmsg'] = 'was blacklisted.'
-        xdict['vmsg'] = 'was blacklisted.'
+      try:
+        xdict = apply_dbtypes( xlog_dict(line) )
+        if self.blacklist and self.blacklist.is_blacklisted(xdict):
+          apply_blacklist(xdict)
+      except:
+        sys.stderr.write("Error processing line: " + line + "\n")
+        raise
 
       xline = Xlogline( self, self.filename, self.offset,
                         xdict.get('end') or xdict.get('time'),
@@ -332,7 +347,7 @@ def xlog_set_killer_group(d):
   d['kgroup'] = killer
 
 def xlog_milestone_fixup(d):
-  for field in [x for x in ['lv', 'uid'] if d.has_key(x)]:
+  for field in [x for x in ['uid'] if d.has_key(x)]:
     del d[field]
   verb = d['type']
   milestone = d['milestone']
@@ -346,6 +361,10 @@ def xlog_milestone_fixup(d):
     if match[0][0] == 'banished':
       verb = 'uniq.ban'
     noun = match[0][1]
+
+  if verb == 'br.enter':
+    noun = R_BRANCH_ENTER.findall(d['place'])[0]
+
   if verb == 'ghost':
     match = R_MILE_GHOST.findall(milestone)
     if match[0][0] == 'banished':
@@ -394,6 +413,11 @@ def xlog_dict(logline):
   xlog_set_killer_group(d)
 
   return d
+
+def xlog_str(xlog):
+  def xlog_escape(value):
+    return isinstance(value, str) and value.replace(":", "::") or value
+  return ":".join(["%s=%s" % (key, xlog_escape(xlog[key])) for key in xlog])
 
 # The mappings in order so that we can generate our db queries with all the
 # fields in order and generally debug things more easily.
@@ -485,6 +509,7 @@ COMBINED_LOG_TO_DB = dict(LOG_DB_MAPPINGS + MILE_DB_MAPPINGS)
 
 R_MONTH_FIX = re.compile(r'^(\d{4})(\d{2})(.*)')
 R_GHOST_NAME = re.compile(r"^(.*)'s? ghost")
+R_BRANCH_ENTER = re.compile(r"^(\w+)")
 R_MILESTONE_GHOST_NAME = re.compile(r"the ghost of (.*) the ")
 R_KILL_UNIQUE = re.compile(r'^killed (.*)\.$')
 R_MILE_UNIQ = re.compile(r'^(\w+) (.*)\.$')
@@ -493,7 +518,7 @@ R_RUNE = re.compile(r"found an? (.*) rune")
 R_HYDRA = re.compile(r'^an? (\w+)-headed hydra')
 R_PLACE_DEPTH = re.compile(r'^\w+:(\d+)')
 R_GOD_WORSHIP = re.compile(r'^became a worshipper of (.*)\.$')
-R_GOD_MOLLIFY = re.compile(r'^mollified (.*)\.$')
+R_GOD_MOLLIFY = re.compile(r'^(?:partially )?mollified (.*)\.$')
 R_GOD_RENOUNCE = re.compile(r'^abandoned (.*)\.$')
 
 class SqlType:
@@ -552,14 +577,14 @@ class Query:
 
 char = SqlType(lambda x: x)
 #remove the trailing 'D'/'S', fixup date
-datetime = SqlType(lambda x: fix_crawl_date(x[0:-1]))
+sqldatetime = SqlType(lambda x: fix_crawl_date(x[0:-1]))
 bigint = SqlType(lambda x: int(x))
 sql_int = bigint
 varchar = char
 
 dbfield_to_sqltype = {
 	'player':char,
-	'start_time':datetime,
+	'start_time':sqldatetime,
 	'score':bigint,
 	'race':char,
         'raceabbr':char,
@@ -593,8 +618,8 @@ dbfield_to_sqltype = {
 	'damage':sql_int,
 	'piety':sql_int,
         'penitence':sql_int,
-	'end_time':datetime,
-        'milestone_time':datetime,
+	'end_time':sqldatetime,
+        'milestone_time':sqldatetime,
 	'terse_msg':varchar,
 	'verb_msg':varchar,
         'nrune':sql_int,
@@ -613,7 +638,16 @@ def record_is_milestone(rec):
 def is_not_tourney(game):
   """A game started before the tourney start or played after the end
   doesn't count."""
-  start = game['start']
+
+  start = game.get('start')
+  if not start:
+    return True
+
+  milestone = record_is_milestone(game)
+  # Broken record checks:
+  if not milestone and not game.get('end'):
+    return True
+
   end = game.get('end') or game.get('time') or start
 
   sprint = game_is_sprint(game)
@@ -631,7 +665,7 @@ def is_not_tourney(game):
     return start < START_TIME or end >= END_TIME
 
 def in_sprint_window():
-  nowtime = datetime.utcnow().strftime(DATE_FORMAT)
+  nowtime = datetime.datetime.utcnow().strftime(DATE_FORMAT)
   return nowtime > SPRINT_START_TIME
 
 _active_cursor = None
@@ -809,10 +843,10 @@ def dbfile_offset(cursor, table, filename):
 
 def logfile_offset(cursor, filename):
   return (dbfile_offset(cursor, 'games', filename) or
-          dbfile_offset(cursor, 'sprint_games', filename))
+          dbfile_offset(cursor, 'sprint_games', filename) or -1)
 
 def milestone_offset(cursor, filename):
-  return dbfile_offset(cursor, 'milestone_bookmark', filename)
+  return dbfile_offset(cursor, 'milestone_bookmark', filename) or -1
 
 def update_db_bookmark(cursor, table, filename, offset):
   cursor.execute('INSERT INTO ' + table + \
@@ -965,7 +999,10 @@ def add_rune_milestone(cursor, game):
 def add_ziggurat_milestone(c, g):
   place = g['place']
   mtype = g['type']
-  level = int(R_PLACE_DEPTH.findall(place)[0])
+  if mtype == 'zig.enter':
+    level = 1
+  else:
+    level = int(R_PLACE_DEPTH.findall(place)[0])
   depth = level * 2
   # Leaving a ziggurat level by the exit gets more props than merely
   # entering the level.

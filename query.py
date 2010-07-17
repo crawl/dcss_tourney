@@ -136,12 +136,16 @@ def sprint_won_characters_before(c, end_time):
 def sprint_find_first_victories(c, limit=3):
   """Returns a list of Sprint winning games, considering only the
   first Sprint win of each player."""
+
+  ids = query_first_col(c, """SELECT MIN(id) AS gid FROM sprint_games
+                               WHERE killertype = 'winning'
+                            GROUP BY player
+                            ORDER BY gid LIMIT %d""" % limit)
+  ids = [str(x) for x in ids]
+
   return [row_to_xdict(x) for x in
           query_rows(c, "SELECT " + logfile_fields() + " FROM sprint_games " +
-                     """ WHERE id IN (SELECT MIN(id) AS gid FROM sprint_games
-                                     WHERE killertype = 'winning'
-                                     GROUP BY name
-                                     ORDER BY gid LIMIT %d)""" % limit)]
+                     """ WHERE id IN (%s)""" % ",".join(ids))]
 
 def first_win_for_combo(c, charabbrev, game_end, sprint = False):
   table = sprint and 'sprint_games' or 'games'
@@ -176,7 +180,7 @@ def player_top_scores(c, limit=5):
 def player_last_started_win(c):
   return query_rows(c, '''SELECT player, end_time FROM last_started_win''')
 
-def logfile_fields(prefix):
+def logfile_fields(prefix = None):
   if prefix:
     return ",".join([ prefix + x for x in LOG_FIELDS ])
   else:
@@ -357,7 +361,7 @@ def player_fruit_found(c, player):
   """Returns a tuple with a list of fruits the player has found and the list
   of fruits the player has yet to find. Both lists are sorted alphabetically."""
   fruit_mask = player_get_fruit_mask(c, player)
-  fruit_found = sorted(crawl.fruit_mask_to_fruits(fruit_mask))
+  fruit_found = crawl.fruit_mask_to_fruits(fruit_mask)
   fruit_found_set = set(fruit_found)
   fruit_unfound = [x for x in crawl.FRUITS if x not in fruit_found_set]
   return (fruit_found, fruit_unfound)
@@ -442,7 +446,7 @@ def won_unwon_combos(c):
   won_games = get_winning_games(c)
   return won_unwon_combos_with_games(won_games)
 
-def sprint_unwon_combos(c):
+def sprint_won_unwon_combos(c):
   won_games = get_winning_games(c, sprint = True)
   return won_unwon_combos_with_games(won_games)
 
@@ -450,7 +454,9 @@ def get_winning_games(c, **selectors):
   """Returns the games for wins matching the provided criteria, ordered
   with earlier wins first. Exactly the same as get_wins, but returns
   the xlog dictionaries instead of the charabbrev"""
-  return find_games(c, sort_max='end_time', limit=None,
+  if not selectors.has_key('limit'):
+    selectors['limit'] = None
+  return find_games(c, sort_max='end_time',
                     killertype='winning', **selectors)
 
 def row_to_xdict(row):
@@ -1209,6 +1215,14 @@ def player_distinct_mollified_gods(c, player):
                                   AND verb = 'god.mollify'
                                   AND (noun != god OR god IS NULL)''',
                          player)
+
+def game_did_visit_lair(c, player, start_time):
+  return query_first_col(c, '''SELECT COUNT(*)
+                                 FROM milestones
+                                WHERE player = %s
+                                  AND start_time = %s
+                                  AND verb = 'br.enter' AND noun = 'Lair' ''',
+                         player, start_time)
 
 def count_deaths_to_distinct_uniques(c, player):
   return query_first(c, '''SELECT COUNT(DISTINCT uniq)

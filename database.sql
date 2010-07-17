@@ -102,8 +102,8 @@ CREATE TABLE games (
   -- Two letter race abbreviation so we can group by it without pain.
   raceabbr CHAR(2) NOT NULL,
   class VARCHAR(20),
-  version CHAR(10),
-  lv CHAR(8),
+  version VARCHAR(10),
+  lv VARCHAR(8),
   uid INT,
   charabbrev CHAR(4),
   xl INT,
@@ -194,6 +194,8 @@ CREATE TABLE milestones (
   game_id BIGINT,
 
   version VARCHAR(10),
+  lv VARCHAR(8),
+  
   cv VARCHAR(10),
   player VARCHAR(20),
   race VARCHAR(20),

@@ -3,8 +3,8 @@
    import loaddb, query, crawl_utils, html, combos
    c = attributes['cursor']
 
-   won, unwon = query.unwon_combos(c)
-   won_sprint, unwon_sprint = query.sprint_unwon_combos(c)
+   won, unwon = query.won_unwon_combos(c)
+   won_sprint, unwon_sprint = query.sprint_won_unwon_combos(c)
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"

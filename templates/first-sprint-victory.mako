@@ -4,7 +4,7 @@
 
    game_text = \
       html.games_table(
-        query.sprint_find_first_victories(c, killertype='winning', limit=3),
+        query.sprint_find_first_victories(c, limit=3),
         first = 'end_time' )
 %>
 

@@ -1,6 +1,7 @@
 <%
-   version = "0.7"
-   year    = "2010"
+   import loaddb
+   version = loaddb.T_VERSION
+   year    = loaddb.T_YEAR
    title   = "Crawl %s Tournament Information" % year
  %>
 <!DOCTYPE html>
@@ -259,7 +260,7 @@
             <h2>EXTRAS</h2>
 
             <p>
-              <span>20 points</span> for a player's first game where
+              <span>50 points</span> for a player's first game where
               she destroys the Orb of Zot
               (<a href="#royal_jelly">ROYAL JELLY</a> banner)
             </p>

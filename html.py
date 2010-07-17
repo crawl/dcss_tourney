@@ -1,5 +1,6 @@
 import query, crawl_utils, time
 import loaddb
+import sys
 
 from crawl_utils import clan_link, player_link, linked_text
 import re
@@ -275,7 +276,11 @@ def games_table(games, first=None, excluding=None, columns=None,
 
       need_link = len(c) >= 3 and c[2]
       if need_link:
-        out += r'<a href="%s">' % crawl_utils.morgue_link(game)
+        try:
+          out += r'<a href="%s">' % crawl_utils.morgue_link(game)
+        except:
+          sys.stderr.write("Error processing game: " + loaddb.xlog_str(game))
+          raise
       elif is_player_header(c[1]):
         val = linked_text(val, player_link)
       out += str(val)

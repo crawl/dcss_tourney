@@ -32,3 +32,10 @@ FULL_FRUIT_MASK = _full_fruit_mask()
 
 def fruit_basket_complete(fruit_mask):
   return fruit_mask == FULL_FRUIT_MASK
+
+def fruit_mask_to_fruits(fruit_mask):
+  fruits = [ ]
+  for f in FRUITS:
+    if fruit_mask & FRUIT_BITS[f]:
+      fruits.append(f)
+  return fruits
