@@ -4,6 +4,8 @@
 
 import MySQLdb
 import combos
+import sys
+import random
 from loaddb import query_rows
 from nominate_combo import assert_validity, apply_combo, parse_time
 from nominate_combo import find_previous_nominees, filter_combos
@@ -19,7 +21,7 @@ AUTOMATIC = __name__ == '__main__' and [x for x in sys.argv if x == '--auto']
 def eligible_combos(c):
   # Pick low-winning combos, excluding the species that are either too
   # cheap or encourage scumming.
-  unusable = query_rows(CURSOR,
+  unusable = query_rows(c,
                         """SELECT charabbrev, COUNT(*) AS wins FROM logrecord
                             WHERE killertype = 'winning'
                               AND race NOT IN ('Deep Dwarf', 'Mummy')
