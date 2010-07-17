@@ -85,7 +85,7 @@
 
           <p>
             <span>Note:</span> The team captain should <b>not</b>
-            include a TEAMCAPTAIN line her .crawlrc.
+            include a TEAMCAPTAIN line in her .crawlrc.
           </p>
 
           <div class="inset">
