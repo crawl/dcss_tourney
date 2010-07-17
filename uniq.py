@@ -1,6 +1,6 @@
 UNIQUES = [ "Ijyb", "Blork", "Urug", "Erolcha", "Snorg",
             "Antaeus", "Xtahua", "Tiamat", "Boris", "Murray", "Terence",
-            "Jessica", "Sigmund", "Edmund", "Psyche", "Donald", "Michael",
+            "Jessica", "Sigmund", "Edmund", "Psyche", "Donald",
             "Joseph", "Erica", "Josephine", "Harold", "Norbert", "Jozef",
             "Agnes", "Maud", "Louise", "Francis", "Frances", "Rupert", "Wayne",
             "Duane", "Norris", "Frederick", "Margery", "Mnoleg", "Lom Lobon",
