@@ -106,7 +106,7 @@ def pick_combo(all_unwon):
         print(combo + " has already been used.")
         continue
       return apply_combo(combo, TARGETFILE)
-    return apply_combo(chosen)
+    return apply_combo(chosen, TARGETFILE)
 
 def main():
   c = DB.cursor()
