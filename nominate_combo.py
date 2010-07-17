@@ -25,73 +25,16 @@ from loaddb import query_first
 NOMINEE_FILE = 'nemelex-combos.txt'
 COMBO_VALIDITY_MINIMUM_DAYS = 10
 DATE_FORMAT = '%Y-%m-%d %H:%M:%S'
-
-UNWON_FILE = '/home/henzell/henzell/unwon.txt'
+REMOTE_COMBO_URL = "http://churnbox.com/nemelex-combos.txt"
 
 EXCLUDED_COMBOS = ['GhPa']
 
-# Skip obsolete and new races, skip Mu because players tend to farm and lag the server
+# Skip obsolete and new races, skip Mu because players tend to farm
+# and lag the server
 EXCLUDED_RACES = ['GE', 'El', 'HD', 'Gn', 'OM', 'DD', 'Mu']
 EXCLUDED_CLASSES = ['Ar']
 
-AUTOMATIC = __name__ == '__main__' and [x for x in sys.argv if x == '--auto']
-
 g_henzell_db = None
-
-def _clean_unwon_lines(lines):
-  def extract_character(l):
-    char = l.split()[0]
-    if len(char) == 4:
-      return char
-
-  def dud_char(c):
-    return ((c in EXCLUDED_COMBOS)
-            or (c[:2] in EXCLUDED_RACES)
-            or (c[2:] in EXCLUDED_CLASSES))
-
-  return [c for c in [extract_character(x) for x in lines[1:]]
-          if c and not dud_char(c)]
-
-def get_unwon_combos():
-  f = open(UNWON_FILE)
-  lines = f.readlines()
-  f.close()
-  return _clean_unwon_lines(lines)
-
-def _connect_henzell_db():
-  db = MySQLdb.connect(host='localhost',
-                       user='henzell',
-                       db='henzell')
-  return db
-
-def with_henzell_cursor(action):
-  global g_henzell_db
-  if not g_henzell_db:
-    g_henzell_db = _connect_henzell_db()
-  cursor = g_henzell_db.cursor()
-  res = None
-  try:
-    res = action(cursor)
-  finally:
-    cursor.close()
-  return res
-
-def is_still_unwon(combo):
-  def is_combo_unwon(c):
-    q = query_first(c, 
-                    '''SELECT COUNT(*) FROM logrecord 
-                       WHERE charabbrev = %s AND ktyp = 'winning' ''',
-                    combo)
-    return q == 0
-  return with_henzell_cursor(is_combo_unwon)
-
-def find_random_unwon(all_unwon):
-  trials = 0
-  while trials < 100:
-    combo = all_unwon[random.randrange(len(all_unwon))]
-    if is_still_unwon(combo):
-      return combo
-    trials += 1
 
 def bail(message):
   print
@@ -103,11 +46,12 @@ def bail(message):
 def parse_time(when):
   return datetime(*(time.strptime(when, DATE_FORMAT)[0:6]))
 
-def find_previous_nominees():
-  if os.path.exists(NOMINEE_FILE):
-    f = open(NOMINEE_FILE)
+def find_previous_nominees(targetfile = NOMINEE_FILE):
+  if os.path.exists(targetfile):
+    f = open(targetfile)
     nominees = [x.strip().split() for x in f.readlines()
                 if not x.strip().startswith('#')]
+    f.close()
     return [{'combo': x[0],
              'time': parse_time(x[1] + ' ' + x[2])}
             for x in nominees]
@@ -129,10 +73,10 @@ def assert_validity(pcombo):
          html.pretty_date(last['time']
                           + timedelta(COMBO_VALIDITY_MINIMUM_DAYS))))
 
-def apply_combo(combo):
+def apply_combo(combo, tofile = NOMINEE_FILE):
   time = datetime.utcnow()
   validity = time + timedelta(COMBO_VALIDITY_MINIMUM_DAYS)
-  f = open(NOMINEE_FILE, 'a')
+  f = open(tofile, 'a')
   f.write("%s %s\n" % (combo, time.strftime(DATE_FORMAT)))
   f.close()
   print(("OK, %s is now the official Nemelex Choice, " +
@@ -143,49 +87,6 @@ def filter_combos(combos, filters):
   race_set = set([x[:2] for x in filters])
   class_set = set([x[2:] for x in filters])
   return [x for x in combos if x[:2] not in race_set and x[2:] not in class_set]
-  
-def pick_unwon_combo():
-  pcombo = find_previous_nominees()
-  assert_validity(pcombo)
-  pcombo_names = [x['combo'] for x in pcombo]
-
-  all_unwon = get_unwon_combos()
-
-  # Try not to force a repeat race or class if possible.
-  filtered_unwon = filter_combos(all_unwon, pcombo_names)
-  if filtered_unwon:
-    all_unwon = filtered_unwon
-
-  def is_real_combo(combo, existing_combos):
-    return combo in all_unwon
-
-  def is_dupe(combo, pcombo_names):
-    return combo in pcombo_names
-
-  while True:
-    chosen = find_random_unwon(all_unwon)
-    if not chosen:
-      raise Exception("Failed to choose a random unwon combo!")
-    print("\n---> %s as the next Nemelex' Choice? (effective immediately)"
-          % chosen)
-    combo = None
-    if not AUTOMATIC:
-      print "Hit Enter to continue, or enter an alternative combo, or ^C to cancel"
-      combo = sys.stdin.readline().strip()
-    if combo:
-      if not is_real_combo(combo, all_unwon):
-        print(combo + " is not a valid combo. You may use one of " +
-              ", ".join(all_unwon))
-        continue
-      if not is_still_unwon(combo):
-        print(combo + " has been won, sorry!")
-        all_unwon = [x for x in all_unwon if x != combo]
-        continue
-      if is_dupe(combo, pcombo_names):
-        print(combo + " has already been used.")
-        continue
-      return apply_combo(combo)
-    return apply_combo(chosen)
 
 def stop_taildb_and_lock():
   taildb_running = False
@@ -207,12 +108,20 @@ def restart_taildb():
   print "Restarting taildb.py"
   os.system('python taildb.py')
 
+def fetch_combo_from_remote():
+  old_size = os.path.getsize(NOMINEE_FILE)
+  while old_size == os.path.getsize(NOMINEE_FILE):
+    os.system('wget -c %s -O %s' % (REMOTE_COMBO_URL, NOMINEE_FILE))
+    time.sleep(2)
+
+  nominee = find_previous_nominees()[-1]
+  print "New nominee: #{nominee['combo']} at #{nominee['time']}"
+
 if __name__ == '__main__':
   try:
     print "Selecting a combo to nominate for Nemelex' Choice"
     taildb_needs_restart = stop_taildb_and_lock()
-    random.seed()
-    pick_unwon_combo()
+    fetch_combo_from_remote()
     crawl_utils.clear_taildb_stop_request()
     if taildb_needs_restart:
       crawl_utils.unlock_handle()

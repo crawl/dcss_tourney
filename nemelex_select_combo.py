@@ -1,0 +1,113 @@
+#! /usr/bin/python
+#
+# Selects a combo for Nemelex' Choice.
+
+import MySQLdb
+import combos
+from loaddb import query_rows
+from nominate_combo import assert_validity, apply_combo, parse_time
+from nominate_combo import find_previous_nominees, filter_combos
+
+DB = MySQLdb.connect(host = 'localhost',
+                     user = 'henzell',
+                     db = 'henzell')
+
+TARGETFILE = 'nemelex-choice-out.txt'
+
+AUTOMATIC = __name__ == '__main__' and [x for x in sys.argv if x == '--auto']
+
+def eligible_combos(c):
+  unusable = query_rows(CURSOR,
+                        """SELECT charabbrev, COUNT(*) AS wins FROM logrecord
+                            WHERE killertype = 'winning'
+                         GROUP BY charabbrev
+                           HAVING wins >= 2""")
+  unusable_combos = set([x[0] for x in unusable])
+  return [x for x in combos.VALID_COMBOS if x not in unusable_combos]
+
+def _connect_henzell_db():
+  db = MySQLdb.connect(host='localhost',
+                       user='henzell',
+                       db='henzell')
+  return db
+
+def with_henzell_cursor(action):
+  cursor = DB.cursor()
+  res = None
+  try:
+    res = action(cursor)
+  finally:
+    cursor.close()
+  return res
+
+def is_still_unwon(combo):
+  def is_combo_unwon(c):
+    q = query_first(c,
+                    '''SELECT COUNT(*) FROM logrecord
+                       WHERE charabbrev = %s AND ktyp = 'winning' ''',
+                    combo)
+    return q == 0
+  return with_henzell_cursor(is_combo_unwon)
+
+def find_random_unwon(all_unwon):
+  trials = 0
+  while trials < 100:
+    combo = all_unwon[random.randrange(len(all_unwon))]
+    if is_still_unwon(combo):
+      return combo
+    trials += 1
+
+def pick_combo(all_unwon):
+  pcombo = find_previous_nominees(TARGETFILE)
+  assert_validity(pcombo)
+  pcombo_names = [x['combo'] for x in pcombo]
+
+  all_unwon = get_unwon_combos()
+
+  # Try not to force a repeat race or class if possible.
+  filtered_unwon = filter_combos(all_unwon, pcombo_names)
+  if filtered_unwon:
+    all_unwon = filtered_unwon
+
+  def is_real_combo(combo, existing_combos):
+    return combo in all_unwon
+
+  def is_dupe(combo, pcombo_names):
+    return combo in pcombo_names
+
+  while True:
+    chosen = find_random_unwon(all_unwon)
+    if not chosen:
+      raise Exception("Failed to choose a random unwon combo!")
+    print("\n---> %s as the next Nemelex' Choice? (effective immediately)"
+          % chosen)
+    combo = None
+    if not AUTOMATIC:
+      print "Hit Enter to continue, or enter an alternative combo, or ^C to cancel"
+      combo = sys.stdin.readline().strip()
+    if combo:
+      if not is_real_combo(combo, all_unwon):
+        print(combo + " is not a valid combo. You may use one of " +
+              ", ".join(all_unwon))
+        continue
+      if not is_still_unwon(combo):
+        print(combo + " has been won, sorry!")
+        all_unwon = [x for x in all_unwon if x != combo]
+        continue
+      if is_dupe(combo, pcombo_names):
+        print(combo + " has already been used.")
+        continue
+      return apply_combo(combo, TARGETFILE)
+    return apply_combo(chosen)
+
+def main():
+  c = DB.cursor()
+  try:
+    random.seed()
+    combos = eligible_combos(c)
+    pick_combo(combos)
+  finally:
+    c.close()
+
+if __name__ == '__main__':
+  main()

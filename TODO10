@@ -7,6 +7,11 @@ Tournament todo for 2010:
 ---------------------------------------------------------------------
 
 * Implement Nemelex' Choice plan:
+  - Sequell picks combo, runs it up on http 5 minutes ahead of the deadline.
+  - cao checks for combo, spinning until it finds it.
+  - Two cron-jobs.
+  - Test this.
+  
   - Pick 0.7-valid character that has < 2 wins since 0.4
   - Make sure Nemelex' Choice works correctly without needing manual kicks
     to the tourney scripts
