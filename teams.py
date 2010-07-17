@@ -55,7 +55,7 @@ def get_teams(directory):
     and returns a dictorary, indexed by team capatains, of tuples of
     the team name and the set of members.'''
     if not os.path.exists(directory):
-        return
+        return { }
     teams = {}
     teamname = {}
     draftees = {}
