@@ -43,7 +43,7 @@ def find_previous_nominees(targetfile = NOMINEE_FILE):
   if os.path.exists(targetfile):
     f = open(targetfile)
     nominees = [x.strip().split() for x in f.readlines()
-                if not x.strip().startswith('#')]
+                if x.strip() and not x.strip().startswith('#')]
     f.close()
     return [{'combo': x[0],
              'time': parse_time(x[1] + ' ' + x[2])}
