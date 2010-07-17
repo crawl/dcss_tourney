@@ -26,11 +26,13 @@ def eligible_combos(c):
   unusable = query_rows(c,
                         """SELECT charabbrev, COUNT(*) AS wins FROM logrecord
                             WHERE killer = 'winning' AND cv >= '0.4'
-                              AND race NOT IN ('Deep Dwarf', 'Mummy')
                          GROUP BY charabbrev
                            HAVING wins > %d""" % MAX_WINS)
   unusable_combos = set([x[0] for x in unusable])
-  return [x for x in combos.VALID_COMBOS if x not in unusable_combos]
+  return [x for x in combos.VALID_COMBOS
+          if (x not in unusable_combos
+              and not x.startswith('DD')
+              and not x.startswith('Mu'))]
 
 def _connect_henzell_db():
   db = MySQLdb.connect(host='localhost',
