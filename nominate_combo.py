@@ -25,14 +25,7 @@ from loaddb import query_first
 NOMINEE_FILE = 'nemelex-combos.txt'
 COMBO_VALIDITY_MINIMUM_DAYS = 10
 DATE_FORMAT = '%Y-%m-%d %H:%M:%S'
-REMOTE_COMBO_URL = "http://churnbox.com/nemelex-combos.txt"
-
-EXCLUDED_COMBOS = ['GhPa']
-
-# Skip obsolete and new races, skip Mu because players tend to farm
-# and lag the server
-EXCLUDED_RACES = ['GE', 'El', 'HD', 'Gn', 'OM', 'DD', 'Mu']
-EXCLUDED_CLASSES = ['Ar']
+REMOTE_COMBO_URL = "http://churnbox.com/nemelex-choice-out.txt"
 
 g_henzell_db = None
 

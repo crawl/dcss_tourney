@@ -17,9 +17,12 @@ TARGETFILE = 'nemelex-choice-out.txt'
 AUTOMATIC = __name__ == '__main__' and [x for x in sys.argv if x == '--auto']
 
 def eligible_combos(c):
+  # Pick low-winning combos, excluding the species that are either too
+  # cheap or encourage scumming.
   unusable = query_rows(CURSOR,
                         """SELECT charabbrev, COUNT(*) AS wins FROM logrecord
                             WHERE killertype = 'winning'
+                              AND race NOT IN ('Deep Dwarf', 'Mummy')
                          GROUP BY charabbrev
                            HAVING wins >= 2""")
   unusable_combos = set([x[0] for x in unusable])
