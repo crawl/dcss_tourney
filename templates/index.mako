@@ -646,7 +646,7 @@
             <hr>
 
             <div>
-              <img src="images/fedhas.png"
+              <img src="images/fruit_basket.png"
                    alt="Fruit Basket"
                    title="Fruit Basket"
                    width="150" height="55"
@@ -664,7 +664,7 @@
             <hr>
 
             <div>
-              <img src="images/cheibriados.png"
+              <img src="images/the_hare.png"
                    alt="The Hare"
                    title="The Hare"
                    width="150" height="55"

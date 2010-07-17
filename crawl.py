@@ -20,6 +20,7 @@ FRUIT_BITS = { "orange"     : 0x00040,
                "grape"      : 0x10000,
                "sultana"    : 0x20000
              }
+FRUITS = sorted(FRUIT_BITS.keys())
 
 def _full_fruit_mask():
   mask = 0

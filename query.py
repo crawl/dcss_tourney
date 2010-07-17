@@ -343,12 +343,24 @@ def _canonicalize_player_name(c, player):
 canonicalize_player_name = \
     crawl_utils.Memoizer(_canonicalize_player_name, lambda args: args[1:])
 
+def player_get_fruit_mask(c, player):
+  return query_first(c, '''SELECT fruit_mask FROM players WHERE name = %s''',
+                     player)
+
 def player_update_get_fruit_mask(c, player, fruit_mask):
   """Updates the player's fruit mask and returns the new fruit mask."""
   query_do(c, '''UPDATE players SET fruit_mask = fruit_mask | %s
                   WHERE name = %s''', fruit_mask, player)
-  return query_first(c, '''SELECT fruit_mask FROM players WHERE name = %s''',
-                     player)
+  return player_get_fruit_mask(c, player)
+
+def player_fruit_found(c, player):
+  """Returns a tuple with a list of fruits the player has found and the list
+  of fruits the player has yet to find. Both lists are sorted alphabetically."""
+  fruit_mask = player_get_fruit_mask(c, player)
+  fruit_found = sorted(crawl.fruit_mask_to_fruits(fruit_mask))
+  fruit_found_set = set(fruit_found)
+  fruit_unfound = [x for x in crawl.FRUITS if x not in fruit_found_set]
+  return (fruit_found, fruit_unfound)
 
 def get_top_players(c, how_many=10):
   return query_rows(c,

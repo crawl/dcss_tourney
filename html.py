@@ -25,8 +25,8 @@ BANNER_IMAGES = \
       'shopaholic': [ 'shopuntilyoudrop.png', 'Shop Until You Drop' ],
       'scythe' : [ 'thescythe.png', 'The Scythe' ],
       'lairless_win' : [ 'kiku.png', 'Lairless Leaver' ],
-      'fruit_basket' : [ 'fedhas.png', 'Fruit Basket' ],
-      'the_hare' : [ 'che.png', 'The Hare' ],
+      'fruit_basket' : [ 'fruit_basket.png', 'Fruit Basket' ],
+      'the_hare' : [ 'the_hare.png', 'The Hare' ],
       'royal_jelly' : [ 'jiyva.png', 'Royal Jelly' ]
     }
 

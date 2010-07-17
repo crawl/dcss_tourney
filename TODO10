@@ -2,16 +2,9 @@ Tournament todo for 2010:
 
 * Banner images and text pending (due is on this)
 
-* HTML changes:
-  Combo pages:
-  - Sprint combos won and unwon.
-  - Crawl combos won and unwon.
+* Use available banner images.
 
-  User page:
-  - All sprint wins on player page.
-  - Fruit found and missing.
-
----------------------------------------------------------------------  
+---------------------------------------------------------------------
 
 * Implement Nemelex' Choice plan:
   - Pick 0.7-valid character that has < 2 wins since 0.4
@@ -19,7 +12,7 @@ Tournament todo for 2010:
     to the tourney scripts
 
 * Empty existing Nemelex Choice list.
-  
+
 * Carefully review each rule from http://crawl.akrasiac.org/tourney10/ and
   make sure it's coded.
 
@@ -33,8 +26,8 @@ Tournament todo for 2010:
   to new Sprint map.
 
 * Restrict Sprint scoring to new map.
-  
+
 * Remove all test-run code.
-  
+
 * Sprint+new map should be activatable by a one-line change to the
   launch script on both cao and cdo. Map name is dungeon_sprint_mu

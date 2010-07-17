@@ -8,8 +8,20 @@
 
    won_games = query.find_games(c, player = player, killertype = 'winning',
                                 sort_max = 'end_time', limit=None)
+
+   sprint_won_games = query.find_games(c, player = player,
+                                       killertype = 'winning',
+                                       sort_max = 'end_time',
+                                       sprint = True,
+                                       limit = None)
+
    recent_games = query.find_games(c, player = player, sort_max = 'end_time',
-                                   limit = 15)
+                                   limit = 9)
+
+   recent_sprint_games = query.find_games(c, player = player,
+                                          sort_max = 'end_time',
+                                          sprint = True,
+                                          limit = 9)
 
    streak_games = query.get_player_best_streak_games(c, player)
 
@@ -19,6 +31,8 @@
    audit_team = query.audit_trail_player_team_points(c, player)
 
    whereis = html.whereis(False, player)
+
+   fruit_found, fruit_unfound = query.player_fruit_found(c, player)
 
    def point_breakdown(audit):
      if not audit:
@@ -143,10 +157,26 @@
           </div>
           % endif
 
+
+          %if sprint_won_games:
+          <div class="game_table">
+            <h3>Sprint Wins</h3>
+            ${html.full_games_table(sprint_won_games, count = False)}
+          </div>
+          %endif
+
           <div class="game_table">
             <h3>Recent Games</h3>
             ${html.full_games_table(recent_games, count=False, win=False)}
           </div>
+
+          %if recent_sprint_games:
+          <div class="game_table">
+            <h3>Recent Sprint Games</h3>
+            ${html.full_games_table(recent_sprint_games,
+                                    count=False, win=False)}
+          </div>
+          %endif
 
           <hr>
 
@@ -175,6 +205,26 @@
           </div>
           <hr>
           % endif
+
+          %if fruit_found:
+          <div>
+            <h3>Fruit Basket Progress</h3>
+            <table class="bordered">
+              <colgroup>
+                 <col width="10%">
+                 <col width="85%">
+              </colgroup>
+              <tr>
+                <th>Fruit Found</th>
+                <td>${", ".join(fruit_found)}</td>
+              </tr>
+              <tr>
+                <th>Fruit Needed</th>
+                <td>${", ".join(fruit_unfound)}</td>
+              </tr>
+            </table>
+          </div>
+          %endif
 
           % if combo_highscores or species_highscores or class_highscores:
             <div>
