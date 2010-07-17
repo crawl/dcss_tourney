@@ -260,7 +260,7 @@
             <h2>EXTRAS</h2>
 
             <p>
-              <span>50 points</span> for a player's first game where
+              <span>100 points</span> for a player's first game where
               she destroys the Orb of Zot
               (<a href="#royal_jelly">ROYAL JELLY</a> banner)
             </p>
@@ -741,7 +741,7 @@
             </p>
 
             <p class="added">
-              <span>50 points</span> for a player's first game to destroy
+              <span>100 points</span> for a player's first game to destroy
               the Orb of Zot (<a href="#royal_jelly">ROYAL JELLY</a> banner).
 
               <span class="added">[NEW]</span>

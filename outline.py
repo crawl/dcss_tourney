@@ -82,7 +82,7 @@ def act_on_milestone(c, mile):
   elif miletype == 'orb.destroy':
     # 50 points for first time player destroys the Orb (Royal Jelly banner).
     if banner.safe_award_banner(c, player, 'royal_jelly', 15):
-      assign_points(c, "royal_jelly", player, 50)
+      assign_points(c, "royal_jelly", player, 100)
 
 def do_milestone_unique(c, mile):
   """This function takes a parsed milestone known to commemorate the death of
