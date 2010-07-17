@@ -79,7 +79,7 @@
 
       <div class="page_content content-bannered">
         <div class="heading_left">
-          <h1>Clan ${name.replace('_', ' ')}</h1>
+          <h1>${name.replace('_', ' ')}</h1>
         </div>
 
         <hr>

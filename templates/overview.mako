@@ -198,7 +198,7 @@
               <h3>Runes Fetched at Lowest XL</h3>
               ${html.youngest_rune_finds(c)}
               <p class="fineprint">
-                Note: the abyssal rune is not eligible.
+                Note: the abyssal and slimy runes are not eligible.
               </p>
             </div>
 
