@@ -9,6 +9,7 @@ import loaddb
 from loaddb import Query, query_do, query_first, query_row, query_rows
 from loaddb import query_first_col, query_first_def
 
+import combos
 import crawl
 import crawl_utils
 import uniq
@@ -409,6 +410,29 @@ def get_wins(c, **selectors):
   return [ x[0] for x in
            win_query('charabbrev', order_by = 'ORDER BY end_time',
                      **selectors).rows(c) ]
+
+def won_unwon_combos_with_games(won_games):
+  won_combos = set([x['charabbrev'] for x in won_games])
+  combo_lookup = dict([(x['charabbrev'], x) for x in won_games])
+
+  def game_charabbrev_link(g):
+    return crawl_utils.linked_text(g, crawl_utils.morgue_link, g['charabbrev'])
+
+  won_combo_list = [game_charabbrev_link(combo_lookup[c])
+                    for c in combos.VALID_COMBOS
+                    if c in won_combos]
+
+  unwon_combo_list = [c for c in combos.VALID_COMBOS if c not in won_combos]
+
+  return (won_combo_list, unwon_combo_list)
+
+def won_unwon_combos(c):
+  won_games = get_winning_games(c)
+  return won_unwon_combos_with_games(won_games)
+
+def sprint_unwon_combos(c):
+  won_games = get_winning_games(c, sprint = True)
+  return won_unwon_combos_with_games(won_games)
 
 def get_winning_games(c, **selectors):
   """Returns the games for wins matching the provided criteria, ordered

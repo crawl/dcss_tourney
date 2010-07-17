@@ -12,6 +12,8 @@
 &nbsp;
 <a href="${CAO_TOURNEY_BASE}/scoreboard.html">Scoreboard</a>
 &nbsp;
+<a href="${CAO_TOURNEY_BASE}/unwon.html">Unwon</a>
+&nbsp;
 <a href="${CAO_TOURNEY_BASE}">Tourney Rules</a>
 &nbsp;
 <a href="${CAO_BASE}">crawl.akrasiac.org</a>

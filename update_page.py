@@ -42,6 +42,7 @@ def player_pages(c):
   info("Updating all player pages")
   for p in query.get_players(c):
     player_page(c, p)
+  render(c, 'unwon')
   render(c, 'all-players')
   render(c, 'scoreboard')
   render(c, 'combo-scoreboard')
