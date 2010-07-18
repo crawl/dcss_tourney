@@ -917,8 +917,6 @@ def process_log(cursor, filename, offset, d):
   if is_not_tourney(d):
     return
 
-  ghost_kill = is_ghost_kill(d)
-
   # Add the player outside the transaction and suppress errors.
   check_add_player(cursor, d['name'])
 
@@ -926,11 +924,12 @@ def process_log(cursor, filename, offset, d):
   try:
     insert_xlog_db(cursor, d, filename, offset)
 
-    if not d.get('milestone'):
-      update_highscores(cursor, d, filename, offset)
+    if not game_is_sprint(d):
+      if not d.get('milestone'):
+        update_highscores(cursor, d, filename, offset)
 
-    if ghost_kill:
-      record_ghost_kill(cursor, d)
+      if is_ghost_kill(d):
+        record_ghost_kill(cursor, d)
 
     # Tell the listeners to do their thang
     for listener in LISTENERS:
