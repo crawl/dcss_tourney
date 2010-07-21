@@ -829,6 +829,22 @@
 
           </div>
 
+          <hr>
+          <div>
+            <h2>CREDITS</h2>
+
+            <p>
+              We'd like to thank:
+            </p>
+            <p>
+              <span>Onia</span> for the 2009 banner images.
+            </p>
+
+            <p>
+              <span>purge</span> for the new banners for 2010.
+            </p>
+          </div>
+
         </div> <!-- Content -->
       </div>
     </div>
