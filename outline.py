@@ -463,6 +463,15 @@ def check_temp_trophies(c, pmap):
                     team_points=True)
 
 def check_banners(c):
+  award_player_banners(c, 'top_clan_Nth:1',
+                       query_first_col(c,
+                                       '''SELECT name FROM players
+                                           WHERE team_captain = (
+                                              SELECT owner FROM teams
+                                              ORDER BY total_score DESC
+                                              LIMIT 1)'''),
+                       10)
+
   award_player_banners(c, 'moose',
                        query_first_col(c, '''SELECT DISTINCT player
                                              FROM double_boris_kills'''),
