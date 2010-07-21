@@ -373,10 +373,10 @@ def player_additional_score(c, player, pmap):
 def update_player_scores(c):
   wrap_transaction(safe_update_player_scores)(c)
 
-def award_player_banners(c, banner_name, players, prestige=0):
+def award_player_banners(c, banner_name, players, prestige=0, temp=False):
   if players:
     for p in players:
-      banner.safe_award_banner(c, p, banner_name, prestige)
+      banner.safe_award_banner(c, p, banner_name, prestige, temp)
 
 def award_temp_trophy(c, point_map,
                       player_rows, key, points,
@@ -470,7 +470,7 @@ def check_banners(c):
                                               SELECT owner FROM teams
                                               ORDER BY total_score DESC
                                               LIMIT 1)'''),
-                       10)
+                       10, temp=True)
 
   award_player_banners(c, 'moose',
                        query_first_col(c, '''SELECT DISTINCT player
