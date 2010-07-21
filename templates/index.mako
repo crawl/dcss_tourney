@@ -584,9 +584,9 @@
             <hr>
 
             <div>
-              <img src="images/d1cartographer.png"
-                   alt="Demon Prince"
-                   title="Demon Prince"
+              <img src="images/lordofdarkness.png"
+                   alt="Lord of Darkness"
+                   title="Lord of Darkness"
                    width="150" height="55"
                    >
               <p>
@@ -594,7 +594,7 @@
                 route through the Lair, and will recognise any player
                 who wins without hanging out with the distressingly
                 cute chordates of the Lair as
-                a <a name="demon_prince">DEMON PRINCE</a>. (<span>+20
+                a <a name="lord_of_darkness">LORD OF DARKNESS</a>. (<span>+20
                 points</span> for each game won without visiting the
                 Lair.)
               </p>
@@ -754,7 +754,7 @@
 
             <p class="added">
               <span>20 bonus points</span> for winning games without
-              visiting the Lair (<a href="#demon_prince">DEMON PRINCE</a>
+              visiting the Lair (<a href="#lord_of_darkness">LORD OF DARKNESS</a>
               banner).
 
               <span class="added">[NEW]</span>

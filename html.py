@@ -25,7 +25,7 @@ BANNER_IMAGES = \
       'nemelex_choice': [ 'nemechoice.png', "Nemelex' Choice" ],
       'shopaholic': [ 'shopuntilyoudrop.png', 'Shop Until You Drop' ],
       'scythe' : [ 'thescythe.png', 'The Scythe' ],
-      'lairless_win' : [ 'kiku.png', 'Lairless Leaver' ],
+      'lairless_win' : [ 'lordofdarkness.png', 'Lord of Darkness' ],
       'fruit_basket' : [ 'fruit_basket.png', 'Fruit Basket' ],
       'the_hare' : [ 'the_hare.png', 'The Hare' ],
       'royal_jelly' : [ 'jiyva.png', 'Royal Jelly' ]
