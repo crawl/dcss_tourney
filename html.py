@@ -28,7 +28,7 @@ BANNER_IMAGES = \
       'lairless_win' : [ 'lordofdarkness.png', 'Lord of Darkness' ],
       'fruit_basket' : [ 'fruit_basket.png', 'Fruit Basket' ],
       'the_hare' : [ 'the_hare.png', 'The Hare' ],
-      'royal_jelly' : [ 'jiyva.png', 'Royal Jelly' ]
+      'royal_jelly' : [ 'royaljelly.png', 'Royal Jelly' ]
     }
 
 STOCK_WIN_COLUMNS = \

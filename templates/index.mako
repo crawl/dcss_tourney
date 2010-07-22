@@ -687,7 +687,7 @@
             <hr>
 
             <div>
-              <img src="images/jiyva.png"
+              <img src="images/royaljelly.png"
                    alt="Royal Jelly"
                    title="Royal Jelly"
                    width="150" height="55"
