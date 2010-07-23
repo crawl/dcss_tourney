@@ -1217,12 +1217,12 @@ def player_distinct_mollified_gods(c, player):
                          player)
 
 def game_did_visit_lair(c, player, start_time):
-  return query_first_col(c, '''SELECT COUNT(*)
-                                 FROM milestones
-                                WHERE player = %s
-                                  AND start_time = %s
-                                  AND verb = 'br.enter' AND noun = 'Lair' ''',
-                         player, start_time)
+  return query_first(c, '''SELECT COUNT(*)
+                             FROM milestones
+                            WHERE player = %s
+                              AND start_time = %s
+                              AND verb = 'br.enter' AND noun = 'Lair' ''',
+                     player, start_time)
 
 def count_deaths_to_distinct_uniques(c, player):
   return query_first(c, '''SELECT COUNT(DISTINCT uniq)
