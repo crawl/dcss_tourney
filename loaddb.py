@@ -368,6 +368,9 @@ def xlog_milestone_fixup(d):
   if verb == 'unique':
     verb = 'uniq'
 
+  if verb == 'enter':
+    verb = 'br.enter'
+
   if verb == 'uniq':
     match = R_MILE_UNIQ.findall(milestone)
     if match[0][0] == 'banished':
