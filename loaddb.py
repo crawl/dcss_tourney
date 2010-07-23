@@ -18,14 +18,14 @@ T_VERSION = '0.7'
 
 # Start and end of the tournament, UTC.
 # FIXME: Testing values, fix for tourney
-START_TIME = '20100601'
+START_TIME = '20100701'
 END_TIME   = '20100801'
 
 DATE_FORMAT = '%Y%m%d'
 
 GAME_VERSION = '0.'
 
-SPRINT_START_TIME = '20100701'
+SPRINT_START_TIME = '20100715'
 SPRINT_END_TIME = END_TIME
 
 CDO = 'http://crawl.develz.org/'
