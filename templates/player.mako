@@ -218,10 +218,12 @@
                 <th>Fruit Found</th>
                 <td>${", ".join(fruit_found)}</td>
               </tr>
+              % if fruit_unfound:
               <tr>
                 <th>Fruit Needed</th>
                 <td>${", ".join(fruit_unfound)}</td>
               </tr>
+              % endif
             </table>
           </div>
           <hr>
