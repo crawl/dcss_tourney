@@ -255,7 +255,7 @@ def crunch_winner(c, game):
 
   if not query.game_did_visit_lair(c, player, game_start_time(game)):
     # 20 bonus points for winning without doing the Lair
-    assign_points(c, player, 'lairless_win', 20)
+    assign_points(c, 'lairless_win', player, 20)
     # And the banner:
     banner.safe_award_banner(c, player, 'lairless_win', 15)
 
