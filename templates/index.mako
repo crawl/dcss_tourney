@@ -841,7 +841,8 @@
             </p>
 
             <p>
-              <span>purge</span> for the new banners for 2010.
+              <span>due</span> and <span>purge</span> for the new banners
+              for 2010.
             </p>
           </div>
 
