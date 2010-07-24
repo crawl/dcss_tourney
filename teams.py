@@ -26,6 +26,7 @@ import banner
 import outline
 
 import logging
+from loaddb import query_first_col
 from logging import debug, info, warn, error
 
 # Register listener and timer.
