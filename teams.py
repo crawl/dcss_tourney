@@ -23,6 +23,7 @@ import query
 import crawl_utils
 from query import say_points, get_points, log_temp_clan_points
 import banner
+import outline
 
 import logging
 from logging import debug, info, warn, error
@@ -153,3 +154,11 @@ def update_clan_scores(c):
     info("Updating full score for clan %s" % clan)
     clan_additional_score(c, clan)
   banner.assign_top_clan_banners(c)
+  outline.award_player_banners(c, 'top_clan_Nth:1',
+                               query_first_col(c,
+                                               '''SELECT name FROM players
+                                                   WHERE team_captain = (
+                                                     SELECT owner FROM teams
+                                                   ORDER BY total_score DESC
+                                                      LIMIT 1)'''),
+                               10, temp=True)
