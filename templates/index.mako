@@ -354,12 +354,25 @@
           <div>
             <h2>SPRINT</h2>
             <a name="sprint"></a>
+
             <p>
-              Dungeon Sprint is a new addition to this year's tournament.
-              We'll be actvating a new Sprint map shortly before midnight
-              August 15th (i.e. at Aug 15 0000 UTC). Sprint games started on
-              or after Aug 15 0000 UTC will be scored for the tournament.
+              Dungeon Sprint is a new addition to this year's
+              tournament. We'll be actvating a new Sprint map shortly
+              before midnight August 15th (i.e. at Aug 15 0000 UTC).
+              Sprint games started on or after Aug 15 0000
+              UTC <span>on the new Sprint map</span> will be scored
+              for the tournament.
             </p>
+
+            <div class="inset">
+              <p>
+                <span class="inline_heading">For emphasis:</span>
+                Sprint games will be scored only if played on the new
+                Sprint map, and only if started after the Sprint start time
+                (Aug 15 0000 UTC).
+              </p>
+            </div>
+
 
             <p>
               Sprint games will award points only for the rules
