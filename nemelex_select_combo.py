@@ -31,9 +31,8 @@ def eligible_combos(c):
   unusable_combos = set([x[0] for x in unusable])
   return [x for x in combos.VALID_COMBOS
           if (x not in unusable_combos
-              and not x.startswith('DD')
-              and not x.startswith('Mu')
-              and not x.endswith('AM'))]
+              and not x[:2] in ['DD', 'Mu', 'DE', 'HE']
+              and not x[2:] in ['AM', 'Ar'])]
 
 def _connect_henzell_db():
   db = MySQLdb.connect(host='localhost',
