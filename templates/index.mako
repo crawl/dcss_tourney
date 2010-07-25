@@ -13,6 +13,7 @@
   </head>
   <body class="page_back">
     <div class="page information">
+      <%include file="toplink.mako"/>
 
       <div class="page_content">
         <div class="heading">
