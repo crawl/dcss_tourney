@@ -420,7 +420,7 @@ def apply_point_map(c, pmap):
                                    points['team'])
 
 def check_temp_trophies(c, pmap):
-  award_temp_trophy(c, pmap, query.player_last_started_win(c),
+  award_temp_trophy(c, pmap, query.player_hare_candidates(c),
                     "the_hare", [100])
 
   award_temp_trophy(c, pmap, query.player_top_scores(c),

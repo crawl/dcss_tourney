@@ -28,6 +28,8 @@ SPRINT_START_TIME = '20100815'
 SPRINT_END_TIME = END_TIME
 SPRINT_MAP = 'dungeon_sprint_mu'
 
+HARE_START_TIME = '20100831'
+
 CDO = 'http://crawl.develz.org/'
 
 # Log and milestone files. A tuple indicates a remote file with t[1]
@@ -682,6 +684,10 @@ def is_not_tourney(game):
 def in_sprint_window():
   nowtime = datetime.datetime.utcnow().strftime(DATE_FORMAT)
   return nowtime > SPRINT_START_TIME
+
+def time_in_hare_window():
+  nowtime = datetime.datetime.utcnow().strftime(DATE_FORMAT)
+  return nowtime > HARE_START_TIME
 
 _active_cursor = None
 

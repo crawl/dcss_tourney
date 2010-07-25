@@ -180,6 +180,12 @@ def player_top_scores(c, limit=5):
 def player_last_started_win(c):
   return query_rows(c, '''SELECT player, end_time FROM last_started_win''')
 
+def player_hare_candidates(c):
+  if loaddb.time_in_hare_window():
+    return player_last_started_win(c)
+  else:
+    return []
+
 def logfile_fields(prefix = None):
   if prefix:
     return ",".join([ prefix + x for x in LOG_FIELDS ])
