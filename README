@@ -1,6 +1,15 @@
-Tournament scoring scripts for the Dungeon Crawl tournament (DCSS).
+Tournament scoring scripts for the Dungeon Crawl tournament (DCSS)
+==================================================================
 
-Running scripts:
+Rules Template
+--------------
+
+Tourney rules are described in templates/index.mako. When updating
+index.mako, run update_index.py to generate the html output.
+
+
+Running scripts
+---------------
 
 To run loaddb.py:
 
@@ -20,3 +29,13 @@ To run loaddb.py:
    python taildb.py will start a daemon to update the db continuously from
    the logfile and milestones. taildb is otherwise identical in behaviour
    to loaddb.py.
+
+   
+Nemelex' Choice
+---------------
+
+nemelex_select_combo.py will pick a combo; it must be run on a server
+that has Sequell's game database.
+
+nominate_combo.py will connect to the server running Sequell and fetch
+the most recent Nemelex' Choice.

@@ -17,32 +17,31 @@ T_YEAR = '2010'
 T_VERSION = '0.7'
 
 # Start and end of the tournament, UTC.
-# FIXME: Testing values, fix for tourney
-START_TIME = '20100701'
-END_TIME   = '20100801'
+START_TIME = '20100801'
+END_TIME   = '20100901'
 
 DATE_FORMAT = '%Y%m%d'
 
-GAME_VERSION = '0.'
+GAME_VERSION = T_VERSION
 
-SPRINT_START_TIME = '20100715'
+SPRINT_START_TIME = '20100815'
 SPRINT_END_TIME = END_TIME
+SPRINT_MAP = 'dungeon_sprint_mu'
 
 CDO = 'http://crawl.develz.org/'
 
 # Log and milestone files. A tuple indicates a remote file with t[1]
 # being the URL to wget -c from.
 
-# FIXME: Point at 0.7 release logs:
-LOGS = [ 'cao-logfile-0.6',
-         ('cdo-logfile-0.6', CDO + 'allgames-0.6.txt'),
-         ('cdo-logfile-svn', CDO + 'allgames-svn.txt'),
-         # And Sprint
-         ('cdo-logfile-spr', CDO + 'allgames-spr.txt') ]
+LOGS = [ 'cao-logfile-0.7',
+         'cao-logfile-0.7-sprint',
+         ('cdo-logfile-0.7', CDO + 'allgames-0.7.txt'),
+         ('cdo-logfile-0.7-sprint', CDO + 'allgames-spr-0.7.txt') ]
 
-MILESTONES = [ 'cao-milestones-0.6',
-               ('cdo-milestones-0.6', CDO + 'milestones-0.6.txt'),
-               ('cdo-milestones-svn', CDO + 'milestones-svn.txt')
+MILESTONES = [ 'cao-milestones-0.7',
+               'cao-milestones-0.7-sprint',
+               ('cdo-milestones-0.7', CDO + 'milestones-0.7.txt'),
+               ('cdo-milestones-0.7-sprint', CDO + 'milestones-spr-0.7.txt')
              ]
 
 BLACKLIST_FILE = 'blacklist.txt'
@@ -674,8 +673,8 @@ def is_not_tourney(game):
 
   if sprint:
     # Sprint milestones are ignored.
-    # FIXME: Check for map and ignore maps that aren't dungeon_sprint_mu.
     return (record_is_milestone(game) or
+            game.get('map') != SPRINT_MAP or
             start < SPRINT_START_TIME or end >= SPRINT_END_TIME)
   else:
     return start < START_TIME or end >= END_TIME
