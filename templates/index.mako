@@ -710,7 +710,8 @@
               <p>
                 Jiyva relishes item destruction in all its splendid
                 forms, and will crown <a name="royal_jelly">ROYAL
-                JELLY</a> a player who destroys the Orb of Zot
+                JELLY</a> a player who destroys the Orb of Zot by dropping
+                it in lava.
                 (<span>100 points</span> for a player's first game to
                 earn this banner).
               </p>
