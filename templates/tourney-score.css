@@ -79,7 +79,7 @@ tr.win td {
 
 div.player_clan {
     width: 50%;
-    background: #fff0e0;
+    background: #fffae0;
     border: 1px solid #ddd;
     padding: 15px;
 }
@@ -121,7 +121,7 @@ div.sidebar {
 
 div.sidebar_title {
     padding: 0px 20px 0px 20px;
-    background: #fff0e0;
+    background: #fffae0;
     border: 1px solid #000;
 }
 
@@ -132,7 +132,7 @@ div.sidebar_content {
 }
 
 div.inset {
-    background: #fff0e0;
+    background: #fffae0;
     padding: 10px;
     border: 1px solid #f3dcdc;
     margin-top: 10px;
@@ -253,7 +253,7 @@ td.legend {
 
 th {
     font-weight: bold;
-    background: #fff0e0;
+    background: #fffae0;
     padding-left: 3px;
     padding-right: 3px;
 }
