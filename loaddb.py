@@ -676,6 +676,9 @@ def is_not_tourney(game):
   if sprint:
     # Sprint milestones are ignored.
     return (record_is_milestone(game) or
+            # Allow beta-testers to play on the servers without
+            # affecting scoring.
+            game['name'] == 'syllogism' or
             game.get('map') != SPRINT_MAP or
             start < SPRINT_START_TIME or end >= SPRINT_END_TIME)
   else:
