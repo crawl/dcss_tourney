@@ -590,8 +590,9 @@
               <p>
                 Elyvilon thinks it's important to check out what all
                 the gods have to offer and thus will
-                give <a name="pantheon">THE&nbsp;PANTHEON</a> to any player
-                who acquires every god as not a starting god over the
+                give <a name="pantheon">THE&nbsp;PANTHEON</a> to any
+                player who has worshipped all the different gods in
+                different games (god checked at end of game) over the
                 course of the tournament.
               </p>
             </div>
