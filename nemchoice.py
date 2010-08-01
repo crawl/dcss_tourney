@@ -32,6 +32,6 @@ def is_nemelex_choice(combo, when):
     if isinstance(when, str) or isinstance(when, unicode):
       when = query.time_from_str(when)
     for c in NEMELEX_COMBOS:
-      if c[0] == combo and when >= c[1]:
+      if c[0] == combo:
         return True
   return False
