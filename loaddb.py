@@ -662,7 +662,7 @@ def is_not_tourney(game):
 
   milestone = record_is_milestone(game)
   # Broken record checks:
-  if not milestone and not game.get('end'):
+  if not milestone and not game.get('end') and not game.get('time'):
     return True
 
   end = game.get('end') or game.get('time') or start
