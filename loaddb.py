@@ -648,7 +648,7 @@ def game_is_sprint(game):
   return 'spr' in game['lv']
 
 def record_is_milestone(rec):
-  return rec.has_key('milestone')
+  return rec.has_key('milestone') or rec.has_key('type')
 
 def is_not_tourney(game):
   """A game started before the tourney start or played after the end
