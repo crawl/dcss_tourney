@@ -20,7 +20,7 @@ PLAYER_FILE_DIR = SCORE_FILE_DIR + '/' + PLAYER_BASE
 CLAN_FILE_DIR = SCORE_FILE_DIR + '/' + CLAN_BASE
 
 CAO_MORGUE_BASE = 'http://crawl.akrasiac.org/rawdata'
-CDO_MORGUE_BASE = 'http://crawl.develz.org/morgues/stable'
+CDO_MORGUE_BASE = 'http://crawl.develz.org/morgues/0.7'
 # Use file URLs when testing on greensnark's machines.
 
 LOCAL_TEST = ('tecumseh' in os.getcwd()
