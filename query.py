@@ -1308,7 +1308,10 @@ def kill_active_streak(c, player):
 def find_most_recent_character_since(c, player, time):
   row = query_row(c, '''SELECT charabbrev, update_time
                           FROM most_recent_character
-                         WHERE player = %s''', player)
+                         WHERE player = %s ''', player)
+  if not row:
+    return None
+
   # If the most recent character is newer than the date specified, return that.
   if row[1] > time:
     return row[0]

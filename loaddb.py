@@ -360,6 +360,8 @@ def strip_unique_qualifier(x):
 def xlog_milestone_fixup(d):
   for field in [x for x in ['uid'] if d.has_key(x)]:
     del d[field]
+  if not d.get('milestone'):
+    d['milestone'] = ' '
   verb = d['type']
   milestone = d['milestone']
   noun = None
@@ -423,7 +425,7 @@ def xlog_dict(logline):
     d['nrune'] = d.get('nrune') or d.get('urune')
     d['urune'] = d.get('urune') or d.get('nrune')
 
-  if d.has_key('milestone'):
+  if record_is_milestone(d):
     xlog_milestone_fixup(d)
   xlog_set_killer_group(d)
 
@@ -934,7 +936,7 @@ def process_log(cursor, filename, offset, d):
     insert_xlog_db(cursor, d, filename, offset)
 
     if not game_is_sprint(d):
-      if not d.get('milestone'):
+      if not record_is_milestone(d):
         update_highscores(cursor, d, filename, offset)
 
       if is_ghost_kill(d):
