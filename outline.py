@@ -259,8 +259,6 @@ def crunch_winner(c, game):
     # And the banner:
     banner.safe_award_banner(c, player, 'lairless_win', 15)
 
-  query.update_active_streak(c, player, game_end)
-
   debug("%s win (%s), runes: %d" % (player, charabbrev, game.get('urune') or 0))
 
   if nemchoice.is_nemelex_choice(charabbrev, game_end):
@@ -319,15 +317,17 @@ def crunch_winner(c, game):
     # Any win gets 10 points at this point.
     assign_points(c, "my_win", game['name'], 10)
 
+  streak_wins = query.wins_in_streak_before(c, game['name'], game_end)
+  debug("%s win (%s), previous games in streak: %s" %
+        (game['name'], game['char'], streak_wins))
+  if not streak_wins:
+    query.kill_active_streak(c, player)
+  query.update_active_streak(c, player, game_end)
+
   # For one or more prior wins, check streaks
   if n_my_wins >= 1:
     # Check if this is a streak. streak_wins will be empty if not on
     # a streak.
-    streak_wins = query.wins_in_streak_before(c, game['name'], game_end)
-
-    debug("%s win (%s), previous games in streak: %s" %
-          (game['name'], game['char'], streak_wins))
-
     if streak_wins:
       streak_len = len(streak_wins) + 1
       # First update the streaks table. We're still in the logfile transaction

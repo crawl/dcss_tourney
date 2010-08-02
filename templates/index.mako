@@ -180,6 +180,22 @@
               To be clear: for streak wins, "repeat" means "in that
               streak;" for non-streak wins, "repeat" means "ever."
             </p>
+
+            <div class="inset">
+              <p>
+                For every game in a streak, the start time of the game
+                must be later than the prior game's end time. This
+                will always be the case if you play all your games on
+                one server.
+              </p>
+
+              <p>
+                If you're playing on multiple servers
+                simultaneously, note that you cannot start game A and
+                game B concurrently on two servers and win both in
+                succession to earn streak points.
+              </p>
+            </div>
           </div>
 
           <hr>

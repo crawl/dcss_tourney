@@ -402,9 +402,32 @@ def most_pacific_wins(c, how_many=3):
   games = [ row_to_xdict(x) for x in rows ]
   return games
 
+def find_monotonic_games(games):
+  """Given a list of game dictionaries in chronological order by
+  end_time, walks backwards from the end and returns the longest list
+  such that each game's end_time <= the start time of the next game
+  in the sequence."""
+  reverse_chrono_list = list(games)
+  reverse_chrono_list.reverse()
+  reverse_filtered_list = []
+  last_game = None
+  for g in reverse_chrono_list:
+    if last_game and g['end_time'] > last_game['start_time']:
+      break
+    last_game = g
+    reverse_filtered_list.append(g)
+  reverse_filtered_list.reverse()
+  return reverse_filtered_list
+
 def get_streak_games(c, player, end_time):
+  """Returns the games in the player's streak of wins with the last game in
+  the streak specified by the provided end_time. Streak times must be
+  monotonically increasing; each game's end-time must be <= the next game's
+  start time. Monotonicity will be checked from the most recent game backwards.
+  Streak games are returned in chronological order."""
   q = Query('SELECT ' + ",".join(LOG_FIELDS) + ' FROM games ' +
             '''WHERE player = %s
+               AND killertype = 'winning'
                AND end_time >
                      COALESCE((SELECT MAX(end_time) FROM games
                                WHERE player = %s
@@ -413,7 +436,7 @@ def get_streak_games(c, player, end_time):
                AND end_time <= %s
                ORDER BY end_time''',
             player, player, end_time, end_time)
-  return [ row_to_xdict(x) for x in q.rows(c) ]
+  return find_monotonic_games([ row_to_xdict(x) for x in q.rows(c) ])
 
 def wins_in_streak_before(c, player, before):
   """Returns all the wins in the streak before the given game. Caller
@@ -985,7 +1008,7 @@ def count_hs_combo_wins(c, player):
 def count_hs_species(c, player):
   return query_first(c,
                      '''SELECT COUNT(*) FROM species_highscores
-                        WHERE player=%s''',
+                        WHERE player=%s ''',
                      player)
 
 def game_hs_species(c, player):
@@ -1268,7 +1291,7 @@ def lookup_deaths_to_distinct_uniques(c, player):
 def update_deaths_to_distinct_uniques(c, player, ndeaths, time):
   query_do(c, '''INSERT INTO deaths_to_distinct_uniques
                       VALUES (%s, %s, %s)
-                 ON DUPLICATE KEY UPDATE ndeaths = %s, death_time = %s''',
+                 ON DUPLICATE KEY UPDATE ndeaths = %s, death_time = %s ''',
            player, ndeaths, time, ndeaths, time)
 
 def update_active_streak(c, player, end_time):
