@@ -31,7 +31,7 @@ def pantheon(c, player):
   distinct_gods = [god for god in query.player_distinct_gods(c, player)
                    if god and god != 'No God']
   if len(distinct_gods) == len(crawl.GODS) - 1:
-    award_banner(c, player, 'pantheon', 0)
+    award_banner(c, player, 'pantheon', 8)
 
 def heretic(c, player):
   gods_renounced = query.player_distinct_renounced_gods(c, player)
@@ -41,7 +41,7 @@ def heretic(c, player):
   # [snark] We'll accept one less mollify than renounce because apparently
   # Nemelex mollification produces no milestone (why is this?)
   if (nmollified >= nrenounced - 1 and nrenounced == len(crawl.GODS) - 1):
-    award_banner(c, player, 'heretic', 0)
+    award_banner(c, player, 'heretic', 10)
 
 BANNERS = [['pantheon', pantheon],
            ['heretic', heretic],
