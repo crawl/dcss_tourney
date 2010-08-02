@@ -516,7 +516,7 @@ def safe_update_player_scores(c):
 
   for p in players:
     record_points(pmap, p, 0, team_points=False)
-    debug("Processing banners for " + p)
+    info("Processing banners for " + p)
     banner.process_banners(c, p)
 
   check_misc_points(c, pmap)
