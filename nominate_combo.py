@@ -103,12 +103,16 @@ def restart_taildb():
 
 def fetch_combo_from_remote():
   old_size = os.path.getsize(NOMINEE_FILE)
-  while old_size == os.path.getsize(NOMINEE_FILE):
+  tries = 0
+  while old_size == os.path.getsize(NOMINEE_FILE) and tries < 60
     os.system('wget -q -c %s -O %s' % (REMOTE_COMBO_URL, NOMINEE_FILE))
     time.sleep(2)
+    tries += 1
 
-  nominee = find_previous_nominees()[-1]
-  print "New nominee: %s at %s" % (nominee['combo'], nominee['time'])
+  all_nominees = find_previous_nominees()
+  if all_nominees:
+    nominee = all_nominees[-1]
+    print "New nominee: %s at %s" % (nominee['combo'], nominee['time'])
 
 if __name__ == '__main__':
   try:
