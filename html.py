@@ -441,11 +441,15 @@ def banner_image(banner):
   return img
 
 def banner_img_for(b, nth):
+  if nth:
+    bid = " id=\"banner-%d\" " % nth
+  else:
+    bid = ""
   return '''<div>
               <img src="%s" alt="%s"
                    title="%s" width="150" height="55"
-                   id="banner-%d" class="banner">
-              </div>''' % (b[0], b[1], b[1], nth)
+                   %s class="banner">
+              </div>''' % (b[0], b[1], b[1], bid)
 
 def banner_named(name):
   img = banner_image(name)

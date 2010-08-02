@@ -152,14 +152,10 @@ def clan_additional_score(c, owner):
 def update_clan_scores(c):
   banner.flush_clan_banners(c)
   for clan in query.get_clans(c):
-    info("Updating full score for clan %s" % clan)
-    clan_additional_score(c, clan)
+      info("Updating full score for clan %s" % clan)
+      clan_additional_score(c, clan)
   banner.assign_top_clan_banners(c)
-  outline.award_player_banners(c, 'top_clan_Nth:1',
-                               query_first_col(c,
-                                               '''SELECT name FROM players
-                                                   WHERE team_captain = (
-                                                     SELECT owner FROM teams
-                                                   ORDER BY total_score DESC
-                                                      LIMIT 1)'''),
-                               10, temp=True)
+
+  top_clan_player_banners = query.clan_player_banners(c)
+  for banner, player in banner_rows:
+      banner.safe_award_banner(c, player, banner, 10, temp=True)

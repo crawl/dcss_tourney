@@ -1197,6 +1197,28 @@ def get_player_banners(c, player):
                                 ORDER BY prestige DESC, banner''',
                          player)
 
+def player_banners_awarded(c):
+  """Returns a list of tuples as [(banner_name, [list of players]), ...]
+  ordered by descending order of banner prestige."""
+  banner_rows = query_rows(c, '''SELECT banner, player
+                                 FROM player_banners
+                                 ORDER BY prestige DESC, banner, player''')
+  banners = []
+  for row in banner_rows:
+    banner_name, player = row
+    if not banners or banner_name != banners[-1][0]:
+      banners.append( (banner_name, []) )
+    banners[-1][1].append(player)
+  return banners
+
+def clan_player_banners(c):
+  """Returns a list of tuples as [(banner_name, player_name)] for players
+  in the top three clans."""
+  banner_rows = query_rows(c, '''SELECT c.banner, p.name FROM
+                                 clan_banners AS c, players AS p
+                                 WHERE c.team_captain = p.team_captain''')
+  return banner_rows
+
 def player_distinct_gods(c, player):
   """Returns the list of gods that the player has worshipped at end of game.
   This does not check for renouncing gods, etc. during the game, so it
