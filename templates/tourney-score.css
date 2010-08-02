@@ -20,6 +20,10 @@ h3 {
   margin-bottom: 3px;
 }
 
+.banner-desc h3 {
+  font-size: 12px;
+}
+
 h4 {
   margin-bottom: 2px;
 }

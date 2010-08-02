@@ -157,5 +157,5 @@ def update_clan_scores(c):
   banner.assign_top_clan_banners(c)
 
   top_clan_player_banners = query.clan_player_banners(c)
-  for banner, player in banner_rows:
-      banner.safe_award_banner(c, player, banner, 10, temp=True)
+  for banner_name, player in top_clan_player_banners:
+      banner.safe_award_banner(c, player, banner_name, 10, temp=True)

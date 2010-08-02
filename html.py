@@ -453,6 +453,8 @@ def banner_img_for(b, nth):
 
 def banner_named(name):
   img = banner_image(name)
+  if not img:
+    return None
   return banner_img_for(img, 0)
 
 def banner_images(banners):

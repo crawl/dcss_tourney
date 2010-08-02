@@ -1,8 +1,10 @@
 <%
-   import query, html
+   import query, html, crawl_utils
+
    c = attributes['cursor']
 
-   all_banners = query.player_banners_awarded()
+   all_banners = query.player_banners_awarded(c)
+   title = "Banners Awarded"
  %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
@@ -24,14 +26,16 @@
 
           <hr>
 
-          %for banner in all_banners:
-
-          ${html.banner_img_for(banner[0], None)}
-
-          <p>
-            ${", ".join([crawl_utils.player_link(p) for p in banner[1]])}
-          </p>
-
+          %for ban in all_banners:
+          <% img = html.banner_named(ban[0]) %>
+            %if img:
+            ${img}
+            <p>
+              <h3>${html.banner_image(ban[0])[1]}</h3>
+              ${", ".join([crawl_utils.linked_player_name(p) for p in ban[1]])}
+            </p>
+            <hr>
+            %endif
           %endfor
         </div>
 

@@ -40,15 +40,16 @@ def tourney_overview(c):
 
 def player_pages(c):
   info("Updating all player pages")
-  for p in query.get_players(c):
-    player_page(c, p)
   render(c, 'unwon')
+  render(c, 'banners')
   render(c, 'all-players')
   render(c, 'scoreboard')
   render(c, 'combo-scoreboard')
   render(c, 'combo-leaders')
   render(c, 'killers')
   render(c, 'gkills')
+  for p in query.get_players(c):
+    player_page(c, p)
 
 def index_page(c):
   info("Updating index page")

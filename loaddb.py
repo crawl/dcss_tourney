@@ -41,9 +41,7 @@ LOGS = [ 'cao-logfile-0.7',
          ('cdo-logfile-0.7-sprint', CDO + 'allgames-spr-0.7.txt') ]
 
 MILESTONES = [ 'cao-milestones-0.7',
-               'cao-milestones-0.7-sprint',
                ('cdo-milestones-0.7', CDO + 'milestones-0.7.txt'),
-               ('cdo-milestones-0.7-sprint', CDO + 'milestones-spr-0.7.txt')
              ]
 
 BLACKLIST_FILE = 'blacklist.txt'

@@ -147,6 +147,9 @@ def format_time(time):
 def player_link(player):
   return "%s/%s.html" % (CAO_PLAYER_BASE, player.lower())
 
+def linked_player_name(player):
+  return linked_text(player, player_link)
+
 def clan_link(clan):
   return "%s/%s.html" % (CAO_CLAN_BASE, clan.lower())
 
