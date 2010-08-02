@@ -542,8 +542,8 @@
                 Sif Muna thinks it's great when a spellcaster
                 shows <a name="free_will">FREE WILL</a> and maximizes
                 the elemental spell skill opposite from her starting
-                class: So, for example, a player who maxed out Ice
-                Magic as a Fire Elementalist would get this award.
+                class as her first maxed skill: So, for example, a player who
+                maxed out Ice Magic as a Fire Elementalist would get this award.
               </p>
             </div>
 
@@ -679,7 +679,10 @@
                 FRUIT BASKET</a> to a player who finds every kind of
                 fruit (pear, apple, choko, apricot, orange, banana,
                 strawberry, rambutan, lemon, grape, sultana, lychee)
-                over the course of the tournament.
+                over the course of the tournament. Fruits count toward
+                the Fruit Basket when picked up - merely finding the fruit
+                on the ground or eating it off the ground does not
+                count.
               </p>
             </div>
 
