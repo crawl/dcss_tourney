@@ -539,7 +539,7 @@
                    width="150" height="55"
                     >
               <p>
-                Sif Muna thinks it's great when a spellcaster
+                Sif Muna thinks it's great when a winning spellcaster
                 shows <a name="free_will">FREE WILL</a> and maximizes
                 the elemental spell skill opposite from her starting
                 class as her first maxed skill: So, for example, a player who
