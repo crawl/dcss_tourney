@@ -155,7 +155,7 @@ def check_fedhas_banner(c, g):
     player = game_player(g)
     full_fruit_mask = query.player_update_get_fruit_mask(c, player, fruit_mask)
     if crawl.fruit_basket_complete(full_fruit_mask):
-      banner.safe_award_banner(c, player, 'fruit_basket', 11)
+      banner.safe_award_banner(c, player, 'fruit_basket', 5)
 
 def crunch_misc(c, g):
   player = g['name']
