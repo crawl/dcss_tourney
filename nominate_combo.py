@@ -104,7 +104,7 @@ def restart_taildb():
 def fetch_combo_from_remote():
   old_size = os.path.getsize(NOMINEE_FILE)
   tries = 0
-  while old_size == os.path.getsize(NOMINEE_FILE) and tries < 60
+  while old_size == os.path.getsize(NOMINEE_FILE) and tries < 60:
     os.system('wget -q -c %s -O %s' % (REMOTE_COMBO_URL, NOMINEE_FILE))
     time.sleep(2)
     tries += 1
