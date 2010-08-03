@@ -410,6 +410,14 @@ pre {
   clear: both;
 }
 
+.banner-desc div.text {
+  width: 60%;
+  float: left;
+  clear: none;
+  margin-bottom: 8px;
+}
+
+
 .banner-desc hr {
   clear: both;
 }

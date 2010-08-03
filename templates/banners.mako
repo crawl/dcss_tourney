@@ -21,7 +21,7 @@
       <%include file="toplink.mako"/>
       <div class="page_content">
 
-        <div class="banner-desc">
+        <div class="banner-desc banner-top-padded">
           <h2>Banners Awarded</h2>
 
           <hr>
@@ -30,10 +30,10 @@
           <% img = html.banner_named(ban[0]) %>
             %if img:
             ${img}
-            <p>
+            <div class="text">
               <h3>${html.banner_image(ban[0])[1]}</h3>
               ${", ".join([crawl_utils.linked_player_name(p) for p in ban[1]])}
-            </p>
+            </div>
             <hr>
             %endif
           %endfor

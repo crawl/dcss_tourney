@@ -449,7 +449,7 @@ def banner_img_for(b, nth):
               <img src="%s" alt="%s"
                    title="%s" width="150" height="55"
                    %s class="banner">
-              </div>''' % (b[0], b[1], b[1], bid)
+            </div>''' % (b[0], b[1], b[1], bid)
 
 def banner_named(name):
   img = banner_image(name)
