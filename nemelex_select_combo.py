@@ -6,7 +6,7 @@ import MySQLdb
 import combos
 import sys
 import random
-from loaddb import query_rows, query_first
+from loaddb import query_rows, query_first, T_YEAR
 from nominate_combo import assert_validity, apply_combo, parse_time
 from nominate_combo import find_previous_nominees, filter_combos
 
@@ -24,10 +24,15 @@ def eligible_combos(c):
   # Pick low-winning combos, excluding the species that are either too
   # cheap or encourage scumming.
   unusable = query_rows(c,
-                        """SELECT charabbrev, COUNT(*) AS wins FROM logrecord
-                            WHERE killer = 'winning' AND cv >= '0.4'
+                        """(SELECT charabbrev AS wins FROM logrecord
+                            WHERE ktyp = 'winning' AND cv >= '0.4'
                          GROUP BY charabbrev
-                           HAVING wins > %d""" % MAX_WINS)
+                           HAVING wins > %d)
+                           UNION
+                           (SELECT charabbrev AS wins FROM logrecord
+                            WHERE ktyp = 'winning' AND cv = '0.7'
+                              AND tstart > '%s0801' AND tend < '%s0901')
+                        """ % (MAX_WINS, T_YEAR, T_YEAR))
   unusable_combos = set([x[0] for x in unusable])
   return [x for x in combos.VALID_COMBOS
           if (x not in unusable_combos

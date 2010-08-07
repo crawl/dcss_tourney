@@ -12,13 +12,12 @@ import ConfigParser
 import imp
 import sys
 
-# Used only for display
 T_YEAR = '2010'
 T_VERSION = '0.7'
 
 # Start and end of the tournament, UTC.
-START_TIME = '20100801'
-END_TIME   = '20100901'
+START_TIME = T_YEAR + '0801'
+END_TIME   = T_YEAR + '0901'
 
 DATE_FORMAT = '%Y%m%d'
 
