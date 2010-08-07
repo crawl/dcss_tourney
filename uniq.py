@@ -5,7 +5,7 @@ UNIQUES = [ "Ijyb", "Blork", "Urug", "Erolcha", "Snorg",
             "Agnes", "Maud", "Louise", "Francis", "Frances", "Rupert", "Wayne",
             "Duane", "Norris", "Frederick", "Margery", "Mnoleg", "Lom Lobon",
             "Cerebov", "Gloorx Vloq", "Geryon", "Dispater", "Asmodeus",
-            "Ereshkigal", "Nessos", "Azrael",
+            "Ereshkigal", "Nessos", "Azrael", "Polyphemus",
             "Prince Ribbit", "the royal jelly", "Dissolution", "Sonja",
             "Nergalle", "Saint Roka", "Roxanne", "Eustachio",
 
