@@ -24,12 +24,12 @@ def eligible_combos(c):
   # Pick low-winning combos, excluding the species that are either too
   # cheap or encourage scumming.
   unusable = query_rows(c,
-                        """(SELECT charabbrev AS wins FROM logrecord
+                        """(SELECT charabbrev FROM logrecord
                             WHERE ktyp = 'winning' AND cv >= '0.4'
                          GROUP BY charabbrev
-                           HAVING wins > %d)
+                           HAVING COUNT(*) > %d)
                            UNION
-                           (SELECT charabbrev AS wins FROM logrecord
+                           (SELECT charabbrev FROM logrecord
                             WHERE ktyp = 'winning' AND cv = '0.7'
                               AND tstart > '%s0801' AND tend < '%s0901'
                          GROUP BY charabbrev)
