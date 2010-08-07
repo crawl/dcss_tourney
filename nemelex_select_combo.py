@@ -31,7 +31,8 @@ def eligible_combos(c):
                            UNION
                            (SELECT charabbrev AS wins FROM logrecord
                             WHERE ktyp = 'winning' AND cv = '0.7'
-                              AND tstart > '%s0801' AND tend < '%s0901')
+                              AND tstart > '%s0801' AND tend < '%s0901'
+                         GROUP BY charabbrev)
                         """ % (MAX_WINS, T_YEAR, T_YEAR))
   unusable_combos = set([x[0] for x in unusable])
   return [x for x in combos.VALID_COMBOS
