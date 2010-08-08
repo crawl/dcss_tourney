@@ -442,7 +442,9 @@ def banner_image(banner, full_name=False):
   name_suffix = banner_suffix(banner)
   banner_subkey = _strip_banner_suffix(banner)
   img = BANNER_IMAGES.get(banner) or BANNER_IMAGES.get(banner_subkey)
-  name = img[1]
+  name = ''
+  if img:
+    name = img[1]
   if full_name and name_suffix:
     name = name + " (" + name_suffix + ")"
   if img and img[0]:
