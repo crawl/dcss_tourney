@@ -31,7 +31,7 @@
             %if img:
             ${img}
             <div class="text">
-              <h3>${html.banner_image(ban[0])[1]}</h3>
+              <h3>${html.banner_image(ban[0], full_name=True)[1]}</h3>
               ${", ".join([crawl_utils.linked_player_name(p) for p in ban[1]])}
             </div>
             <hr>

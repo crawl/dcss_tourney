@@ -433,11 +433,20 @@ def _strip_banner_suffix(banner):
     return banner[ : banner.index(':')]
   return banner
 
-def banner_image(banner):
+def banner_suffix(banner):
+  if ':' in banner:
+    return banner[banner.index(':') + 1 :]
+  return ''
+
+def banner_image(banner, full_name=False):
+  name_suffix = banner_suffix(banner)
   banner_subkey = _strip_banner_suffix(banner)
   img = BANNER_IMAGES.get(banner) or BANNER_IMAGES.get(banner_subkey)
+  name = img[1]
+  if full_name and name_suffix:
+    name = name + " (" + name_suffix + ")"
   if img and img[0]:
-    return (crawl_utils.banner_link(img[0]), img[1])
+    return (crawl_utils.banner_link(img[0]), name)
   return img
 
 def banner_img_for(b, nth):
