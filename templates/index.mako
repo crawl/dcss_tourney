@@ -508,8 +508,9 @@
                    >
               <p>
                 <a name="heretic">XOM PREFERS A HERETIC</a> and thinks
-                it would be hilarious if a player managed to mollify
-                every god over the course of the whole month.
+                it would be hilarious if a player managed to renounce
+                and mollify every god over the course of the whole
+                month.
               </p>
             </div>
 
