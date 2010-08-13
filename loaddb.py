@@ -230,6 +230,7 @@ class Xlogfile:
       if self.local and self.offset >= self.size:
         return None
 
+      line_offset = self.offset
       line = self.handle.readline()
       newoffset = self.handle.tell()
       if not line or not line.endswith("\n") or \
@@ -241,7 +242,7 @@ class Xlogfile:
       self.offset = newoffset
       # If this is a blank line, advance the offset and keep reading.
       if not line.strip():
-        return
+        continue
 
       try:
         xdict = apply_dbtypes( xlog_dict(line) )
@@ -251,7 +252,7 @@ class Xlogfile:
         sys.stderr.write("Error processing line: " + line + "\n")
         raise
 
-      xline = Xlogline( self, self.filename, self.offset,
+      xline = Xlogline( self, self.filename, line_offset,
                         xdict.get('end') or xdict.get('time'),
                         xdict, self.proc_op )
       return xline
@@ -889,7 +890,6 @@ def xlog_seek(filename, filehandle, offset):
   if offset == -1:
     filehandle.seek(0)
   else:
-    filehandle.seek(offset > 0 and offset or (offset - 1))
     # Sanity-check: the byte immediately preceding this must be "\n".
     if offset > 0:
       filehandle.seek(offset - 1)
