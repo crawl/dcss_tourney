@@ -408,7 +408,8 @@
 
             <p>
               <span>200/100/50 points</span> for first Sprint win of
-              the tournament.
+              the tournament. <span>NOTE:</span> Only the first win
+              of a player is considered for this.
             </p>
 
             <p>
