@@ -686,11 +686,11 @@ def is_not_tourney(game):
 
 def in_sprint_window():
   nowtime = datetime.datetime.utcnow().strftime(DATE_FORMAT)
-  return nowtime > SPRINT_START_TIME
+  return nowtime >= SPRINT_START_TIME
 
 def time_in_hare_window():
   nowtime = datetime.datetime.utcnow().strftime(DATE_FORMAT)
-  return nowtime > HARE_START_TIME
+  return nowtime >= HARE_START_TIME
 
 _active_cursor = None
 
