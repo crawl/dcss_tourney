@@ -715,7 +715,7 @@ def is_god_repeated(c, player, god):
   """Returns true if the player has already won a game with the
   specified god."""
   return query_first_def(c, False,
-                         '''SELECT god FROM player_won_gods
+                         '''SELECT COUNT(*) FROM player_won_gods
                              WHERE player = %s AND COALESCE(god, '') = %s''',
                          player, god)
 
