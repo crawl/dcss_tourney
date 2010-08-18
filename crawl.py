@@ -1,6 +1,6 @@
 #! /usr/bin/python
 
-NRUNES = 15
+NRUNES = 16
 
 GODS = ['No God', 'Zin', 'The Shining One', 'Kikubaaqudgha',
         'Yredelemnul', 'Xom', 'Vehumet', 'Okawaru', 'Makhleb',
