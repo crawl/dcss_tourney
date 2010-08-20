@@ -48,7 +48,7 @@ def time_from_str(when):
 
 def canonical_where_name(name):
   test = '%s/%s' % (crawl_utils.RAWDATA_PATH, name)
-  if os.path.exists(test):
+  if os.path.exists(test) or not os.path.exists(crawl_utils.RAWDATA_PATH):
     return name
   names = os.listdir(crawl_utils.RAWDATA_PATH)
   names = [ x for x in names if x.lower() == name.lower() ]

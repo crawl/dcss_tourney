@@ -8,12 +8,28 @@
 
    won_games = query.find_games(c, player = player, killertype = 'winning',
                                 sort_max = 'end_time', limit=None)
+   best_games = []
+
+   if len(won_games) < 5:
+     best_games = query.find_games(c, player = player,
+                                   sort_max = 'score',
+                                   limit = 10)
+     if len(best_games) < len(won_games):
+       best_games = []
 
    sprint_won_games = query.find_games(c, player = player,
                                        killertype = 'winning',
                                        sort_max = 'end_time',
                                        sprint = True,
                                        limit = None)
+   best_sprint_games = []
+   if len(sprint_won_games) < 5:
+     best_sprint_games = query.find_games(c, player = player,
+                                          sort_max = 'score',
+                                          sprint = True,
+                                          limit = 10)
+     if len(best_sprint_games) < len(sprint_won_games):
+       best_sprint_games = []
 
    recent_games = query.find_games(c, player = player, sort_max = 'end_time',
                                    limit = 9)
@@ -138,6 +154,13 @@
           </div>
           % endif
 
+          %if best_games:
+          <div class="game_table">
+            <h3>Best Games</h3>
+            ${html.full_games_table(best_games, win=False)}
+          </div>
+          %endif
+
           % if won_gods:
           <div id="won-gods">
             <h3>Winning Gods:</h3>
@@ -162,6 +185,13 @@
           <div class="game_table">
             <h3>Sprint Wins</h3>
             ${html.full_games_table(sprint_won_games, count = False)}
+          </div>
+          %endif
+
+          %if best_sprint_games:
+          <div class="game_table">
+            <h3>Best Sprint Games</h3>
+            ${html.full_games_table(best_sprint_games, win=False)}
           </div>
           %endif
 
