@@ -25,6 +25,7 @@ CDO_MORGUE_BASE = 'http://crawl.develz.org/morgues/0.7'
 
 LOCAL_TEST = ('tecumseh' in os.getcwd()
               or 'tecumseh' == os.environ.get('USER'))
+#LOCAL_TEST = 1
 
 CAO_BASE = (LOCAL_TEST
             and ('file:///' + os.getcwd() + '/' + SCORE_FILE_DIR)

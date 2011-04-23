@@ -12,35 +12,35 @@ import ConfigParser
 import imp
 import sys
 
-T_YEAR = '2010'
-T_VERSION = '0.7'
+T_YEAR = '2011'
+T_VERSION = '0.8'
 
 # Start and end of the tournament, UTC.
-START_TIME = T_YEAR + '0801'
-END_TIME   = T_YEAR + '0901'
+START_TIME = T_YEAR + '0301'
+END_TIME   = T_YEAR + '0401'
 
 DATE_FORMAT = '%Y%m%d'
 
 GAME_VERSION = T_VERSION
 
-SPRINT_START_TIME = '20100815'
+SPRINT_START_TIME = '20100315'
 SPRINT_END_TIME = END_TIME
 SPRINT_MAP = 'dungeon_sprint_mu'
 
-HARE_START_TIME = '20100831'
+HARE_START_TIME = '20100331'
 
 CDO = 'http://crawl.develz.org/'
 
 # Log and milestone files. A tuple indicates a remote file with t[1]
 # being the URL to wget -c from.
 
-LOGS = [ 'cao-logfile-0.7',
-         'cao-logfile-0.7-sprint',
-         ('cdo-logfile-0.7', CDO + 'allgames-0.7.txt'),
-         ('cdo-logfile-0.7-sprint', CDO + 'allgames-spr-0.7.txt') ]
+LOGS = [ 'cao-logfile-0.8',
+         'cao-logfile-0.8-sprint',
+         ('cdo-logfile-0.8', CDO + 'allgames-svn.txt'),
+         ('cdo-logfile-0.8-sprint', CDO + 'allgames-spr-svn.txt') ]
 
-MILESTONES = [ 'cao-milestones-0.7',
-               ('cdo-milestones-0.7', CDO + 'milestones-0.7.txt'),
+MILESTONES = [ 'cao-milestones-0.8',
+               ('cdo-milestones-0.8', CDO + 'milestones-svn.txt'),
              ]
 
 BLACKLIST_FILE = 'blacklist.txt'
