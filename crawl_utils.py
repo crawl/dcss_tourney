@@ -10,7 +10,7 @@ UPDATE_INTERVAL = 7 * 60
 LOCK = None
 BASEDIR = os.environ['HOME']
 LOCKFILE = BASEDIR + '/tourney-py.lock'
-SCORE_FILE_DIR = 'html.tourney10'
+SCORE_FILE_DIR = 'html.tourney11a'
 
 SCORE_CSS = 'tourney-score.css'
 SCORE_CSS_PATH = SCORE_FILE_DIR + "/" + SCORE_CSS
@@ -30,7 +30,7 @@ LOCAL_TEST = ('tecumseh' in os.getcwd()
 CAO_BASE = (LOCAL_TEST
             and ('file:///' + os.getcwd() + '/' + SCORE_FILE_DIR)
             or 'http://crawl.akrasiac.org')
-CAO_TOURNEY_BASE = LOCAL_TEST and CAO_BASE or ('%s/tourney10' % CAO_BASE)
+CAO_TOURNEY_BASE = LOCAL_TEST and CAO_BASE or ('%s/tourney11a' % CAO_BASE)
 CAO_IMAGE_BASE = CAO_TOURNEY_BASE + '/images'
 CAO_PLAYER_BASE = '%s/players' % CAO_TOURNEY_BASE
 CAO_CLAN_BASE = '%s/clans' % CAO_TOURNEY_BASE
