@@ -102,12 +102,15 @@ def do_milestone_rune(c, mile):
   # Check if this player already found this kind of rune. Remember the db
   # is already updated, so for the first rune the count will be 1.
   rune = loaddb.extract_rune(mile['milestone'])
-  if query.player_count_runes(c, mile['name'], rune) > 1:
-    # player_already_has_rune:
-    assign_points(c, "rune:" + rune, mile['name'], 1)
-  else:
-    # 50 points for the first time the player finds a rune.
-    assign_points(c, "rune_1st:" + rune, mile['name'], 50)
+  num_rune = query.player_count_runes(c, mile['name'], rune)
+  rune_points = (30 + num_rune - 1) / num_rune
+  assign_points(c, "rune:" + rune, mile['name'], rune_points)
+#  if query.player_count_runes(c, mile['name'], rune) > 1:
+#    # player_already_has_rune:
+#    assign_points(c, "rune:" + rune, mile['name'], 1)
+#  else:
+#    # 50 points for the first time the player finds a rune.
+#    assign_points(c, "rune_1st:" + rune, mile['name'], 50)
   player = mile['name']
   banner.safe_award_banner(c, player, 'discovered_language', 6)
   if (not banner.player_has_banner(c, player, 'runic_literacy')
