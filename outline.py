@@ -79,10 +79,10 @@ def act_on_milestone(c, mile):
     do_milestone_rune(c, mile)
   elif miletype == 'ghost':
     do_milestone_ghost(c, mile)
-  elif miletype == 'orb.destroy':
+#  elif miletype == 'orb.destroy':
     # 50 points for first time player destroys the Orb (Royal Jelly banner).
-    if banner.safe_award_banner(c, player, 'royal_jelly', 15):
-      assign_points(c, "royal_jelly", player, 100)
+#    if banner.safe_award_banner(c, player, 'royal_jelly', 15):
+#      assign_points(c, "royal_jelly", player, 100)
 
 def do_milestone_unique(c, mile):
   """This function takes a parsed milestone known to commemorate the death of
@@ -134,7 +134,7 @@ def act_on_logfile_line(c, this_game):
 
   # Early exit for sprint games.
   if sprint:
-    calc_sprint_game_stats(c, this_game)
+ #   calc_sprint_game_stats(c, this_game)
     return
 
   if game_is_win(this_game):
@@ -262,12 +262,16 @@ def crunch_winner(c, game):
     # And the banner:
     banner.safe_award_banner(c, player, 'lairless_win', 15)
 
+  if not query.game_did_visit_branch(c, player, game_start_time(game)):
+    # 20 more bonus points for winning without doing any branches
+    assign_points(c, 'branchless_win', player, 20)
+
   debug("%s win (%s), runes: %d" % (player, charabbrev, game.get('urune') or 0))
 
   if nemchoice.is_nemelex_choice(charabbrev, game_end):
     ban = 'nemelex_choice:' + charabbrev
     if not banner.player_has_banner(c, player, ban):
-      assign_points(c, ban, player, 100)
+ #     assign_points(c, ban, player, 100)
       banner.award_banner(c, player, ban, 100, temp=False)
 
   if is_all_runer(game):
@@ -445,9 +449,9 @@ def check_temp_trophies(c, pmap):
   award_temp_trophy(c, pmap, query.get_top_unique_killers(c),
                     'top_uniq_killer:%d', [50, 20, 10])
 
-  award_temp_trophy(c, pmap, query.player_pacific_win_best(c),
-                    'top_pacific_win:%d', [200, 100, 50],
-                    team_points=True)
+#  award_temp_trophy(c, pmap, query.player_pacific_win_best(c),
+#                    'top_pacific_win:%d', [200, 100, 50],
+#                    team_points=True)
 
   # [snark] xl1 dive disabled for 2010 tourney.
   #award_temp_trophy(c, pmap, query.player_xl1_dive_best(c),
@@ -507,7 +511,7 @@ def check_misc_points(c, pmap):
 
   award_misc_points('combo_hs:%d', 5, query.all_hs_combos(c))
   award_misc_points('combo_hs_win:%d', 5, query.all_hs_combo_wins(c))
-  award_misc_points('species_hs:%d', 10, query.all_hs_species(c))
+  award_misc_points('species_hs:%d', 20, query.all_hs_species(c))
   award_misc_points('class_hs:%d', 10, query.all_hs_classes(c))
   winning_players_by_combo = query.get_winning_players_by_combo(c)
   for g in winning_players_by_combo:

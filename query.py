@@ -1302,6 +1302,17 @@ def game_did_visit_lair(c, player, start_time):
                               AND verb = 'br.enter' AND noun = 'Lair' ''',
                      player, start_time)
 
+def game_did_visit_branch(c, player, start_time):
+  return query_first(c, '''SELECT COUNT(*)
+                             FROM milestones
+                            WHERE player = %s
+                              AND start_time = %s
+                              AND verb = 'br.enter' 
+                              AND ((noun = 'Temple') OR (noun = 'Lair')
+                                  OR (noun = 'Orc') OR (noun = 'Hive')
+                                  OR (noun = 'Vault')) ''',
+                     player, start_time)
+
 def count_deaths_to_distinct_uniques(c, player):
   return query_first(c, '''SELECT COUNT(DISTINCT uniq)
                              FROM deaths_to_uniques
