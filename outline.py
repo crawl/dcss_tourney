@@ -313,9 +313,9 @@ def crunch_winner(c, game):
     # Second win! If neither repeated race or class, bonus!
     assign_points(c, "my_2nd_win_norep", game['name'], 50)
 
-  else:
+#  else:
     # Any win gets 10 points at this point.
-    assign_points(c, "my_win", game['name'], 10)
+#    assign_points(c, "my_win", game['name'], 10)
 
   streak_wins = query.wins_in_streak_before(c, game['name'], game_end)
   debug("%s win (%s), previous games in streak: %s" %
@@ -337,16 +337,16 @@ def crunch_winner(c, game):
 
       streak_repeats = repeat_race_class(streak_wins, game['char'])
 
-      # 100, 30, 10 points for streak games based on no repeat, xor, repeat.
+      # 40, 40, 40 points for streak games based on no repeat, xor, repeat.
       assign_points(c, "streak_win",
-                    game['name'], get_points(streak_repeats, 100, 30, 10))
+                    game['name'], get_points(streak_repeats, 40, 40, 40))
 
     # If this is a non-streak win, make sure we're not on the second
     # win with no repeats, since we've already done the bonus points
     # for that above.
-    elif n_my_wins >= 2 or (n_my_wins == 1 and repeated == 1):
-      assign_points(c, "my_nonstreak_norep",
-                    game['name'], get_points(repeated, 30, 10))
+#    elif n_my_wins >= 2 or (n_my_wins == 1 and repeated == 1):
+#      assign_points(c, "my_nonstreak_norep",
+#                    game['name'], get_points(repeated, 30, 10))
 
 def is_all_runer(game):
   """Did this game get every rune? This _might_ require checking the milestones
