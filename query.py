@@ -488,6 +488,33 @@ def get_winning_games(c, **selectors):
   return find_games(c, sort_max='end_time',
                     killertype='winning', **selectors)
 
+def get_winning_players_by_combo(c):
+  return query_rows(c, """SELECT DISTINCT player, charabbrev FROM
+       games WHERE killertype='winning'""")
+
+def get_winning_players_by_race(c):
+  return query_rows(c, """SELECT DISTINCT player, MID(charabbrev,1,2) FROM
+       games WHERE killertype='winning'""")
+
+def get_winning_players_by_class(c):
+  return query_rows(c, """SELECT DISTINCT player, MID(charabbrev,3,2) FROM
+       games WHERE killertype='winning'""")
+
+def count_combo_wins(c, combo):
+  query = Query('''SELECT COUNT(DISTINCT player) FROM games WHERE killertype='winning' AND charabbrev = %s''',
+                combo)
+  return query.count(c)
+
+def count_race_wins(c, race):
+  query = Query('''SELECT COUNT(DISTINCT player) FROM games WHERE killertype='winning' AND MID(charabbrev,1,2) = %s''',
+                race)
+  return query.count(c)
+
+def count_class_wins(c, race):
+  query = Query('''SELECT COUNT(DISTINCT player) FROM games WHERE killertype='winning' AND MID(charabbrev,3,2) = %s''',
+                race)
+  return query.count(c)
+
 def row_to_xdict(row):
   return dict( zip(LOG_FIELDS, row) )
 
