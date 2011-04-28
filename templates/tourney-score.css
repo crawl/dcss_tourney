@@ -397,13 +397,25 @@ pre {
 .banner-desc div img {
   float: left;
   margin-right: 8px;
-  margin-top: 1px;
+  margin-top: 0px;
+  margin-left: 0px;
   margin-bottom: 8px;
+  padding: 0px;
 }
 
 .banner-desc div p {
   width: 60%;
   float: left;
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-top: 0px;
+  margin-bottom: 8px;
+  padding: 0px;
+}
+
+.banner-desc div.container {
+    display: table-cell;
+    vertical-align: middle 
 }
 
 .banner-desc div {
@@ -414,12 +426,16 @@ pre {
   width: 60%;
   float: left;
   clear: none;
-  margin-bottom: 8px;
+  margin: 0px;
+  padding: 0px;
 }
 
 
 .banner-desc hr {
   clear: both;
+  margin-top: 0px;
+  margin-bottom: 8px;
+  padding: 0px;
 }
 
 .removed {

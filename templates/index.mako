@@ -43,7 +43,7 @@
           </p>
 
           <p>
-            For players who participated in previous years'
+            For players who participated in previous
             tournaments, please look at
             the <a href="#changes">Changes</a> section for a list of
             rule changes from last year.
@@ -53,7 +53,7 @@
             This tournament is unofficial and is not intended to replace
  	    the usual August tournament. It is shorter than the past August
 	    tournaments and some of the more involved features of
-	    the past tournaments (banners, Sprint) are being saved for August.
+	    the past tournaments are being saved for August.
 	    The idea for this tournament is simply to celebrate the release of
 	    0.8 and have fun playing Crawl.
           </p>
@@ -156,7 +156,7 @@
             <div class="inset">
               <p>
                 For every game in a streak, the start time of the game
-                must be later than the prior game's end time. This
+                must be later than the previous game's end time. This
                 will always be the case if you play all your games on
                 one server.
               </p>
@@ -175,25 +175,34 @@
           <div>
             <h2>RACE AND CLASS WINS</h2>
             <p>
-              <span>240 extra points</span> for each race, split evenly among 
-              all players to win at least one game with it.
+              <span>2*N extra points</span> for each race, split evenly 
+	      (rounding up) among 
+              all players to win at least one game with that race, where N 
+	      is the 
+              total number of games won in the tournament. For example, if a 
+	      total of 105 games are won during the tournament and 4 players 
+	      won at least one ogre, then each of the 4 players is awarded 
+	      53 extra points (2*105/4 = 52.5) for this.
             </p>
 
             <p>
-              <span>120 extra points</span> for each class, split evenly among 
-              all players to win at least one game with it.
+              <span>N extra points</span> for each class, split evenly 
+	      (rounding up) among 
+              all players to win at least one game with that class, where N 
+	      is the 
+              total number of games won in the tournament.
             </p>
 
 	    <p>
               <span>40 extra points</span> for each race/class combination, 
 	      split evenly among 
-              all players to win at least one game with it.
+              all players to win at least one game with that combination.
             </p>
             <div class="inset">
               <p>
 	        For clan scoring, these points are instead split evenly among 
-		all <b>clans</b> (counting individuals without clans as 
-		1-person clans) to win at least one game.
+		all <b>clans</b> to win at least one game (counting 
+		individuals without clans as 1-person clans).
 	      </p>
             </div>
           </div>
@@ -202,25 +211,25 @@
           <div>
             <h2>SPECIAL WINS</h2>
 
-            <p><span>200/100/50 points</span> for fastest win in realtime.</p>
-            <p><span>200/100/50 points</span> for fastest win by turncount.</p>
-            <p><span>200/100/50 points</span> for first win scored.</p>
-            <p><span>200/100/50 points</span> for first 15-rune victory.</p>
-            <p><span>200/100/50 points</span> for the longest streak of
+            <p><span>200/100/50 points</span> for the fastest wins in realtime.</p>
+            <p><span>200/100/50 points</span> for the fastest wins by turncount.</p>
+            <p><span>200/100/50 points</span> for the first wins scored.</p>
+            <p><span>200/100/50 points</span> for the first 15-rune victorys.</p>
+            <p><span>200/100/50 points</span> for the longest streaks of
               winning games with distinct races and classes. 
-              Ties are broken by first to achieve the streak.
+              Ties are broken by the first to achieve the streak.
             </p>
             <p>
               <span>100 bonus points</span> for the win with the last
               starting time (among tournament wins) in the tournament.
             </p>
             <p>
-              <span>20 bonus points</span> for winning games without
+              <span>20 bonus points</span> for a win without
               visiting the Lair.
             </p>
 	    <p>
 	      <span>20 bonus points</span> (in addition to the 20 for 
-	      simple Lairless wins) for winning games without visiting
+	      a Lairless win) for a win without visiting
 	      Temple, Lair, Orc, Hive, or the Vaults.
 	    </p>
           </div>
@@ -232,8 +241,8 @@
 
             <p><span>30/N points</span> (rounded up) each time you find a 
             type of rune for the Nth time. (So the first silver rune you 
-            find is worth 30 points, the second is worth 15 points, the 
-            third is worth 10 points, and so on.)</p>
+            find is worth 30 points, the second silver rune is worth 15 points, the 
+            third silver rune is worth 10 points, and so on.)</p>
           </div>
 
           <hr>
@@ -242,18 +251,18 @@
             <h2>HIGH SCORES</h2>
 
             <p>
-              <span>200/100/50 points</span> for highest single game
-              score overall.
+              <span>200/100/50 points</span> for the games with the highest
+              scores overall.
             </p>
 
             <p>
               <span>5 points</span> per high score in a race/class combination
-              (HuWn, not just Hu)
+              (HuWn, not just Hu).
             </p>
 
             <p>
-              <span>5 additional points</span> for each high score
-              that is a win.
+              <span>5 additional points</span> for each high score in a
+              race/class combination that is attained by a win.
             </p>
 
             <p><span>20 points</span> per high score in a race.</p>
@@ -261,8 +270,8 @@
             <p><span>10 points</span> per high score in a class.</p>
 
             <p>
-              <span>200/100/50 points</span> for most high scores in
-              race/class combos.
+              <span>200/100/50 points</span> for the players with the most high 
+	      scores in race/class combinations.
             </p>
 
           </div>
@@ -275,8 +284,8 @@
             <p><span>5 points</span> the first time you kill each
               unique.</p>
 
-            <p><span>50/20/10 points</span> for most unique uniques
-              killed; ties broken by who gets that number first.</p>
+            <p><span>50/20/10 points</span> for the players with the most unique 
+	    uniques killed; ties broken by who gets that number first.</p>
           </div>
 
           <hr>
@@ -287,7 +296,7 @@
             <p>
               These get you clan points but do not get you points
               toward the individual prize, encouraging
-              specialization on clans but making the hypothetical
+              specialization within clans but making the hypothetical
               "Best Crawl Player" award based on more "real"
               metrics.
             </p>
@@ -303,17 +312,16 @@
             rune is picked up, not including the abyssal and slimy runes.</p>
 
             <p>
-              <span>50/20/10 clan points</span> for "Most Unique Deaths"
+              <span>50/20/10 clan points</span> for the "Most Unique Deaths"
               trophy: Killed by the most unique uniques.
             </p>
 
             <p>
               <span>20 clan points</span> for winning a character that was
-              not previously won in the tournament
+              not previously won in the tournament.
             </p>
 
-            <p><span>2 clan points</span> per player ghost killed when
-            playing</p>
+            <p><span>2 clan points</span> per player ghost killed while playing.</p>
 
             <p>
               <span>N clan points</span> per ghost kill after dying, where
@@ -321,13 +329,13 @@
             </p>
 
             <p>
-              <span>200/100/50 clan points</span> for the <b>clan</b> with most
+              <span>200/100/50 clan points</span> for the <b>clans</b> with the most
               high scores in race/class combos.
             </p>
 
             <p>
-              <span>100/50/20 clan points</span> for the <b>clan</b> with most
-              uniques killed (or all uniques killed first)
+              <span>100/50/20 clan points</span> for the <b>clans</b> with the most
+              unique uniques killed.
             </p>
 
           </div>
@@ -345,8 +353,155 @@
             </p>
 
             <p>
-              Six players or less per clan.
+              Six players or fewer per clan.
             </p>
+          </div>
+
+          <div class="banner-desc">
+            <h2>PENNANTS</h2>
+
+            <hr>
+
+            <div>
+	      <img src="images/banner_temple.png"
+                   alt="temple"
+                   title="Temple"
+                   width="150" height="55"
+                   >
+              <p>
+                Any player who aids the path of pilgrims to the Ecumenical Temple
+		by killing the troublesome Sigmund will be granted the 
+		Pennant of the <a name="temple">TEMPLE</a> in appreciation.
+              </p>
+            </div>
+
+	    <hr>
+
+            <div>
+	      <img src="images/banner_orc.png"
+                   alt="orc"
+                   title="Orc"
+                   width="150" height="55"
+                   >
+              <p>
+	        Any player who obtains 1000 gold or more in a single game 
+		will gain the (grudging) respect of the orcs and thus will be 
+		granted the Pennant 
+		of the <a name="orc">ORCISH MINES</a>. 
+              </p>
+            </div>
+
+	    <hr>
+
+            <div>
+	      <img src="images/banner_lair.png"
+                   alt="lair"
+                   title="Lair"
+                   width="150" height="55"
+                   >
+              <p>
+                The shallowest runes of Zot reside 
+		in the Lair of Beasts and thus upon finding her very first rune
+		a player will be granted the Pennant 
+		of the <a name="lair">LAIR</a>.
+              </p>
+            </div>
+
+	    <hr>
+
+            <div>
+	      <img src="images/banner_hive.png"
+                   alt="hive"
+                   title="Hive"
+                   width="150" height="55"
+                   >
+              <p>
+                Any player who spends at least 27 hours playing over the 
+		course of the tournament (playing as busily as a bee, as it were) 
+		will be granted 
+		the Pennant of the <a name="hive">HIVE</a>.
+              </p>
+            </div>
+
+	    <hr>
+
+            <div>
+	      <img src="images/banner_vaults.png"
+                   alt="vaults"
+                   title="Vaults"
+                   width="150" height="55"
+                   >
+              <p>
+                Any player who finds and enters every portal vault at least once over 
+		the course of the tournament will be granted the Pennant of 
+		the <a name="vaults">VAULTS</a>. (The portal vaults are Sewer,
+		Ossuary, Bailey, Labyrinth, Bazaar, Volcano, Ice Cave, 
+		Spider's Nest, Wizard Lab, and Treasure Trove.)
+              </p>
+            </div>
+
+	    <hr>
+
+            <div>
+	      <img src="images/banner_hell.png"
+                   alt="hell"
+                   title="Hell"
+                   width="150" height="55"
+                   >
+              <p>
+                Any player who kills all the lords of Hell and 
+                Pandemonium (Antaeus, Asmodeus, Cerebov, Dispater, Ereshkigal, 
+                Gloorx Vloq, Lom Lobon, and Mnoleg) over the course of the 
+                tournament will be granted the Pennant 
+		of <a name="hell">HELL</a>.
+              </p>
+            </div>
+
+	    <hr>
+
+            <div>
+	      <img src="images/banner_pan.png"
+                   alt="pan"
+                   title="Pan"
+                   width="150" height="55"
+                   >
+              <p>
+                Any player who enters a ziggurat and manages to reache its tenth 
+		level 
+		will be granted the Pennant of <a name="pan">PANDEMONIUM</a>.
+              </p>
+            </div>
+
+	    <hr>
+
+            <div>
+	      <img src="images/banner_abyss.png"
+                   alt="abyss"
+                   title="Abyss"
+                   width="150" height="55"
+                   >
+              <p>
+                Any player who wins a "branchless" game will be granted the 
+		Pennant of the <a name="abyss">ABYSS</a>. (A "branchless" 
+		game is one in which one wins without ever entering Temple, Lair, 
+		Orc, Hive, or the Vaults.)
+              </p>
+            </div>
+
+	    <hr>
+
+            <div>
+	      <img src="images/banner_zot.png"
+                   alt="zot"
+                   title="Zot"
+                   width="150" height="55"
+                   >
+              <p>
+                Any player who successfully carries the Orb of Zot out of
+		the dungeon will be granted the Pennant 
+		of <a name="zot">ZOT</a>.
+              </p>
+            </div>
           </div>
 
           <hr style="clear: both">
@@ -361,7 +516,7 @@
                 Some rules have been changed from the 2010
                 tournament. This is a list of rules differences.
 		Note that some rules that were removed for this tournament
-		may quite likely be back in the August 2011 tournament.
+		may be back in the August 2011 tournament.
               </p>
 
               <p><span class="removed">[REMOVED]</span>
@@ -383,27 +538,32 @@
             <hr>
 
             <p class="added">
-              <span>240 extra points</span> for each race, split evenly among 
-              all players to win at least one game with it. (Done on a
+              <span>2*N extra points</span> for each race, split evenly (rounding 
+	      up) among 
+              all players to win at least one game with that race, where N is the 
+              total number of games won in the tournament. (Computed on a
 	      per-clan basis for clan points.)
               <span class="added">[NEW]</span>
             </p>
             <p class="added">
-              <span>120 extra points</span> for each class, split evenly among 
-              all players to win at least one game with it. (Done on a
+              <span>N extra points</span> for each class, split evenly (rounding up)
+	      among 
+              all players to win at least one game with that class, where N is the 
+              total number of games won in the tournament. (Done on a
 	      per-clan basis for clan points.)
               <span class="added">[NEW]</span>
             </p>
 	    <p class="added">
               <span>40 extra points</span> for each race/class combination, 
 	      split evenly among 
-              all players to win at least one game with it. (Done on a
+              all players to win at least one game with that combination. (Done on 
+	      a
 	      per-clan basis for clan points.)
               <span class="added">[NEW]</span>
             </p>
 	    <p class="added">
 	      <span>20 bonus points</span> (in addition to the 20 for 
-	      simple Lairless wins) for winning games without visiting
+	      a Lairless win) for a win without visiting
 	      Temple, Lair, Orc, Hive, or the Vaults.
 	    <span class="added">[NEW]</span>
             <p class="changed">
@@ -459,12 +619,22 @@
               level 27.
               <span class="removed">[REMOVED]</span>
             </p>
+	    <p class="removed">
+	      <span>All points</span> for Sprint games.
+              <span class="removed">[REMOVED]</span>
+            </p>	    
+          </div>
 
-	    <p><b>
-	      In addition, banners and Sprint scoring have been disabled for 
-	      this tournament, though we expect they will be back in August.
-	    </b></p>	    
+          <hr>
+          <div>
+            <h2>CREDITS</h2>
 
+            <p>
+              We'd like to thank:
+            </p>
+            <p>
+              <span>Wensley</span> for the pennant images.
+            </p>
           </div>
 
         </div> <!-- Content -->
