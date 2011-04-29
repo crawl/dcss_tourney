@@ -211,11 +211,11 @@
           <div>
             <h2>SPECIAL WINS</h2>
 
-            <p><span>200/100/50 points</span> for the fastest wins in realtime.</p>
-            <p><span>200/100/50 points</span> for the fastest wins by turncount.</p>
-            <p><span>200/100/50 points</span> for the first wins scored.</p>
-            <p><span>200/100/50 points</span> for the first 15-rune victorys.</p>
-            <p><span>200/100/50 points</span> for the longest streaks of
+            <p><span>200/100/50 points</span> for fastest win in realtime.</p>
+            <p><span>200/100/50 points</span> for fastest win by turncount.</p>
+            <p><span>200/100/50 points</span> for first win scored.</p>
+            <p><span>200/100/50 points</span> for first 15-rune victory.</p>
+            <p><span>200/100/50 points</span> for longest streak of
               winning games with distinct races and classes. 
               Ties are broken by the first to achieve the streak.
             </p>
@@ -466,7 +466,7 @@
                    width="150" height="55"
                    >
               <p>
-                Any player who enters a ziggurat and manages to reache its tenth 
+                Any player who enters a ziggurat and manages to reach its tenth 
 		level 
 		will be granted the Pennant of <a name="pan">PANDEMONIUM</a>.
               </p>
