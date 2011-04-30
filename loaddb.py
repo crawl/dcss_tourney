@@ -23,10 +23,6 @@ DATE_FORMAT = '%Y%m%d'
 
 GAME_VERSION = T_VERSION
 
-SPRINT_START_TIME = '20100415'
-SPRINT_END_TIME = END_TIME
-SPRINT_MAP = 'dungeon_sprint_mu'
-
 HARE_START_TIME = '20100431'
 
 CDO = 'http://crawl.develz.org/'
@@ -36,9 +32,7 @@ CAO = 'http://crawl.akrasiac.org/'
 # being the URL to wget -c from.
 
 LOGS = [ ('cao-logfile-0.8', CAO + 'logfile08'),
-         ('cao-logfile-0.8-sprint', CAO + 'logfile08-sprint'),
-         ('cdo-logfile-0.8', CDO + 'allgames-0.8.txt'),
-         ('cdo-logfile-0.8-sprint', CDO + 'allgames-spr-0.8.txt') ]
+         ('cdo-logfile-0.8', CDO + 'allgames-0.8.txt') ]
 
 MILESTONES = [ ('cao-milestones-0.8', CAO + 'milestones08'),
                ('cdo-milestones-0.8', CDO + 'milestones-0.8.txt'),
@@ -647,9 +641,6 @@ dbfield_to_sqltype = {
         'gold_spent': sql_int
 	}
 
-def game_is_sprint(game):
-  return 'spr' in game['lv']
-
 def record_is_milestone(rec):
   return rec.has_key('milestone') or rec.has_key('type')
 
@@ -668,26 +659,11 @@ def is_not_tourney(game):
 
   end = game.get('end') or game.get('time') or start
 
-  sprint = game_is_sprint(game)
-
   # Is this the game version we want?
   if not game['v'].startswith(GAME_VERSION):
     return True
 
-  if sprint:
-    # Sprint milestones are ignored.
-    return (record_is_milestone(game) or
-            # Allow beta-testers to play on the servers without
-            # affecting scoring.
-            game['name'] == 'syllogism' or
-            game.get('map') != SPRINT_MAP or
-            start < SPRINT_START_TIME or end >= SPRINT_END_TIME)
-  else:
-    return start < START_TIME or end >= END_TIME
-
-def in_sprint_window():
-  nowtime = datetime.datetime.utcnow().strftime(DATE_FORMAT)
-  return nowtime >= SPRINT_START_TIME
+  return start < START_TIME or end >= END_TIME
 
 def time_in_hare_window():
   nowtime = datetime.datetime.utcnow().strftime(DATE_FORMAT)
@@ -806,16 +782,9 @@ def make_xlog_db_query(db_mappings, xdict, filename, offset, table):
 
 def insert_xlog_db(cursor, xdict, filename, offset):
   milestone = record_is_milestone(xdict)
-  sprint = game_is_sprint(xdict)
-  # Ignore Sprint milestones if any, we don't use them for anything.
-  if milestone and sprint:
-    return
   db_mappings = milestone and MILE_DB_MAPPINGS or LOG_DB_MAPPINGS
   thingname = milestone and 'milestone' or 'logline'
   table = milestone and 'milestones' or 'games'
-  if sprint:
-    table = 'sprint_games'
-    thingname = 'sprint logline'
   save_offset = not milestone
   query = make_xlog_db_query(db_mappings, xdict, filename,
                              save_offset and offset, table)
@@ -867,8 +836,7 @@ def dbfile_offset(cursor, table, filename):
                      filename)
 
 def logfile_offset(cursor, filename):
-  return (dbfile_offset(cursor, 'games', filename) or
-          dbfile_offset(cursor, 'sprint_games', filename) or -1)
+  return (dbfile_offset(cursor, 'games', filename) or -1)
 
 def milestone_offset(cursor, filename):
   return dbfile_offset(cursor, 'milestone_bookmark', filename) or -1
@@ -935,12 +903,11 @@ def process_log(cursor, filename, offset, d):
   try:
     insert_xlog_db(cursor, d, filename, offset)
 
-    if not game_is_sprint(d):
-      if not record_is_milestone(d):
-        update_highscores(cursor, d, filename, offset)
+    if not record_is_milestone(d):
+      update_highscores(cursor, d, filename, offset)
 
-      if is_ghost_kill(d):
-        record_ghost_kill(cursor, d)
+    if is_ghost_kill(d):
+      record_ghost_kill(cursor, d)
 
     # Tell the listeners to do their thang
     for listener in LISTENERS:

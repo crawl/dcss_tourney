@@ -89,9 +89,9 @@ def did_change_god(c, game):
 def win_query(selected, order_by = None,
               player=None, character_race=None,
               character_class=None, runes=None,
-              before=None, limit=None, sprint=False):
+              before=None, limit=None):
 
-  table = sprint and 'sprint_games' or 'games'
+  table = 'games'
   query = Query("SELECT " + selected + " FROM " + table +
                 " WHERE killertype='winning' ")
   if player:
@@ -110,45 +110,8 @@ def win_query(selected, order_by = None,
     query.append(" LIMIT %d" % limit)
   return query
 
-def sprint_player_win_counts_before(c, end_time):
-  """Returns a list of players who have won Sprint games before the supplied
-  time and the number of games they've won."""
-  return query_rows(c, """SELECT player, COUNT(*) FROM sprint_games
-                          WHERE killertype = 'winning' AND end_time < %s
-                          GROUP BY player""", end_time)
-
-def sprint_player_wins_before(c, player, end_time):
-  """Returns a list of the winning characters for the given player before the
-  provided end time."""
-  return query_first_col(c, """SELECT DISTINCT charabbrev FROM sprint_games
-                                WHERE killertype = 'winning' AND player = %s
-                                  AND end_time < %s""",
-                         player, end_time)
-
-def sprint_won_characters_before(c, end_time):
-  """Returns a list of the winning characters for all players before the
-  provided end time."""
-  return query_first_col(c, """SELECT DISTINCT charabbrev FROM sprint_games
-                                WHERE killertype = 'winning'
-                                  AND end_time < %s""",
-                         end_time)
-
-def sprint_find_first_victories(c, limit=3):
-  """Returns a list of Sprint winning games, considering only the
-  first Sprint win of each player."""
-
-  ids = query_first_col(c, """SELECT MIN(id) AS gid FROM sprint_games
-                               WHERE killertype = 'winning'
-                            GROUP BY player
-                            ORDER BY gid LIMIT %d""" % limit)
-  ids = [str(x) for x in ids]
-
-  return [row_to_xdict(x) for x in
-          query_rows(c, "SELECT " + logfile_fields() + " FROM sprint_games " +
-                     """ WHERE id IN (%s)""" % ",".join(ids))]
-
-def first_win_for_combo(c, charabbrev, game_end, sprint = False):
-  table = sprint and 'sprint_games' or 'games'
+def first_win_for_combo(c, charabbrev, game_end):
+  table = 'games'
   return query_first(c, "SELECT COUNT(*) FROM " + table +
                         """ WHERE killertype = 'winning' AND charabbrev = %s
                               AND end_time < %s""",
@@ -475,10 +438,6 @@ def won_unwon_combos(c):
   won_games = get_winning_games(c)
   return won_unwon_combos_with_games(won_games)
 
-def sprint_won_unwon_combos(c):
-  won_games = get_winning_games(c, sprint = True)
-  return won_unwon_combos_with_games(won_games)
-
 def get_winning_games(c, **selectors):
   """Returns the games for wins matching the provided criteria, ordered
   with earlier wins first. Exactly the same as get_wins, but returns
@@ -547,10 +506,7 @@ def find_games(c, sort_min=None, sort_max=None, limit=1, **dictionary):
   if sort_min is None and sort_max is None:
     sort_min = 'end_time'
 
-  sprint = dictionary.has_key('sprint') and dictionary['sprint']
-  if dictionary.has_key('sprint'):
-    del dictionary['sprint']
-  table = sprint and 'sprint_games' or 'games'
+  table = 'games'
 
   query = Query('SELECT ' + ",".join(LOG_FIELDS) + ' FROM ' + table)
   where = []

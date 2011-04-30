@@ -10,7 +10,7 @@ import crawl_utils
 import crawl
 import uniq
 
-from loaddb import query_do, query_first_col, game_is_sprint
+from loaddb import query_do, query_first_col
 from query import assign_points, assign_team_points, wrap_transaction
 from query import log_temp_points, log_temp_team_points, get_points
 
@@ -130,13 +130,6 @@ def act_on_logfile_line(c, this_game):
   points (high scores, lowest dungeon level, fastest wins) should be
   calculated elsewhere."""
 
-  sprint = game_is_sprint(this_game)
-
-  # Early exit for sprint games.
-  if sprint:
- #   calc_sprint_game_stats(c, this_game)
-    return
-
   if game_is_win(this_game):
     crunch_winner(c, this_game) # lots of math to do for winners
 
@@ -211,35 +204,6 @@ def game_start_time(g):
 
 def game_character(g):
   return g['char']
-
-def calc_sprint_game_stats(c, g):
-  "Assign points for sprint games."
-
-  # Non-winners get off the bus here.
-  if not game_is_win(g):
-    return
-
-  # 200/100/50 points for first Sprint wins of the tournament. Only
-  # the player's first win is considered.
-  player = game_player(g)
-  game_end = game_end_time(g)
-  previous_winners = query.sprint_player_win_counts_before(c, game_end)
-  if not [x for x in previous_winners if x[0] == player]:
-    n_previous_winners = len(previous_winners)
-    assign_points(c, 'sprint_nth_win:%d' % (n_previous_winners + 1),
-                  player, get_points(n_previous_winners, 200, 100, 50))
-    # 50 points for the player's first Sprint win.
-    assign_points(c, 'sprint_my_1st_win', player, 50)
-  else:
-    previous_wins = query.sprint_player_wins_before(c, player, game_end)
-    repeats = repeat_race_class(previous_wins, game_character(g))
-    # 20 points for second and later Sprint wins that repeat neither sp nor cls.
-    assign_points(c, 'sprint_win', player, get_points(repeats, 20))
-
-  # 10 clan points for winning with a previously unwon Sprint combo.
-  charabbrev = game_character(g)
-  if query.first_win_for_combo(c, charabbrev, game_end, sprint = True):
-    assign_team_points(c, 'sprint_combo_first_win:' + charabbrev, player, 10)
 
 def crunch_winner(c, game):
   """A game that wins could assign a variety of irrevocable points for a

@@ -26,7 +26,6 @@ DROP VIEW IF EXISTS combo_highscores;
 DROP TABLE IF EXISTS combo_highscores;
 DROP TABLE IF EXISTS class_highscores;
 DROP TABLE IF EXISTS species_highscores;
-DROP TABLE IF EXISTS sprint_games;
 DROP TABLE IF EXISTS games;
 DROP TABLE IF EXISTS teams;
 DROP TABLE IF EXISTS players;
@@ -558,17 +557,3 @@ SELECT *
  WHERE gold_spent >= 5000
    AND gold < 50;
 
--- Sprint scoring
-
--- Sprint table for games.
-CREATE TABLE sprint_games AS
-SELECT * FROM games LIMIT 1;
-TRUNCATE TABLE sprint_games;
-ALTER TABLE sprint_games ADD PRIMARY KEY (id);
-ALTER TABLE sprint_games CHANGE COLUMN id id BIGINT AUTO_INCREMENT;
-
-CREATE INDEX sprint_games_source_offset ON
-sprint_games (source_file, source_file_offset);
-
-CREATE INDEX sprint_games_ktyp ON sprint_games (killertype);
-CREATE INDEX sprint_games_player ON sprint_games (player);
