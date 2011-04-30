@@ -16,18 +16,18 @@ T_YEAR = '2011'
 T_VERSION = '0.8'
 
 # Start and end of the tournament, UTC.
-START_TIME = T_YEAR + '0301'
-END_TIME   = T_YEAR + '0401'
+START_TIME = T_YEAR + '0401'
+END_TIME   = T_YEAR + '0501'
 
 DATE_FORMAT = '%Y%m%d'
 
 GAME_VERSION = T_VERSION
 
-SPRINT_START_TIME = '20100315'
+SPRINT_START_TIME = '20100415'
 SPRINT_END_TIME = END_TIME
 SPRINT_MAP = 'dungeon_sprint_mu'
 
-HARE_START_TIME = '20100331'
+HARE_START_TIME = '20100431'
 
 CDO = 'http://crawl.develz.org/'
 CAO = 'http://crawl.akrasiac.org/'
