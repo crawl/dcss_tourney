@@ -30,17 +30,18 @@ SPRINT_MAP = 'dungeon_sprint_mu'
 HARE_START_TIME = '20100331'
 
 CDO = 'http://crawl.develz.org/'
+CAO = 'http://crawl.akrasiac.org/'
 
 # Log and milestone files. A tuple indicates a remote file with t[1]
 # being the URL to wget -c from.
 
-LOGS = [ 'cao-logfile-0.8',
-         'cao-logfile-0.8-sprint',
-         ('cdo-logfile-0.8', CDO + 'allgames-svn.txt'),
-         ('cdo-logfile-0.8-sprint', CDO + 'allgames-spr-svn.txt') ]
+LOGS = [ ('cao-logfile-0.8', CAO + 'logfile08'),
+         ('cao-logfile-0.8-sprint', CAO + 'logfile08-sprint'),
+         ('cdo-logfile-0.8', CDO + 'allgames-0.8.txt'),
+         ('cdo-logfile-0.8-sprint', CDO + 'allgames-spr-0.8.txt') ]
 
-MILESTONES = [ 'cao-milestones-0.8',
-               ('cdo-milestones-0.8', CDO + 'milestones-svn.txt'),
+MILESTONES = [ ('cao-milestones-0.8', CAO + 'milestones08'),
+               ('cdo-milestones-0.8', CDO + 'milestones-0.8.txt'),
              ]
 
 BLACKLIST_FILE = 'blacklist.txt'
