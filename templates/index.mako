@@ -148,7 +148,9 @@
 
             <p>
               <span>40 extra points</span> for each consecutive (streak) win
-              by a player. Such a game does not have to be of a new race 
+              by a player with a race/class combination that has not 
+	      previously been a streak win for that player. Such a game does 
+	      not have to be of a new race 
               or class, but note that to be eligible for the "longest streak" 
               award below all games must have distinct races and classes.
             </p>
@@ -192,12 +194,6 @@
 	      is the 
               total number of games won in the tournament.
             </p>
-
-	    <p>
-              <span>40 extra points</span> for each race/class combination, 
-	      split evenly among 
-              all players to win at least one game with that combination.
-            </p>
             <div class="inset">
               <p>
 	        For clan scoring, these points are instead split evenly among 
@@ -212,6 +208,8 @@
             <h2>SPECIAL WINS</h2>
 
             <p><span>200/100/50 points</span> for fastest win in realtime.</p>
+            <p><span>100/50/20 points</span> for fastest 15-rune win
+	      in realtime.</p>
             <p><span>200/100/50 points</span> for fastest win by turncount.</p>
             <p><span>200/100/50 points</span> for first win scored.</p>
             <p><span>200/100/50 points</span> for first 15-rune victory.</p>
@@ -554,13 +552,10 @@
               <span class="added">[NEW]</span>
             </p>
 	    <p class="added">
-              <span>40 extra points</span> for each race/class combination, 
-	      split evenly among 
-              all players to win at least one game with that combination. (Done on 
-	      a
-	      per-clan basis for clan points.)
-              <span class="added">[NEW]</span>
-            </p>
+	      <span>100/50/20 points</span> for fastest 15-rune win
+	      in realtime.
+	      <span class="added">[NEW]</span>
+	    </p>
 	    <p class="added">
 	      <span>20 bonus points</span> (in addition to the 20 for 
 	      a Lairless win) for a win without visiting
@@ -568,8 +563,11 @@
 	    <span class="added">[NEW]</span>
             <p class="changed">
               <span>40 extra points</span> for each consecutive (streak) win
-              by a player. (Was 100/30/10 points depending on whether it was 
- 	      a repeat race/class.)
+              by a player with a race/class combination that has not 
+	      previously been a streak win for that player. (Was 100/30/10 
+	      points depending on whether it was 
+ 	      a repeat race/class, with no restriction on streaking the same 
+	      combo in multiple streaks.)
               <span class="changed">[CHANGED]</span>
             </p>
             <p class="changed">
