@@ -27,10 +27,11 @@ LOCAL_TEST = ('tecumseh' in os.getcwd()
               or 'tecumseh' == os.environ.get('USER'))
 #LOCAL_TEST = 1
 
+# not actually on CAO for this tournament
 CAO_BASE = (LOCAL_TEST
             and ('file:///' + os.getcwd() + '/' + SCORE_FILE_DIR)
-            or 'http://crawl.akrasiac.org')
-CAO_TOURNEY_BASE = LOCAL_TEST and CAO_BASE or ('%s/tourney11a' % CAO_BASE)
+            or 'http://crawl11.dyndns.org')
+CAO_TOURNEY_BASE = CAO_BASE
 CAO_IMAGE_BASE = CAO_TOURNEY_BASE + '/images'
 CAO_PLAYER_BASE = '%s/players' % CAO_TOURNEY_BASE
 CAO_CLAN_BASE = '%s/clans' % CAO_TOURNEY_BASE

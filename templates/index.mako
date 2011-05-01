@@ -19,27 +19,20 @@
         <div class="heading">
           <h1>${title}</h1>
           <p class="fineprint">
-            Tournament starts ??? at midnight UTC, and ends on
-            ??? at midnight UTC.
+            Tournament starts May 14, ${year} at midnight UTC, and ends on
+            May 30, ${year} at midnight UTC.
           </p>
         </div>
         <hr>
 
         <div class="content">
-          <div class="inset">
-            <p>
-              <span class="inline_heading">Note:</span> this is just a 
-              preliminary draft of the rules for the 0.8 tournament and all 
-	      parts may be subject to change.
-            </p>
-          </div>
           <p>
-            Hello all! Welcome to the rules for the crawl.akrasiac.org
+            Hello all! Welcome to the rules for the
             ${version} Dungeon Crawl Stone Soup Tournament. The simple part:
             Play on <a href="http://crawl.akrasiac.org">crawl.akrasiac.org</a>
             or <a href="http://crawl.develz.org">crawl.develz.org</a> and all of
             your Crawl ${version} games that <b>start after midnight UTC on
-            ???</b> will count toward the tournament.
+            May 14</b> will count toward the tournament.
           </p>
 
           <p>
@@ -51,9 +44,7 @@
 
           <p>
             This tournament is unofficial and is not intended to replace
- 	    the usual August tournament. It is shorter than the past August
-	    tournaments and some of the more involved features of
-	    the past tournaments are being saved for August.
+ 	    the usual August tournament. 
 	    The idea for this tournament is simply to celebrate the release of
 	    0.8 and have fun playing Crawl.
           </p>
@@ -115,7 +106,7 @@
 
           <p>
             Clans may be changed by adding or removing players at any
-            time until UTC noon ???, after which clans will be
+            time until midnight UTC on May 22, after which clans will be
             effectively frozen.
           </p>
 
@@ -193,6 +184,14 @@
               all players to win at least one game with that class, where N 
 	      is the 
               total number of games won in the tournament.
+            </p>
+            <p>
+              <span>40 extra points</span> for each race/class combination, 
+	      split evenly (rounding up) among 
+              all players to win at least one game with that race/class
+	      combination. However, if only a single person wins a given 
+	      race/class combination, then she will only be awarded 20 points 
+	      rather than 40.
             </p>
             <div class="inset">
               <p>
@@ -551,6 +550,15 @@
 	      per-clan basis for clan points.)
               <span class="added">[NEW]</span>
             </p>
+            <p class="added">
+              <span>40 extra points</span> for each race/class combination, 
+	      split evenly (rounding up) among 
+              all players to win at least one game with that race/class
+	      combination. However, if only a single person wins a given 
+	      race/class combination, then she will only be awarded 20 points 
+	      rather than 40.
+	      <span class="added">[NEW]</span>
+            </p>
 	    <p class="added">
 	      <span>100/50/20 points</span> for fastest 15-rune win
 	      in realtime.
@@ -630,8 +638,17 @@
             <p>
               We'd like to thank:
             </p>
+	    <p>
+	      <span>greensnark</span> for writing the original tournament 
+	      scripts used in the August tournaments and modified for use in 
+	      this tournament.
+	    </p>
+	    <p>
+	      <span>rwbarton</span> for hosting the tournament pages 
+	      and scripts.
+	    </p>
             <p>
-              <span>Wensley</span> for the pennant images.
+              <span>Wensley</span> for the new banner/pennant images.
             </p>
           </div>
 

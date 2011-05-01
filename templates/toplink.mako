@@ -1,4 +1,4 @@
-<% from crawl_utils import CAO_TOURNEY_BASE, CAO_BASE %>
+<% from crawl_utils import CAO_TOURNEY_BASE %>
 <div class="toplinks">
 <a href="${CAO_TOURNEY_BASE}/overview.html">Overview</a>
 &nbsp;
@@ -17,6 +17,4 @@
 <a href="${CAO_TOURNEY_BASE}/unwon.html">Unwon</a>
 &nbsp;
 <a href="${CAO_TOURNEY_BASE}">Rules</a>
-&nbsp;
-<a href="${CAO_BASE}">Home</a>
 </div>
