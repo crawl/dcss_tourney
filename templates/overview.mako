@@ -149,14 +149,6 @@
             </div>
 
             <div>
-              <h3>Most Pacific Wins</h3>
-              ${html.most_pacific_wins(c)}
-              <p class="fineprint">
-                Winning games with the fewest slain creatures.
-              </p>
-            </div>
-
-            <div>
               <h3>Most Deaths to Uniques</h3>
               ${html.most_deaths_to_uniques(c)}
             </div>
