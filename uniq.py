@@ -1,9 +1,9 @@
 UNIQUES = [ "Ijyb", "Blork", "Urug", "Erolcha", "Snorg",
             "Antaeus", "Xtahua", "Tiamat", "Boris", "Murray", "Terence",
             "Jessica", "Sigmund", "Edmund", "Psyche", "Donald",
-            "Joseph", "Erica", "Josephine", "Harold", "Norbert", "Jozef",
-            "Agnes", "Maud", "Louise", "Francis", "Frances", "Rupert", "Wayne",
-            "Duane", "Norris", "Frederick", "Margery", "Mnoleg", "Lom Lobon",
+            "Joseph", "Erica", "Josephine", "Harold", "Jozef",
+            "Agnes", "Maud", "Louise", "Frances", "Rupert", "Wiglaf",
+            "Norris", "Frederick", "Margery", "Mnoleg", "Lom Lobon",
             "Cerebov", "Gloorx Vloq", "Geryon", "Dispater", "Asmodeus",
             "Ereshkigal", "Nessos", "Azrael", "Polyphemus",
             "Prince Ribbit", "the royal jelly", "Dissolution", "Sonja",
@@ -12,7 +12,8 @@ UNIQUES = [ "Ijyb", "Blork", "Urug", "Erolcha", "Snorg",
             "the Lernaean hydra", "Dowan", "Duvessa",
             "Grum", "Crazy Yiuf", "Gastronok", "Pikel", "Menkaure",
             "Khufu", "Ilsuiw", "Aizul", "Mara", "Purgy", "Grinder",
-            "Kirke", "Nikola", "Maurice" ]
+            "Kirke", "Nikola", "Maurice", "Mennas", "Jory", 
+            "the Serpent of Hell", "the Enchantress" ]
 
 UNIQ_SET = set(UNIQUES)
 

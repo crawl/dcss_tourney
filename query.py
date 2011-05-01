@@ -18,8 +18,6 @@ import re
 from datetime import datetime
 import time
 
-# Number of unique uniques
-MAX_UNIQUES = 43
 MAX_RUNES = 15
 
 LOG_FIELDS = [ 'source_file' ] + [ x[1] for x in loaddb.LOG_DB_MAPPINGS ]
