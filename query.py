@@ -472,6 +472,10 @@ def count_class_wins(c, race):
                 race)
   return query.count(c)
 
+def get_win_count(c):
+  query = Query('''SELECT COUNT(*) FROM games WHERE killertype='winning' ''')
+  return query.count(c)
+
 def row_to_xdict(row):
   return dict( zip(LOG_FIELDS, row) )
 

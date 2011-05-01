@@ -469,12 +469,16 @@ def check_misc_points(c, pmap):
   award_misc_points('combo_hs_win:%d', 5, query.all_hs_combo_wins(c))
   award_misc_points('species_hs:%d', 20, query.all_hs_species(c))
   award_misc_points('class_hs:%d', 10, query.all_hs_classes(c))
+  win_count = query.get_win_count(c)
   winning_players_by_combo = query.get_winning_players_by_combo(c)
   for g in winning_players_by_combo:
     player = g[0]
     key = 'combo_win:' + g[1]
     num_won = query.count_combo_wins(c, g[1])
-    points = (40 + num_won - 1) / num_won
+    if num_won == 1:
+      points = 20
+    else:
+      points = (40 + num_won - 1) / num_won
     record_points(pmap, player, points, team_points=False)
     log_temp_points(c, player, key, points)
   winning_players_by_race = query.get_winning_players_by_race(c)
@@ -482,7 +486,7 @@ def check_misc_points(c, pmap):
     player = g[0]
     key = 'race_win:' + g[1]
     num_won = query.count_race_wins(c, g[1])
-    points = (240 + num_won - 1) / num_won
+    points = (2*win_count + num_won - 1) / num_won
     record_points(pmap, player, points, team_points=False)
     log_temp_points(c, player, key, points)
   winning_players_by_class = query.get_winning_players_by_class(c)
@@ -490,7 +494,7 @@ def check_misc_points(c, pmap):
     player = g[0]
     key = 'class_win:' + g[1]
     num_won = query.count_class_wins(c, g[1])
-    points = (120 + num_won - 1) / num_won
+    points = (win_count + num_won - 1) / num_won
     record_points(pmap, player, points, team_points=False)
     log_temp_points(c, player, key, points)
 
