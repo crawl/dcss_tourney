@@ -159,6 +159,12 @@ def get_fastest_time_player_games(c):
                            WHERE f.id = g.id''' % fields)
   return [ row_to_xdict(r) for r in games ]
 
+def get_fastest_time_allruner_player_games(c):
+  fields = logfile_fields('g.')
+  games = query_rows(c, '''SELECT %s FROM fastest_realtime_allruner f, games g
+                           WHERE f.id = g.id''' % fields)
+  return [ row_to_xdict(r) for r in games ]
+
 def get_fastest_turn_player_games(c):
   fields = logfile_fields('g.')
   games = query_rows(c, '''SELECT %s FROM fastest_turncount f, games g
@@ -893,8 +899,14 @@ def find_place_numeric(rows, player):
 def player_fastest_realtime_win_best(c):
   return query_rows(c, 'SELECT player FROM fastest_realtime')
 
+def player_fastest_realtime_allruner_win_best(c):
+  return query_rows(c, 'SELECT player FROM fastest_realtime_allruner')
+
 def player_fastest_realtime_win_pos(c, player):
   return find_place(player_fastest_realtime_win_best(c), player)
+
+def player_fastest_realtime_allruner_win_pos(c, player):
+  return find_place(player_fastest_realtime_allruner_win_best(c), player)
 
 def player_fastest_turn_win_best(c):
   return query_rows(c, 'SELECT player FROM fastest_turncount')

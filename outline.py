@@ -392,6 +392,9 @@ def check_temp_trophies(c, pmap):
   award_temp_trophy(c, pmap, query.player_fastest_realtime_win_best(c),
                     'fastest_realtime:%d', [200, 100, 50])
 
+  award_temp_trophy(c, pmap, query.player_fastest_realtime_allruner_win_best(c),
+                    'fastest_realtime_allruner:%d', [100, 50, 20])
+
   award_temp_trophy(c, pmap, query.player_fastest_turn_win_best(c),
                     'fastest_turncount:%d', [200, 100, 50])
 

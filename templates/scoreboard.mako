@@ -7,6 +7,8 @@
                                     sort_min='turn', limit=15)
    fastest_time = query.find_games(c, sort_min='duration',
                                    killertype='winning', limit=15)
+   fastest_allrune_time = query.find_games(c, sort_min='duration',
+                                   killertype='winning', runes=15, limit=5)
    top_scores = query.find_games(c, sort_max='score', limit=15)
 
 %>
@@ -63,6 +65,13 @@
           <h2>Top Scores</h1>
 
           ${html.ext_games_table(top_scores)}
+        </div>
+
+	<hr>
+
+	<div>
+          <h2>Fastest 15-Rune Wins (real time)</h2>
+          ${html.ext_games_table(fastest_allrune_time)}
         </div>
 
         </div>

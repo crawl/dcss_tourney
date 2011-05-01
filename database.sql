@@ -31,6 +31,7 @@ DROP TABLE IF EXISTS teams;
 DROP TABLE IF EXISTS players;
 
 DROP VIEW IF EXISTS fastest_realtime;
+DROP VIEW IF EXISTS fastest_realtime_allruner;
 DROP VIEW IF EXISTS fastest_turncount;
 DROP VIEW IF EXISTS combo_win_highscores;
 DROP VIEW IF EXISTS class_highscores;
@@ -415,6 +416,14 @@ CREATE VIEW fastest_realtime AS
 SELECT id, player, duration
   FROM games
  WHERE killertype = 'winning'
+ ORDER BY duration, end_time
+ LIMIT 3;
+
+-- The three fastest realtime allrune wins. Ties are broken by who got there first.
+CREATE VIEW fastest_realtime_allruner AS
+SELECT id, player, duration
+  FROM games
+ WHERE killertype = 'winning' AND runes = 15
  ORDER BY duration, end_time
  LIMIT 3;
 
