@@ -27,38 +27,8 @@ def award_banner(c, player, banner, prestige, temp=False):
   query_do(c, '''INSERT INTO player_banners VALUES (%s, %s, %s, %s)''',
            player, banner, prestige, temp)
 
-def pantheon(c, player):
-  distinct_gods = [god for god in query.player_distinct_gods(c, player)
-                   if god and god != 'No God']
-  if len(distinct_gods) == len(crawl.GODS) - 1:
-    award_banner(c, player, 'pantheon', 8)
-
-def heretic(c, player):
-  gods_renounced = query.player_distinct_renounced_gods(c, player)
-  gods_mollified = query.player_distinct_mollified_gods(c, player)
-  nrenounced = len(gods_renounced)
-  nmollified = len(gods_mollified)
-  # [snark] We'll accept one less mollify than renounce because apparently
-  # Nemelex mollification produces no milestone (why is this?)
-  if (nmollified >= nrenounced - 1 and nrenounced == len(crawl.GODS) - 1):
-    award_banner(c, player, 'heretic', 10)
-
-BANNERS = [['pantheon', pantheon],
-           ['heretic', heretic],
-           ['rune', None],
-           ['moose', None],
-           ['atheist', None],
-           ['scythe', None],
-           ['orb', None],
-           ['shopaholic', None],
-           ['free_will', None],
-           ['ghostbuster', None]]
-
 def process_banners(c, player):
   existing_banners = set(query.get_player_banners(c, player))
-  for banner in [b for b in BANNERS if b[0] not in existing_banners]:
-    if banner[1]:
-      banner[1](c, player)
 
 def assign_top_player_banners(c):
   rows = query_rows(c, '''SELECT name, score_full

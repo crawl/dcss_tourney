@@ -48,12 +48,12 @@ DROP VIEW IF EXISTS streak_scoreboard;
 DROP VIEW IF EXISTS best_ziggurat_dives;
 DROP VIEW IF EXISTS youngest_rune_finds;
 DROP VIEW IF EXISTS most_deaths_to_uniques;
-DROP VIEW IF EXISTS double_boris_kills;
-DROP VIEW IF EXISTS atheist_wins;
 DROP VIEW IF EXISTS super_sigmund_kills;
-DROP VIEW IF EXISTS free_will_wins;
-DROP VIEW IF EXISTS ghostbusters;
-DROP VIEW IF EXISTS compulsive_shoppers;
+DROP VIEW IF EXISTS all_hellpan_kills;
+DROP VIEW IF EXISTS portalists;
+DROP VIEW IF EXISTS busy_players;
+DROP VIEW IF EXISTS ziggy_players;
+DROP VIEW IF EXISTS gold_finders;
 DROP VIEW IF EXISTS most_pacific_wins;
 DROP VIEW IF EXISTS last_started_win;
 
@@ -515,54 +515,51 @@ SELECT player, ndeaths, death_time
 ORDER BY ndeaths DESC, death_time
  LIMIT 3;
 
-CREATE VIEW double_boris_kills AS
-  SELECT player, COUNT(*) AS boris_kills
-    FROM milestones
-   WHERE noun='Boris'
-     AND verb='uniq'
-GROUP BY player, start_time
-  HAVING boris_kills >= 2
-ORDER BY boris_kills DESC;
-
-CREATE VIEW atheist_wins AS
-SELECT g.*
-  FROM games g
- WHERE g.killertype = 'winning'
-   AND (g.god IS NULL OR g.god = '')
-   AND g.raceabbr != 'DG'
-   AND NOT EXISTS (SELECT noun FROM milestones m
-                    WHERE m.player = g.player AND m.start_time = g.start_time
-                      AND verb = 'god.renounce' LIMIT 1);
-
 CREATE VIEW super_sigmund_kills AS
 SELECT player, COUNT(*) AS sigmund_kills
   FROM kills_of_uniques
  WHERE monster = 'Sigmund'
 GROUP BY player
-  HAVING sigmund_kills >= 27
+  HAVING sigmund_kills >= 1
 ORDER BY sigmund_kills DESC;
 
-CREATE VIEW free_will_wins AS
-SELECT *
-  FROM games
- WHERE killertype = 'winning'
-   AND ((class = 'Fire Elementalist' AND skill = 'Ice Magic') OR
-        (class = 'Ice Elementalist' AND skill = 'Fire Magic') OR
-        (class = 'Earth Elementalist' AND skill = 'Air Magic') OR
-        (class = 'Air Elementalist' AND skill = 'Earth Magic'))
-   AND sk_lev = 27;
-
-CREATE VIEW ghostbusters AS
-SELECT player, COUNT(*) AS ghost_kills
-  FROM milestones
- WHERE verb = 'ghost'
+CREATE VIEW all_hellpan_kills AS
+SELECT player, COUNT(DISTINCT monster) AS hellpan_kills
+  FROM kills_of_uniques
+ WHERE monster = 'Antaeus' OR monster = 'Asmodeus' OR monster = 'Cerebov' OR
+       monster = 'Dispater' OR monster = 'Ereshkigal' OR 
+       monster = 'Gloorx Vloq' OR monster = 'Lom Lobon' OR monster = 'Mnoleg'
 GROUP BY player
-  HAVING ghost_kills >= 10
-ORDER BY ghost_kills DESC;
+  HAVING hellpan_kills >= 8;
 
-CREATE VIEW compulsive_shoppers AS
+CREATE VIEW portalists AS
+SELECT player, COUNT(DISTINCT noun) AS num_portals
+  FROM milestones
+ WHERE verb = 'br.enter' AND (noun = 'Sewer' OR noun = 'Ossuary' OR 
+       noun = 'Bailey' OR noun = 'Lab' OR noun = 'Bazaar' OR 
+       noun = 'Volcano' OR noun = 'IceCv' OR noun = 'Spider' OR 
+       noun = 'WizLab')
+GROUP BY player
+  HAVING num_portals >= 9;
+
+CREATE VIEW busy_players AS
+SELECT player, SUM(duration) AS time_spent
+FROM games
+GROUP BY player
+HAVING time_spent >= 97200
+ORDER BY time_spent DESC;
+
+CREATE VIEW ziggy_players AS
+SELECT player, COUNT(*) AS zig_count
+  FROM milestones
+ WHERE verb='zig'
+   AND place='Zig:10'
+GROUP BY player
+HAVING zig_count >= 1
+ORDER BY zig_count DESC;
+
+CREATE VIEW gold_finders AS
 SELECT *
   FROM games
- WHERE gold_spent >= 5000
-   AND gold < 50;
+ WHERE gold_found >= 1000;
 

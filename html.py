@@ -6,29 +6,21 @@ from crawl_utils import clan_link, player_link, linked_text
 import re
 
 BANNER_IMAGES = \
-    { 'pantheon': [ 'thepantheon.png', 'The Pantheon' ],
-      'discovered_language': [ 'discoveredlanguage.png',
-                               'Discovered Language' ],
-      'runic_literacy': [ 'runicliteracy.png', 'Runic Literacy' ],
-      'heretic' : [ 'Xomprefersaheretic.png', 'Xom Prefers a Heretic' ],
+    { 'temple': [ 'banner_temple.png', 'Temple' ],
+      'orc': [ 'banner_orc.png', 'Orc' ],
+      'lair': [ 'banner_lair.png', 'Lair' ],
+      'hive': [ 'banner_hive.png', 'Hive' ],
+      'vaults': [ 'banner_vaults.png', 'Vaults' ],
+      'hell': [ 'banner_hell.png', 'Hell' ],
+      'pan': [ 'banner_pan.png', 'Pan' ],
+      'abyss': [ 'banner_abyss.png', 'Abyss' ],
+      'zot': [ 'banner_zot.png', 'Zot' ],
       'top_player_Nth:1': [ '1player.png', 'Best Player: 1st' ],
       'top_player_Nth:2': [ '2player.png', 'Best Player: 2nd' ],
       'top_player_Nth:3': [ '3player.png', 'Best Player: 3rd' ],
       'top_clan_Nth:1':   [ '1clan.png', 'Best Clan: 1st' ],
       'top_clan_Nth:2':   [ '2clan.png', 'Best Clan: 2nd' ],
       'top_clan_Nth:3':   [ '3clan.png', 'Best Clan: 3rd' ],
-      'orb'     : [ 'theorb.png', 'The Orb' ],
-      'atheist' : [ 'theatheist.png', 'The Atheist' ],
-      'free_will': [ 'freewill.png', 'Free Will' ],
-      'ghostbuster': [ 'ghostbuster.png', 'Ghostbuster (TM)' ],
-      'moose'   : [ 'mooseandsquirrel.png', 'Moose and Squirrel' ],
-      'nemelex_choice': [ 'nemechoice.png', "Nemelex' Choice" ],
-      'shopaholic': [ 'shopuntilyoudrop.png', 'Shop Until You Drop' ],
-      'scythe' : [ 'thescythe.png', 'The Scythe' ],
-      'lairless_win' : [ 'lordofdarkness.png', 'Lord of Darkness' ],
-      'fruit_basket' : [ 'fruit_basket.png', 'Fruit Basket' ],
-      'the_hare' : [ 'the_hare.png', 'The Hare' ],
-      'royal_jelly' : [ 'royaljelly.png', 'Royal Jelly' ]
     }
 
 STOCK_WIN_COLUMNS = \
