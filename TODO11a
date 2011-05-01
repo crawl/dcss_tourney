@@ -1,0 +1,22 @@
+TODO FOR tourney11a, as of May 1:
+
+* fix scoring to agree with the rules
+
+  - fix race/class points to be 2N and N points instead of 240 and 120
+  - fix combo points to be only 20 if only won by one person
+  - fix clan race/class points to be by clan
+  - add points for fastest realtime allruner
+  - add points for branchless wins
+  - remove points for streaking the same combo multiple times
+  - make sure "longest streak" requires distinct races/classes
+  - remove Nemelex's choice (maybe I already did this?)
+
+* fix scoring output (remove Nemelex's choice and other things that don't exist, maybe add more info somewhere)
+
+* disable old banners, code new banners
+
+* bring list of uniques up to date
+
+* check whether it is actually still possible to give info about games in progress on CAO (I doubt it)
+
+* change top player/clan images to Wensley's new versions (when he finishes them)
