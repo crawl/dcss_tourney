@@ -147,7 +147,7 @@ def clan_additional_score(c, owner):
 #      additional += log_temp_clan_points( c, owner,
 #                                          'maxed:%s' % skill,
 #                                          10 )
-#  query.set_clan_points(c, owner, additional)
+  query.set_clan_points(c, owner, additional)
 
 def update_clan_scores(c):
   banner.flush_clan_banners(c)
