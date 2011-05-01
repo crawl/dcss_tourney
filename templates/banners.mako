@@ -4,7 +4,7 @@
    c = attributes['cursor']
 
    all_banners = query.player_banners_awarded(c)
-   title = "Banners Awarded"
+   title = "Pennants Awarded"
  %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
@@ -22,7 +22,7 @@
       <div class="page_content">
 
         <div class="banner-desc banner-top-padded">
-          <h2>Banners Awarded</h2>
+          <h2>Pennants Awarded</h2>
 
           <hr>
 
