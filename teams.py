@@ -50,10 +50,10 @@ LISTENER = [ TeamListener() ]
 # Run the timer every so often to refresh team stats.
 TIMER = [ ( crawl_utils.UPDATE_INTERVAL , TeamTimer() ) ]
 
-DEADLINE = datetime.datetime(2010, 8, 16, 12) # Aug 16, 12:00
+DEADLINE = datetime.datetime(2011, 5, 22, 0) # May 22, 00:00
 
 def get_teams(directory):
-    '''Searches all *.crawlrc files in the given directory for team information
+    '''Searches all *.rc files in the given directory for team information
     and returns a dictorary, indexed by team capatains, of tuples of
     the team name and the set of members.'''
     if not os.path.exists(directory):
@@ -64,8 +64,8 @@ def get_teams(directory):
     volunteers = {}
     players = []
     for filename in os.listdir(directory):
-        if fnmatch.fnmatch(filename, '*.crawlrc'):
-            player = filename[:-8].lower()
+        if fnmatch.fnmatch(filename, '*.rc'):
+            player = filename[:-3].lower()
             players.append(player)
             rcfile = open(os.path.join(directory, filename))
             line = rcfile.readline()

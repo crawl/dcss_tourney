@@ -17,13 +17,13 @@ T_VERSION = '0.8'
 
 # Start and end of the tournament, UTC.
 START_TIME = T_YEAR + '0401'
-END_TIME   = T_YEAR + '0501'
+END_TIME   = T_YEAR + '0530'
 
 DATE_FORMAT = '%Y%m%d'
 
 GAME_VERSION = T_VERSION
 
-HARE_START_TIME = '20100431'
+HARE_START_TIME = '20100529'
 
 CDO = 'http://crawl.develz.org/'
 CAO = 'http://crawl.akrasiac.org/'
@@ -42,7 +42,7 @@ BLACKLIST_FILE = 'blacklist.txt'
 EXTENSION_FILE = 'modules.ext'
 TOURNAMENT_DB = 'tournament'
 COMMIT_INTERVAL = 3000
-CRAWLRC_DIRECTORY = '/home/crawl/chroot/dgldir/rcfiles/'
+CRAWLRC_DIRECTORY = 'rcfiles/'
 
 LISTENERS = [ ]
 TIMERS = [ ]
