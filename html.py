@@ -414,8 +414,12 @@ def whereis(c, *players):
     where = query.whereis_player(c, p)
     if not where:
       continue
-    where = where[0:8] + (pretty_dur(where[8]), )
-    miles = miles + ("%s the %s (L%d %s of %s) %s (%s, turn %d, dur %s)<br />" % where)
+    if where[4] == None:
+      god_phrase = ''
+    else:
+      god_phrase = ' of %s' % where[4] 
+    where = where[0:4] + (god_phrase, ) + where[5:8] + (pretty_dur(where[8]), )
+    miles = miles + ("%s the %s (L%d %s%s) %s (%s, turn %d, dur %s)<br />" % where)
   return miles
 
 def _strip_banner_suffix(banner):
