@@ -104,13 +104,13 @@ div.centerable {
 div#player-banners {
   position: absolute;
   top: 30px;
-  right: -90px;
+  right: -70px;
 }
 
 div.player_status {
     position: absolute;
     top: 0px;
-    right: 40px;
+    right: 0px;
     padding-left: 15px;
     border-left: 1px solid #000;
 }
@@ -165,7 +165,7 @@ div.fineprint p {
 }
 
 .bannered {
-  margin-right: 80px;
+  margin-right: 60px;
 }
 
 .page_narrow {
@@ -176,7 +176,7 @@ div.fineprint p {
 }
 
 .page_content {
-    padding: 12px 35px 30px 35px;
+    padding: 12px 85px 30px 35px;
 }
 
 /*
@@ -328,10 +328,10 @@ div.inline {
 
 img.banner {
   position: relative;
-  margin-bottom: 8px;
+  margin-bottom: -3px; 
 }
 
-#banner-1 {
+/*#banner-1 {
   left: -55px;
   margin-bottom: -6px;
 }
@@ -346,7 +346,7 @@ img.banner {
 
 #banner-4 {
   left: 3px;
-}
+}*/
 
 .nemelex h3 {
   display: inline;
