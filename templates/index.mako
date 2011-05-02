@@ -186,12 +186,12 @@
               total number of games won in the tournament.
             </p>
             <p>
-              <span>40 extra points</span> for each race/class combination, 
+              <span>50 extra points</span> for each race/class combination, 
 	      split evenly (rounding up) among 
               all players to win at least one game with that race/class
 	      combination. However, if only a single person wins a given 
-	      race/class combination, then she will only be awarded 20 points 
-	      rather than 40.
+	      race/class combination, then she will only be awarded 25 points 
+	      rather than 50.
             </p>
             <div class="inset">
               <p>
@@ -551,12 +551,12 @@
               <span class="added">[NEW]</span>
             </p>
             <p class="added">
-              <span>40 extra points</span> for each race/class combination, 
+              <span>50 extra points</span> for each race/class combination, 
 	      split evenly (rounding up) among 
               all players to win at least one game with that race/class
 	      combination. However, if only a single person wins a given 
-	      race/class combination, then she will only be awarded 20 points 
-	      rather than 40.
+	      race/class combination, then she will only be awarded 25 points 
+	      rather than 50.
 	      <span class="added">[NEW]</span>
             </p>
 	    <p class="added">

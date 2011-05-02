@@ -459,9 +459,9 @@ def check_misc_points(c, pmap):
     key = 'combo_win:' + g[1]
     num_won = query.count_combo_wins(c, g[1])
     if num_won == 1:
-      points = 20
+      points = 25
     else:
-      points = (40 + num_won - 1) / num_won
+      points = (50 + num_won - 1) / num_won
     record_points(pmap, player, points, team_points=False)
     log_temp_points(c, player, key, points)
   winning_players_by_race = query.get_winning_players_by_race(c)
