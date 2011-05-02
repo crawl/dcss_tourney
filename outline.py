@@ -11,7 +11,7 @@ import crawl
 import uniq
 
 from loaddb import query_do, query_first_col
-from query import assign_points, assign_team_points, wrap_transaction
+from query import have_points, assign_points, assign_team_points, wrap_transaction
 from query import log_temp_points, log_temp_team_points, get_points
 
 # So there are a few problems we have to solve:
@@ -280,11 +280,12 @@ def crunch_winner(c, game):
       if streak_len > loaddb.longest_streak_count(c, game['name']):
         loaddb.update_streak_count(c, game, streak_len)
 
-      streak_repeats = repeat_race_class(streak_wins, game['char'])
-
-      # 40, 40, 40 points for streak games based on no repeat, xor, repeat.
-      assign_points(c, "streak_win",
-                    game['name'], get_points(streak_repeats, 40, 40, 40))
+      #streak_repeats = repeat_race_class(streak_wins, game['char'])
+      streak_win_what = 'streak_win:'+game['char']
+      # 40 points for streak games, but only once per combo.
+      if not have_points(c, game['name'], streak_win_what):
+        assign_points(c, streak_win_what,
+                    game['name'], 40)
 
     # If this is a non-streak win, make sure we're not on the second
     # win with no repeats, since we've already done the bonus points
