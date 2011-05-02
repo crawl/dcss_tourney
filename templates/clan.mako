@@ -70,7 +70,7 @@
   </head>
 
   <body class="page_back">
-    <div class="page">
+    <div class="page bannered">
       <%include file="toplink.mako"/>
 
       <div id="player-banners">
