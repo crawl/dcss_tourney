@@ -408,17 +408,15 @@ def clan_affiliation(c, player, include_clan=True):
   clan_html += ", ".join(plinks)
   return clan_html
 
-def whereis(show_name, *players):
-  where = [ query.whereis_player(p) for p in players ]
-  where = [ w for w in where if w ]
-  including = [ ]
-  if show_name:
-    including.append( (0, ('name', 'Player') ) )
-
-  if not where:
-    return ''
-  return games_table(where, columns=WHERE_COLUMNS, including=including,
-                     count=False)
+def whereis(c, *players):
+  miles = ''
+  for p in players:
+    where = query.whereis_player(c, p)
+    if not where:
+      continue
+    where = where[0:8] + (pretty_dur(where[8]), )
+    miles = miles + ("%s the %s (L%d %s of %s) %s (%s, turn %d, dur %s)<br />" % where)
+  return miles
 
 def _strip_banner_suffix(banner):
   if ':' in banner:

@@ -27,7 +27,7 @@
    audit = query.audit_trail_player_points(c, player)
    audit_team = query.audit_trail_player_team_points(c, player)
 
-   whereis = html.whereis(False, player)
+   whereis = html.whereis(c, player)
 
    fruit_found, fruit_unfound = query.player_fruit_found(c, player)
 
@@ -112,15 +112,10 @@
           </div>
 
           %if whereis:
-          <div class="game_table">
-            <h3>Ongoing Game (cao)</h3>
-            <div class="fineprint">
-              On-going information is from the crawl.akrasiac.org server only,
-              and may be inaccurate if the player is active on other
-              servers.
+            <h3>Ongoing Game</h3>
+            <div>
+              ${whereis}
             </div>
-            ${whereis}
-          </div>
           %endif
 
           <div class="game_table">

@@ -55,25 +55,22 @@ def canonical_where_name(name):
   else:
     return None
 
-def whereis_player(name):
-  name = canonical_where_name(name)
-  if name is None:
-    return name
+def game_is_over(c, name, start):
+  query = Query('''SELECT COUNT(*) FROM games WHERE player=%s 
+                                   AND start_time=%s''', name, start)
+  return (query.count(c) > 0)
 
-  where_path = '%s/%s/%s.where' % (crawl_utils.RAWDATA_PATH, name, name)
-  if not os.path.exists(where_path):
+def whereis_player(c, name):
+  last_mile = query_row(c, '''SELECT player, title, xl, charabbrev,
+                                          god, milestone, place, turn,
+                                          duration, start_time
+                                          FROM milestones
+                                          WHERE player = %s
+                                          ORDER BY milestone_time DESC''',
+                           name)
+  if not last_mile or game_is_over(c, name, last_mile[9]):
     return None
-
-  try:
-    f = open(where_path)
-    try:
-      line = f.readline()
-      d = loaddb.apply_dbtypes( loaddb.xlog_dict(line) )
-      return _filter_invalid_where(d)
-    finally:
-      f.close()
-  except:
-    return None
+  return last_mile
 
 def did_change_god(c, game):
   """Returns true if the player changed gods during the game, by checking
@@ -1331,9 +1328,10 @@ def find_most_recent_character_since(c, player, time):
     return row[0]
 
   # Otherwise, look for where info.
-  where = whereis_player(player)
-  if where and time_from_str(where['time']) > time:
-    return where['char']
+  # I'm changing the whereis stuff, so commenting this out for now.
+  #where = whereis_player(player)
+  #if where and time_from_str(where['time']) > time:
+  #  return where['char']
 
   # No idea!
   return None

@@ -22,7 +22,7 @@
    clan_points = query.audit_clan_points(c, captain)
 
    clan_players = cinfo[1]
-   clan_whereis = html.whereis(True, *clan_players)
+   clan_whereis = html.whereis(c, *clan_players)
 
    def player_point_breakdown():
      text = ''
@@ -106,15 +106,10 @@
           </div>
 
           %if clan_whereis:
-          <div class="game_table">
-            <h3>Ongoing Games (cao)</h3>
-            <div class="fineprint">
-              On-going information is from the crawl.akrasiac.org server only,
-              and may be inaccurate if players are active on other
-              servers.
+            <h3>Ongoing Games</h3>
+            <div>
+	      ${clan_whereis}
             </div>
-            ${clan_whereis}
-          </div>
           %endif
 
           <div class="game_table">
