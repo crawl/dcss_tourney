@@ -420,14 +420,18 @@ def get_wins(c, **selectors):
            win_query('charabbrev', order_by = 'ORDER BY end_time',
                      **selectors).rows(c) ]
 
-def won_unwon_combos_with_games(won_games):
+def won_unwon_combos_with_games(cu, won_games):
   won_combos = set([x['charabbrev'] for x in won_games])
   combo_lookup = dict([(x['charabbrev'], x) for x in won_games])
 
-  def game_charabbrev_link(g):
-    return crawl_utils.linked_text(g, crawl_utils.morgue_link, g['charabbrev'])
+  def game_charabbrev_link(count, g):
+    if count > 1:
+      return crawl_utils.linked_text(g, crawl_utils.morgue_link, 
+                   "%s(%d)" % (g['charabbrev'], count))
+    return crawl_utils.linked_text(g, crawl_utils.morgue_link, 
+                   g['charabbrev'])
 
-  won_combo_list = [game_charabbrev_link(combo_lookup[c])
+  won_combo_list = [game_charabbrev_link(count_combo_wins(cu,c), combo_lookup[c])
                     for c in combos.VALID_COMBOS
                     if c in won_combos]
 
@@ -437,7 +441,7 @@ def won_unwon_combos_with_games(won_games):
 
 def won_unwon_combos(c):
   won_games = get_winning_games(c)
-  return won_unwon_combos_with_games(won_games)
+  return won_unwon_combos_with_games(c, won_games)
 
 def get_winning_games(c, **selectors):
   """Returns the games for wins matching the provided criteria, ordered
