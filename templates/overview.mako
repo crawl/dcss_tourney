@@ -2,8 +2,9 @@
    import query, loaddb, html, time
    c = attributes['cursor']
 
+   version = loaddb.T_VERSION
    year = loaddb.T_YEAR
-   title = "Crawl Tournament Leaderboard %s" % year
+   title = "Crawl %s Tournament Leaderboard" % version
    top_scores = query.find_games(c, sort_max='score', limit=3)
 
    recent_wins = query.get_winning_games(c, limit = 5)
