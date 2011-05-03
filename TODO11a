@@ -1,15 +1,10 @@
-TODO FOR tourney11a, as of May 2:
+TODO FOR tourney11a, as of May 3:
 
 * fix scoring to agree with the rules
 
   - fix clan race/class points to be by clan
-  - remove points for streaking the same combo multiple times
   - make sure "longest streak" requires distinct races/classes
 
-* add number of people who have won each race/class to some page, think about other additions/deletions
+* fiddle with player/clan page formatting a bit more
 
-* fix banner formatting
-
-* make whereis display last milestone, maybe? or disable it, since currently it is useless
-
-* change top player/clan images to Wensley's new versions (when he finishes them)
+* consider whether there is any more information that should be put on the scoring pages
