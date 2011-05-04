@@ -52,7 +52,7 @@
           <p>
             Participants in the tournament may form clans of six or
             fewer players. If you wish to be a member of a clan, you
-            need to add a line to the top of your CAO rcfile like
+            need to add a line to the top of your <b>CAO 0.8</b> rcfile like
             this:
           </p>
 
@@ -68,7 +68,7 @@
 
           <p>
             The team captain must have the name of her team and the
-            other team members in her .crawlrc, like this:
+            other team members in her <b>CAO 0.8</b> rcfile, like this:
           </p>
 
           <pre>
@@ -83,24 +83,24 @@
 
           <p>
             <span>Note:</span> The team captain should <b>not</b>
-            include a TEAMCAPTAIN line in her .crawlrc.
+            include a TEAMCAPTAIN line in her rcfile.
           </p>
 
           <div class="inset">
             <p>
               <span class="inline_heading">For emphasis:</span> clan membership lines should be added to
-              your crawl.akrasiac.org .crawlrc. Even if you're playing
+              your crawl.akrasiac.org 0.8 rcfile. Even if you're playing
               your games on crawl.develz.org, you must add clan
               membership information to your crawl.akrasiac.org
-              .crawlrc.
+              0.8 rcfile.
             </p>
           </div>
 
           <p>
             Clan names must contain only alphanumeric characters,
             underscores, and hyphens. Once a player's username is in
-            the captain's rc and the captain's username is in the
-            player's rc and our script checks for updates, the
+            the captain's rcfile and the captain's username is in the
+            player's rcfile and our script checks for updates, the
             players will be in the same clan.
           </p>
 
