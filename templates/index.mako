@@ -140,10 +140,9 @@
             <p>
               <span>40 extra points</span> for each consecutive (streak) win
               by a player with a race/class combination that has not 
-	      previously been a streak win for that player. Such a game does 
+	      previously been a streak win for that player. (Such a game does 
 	      not have to be of a new race 
-              or class, but note that to be eligible for the "longest streak" 
-              award below all games must have distinct races and classes.
+              or class.)
             </p>
 
             <div class="inset">
@@ -213,7 +212,9 @@
             <p><span>200/100/50 points</span> for first win scored.</p>
             <p><span>200/100/50 points</span> for first 15-rune victory.</p>
             <p><span>200/100/50 points</span> for longest streak of
-              winning games with distinct races and classes. 
+              winning games, where "length" of 
+	      a streak is defined as min(number of distinct races used, number 
+	      of distinct classes used).
               Ties are broken by the first to achieve the streak.
             </p>
             <p>
@@ -578,6 +579,13 @@
 	      combo in multiple streaks.)
               <span class="changed">[CHANGED]</span>
             </p>
+            <p class="changed">
+	      <span>200/100/50 points</span> for longest streak of
+              winning games, where "length" of 
+	      a streak is defined as min(number of distinct races used, number 
+	      of distinct classes used). (Previously diversity of the streak 
+	      did not matter here.)
+            <span class="changed">[CHANGED]</span>
             <p class="changed">
               <span>30/N points</span> (rounded up) each time you find a 
               type of rune for the Nth time. (Was 50 points for the first 
