@@ -372,8 +372,7 @@ def check_temp_trophies(c, pmap):
                     "last_win", [100])
 
   award_temp_trophy(c, pmap, query.player_top_scores(c),
-                    'top_score_Nth:%d', [200, 100, 50],
-                    can_share_places=True)
+                    'top_score_Nth:%d', [200, 100, 50])
   award_temp_trophy(c, pmap, query.player_fastest_realtime_win_best(c),
                     'fastest_realtime:%d', [200, 100, 50])
 
