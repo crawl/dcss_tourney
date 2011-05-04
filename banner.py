@@ -1,6 +1,6 @@
 #! /usr/bin/python
 
-from loaddb import query_first_def, query_do, query_rows
+from loaddb import query_first_def, query_do, query_rows, query_rows_with_ties
 import crawl
 import query
 
@@ -31,11 +31,10 @@ def process_banners(c, player):
   existing_banners = set(query.get_player_banners(c, player))
 
 def assign_top_player_banners(c):
-  rows = query_rows(c, '''SELECT name, score_full
+  rows = query_rows_with_ties(c, '''SELECT name, score_full
                             FROM players
-                           WHERE score_full > 0
-                           ORDER BY score_full DESC, name
-                            LIMIT 3''')
+                           WHERE score_full > 0''',
+                           'score_full', 3, 1)
   def do_banner(r, nth):
     award_banner(c, r[0], 'top_player_Nth:%d' % (nth + 1), 1000, temp=True)
     return True
@@ -49,11 +48,10 @@ def flush_clan_banners(c):
   query_do(c, '''TRUNCATE TABLE clan_banners''')
 
 def assign_top_clan_banners(c):
-  rows = query_rows(c, '''SELECT owner, total_score
+  rows = query_rows_with_ties(c, '''SELECT owner, total_score
                             FROM teams
-                           WHERE total_score > 0
-                           ORDER BY total_score DESC, name
-                           LIMIT 3''')
+                           WHERE total_score > 0''',
+                           'total_score', 3, 1)
   def do_banner(r, nth):
     award_clan_banner(c, r[0], 'top_clan_Nth:%d' % (nth + 1), 1000)
     return True

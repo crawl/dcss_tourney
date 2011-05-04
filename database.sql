@@ -460,7 +460,7 @@ SELECT team_captain, COUNT(*) AS combos
 FROM clan_combo_highscores
 GROUP BY team_captain
 ORDER BY combos DESC
-LIMIT 10;
+LIMIT 20;
 
 CREATE VIEW clan_total_scores AS
 SELECT team_captain, (SUM(score_full) + SUM(team_score_full)) score
@@ -488,7 +488,7 @@ SELECT player, COUNT(*) AS nscores
 FROM combo_highscores
 GROUP BY player
 ORDER BY nscores DESC
-LIMIT 3;
+LIMIT 20;
 
 CREATE VIEW streak_scoreboard AS
 SELECT player, streak

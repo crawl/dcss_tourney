@@ -31,7 +31,7 @@
                                'Games Won', 'Games Played',
                                'Win %' ],
                              stats,
-                             place_column=2 )}
+                             place_column=2, skip=True )}
         </div>
       </div>
     </div>

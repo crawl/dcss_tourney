@@ -157,7 +157,7 @@ def is_clan_header(header):
 
 
 def table_text(headers, data, cls='bordered', count=True, link=None,
-               width=None, place_column=-1, stub_text='No data'):
+               width=None, place_column=-1, stub_text='No data', skip=False):
   if cls:
     cls = ''' class="%s"''' % cls
   if width:
@@ -180,6 +180,7 @@ def table_text(headers, data, cls='bordered', count=True, link=None,
     out += '''<tr><td colspan='%s'>%s</td></tr>''' % (ncols, stub_text)
 
   nplace = 0
+  rplace = 0
   last_value = None
 
   for row in data:
@@ -187,9 +188,13 @@ def table_text(headers, data, cls='bordered', count=True, link=None,
     out += '''<tr class="%s">''' % (odd and "odd" or "even")
     odd = not odd
 
-    if place_column == -1 or last_value != row[place_column]:
+    rplace += 1
+    if place_column == -1:
       nplace += 1
-    if place_column != -1:
+    elif last_value != row[place_column]:
+      nplace += 1
+      if skip:
+        nplace = rplace
       last_value = row[place_column]
 
     if count:
@@ -300,7 +305,7 @@ def ext_games_table(games, win=True, **pars):
 def combo_highscorers(c):
   hs = query.get_top_combo_highscorers(c)
   return table_text( [ 'Player', 'Combo scores' ],
-                     hs )
+                     hs, place_column=1, skip=True )
 
 def deepest_xl1_games(c):
   games = query.get_deepest_xl1_games(c)
@@ -374,7 +379,7 @@ def fixup_clan_rows(rows):
 def best_clans(c):
   clans = fixup_clan_rows(query.get_top_clan_scores(c))
   return table_text( [ 'Clan', 'Captain', 'Points' ],
-                     clans, place_column=2 )
+                     clans, place_column=2, skip=True )
 
 def clan_unique_kills(c):
   ukills = fixup_clan_rows(query.get_top_clan_unique_kills(c))
@@ -384,7 +389,7 @@ def clan_unique_kills(c):
 def clan_combo_highscores(c):
   return table_text( [ 'Clan', 'Captain', 'Scores' ],
                      fixup_clan_rows(query.get_top_clan_combos(c)),
-                     place_column=2 )
+                     place_column=2, skip=True )
 
 def clan_affiliation(c, player, include_clan=True):
   # Clan affiliation info is clan name, followed by a list of players,

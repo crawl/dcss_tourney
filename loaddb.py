@@ -698,6 +698,15 @@ def query_row(cursor, query, *values):
 def query_rows(cursor, query, *values):
   return Query(query, *values).rows(cursor)
 
+def query_rows_with_ties(cursor, query, field, how_many, which_col):
+  first_query = query + (" ORDER BY %s DESC LIMIT %d" % (field, how_many))
+  q = query_rows(cursor, first_query)
+  if len(q) < how_many:
+    return q
+  least_value = q[how_many-1][which_col]
+  new_query = query + (" AND %s >= %d ORDER BY %s DESC" % (field, least_value, field))
+  return query_rows(cursor, new_query)
+
 def query_first_col(cursor, query, *values):
   rows = query_rows(cursor, query, *values)
   return [x[0] for x in rows]

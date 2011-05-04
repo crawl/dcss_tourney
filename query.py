@@ -7,6 +7,7 @@ from logging import debug, info, warn, error
 
 import loaddb
 from loaddb import Query, query_do, query_first, query_row, query_rows
+from loaddb import query_rows_with_ties
 from loaddb import query_first_col, query_first_def
 
 import combos
@@ -195,12 +196,10 @@ def get_top_streaks(c, how_many = 3):
   return get_top_streaks_from(c, 'streaks', 2, how_many)
 
 def get_top_clan_scores(c, how_many=10):
-  clans = query_rows(c, '''SELECT name, owner, total_score
+  return query_rows_with_ties(c, '''SELECT name, owner, total_score
                            FROM teams
-                           WHERE total_score > 0
-                           ORDER BY total_score DESC
-                           LIMIT %d''' % how_many)
-  return clans
+                           WHERE total_score > 0''',
+                           'total_score', how_many, 2)
 
 def get_top_clan_unique_kills(c, how_many=3):
   rows = query_rows(c, '''SELECT c.name, u.team_captain, u.kills
@@ -221,11 +220,10 @@ def get_top_clan_unique_kills(c, how_many=3):
   return result_rows
 
 def get_top_clan_combos(c, how_many = 3):
-  return query_rows(c, '''SELECT c.name, hs.team_captain, hs.combos
+  return query_rows_with_ties(c, '''SELECT c.name, hs.team_captain, hs.combos
                           FROM teams c, combo_hs_clan_scoreboard hs
-                          WHERE c.owner = hs.team_captain
-                          ORDER BY hs.combos DESC
-                          LIMIT %d''' % how_many)
+                          WHERE c.owner = hs.team_captain''',
+                          'hs.combos', how_many, 2)
 
 def get_combo_scores(c, how_many=None, player=None):
   query = Query("SELECT " + ",".join(LOG_FIELDS) +
@@ -337,11 +335,10 @@ def player_fruit_found(c, player):
   return (fruit_found, fruit_unfound)
 
 def get_top_players(c, how_many=10):
-  return query_rows(c,
-                    '''SELECT name, score_full FROM players
-                        WHERE score_full > 0
-                       ORDER BY score_full DESC
-                       LIMIT %d''' % how_many)
+   return query_rows_with_ties(c,
+                         '''SELECT name, score_full FROM players
+                             WHERE score_full > 0''',
+                             'score_full', how_many, 1)
 
 def get_top_unique_killers(c, how_many=3):
   return query_rows(c,
@@ -350,9 +347,10 @@ def get_top_unique_killers(c, how_many=3):
                        LIMIT %d''' % how_many)
 
 def get_top_combo_highscorers(c, how_many=3):
-  return query_rows(c,
+  return query_rows_with_ties(c,
                     '''SELECT player, nscores FROM combo_hs_scoreboard
-                       ORDER BY nscores DESC LIMIT %d''' % how_many)
+                        WHERE nscores > 0''',
+                        'nscores', how_many, 1)
 
 def get_deepest_xl1_games(c, how_many=3):
   return find_games(c, xl = 1, sort_max = 'lvl', limit = how_many)
@@ -879,10 +877,12 @@ def find_place(rows, player):
 
 def do_place_numeric(rows, callfn):
   index = -1
+  rindex = -1
   last_num = None
   for r in rows:
+    rindex += 1
     if last_num != r[1]:
-      index += 1
+      index = rindex
     last_num = r[1]
     if not callfn(r, index):
       break
@@ -894,10 +894,12 @@ def find_place_numeric(rows, player):
   a score. If any element has the same score as a preceding element, it is
   treated as being at the same index."""
   index = -1
+  rindex = -1
   last_num = None
   for r in rows:
+    rindex += 1
     if last_num != r[1]:
-      index += 1
+      index = rindex
     last_num = r[1]
     if r[0] == player:
       return index
@@ -966,11 +968,11 @@ def clan_combo_pos(c, owner):
   return find_place_numeric(
     query_rows(c,
                '''SELECT team_captain, combos FROM
-                         combo_hs_clan_scoreboard LIMIT 3'''),
+                         combo_hs_clan_scoreboard'''),
     owner)
 
-def clan_unique_pos(c, owner, limit=3):
-  return find_place_numeric(
+def clan_unique_pos(c, owner):
+  return find_place(
     query_rows(c,
                '''SELECT team_captain, kills FROM
                          clan_unique_kills
@@ -1192,7 +1194,7 @@ def most_deaths_to_uniques(c):
   return result
 
 def player_deaths_to_uniques_pos(c, player):
-  return find_place_numeric(
+  return find_place(
     player_deaths_to_uniques_best(c), player)
 
 def register_maxed_skill(c, player, sk):

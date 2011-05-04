@@ -30,7 +30,8 @@
              team.append( html.clan_affiliation(c, captain, False) )
 
            table = html.table_text( [ 'Score', 'Clan', 'Players' ],
-                                    teams, cls='bordered', place_column=0 )
+                                    teams, cls='bordered', place_column=0, 
+                                    skip=True )
         %>
 
         <h1>Clans</h1>

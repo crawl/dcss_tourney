@@ -13,7 +13,7 @@
      g[2] = ", ".join( [ ntimes(x[1], x[0]) for x in g[2] ] )
 
    table = html.table_text([ 'Ghost', 'Kills', 'Victims' ],
-                           gkills, width='100')
+                           gkills, width='100', place_column=1, skip=True)
 
 %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"

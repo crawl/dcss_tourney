@@ -328,6 +328,7 @@ def award_temp_trophy(c, point_map,
                       player_rows, key, points,
                       can_share_places=False, team_points=False):
   place = -1
+  rplace = -1
   last_value = None
 
   def do_points(player, title, points):
@@ -346,8 +347,9 @@ def award_temp_trophy(c, point_map,
 
   npoints = len(points)
   for row in player_rows:
+    rplace += 1
     if not can_share_places or row[1] != last_value:
-      place += 1
+      place = rplace
     if can_share_places:
       last_value = row[1]
 
