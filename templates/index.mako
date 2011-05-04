@@ -303,15 +303,19 @@
               <span>200/100/50 clan points</span> for deepest level reached
               in a Ziggurat. Completing a Ziggurat level (for instance
               exiting to the dungeon from Zig:20) is also noted and is
-              better than merely reaching the level.
+              better than merely reaching the level. Ties are broken by who 
+	      reaches/exits the Ziggurat level first.
             </p>
 
             <p><span>50/20/10 clan points</span> for lowest XL at which a
-            rune is picked up, not including the abyssal and slimy runes.</p>
+            rune is picked up, not including the abyssal and slimy runes. Ties
+	    are broken by who picked up the rune first.
+	    </p>
 
             <p>
               <span>50/20/10 clan points</span> for the "Most Unique Deaths"
-              trophy: Killed by the most unique uniques.
+              trophy: Killed by the most unique uniques. Ties are broken by 
+	      who reaches that number first.
             </p>
 
             <p>
@@ -333,7 +337,7 @@
 
             <p>
               <span>100/50/20 clan points</span> for the <b>clans</b> with the most
-              unique uniques killed.
+              unique uniques killed; ties broken by who gets that number first.
             </p>
 
           </div>
