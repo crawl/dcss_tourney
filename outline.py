@@ -171,6 +171,14 @@ def repeat_race_class(previous_chars, char):
     repeats += 1
   return repeats
 
+# Streak length is currently defined to be 
+# min(# of distinct races, # of distinct classes).
+def compute_streak_length(previous_chars, char):
+  all_chars = previous_chars + [char,]
+  races = set([c[0:2] for c in all_chars])
+  classes = set([c[2:] for c in all_chars])
+  return min(len(races), len(classes))
+
 def game_is_win(g):
   return g.has_key('ktyp') and g['ktyp'] == 'winning'
 
@@ -267,32 +275,22 @@ def crunch_winner(c, game):
         (game['name'], game['char'], streak_wins))
   if not streak_wins:
     query.kill_active_streak(c, player)
-  query.update_active_streak(c, player, game_end)
+    streak_len = -1
+  else:
+    # This length could be 1 even though it involves at least two games, beware!
+    streak_len = compute_streak_length(streak_wins, game['char'])
+    streak_win_what = 'streak_win:'+game['char']
+    # 40 points for streak games, but only once per combo.
+    if not have_points(c, game['name'], streak_win_what):
+      assign_points(c, streak_win_what, game['name'], 40)
+  query.update_active_streak(c, player, game_end, streak_len)
 
-  # For one or more prior wins, check streaks
-  if n_my_wins >= 1:
-    # Check if this is a streak. streak_wins will be empty if not on
-    # a streak.
-    if streak_wins:
-      streak_len = len(streak_wins) + 1
-      # First update the streaks table. We're still in the logfile transaction
-      # here, so it's safe.
-      if streak_len > loaddb.longest_streak_count(c, game['name']):
-        loaddb.update_streak_count(c, game, streak_len)
+  if streak_len > 1:
+    # Update the streaks table. We're still in the logfile transaction
+    # here, so it's safe.
+    if streak_len > loaddb.longest_streak_count(c, game['name']):
+      loaddb.update_streak_count(c, game, streak_len)
 
-      #streak_repeats = repeat_race_class(streak_wins, game['char'])
-      streak_win_what = 'streak_win:'+game['char']
-      # 40 points for streak games, but only once per combo.
-      if not have_points(c, game['name'], streak_win_what):
-        assign_points(c, streak_win_what,
-                    game['name'], 40)
-
-    # If this is a non-streak win, make sure we're not on the second
-    # win with no repeats, since we've already done the bonus points
-    # for that above.
-#    elif n_my_wins >= 2 or (n_my_wins == 1 and repeated == 1):
-#      assign_points(c, "my_nonstreak_norep",
-#                    game['name'], get_points(repeated, 30, 10))
 
 def is_all_runer(game):
   """Did this game get every rune? This _might_ require checking the milestones

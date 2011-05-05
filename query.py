@@ -1311,13 +1311,13 @@ def update_deaths_to_distinct_uniques(c, player, ndeaths, time):
                  ON DUPLICATE KEY UPDATE ndeaths = %s, death_time = %s ''',
            player, ndeaths, time, ndeaths, time)
 
-def update_active_streak(c, player, end_time):
-  query_do(c, '''INSERT INTO active_streaks
+def update_active_streak(c, player, end_time, streak_len):
+    query_do(c, '''INSERT INTO active_streaks
                              (player, streak_time)
                       VALUES (%s, %s)
-                 ON DUPLICATE KEY UPDATE streak = streak + 1,
+                 ON DUPLICATE KEY UPDATE streak = %s,
                                          streak_time = %s''',
-           player, end_time, end_time)
+           player, end_time, streak_len, end_time)
 
 def kill_active_streak(c, player):
   query_do(c, '''DELETE FROM active_streaks WHERE player = %s''', player)
