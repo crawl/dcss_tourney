@@ -1,10 +1,16 @@
-TODO FOR tourney11a, as of May 3:
+TODO FOR tourney11a, as of May 5:
 
 * fix scoring to agree with the rules
 
   - fix clan race/class points to be by clan
-  - make sure "longest streak" requires distinct races/classes
+  - check over how/when ties are broken (especially for most uniques killed, should add dates there) 
 
-* fiddle with player/clan page formatting a bit more
+* add information of portal vaults entered to player pages
 
-* consider whether there is any more information that should be put on the scoring pages
+* worry about slowdown of scripts
+
+* check with rwbarton about rcfile mirroring
+
+* get stuff announced on CDO blog
+
+* change tourney scoring start date to the correct one
