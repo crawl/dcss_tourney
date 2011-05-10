@@ -5,7 +5,7 @@ NRUNES = 16
 GODS = ['No God', 'Zin', 'The Shining One', 'Kikubaaqudgha',
         'Yredelemnul', 'Xom', 'Vehumet', 'Okawaru', 'Makhleb',
         'Sif Muna', 'Trog', 'Nemelex Xobeh', 'Elyvilon', 'Lugonu',
-        'Beogh', 'Fedhas', 'Jiyva', 'Cheibriados']
+        'Beogh', 'Fedhas', 'Jiyva', 'Cheibriados', 'Ashenzari']
 
 FRUIT_BITS = { "orange"     : 0x00040,
                "banana"     : 0x00080,
