@@ -467,7 +467,7 @@ def check_misc_points(c, pmap):
   winning_players_by_race = query.get_winning_players_by_race(c)
   for g in winning_players_by_race:
     player = g[0]
-    key = 'race_win:' + g[1]
+    key = 'species_win:' + g[1]
     num_won = query.count_race_wins(c, g[1])
     points = (2*win_count + num_won - 1) / num_won
     record_points(pmap, player, points, team_points=False)

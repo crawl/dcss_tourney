@@ -153,7 +153,7 @@ def clan_additional_score(c, owner):
       points = (50 + num_won - 1) / num_won
     additional += log_temp_clan_points(c, owner, key, points)
   for g in query.clan_race_wins(c, owner):
-    key = 'race_win:' + g[0]
+    key = 'species_win:' + g[0]
     num_won = query.clan_count_race_wins(c, g[0])
     points = (2*win_count + num_won - 1) / num_won
     additional += log_temp_clan_points(c, owner, key, points)
