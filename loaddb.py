@@ -762,6 +762,13 @@ def update_player_fullscore(c, player, addition, team_addition):
               WHERE name = %s''',
            addition, team_addition, player)
 
+def update_player_only_score(c, player, score):
+  query_do(c,
+           '''UPDATE players
+              SET player_score_only = %s
+              WHERE name = %s''',
+           score, player)
+
 def apply_dbtypes(game):
   """Given an xlogline dictionary, replaces all values with munged values
   that can be inserted directly into a db table. Keys that are not recognized

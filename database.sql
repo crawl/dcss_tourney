@@ -67,6 +67,8 @@ CREATE TABLE IF NOT EXISTS players (
   team_score_base BIGINT,
   -- This is also computed and will be overwritten each time.
   team_score_full BIGINT DEFAULT 0,
+  -- So is this.
+  player_score_only BIGINT DEFAULT 0,
 
   fruit_mask INT DEFAULT 0,
   
@@ -463,7 +465,7 @@ ORDER BY combos DESC
 LIMIT 20;
 
 CREATE VIEW clan_total_scores AS
-SELECT team_captain, (SUM(score_full) + SUM(team_score_full)) score
+SELECT team_captain, (SUM(score_full) + SUM(team_score_full) - SUM(player_score_only)) score
 FROM players
 WHERE team_captain IS NOT NULL
 GROUP BY team_captain

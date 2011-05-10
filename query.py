@@ -477,6 +477,35 @@ def count_class_wins(c, race):
                 race)
   return query.count(c)
 
+def player_combo_wins(c, name):
+  return query_rows(c, """SELECT DISTINCT charabbrev FROM
+       games WHERE killertype='winning' AND player=%s""", name)
+
+def player_race_wins(c, name):
+  return query_rows(c, """SELECT DISTINCT MID(charabbrev,1,2) FROM
+       games WHERE killertype='winning' AND player=%s""", name)
+
+def player_class_wins(c, name):
+  return query_rows(c, """SELECT DISTINCT MID(charabbrev,3,2) FROM
+       games WHERE killertype='winning' AND player=%s""", name)
+
+def player_specific_points(c, name):
+  points = 0
+  win_count = get_win_count(c)
+  for g in player_combo_wins(c, name):
+    num_won = count_combo_wins(c, g[0])
+    if num_won == 1:
+      points += 25
+    else:
+      points += (50 + num_won - 1) / num_won
+  for g in player_race_wins(c, name):
+    num_won = count_race_wins(c, g[0])
+    points += (2*win_count + num_won - 1) / num_won
+  for g in player_class_wins(c, name):
+    num_won = count_class_wins(c, g[0])
+    points += (win_count + num_won - 1) / num_won
+  return points
+
 def get_win_count(c):
   query = Query('''SELECT COUNT(*) FROM games WHERE killertype='winning' ''')
   return query.count(c)
@@ -736,6 +765,15 @@ def audit_clan_player_points(c, captain):
   """Gets the total points contributed to a clan by each player in the clan."""
   return query_rows(c,
                     '''SELECT name, (score_full + team_score_full) points
+                       FROM players
+                       WHERE team_captain = %s
+                       ORDER BY points DESC, name''',
+                    captain)
+
+def audit_adjusted_clan_player_points(c, captain):
+  return query_rows(c,
+                    '''SELECT name, (score_full + team_score_full 
+                                - player_score_only) points
                        FROM players
                        WHERE team_captain = %s
                        ORDER BY points DESC, name''',

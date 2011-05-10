@@ -481,6 +481,11 @@ def check_misc_points(c, pmap):
     record_points(pmap, player, points, team_points=False)
     log_temp_points(c, player, key, points)
 
+def compute_player_only(c):
+  for p in query.get_players(c):
+    points = query.player_specific_points(c, p)
+    loaddb.update_player_only_score(c, p, points)
+
 def safe_update_player_scores(c):
   players = query.get_players(c)
 
@@ -498,6 +503,7 @@ def safe_update_player_scores(c):
   check_temp_trophies(c, pmap)
   check_banners(c)
   apply_point_map(c, pmap)
+  compute_player_only(c)
 
   # And award overall top banners.
   banner.assign_top_player_banners(c)

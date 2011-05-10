@@ -18,7 +18,7 @@
    won_html = html.ext_games_table(won_games)
    recent_html = html.ext_games_table(recent_games, win=False)
 
-   clan_player_points = query.audit_clan_player_points(c, captain)
+   clan_player_points = query.audit_adjusted_clan_player_points(c, captain)
    clan_points = query.audit_clan_points(c, captain)
 
    clan_players = cinfo[1]
