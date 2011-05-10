@@ -24,12 +24,12 @@
 
    won_gods = [x or 'No God' for x in query.get_player_won_gods(c, player)]
 
+   portals_entered,portals_unentered = query.get_portals_entered(c, player)
+
    audit = query.audit_trail_player_points(c, player)
    audit_team = query.audit_trail_player_team_points(c, player)
 
    whereis = html.whereis(c, player)
-
-   fruit_found, fruit_unfound = query.player_fruit_found(c, player)
 
    def point_breakdown(audit):
      if not audit:
@@ -189,28 +189,25 @@
           <hr>
           % endif
 
-          %if fruit_found:
+          % if portals_entered and portals_unentered:
           <div>
-            <h3>Fruit Basket Progress</h3>
             <table class="bordered">
               <colgroup>
                  <col width="10%">
                  <col width="85%">
               </colgroup>
               <tr>
-                <th>Fruit Found</th>
-                <td>${", ".join(fruit_found)}</td>
+                <th>Portals Entered</th>
+                <td>${", ".join(portals_entered)}</td>
               </tr>
-              % if fruit_unfound:
               <tr>
-                <th>Fruit Needed</th>
-                <td>${", ".join(fruit_unfound)}</td>
+                <th>Portals Not Yet Entered</th>
+                <td>${", ".join(portals_unentered)}</td>
               </tr>
-              % endif
             </table>
           </div>
           <hr>
-          %endif
+          % endif   
 
           % if combo_highscores or species_highscores or class_highscores:
             <div>
