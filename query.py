@@ -489,6 +489,56 @@ def player_class_wins(c, name):
   return query_rows(c, """SELECT DISTINCT MID(charabbrev,3,2) FROM
        games WHERE killertype='winning' AND player=%s""", name)
 
+def clan_count_combo_wins(c, combo):
+  query = Query('''SELECT COUNT(DISTINCT p.team_captain) FROM games g, players p
+                   WHERE g.killertype='winning' AND g.charabbrev = %s
+                   AND g.player = p.name''',
+                combo)
+  query_other = Query('''SELECT COUNT(DISTINCT p.name) FROM games g, players p
+                   WHERE g.killertype='winning' AND g.charabbrev = %s
+                   AND g.player = p.name AND p.team_captain IS NULL''',
+                combo)
+  return query.count(c)+query_other.count(c)
+
+def clan_count_race_wins(c, race):
+  query = Query('''SELECT COUNT(DISTINCT p.team_captain) FROM games g, players p
+                   WHERE g.killertype='winning' AND MID(g.charabbrev,1,2) = %s
+                   AND g.player = p.name''',
+                race)
+  query_other = Query('''SELECT COUNT(DISTINCT p.name) FROM games g, players p
+                   WHERE g.killertype='winning' AND MID(g.charabbrev,1,2) = %s
+                   AND g.player = p.name AND p.team_captain IS NULL''',
+                race)
+  return query.count(c)+query_other.count(c)
+
+def clan_count_class_wins(c, race):
+  query = Query('''SELECT COUNT(DISTINCT p.team_captain) FROM games g, players p
+                   WHERE g.killertype='winning' AND MID(g.charabbrev,3,2) = %s
+                   AND g.player = p.name''',
+                race)
+  query_other = Query('''SELECT COUNT(DISTINCT p.name) FROM games g, players p
+                   WHERE g.killertype='winning' AND MID(g.charabbrev,3,2) = %s
+                   AND g.player = p.name AND p.team_captain IS NULL''',
+                race)
+  return query.count(c)+query_other.count(c)
+
+def clan_combo_wins(c, captain):
+  return query_rows(c, """SELECT DISTINCT g.charabbrev FROM games g, players p
+                          WHERE g.killertype='winning' AND g.player = p.name
+                          AND p.team_captain = %s""", captain)
+
+def clan_race_wins(c, captain):
+  return query_rows(c, """SELECT DISTINCT MID(g.charabbrev,1,2)
+                          FROM games g, players p
+                          WHERE g.killertype='winning' AND g.player = p.name
+                          AND p.team_captain = %s""", captain)
+
+def clan_class_wins(c, captain):
+  return query_rows(c, """SELECT DISTINCT MID(g.charabbrev,3,2)
+                          FROM games g, players p
+                          WHERE g.killertype='winning' AND g.player = p.name
+                          AND p.team_captain = %s""", captain)
+
 def player_specific_points(c, name):
   points = 0
   win_count = get_win_count(c)
