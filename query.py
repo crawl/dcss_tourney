@@ -202,22 +202,12 @@ def get_top_clan_scores(c, how_many=10):
                            'total_score', how_many, 2)
 
 def get_top_clan_unique_kills(c, how_many=3):
-  rows = query_rows(c, '''SELECT c.name, u.team_captain, u.kills
+  return query_rows(c, '''SELECT c.name, u.team_captain, u.kills, u.end_time
                           FROM teams c, clan_unique_kills u
                           WHERE c.owner = u.team_captain
                             AND u.kills > 0
-                          ORDER BY u.kills DESC''')
-  result_rows = []
-  count = 0
-  pkills = 0
-  for r in rows:
-    result_rows.append(r)
-    if r[2] != pkills:
-      count += 1
-    if count >= how_many:
-      break
-    pkills = r[2]
-  return result_rows
+                          ORDER BY u.kills DESC, u.end_time
+                          LIMIT %d''' % how_many)
 
 def get_top_clan_combos(c, how_many = 3):
   return query_rows_with_ties(c, '''SELECT c.name, hs.team_captain, hs.combos

@@ -41,6 +41,7 @@ DROP VIEW IF EXISTS game_combo_highscores;
 DROP VIEW IF EXISTS clan_combo_highscores;
 DROP VIEW IF EXISTS clan_total_scores;
 DROP VIEW IF EXISTS clan_unique_kills;
+DROP VIEW IF EXISTS clan_dated_unique_kills;
 DROP VIEW IF EXISTS game_combo_win_highscores;
 DROP VIEW IF EXISTS combo_hs_scoreboard;
 DROP VIEW IF EXISTS combo_hs_clan_scoreboard;
@@ -471,13 +472,19 @@ WHERE team_captain IS NOT NULL
 GROUP BY team_captain
 ORDER BY score DESC;
 
-CREATE VIEW clan_unique_kills AS
-SELECT p.team_captain AS team_captain, COUNT(DISTINCT monster) AS kills
-FROM players p INNER JOIN kills_of_uniques k
+CREATE VIEW clan_dated_unique_kills AS
+SELECT p.team_captain AS team_captain, k.monster AS monster, 
+                  MIN(k.kill_time) AS first_time
+FROM  players p INNER JOIN kills_of_uniques k
                        ON p.name = k.player
 WHERE p.team_captain IS NOT NULL
-GROUP BY p.team_captain
-ORDER BY kills DESC
+GROUP BY p.team_captain, k.monster;
+
+CREATE VIEW clan_unique_kills AS
+SELECT team_captain, COUNT(*) AS kills, MAX(first_time) AS end_time
+FROM clan_dated_unique_kills
+GROUP BY team_captain
+ORDER BY kills DESC, end_time
 LIMIT 10;
 
 CREATE VIEW game_combo_win_highscores AS

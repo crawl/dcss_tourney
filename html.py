@@ -383,8 +383,8 @@ def best_clans(c):
 
 def clan_unique_kills(c):
   ukills = fixup_clan_rows(query.get_top_clan_unique_kills(c))
-  return table_text( [ 'Clan', 'Captain', 'Kills' ],
-                     ukills, place_column=2 )
+  return table_text( [ 'Clan', 'Captain', 'Kills', 'Time' ],
+                     ukills)
 
 def clan_combo_highscores(c):
   return table_text( [ 'Clan', 'Captain', 'Scores' ],
