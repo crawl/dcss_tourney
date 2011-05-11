@@ -8,7 +8,7 @@
    players = { }
 
    for game in all_combo_scores:
-     name = game['player']
+     name = query.canonicalize_player_name(c, game['player'])
      players[name] = (players.get(name) or [])
      players[name].append(game)
 
