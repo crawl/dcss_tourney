@@ -23,7 +23,7 @@ DATE_FORMAT = '%Y%m%d'
 
 GAME_VERSION = T_VERSION
 
-HARE_START_TIME = '20100529'
+HARE_START_TIME = T_YEAR + '0529'
 
 CDO = 'http://crawl.develz.org/'
 CAO = 'http://crawl.akrasiac.org/'
