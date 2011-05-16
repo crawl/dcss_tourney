@@ -62,14 +62,14 @@ def game_is_over(c, name, start):
   return (query.count(c) > 0)
 
 def whereis_player(c, name):
-  last_mile = query_row(c, '''SELECT player, title, xl, charabbrev,
+  last_mile = query_row(c, '''SELECT milestone_time, player, title, xl, charabbrev,
                                           god, milestone, place, turn,
                                           duration, start_time
                                           FROM milestones
                                           WHERE player = %s
                                           ORDER BY milestone_time DESC''',
                            name)
-  if not last_mile or game_is_over(c, name, last_mile[9]):
+  if not last_mile or game_is_over(c, name, last_mile[10]):
     return None
   return last_mile
 

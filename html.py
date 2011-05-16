@@ -135,6 +135,42 @@ def pretty_time(time):
                                             time.tm_hour, time.tm_min,
                                             time.tm_sec)
 
+def how_old(date): 
+  if not date:
+    return ''
+  if type(date) in [str, unicode]:
+    m = R_STR_DATE.search(date)
+    if not m:
+      return ''
+    year = int(m.group(1))
+    month = int(m.group(2))
+    day = int(m.group(3))
+    hour = int(m.group(4))
+    minute = int(m.group(5))
+    second = int(m.group(6))
+  else:
+    year = date.year
+    month = date.month
+    day = date.day
+    hour = date.hour
+    minute = date.minute
+    second = date.second
+  t = time.gmtime()
+  if t.tm_year > year or t.tm_mon > month:
+    return ''
+  d = t.tm_mday - day
+  h = t.tm_hour - hour
+  m = t.tm_min - minute
+  s = t.tm_sec - second
+  if s < 0:
+    s += 60
+    m -= 1
+  if m < 0:
+    m += 60
+    h -= 1
+  h += 24*d
+  return "%d:%02d:%02d ago: " % (h, m, s)    
+
 def update_time():
   return '''<div class="updatetime">
             Last updated %s UTC.
@@ -411,18 +447,22 @@ def clan_affiliation(c, player, include_clan=True):
   return clan_html
 
 def whereis(c, *players):
-  miles = ''
+  where_data = []
   for p in players:
     where = query.whereis_player(c, p)
     if not where:
       continue
-    if where[4] == None:
+    if where[5] == None:
       god_phrase = ''
     else:
-      god_phrase = ' of %s' % where[4] 
-    where = where[0:4] + (god_phrase, ) + where[5:8] + (pretty_dur(where[8]), )
-    miles = miles + ("%s the %s (L%d %s%s) %s (%s, turn %d, dur %s)<br />" % where)
-  return miles
+      god_phrase = ' of %s' % where[5] 
+    where_nice = (how_old(where[0]),) + where[1:5] + (god_phrase, ) + where[6:9] + (pretty_dur(where[9]), )
+    where_data.append([where[0], ("%s%s the %s (L%d %s%s) %s (%s, turn %d, dur %s)<br />" % where_nice)])
+  where_data.sort(key=lambda e: e[0], reverse=True)
+  where_string = ""
+  for w in where_data:
+    where_string += w[1]
+  return where_string
 
 def _strip_banner_suffix(banner):
   if ':' in banner:
