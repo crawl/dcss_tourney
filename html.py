@@ -109,12 +109,9 @@ def pretty_dur(dur):
   dur /= 60
   mins = dur % 60
   dur /= 60
-  hours = dur % 24
-  dur /= 24
-  days = dur
-  stime = "%02d:%02d:%02d" % (hours, mins, secs)
-  if days > 0:
-    stime = str(days) + ", " + stime
+  hours = dur
+  stime = "%d:%02d:%02d" % (hours, mins, secs)
+
   return stime
 
 def pretty_date(date):
