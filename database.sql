@@ -547,9 +547,9 @@ SELECT player, COUNT(DISTINCT noun) AS num_portals
  WHERE verb = 'br.enter' AND (noun = 'Sewer' OR noun = 'Ossuary' OR 
        noun = 'Bailey' OR noun = 'Lab' OR noun = 'Bazaar' OR 
        noun = 'Volcano' OR noun = 'IceCv' OR noun = 'Spider' OR 
-       noun = 'WizLab')
+       noun = 'WizLab' OR noun = 'Trove')
 GROUP BY player
-  HAVING num_portals >= 9;
+  HAVING num_portals >= 10;
 
 CREATE VIEW busy_players AS
 SELECT player, SUM(duration) AS time_spent
