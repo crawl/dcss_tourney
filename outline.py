@@ -420,9 +420,17 @@ def check_banners(c):
                        query_first_col(c, '''SELECT player
                                              FROM all_hellpan_kills'''),
                        6)
+  query_do(c, '''DELETE from player_banners WHERE banner = 'vaults' ''')
   award_player_banners(c, 'vaults',
-                       query_first_col(c, '''SELECT player
-                                             FROM portalists'''),
+                       query_first_col(c, '''SELECT t1.player
+                                             FROM (SELECT player, COUNT(DISTINCT noun) AS num_portals
+                                                   FROM milestones
+                                                   WHERE verb = 'br.enter' AND (noun = 'Sewer' OR noun = 'Ossuary' OR 
+                                                   noun = 'Bailey' OR noun = 'Lab' OR noun = 'Bazaar' OR 
+                                                   noun = 'Volcano' OR noun = 'IceCv' OR noun = 'Spider' OR 
+                                                   noun = 'WizLab' OR noun = 'Vaults' OR noun = 'Trove')
+                                                   GROUP BY player
+                                                   HAVING num_portals >= 10) AS t1'''),
                        5)
   award_player_banners(c, 'hive',
                        query_first_col(c,
