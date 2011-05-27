@@ -259,15 +259,6 @@ def get_death_causes(c):
                                                   'leaving')
                        GROUP BY g.kgroup, g.killertype""")
 
-  def combine_deaths(killer, p, n):
-    if p[1] == 'beam':
-      ranged = p[2]
-      melee = n[2]
-    else:
-      ranged = n[2]
-      melee = p[2]
-    return "%s (%d melee, %d ranged)" % (killer, melee, ranged)
-
   # Now to fix up the rows.
   clean_rows = [ ]
   last = None
@@ -277,10 +268,19 @@ def get_death_causes(c):
     killer = r[0]
     total += r[2]
     if last and last[0] == killer:
+      if r[1] == 'mon':
+        kills_breakdown[0] += r[2]
+      else:
+        kills_breakdown[1] += r[2]
       clean_rows.pop()
-      killer = combine_deaths(killer, last, r)
-      clean_rows.append( [ killer, last[2] + r[2], r[3] ] )
+      if kills_breakdown[0] > 0 and kills_breakdown[1] > 0:
+        killer = "%s (%d melee, %d ranged)" % (killer, kills_breakdown[0], kills_breakdown[1])
+      clean_rows.append( [ killer, kills_breakdown[0]+kills_breakdown[1], r[3] ] )
     else:
+      if r[1] == 'mon':
+        kills_breakdown = [ r[2], 0 ]
+      else:
+        kills_breakdown = [ 0, r[2] ]
       clean_rows.append( [ killer, r[2], r[3] ] )
     last = r
 
