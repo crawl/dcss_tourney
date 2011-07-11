@@ -13,17 +13,17 @@ import imp
 import sys
 
 T_YEAR = '2011'
-T_VERSION = '0.8'
+T_VERSION = '0.9'
 
 # Start and end of the tournament, UTC.
-START_TIME = T_YEAR + '0514'
-END_TIME   = T_YEAR + '0530'
+START_TIME = T_YEAR + '0813'
+END_TIME   = T_YEAR + '0829'
 
 DATE_FORMAT = '%Y%m%d'
 
 GAME_VERSION = T_VERSION
 
-HARE_START_TIME = T_YEAR + '0529'
+HARE_START_TIME = T_YEAR + '0828'
 
 CDO = 'http://crawl.develz.org/'
 CAO = 'http://crawl.akrasiac.org/'
