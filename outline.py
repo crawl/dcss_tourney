@@ -380,10 +380,6 @@ def check_temp_trophies(c, pmap):
   award_temp_trophy(c, pmap, query.player_fastest_turn_win_best(c),
                     'fastest_turncount:%d', [200, 100, 50])
 
-  award_temp_trophy(c, pmap, query.player_hs_combo_best(c),
-                    'max_combo_hs_Nth:%d', [200, 100, 50],
-                    can_share_places=True)
-
   award_temp_trophy(c, pmap, query.player_streak_best(c),
                     'max_streak_Nth:%d', [200, 100, 50])
 
@@ -398,6 +394,10 @@ def check_temp_trophies(c, pmap):
   #award_temp_trophy(c, pmap, query.player_xl1_dive_best(c),
   #                  'xl1_dive_Nth:%d', [50, 20, 10],
   #                  team_points=True)
+
+  award_temp_trophy(c, pmap, query.player_hs_combo_best(c),
+                    'max_combo_hs_Nth:%d', [200, 100, 50],
+                    can_share_places=True, team_points=True)
 
   award_temp_trophy(c, pmap, query.get_top_ziggurats(c),
                     'zig_rank:%d', [200, 100, 50], team_points=True)
