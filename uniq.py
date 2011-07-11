@@ -8,12 +8,11 @@ UNIQUES = [ "Ijyb", "Blork", "Urug", "Erolcha", "Snorg",
             "Ereshkigal", "Nessos", "Azrael", "Polyphemus",
             "Prince Ribbit", "the royal jelly", "Dissolution", "Sonja",
             "Nergalle", "Saint Roka", "Roxanne", "Eustachio",
-
             "the Lernaean hydra", "Dowan", "Duvessa",
             "Grum", "Crazy Yiuf", "Gastronok", "Pikel", "Menkaure",
             "Khufu", "Ilsuiw", "Aizul", "Mara", "Purgy", "Grinder",
             "Kirke", "Nikola", "Maurice", "Mennas", "Jory", 
-            "the Serpent of Hell", "the Enchantress" ]
+            "the Serpent of Hell", "the Enchantress", "Ignacio" ]
 
 UNIQ_SET = set(UNIQUES)
 
