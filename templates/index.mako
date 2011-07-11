@@ -130,7 +130,8 @@
               previously win a game in the tournament with. For purposes of
               these points we say that a player wins with a god if she reaches
               full (******) piety with that god before reaching full piety with
-              any other god. For Xom, you must never have worshipped another god.
+              any other god. For Xom, you must play a Chaos Knight and never
+              abandon Xom.
             </p>
 
             <p>
