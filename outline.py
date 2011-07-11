@@ -241,17 +241,14 @@ def crunch_winner(c, game):
                                     before = game_end)
   n_my_wins = len(my_wins)
 
-  def game_god(game):
-    return game.get('god') or ''
+  game_god = query.get_game_god(c, game)
+  banner_god = game_god.lower().replace(' ', '_')
 
-  def banner_god(game):
-    return (game.get('god') or 'none').lower().replace(' ', '_')
-
-  # Assign 20 extra points for winning with a god that you haven't used before.
-  if (not query.is_god_repeated(c, game['name'], game_god(game))
-      and not query.did_change_god(c, game)):
-    query.record_won_god(c, game['name'], game_god(game))
-    assign_points(c, "win_god:" + banner_god(game), game['name'], 20)
+  # Assign 25 extra points for winning with a god that you haven't used before.
+  if (not query.is_god_repeated(c, game['name'], game_god)
+      and not game_god == 'faithless'):
+    query.record_won_god(c, game['name'], game_god)
+    assign_points(c, "win_god:" + banner_god, game['name'], 25)
 
   repeated = 0
   if n_my_wins > 0:

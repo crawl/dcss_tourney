@@ -73,13 +73,28 @@ def whereis_player(c, name):
     return None
   return last_mile
 
+def get_game_god(c, game):
+  game_god = game.get('god') or 'none'
+  if (game_god == 'Xom' or game_god == 'none') and not did_change_god(c, game):
+    return game_god
+  game_god = query_row(c,
+                         '''SELECT noun FROM milestones
+                            WHERE player = %s AND start_time = %s
+                              AND verb = 'god.maxpiety'
+                            ORDER BY milestone_time ASC''',
+                         game['name'], game['start'])
+  if game_god is None:
+    return 'faithless'
+  return game_god[0]
+
 def did_change_god(c, game):
   """Returns true if the player changed gods during the game, by checking
   for a god.renounce milestone."""
   return (query_first(c,
                       '''SELECT COUNT(*) FROM milestones
                           WHERE player = %s AND start_time = %s
-                            AND verb = 'god.renounce' ''',
+                            AND (verb = 'god.renounce'
+                            OR verb = 'god.worship') ''',
                       game['name'], game['start']) > 0)
 
 def win_query(selected, order_by = None,
