@@ -227,10 +227,10 @@ def crunch_winner(c, game):
                   get_points(all_allruners, 200, 100, 50))
 
     # If this is my first all-rune win, 50 points!
-    if query.count_wins(c, player = game['name'],
-                        runes = query.MAX_RUNES,
-                        before = game_end) == 0:
-      assign_points(c, "my_1st_all_rune_win", game['name'], 50)
+    #if query.count_wins(c, player = game['name'],
+    #                    runes = query.MAX_RUNES,
+    #                    before = game_end) == 0:
+    #  assign_points(c, "my_1st_all_rune_win", game['name'], 50)
 
   previous_wins = query.count_wins(c, before = game_end)
   assign_points(c,
