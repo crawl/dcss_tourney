@@ -173,7 +173,7 @@
               win will be worth 2*(24+10)/(1+2) = 23 additional points.
             </p>
             <p>
-              <span>(24+T)/(1+C) points</span> (rounded up) for a win with a given class if T is the total number of games won in the tournament before the start of the win in question and C of those T were with the given class. If a player wins the same class multiple times, she only gets the largest value of this bonus, not the sum.
+              <span>(27+T)/(1+C) points</span> (rounded up) for a win with a given class if T is the total number of games won in the tournament before the start of the win in question and C of those T were with the given class. If a player wins the same class multiple times, she only gets the largest value of this bonus, not the sum.
             </p>
             <div class="inset">
               <p>
@@ -681,7 +681,7 @@
               <span class="added">[NEW]</span>
             </p>
             <p class="added">
-              <span>(24+T)/(1+C) points</span> (rounded up) for a win with a given class if T is the total number of games won in the tournament before the start of the win in question and C of those T were with the given class. If a player wins the same class multiple times, she only gets the largest value of this bonus, not the sum (and the same for clans).
+              <span>(27+T)/(1+C) points</span> (rounded up) for a win with a given class if T is the total number of games won in the tournament before the start of the win in question and C of those T were with the given class. If a player wins the same class multiple times, she only gets the largest value of this bonus, not the sum (and the same for clans).
               <span class="added">[NEW]</span>
             </p>
             <p class="changed">
