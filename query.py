@@ -946,11 +946,14 @@ def get_points(index, *points):
     return points[index];
   return 0
 
-def have_points(cursor, name, point_source):
-  query = Query('''SELECT COUNT(*) FROM player_points WHERE player = %s AND 
-                point_source = %s''',
-                name, point_source)
-  return (query.count(cursor) > 0)
+def count_points(cursor, name, point_source):
+  total = query_first(cursor,
+                      '''SELECT SUM(points) FROM player_points
+                         WHERE player = %s AND point_source = %s''',
+                      name, point_source)
+  if total is None:
+    return 0
+  return total
 
 def assign_points(cursor, point_source, name, points):
   """Add points to a player's points in the db"""
