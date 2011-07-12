@@ -179,6 +179,24 @@ def compute_streak_length(previous_chars, char):
   classes = set([c[2:] for c in all_chars])
   return min(len(races), len(classes))
 
+def turncount_points(previous_turns, turn):
+  if len(previous_turns) == 0:
+    return 5000000/turn
+  old_best = min(previous_turns)
+  return (5000000/turn - 5000000/old_best)
+
+def realtime_points(previous_durs, dur):
+  if len(previous_durs) == 0:
+    return 1250000/dur
+  old_best = min(previous_durs)
+  return (1250000/dur - 1250000/old_best)
+
+def score_points(previous_scores, score):
+  if len(previous_scores) == 0:
+    return score/120000
+  old_best = max(previous_scores)
+  return (score/120000 - old_best/120000)
+
 def game_is_win(g):
   return g.has_key('ktyp') and g['ktyp'] == 'winning'
 
@@ -291,6 +309,17 @@ def crunch_winner(c, game):
     if streak_len > loaddb.longest_streak_count(c, game['name']):
       loaddb.update_streak_count(c, game, streak_len)
 
+  # Check for new personal records and assign points for them.
+  points = turncount_points([x['turn'] for x in my_wins], game['turn'])
+  if points > 0:
+    assign_points(c, 'my_low_turncount_win', game['name'], points)
+  points = realtime_points([x['duration'] for x in my_wins], game['dur'])
+  if points > 0:
+    assign_points(c, 'my_low_realtime_win', game['name'], points)
+  points = score_points([x['score'] for x in my_wins], game['sc'])
+  if points > 0:
+    assign_points(c, 'my_highscore_win', game['name'], points)
+
 
 def is_all_runer(game):
   """Did this game get every rune? This _might_ require checking the milestones
@@ -368,17 +397,6 @@ def apply_point_map(c, pmap):
 def check_temp_trophies(c, pmap):
   award_temp_trophy(c, pmap, query.player_hare_candidates(c),
                     "last_win", [100])
-
-  award_temp_trophy(c, pmap, query.player_top_scores(c),
-                    'top_score_Nth:%d', [200, 100, 50])
-  award_temp_trophy(c, pmap, query.player_fastest_realtime_win_best(c),
-                    'fastest_realtime:%d', [200, 100, 50])
-
-  award_temp_trophy(c, pmap, query.player_fastest_realtime_allruner_win_best(c),
-                    'fastest_realtime_allruner:%d', [100, 50, 20])
-
-  award_temp_trophy(c, pmap, query.player_fastest_turn_win_best(c),
-                    'fastest_turncount:%d', [200, 100, 50])
 
   award_temp_trophy(c, pmap, query.player_streak_best(c),
                     'max_streak_Nth:%d', [200, 100, 50])

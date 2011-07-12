@@ -71,10 +71,6 @@
               <h3>Top Scores</h3>
               ${html.games_table(top_scores)}
             </div>
-	    <div>
-              <h3>Fastest 15-Rune Win (Real Time)</h3>
-              <%include file="fastest-time-allruner.mako"/>
-            </div>
           </div>
 
           <hr>
