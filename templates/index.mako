@@ -231,7 +231,7 @@
 
           <div>
             <h2>HIGH SCORES</h2>
-            <p><span>score/120,000 points</span> for each player's highest scoring game.</p>
+            <p><span>score/120,000 points</span> for each player's highest scoring winning game.</p>
 
             <p>
               <span>5 points</span> per high score in a race/class combination
@@ -693,7 +693,7 @@
               <span class="changed">[CHANGED]</span>
             </p>
             <p class="changed">
-	      <span>score/120,000 points</span> for each player's highest scoring game. (Previously 200-100-50 points for the highest scoring three games.)
+	      <span>score/120,000 points</span> for each player's highest scoring winning game. (Previously 200-100-50 points for the highest scoring three games.)
               <span class="changed">[CHANGED]</span>
             </p>
             <p class="changed">
