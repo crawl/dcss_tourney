@@ -955,16 +955,20 @@ def count_points(cursor, name, point_source):
     return 0
   return total
 
-def assign_points(cursor, point_source, name, points):
+def assign_points(cursor, point_source, name, points, add=True):
   """Add points to a player's points in the db"""
-  if points > 0:
-    debug("%s: %d points [%s]" % (name, points, point_source))
-    audit_record_points(cursor, name, point_source, points, False)
+  if add:
+    new_points = points
+  else:
+    new_points = points - count_points(cursor, name, point_source)
+  if new_points > 0:
+    debug("%s: %d points [%s]" % (name, new_points, point_source))
+    audit_record_points(cursor, name, point_source, new_points, False)
     query_do(cursor,
              """UPDATE players
                 SET score_base = score_base + %s
                 WHERE name = %s""",
-             points, name)
+             new_points, name)
 
 def assign_team_points(cursor, point_source, name, points):
   """Add points to a players team in the db.  The name refers to the player, not the team"""

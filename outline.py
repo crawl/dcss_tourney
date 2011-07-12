@@ -179,24 +179,6 @@ def compute_streak_length(previous_chars, char):
   classes = set([c[2:] for c in all_chars])
   return min(len(races), len(classes))
 
-def turncount_points(previous_turns, turn):
-  if len(previous_turns) == 0:
-    return 5000000/turn
-  old_best = min(previous_turns)
-  return (5000000/turn - 5000000/old_best)
-
-def realtime_points(previous_durs, dur):
-  if len(previous_durs) == 0:
-    return 1250000/dur
-  old_best = min(previous_durs)
-  return (1250000/dur - 1250000/old_best)
-
-def score_points(previous_scores, score):
-  if len(previous_scores) == 0:
-    return score/120000
-  old_best = max(previous_scores)
-  return (score/120000 - old_best/120000)
-
 def game_is_win(g):
   return g.has_key('ktyp') and g['ktyp'] == 'winning'
 
@@ -297,10 +279,8 @@ def crunch_winner(c, game):
     streak_species = 'streak_species:'+(game['char'][0:2])
     streak_class = 'streak_class:'+(game['char'][0:2])
     # 75 points for streak games, but only if they are with a new race and class.
-    if count_points(c, game['name'], streak_species) == 0:
-      assign_points(c, streak_species, game['name'], 50)
-    if count_points(c, game['name'], streak_class) == 0:
-      assign_points(c, streak_class, game['name'], 25)
+    assign_points(c, streak_species, game['name'], 50, False)
+    assign_points(c, streak_class, game['name'], 25, False)
   query.update_active_streak(c, player, game_end, streak_len)
 
   if streak_len > 1:
@@ -309,16 +289,10 @@ def crunch_winner(c, game):
     if streak_len > loaddb.longest_streak_count(c, game['name']):
       loaddb.update_streak_count(c, game, streak_len)
 
-  # Check for new personal records and assign points for them.
-  points = turncount_points([x['turn'] for x in my_wins], game['turn'])
-  if points > 0:
-    assign_points(c, 'my_low_turncount_win', game['name'], points)
-  points = realtime_points([x['duration'] for x in my_wins], game['dur'])
-  if points > 0:
-    assign_points(c, 'my_low_realtime_win', game['name'], points)
-  points = score_points([x['score'] for x in my_wins], game['sc'])
-  if points > 0:
-    assign_points(c, 'my_highscore_win', game['name'], points)
+  # Assign points for new personal records.
+  assign_points(c, 'my_low_turncount_win', game['name'], 5000000/game['turn'], False)
+  assign_points(c, 'my_low_realtime_win', game['name'], 1250000/game['dur'], False)
+  assign_points(c, 'my_highscore_win', game['name'], game['sc']/120000, False)
 
 
 def is_all_runer(game):
