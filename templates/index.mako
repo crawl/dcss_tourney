@@ -402,7 +402,8 @@
                 Elyvilon thinks it's important to check out what all
                 the gods have to offer and thus will
                 give <a name="the_pantheon">THE PANTHEON</a> to any
-                player who becomes the Champion (******) of every god over
+                player who becomes the Champion (******) of every god
+                (other than Xom) over
                 the course of the tournament.
               </p>
             </div>
