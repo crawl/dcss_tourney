@@ -2,7 +2,7 @@
 <div class="toplinks">
 <a href="${CAO_TOURNEY_BASE}/overview.html">Overview</a>
 &nbsp;
-<a href="${CAO_TOURNEY_BASE}/banners.html">Pennants</a>
+<a href="${CAO_TOURNEY_BASE}/banners.html">Banners</a>
 &nbsp;
 <a href="${CAO_TOURNEY_BASE}/all-players.html">Players</a>
 &nbsp;
