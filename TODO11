@@ -1,41 +1,24 @@
-TODO for tourney11, as of Jul 11:
+TODO for tourney11, as of Jul 13:
 
 * fix scoring to agree with the rules
 
-  - add back in 10 points per win
-
-  - change "most combo high scores" to clan points
-
-  - add back in Nemelex' Choice, but with changes to the timing and scoring
-
-  - change streak points to be by race/class
-
-  - speedrun and scorerun scoring changes (but keep them on the leaderboard)
-
-  - remove the 50 points for first allruner, since scorerun covers that
-
-  - race/class points changes
+  - add back in Nemelex' Choice, but with changes to the timing and scoring and
+    combo selection
 
   - banner changes: remove pennants, rename pennants to banners, bring back
     some banners (with updates), code new ones
     - remove lairless points while doing this
 
-  - god points changes
-
-* update lists of combos/uniques/anything else (Nemelex combos!)
+* zotdef??
 
 * update banner credits after we have all banner images
 
 * fix titles of some tourney pages (and maybe reorganize them a little)
 
-* put point values with the race/class win stuff
-
 * improve Nemelex' Choice display
 
 * fix directory names to work with 0.9 and with being hosted on CAO
   - don't forget clan signup
-
-* test with 0.8 tourney data at some point... will require changing lots of numbers
 
 * test on CAO well in advance, even if I'm still coding a few features
 
