@@ -277,7 +277,7 @@ def crunch_winner(c, game):
     # This length could be 1 even though it involves at least two games, beware!
     streak_len = compute_streak_length(streak_wins, game['char'])
     streak_species = 'streak_species:'+(game['char'][0:2])
-    streak_class = 'streak_class:'+(game['char'][0:2])
+    streak_class = 'streak_class:'+(game['char'][2:])
     # 75 points for streak games, but only if they are with a new race and class.
     assign_points(c, streak_species, game['name'], 50, False)
     assign_points(c, streak_class, game['name'], 25, False)
