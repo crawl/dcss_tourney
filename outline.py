@@ -294,6 +294,14 @@ def crunch_winner(c, game):
   assign_points(c, 'my_low_realtime_win', game['name'], 1250000/game['dur'], False)
   assign_points(c, 'my_highscore_win', game['name'], game['sc']/120000, False)
 
+  # Assign race/class points, based on the games won before the start
+  # of the given win.
+  game_start = game_start_time(game)
+  wins_before = query.count_wins(c, before=game_start)
+  species_wins_before = query.count_wins(c, before=game_start, raceabbr=game['char'][0:2])
+  class_wins_before = query.count_wins(c, before=game_start, classabbr=game['char'][2:])
+  assign_points(c, 'species_win:' + game['char'][0:2], game['name'], 2*(24+wins_before)/(1+species_wins_before), False)
+  assign_points(c, 'class_win:' + game['char'][2:], game['name'], (27+wins_before)/(1+class_wins_before), False)
 
 def is_all_runer(game):
   """Did this game get every rune? This _might_ require checking the milestones
@@ -452,34 +460,6 @@ def check_misc_points(c, pmap):
   award_misc_points('combo_hs_win:%d', 5, query.all_hs_combo_wins(c))
   award_misc_points('species_hs:%d', 20, query.all_hs_species(c))
   award_misc_points('class_hs:%d', 10, query.all_hs_classes(c))
-  win_count = query.get_win_count(c)
-  winning_players_by_combo = query.get_winning_players_by_combo(c)
-  for g in winning_players_by_combo:
-    player = g[0]
-    key = 'combo_win:' + g[1]
-    num_won = query.count_combo_wins(c, g[1])
-    if num_won == 1:
-      points = 25
-    else:
-      points = (50 + num_won - 1) / num_won
-    record_points(pmap, player, points, team_points=False)
-    log_temp_points(c, player, key, points)
-  winning_players_by_race = query.get_winning_players_by_race(c)
-  for g in winning_players_by_race:
-    player = g[0]
-    key = 'species_win:' + g[1]
-    num_won = query.count_race_wins(c, g[1])
-    points = (2*win_count + num_won - 1) / num_won
-    record_points(pmap, player, points, team_points=False)
-    log_temp_points(c, player, key, points)
-  winning_players_by_class = query.get_winning_players_by_class(c)
-  for g in winning_players_by_class:
-    player = g[0]
-    key = 'class_win:' + g[1]
-    num_won = query.count_class_wins(c, g[1])
-    points = (win_count + num_won - 1) / num_won
-    record_points(pmap, player, points, team_points=False)
-    log_temp_points(c, player, key, points)
 
 def compute_player_only(c):
   for p in query.get_players(c):

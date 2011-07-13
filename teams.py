@@ -142,26 +142,14 @@ def clan_additional_score(c, owner):
                                               uscore_pos,
                                               100, 50, 20 ) )
 
-# Now we give race/class/combo points to clans.
-  win_count = query.get_win_count(c)
-  for g in query.clan_combo_wins(c, owner):
-    key = 'combo_win:' + g[0]
-    num_won = query.clan_count_combo_wins(c, g[0])
-    if num_won == 1:
-      points = 25
-    else:
-      points = (50 + num_won - 1) / num_won
-    additional += log_temp_clan_points(c, owner, key, points)
+# Now we give race/class points to clans.
   for g in query.clan_race_wins(c, owner):
     key = 'species_win:' + g[0]
-    num_won = query.clan_count_race_wins(c, g[0])
-    points = (2*win_count + num_won - 1) / num_won
+    points = query.clan_max_points(c, owner, key)
     additional += log_temp_clan_points(c, owner, key, points)
   for g in query.clan_class_wins(c, owner):
-    player = g[0]
     key = 'class_win:' + g[0]
-    num_won = query.count_class_wins(c, g[0])
-    points = (win_count + num_won - 1) / num_won
+    points = query.clan_max_points(c, owner, key)
     additional += log_temp_clan_points(c, owner, key, points)
 
   query.set_clan_points(c, owner, additional)
