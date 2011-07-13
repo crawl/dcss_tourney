@@ -74,8 +74,8 @@ def whereis_player(c, name):
   return last_mile
 
 def get_game_god(c, game):
-  game_god = game.get('god') or 'none'
-  if (game_god == 'Xom' or game_god == 'none') and not did_change_god(c, game):
+  game_god = game.get('god') or 'No God'
+  if (game_god == 'Xom' or game_god == 'No God') and not did_change_god(c, game):
     return game_god
   game_god = query_row(c,
                          '''SELECT noun FROM milestones
