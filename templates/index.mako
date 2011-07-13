@@ -473,8 +473,8 @@
               <p>
                 Lugonu, who hates the other gods, would like to
                 award <a name="the_atheist">THE ATHEIST</a> to any winning
-                player who never takes a god when she had the option
-                to do so.
+                player who never worshipped a god even though having the option
+                of doing so (not a demigod).
               </p>
             </div>
 
