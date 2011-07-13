@@ -300,8 +300,8 @@ def crunch_winner(c, game):
   wins_before = query.count_wins(c, before=game_start)
   species_wins_before = query.count_wins(c, before=game_start, raceabbr=game['char'][0:2])
   class_wins_before = query.count_wins(c, before=game_start, classabbr=game['char'][2:])
-  assign_points(c, 'species_win:' + game['char'][0:2], game['name'], 2*(24+wins_before)/(1+species_wins_before), False)
-  assign_points(c, 'class_win:' + game['char'][2:], game['name'], (27+wins_before)/(1+class_wins_before), False)
+  assign_points(c, 'species_win:' + game['char'][0:2], game['name'], query.race_formula(wins_before, species_wins_before), False)
+  assign_points(c, 'class_win:' + game['char'][2:], game['name'], query.class_formula(wins_before, class_wins_before), False)
 
 def is_all_runer(game):
   """Did this game get every rune? This _might_ require checking the milestones

@@ -5,45 +5,50 @@
 
    all_species = set([ comb[:2] for comb in combos.VALID_COMBOS])
    all_classes = set([ comb[2:4] for comb in combos.VALID_COMBOS])
+   num_wins = query.count_wins(c)
 
-   species_data = [ [ r, query.count_race_wins(c, r) ]
+   species_data = [ [ r, query.count_wins(c, raceabbr=r) ]
             for r in all_species ]
    species_data.sort(key=lambda e: e[0])
-   species_data.sort(key=lambda e: -e[1])
+   species_data.sort(key=lambda e: e[1])
 
-   class_data = [ [ r, query.count_class_wins(c, r) ]
+   class_data = [ [ r, query.count_wins(c, classabbr=r) ]
             for r in all_classes ]
    class_data.sort(key=lambda e: e[0])
-   class_data.sort(key=lambda e: -e[1])
+   class_data.sort(key=lambda e: e[1])
 
    condensed_species_data = []
    last_count = -1
+   point_value = -1
    for s in species_data:
      if s[1] == last_count:
        species_list = "%s, %s" % (species_list, s[0])
      else:
        if last_count > -1:
-         condensed_species_data = condensed_species_data + [[last_count, species_list],]
+         condensed_species_data = condensed_species_data + [[last_count, species_list, point_value],]
        species_list = s[0]
        last_count = s[1]
-   condensed_species_data = condensed_species_data + [[last_count, species_list],]
+       point_value = query.race_formula(num_wins, last_count)
+   condensed_species_data = condensed_species_data + [[last_count, species_list, point_value],]
 
    condensed_class_data = []
    last_count = -1
+   point_value = -1
    for s in class_data:
      if s[1] == last_count:
        class_list = "%s, %s" % (class_list, s[0])
      else:
        if last_count > -1:
-         condensed_class_data = condensed_class_data + [[last_count, class_list],]
+         condensed_class_data = condensed_class_data + [[last_count, class_list, point_value],]
        class_list = s[0]
        last_count = s[1]
-   condensed_class_data = condensed_class_data + [[last_count, class_list],]
+       point_value = query.class_formula(num_wins, last_count)
+   condensed_class_data = condensed_class_data + [[last_count, class_list, point_value],]
 
 
-   species_text = html.table_text( [ 'Winners', 'Species'],
+   species_text = html.table_text( [ 'Wins', 'Species', 'Value'],
                            condensed_species_data, count=False)
-   class_text = html.table_text( [ 'Winners', 'Class'],
+   class_text = html.table_text( [ 'Wins', 'Class', 'Value'],
                            condensed_class_data, count=False)
 
 
@@ -67,9 +72,9 @@
       <%include file="toplink.mako"/>
 
       <div class="page_content">
-        <h2>Species Winners</h2>
+        <h2>Wins by Species</h2>
         ${species_text}
-	<h2>Class Winners</h2>
+	<h2>Wins by Class</h2>
         ${class_text}
         <hr>
 

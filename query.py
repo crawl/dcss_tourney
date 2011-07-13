@@ -98,7 +98,7 @@ def did_change_god(c, game):
                       game['name'], game['start']) > 0)
 
 def win_query(selected, order_by = None,
-              player=None, character_race=None, raceabbr=None,
+              player=None, charabbr=None, character_race=None, raceabbr=None,
               character_class=None, classabbr=None, runes=None,
               before=None, limit=None):
 
@@ -107,6 +107,8 @@ def win_query(selected, order_by = None,
                 " WHERE killertype='winning' ")
   if player:
     query.append(' AND player=%s', player)
+  if (charabbr):
+    query.append(' AND charabbrev=%s', charabbr)
   if (character_race):
     query.append(' AND race=%s', character_race)
   if (raceabbr):
@@ -438,7 +440,7 @@ def won_unwon_combos_with_games(cu, won_games):
     return crawl_utils.linked_text(g, crawl_utils.morgue_link, 
                    g['charabbrev'])
 
-  won_combo_list = [game_charabbrev_link(count_combo_wins(cu,c), combo_lookup[c])
+  won_combo_list = [game_charabbrev_link(count_wins(cu, charabbr=c), combo_lookup[c])
                     for c in combos.VALID_COMBOS
                     if c in won_combos]
 
@@ -459,20 +461,11 @@ def get_winning_games(c, **selectors):
   return find_games(c, sort_max='end_time',
                     killertype='winning', **selectors)
 
-def count_combo_wins(c, combo):
-  query = Query('''SELECT COUNT(*) FROM games WHERE killertype='winning' AND charabbrev = %s''',
-                combo)
-  return query.count(c)
+def race_formula(total, subtotal):
+  return 2*(48+total)/(2+subtotal)
 
-def count_race_wins(c, race):
-  query = Query('''SELECT COUNT(*) FROM games WHERE killertype='winning' AND MID(charabbrev,1,2) = %s''',
-                race)
-  return query.count(c)
-
-def count_class_wins(c, race):
-  query = Query('''SELECT COUNT(*) FROM games WHERE killertype='winning' AND MID(charabbrev,3,2) = %s''',
-                race)
-  return query.count(c)
+def class_formula(total, subtotal):
+  return (54+total)/(2+subtotal)
 
 def player_race_wins(c, name):
   return query_rows(c, """SELECT DISTINCT MID(charabbrev,1,2) FROM
