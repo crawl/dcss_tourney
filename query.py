@@ -1342,12 +1342,11 @@ def clan_player_banners(c):
   return banner_rows
 
 def player_distinct_gods(c, player):
-  """Returns the list of gods that the player has worshipped at end of game.
-  This does not check for renouncing gods, etc. during the game, so it
-  should not be used for trophies that carry points."""
-  gods = query_first_col(c, '''SELECT DISTINCT god
-                                          FROM games
-                                         WHERE player = %s ''',
+  """Returns the list of gods that the player has reached max piety with (no Xom)."""
+  gods = query_first_col(c, '''SELECT DISTINCT noun
+                                          FROM milestones
+                                         WHERE player = %s
+                                           AND verb = 'god.maxpiety' ''',
                          player)
   return gods
 

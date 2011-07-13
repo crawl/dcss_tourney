@@ -106,7 +106,10 @@ def do_milestone_rune(c, mile):
 #    # 50 points for the first time the player finds a rune.
 #    assign_points(c, "rune_1st:" + rune, mile['name'], 50)
   player = mile['name']
-  banner.safe_award_banner(c, player, 'lair', 3)
+  banner.safe_award_banner(c, player, 'tso', 3)
+  if (not banner.player_has_banner(c, player, 'ashenzari')
+      and query.player_count_distinct_runes(c, player) == crawl.NRUNES):
+    banner.award_banner(c, player, 'ashenzari', 12)
 
 def do_milestone_ghost(c, mile):
   """When you kill a player ghost, you get two clan points! Otherwise this
@@ -136,12 +139,23 @@ def act_on_logfile_line(c, this_game):
 def game_fruit_mask(g):
   return g.has_key('fruit') and int(g['fruit']) or 0
 
+
+def check_fedhas_banner(c, g):
+  fruit_mask = game_fruit_mask(g)
+  if fruit_mask:
+    player = game_player(g)
+    full_fruit_mask = query.player_update_get_fruit_mask(c, player, fruit_mask)
+    if crawl.fruit_basket_complete(full_fruit_mask):
+      banner.safe_award_banner(c, player, 'fedhas', 5)
+
 def crunch_misc(c, g):
   player = g['name']
   ktyp = g['ktyp']
 
   if ktyp != 'winning':
     query.kill_active_streak(c, player)
+
+  check_fedhas_banner(c, g)
 
   killer = loaddb.strip_unique_qualifier(g.get('killer') or '')
   if uniq.is_uniq(killer):
@@ -206,17 +220,16 @@ def crunch_winner(c, game):
   if query.first_win_for_combo(c, charabbrev, game_end):
     assign_team_points(c, "combo_first_win:" + charabbrev, player, 20)
 
-  # Award Zot banner for wins.
-  banner.safe_award_banner(c, player, 'zot', 9)
+  # Award Orb banner for wins.
+  banner.safe_award_banner(c, player, 'okawaru', 9)
 
   if not query.game_did_visit_lair(c, player, game_start_time(game)):
-    # 20 bonus points for winning without doing the Lair
-    assign_points(c, 'lairless_win', player, 20)
+    # assign_points(c, 'lairless_win', player, 20)
     if not query.game_did_visit_branch(c, player, game_start_time(game)):
-      # 20 more bonus points for winning without doing any branches
-      assign_points(c, 'branchless_win', player, 20)
+      # 40 bonus points for winning without doing any branches.
+      assign_points(c, 'branchless_win', player, 40)
       # And the banner:
-      banner.safe_award_banner(c, player, 'abyss', 8)
+      banner.safe_award_banner(c, player, 'kikubaaqudgha', 8)
 
   debug("%s win (%s), runes: %d" % (player, charabbrev, game.get('urune') or 0))
 
@@ -411,41 +424,22 @@ def check_temp_trophies(c, pmap):
                     team_points=True)
 
 def check_banners(c):
-
-  award_player_banners(c, 'temple',
+  award_player_banners(c, 'lugonu',
+                       query_first_col(c, '''SELECT DISTINCT player
+                                             FROM atheist_wins'''),
+                       9)
+  award_player_banners(c, 'trog',
                        query_first_col(c, '''SELECT player
                                              FROM super_sigmund_kills'''),
                        1)
-  award_player_banners(c, 'hell',
+  award_player_banners(c, 'zin',
                        query_first_col(c, '''SELECT player
                                              FROM all_hellpan_kills'''),
                        6)
-  query_do(c, '''DELETE from player_banners WHERE banner = 'vaults' ''')
-  award_player_banners(c, 'vaults',
-                       query_first_col(c, '''SELECT t1.player
-                                             FROM (SELECT player, COUNT(DISTINCT noun) AS num_portals
-                                                   FROM milestones
-                                                   WHERE verb = 'br.enter' AND (noun = 'Sewer' OR noun = 'Ossuary' OR 
-                                                   noun = 'Bailey' OR noun = 'Lab' OR noun = 'Bazaar' OR 
-                                                   noun = 'Volcano' OR noun = 'IceCv' OR noun = 'Spider' OR 
-                                                   noun = 'WizLab' OR noun = 'Vaults' OR noun = 'Trove')
-                                                   GROUP BY player
-                                                   HAVING num_portals >= 10) AS t1'''),
-                       5)
-  award_player_banners(c, 'hive',
-                       query_first_col(c,
-                                       '''SELECT player FROM busy_players'''),
-                       4)
-  award_player_banners(c, 'pan',
+  award_player_banners(c, 'xom',
                        query_first_col(c,
                                        '''SELECT player FROM ziggy_players'''),
                        7)
-
-  award_player_banners(c, 'orc',
-                       query_first_col(c,
-                                       '''SELECT DISTINCT player
-                                            FROM gold_finders'''),
-                       2)
 
 
 def check_misc_points(c, pmap):

@@ -27,8 +27,18 @@ def award_banner(c, player, banner, prestige, temp=False):
   query_do(c, '''INSERT INTO player_banners VALUES (%s, %s, %s, %s)''',
            player, banner, prestige, temp)
 
+def pantheon(c, player):
+  distinct_gods = query.player_distinct_gods(c, player) 
+  if len(distinct_gods) == len(crawl.GODS) - 2:
+    award_banner(c, player, 'elyvilon', 8)
+
+BANNERS = [['elyvilon', pantheon]]
+
 def process_banners(c, player):
   existing_banners = set(query.get_player_banners(c, player))
+  for banner in [b for b in BANNERS if b[0] not in existing_banners]:
+    if banner[1]:
+      banner[1](c, player)
 
 def assign_top_player_banners(c):
   rows = query_rows_with_ties(c, '''SELECT name, score_full
