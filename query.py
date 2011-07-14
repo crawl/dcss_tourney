@@ -1299,6 +1299,15 @@ def register_maxed_skill(c, player, sk):
                                             VALUES (%s, %s)''',
              player, sk)
 
+def register_fifteen_skill(c, player, sk):
+  if not query_first_def(c, None, '''SELECT player
+                                       FROM player_fifteen_skills
+                                      WHERE player = %s AND skill = %s''',
+                         player, sk):
+    query_do(c, '''INSERT INTO player_fifteen_skills (player, skill)
+                                            VALUES (%s, %s)''',
+             player, sk)
+
 def clan_maxed_skills(c, captain):
   skills = query_first_col(c, '''SELECT DISTINCT skill
                                    FROM player_maxed_skills ps, players p

@@ -7,6 +7,11 @@ GODS = ['No God', 'Zin', 'The Shining One', 'Kikubaaqudgha',
         'Sif Muna', 'Trog', 'Nemelex Xobeh', 'Elyvilon', 'Lugonu',
         'Beogh', 'Fedhas', 'Jiyva', 'Cheibriados', 'Ashenzari']
 
+MAGIC_SKILLS = ['Spellcasting', 'Conjurations', 'Hexes', 'Charms',
+                'Summonings', 'Necromancy', 'Translocations',
+                'Transmutations', 'Fire Magic', 'Ice Magic',
+                'Air Magic', 'Earth Magic', 'Poison Magic']
+
 FRUIT_BITS = { "orange"     : 0x00040,
                "banana"     : 0x00080,
                "lemon"      : 0x00100,

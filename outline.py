@@ -174,6 +174,11 @@ def crunch_misc(c, g):
     maxed_skills = g['maxskills'].split(",")
     for sk in maxed_skills:
       query.register_maxed_skill(c, player, sk)
+  if g.has_key('fifteenskills'):
+    fifteen_skills = g['fifteenskills'].split(",")
+    for sk in fifteen_skills:
+      if sk in crawl.MAGIC_SKILLS:
+        query.register_fifteen_skill(c, player, sk)
 
 def repeat_race_class(previous_chars, char):
   """Returns 0 if the game does not repeat a previous role or class, 1 if
@@ -453,6 +458,10 @@ def check_banners(c):
   award_player_banners(c, 'vehumet',
                        query_first_col(c,
                                        '''SELECT player FROM orbrun_runes'''),
+                       7)
+  award_player_banners(c, 'sif',
+                       query_first_col(c,
+                                       '''SELECT player FROM scholars'''),
                        7)
 
 def check_misc_points(c, pmap):

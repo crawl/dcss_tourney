@@ -6,6 +6,7 @@ DROP TABLE IF EXISTS clan_points;
 DROP TABLE IF EXISTS deaths_to_distinct_uniques;
 DROP TABLE IF EXISTS deaths_to_uniques;
 DROP TABLE IF EXISTS player_maxed_skills;
+DROP TABLE IF EXISTS player_fifteen_skills;
 DROP TABLE IF EXISTS clan_banners;
 DROP TABLE IF EXISTS player_banners;
 DROP TABLE IF EXISTS player_won_gods;
@@ -56,6 +57,7 @@ DROP VIEW IF EXISTS ziggy_players;
 DROP VIEW IF EXISTS ninenines_players;
 DROP VIEW IF EXISTS speed_demons;
 DROP VIEW IF EXISTS orbrun_runes;
+DROP VIEW IF EXISTS scholars;
 DROP VIEW IF EXISTS most_pacific_wins;
 DROP VIEW IF EXISTS last_started_win;
 
@@ -391,6 +393,14 @@ CREATE TABLE player_maxed_skills (
   );
 CREATE INDEX player_maxed_sk ON player_maxed_skills (player, skill);
 
+CREATE TABLE player_fifteen_skills (
+  player VARCHAR(20),
+  skill VARCHAR(25),
+  PRIMARY KEY (player, skill),
+  FOREIGN KEY (player) REFERENCES players (name)
+  );
+CREATE INDEX player_fifteen_sk ON player_fifteen_skills (player, skill);
+
 -- Tracks banners won by each player. Banners (badges?) are permanent
 -- decorations, so once a player has earned a banner, there's no need to
 -- check it again.
@@ -599,4 +609,8 @@ GROUP BY r.player
   HAVING orbrun_rune_count >= 1
 ORDER BY orbrun_rune_count DESC;
 
-
+CREATE VIEW scholars AS
+SELECT player, COUNT(DISTINCT skill) AS skill_count
+  FROM player_fifteen_skills
+GROUP BY player
+  HAVING skill_count >= 13;
