@@ -287,6 +287,8 @@ def crunch_winner(c, game):
     query.kill_active_streak(c, player)
     streak_len = -1
   else:
+    # Award banner.
+    banner.safe_award_banner(c, player, 'cheibriados', 9)
     # This length could be 1 even though it involves at least two games, beware!
     streak_len = compute_streak_length(streak_wins, game['char'])
     streak_species = 'streak_species:'+(game['char'][0:2])
@@ -440,7 +442,18 @@ def check_banners(c):
                        query_first_col(c,
                                        '''SELECT player FROM ziggy_players'''),
                        7)
-
+  award_player_banners(c, 'jiyva',
+                       query_first_col(c,
+                                       '''SELECT player FROM ninenines_players'''),
+                       7)
+  award_player_banners(c, 'makhleb',
+                       query_first_col(c,
+                                       '''SELECT player FROM speed_demons'''),
+                       7)
+  award_player_banners(c, 'vehumet',
+                       query_first_col(c,
+                                       '''SELECT player FROM orbrun_runes'''),
+                       7)
 
 def check_misc_points(c, pmap):
   def award_misc_points(key, multiplier, rows):

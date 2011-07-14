@@ -375,6 +375,8 @@ def xlog_milestone_fixup(d):
 
   if verb == 'br.enter':
     noun = R_BRANCH_ENTER.findall(d['place'])[0]
+  if verb == 'br.end':
+    noun = R_BRANCH_END.findall(d['place'])[0]
 
   if verb == 'ghost':
     match = R_MILE_GHOST.findall(milestone)
@@ -389,6 +391,8 @@ def xlog_milestone_fixup(d):
     noun = R_GOD_RENOUNCE.findall(milestone)[0]
   elif verb == 'god.mollify':
     noun = R_GOD_MOLLIFY.findall(milestone)[0]
+  elif verb == 'god.maxpiety':
+    noun = R_GOD_MAXPIETY.findall(milestone)[0]
   noun = noun or milestone
   d['verb'] = verb
   d['type'] = verb
@@ -522,6 +526,7 @@ COMBINED_LOG_TO_DB = dict(LOG_DB_MAPPINGS + MILE_DB_MAPPINGS)
 R_MONTH_FIX = re.compile(r'^(\d{4})(\d{2})(.*)')
 R_GHOST_NAME = re.compile(r"^(.*)'s? ghost")
 R_BRANCH_ENTER = re.compile(r"^(\w+)")
+R_BRANCH_END = re.compile(r"^(\w+)")
 R_MILESTONE_GHOST_NAME = re.compile(r"the ghost of (.*) the ")
 R_KILL_UNIQUE = re.compile(r'^killed (.*)\.$')
 R_MILE_UNIQ = re.compile(r'^(\w+) (.*)\.$')
@@ -532,6 +537,7 @@ R_PLACE_DEPTH = re.compile(r'^\w+:(\d+)')
 R_GOD_WORSHIP = re.compile(r'^became a worshipper of (.*)\.$')
 R_GOD_MOLLIFY = re.compile(r'^(?:partially )?mollified (.*)\.$')
 R_GOD_RENOUNCE = re.compile(r'^abandoned (.*)\.$')
+R_GOD_MAXPIETY = re.compile(r'^became the Champion of (.*)\.$')
 
 class SqlType:
   def __init__(self, str_to_sql):

@@ -53,6 +53,9 @@ DROP VIEW IF EXISTS atheist_wins;
 DROP VIEW IF EXISTS super_sigmund_kills;
 DROP VIEW IF EXISTS all_hellpan_kills;
 DROP VIEW IF EXISTS ziggy_players;
+DROP VIEW IF EXISTS ninenines_players;
+DROP VIEW IF EXISTS speed_demons;
+DROP VIEW IF EXISTS orbrun_runes;
 DROP VIEW IF EXISTS most_pacific_wins;
 DROP VIEW IF EXISTS last_started_win;
 
@@ -560,4 +563,40 @@ SELECT player, COUNT(*) AS zig_count
 GROUP BY player
 HAVING zig_count >= 27
 ORDER BY zig_count DESC;
+
+CREATE VIEW ninenines_players AS
+SELECT player, COUNT(DISTINCT MID(charabbrev,1,2)) AS race_count,
+               COUNT(DISTINCT MID(charabbrev,3,2)) AS class_count
+FROM games
+WHERE xl>=9
+GROUP BY player
+HAVING race_count >= 9 AND class_count >= 9;
+
+CREATE VIEW speed_demons AS
+SELECT player, COUNT(*) AS speed_count
+  FROM milestones
+ WHERE verb = 'br.end'
+   AND noun = 'D'
+   AND duration <= 1620
+GROUP BY player
+  HAVING speed_count >= 1
+ORDER BY speed_count DESC;
+
+CREATE VIEW orbrun_runes AS
+SELECT r.player, COUNT(*) AS orbrun_rune_count
+  FROM (milestones r INNER JOIN milestones o ON r.start_time = o.start_time)
+                     INNER JOIN milestones b ON r.start_time = b.start_time
+ WHERE r.verb = 'rune'
+   AND o.verb = 'orb'
+   AND b.verb = 'br.enter'
+   AND r.turn > o.turn
+   AND b.turn > o.turn
+   AND r.branch = b.noun
+   AND r.player = o.player
+   AND o.player = b.player
+   AND NOT r.noun = 'abyssal'
+GROUP BY r.player
+  HAVING orbrun_rune_count >= 1
+ORDER BY orbrun_rune_count DESC;
+
 
