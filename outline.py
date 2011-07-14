@@ -106,10 +106,10 @@ def do_milestone_rune(c, mile):
 #    # 50 points for the first time the player finds a rune.
 #    assign_points(c, "rune_1st:" + rune, mile['name'], 50)
   player = mile['name']
-  banner.safe_award_banner(c, player, 'tso', 3)
+  banner.safe_award_banner(c, player, 'tso', 4)
   if (not banner.player_has_banner(c, player, 'ashenzari')
       and query.player_count_distinct_runes(c, player) == crawl.NRUNES):
-    banner.award_banner(c, player, 'ashenzari', 12)
+    banner.award_banner(c, player, 'ashenzari', 9)
 
 def do_milestone_ghost(c, mile):
   """When you kill a player ghost, you get two clan points! Otherwise this
@@ -146,7 +146,7 @@ def check_fedhas_banner(c, g):
     player = game_player(g)
     full_fruit_mask = query.player_update_get_fruit_mask(c, player, fruit_mask)
     if crawl.fruit_basket_complete(full_fruit_mask):
-      banner.safe_award_banner(c, player, 'fedhas', 5)
+      banner.safe_award_banner(c, player, 'fedhas', 1)
 
 def crunch_misc(c, g):
   player = g['name']
@@ -226,7 +226,7 @@ def crunch_winner(c, game):
     assign_team_points(c, "combo_first_win:" + charabbrev, player, 20)
 
   # Award Orb banner for wins.
-  banner.safe_award_banner(c, player, 'okawaru', 9)
+  banner.safe_award_banner(c, player, 'okawaru', 8)
 
   if not query.game_did_visit_lair(c, player, game_start_time(game)):
     # assign_points(c, 'lairless_win', player, 20)
@@ -234,7 +234,7 @@ def crunch_winner(c, game):
       # 40 bonus points for winning without doing any branches.
       assign_points(c, 'branchless_win', player, 40)
       # And the banner:
-      banner.safe_award_banner(c, player, 'kikubaaqudgha', 8)
+      banner.safe_award_banner(c, player, 'kikubaaqudgha', 10)
 
   debug("%s win (%s), runes: %d" % (player, charabbrev, game.get('urune') or 0))
 
@@ -293,7 +293,7 @@ def crunch_winner(c, game):
     streak_len = -1
   else:
     # Award banner.
-    banner.safe_award_banner(c, player, 'cheibriados', 9)
+    banner.safe_award_banner(c, player, 'cheibriados', 10)
     # This length could be 1 even though it involves at least two games, beware!
     streak_len = compute_streak_length(streak_wins, game['char'])
     streak_species = 'streak_species:'+(game['char'][0:2])
@@ -438,11 +438,11 @@ def check_banners(c):
   award_player_banners(c, 'trog',
                        query_first_col(c, '''SELECT player
                                              FROM super_sigmund_kills'''),
-                       1)
+                       4)
   award_player_banners(c, 'zin',
                        query_first_col(c, '''SELECT player
                                              FROM all_hellpan_kills'''),
-                       6)
+                       10)
   award_player_banners(c, 'xom',
                        query_first_col(c,
                                        '''SELECT player FROM ziggy_players'''),
@@ -450,19 +450,19 @@ def check_banners(c):
   award_player_banners(c, 'jiyva',
                        query_first_col(c,
                                        '''SELECT player FROM ninenines_players'''),
-                       7)
+                       4)
   award_player_banners(c, 'makhleb',
                        query_first_col(c,
                                        '''SELECT player FROM speed_demons'''),
-                       7)
+                       10)
   award_player_banners(c, 'vehumet',
                        query_first_col(c,
                                        '''SELECT player FROM orbrun_runes'''),
-                       7)
+                       10)
   award_player_banners(c, 'sif',
                        query_first_col(c,
                                        '''SELECT player FROM scholars'''),
-                       7)
+                       4)
 
 def check_misc_points(c, pmap):
   def award_misc_points(key, multiplier, rows):
