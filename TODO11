@@ -1,15 +1,13 @@
-TODO for tourney11, as of Jul 13:
+TODO for tourney11, as of Jul 14:
 
 * fix scoring to agree with the rules
 
   - add back in Nemelex' Choice, but with changes to the timing and scoring and
     combo selection
 
-  - banner changes: remove pennants, rename pennants to banners, bring back
-    some banners (with updates), code new ones
-    - remove lairless points while doing this
+  - test out these banners in 0.9: ENSTV
 
-* zotdef??
+* zotdef?? currently leaning towards no
 
 * update banner credits after we have all banner images
 
