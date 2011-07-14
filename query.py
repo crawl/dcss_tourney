@@ -1350,6 +1350,21 @@ def clan_player_banners(c):
                                  WHERE c.team_captain = p.team_captain''')
   return banner_rows
 
+def get_saints(c, captain):
+  rows = query_rows_with_ties(c, '''SELECT name, score_full FROM players
+                                    WHERE team_captain = %s
+                                    AND score_full >= 100''',
+                              'score_full', 1, 1, captain)
+  return [x[0] for x in rows]
+
+def get_harvesters(c):
+  rows = query_rows(c, '''SELECT p.name, p.team_captain FROM
+                          players AS p, clan_unique_kills AS c
+                          WHERE c.kills >= %s
+                          AND c.team_captain = p.team_captain''',
+                    len(uniq.UNIQUES) - 2)
+  return [x[0] for x in rows]
+
 def player_distinct_gods(c, player):
   """Returns the list of gods that the player has reached max piety with (no Xom)."""
   gods = query_first_col(c, '''SELECT DISTINCT noun
