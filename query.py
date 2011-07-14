@@ -1362,7 +1362,7 @@ def get_harvesters(c):
                           players AS p, clan_unique_kills AS c
                           WHERE c.kills >= %s
                           AND c.team_captain = p.team_captain''',
-                    len(uniq.UNIQUES) - 2)
+                    len(uniq.UNIQUES))
   return [x[0] for x in rows]
 
 def player_distinct_gods(c, player):
