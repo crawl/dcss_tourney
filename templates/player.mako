@@ -31,6 +31,8 @@
 
    whereis = html.whereis(c, player)
 
+   fruit_found, fruit_unfound = query.player_fruit_found(c, player)
+
    def point_breakdown(audit):
      if not audit:
        return '<tr><td colspan="3">No points</td></tr>'
@@ -188,6 +190,28 @@
           </div>
           <hr>
           % endif
+
+          </div>
+          %if fruit_found and fruit_unfound:
+          <div>
+            <h3>Fruit Basket Progress</h3>
+            <table class="bordered">
+              <colgroup>
+                 <col width="10%">
+                 <col width="85%">
+              </colgroup>
+              <tr>
+                <th>Fruit Found</th>
+                <td>${", ".join(fruit_found)}</td>
+              </tr>
+              <tr>
+                <th>Fruit Needed</th>
+                <td>${", ".join(fruit_unfound)}</td>
+              </tr>
+            </table>
+          </div>
+          <hr>
+          %endif
 
           % if portals_entered and portals_unentered:
           <div>

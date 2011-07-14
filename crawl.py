@@ -12,7 +12,8 @@ MAGIC_SKILLS = ['Spellcasting', 'Conjurations', 'Hexes', 'Charms',
                 'Transmutations', 'Fire Magic', 'Ice Magic',
                 'Air Magic', 'Earth Magic', 'Poison Magic']
 
-FRUIT_BITS = { "orange"     : 0x00040,
+FRUIT_BITS = { "snozzcumber": 0x00020,
+               "orange"     : 0x00040,
                "banana"     : 0x00080,
                "lemon"      : 0x00100,
                "pear"       : 0x00200,

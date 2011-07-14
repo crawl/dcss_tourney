@@ -421,7 +421,7 @@
                 vegetables, and will award <a name="the_fruit_basket">THE
                 FRUIT BASKET</a> to a player who finds every kind of
                 fruit (pear, apple, choko, apricot, orange, banana,
-                strawberry, rambutan, lemon, grape, sultana, lychee)
+                strawberry, rambutan, lemon, grape, sultana, lychee, snozzcumber)
                 over the course of the tournament. Fruits count toward
                 the Fruit Basket when picked up - merely finding the fruit
                 on the ground or eating it off the ground does not.
