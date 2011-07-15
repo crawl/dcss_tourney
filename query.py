@@ -508,56 +508,6 @@ def player_specific_points(c, name):
     points += count_points(c, name, 'class_win:'+g[0])
   return points
 
-def get_portals_entered(c, name):
-  portals = query_rows(c, """SELECT DISTINCT noun
-                          FROM milestones
-                          WHERE verb='br.enter' AND player = %s""",
-                          name)
-  portalset = set([p[0] for p in portals])
-  port = []
-  otherport = []
-  if 'Sewer' in portalset:
-    port.append('Sewer')
-  else:
-    otherport.append('Sewer')
-  if 'Ossuary' in portalset:
-    port.append('Ossuary')
-  else:
-    otherport.append('Ossuary')
-  if 'Bailey' in portalset:
-    port.append('Bailey')
-  else:
-    otherport.append('Bailey')
-  if 'Lab' in portalset:
-    port.append('Labyrinth')
-  else:
-    otherport.append('Labyrinth')
-  if 'Bazaar' in portalset:
-    port.append('Bazaar')
-  else:
-    otherport.append('Bazaar')
-  if 'Volcano' in portalset:
-    port.append('Volcano')
-  else:
-    otherport.append('Volcano')
-  if 'IceCv' in portalset:
-    port.append('Ice Cave')
-  else:
-    otherport.append('Ice Cave')
-  if 'Spider' in portalset:
-    port.append("Spider's Nest")
-  else:
-    otherport.append("Spider's Nest")
-  if 'WizLab' in portalset:
-    port.append('Wizard Lab')
-  else:
-    otherport.append('Wizard Lab')
-  if 'Trove' in portalset:
-    port.append('Treasure Trove')
-  else:
-    otherport.append('Treasure Trove')
-  return port,otherport
-
 def row_to_xdict(row):
   return dict( zip(LOG_FIELDS, row) )
 

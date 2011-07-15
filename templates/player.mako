@@ -24,8 +24,6 @@
 
    won_gods = [x or 'No God' for x in query.get_player_won_gods(c, player)]
 
-   portals_entered,portals_unentered = query.get_portals_entered(c, player)
-
    audit = query.audit_trail_player_points(c, player)
    audit_team = query.audit_trail_player_team_points(c, player)
 
@@ -212,26 +210,6 @@
           </div>
           <hr>
           %endif
-
-          % if portals_entered and portals_unentered:
-          <div>
-            <table class="bordered">
-              <colgroup>
-                 <col width="10%">
-                 <col width="85%">
-              </colgroup>
-              <tr>
-                <th>Portals Entered</th>
-                <td>${", ".join(portals_entered)}</td>
-              </tr>
-              <tr>
-                <th>Portals Not Yet Entered</th>
-                <td>${", ".join(portals_unentered)}</td>
-              </tr>
-            </table>
-          </div>
-          <hr>
-          % endif   
 
           % if combo_highscores or species_highscores or class_highscores:
             <div>
