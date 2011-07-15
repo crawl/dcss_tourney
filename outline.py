@@ -245,7 +245,7 @@ def crunch_winner(c, game):
     if banner.count_recipients(c, ban) < 5:
       if not banner.player_has_banner(c, player, ban):
         assign_points(c, ban, player, 75)
-        banner.award_banner(c, player, ban, 10, temp=False)
+        banner.award_banner(c, player, ban, 0, temp=False)
 
   if is_all_runer(game):
     all_allruners = number_of_allruners_before(c, game)
