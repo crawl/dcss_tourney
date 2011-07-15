@@ -1,6 +1,6 @@
 #! /usr/bin/python
 
-from loaddb import query_first_def, query_do, query_rows, query_rows_with_ties
+from loaddb import query_first_def, query_first, query_do, query_rows, query_rows_with_ties
 import crawl
 import query
 
@@ -9,6 +9,10 @@ def player_has_banner(c, player, banner):
                          '''SELECT banner FROM player_banners
                              WHERE player = %s AND banner = %s''',
                          player, banner)
+
+def count_recipients(c, banner):
+  return query_first(c, '''SELECT COUNT(*) FROM player_banners
+                         WHERE banner = %s''', banner)
 
 def flush_temp_banners(c):
   query_do(c, '''DELETE FROM player_banners WHERE temp = true''')
