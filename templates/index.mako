@@ -212,7 +212,7 @@
 	      Temple, Lair, Orc, Hive, or the Vaults (<a href="#lord_of_darkness">LORD OF DARKNESS</a> banner).
 	    </p>
             <p>
-              <span>75 bonus points</span> for winning <a href="#nemelex_choice">NEMELEX' CHOICE</a> characters. These are selected every 27 hours, starting at the beginning of the tourney (so 15 in total), and the first five wins with each one after it is selected count for Nemelex' Choice. The race/class combinations are chosen by Nemelex from those with the fewest wins in Crawl version 0.6 and newer, with no race or class repeated.
+              <span>75 bonus points</span> for winning <a href="#nemelex_choice">NEMELEX' CHOICE</a> characters. The first Nemelex' Choice combo is chosen at the start of the tournament, and after that each one is chosen when the previous one is won for the first time. Each combo remains valid until it has been won five times. The race/class combinations are chosen by Nemelex from those with the fewest wins in Crawl version 0.6 and newer, with no race or class repeated.
             </p>
           </div>
 
@@ -506,7 +506,7 @@
                 randomness, and so will give the
                 <a name="nemelex_choice">NEMELEX' CHOICE</a> award
                 to the first five players to win each of several combos
-                randomly chosen and announced periodically throughout the
+                randomly chosen and announced throughout the
                 tournament.
               </p>
             </div>
@@ -746,7 +746,7 @@
               <span class="changed">[CHANGED]</span>
             </p>
             <p class="changed">
-	      <span>75 bonus points</span> for winning <a href="#nemelex_choice">NEMELEX' CHOICE</a> characters. These are selected every 27 hours, starting at the beginning of the tourney (so 15 in total), and the first five wins with each one after it is selected count for Nemelex' Choice. (Previously they were only selected every week, worth 100 bonus points, and there was no limit on how many people could get points from each one.)
+	      <span>75 bonus points</span> for winning <a href="#nemelex_choice">NEMELEX' CHOICE</a> characters. The first Nemelex' Choice combo is chosen at the start of the tournament, and after that each one is chosen when the previous one is won for the first time. Each combo remains valid until it has been won five times. The race/class combinations are chosen by Nemelex from those with the fewest wins in Crawl version 0.6 and newer, with no race or class repeated.
               <span class="changed">[CHANGED]</span>
             </p>
             <p class="changed">
