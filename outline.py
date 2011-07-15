@@ -14,6 +14,8 @@ from loaddb import query_do, query_first_col
 from query import count_points, assign_points, assign_team_points, wrap_transaction
 from query import log_temp_points, log_temp_team_points, get_points
 
+import nemchoice
+
 # So there are a few problems we have to solve:
 # 1. Intercepting new logfile events
 #    DONE: parsing a logfile line
@@ -237,6 +239,12 @@ def crunch_winner(c, game):
       banner.safe_award_banner(c, player, 'kikubaaqudgha', 10)
 
   debug("%s win (%s), runes: %d" % (player, charabbrev, game.get('urune') or 0))
+
+  if nemchoice.is_nemelex_choice(charabbrev, game_end):
+    ban = 'nemelex_choice:' + charabbrev
+    if not banner.player_has_banner(c, player, ban):
+ #     assign_points(c, ban, player, 100)
+      banner.award_banner(c, player, ban, 100, temp=False)
 
   if is_all_runer(game):
     all_allruners = number_of_allruners_before(c, game)

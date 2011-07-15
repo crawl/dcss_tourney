@@ -1,11 +1,14 @@
 <%
-   import query, loaddb, html, time
+   import query, loaddb, html, time, nemchoice
    c = attributes['cursor']
 
    version = loaddb.T_VERSION
    year = loaddb.T_YEAR
    title = "Crawl %s Tournament Leaderboard" % version
    top_scores = query.find_games(c, sort_max='score', limit=3)
+
+   cnemelex = nemchoice.current_nemelex_choice()
+   pnemelex = nemchoice.previous_nemelex_choices()
 
    recent_wins = query.get_winning_games(c, limit = 5)
 %>
@@ -32,6 +35,39 @@
         <hr>
 
         <div class="content">
+
+          % if cnemelex:
+          <div class="row nemelex">
+            <table class="grouping" cellpadding="0" cellspacing="0">
+              <tr>
+                <td>
+                  <h3>Nemelex' Choice: </h3>
+                  <span>${cnemelex[0]}</span>, chosen on ${cnemelex[1]} UTC
+                  <p class="fineprint">
+                    100 bonus points for any player winning ${cnemelex[0]}
+                    during the tournament! Only your first
+                    winning ${cnemelex[0]} counts.
+                  </p>
+
+                  % if pnemelex:
+                  <h3>Nemelex' Previous Choices: </h3>
+                  ${", ".join(['<span>' + x + '</span>' for x in pnemelex])}
+                  <p class="fineprint">
+                    All previous Nemelex' Choices also remain valid during the
+                    tournament.
+                  </p>
+                  % endif
+                </td>
+
+                <td>
+                  ${html.banner_named('nemelex_choice')}
+                </td>
+              </tr>
+            </table>
+          </div>
+
+          <hr>
+          % endif
 
           <div class="row">
 	        <table class="grouping" cellpadding="0" cellspacing="0">
