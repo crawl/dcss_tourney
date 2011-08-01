@@ -1,5 +1,5 @@
 <%
-   import query, loaddb, html, time, nemchoice
+   import query, loaddb, html, time, nemelex
    c = attributes['cursor']
 
    version = loaddb.T_VERSION
@@ -7,8 +7,15 @@
    title = "Crawl %s Tournament Leaderboard" % version
    top_scores = query.find_games(c, sort_max='score', limit=3)
 
-   cnemelex = nemchoice.current_nemelex_choice()
-   pnemelex = nemchoice.previous_nemelex_choices()
+   nem_list = nemelex.list_nemelex_choices(c)
+
+   if nem_list:
+     pnem_list = []
+     for x in nem_list[:-1]:
+       if x[2] >= 5:
+         pnem_list.append('<s>' + x[0] + ('(%d won)' % x[2]) + '</s>')
+       else:
+         pnem_list.append(x[0] + ('(%d won)' % x[2]))
 
    recent_wins = query.get_winning_games(c, limit = 5)
 %>
@@ -36,25 +43,24 @@
 
         <div class="content">
 
-          % if cnemelex:
+          % if nem_list:
           <div class="row nemelex">
             <table class="grouping" cellpadding="0" cellspacing="0">
               <tr>
                 <td>
                   <h3>Nemelex' Choice: </h3>
-                  <span>${cnemelex[0]}</span>, chosen on ${cnemelex[1]} UTC
+                  <span>${nem_list[-1][0]}</span>, chosen on ${nem_list[-1][1]} UTC
                   <p class="fineprint">
-                    100 bonus points for any player winning ${cnemelex[0]}
-                    during the tournament! Only your first
-                    winning ${cnemelex[0]} counts.
+                    75 bonus points for the first five players to win ${nem_list[-1][0]}
+                    during the tournament!
                   </p>
 
-                  % if pnemelex:
+                  % if pnem_list:
                   <h3>Nemelex' Previous Choices: </h3>
-                  ${", ".join(['<span>' + x + '</span>' for x in pnemelex])}
+                  ${", ".join(['<span>' + x + '</span>' for x in pnem_list])}
                   <p class="fineprint">
                     All previous Nemelex' Choices also remain valid during the
-                    tournament.
+                    tournament until won by five players.
                   </p>
                   % endif
                 </td>

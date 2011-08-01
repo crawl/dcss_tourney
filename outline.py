@@ -14,7 +14,7 @@ from loaddb import query_do, query_first_col
 from query import count_points, assign_points, assign_team_points, wrap_transaction
 from query import log_temp_points, log_temp_team_points, get_points
 
-import nemchoice
+import nemelex
 
 # So there are a few problems we have to solve:
 # 1. Intercepting new logfile events
@@ -240,7 +240,7 @@ def crunch_winner(c, game):
 
   debug("%s win (%s), runes: %d" % (player, charabbrev, game.get('urune') or 0))
 
-  if nemchoice.is_nemelex_choice(charabbrev, game_end):
+  if nemelex.is_nemelex_choice(charabbrev, game_end):
     ban = 'nemelex:' + charabbrev
     if banner.count_recipients(c, ban) < 5:
       if not banner.player_has_banner(c, player, ban):
@@ -512,3 +512,7 @@ def safe_update_player_scores(c):
 
   # And award overall top banners.
   banner.assign_top_player_banners(c)
+
+  # Check to see whether we need a new Nemelex' Choice.
+  if nemelex.need_new_combo(c):
+    nemelex.pick_combo(nemelex.eligible_combos(c))
