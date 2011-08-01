@@ -239,6 +239,10 @@ class Xlogfile:
       if not line.strip():
         continue
 
+      # Also ignore bad lines caused by certain felid death milestones in 0.8-a.
+      if line.startswith("             ..."):
+        continue
+
       try:
         xdict = apply_dbtypes( xlog_dict(line) )
         if self.blacklist and self.blacklist.is_blacklisted(xdict):
