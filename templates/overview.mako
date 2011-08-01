@@ -35,8 +35,8 @@
         <div class="heading">
           <h1>${title}</h1>
           <p class="fineprint">
-            Tournament starts May 14, ${year} at midnight UTC, and ends on
-            May 30, ${year} at midnight UTC.
+            Tournament starts August 13, ${year} at midnight UTC, and ends on
+            August 29, ${year} at midnight UTC.
           </p>
         </div>
         <hr>
