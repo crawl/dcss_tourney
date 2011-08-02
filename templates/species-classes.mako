@@ -46,9 +46,9 @@
    condensed_class_data = condensed_class_data + [[last_count, class_list, point_value],]
 
 
-   species_text = html.table_text( [ 'Wins', 'Species', 'Value'],
+   species_text = html.table_text( [ 'Wins', 'Species', 'Current Value'],
                            condensed_species_data, count=False)
-   class_text = html.table_text( [ 'Wins', 'Class', 'Value'],
+   class_text = html.table_text( [ 'Wins', 'Class', 'Current Value'],
                            condensed_class_data, count=False)
 
 
