@@ -248,6 +248,30 @@ def get_combo_scores(c, how_many=None, player=None):
     query.append(" LIMIT %d" % how_many)
   return [ row_to_xdict(x) for x in query.rows(c) ]
 
+def get_species_scores(c, how_many=None, player=None):
+  query = Query("SELECT " + ",".join(LOG_FIELDS) +
+                (""" FROM species_highscores
+                       %s
+                     ORDER BY score DESC, race""" %
+                 (player and 'WHERE player = %s' or '')))
+  if player is not None:
+    query.vappend(player)
+  if how_many:
+    query.append(" LIMIT %d" % how_many)
+  return [ row_to_xdict(x) for x in query.rows(c) ]
+
+def get_class_scores(c, how_many=None, player=None):
+  query = Query("SELECT " + ",".join(LOG_FIELDS) +
+                (""" FROM class_highscores
+                       %s
+                     ORDER BY score DESC, class""" %
+                 (player and 'WHERE player = %s' or '')))
+  if player is not None:
+    query.vappend(player)
+  if how_many:
+    query.append(" LIMIT %d" % how_many)
+  return [ row_to_xdict(x) for x in query.rows(c) ]
+
 def get_gkills(c):
   rows = query_rows(c,
                     """SELECT killer, COUNT(*) kills

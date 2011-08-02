@@ -51,10 +51,16 @@
    class_text = html.table_text( [ 'Wins', 'Class', 'Current Value'],
                            condensed_class_data, count=False)
 
+   all_species_scores = query.get_species_scores(c)
+   all_class_scores = query.get_class_scores(c)
+   species_scores_text = html.ext_games_table(all_species_scores,
+                                              excluding=['class'],
+                                              including=[(2, ('charabbrev', 'Combo'))])
+   class_scores_text = html.ext_games_table(all_class_scores,
+                                            excluding=['race'],
+                                            including=[(2, ('charabbrev', 'Combo'))])
 
 
-
-   won, unwon = query.won_unwon_combos(c)
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
@@ -78,30 +84,21 @@
         ${class_text}
         <hr>
 
-        % if won:
-        <h2>Won Combos</h2>
+        <h2>Species Scoreboard</h2>
         <div class="fineprint">
-          Species-class combinations won during the tournament.
+          Highest scoring game for each species played
+          in the tournament.
         </div>
-        <div class="inset">
-          ${", ".join(won)}
-        </div>
-        <hr>
-        %endif
 
-        <h2>Unwon Combos</h2>
+        ${species_scores_text}
 
+        <h2>Class Scoreboard</h2>
         <div class="fineprint">
-          Species-class combinations unwon during the tournament.
+          Highest scoring game for each class played
+          in the tournament.
         </div>
 
-        <div class="inset">
-          % if unwon:
-          ${", ".join(unwon)}
-          % else:
-          <b>All combos have been won (?!)</b>
-          % endif
-        </div>
+        ${class_scores_text}
 
         <hr>
       </div>
