@@ -248,6 +248,18 @@ def get_combo_scores(c, how_many=None, player=None):
     query.append(" LIMIT %d" % how_many)
   return [ row_to_xdict(x) for x in query.rows(c) ]
 
+def get_clan_combo_scores(c, how_many=None, captain=None):
+  query = Query("SELECT team_captain, " + ",".join(LOG_FIELDS) +
+                (""" FROM clan_combo_highscores
+                       %s
+                     ORDER BY score DESC, charabbrev""" %
+                 (captain and 'WHERE team_captain = %s' or '')))
+  if captain is not None:
+    query.vappend(captain)
+  if how_many:
+    query.append(" LIMIT %d" % how_many)
+  return [ [x[0], row_to_xdict(x[1:])] for x in query.rows(c) ]
+
 def get_species_scores(c, how_many=None, player=None):
   query = Query("SELECT " + ",".join(LOG_FIELDS) +
                 (""" FROM species_highscores
