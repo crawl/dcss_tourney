@@ -12,9 +12,9 @@
 &nbsp;
 <a href="${CAO_TOURNEY_BASE}/combo-scoreboard.html">Combo Scoreboard</a>
 &nbsp;
-<a href="${CAO_TOURNEY_BASE}/scoreboard.html">Scoreboard</a>
+<a href="${CAO_TOURNEY_BASE}/species-classes.html">Species/Classes</a>
 &nbsp;
-<a href="${CAO_TOURNEY_BASE}/unwon.html">Unwon</a>
+<a href="${CAO_TOURNEY_BASE}/wins-and-kills.html">Wins and Kills</a>
 &nbsp;
 <a href="${CAO_TOURNEY_BASE}">Rules</a>
 </div>

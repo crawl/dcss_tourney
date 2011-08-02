@@ -18,7 +18,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-    <title>Scoreboard</title>
+    <title>Wins and Kills</title>
     <link rel="stylesheet" type="text/css" href="tourney-score.css">
   </head>
 
@@ -31,7 +31,7 @@
 
         <div class="sidebar">
           <div>
-            <h4>Miscellaneous Statistics</h4>
+            <h4>Killer Statistics</h4>
           </div>
           <div class="sidebar_content">
             <p>
