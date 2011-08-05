@@ -185,7 +185,7 @@
             <div class="inset">
               <p>
 	        The current values of the bonus for each race and class will be
-                listed on the "Race and Class Wins" page for your convenience.
+                listed on the "Species/Classes" page for your convenience.
 	      </p>
             </div>
           </div>
