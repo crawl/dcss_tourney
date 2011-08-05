@@ -44,6 +44,7 @@ def player_pages(c):
   render(c, 'banners')
   render(c, 'all-players')
   render(c, 'wins-and-kills')
+  render(c, 'current-games')
   render(c, 'combo-scoreboard')
   render(c, 'combo-leaders')
   render(c, 'killers')

@@ -146,11 +146,11 @@ def pretty_time(time):
 
 def how_old(date): 
   if not date:
-    return ''
+    return None
   if type(date) in [str, unicode]:
     m = R_STR_DATE.search(date)
     if not m:
-      return ''
+      return None
     year = int(m.group(1))
     month = int(m.group(2))
     day = int(m.group(3))
@@ -166,7 +166,7 @@ def how_old(date):
     second = date.second
   t = time.gmtime()
   if t.tm_year > year or t.tm_mon > month:
-    return ''
+    return None
   d = t.tm_mday - day
   h = t.tm_hour - hour
   m = t.tm_min - minute
@@ -178,7 +178,7 @@ def how_old(date):
     m += 60
     h -= 1
   h += 24*d
-  return "%d:%02d:%02d ago: " % (h, m, s)    
+  return "%d:%02d:%02d" % (h, m, s)    
 
 def update_time():
   return '''<div class="updatetime">
@@ -455,23 +455,74 @@ def clan_affiliation(c, player, include_clan=True):
   clan_html += ", ".join(plinks)
   return clan_html
 
+def make_milestone_string(w, src, make_links=False):
+  ago = how_old(w[0])
+  if ago == None:
+    return None
+  if make_links:
+    plink = crawl_utils.linked_text(w[1], crawl_utils.player_link)
+  else:
+    plink = w[1]
+  if w[5] == None:
+    god_phrase = ''
+  else:
+    god_phrase = ' of %s' % w[5]
+  where_nice = (ago, plink) + w[2:5] + (god_phrase, ) + w[6:9] + (pretty_dur(w[9]),src)
+  return ("%s ago: %s the %s (L%d %s%s) %s (%s, turn %d, dur %s, %s)<br />" % where_nice)
+
 def whereis(c, *players):
   where_data = []
   for p in players:
-    where = query.whereis_player(c, p)
-    if not where:
-      continue
-    if where[5] == None:
-      god_phrase = ''
-    else:
-      god_phrase = ' of %s' % where[5] 
-    where_nice = (how_old(where[0]),) + where[1:5] + (god_phrase, ) + where[6:9] + (pretty_dur(where[9]), )
-    where_data.append([where[0], ("%s%s the %s (L%d %s%s) %s (%s, turn %d, dur %s)<br />" % where_nice)])
+    for src in ['cao','cdo']:
+      where = query.whereis_player(c, p, src)
+      if not where:
+        continue
+      mile_string = make_milestone_string(where, src)
+      if not mile_string:
+        continue
+      where_data.append([where[0], mile_string])
   where_data.sort(key=lambda e: e[0], reverse=True)
   where_string = ""
   for w in where_data:
     where_string += w[1]
   return where_string
+
+def whereis_recent(c):
+  where_data = []
+  for w in query.whereis_all_players(c):
+    where = w[1]
+    mile_string = make_milestone_string(where, w[0], make_links=True)
+    if not mile_string:
+      continue
+    where_data.append([where[0], mile_string])
+  where_data.sort(key=lambda e: e[0], reverse=True)
+  if len(where_data) > 20:
+    where_data = where_data[:20]
+  where_string = ''
+  for w in where_data:
+    where_string += w[1]
+  return where_string
+
+def whereis_table(c):
+  where_data = []
+  for w in query.whereis_all_players(c):
+    where = w[1]
+    ago = how_old(where[0])
+    if ago == None:
+      continue
+    if where[5] == None:
+      god_phrase = ''
+    else:
+      god_phrase = ' of %s' % where[5]
+    mile_data = [where[1], where[10], where[3], '%s%s' % (where[4], god_phrase), where[6][:-1], where[7], ('%s ago' % ago)]
+    where_data.append([where[10], where[3], mile_data])
+  where_data.sort(key=lambda e: 32*e[0]+e[1], reverse=True)
+  if len(where_data) > 20:
+    where_data = where_data[:20]
+  where_list = []
+  for w in where_data:
+    where_list.append(w[2])
+  return where_list
 
 def _strip_banner_suffix(banner):
   if ':' in banner:

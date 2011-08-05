@@ -11,7 +11,8 @@ DROP TABLE IF EXISTS clan_banners;
 DROP TABLE IF EXISTS player_banners;
 DROP TABLE IF EXISTS player_won_gods;
 DROP TABLE IF EXISTS active_streaks;
-DROP TABLE IF EXISTS most_recent_character;
+DROP TABLE IF EXISTS whereis_table;
+DROP TABLE IF EXISTS last_game_table;
 DROP TABLE IF EXISTS streaks;
 DROP TABLE IF EXISTS ziggurats;
 DROP TABLE IF EXISTS rune_finds;
@@ -318,11 +319,22 @@ CREATE TABLE active_streaks (
   FOREIGN KEY (player) REFERENCES players (name)
   );
 
--- This is to show the last character played under 'active streaks'
-CREATE TABLE most_recent_character (
-  player VARCHAR(20) PRIMARY KEY,
-  charabbrev CHAR(4) NOT NULL,
-  update_time DATETIME NOT NULL,
+-- Generated table to keep track of the last milestone for each player/server.
+CREATE TABLE whereis_table (
+  player VARCHAR(20),
+  src CHAR(3),
+  start_time DATETIME NOT NULL,
+  mile_time DATETIME NOT NULL,
+  PRIMARY KEY (player, src),
+  FOREIGN KEY (player) REFERENCES players (name)
+  );
+
+-- Generated table to keep track of the last game finished for each player/server.
+CREATE TABLE last_game_table (
+  player VARCHAR(20),
+  src CHAR(3),
+  start_time DATETIME NOT NULL,
+  PRIMARY KEY (player, src),
   FOREIGN KEY (player) REFERENCES players (name)
   );
 

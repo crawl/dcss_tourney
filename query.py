@@ -61,17 +61,44 @@ def game_is_over(c, name, start):
                                    AND start_time=%s''', name, start)
   return (query.count(c) > 0)
 
-def whereis_player(c, name):
-  last_mile = query_row(c, '''SELECT milestone_time, player, title, xl, charabbrev,
-                                          god, milestone, place, turn,
-                                          duration, start_time
-                                          FROM milestones
-                                          WHERE player = %s
-                                          ORDER BY milestone_time DESC''',
-                           name)
-  if not last_mile or game_is_over(c, name, last_mile[10]):
+def whereis_player(c, name, src):
+  mile = query_row(c, '''SELECT start_time, mile_time
+                           FROM whereis_table
+                          WHERE player = %s AND src = %s''', name, src)
+  if not mile:
     return None
-  return last_mile
+  last_game = query_row(c, '''SELECT start_time
+                                FROM last_game_table
+                               WHERE player = %s AND src = %s''', name, src)
+  if last_game and last_game[0] >= mile[0]:
+    return None
+  return query_row(c, '''SELECT milestone_time, player, title, xl, charabbrev,
+                                god, milestone, place, turn, duration
+                           FROM milestones
+                          WHERE player = %s
+                            AND start_time = %s
+                            AND milestone_time = %s''',
+                   name, mile[0], mile[1])
+
+def whereis_all_players(c):
+  whereis_list = []
+  rows = query_rows(c, '''SELECT player, src, start_time, mile_time
+                            FROM whereis_table''')
+  for r in rows:
+    last_game = query_row(c, '''SELECT start_time
+                                FROM last_game_table
+                                WHERE player = %s AND src = %s''', r[0], r[1])
+    if last_game and last_game[0] >= r[2]:
+      continue
+    mile = query_row(c, '''SELECT milestone_time, player, title, xl, charabbrev,
+                                god, milestone, place, turn, duration, runes
+                           FROM milestones
+                          WHERE player = %s
+                            AND start_time = %s
+                            AND milestone_time = %s''',
+                   r[0], r[2], r[3])
+    whereis_list.append((r[1], mile))
+  return whereis_list
 
 def get_game_god(c, game):
   game_god = game.get('god') or 'No God'
@@ -206,7 +233,7 @@ def get_top_streaks_from(c, table, min_streak, how_many,
     streak.append( get_streak_games(c, streak[0], streak[2]) )
     if add_next_game:
       streak.append(
-        find_most_recent_character_since(c, streak[0], streak[2]) or '?')
+        find_most_recent_character_since(c, streak[0]) or '?')
   return streaks
 
 def get_top_active_streaks(c, how_many = 10):
@@ -1429,28 +1456,19 @@ def update_active_streak(c, player, end_time, streak_len):
 def kill_active_streak(c, player):
   query_do(c, '''DELETE FROM active_streaks WHERE player = %s''', player)
 
-def find_most_recent_character_since(c, player, time):
-  row = query_row(c, '''SELECT charabbrev, update_time
-                          FROM most_recent_character
-                         WHERE player = %s ''', player)
-  if not row:
+def find_most_recent_character_since(c, player):
+  mile = query_row(c, '''SELECT start_time, src
+                          FROM whereis_table
+                         WHERE player = %s
+                      ORDER BY mile_time DESC''', player)
+  if not mile:
     return None
-
-  # If the most recent character is newer than the date specified, return that.
-  if row[1] > time:
-    return row[0]
-
-  # Otherwise, look for where info.
-  # I'm changing the whereis stuff, so commenting this out for now.
-  #where = whereis_player(player)
-  #if where and time_from_str(where['time']) > time:
-  #  return where['char']
-
-  # No idea!
-  return None
-
-def update_most_recent_character(c, player, char, time):
-  query_do(c, '''INSERT INTO most_recent_character VALUES (%s, %s, %s)
-                 ON DUPLICATE KEY UPDATE charabbrev = %s,
-                                         update_time = %s''',
-           player, char, time, char, time)
+  last_game = query_row(c, '''SELECT start_time
+                          FROM last_game_table
+                         WHERE player = %s AND src = %s''', player, mile[1])
+  if last_game and last_game[0] >= mile[0]:
+    return None  
+  return query_first(c, '''SELECT charabbrev
+                             FROM games
+                            WHERE player = %s
+                              AND start_time = %s''', player, mile[0])

@@ -68,9 +68,6 @@ def act_on_milestone(c, mile):
   have the same broken :: behavior as logfile lines, yay."""
 
   player = game_player(mile)
-  query.update_most_recent_character(c, player,
-                                     game_character(mile),
-                                     mile['time'])
 
   miletype = milestone_type(mile)
   if miletype == 'uniq' and not milestone_desc(mile).startswith('banished '):
@@ -125,7 +122,6 @@ def act_on_logfile_line(c, this_game):
   irrevocable points and those should be assigned immediately. Revocable
   points (high scores, lowest dungeon level, fastest wins) should be
   calculated elsewhere."""
-
   if game_is_win(this_game):
     crunch_winner(c, this_game) # lots of math to do for winners
 

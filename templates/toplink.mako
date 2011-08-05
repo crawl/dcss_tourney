@@ -16,5 +16,7 @@
 &nbsp;
 <a href="${CAO_TOURNEY_BASE}/wins-and-kills.html">Wins and Kills</a>
 &nbsp;
+<a href="${CAO_TOURNEY_BASE}/current-games.html">Current Games</a>
+&nbsp;
 <a href="${CAO_TOURNEY_BASE}">Rules</a>
 </div>

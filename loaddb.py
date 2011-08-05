@@ -821,6 +821,25 @@ def insert_xlog_db(cursor, xdict, filename, offset):
           % (thingname, milestone, query.query, query.values, e))
     raise
 
+def update_whereis(c, xdict, filename):
+  player = xdict['name']
+  src = filename[:3]
+  start_time = xdict['start']
+  mile_time = xdict['time']
+  query_do(c, '''INSERT INTO whereis_table
+                      VALUES (%s, %s, %s, %s)
+                 ON DUPLICATE KEY UPDATE start_time = %s, mile_time = %s''',
+           player, src, start_time, mile_time, start_time, mile_time)
+
+def update_last_game(c, xdict, filename):
+  player = xdict['name']
+  src = filename[:3]
+  start_time = xdict['start']
+  query_do(c, '''INSERT INTO last_game_table
+                      VALUES (%s, %s, %s)
+                 ON DUPLICATE KEY UPDATE start_time = %s''',
+           player, src, start_time, start_time)
+
 def update_highscore_table(c, xdict, filename, offset, table, field, value):
   existing_score = query_first_def(c, 0,
                                    "SELECT score FROM " + table +
@@ -928,9 +947,8 @@ def process_log(cursor, filename, offset, d):
   cursor.execute('BEGIN;')
   try:
     insert_xlog_db(cursor, d, filename, offset)
-
-    if not record_is_milestone(d):
-      update_highscores(cursor, d, filename, offset)
+    update_last_game(cursor, d, filename)
+    update_highscores(cursor, d, filename, offset)
 
     if is_ghost_kill(d):
       record_ghost_kill(cursor, d)
@@ -1066,6 +1084,7 @@ def add_milestone_record(c, filename, offset, d):
   try:
     update_milestone_bookmark(c, filename, offset)
     insert_xlog_db(c, d, filename, offset)
+    update_whereis(c, d, filename)
     handler = MILESTONE_HANDLERS.get(d['type'])
     if handler:
       handler(c, d)
