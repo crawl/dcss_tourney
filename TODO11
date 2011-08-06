@@ -1,30 +1,23 @@
-TODO for tourney11, as of Jul 14:
-
-* fix scoring to agree with the rules
-
-  - add back in Nemelex' Choice, but with changes to the timing and scoring and
-    combo selection
-
-  - test out these banners in 0.9: ENSTV
-
-* zotdef?? currently leaning towards no
+TODO for tourney11, as of Aug 6:
 
 * update banner credits after we have all banner images
 
-* fix titles of some tourney pages (and maybe reorganize them a little)
+* test on CAO with 0.8
 
-* improve Nemelex' Choice display
+* change everything to 0.9
 
-* fix directory names to work with 0.9 and with being hosted on CAO
-  - don't forget clan signup
+* test on CAO with 0.9
+  - don't forget to check that clan signup is working
 
-* test on CAO well in advance, even if I'm still coding a few features
+* Change start date to Aug 13, delete older files?
 
-* get stuff announced
+* get stuff announced at some point in all this
 
 --
 
-features requested last tourney that would be good to have:
-* race/class high scores listing
+misc. features requested:
 
-* clan best games listing (this is sort of vague)
+* clan best games listing? this is sort of vague, I'm not sure exactly what
+     was desired
+* sif banner progress? doesn't really seem necessary
+* fix cross-server streaking? not really a problem probably, seems quite tricky
