@@ -21,17 +21,15 @@ CLAN_FILE_DIR = SCORE_FILE_DIR + '/' + CLAN_BASE
 
 CAO_MORGUE_BASE = 'http://crawl.akrasiac.org/rawdata'
 CDO_MORGUE_BASE = 'http://crawl.develz.org/morgues/0.8'
-# Use file URLs when testing on greensnark's machines.
 
-LOCAL_TEST = ('tecumseh' in os.getcwd()
-              or 'tecumseh' == os.environ.get('USER'))
-#LOCAL_TEST = 1
+# Use file URLs when testing on elliptic's machines.
+LOCAL_TEST = ('aaron' in os.getcwd()
+              or 'aaron' == os.environ.get('USER'))
 
-# not actually on CAO for this tournament
 CAO_BASE = (LOCAL_TEST
             and ('file:///' + os.getcwd() + '/' + SCORE_FILE_DIR)
-            or 'http://crawl11.dyndns.org')
-CAO_TOURNEY_BASE = CAO_BASE
+            or 'http://crawl.akrasiac.org')
+CAO_TOURNEY_BASE = LOCAL_TEST and CAO_BASE or ('%s/tourney11' % CAO_BASE)
 CAO_IMAGE_BASE = CAO_TOURNEY_BASE + '/images'
 CAO_PLAYER_BASE = '%s/players' % CAO_TOURNEY_BASE
 CAO_CLAN_BASE = '%s/clans' % CAO_TOURNEY_BASE

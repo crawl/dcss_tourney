@@ -4,6 +4,7 @@ import os
 import datetime
 import os.path
 import crawl_utils
+from crawl_utils import LOCAL_TEST
 
 import logging
 from logging import debug, info, warn, error
@@ -13,10 +14,10 @@ import imp
 import sys
 
 T_YEAR = '2011'
-T_VERSION = '0.9'
+T_VERSION = '0.8'
 
 # Start and end of the tournament, UTC.
-START_TIME = T_YEAR + '0813'
+START_TIME = T_YEAR + '0713'
 END_TIME   = T_YEAR + '0829'
 
 DATE_FORMAT = '%Y%m%d'
@@ -31,18 +32,20 @@ CAO = 'http://crawl.akrasiac.org/'
 # Log and milestone files. A tuple indicates a remote file with t[1]
 # being the URL to wget -c from.
 
-LOGS = [ ('cao-logfile-0.8', CAO + 'logfile08'),
+LOGS = [ LOCAL_TEST and ('cao-logfile-0.8', CAO + 'logfile08')
+         or 'cao-logfile-0.8',
          ('cdo-logfile-0.8', CDO + 'allgames-0.8.txt') ]
 
-MILESTONES = [ ('cao-milestones-0.8', CAO + 'milestones08'),
-               ('cdo-milestones-0.8', CDO + 'milestones-0.8.txt'),
-             ]
+MILESTONES = [ LOCAL_TEST and ('cao-milestones-0.8', CAO + 'milestones08')
+               or 'cao-milestones-0.8',
+               ('cdo-milestones-0.8', CDO + 'milestones-0.8.txt') ]
 
 BLACKLIST_FILE = 'blacklist.txt'
 EXTENSION_FILE = 'modules.ext'
 TOURNAMENT_DB = 'tournament'
 COMMIT_INTERVAL = 3000
-CRAWLRC_DIRECTORY = 'rcfiles/'
+# Probably this isn't the correct directory?
+CRAWLRC_DIRECTORY = LOCAL_TEST and 'rcfiles/' or '/home/crawl/chroot/var/games/crawl08/rcfiles/'
 
 LISTENERS = [ ]
 TIMERS = [ ]
