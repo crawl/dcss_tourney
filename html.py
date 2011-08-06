@@ -496,8 +496,8 @@ def whereis_recent(c):
       continue
     where_data.append([where[0], mile_string])
   where_data.sort(key=lambda e: e[0], reverse=True)
-  if len(where_data) > 20:
-    where_data = where_data[:20]
+  if len(where_data) > 30:
+    where_data = where_data[:30]
   where_string = ''
   for w in where_data:
     where_string += w[1]
@@ -517,8 +517,8 @@ def whereis_table(c):
     mile_data = [where[1], where[10], where[3], '%s%s' % (where[4], god_phrase), where[6][:-1], where[7], ('%s ago' % ago)]
     where_data.append([where[10], where[3], mile_data])
   where_data.sort(key=lambda e: 32*e[0]+e[1], reverse=True)
-  if len(where_data) > 20:
-    where_data = where_data[:20]
+  if len(where_data) > 30:
+    where_data = where_data[:30]
   where_list = []
   for w in where_data:
     where_list.append(w[2])
