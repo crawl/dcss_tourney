@@ -45,7 +45,7 @@ EXTENSION_FILE = 'modules.ext'
 TOURNAMENT_DB = 'tournament'
 COMMIT_INTERVAL = 3000
 # Probably this isn't the correct directory?
-CRAWLRC_DIRECTORY = LOCAL_TEST and 'rcfiles/' or '/home/crawl/chroot/var/games/crawl08/rcfiles/'
+CRAWLRC_DIRECTORY = LOCAL_TEST and 'rcfiles/' or '/chroot/dgldir/rcfiles/crawl-0.8'
 
 LISTENERS = [ ]
 TIMERS = [ ]

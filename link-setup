@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DIR=/home/crawl/chroot/var/games/crawl08/saves
+DIR=/chroot/var/games/crawl08/saves
 
 ln -s $DIR/logfile cao-logfile-0.8
 ln -s $DIR/milestones cao-milestones-0.8
