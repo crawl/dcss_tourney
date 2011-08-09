@@ -102,5 +102,7 @@
 
       </div>
     </div>
+
+    ${html.update_time()}
   </body>
 </html>
