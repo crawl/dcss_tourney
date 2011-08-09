@@ -51,7 +51,7 @@ KoAK
 OgMo
 DEGl
 HuPr
-DGAr
+DgAr
 SEDK
 GhAr
 GhAs
@@ -77,7 +77,7 @@ KoSk
 TrTm
 MuEn
 CeSu
-DSHu
+DsHu
 SpHe
 DrEn
 MuTm
