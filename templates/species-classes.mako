@@ -100,7 +100,6 @@
 
         ${class_scores_text}
 
-        <hr>
       </div>
     </div>
   </body>
