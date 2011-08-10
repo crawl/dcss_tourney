@@ -798,7 +798,11 @@
               We'd like to thank:
             </p>
             <p>
-              <span>various people</span> for banner-related stuff.
+              <span>greensnark</span> for writing the original tournament
+              scripts that have been adapted for use in this tournament. 
+            <p>
+              <span>Onia</span>, <span>due</span>, and <span>purge</span> for
+              the old banner images.
             </p>
           </div>
 
