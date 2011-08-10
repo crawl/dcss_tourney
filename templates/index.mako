@@ -32,7 +32,8 @@
             Play on <a href="http://crawl.akrasiac.org">crawl.akrasiac.org</a>
             or <a href="http://crawl.develz.org">crawl.develz.org</a> and all of
             your Crawl ${version} games that <b>start after midnight UTC on
-            August 13</b> will count toward the tournament.
+            August 13</b> and <b>end before midnight UTC on August 29</b> will
+            count toward the tournament.
           </p>
 
           <p>
