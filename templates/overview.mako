@@ -4,7 +4,7 @@
 
    version = loaddb.T_VERSION
    year = loaddb.T_YEAR
-   title = "Crawl %s Tournament Leaderboard" % version
+   title = "Crawl Tournament Leaderboard %s" % year
    top_scores = query.find_games(c, sort_max='score', limit=3)
 
    nem_list = nemelex.list_nemelex_choices(c)
