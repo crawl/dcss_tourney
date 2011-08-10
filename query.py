@@ -1469,6 +1469,6 @@ def find_most_recent_character_since(c, player):
   if last_game and last_game[0] >= mile[0]:
     return None  
   return query_first(c, '''SELECT charabbrev
-                             FROM games
+                             FROM milestones
                             WHERE player = %s
                               AND start_time = %s''', player, mile[0])
