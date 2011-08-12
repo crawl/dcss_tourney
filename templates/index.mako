@@ -116,7 +116,7 @@
 
           <p>
             Clans may be changed by adding or removing players at any
-            time until midnight UTC on Aug 21, after which clans will be
+            time until midnight UTC on <b>Aug 21</b>, after which clans will be
             effectively frozen.
           </p>
 
