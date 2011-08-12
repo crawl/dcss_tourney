@@ -318,7 +318,10 @@ def get_gkills(c):
                        WHERE kgroup='player ghost'
                        GROUP BY killer
                        ORDER BY kills DESC""")
-  rows = [ list(r) for r in rows if r[1] >= rows[49][1] ]
+  if len(rows) > 50:
+    rows = [ list(r) for r in rows if r[1] >= rows[49][1] ]
+  else:
+    rows = [ list(r) for r in rows ]
   for r in rows:
     ghost = r[0]
     victims = query_rows(c,
