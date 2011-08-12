@@ -36,6 +36,22 @@
             count toward the tournament.
           </p>
 
+          <div class="inset">
+            <p>
+              <span class="inline_heading">Important note to those playing on CDO:</span> For
+              the first few days of the tournament, you might not see
+              any mention of version 0.9 on the crawl.develz.org server.
+              If so, then the option "T) Go to Dungeon Crawl Stone Soup Trunk"
+              really is 0.9 and games played in that version will count
+              for the tournament.
+            </p>
+            <p>
+              Also, webtiles on crawl.develz.org will unfortunately not be updated
+              to 0.9 until a few days after the tournament begins, and it will not
+              be possible to compete in the tournament using webtiles until then.
+            </p>
+          </div>
+
           <p>
             For players who participated in previous
             tournaments, please look at
