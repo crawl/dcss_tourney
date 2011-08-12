@@ -29,11 +29,9 @@ DDWr
 SEAK
 DDAE
 SpSk
-VpAK
 TrSk
 HENe
 KeHu
-GhHu
 SpSu
 HuAK
 MDNe
@@ -57,7 +55,6 @@ GhAr
 GhAs
 MDSu
 DDIE
-TrVM
 KePr
 OgFE
 SESk
@@ -77,7 +74,6 @@ KoSk
 TrTm
 MuEn
 CeSu
-DsHu
 SpHe
 DrEn
 MuTm
@@ -89,7 +85,6 @@ MfSk
 MiIE
 MDHe
 DEHu
-DrHe
 NaDK
 MDCj
 DDEn
