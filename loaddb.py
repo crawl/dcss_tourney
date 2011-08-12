@@ -17,7 +17,7 @@ T_YEAR = '2011'
 T_VERSION = '0.9'
 
 # Start and end of the tournament, UTC.
-START_TIME = T_YEAR + '0801'
+START_TIME = T_YEAR + '0813'
 END_TIME   = T_YEAR + '0829'
 
 DATE_FORMAT = '%Y%m%d'
