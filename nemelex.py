@@ -48,6 +48,10 @@ def apply_combo(combo, tofile = NOMINEE_FILE):
   f = open(tofile, 'a')
   f.write("%s %s\n" % (combo, time.strftime(DATE_FORMAT)))
   f.close()
+  global NEMELEX_COMBOS
+  global NEMELEX_SET
+  NEMELEX_COMBOS = _fixup_nominee_validity(find_previous_nominees())
+  NEMELEX_SET = set([x[0] for x in NEMELEX_COMBOS])
 
 def filter_combos(combos, filters):
   race_set = set([x[:2] for x in filters])
