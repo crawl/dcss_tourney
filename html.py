@@ -522,6 +522,8 @@ def whereis_table(c):
   where_list = []
   for w in where_data:
     where_list.append(w[2])
+    if where_list[-1][1] == 0:
+      where_list[-1][1] = ''
   return where_list
 
 def _strip_banner_suffix(banner):
