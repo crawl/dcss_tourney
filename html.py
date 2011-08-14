@@ -144,13 +144,13 @@ def pretty_time(time):
                                             time.tm_hour, time.tm_min,
                                             time.tm_sec)
 
-def how_old(date): 
+def how_old(date, bold_cutoff = 0): #cutoff in hours 
   if not date:
-    return None
+    return None,None
   if type(date) in [str, unicode]:
     m = R_STR_DATE.search(date)
     if not m:
-      return None
+      return None,None
     year = int(m.group(1))
     month = int(m.group(2))
     day = int(m.group(3))
@@ -166,7 +166,7 @@ def how_old(date):
     second = date.second
   t = time.gmtime()
   if t.tm_year > year or t.tm_mon > month:
-    return None
+    return None,None
   d = t.tm_mday - day
   h = t.tm_hour - hour
   m = t.tm_min - minute
@@ -178,7 +178,9 @@ def how_old(date):
     m += 60
     h -= 1
   h += 24*d
-  return "%d:%02d:%02d" % (h, m, s)    
+  if h < 0:
+    return "0:00:00", (0 < bold_cutoff)
+  return ("%d:%02d:%02d" % (h, m, s)), (h < bold_cutoff)
 
 def update_time():
   return '''<div class="updatetime">
@@ -199,7 +201,7 @@ def is_clan_header(header):
 
 
 def table_text(headers, data, cls='bordered', count=True, link=None,
-               width=None, place_column=-1, stub_text='No data', skip=False):
+               width=None, place_column=-1, stub_text='No data', skip=False, bold=False):
   if cls:
     cls = ''' class="%s"''' % cls
   if width:
@@ -227,7 +229,10 @@ def table_text(headers, data, cls='bordered', count=True, link=None,
 
   for row in data:
     nrow += 1
-    out += '''<tr class="%s">''' % (odd and "odd" or "even")
+    if bold and row[-1]:
+      out += '''<tr class="%s win">''' % (odd and "odd" or "even")
+    else:
+      out += '''<tr class="%s">''' % (odd and "odd" or "even")
     odd = not odd
 
     rplace += 1
@@ -456,7 +461,7 @@ def clan_affiliation(c, player, include_clan=True):
   return clan_html
 
 def make_milestone_string(w, src, make_links=False):
-  ago = how_old(w[0])
+  ago,new = how_old(w[0])
   if ago == None:
     return None
   if make_links:
@@ -487,41 +492,25 @@ def whereis(c, *players):
     where_string += w[1]
   return where_string
 
-def whereis_recent(c):
-  where_data = []
-  for w in query.whereis_all_players(c):
-    where = w[1]
-    mile_string = make_milestone_string(where, w[0], make_links=True)
-    if not mile_string:
-      continue
-    where_data.append([where[0], mile_string])
-  where_data.sort(key=lambda e: e[0], reverse=True)
-  if len(where_data) > 30:
-    where_data = where_data[:30]
-  where_string = ''
-  for w in where_data:
-    where_string += w[1]
-  return where_string
-
 def whereis_table(c):
   where_data = []
   for w in query.whereis_all_players(c):
     where = w[1]
-    ago = how_old(where[0])
+    ago,new = how_old(where[0],1)
     if ago == None:
       continue
     if where[5] == None:
       god_phrase = ''
     else:
       god_phrase = ' of %s' % where[5]
-    mile_data = [where[1], where[10], where[3], '%s%s' % (where[4], god_phrase), where[6][:-1], where[7], ('%s ago' % ago)]
-    where_data.append([where[10], where[3], mile_data])
-  where_data.sort(key=lambda e: 32*e[0]+e[1], reverse=True)
-  if len(where_data) > 30:
-    where_data = where_data[:30]
+    mile_data = [where[1], where[7], where[3], '%s%s' % (where[4], god_phrase), where[2], where[6], '%s ago' % ago, w[0].upper(), new]
+    where_data.append([where[7], where[3], where[0], mile_data])
+  where_data.sort(key=lambda e: (e[0],e[1],e[2]), reverse=True)
+  if len(where_data) > 50:
+    where_data = where_data[:50]
   where_list = []
   for w in where_data:
-    where_list.append(w[2])
+    where_list.append(w[3])
     if where_list[-1][1] == 0:
       where_list[-1][1] = ''
   return where_list

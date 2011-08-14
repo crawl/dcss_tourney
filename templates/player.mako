@@ -112,7 +112,7 @@
           </div>
 
           %if whereis:
-            <h3>Ongoing Game</h3>
+            <h3>Ongoing Games</h3>
             <div>
               ${whereis}
             </div>

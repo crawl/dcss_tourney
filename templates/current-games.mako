@@ -2,7 +2,6 @@
 
    import loaddb, query, crawl_utils, html
    c = attributes['cursor']
-   whereis = html.whereis_recent(c)
    whereis_list = html.whereis_table(c)
 
 %>
@@ -23,14 +22,9 @@
       <div class="page_content">
         <div class="content">
 
-        <h2>Recent Activity</h2>
-        <div>
-          ${whereis}
-        </div>
-
         <h2>Top Games in Progress</h2>
         <div>
-          ${html.table_text( [ 'Player', 'Runes', 'Level', 'Character', 'Action', 'Location', 'Time' ], whereis_list, count=False)}
+          ${html.table_text( [ 'Player', 'Runes', 'Level', 'Character', 'Title', 'Location', 'Time', 'Server' ], whereis_list, count=False, bold=True)}
         </div>
 
         </div>

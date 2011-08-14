@@ -91,7 +91,7 @@ def whereis_all_players(c):
     if last_game and last_game[0] >= r[2]:
       continue
     mile = query_row(c, '''SELECT milestone_time, player, title, xl, charabbrev,
-                                god, milestone, place, turn, duration, runes
+                                god, place, runes
                            FROM milestones
                           WHERE player = %s
                             AND start_time = %s
