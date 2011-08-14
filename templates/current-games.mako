@@ -23,9 +23,10 @@
         <div class="content">
 
         <h2>Top Games in Progress</h2>
-        <div>
-          ${html.table_text( [ 'Player', 'Runes', 'Level', 'Character', 'Title', 'Location', 'Time', 'Server' ], whereis_list, count=False, bold=True)}
+        <div class="fineprint">
+          Games in bold have been active within the past hour.
         </div>
+        ${html.table_text( [ 'Player', 'Runes', 'Level', 'Character', 'Title', 'Location', 'Time', 'Server' ], whereis_list, count=False, bold=True)}
 
         </div>
       </div>
