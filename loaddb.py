@@ -351,6 +351,12 @@ def xlog_set_killer_group(d):
 def strip_unique_qualifier(x):
   if 'Lernaean' in x:
     return 'the Lernaean hydra'
+  if 'Royal Jelly' in x:
+    return 'the royal jelly'
+  if 'Enchantress' in x:
+    return 'the Enchantress'
+  if 'Serpent of Hell' in x:
+    return 'the Serpent of Hell'
   if ',' in x:
     p = x.index(',')
     return x[:p]
