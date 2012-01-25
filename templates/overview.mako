@@ -4,7 +4,7 @@
 
    version = loaddb.T_VERSION
    year = loaddb.T_YEAR
-   title = "Crawl Tournament Leaderboard %s" % year
+   title = "Crawl %s Tournament Leaderboard" % version
    top_scores = query.find_games(c, sort_max='score', limit=3)
 
    nem_list = nemelex.list_nemelex_choices(c)
@@ -35,8 +35,8 @@
         <div class="heading">
           <h1>${title}</h1>
           <p class="fineprint">
-            Tournament starts August 13, ${year} at midnight UTC, and ends on
-            August 29, ${year} at midnight UTC.
+            Tournament starts February 25, ${year} at midnight UTC, and ends on
+            March 12, ${year} at midnight UTC.
           </p>
         </div>
         <hr>

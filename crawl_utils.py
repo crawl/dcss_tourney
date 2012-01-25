@@ -10,7 +10,7 @@ UPDATE_INTERVAL = 7 * 60
 LOCK = None
 BASEDIR = os.environ['HOME']
 LOCKFILE = BASEDIR + '/tourney-py.lock'
-SCORE_FILE_DIR = 'html.tourney11'
+SCORE_FILE_DIR = 'html.tourney12a'
 
 SCORE_CSS = 'tourney-score.css'
 SCORE_CSS_PATH = SCORE_FILE_DIR + "/" + SCORE_CSS
