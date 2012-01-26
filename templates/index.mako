@@ -2,7 +2,7 @@
    import loaddb
    version = loaddb.T_VERSION
    year    = loaddb.T_YEAR
-   title   = "Crawl %s Tournament Information" % year
+   title   = "Crawl %s Tournament Information" % version
  %>
 <!DOCTYPE html>
 <html>
@@ -19,28 +19,22 @@
         <div class="heading">
           <h1>${title}</h1>
           <p class="fineprint">
-            Tournament starts Aug 13, ${year} at midnight UTC, and ends on
-            Aug 29, ${year} at midnight UTC.
+            Tournament starts Feb 25, ${year} at midnight UTC, and ends on
+            Mar 12, ${year} at midnight UTC.
           </p>
         </div>
         <hr>
 
         <div class="content">
           <p>
-            Hello all! Welcome to the rules for the crawl.akrasiac.org
-            ${year} Dungeon Crawl Stone Soup Tournament. The simple part:
+            Hello all! Welcome to the rules for the
+            ${version} Dungeon Crawl Stone Soup Tournament. The simple part:
             Play on <a href="http://crawl.akrasiac.org">crawl.akrasiac.org</a>
             or <a href="http://crawl.develz.org">crawl.develz.org</a> and all of
             your Crawl ${version} games that <b>start after midnight UTC on
-            August 13</b> and <b>end before midnight UTC on August 29</b> will
+            February 25</b> and <b>end before midnight UTC on March 12</b> will
             count toward the tournament.
           </p>
-
-          <div class="inset">
-            <p>
-              <span class="inline_heading">Important note to those playing on CDO:</span> Webtiles is now updated to 0.9 and you can play tourney games on CDO in either console or webtiles! Many apologies for the delay.
-            </p>
-          </div>
 
           <p>
             For players who participated in previous
@@ -106,7 +100,7 @@
 
           <p>
             Clans may be changed by adding or removing players at any
-            time until midnight UTC on <b>Aug 21</b>, after which clans will be
+            time until midnight UTC on <b>March 4</b>, after which clans will be
             effectively frozen.
           </p>
 
@@ -126,28 +120,12 @@
             </p>
 
             <p>
-              <span>10 points</span> for each win of a player after
-              her first win (unless this is the second win and earned
-              50 points from the rule above).
-            </p>
-
-            <p>
-              <span>25 extra points</span> for each win by a player
-              with a god (including "No God") that the player did not
-              previously win a game in the tournament with. For purposes of
-              these points we say that a player wins with a god if she reaches
-              full (******) piety with that god before reaching full piety with
-              any other god. For Xom, you must play a Chaos Knight and never
-              abandon Xom.
-            </p>
-
-            <p>
-              <span>50 extra points</span> for each consecutive (streak) win
+              <span>60 extra points</span> for each consecutive (streak) win
               by a player with a race that has not 
 	      previously been a streak win for that player.
             </p>
             <p>
-              <span>25 extra points</span> for each consecutive (streak) win
+              <span>30 extra points</span> for each consecutive (streak) win
               by a player with a class that has not 
 	      previously been a streak win for that player.
             </p>
@@ -172,7 +150,7 @@
           <hr>
 
           <div>
-            <h2>RACE AND CLASS WINS</h2>
+            <h2>RACE/CLASS/GOD WINS</h2>
             <p>
               <span>2*(48+T)/(2+R) points</span> (rounded up) for a win with a given race if T is the total number of games won in the tournament before the start of the win in question and R of those T were with the given race. If a player wins the same race multiple times, she only gets the largest value of this bonus among the wins, not the sum.
 
@@ -180,19 +158,23 @@
               win will be worth 2*(48+10)/(2+2) = 29 additional points.
             </p>
             <p>
-              <span>(54+T)/(2+C) points</span> (rounded up) for a win with a given class if T is the total number of games won in the tournament before the start of the win in question and C of those T were with the given class. If a player wins the same class multiple times, she only gets the largest value of this bonus, not the sum.
+              <span>(56+T)/(2+C) points</span> (rounded up) for a win with a given class if T is the total number of games won in the tournament before the start of the win in question and C of those T were with the given class. If a player wins the same class multiple times, she only gets the largest value of this bonus, not the sum.
+            </p>
+            <p>
+              <span>1.5*(38+T)/(2+G) points</span> (rounded up) for a win with a given god if T is the total number of games won in the tournament before the start of the win in question and G of those T were with the given god. If a player wins with the same god multiple times, she only gets the largest value of this bonus, not the sum. For purposes of these points we say that a player wins with a god if she reaches full (******) piety with that god before reaching full piety with any other god. For Xom, you must play a Chaos Knight and never abandon Xom. For "No God", you must never worship a god.
             </p>
             <div class="inset">
               <p>
-	        For clan scoring, if a clan has multiple wins for the same race
-                or class, only the largest value of the bonus among the wins
-                is used, not the sum.
+	        For clan scoring, if a clan has multiple wins for the same race,
+                class, or god, only the largest value of the bonus among the
+                wins is used, not the sum.
 	      </p>
             </div>
             <div class="inset">
               <p>
-	        The current values of the bonus for each race and class will be
-                listed on the "Species/Classes" page for your convenience.
+	        The current values of the bonus for each race, class, or god
+                will be
+                listed on the "Species/Classes/Gods" page for your convenience.
 	      </p>
             </div>
           </div>
@@ -219,7 +201,7 @@
 	      Temple, Lair, Orc, Hive, or the Vaults (<a href="#lord_of_darkness">LORD OF DARKNESS</a> banner).
 	    </p>
             <p>
-              <span>75 bonus points</span> for winning <a href="#nemelex_choice">NEMELEX' CHOICE</a> characters. The first Nemelex' Choice combo is chosen at the start of the tournament, and after that each one is chosen when the previous one is won for the first time. Each combo remains valid until it has been won five times. The race/class combinations are chosen by Nemelex from those with the fewest wins in Crawl version 0.6 and newer, with no race or class repeated.
+              <span>75 bonus points</span> for winning <a href="#nemelex_choice">NEMELEX' CHOICE</a> characters. The first Nemelex' Choice combo is chosen at the start of the tournament, and after that each one is chosen when the previous one is won for the first time. Each combo remains valid until it has been won five times. The race/class combinations are chosen by Nemelex from those with abbreviations spelling out English words.
             </p>
           </div>
 
@@ -266,6 +248,27 @@
 
             <p><span>50-20-10 points</span> for the players with the most unique 
 	    uniques killed; ties broken by who gets that number first.</p>
+          </div>
+
+          <hr>
+
+          <div>
+            <h2> GODS </h2>
+            <p>
+              <span>10 points</span> the first time you reach full (******)
+              piety with each god without having reached full piety with any
+              other god first that game.
+            </p>
+          </div>
+
+          <hr>
+
+          <div>
+            <h2> BRANCHES </h2>
+            <p>
+              <span>5 points</span> the first time you enter each branch or
+              portal vault or reach the end of a multi-level branch.
+            </p>
           </div>
 
           <hr>
@@ -352,16 +355,29 @@
             <hr>
 
             <div>
+              <p>
+                Each god gives out three levels of banner.
+              </p>
+            </div>
+
+            <hr>
+
+            <div>
 	      <img src="images/banner_ashenzari.png"
-                   alt="Runic Literacy"
-                   title="Runic Literacy"
+                   alt="The Explorer"
+                   title="The Explorer"
                    width="150" height="55"
                    >
               <p>
-                Ashenzari thinks that runes are really interesting and wants
-                players to achieve 
-                <a name="runic_literacy">RUNIC LITERACY</a>, finding each
-                rune sometime during the tournament.
+                Ashenzari thinks that a true
+                <a name="explorer">EXPLORER</a> should be devoted to a search
+                for runes of Zot.
+
+                1: Enter a branch that contains a rune.
+
+                2: Find 5 distinct runes over the course of the tourney.
+
+                3: Find 16 distinct runes over the course of the tourney.
               </p>
             </div>
 
@@ -369,15 +385,22 @@
 
             <div>
 	      <img src="images/banner_beogh.png"
-                   alt="Saint"
-                   title="Saint"
+                   alt="The Saint"
+                   title="The Saint"
                    width="150" height="55"
                    >
               <p>
 	        Beogh thinks that the only thing more important than
                 having friends is dominating your friends, and will recognize
                 as a <a name="saint">SAINT</a> the player with the highest
-                tournament score (100 points minimum) on each clan.
+                tournament score on each clan, especially if that player
+                leads her clan to glory.
+
+                1: Have the highest score in your clan.
+
+                2: Have the highest score in a clan that is ranked in the top 20.
+
+                3: Have the highest score in a clan that is ranked in the top 5.
               </p>
             </div>
 
@@ -392,8 +415,14 @@
               <p>
                 Cheibriados believes in being
                 <a name="slow_and_steady">SLOW AND STEADY</a> and will
-                so recognize players who are careful enough to win two
-                games in a row.
+                so recognize players who are careful enough to excel in
+                consecutive games.
+
+                1: Reach experience level 9 in two consecutive games.
+
+                2: Achieve a two-win streak.
+
+                3: Achieve a three-win streak with three distinct races and three distinct classes.
               </p>
             </div>
 
@@ -401,17 +430,22 @@
 
             <div>
 	      <img src="images/banner_elyvilon.png"
-                   alt="The Pantheon"
-                   title="The Pantheon"
+                   alt="The Pious"
+                   title="The Pious"
                    width="150" height="55"
                    >
               <p>
                 Elyvilon thinks it's important to check out what all
                 the gods have to offer and thus will
-                give <a name="the_pantheon">THE PANTHEON</a> to any
-                player who becomes the Champion (******) of every god
-                (other than Xom) over
-                the course of the tournament.
+                recognize as <a name="pious">PIOUS</a> any
+                player who becomes the Champion (******) of as many gods
+                as possible.
+
+                1: Become the champion of any god.
+
+                2: Become the champion of five different gods over the course of the tournament.
+
+                3: Become the champion of every god other than Xom over the course of the tournament.
               </p>
             </div>
 
@@ -419,19 +453,18 @@
 
             <div>
 	      <img src="images/banner_fedhas.png"
-                   alt="The Fruit Basket"
-                   title="The Fruit Basket"
+                   alt="Nature's Ally"
+                   title="Nature's Ally"
                    width="150" height="55"
                    >
               <p>
-                Fedhas is extraordinarily fond of fruit and
-                vegetables, and will award <a name="the_fruit_basket">THE
-                FRUIT BASKET</a> to a player who finds every kind of
-                fruit (pear, apple, choko, apricot, orange, banana,
-                strawberry, rambutan, lemon, grape, sultana, lychee, snozzcumber)
-                over the course of the tournament. Fruits count toward
-                the Fruit Basket when picked up - merely finding the fruit
-                on the ground or eating it off the ground does not.
+                Fedhas thinks that the Crypt and the Tomb are abominations against nature and will bestow the title of <a name="natures_ally">NATURE'S ALLY</a> on a player who works towards destroying them.
+
+                1: Enter the Crypt.
+
+                2: Get the golden rune.
+
+                3: Enter Tomb for the first time after picking up the Orb of Zot, and then get the golden rune.
               </p>
             </div>
 
@@ -445,9 +478,15 @@
                    >
               <p>
                 Jiyva thinks that it is important to be flexible and will gift
-                players who reach experience level 9 with at least 9 distinct
-                races and at least 9 distinct classes with a 
+                players who excel with at least 5 distinct
+                races and at least 5 distinct classes with a 
                 <a name="gelatinous_body">GELATINOUS BODY</a>.
+
+                1: Reach XL 9 with at least 5 distinct races and at least 5 distinct classes.
+
+                2: Get a rune with at least 5 distinct races and at least 5 distinct classes.
+
+                3: Win with at least 5 distinct races and at least 5 distinct classes.
               </p>
             </div>
 
@@ -461,11 +500,15 @@
                    >
               <p>
                 Kikubaaqudgha wants players to demonstrate their mastery over
-                the forces of darkness without delay, and will recognise any
-                player who wins without wasting time entering any branch as
-                a <a name="lord_of_darkness">LORD OF DARKNESS</a>. (<span>+40
-                points</span> for each game won without entering Temple, Lair,
-                Orc, Hive, or the Vaults.)
+                the forces of darkness without delay, and will recognise a player
+                who shows disdain for the Lair as
+                a <a name="lord_of_darkness">LORD OF DARKNESS</a>.
+
+                1: Enter the Vestibule of Hell without having entered the Lair.
+
+                2: Win a game without having entered the Lair.
+
+                3: Win a game without having entered the Temple, the Orcish Mines, the Lair, or the Vaults (+40 tournament points).
               </p>
             </div>
 
@@ -473,15 +516,19 @@
 
             <div>
 	      <img src="images/banner_lugonu.png"
-                   alt="The Atheist"
-                   title="The Atheist"
+                   alt="The Abyssal Tourist"
+                   title="The Abyssal Tourist"
                    width="150" height="55"
                    >
               <p>
-                Lugonu, who hates the other gods, would like to
-                award <a name="the_atheist">THE ATHEIST</a> to any winning
-                player who never worshipped a god even though having the option
-                of doing so (not a demigod).
+                Lugonu would like to corrupt the worshippers of other gods by
+                inviting them to the Abyss. Those who prove worthy will be officially designated as <a name="abyssal_tourists">ABYSSAL TOURISTS</a>.
+
+1: Survive the Abyss without having ever been a follower of Lugonu during that game.
+
+2: Find the abyssal rune without dying in the Abyss or ever having been a follower of Lugonu during that game.
+
+3: Find the abyssal rune before reaching experience level 13 and without dying in the Abyss or ever having been a follower of Lugonu during that game.
               </p>
             </div>
 
@@ -495,8 +542,14 @@
                    >
               <p>
                 Makhleb wants to see bloodshed as quickly as possible and
-                will recognise any player who reaches D:27 in no more than 27
-                minutes as a true <a name="speed_demon">SPEED DEMON</a>.
+                will give players just 27
+                minutes to prove themselves as <a name="speed_demons">SPEED DEMONS</a>.
+
+1: Reach D:14 in 27 minutes.
+
+2: Reach D:27 in 27 minutes.
+
+3: Reach D:27 in 27 minutes without using a speedy race (centaur, spriggan, or felid).
               </p>
             </div>
 
@@ -512,9 +565,16 @@
                 Nemelex Xobeh wants to see players struggle and loves
                 randomness, and so will give the
                 <a name="nemelex_choice">NEMELEX' CHOICE</a> award
-                to the first five players to win each of several combos
+                to players to persevere with one of several combos
                 randomly chosen and announced throughout the
-                tournament.
+                tournament. Nemelex has been playing a lot of Scrabble
+                this year, so these combos will all spell out English words.
+
+                1: Reach experience level 9 with a Nemelex' choice combo.
+
+                2: Get a rune with a Nemelex' choice combo.
+
+                3: Be one of the first 5 players to win a given Nemelex' choice combo (+75 tournament points).
               </p>
             </div>
 
@@ -522,14 +582,20 @@
 
             <div>
 	      <img src="images/banner_okawaru.png"
-                   alt="The Orb"
-                   title="The Orb"
+                   alt="The Conqueror"
+                   title="The Conqueror"
                    width="150" height="55"
                    >
               <p>
                 Okawaru is all about winning, all the time, and thus
-                will award <a name="the_orb">THE ORB</a> to any player who
-                successfully wins.
+                will recognize as <a name="the_conqueror">THE CONQUEROR</a> any player who
+                is victorious.
+
+                1: Reach the end of any branch that contains more than one level.
+
+                2: Win a game.
+
+                3: Win a game without having worshipped any gods, as any race other than demigod.
               </p>
             </div>
 
@@ -542,10 +608,14 @@
                    width="150" height="55"
                    >
               <p>
-                Sif Muna thinks that a broad base of knowledge is important
-                and will award <a name="the_scholar">THE SCHOLAR</a>
-                to any player who raises every magic skill to 15 over the
-                course of the tournament.
+                Sif Muna thinks that nothing is more important than learning magic and will recognize as <a name="the_scholar">THE SCHOLAR</a>
+                any player who shows dedication to such studies.
+
+                1: Raise a magic skill to 15.
+
+                2: Raise a magic skill to 27.
+
+                3: Raise five different magic skills to 27 over the course of the tournament. 
               </p>
             </div>
 
@@ -553,14 +623,20 @@
 
             <div>
 	      <img src="images/banner_tso.png"
-                   alt="Discovered Language"
-                   title="Discovered Language"
+                   alt="Vow of Courage"
+                   title="Vow of Courage"
                    width="150" height="55"
                    >
               <p>
-                The Shining One thinks it's about time that the player
-                <a name="discovered_language">DISCOVERED LANGUAGE</a> by
-                finding her first rune.
+                The Shining One thinks each player should take a
+                <a name="vow_of_courage">VOW OF COURAGE</a> and not delay
+                in getting their runes.
+
+                1: Get a rune before entering D:14 (or below).
+
+                2: Get two runes before entering D:14 (or below).
+
+                3: Get four runes before entering D:14 (or below).
               </p>
             </div>
 
@@ -568,15 +644,20 @@
 
             <div>
 	      <img src="images/banner_trog.png"
-                   alt="The Scythe"
-                   title="The Scythe"
+                   alt="The Sniper"
+                   title="The Sniper"
                    width="150" height="55"
                    >
               <p>
-                Trog, who hates spellcasters, would like to
-                award <a name="the_scythe">THE SCYTHE</a> to any player
-                who kills Sigmund in the Temple before reaching experience
-                level 10.
+                Trog will recognize as
+                <a name="the_sniper">THE SNIPER</a> any player
+                who steals a high score from another player.
+
+                1: Steal a combo high score that was previously of at least 1,000 points.
+
+                2: Steal a combo high score for a previously won combo.
+
+                3: Steal a species high score using a previously won species.
               </p>
             </div>
 
@@ -584,17 +665,20 @@
 
             <div>
 	      <img src="images/banner_vehumet.png"
-                   alt="Let it end in hellfire"
-                   title="Let it end in hellfire"
+                   alt="Ruthless Efficiency"
+                   title="Ruthless Efficiency"
                    width="150" height="55"
                    >
               <p>
-                Vehumet wants you to
-                <a name="let_it_end_in_hellfire">LET IT END IN HELLFIRE</a> and
-                thus encourages you to enter
-                one of Swamp, Snake, Shoals, Slime, Vaults, and Tomb for the
-                first time and get the rune there... all after having
-                picked up the Orb of Zot.
+                Vehumet wants you to demonstrate
+                <a name="ruthless_efficiency">RUTHLESS EFFICIENCY</a> by
+                killing multiple uniques at once.
+
+                1: Kill two uniques within one turn of each other.
+
+                2: Kill two uniques who cannot generate before depth 14 within one turn of each other.
+
+                3: Kill two uniques who cannot generate before depth 20 on the same turn.
               </p>
             </div>
 
@@ -610,8 +694,13 @@
                 Xom is always looking for entertainment and thinks it would be
                 hilarious to watch a player's
                 <a name="descent_into_madness">DESCENT INTO MADNESS</a>
-                through 27 ziggurat levels
-                (possibly over multiple games and multiple ziggurats).
+                through a ziggurat.
+
+                1: Enter a ziggurat.
+
+                2: Reach the 14th floor of a ziggurat.
+
+                3: Leave a ziggurat from its lowest floor.
               </p>
             </div>
 
@@ -624,10 +713,15 @@
                    width="150" height="55"
                    >
               <p>
-                Yredelemnul demands that clans attempt to kill every unique and
+                Yredelemnul demands that you kill as many uniques as possible and
                 will recognise success by awarding 
-                <a name="the_harvest">THE HARVEST</a> to each member of such
-                a clan.
+                <a name="the_harvest">THE HARVEST</a>.
+
+                1: Kill 25 distinct uniques over the course of the tournament.
+
+                2: Kill 45 distinct uniques over the course of the tournament.
+
+                3: Kill 65 distinct uniques over the course of the tournament.
               </p>
             </div>
 
@@ -642,10 +736,13 @@
               <p>
                 Zin will give the
                 <a name="angel_of_justice">ANGEL OF JUSTICE</a> award to any
-                player who cleanses Hell and Pandemonium by killing all the
-                demon lords who reside there (Antaeus, Asmodeus, Cerebov,
-                Dispater, Ereshkigal, Gloorx Vloq, Lom Lobon, and Mnoleg)
-                over the course of the tournament.
+                player who attempts to cleanse Hell and Pandemonium.
+
+                1: Enter either Pandemonium or any branch of Hell.
+
+                2: Kill at least one unique pan lord and at least one unique hell lord over the course of the tournament.
+
+                3: Kill all four unique pan lords and all four unique hell lords over the course of the tournament.
               </p>
             </div>
           </div>
@@ -659,14 +756,12 @@
             <hr>
             <div class="fineprint">
               <p>
-                Some rules have been changed from the 2010
-                tournament. This is a list of rules differences. Changes that
-                were already adopted in the unofficial 0.8 tournament in May
-                2011 are listed here as well.
+                Some rules have been changed from the August 2011
+                tournament. This is a list of rules differences.
               </p>
 
               <p><span class="removed">[REMOVED]</span>
-                flags rules that existed in 2010 and are gone in
+                flags rules that existed in August 2011 and are gone in
                 this tournament.</p>
 
               <p><span class="added">[NEW]</span>
@@ -675,8 +770,8 @@
               <p><span class="changed">[CHANGED]</span>
                 flags rules that have been modified for this 
 		tournament. To compare
-                changed rules with the rules for 2010, see
-                the <a href="http://crawl.akrasiac.org/tourney10">2010
+                changed rules with the rules in August 2011, see
+                the <a href="http://crawl.akrasiac.org/tourney11">August 2011
                 rules</a>
               </p>
             </div>
@@ -684,117 +779,46 @@
             <hr>
 
             <p class="added">
-              <span>2*(48+T)/(2+R) points</span> (rounded up) for a win with a given race if T is the total number of games won in the tournament before the start of the win in question and R of those T were with the given race. If a player wins the same race multiple times, she only gets the largest value of this bonus among the wins, not the sum (and the same for clans).
+	      <span>New banner system:</span> each god offers banners of three difficulty levels, each building on the previous one.
               <span class="added">[NEW]</span>
             </p>
             <p class="added">
-              <span>(54+T)/(2+C) points</span> (rounded up) for a win with a given class if T is the total number of games won in the tournament before the start of the win in question and C of those T were with the given class. If a player wins the same class multiple times, she only gets the largest value of this bonus, not the sum (and the same for clans).
+              <span>1.5*(38+T)/(2+G) points</span> (rounded up) for a win with a given god if T is the total number of games won in the tournament before the start of the win in question and G of those T were with the given god. If a player wins with the same god multiple times, she only gets the largest value of this bonus, not the sum. For purposes of these points we say that a player wins with a god if she reaches full (******) piety with that god before reaching full piety with any other god. For Xom, you must play a Chaos Knight and never abandon Xom. For "No God", you must never worship a god.
+              <span class="added">[NEW]</span>
+            <p class="added">
+	      <span>5 points</span> the first time you enter each branch or
+              portal vault or reach the end of a multi-level branch.
               <span class="added">[NEW]</span>
             </p>
             <p class="changed">
-	      <span>5,000,000/turncount points</span> for each player's fastest win (by turncount). (Previously 200-100-50 points for the fastest three games.)
-              <span class="changed">[CHANGED]</span>
-            </p>
-            <p class="changed">
-	      <span>1,250,000/duration points</span> for each player's fastest win (by realtime, measured in seconds). (Previously 200-100-50 points for the fastest three games.)
-              <span class="changed">[CHANGED]</span>
-            </p>
-            <p class="changed">
-	      <span>score/120,000 points</span> for each player's highest scoring winning game. (Previously 200-100-50 points for the highest scoring three games.)
-              <span class="changed">[CHANGED]</span>
-            </p>
-            <p class="changed">
-              <span>50 extra points</span> for each consecutive (streak) win
+              <span>60 extra points</span> for each consecutive (streak) win
               by a player with a race that has not 
-	      previously been a streak win for that player. (Previously streak points were computed differently.)
+	      previously been a streak win for that player. (Used to be 50 points.)
               <span class="changed">[CHANGED]</span>
             </p>
             <p class="changed">
-	      <span>25 extra points</span> for each consecutive (streak) win
+              <span>30 extra points</span> for each consecutive (streak) win
               by a player with a class that has not 
-	      previously been a streak win for that player. (Previously streak points were computed differently.)
+	      previously been a streak win for that player. (Used to be 25 points.)
               <span class="changed">[CHANGED]</span>
             </p>
             <p class="changed">
-	      <span>200-100-50 points</span> for longest streak of
-              winning games, where "length" of 
-	      a streak is defined as min(number of distinct races used, number 
-	      of distinct classes used). (Previously diversity of the streak 
-	      did not matter here.)
+              <span>10 points</span> the first time you reach full (******)
+              piety with each god without having reached full piety with any
+              other god first that game. (Used to be 25 points and only
+              for winning games.)
               <span class="changed">[CHANGED]</span>
             </p>
             <p class="changed">
-              <span>25 extra points</span> for each win by a player
-              with a god (including "No God") that the player did not
-              previously win a game in the tournament with. For purposes of
-              these points we say that a player wins with a god if she reaches
-              full (******) piety with that god before reaching full piety with
-              any other god. For Xom, you must never have worshipped another god.
-              (Was 20 points, full piety was not required,
-              changing gods was not allowed.)
-              <span class="changed">[CHANGED]</span>
-            </p>
-            <p class="changed">
-              <span>30/N points</span> (rounded up) each time you find a 
-              type of rune for the Nth time. (Was 50 points for the first 
-	      time and 1 point each time after the first.)
-              <span class="changed">[CHANGED]</span>
-            </p>
-            <p class="changed">
-              <span>20 points</span> per high score in a race. (Was 10 points.)
-              <span class="changed">[CHANGED]</span>
-            </p>
-            <p class="changed">
-	      <span>200-100-50 clan points</span> for the players with the most high scores in race/class combinations. (Was individual points previously.)
-              <span class="changed">[CHANGED]</span>
-            </p>
-            <p class="changed">
-              <span>40 bonus points</span> for a win without visiting Temple, Lair, Orc, Hive, or the Vaults (<a href="#lord_of_darkness">LORD OF DARKNESS</a> banner). (Was 20 bonus points and just not visiting Lair.)
-              <span class="changed">[CHANGED]</span>
-            </p>
-            <p class="changed">
-	      <span>75 bonus points</span> for winning <a href="#nemelex_choice">NEMELEX' CHOICE</a> characters. The first Nemelex' Choice combo is chosen at the start of the tournament, and after that each one is chosen when the previous one is won for the first time. Each combo remains valid until it has been won five times. The race/class combinations are chosen by Nemelex from those with the fewest wins in Crawl version 0.6 and newer, with no race or class repeated.
-              <span class="changed">[CHANGED]</span>
-            </p>
-            <p class="changed">
-	      <span>Many other banners</span> were altered or replaced by new ones.
+	      <a href="#nemelex_choice">NEMELEX' CHOICE</a> characters are now chosen by Nemelex from those with abbreviations spelling out <span>English words</span>.
               <span class="changed">[CHANGED]</span>
             </p>
             <p class="removed">
-              <span>50 extra points</span> for a player's first
-              all-rune victory.
-              <span class="removed">[REMOVED]</span>
-            <p class="removed">
-              <span>30 extra points</span> for each non-consecutive
-              win by a player that is not a repeat race or class of
-              any of her prior wins.
+              <span>10 points</span> for each win of a player after her first
+              win.
               <span class="removed">[REMOVED]</span>
             </p>
-            <p class="removed">
-              <span>10 extra points</span> for each non-consecutive
-              win by a player that is a repeat race xor class of
-              any of her prior wins.
-              <span class="removed">[REMOVED]</span>
-            </p>
-            <p class="removed">
-	      <span>100 points</span> for a player's first game where she 
-	      destroys the Orb of Zot.
-              <span class="removed">[REMOVED]</span>
-            </p>
-	    <p class="removed">
-	      <span>200-100-50 clan points</span> for fewest creatures
-              killed (including by summons, &amp;c.) in a win.
-              <span class="removed">[REMOVED]</span>
-            </p>
-	    <p class="removed">
-	      <span>10 clan points</span> for each distinct skill raised to
-              level 27.
-              <span class="removed">[REMOVED]</span>
-            </p>
-	    <p class="removed">
-	      <span>All points</span> for Sprint games.
-              <span class="removed">[REMOVED]</span>
-            </p>	    
+	    
           </div>
 
           <hr>
@@ -807,12 +831,16 @@
             <p>
               <span>greensnark</span> for writing the original tournament
               scripts that have been adapted for use in this tournament. 
-            <p>
-            <p>
-              <span>Wensley</span> for the new banner images.
             </p>
-              <span>Onia</span>, <span>due</span>, and <span>purge</span> for
+            <p>
+              <span>???</span> for the new banner images.
+            </p>
+            <p>
+              <span>Wensley</span> for
               the old banner images.
+            </p>
+            <p>
+              <span>Many people</span> for suggestions for banners.
             </p>
           </div>
 
