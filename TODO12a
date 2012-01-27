@@ -1,6 +1,8 @@
-TODO for tourney12a, as of Jan 26:
+TODO for tourney12a, as of Jan 27:
 
 * finalize rule list
+  - mainly just polishing left and figuring out the best way of presenting
+    the banners
 
 * fix scoring to agree with the rules
   - different number of classes means class point formula is different
@@ -9,18 +11,16 @@ TODO for tourney12a, as of Jan 26:
   - change old god points to be not just for winners
   - remove the 10 points for every win after the first one.
   - banners!
-  - change Nemelex selection to not worry about repeating races/classes
-
-* update credits
+  - change Nemelex selection to look at high scores... probably pick randomly from the lowest 20ish combos that don't repeat, so it isn't too predictable
 
 * fix stuff that might be broken by having a new month during the tourney
 
 * fix stuff that might be affected by hive removal
 
-* figure out where scripts will be hosted
-
-* test stuff
-
 * get banner images
 
+* update credits
+
 * get stuff announced
+
+* test stuff
