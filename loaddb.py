@@ -17,7 +17,7 @@ T_YEAR = '2012'
 T_VERSION = '0.10'
 
 # Start and end of the tournament, UTC.
-START_TIME = T_YEAR + '0225'
+START_TIME = T_YEAR + '0101'
 END_TIME   = T_YEAR + '0312'
 
 DATE_FORMAT = '%Y%m%d'
@@ -32,12 +32,12 @@ CAO = 'http://crawl.akrasiac.org/'
 # Log and milestone files. A tuple indicates a remote file with t[1]
 # being the URL to wget -c from.
 
-LOGS = [ LOCAL_TEST and ('cao-logfile-0.9', CAO + 'logfile09')
-         or 'cao-logfile-0.9',
+LOGS = [ LOCAL_TEST and ('cao-logfile-git', CAO + 'logfile-git')
+         or 'cao-logfile-git',
          ('cdo-logfile-svn', CDO + 'allgames-svn.txt') ]
 
-MILESTONES = [ LOCAL_TEST and ('cao-milestones-0.9', CAO + 'milestones09')
-               or 'cao-milestones-0.9',
+MILESTONES = [ LOCAL_TEST and ('cao-milestones-git', CAO + 'milestones-git')
+               or 'cao-milestones-git',
                ('cdo-milestones-svn', CDO + 'milestones-svn.txt') ]
 
 BLACKLIST_FILE = 'blacklist.txt'
