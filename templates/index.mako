@@ -201,7 +201,7 @@
 	      Temple, Lair, Orc, Hive, or the Vaults (<a href="#lord_of_darkness">LORD OF DARKNESS</a> banner).
 	    </p>
             <p>
-              <span>75 bonus points</span> for winning <a href="#nemelex_choice">NEMELEX' CHOICE</a> characters. The first Nemelex' Choice combo is chosen at the start of the tournament, and after that each one is chosen when the previous one is won for the first time. Each combo remains valid until it has been won five times. The race/class combinations are chosen by Nemelex from those with abbreviations spelling out English words.
+              <span>75 bonus points</span> for winning <a href="#nemelex_choice">NEMELEX' CHOICE</a> characters. The first Nemelex' Choice combo is chosen at the start of the tournament, and after that each one is chosen when the previous one is won for the first time. Each combo remains valid until it has been won five times. The race/class combinations are chosen by Nemelex from those with a low high score so far in the tournament, avoiding repetition of race or class.
             </p>
           </div>
 
@@ -567,8 +567,7 @@
                 <a name="nemelex_choice">NEMELEX' CHOICE</a> award
                 to players to persevere with one of several combos
                 randomly chosen and announced throughout the
-                tournament. Nemelex has been playing a lot of Scrabble
-                this year, so these combos will all spell out English words.
+                tournament.
 
                 1: Reach experience level 9 with a Nemelex' choice combo.
 
@@ -595,7 +594,7 @@
 
                 2: Win a game.
 
-                3: Win a game without having worshipped any gods, as any race other than demigod.
+                3: Win a game in under 50000 turns.
               </p>
             </div>
 
@@ -603,19 +602,20 @@
 
             <div>
 	      <img src="images/banner_sif.png"
-                   alt="The Scholar"
-                   title="The Scholar"
+                   alt="The Student"
+                   title="The Student"
                    width="150" height="55"
                    >
               <p>
-                Sif Muna thinks that nothing is more important than learning magic and will recognize as <a name="the_scholar">THE SCHOLAR</a>
-                any player who shows dedication to such studies.
+                Sif Muna thinks that you should ignore distractions such
+                as gold and religion to focus on your studies
+                as a <a name="the_student">STUDENT</a> of magic.
 
-                1: Raise a magic skill to 15.
+                1: Get at least 1000 gold in a game in which no gold is spent.
 
-                2: Raise a magic skill to 27.
+                2: Win a game without spending any gold.
 
-                3: Raise five different magic skills to 27 over the course of the tournament. 
+                3: Win a game without spending any gold or worshipping a god.
               </p>
             </div>
 
@@ -810,7 +810,7 @@
               <span class="changed">[CHANGED]</span>
             </p>
             <p class="changed">
-	      <a href="#nemelex_choice">NEMELEX' CHOICE</a> characters are now chosen by Nemelex from those with abbreviations spelling out <span>English words</span>.
+	      <a href="#nemelex_choice">NEMELEX' CHOICE</a> characters are now chosen by Nemelex from those with a low high score so far in the tournament.
               <span class="changed">[CHANGED]</span>
             </p>
             <p class="removed">
@@ -833,14 +833,11 @@
               scripts that have been adapted for use in this tournament. 
             </p>
             <p>
-              <span>???</span> for the new banner images.
+              <span>Wensley</span> for hosting the tournament scripts and
+                    creating the banner images.
             </p>
             <p>
-              <span>Wensley</span> for
-              the old banner images.
-            </p>
-            <p>
-              <span>Many people</span> for suggestions for banners.
+              <span>Many people</span> for banner ideas.
             </p>
           </div>
 
