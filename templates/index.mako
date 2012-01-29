@@ -526,9 +526,9 @@
 
 1: Survive the Abyss without having ever been a follower of Lugonu during that game.
 
-2: Find the abyssal rune without dying in the Abyss or ever having been a follower of Lugonu during that game.
+2: Find the abyssal rune and then escape the Abyss without ever having been a follower of Lugonu during that game.
 
-3: Find the abyssal rune before reaching experience level 13 and without dying in the Abyss or ever having been a follower of Lugonu during that game.
+3: Find the abyssal rune and then escape the Abyss before reaching experience level 13 and without ever having been a follower of Lugonu during that game.
               </p>
             </div>
 
@@ -632,11 +632,11 @@
                 <a name="vow_of_courage">VOW OF COURAGE</a> and not delay
                 in getting their runes.
 
-                1: Get a rune before entering D:14 (or below).
+                1: Get a rune before entering D:14 (or below) in that game.
 
-                2: Get two runes before entering D:14 (or below).
+                2: Get two runes before entering D:14 (or below) in that game.
 
-                3: Get four runes before entering D:14 (or below).
+                3: Get four runes before entering D:14 (or below) in that game.
               </p>
             </div>
 
