@@ -339,10 +339,9 @@
             <h2>CLAN SCORING</h2>
 
             <p>
-              Sum total of all individual points with the exception of 
-              "Race and class wins" points (which are computed on 
-              the level of clans as described in that section), plus the 
-	      "Clan points only" trophies above.
+              Sum total of all individual points with the exception of
+              "Race/Class/God wins" points (for which only the largest value of the bonus among the clan's wins is used, as described in that section), plus the
+	      "Clan points only" awards above.
             </p>
 
             <p>
