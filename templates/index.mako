@@ -1,4 +1,5 @@
 <%
+   from crawl_utils import CAO_TOURNEY_BASE
    import loaddb
    version = loaddb.T_VERSION
    year    = loaddb.T_YEAR
@@ -349,19 +350,19 @@
             </p>
           </div>
 
-          <div class="banner-desc">
-            <h2>BANNERS</h2>
-
+          <div>
             <hr>
+            <h2>BANNERS</h2>
 
             <div>
               <p>
-                Each god gives out three levels of banner.
+                The gods of DCSS will reward players for certain achievements. Each god gives out three banners, each one building on the previous to heap even more glory on the player. These banners are not worth tournament points except where explicitly stated, but the highest banner received from each god will be displayed on the player's page.
               </p>
             </div>
 
             <hr>
-
+          </div>
+          <div class="banner-desc">
             <div>
 	      <img src="images/banner_ashenzari.png"
                    alt="The Explorer"
@@ -369,15 +370,15 @@
                    width="150" height="55"
                    >
               <p>
-                Ashenzari thinks that a true
-                <a name="explorer">EXPLORER</a> should be devoted to a search
+                Ashenzari thinks that an
+                <a name="explorer">EXPLORER</a> should be busy looking
                 for runes of Zot.
-
-                1: Enter a branch that contains a rune.
-
-                2: Find 5 distinct runes over the course of the tourney.
-
-                3: Find 16 distinct runes over the course of the tourney.
+              <br>
+                I: Enter a branch that contains a rune.
+              <br>
+                II: Find 5 distinct runes over the course of the tourney.
+              <br>
+                III: Find 16 distinct runes over the course of the tourney.
               </p>
             </div>
 
@@ -395,12 +396,12 @@
                 as a <a name="saint">SAINT</a> the player with the highest
                 tournament score on each clan, especially if that player
                 leads her clan to glory.
-
-                1: Have the highest score in your clan.
-
-                2: Have the highest score in a clan that is ranked in the top 20.
-
-                3: Have the highest score in a clan that is ranked in the top 5.
+              <br>
+                I: Have the highest score in your clan.
+              <br>
+                II: Have the highest score in a clan that is ranked in the top 20.
+              <br>
+                III: Have the highest score in a clan that is ranked in the top 5.
               </p>
             </div>
 
@@ -417,12 +418,12 @@
                 <a name="slow_and_steady">SLOW AND STEADY</a> and will
                 so recognize players who are careful enough to excel in
                 consecutive games.
-
-                1: Reach experience level 9 in two consecutive games.
-
-                2: Achieve a two-win streak.
-
-                3: Achieve a three-win streak with three distinct races and three distinct classes.
+              <br>
+                I: Reach experience level 9 in two consecutive games.
+              <br>
+                II: Achieve a two-win streak.
+              <br>
+                III: Achieve a three-win streak with three distinct races and three distinct classes.
               </p>
             </div>
 
@@ -440,12 +441,12 @@
                 recognize as <a name="pious">PIOUS</a> any
                 player who becomes the Champion (******) of as many gods
                 as possible.
-
-                1: Become the champion of any god.
-
-                2: Become the champion of five different gods over the course of the tournament.
-
-                3: Become the champion of every god other than Xom over the course of the tournament.
+              <br>
+                I: Become the champion of any god.
+              <br>
+                II: Become the champion of five different gods over the course of the tournament.
+              <br>
+                III: Become the champion of every god other than Xom over the course of the tournament.
               </p>
             </div>
 
@@ -459,12 +460,12 @@
                    >
               <p>
                 Fedhas thinks that the Crypt and the Tomb are abominations against nature and will bestow the title of <a name="natures_ally">NATURE'S ALLY</a> on a player who works towards destroying them.
-
-                1: Enter the Crypt.
-
-                2: Get the golden rune.
-
-                3: Enter Tomb for the first time after picking up the Orb of Zot, and then get the golden rune.
+              <br>
+                I: Enter the Crypt.
+              <br>
+                II: Get the golden rune.
+              <br>
+                III: Enter Tomb for the first time after picking up the Orb of Zot, and then get the golden rune.
               </p>
             </div>
 
@@ -481,12 +482,12 @@
                 players who excel with at least 5 distinct
                 races and at least 5 distinct classes with a 
                 <a name="gelatinous_body">GELATINOUS BODY</a>.
-
-                1: Reach XL 9 with at least 5 distinct races and at least 5 distinct classes.
-
-                2: Get a rune with at least 5 distinct races and at least 5 distinct classes.
-
-                3: Win with at least 5 distinct races and at least 5 distinct classes.
+              <br>
+                I: Reach XL 9 with at least 5 distinct races and at least 5 distinct classes.
+              <br>
+                II: Get a rune with at least 5 distinct races and at least 5 distinct classes.
+              <br>
+                III: Win with at least 5 distinct races and at least 5 distinct classes.
               </p>
             </div>
 
@@ -503,12 +504,12 @@
                 the forces of darkness without delay, and will recognise a player
                 who shows disdain for the Lair as
                 a <a name="lord_of_darkness">LORD OF DARKNESS</a>.
-
-                1: Enter the Vestibule of Hell without having entered the Lair.
-
-                2: Win a game without having entered the Lair.
-
-                3: Win a game without having entered the Temple, the Orcish Mines, the Lair, or the Vaults (+40 tournament points).
+              <br>
+                I: Enter the Vestibule of Hell without having entered the Lair.
+              <br>
+                II: Win a game without having entered the Lair.
+              <br>
+                III: Win a game without having entered the Temple, the Orcish Mines, the Lair, or the Vaults (+40 tournament points).
               </p>
             </div>
 
@@ -523,12 +524,12 @@
               <p>
                 Lugonu would like to corrupt the worshippers of other gods by
                 inviting them to the Abyss. Those who prove worthy will be officially designated as <a name="abyssal_tourists">ABYSSAL TOURISTS</a>.
-
-1: Survive the Abyss without having ever been a follower of Lugonu during that game.
-
-2: Find the abyssal rune and then escape the Abyss without ever having been a follower of Lugonu during that game.
-
-3: Find the abyssal rune and then escape the Abyss before reaching experience level 13 and without ever having been a follower of Lugonu during that game.
+              <br>
+I: Survive the Abyss without having ever been a follower of Lugonu during that game.
+              <br>
+II: Find the abyssal rune and then escape the Abyss without ever having been a follower of Lugonu during that game.
+              <br>
+III: Find the abyssal rune and then escape the Abyss before reaching experience level 13 and without ever having been a follower of Lugonu during that game.
               </p>
             </div>
 
@@ -544,12 +545,12 @@
                 Makhleb wants to see bloodshed as quickly as possible and
                 will give players just 27
                 minutes to prove themselves as <a name="speed_demons">SPEED DEMONS</a>.
-
-1: Reach D:14 in 27 minutes.
-
-2: Reach D:27 in 27 minutes.
-
-3: Reach D:27 in 27 minutes without using a speedy race (centaur, spriggan, or felid).
+              <br>
+I: Reach D:14 in 27 minutes.
+              <br>
+II: Reach D:27 in 27 minutes.
+              <br>
+III: Reach D:27 in 27 minutes without being one of the speedy races (centaur, spriggan, or felid).
               </p>
             </div>
 
@@ -568,12 +569,12 @@
                 to players to persevere with one of several combos
                 randomly chosen and announced throughout the
                 tournament.
-
-                1: Reach experience level 9 with a Nemelex' choice combo.
-
-                2: Get a rune with a Nemelex' choice combo.
-
-                3: Be one of the first 5 players to win a given Nemelex' choice combo (+75 tournament points).
+              <br>
+                I: Reach experience level 9 with a Nemelex' choice combo.
+              <br>
+                II: Get a rune with a Nemelex' choice combo.
+              <br>
+                III: Be one of the first 5 players to win a given Nemelex' choice combo (+75 tournament points).
               </p>
             </div>
 
@@ -589,12 +590,12 @@
                 Okawaru is all about winning, all the time, and thus
                 will recognize as <a name="the_conqueror">THE CONQUEROR</a> any player who
                 is victorious.
-
-                1: Reach the end of any branch that contains more than one level.
-
-                2: Win a game.
-
-                3: Win a game in under 50000 turns.
+              <br>
+                I: Reach the end of any branch that contains more than one level.
+              <br>
+                II: Win a game.
+              <br>
+                III: Win a game in under 50000 turns.
               </p>
             </div>
 
@@ -609,13 +610,13 @@
               <p>
                 Sif Muna thinks that you should ignore distractions such
                 as gold and religion to focus on your studies
-                as a <a name="the_student">STUDENT</a> of magic.
-
-                1: Get at least 1000 gold in a game in which no gold is spent.
-
-                2: Win a game without spending any gold.
-
-                3: Win a game without spending any gold or worshipping a god.
+                as a <a name="student">STUDENT</a> of magic.
+              <br>
+                I: Get at least 1000 gold in a game, but don't spend any of it!
+              <br>
+                II: Win a game without spending any gold.
+              <br>
+                III: Win a game without spending any gold or worshipping a god.
               </p>
             </div>
 
@@ -630,13 +631,13 @@
               <p>
                 The Shining One thinks each player should take a
                 <a name="vow_of_courage">VOW OF COURAGE</a> and not delay
-                in getting their runes.
-
-                1: Get a rune before entering D:14 (or below) in that game.
-
-                2: Get two runes before entering D:14 (or below) in that game.
-
-                3: Get four runes before entering D:14 (or below) in that game.
+                fighting for their runes.
+              <br>
+                I: Get a rune before entering D:14 (or below) in that game.
+              <br>
+                II: Get two runes before entering D:14 (or below) in that game.
+              <br>
+                III: Get four runes before entering D:14 (or below) in that game.
               </p>
             </div>
 
@@ -652,12 +653,12 @@
                 Trog will recognize as
                 <a name="the_sniper">THE SNIPER</a> any player
                 who steals a high score from another player.
-
-                1: Steal a combo high score that was previously of at least 1,000 points.
-
-                2: Steal a combo high score for a previously won combo.
-
-                3: Steal a species high score using a previously won species.
+              <br>
+                I: Steal a combo high score that was previously of at least 1,000 points.
+              <br>
+                II: Steal a combo high score for a previously won combo.
+              <br>
+                III: Steal a species high score using a previously won species.
               </p>
             </div>
 
@@ -672,13 +673,13 @@
               <p>
                 Vehumet wants you to demonstrate
                 <a name="ruthless_efficiency">RUTHLESS EFFICIENCY</a> by
-                killing multiple uniques at once.
-
-                1: Kill two uniques within one turn of each other.
-
-                2: Kill two uniques who cannot generate before depth 14 within one turn of each other.
-
-                3: Kill two uniques who cannot generate before depth 20 on the same turn.
+                killing two uniques at once. <a href="${CAO_TOURNEY_BASE}/unique-list.html">Vehumet's headhunting guide</a> lists which uniques Vehumet wants dead most.
+              <br>
+                I: Kill any two uniques within two turns of each other.
+              <br>
+                II: Kill two <a href="${CAO_TOURNEY_BASE}/unique-list.html">medium</a> or <a href="${CAO_TOURNEY_BASE}/unique-list.html">hard</a> uniques within one turn of each other.
+              <br>
+                III: Kill two <a href="${CAO_TOURNEY_BASE}/unique-list.html">hard</a> uniques on the same turn.
               </p>
             </div>
 
@@ -695,12 +696,12 @@
                 hilarious to watch a player's
                 <a name="descent_into_madness">DESCENT INTO MADNESS</a>
                 through a ziggurat.
-
-                1: Enter a ziggurat.
-
-                2: Reach the 14th floor of a ziggurat.
-
-                3: Leave a ziggurat from its lowest floor.
+              <br>
+                I: Enter a ziggurat.
+              <br>
+                II: Reach the 14th floor of a ziggurat.
+              <br>
+                III: Leave a ziggurat from its lowest floor.
               </p>
             </div>
 
@@ -716,12 +717,12 @@
                 Yredelemnul demands that you kill as many uniques as possible and
                 will recognise success by awarding 
                 <a name="the_harvest">THE HARVEST</a>.
-
-                1: Kill 25 distinct uniques over the course of the tournament.
-
-                2: Kill 45 distinct uniques over the course of the tournament.
-
-                3: Kill 65 distinct uniques over the course of the tournament.
+              <br>
+                I: Kill 25 distinct uniques over the course of the tournament.
+              <br>
+                II: Kill 45 distinct uniques over the course of the tournament.
+              <br>
+                III: Kill 65 distinct uniques over the course of the tournament.
               </p>
             </div>
 
@@ -737,12 +738,12 @@
                 Zin will give the
                 <a name="angel_of_justice">ANGEL OF JUSTICE</a> award to any
                 player who attempts to cleanse Hell and Pandemonium.
-
-                1: Enter either Pandemonium or any branch of Hell.
-
-                2: Kill at least one unique pan lord and at least one unique hell lord over the course of the tournament.
-
-                3: Kill all four unique pan lords and all four unique hell lords over the course of the tournament.
+              <br>
+                I: Enter either Pandemonium or any branch of Hell.
+              <br>
+                II: Kill at least one unique pan lord and at least one unique hell lord over the course of the tournament.
+              <br>
+                III: Kill all four unique pan lords and all four unique hell lords over the course of the tournament.
               </p>
             </div>
           </div>
@@ -833,8 +834,8 @@
               scripts that have been adapted for use in this tournament. 
             </p>
             <p>
-              <span>Wensley</span> for hosting the tournament scripts and
-                    creating the banner images.
+              <span>Wensley</span> for hosting the tournament scripts,
+                    creating the banner images, and helping a lot with the rules.
             </p>
             <p>
               <span>Many people</span> for banner ideas.

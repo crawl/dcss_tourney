@@ -55,6 +55,7 @@ def player_pages(c):
 def index_page(c):
   info("Updating index page")
   render(c, 'index')
+  render(c, 'unique-list')
 
 def team_page(c, captain):
   info("Updating team page for captain %s" % captain)
