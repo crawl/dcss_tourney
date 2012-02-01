@@ -304,8 +304,8 @@ def crunch_winner(c, game):
     streak_species = 'streak_species:'+(game['char'][0:2])
     streak_class = 'streak_class:'+(game['char'][2:])
     # 75 points for streak games, but only if they are with a new race and class.
-    assign_points(c, streak_species, game['name'], 50, False)
-    assign_points(c, streak_class, game['name'], 25, False)
+    assign_points(c, streak_species, game['name'], 60, False)
+    assign_points(c, streak_class, game['name'], 30, False)
   query.update_active_streak(c, player, game_end, streak_len)
 
   if streak_len > 1:
