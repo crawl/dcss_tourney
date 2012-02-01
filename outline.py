@@ -286,9 +286,9 @@ def crunch_winner(c, game):
     # Second win! If neither repeated race or class, bonus!
     assign_points(c, "my_2nd_win_norep", game['name'], 50)
 
-  else:
+  #else:
     # Any win gets 10 points at this point.
-    assign_points(c, "my_win", game['name'], 10)
+    #assign_points(c, "my_win", game['name'], 10)
 
   streak_wins = query.wins_in_streak_before(c, game['name'], game_end)
   debug("%s win (%s), previous games in streak: %s" %
