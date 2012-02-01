@@ -531,7 +531,7 @@ def race_formula(total, subtotal):
   return (2*(48+total)+1+subtotal)/(2+subtotal)
 
 def class_formula(total, subtotal):
-  return (54+total+1+subtotal)/(2+subtotal)
+  return (56+total+1+subtotal)/(2+subtotal)
 
 def player_race_wins(c, name):
   return query_rows(c, """SELECT DISTINCT MID(charabbrev,1,2) FROM
