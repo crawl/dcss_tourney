@@ -72,10 +72,14 @@ def act_on_milestone(c, mile):
   miletype = milestone_type(mile)
   if miletype == 'uniq' and not milestone_desc(mile).startswith('banished '):
     do_milestone_unique(c, mile)
-  if miletype == 'rune':
+  elif miletype == 'rune':
     do_milestone_rune(c, mile)
   elif miletype == 'ghost':
     do_milestone_ghost(c, mile)
+  elif miletype == 'br.enter':
+    do_milestone_br_enter(c, mile)
+  elif miletype == 'br.end':
+    do_milestone_br_end(c, mile)
 
 def do_milestone_unique(c, mile):
   """This function takes a parsed milestone known to commemorate the death of
@@ -115,6 +119,20 @@ def do_milestone_ghost(c, mile):
   isn't terribly remarkable."""
   if not mile['milestone'].startswith('banished'):
     assign_team_points(c, "ghost", mile['name'], 2)
+
+def do_milestone_br_enter(c, mile):
+  """Five points for the first time you get each br.enter milestone (includes
+  portal vaults)."""
+  if query.player_count_br_enter(c, mile['name'], mile['noun']) > 1:
+    return
+  assign_points(c, "branch_enter", mile['name'], 5)
+
+def do_milestone_br_end(c, mile):
+  """Five points for the first time you get each br.enter milestone (includes
+  portal vaults)."""
+  if query.player_count_br_end(c, mile['name'], mile['noun']) > 1:
+    return
+  assign_points(c, "branch_end", mile['name'], 5)
 
 def act_on_logfile_line(c, this_game):
   """Actually assign things and write to the db based on a logfile line

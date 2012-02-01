@@ -977,6 +977,26 @@ def player_count_runes(cursor, player, rune=None):
 
   return q.first(cursor)
 
+def player_count_br_enter(cursor, player, br=None):
+  """Counts the number of times the player has entered branches (or a specific
+  branch."""
+  q = Query('''SELECT COUNT(br) FROM branch_enters
+               WHERE player = %s''', player)
+  if br:
+    q.append(' AND br = %s', br)
+
+  return q.first(cursor)
+
+def player_count_br_end(cursor, player, br=None):
+  """Counts the number of times the player has entered branches (or a specific
+  branch."""
+  q = Query('''SELECT COUNT(br) FROM branch_ends
+               WHERE player = %s''', player)
+  if br:
+    q.append(' AND br = %s', br)
+
+  return q.first(cursor)
+
 def find_place(rows, player):
   """Given a list of one-tuple rows, returns the index at which the given
   player name occurs in the one-tuples, or -1 if the player name is not

@@ -16,6 +16,8 @@ DROP TABLE IF EXISTS last_game_table;
 DROP TABLE IF EXISTS streaks;
 DROP TABLE IF EXISTS ziggurats;
 DROP TABLE IF EXISTS rune_finds;
+DROP TABLE IF EXISTS branch_enters;
+DROP TABLE IF EXISTS branch_ends;
 DROP TABLE IF EXISTS kunique_times;
 DROP TABLE IF EXISTS kills_of_uniques;
 DROP TABLE IF EXISTS kills_of_ghosts;
@@ -300,6 +302,24 @@ CREATE TABLE rune_finds (
   FOREIGN KEY (player) REFERENCES players (name) ON DELETE CASCADE
   );
 CREATE INDEX rune_finds_p ON rune_finds (player, rune);
+
+CREATE TABLE branch_enters (
+  player VARCHAR(20),
+  start_time DATETIME,
+  mile_time DATETIME,
+  br VARCHAR(20),
+  FOREIGN KEY (player) REFERENCES players (name) ON DELETE CASCADE
+  );
+CREATE INDEX branch_enters_p ON branch_enters (player, br);
+
+CREATE TABLE branch_ends (
+  player VARCHAR(20),
+  start_time DATETIME,
+  mile_time DATETIME,
+  br VARCHAR(20),
+  FOREIGN KEY (player) REFERENCES players (name) ON DELETE CASCADE
+  );
+CREATE INDEX branch_ends_p ON branch_ends (player, br);
 
 CREATE TABLE ziggurats (
   player VARCHAR(20),

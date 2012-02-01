@@ -1045,6 +1045,20 @@ def add_rune_milestone(cursor, game):
            game['name'], game['start'], game['time'],
            extract_rune(game['milestone']), game['xl'])
 
+def add_br_enter_milestone(cursor, game):
+  query_do(cursor,
+           '''INSERT INTO branch_enters (player, start_time, mile_time, br)
+              VALUES (%s, %s, %s, %s);''',
+           game['name'], game['start'], game['time'],
+           game['noun'])
+
+def add_br_end_milestone(cursor, game):
+  query_do(cursor,
+           '''INSERT INTO branch_ends (player, start_time, mile_time, br)
+              VALUES (%s, %s, %s, %s);''',
+           game['name'], game['start'], game['time'],
+           game['noun'])
+
 def add_ziggurat_milestone(c, g):
   place = g['place']
   mtype = g['type']
@@ -1082,6 +1096,8 @@ MILESTONE_HANDLERS = {
   'uniq' : add_unique_milestone,
   'ghost' : add_ghost_milestone,
   'rune' : add_rune_milestone,
+  'br.enter': add_br_enter_milestone,
+  'br.end': add_br_end_milestone,
   'zig.enter': add_ziggurat_milestone,
   'zig': add_ziggurat_milestone,
   'zig.exit': add_ziggurat_milestone,
