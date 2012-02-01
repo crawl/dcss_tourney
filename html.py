@@ -165,9 +165,14 @@ def how_old(date, bold_cutoff = 0): #cutoff in hours
     minute = date.minute
     second = date.second
   t = time.gmtime()
-  if t.tm_year > year or t.tm_mon > month:
+  if t.tm_year > year or t.tm_mon > month+1:
     return None,None
   d = t.tm_mday - day
+  if t.tm_mon == month+1:
+    month_lengths = [31,28,31,30,31,30,31,31,30,31,30,31]
+    if year % 4 == 0:
+      month_lengths[1] += 1
+    d += month_lengths[month-1]
   h = t.tm_hour - hour
   m = t.tm_min - minute
   s = t.tm_sec - second
