@@ -1,26 +1,18 @@
-TODO for tourney12a, as of Jan 27:
+TODO for tourney12a, as of Feb 1:
 
 * finalize rule list
-  - mainly just polishing left and figuring out the best way of presenting
-    the banners
+  - just a bit of polishing left
+
+* get tourney announced
 
 * fix scoring to agree with the rules
-  - different number of classes means class point formula is different
   - add god "stock exchange" points
-  - add br.enter, br.end points
   - change old god points to be not just for winners
-  - remove the 10 points for every win after the first one.
-  - banners!
-  - change Nemelex selection to look at high scores... probably pick randomly from the lowest 20ish combos that don't repeat, so it isn't too predictable
+  - banners! Lots to do here...
+  - change Nemelex selection to look at high scores... probably pick randomly from the lowest 20ish combos that don't repeat, so it isn't too predictable. Also use the oldwon list for the first one, to make sure it isn't ridiculous.
 
-* fix stuff that might be broken by having a new month during the tourney
-
-* fix stuff that might be affected by hive removal
+* current games on webtiles games should be marked as such
 
 * get banner images
-
-* update credits
-
-* get stuff announced
 
 * test stuff
