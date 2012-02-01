@@ -1445,7 +1445,7 @@ def game_did_visit_branch(c, player, start_time):
                               AND start_time = %s
                               AND verb = 'br.enter' 
                               AND ((noun = 'Temple') OR (noun = 'Lair')
-                                  OR (noun = 'Orc') OR (noun = 'Hive')
+                                  OR (noun = 'Orc')
                                   OR (noun = 'Vault')) ''',
                      player, start_time)
 
