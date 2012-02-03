@@ -162,7 +162,7 @@
               <span>(56+T)/(2+C) points</span> (rounded up) for a win with a given class if T is the total number of games won in the tournament before the start of the win in question and C of those T were with the given class. If a player wins the same class multiple times, she only gets the largest value of this bonus, not the sum.
             </p>
             <p>
-              <span>1.5*(38+T)/(2+G) points</span> (rounded up) for a win with a given god if T is the total number of games won in the tournament before the start of the win in question and G of those T were with the given god. If a player wins with the same god multiple times, she only gets the largest value of this bonus, not the sum. For purposes of these points we say that a player wins with a god if she reaches full (******) piety with that god before reaching full piety with any other god. For Xom, you must play a Chaos Knight and never abandon Xom. For "No God", you must never worship a god.
+              <span>1.5*(38+T)/(2+G) points</span> (rounded up) for a win with a given god if T is the total number of games won in the tournament before the start of the win in question and G of those T were with the given god. If a player wins with the same god multiple times, she only gets the largest value of this bonus, not the sum. For purposes of these points we say that a player wins with a god if she reaches full (******) piety with that god without worshipping any other god first. For Xom, you must play a Chaos Knight and never abandon Xom. For "No God", you must never worship a god.
             </p>
             <div class="inset">
               <p>
@@ -198,7 +198,7 @@
               starting time (among tournament wins) in the tournament.
             </p>
 	    <p>
-	      <span>40 bonus points</span> for a win without visiting
+	      <span>50 bonus points</span> for a win without visiting
 	      Temple, Lair, Orc, or the Vaults (<a href="#lord_of_darkness">LORD OF DARKNESS</a> banner).
 	    </p>
             <p>
@@ -257,7 +257,7 @@
             <h2> GODS </h2>
             <p>
               <span>10 points</span> the first time you reach full (******)
-              piety with each god without having reached full piety with any
+              piety with each god without having worshipped any
               other god first that game.
             </p>
           </div>
@@ -508,7 +508,7 @@
               <br>
                 II: Win a game without having entered the Lair.
               <br>
-                III: Win a game without having entered the Temple, the Orcish Mines, the Lair, or the Vaults (+40 tournament points).
+                III: Win a game without having entered the Temple, the Orcish Mines, the Lair, or the Vaults (+50 tournament points).
               </p>
             </div>
 
@@ -783,7 +783,7 @@ III: Reach D:27 in 27 minutes without being one of the speedy races (centaur, sp
               <span class="added">[NEW]</span>
             </p>
             <p class="added">
-              <span>1.5*(38+T)/(2+G) points</span> (rounded up) for a win with a given god if T is the total number of games won in the tournament before the start of the win in question and G of those T were with the given god. If a player wins with the same god multiple times, she only gets the largest value of this bonus, not the sum. For purposes of these points we say that a player wins with a god if she reaches full (******) piety with that god before reaching full piety with any other god. For Xom, you must play a Chaos Knight and never abandon Xom. For "No God", you must never worship a god.
+              <span>1.5*(38+T)/(2+G) points</span> (rounded up) for a win with a given god if T is the total number of games won in the tournament before the start of the win in question and G of those T were with the given god. If a player wins with the same god multiple times, she only gets the largest value of this bonus, not the sum. For purposes of these points we say that a player wins with a god if she reaches full (******) piety with that god without worshipping any other god first. For Xom, you must play a Chaos Knight and never abandon Xom. For "No God", you must never worship a god.
               <span class="added">[NEW]</span>
             <p class="added">
 	      <span>5 points</span> the first time you enter each branch or
@@ -803,9 +803,13 @@ III: Reach D:27 in 27 minutes without being one of the speedy races (centaur, sp
               <span class="changed">[CHANGED]</span>
             </p>
             <p class="changed">
+              <span>50 bonus points</span> for a win without visiting
+	      Temple, Lair, Orc, or the Vaults (<a href="#lord_of_darkness">LORD OF DARKNESS</a> banner). (Used to be 40 points.)
+              <span class="changed">[CHANGED]</span>
+            </p>
+            <p class="changed">
               <span>10 points</span> the first time you reach full (******)
-              piety with each god without having reached full piety with any
-              other god first that game. (Used to be 25 points and only
+              piety with each god without worshipping any other god first that game. (Used to be 25 points and only
               for winning games.)
               <span class="changed">[CHANGED]</span>
             </p>
