@@ -253,8 +253,8 @@ def crunch_winner(c, game):
   if not query.game_did_visit_lair(c, player, game_start_time(game)):
     # assign_points(c, 'lairless_win', player, 20)
     if not query.game_did_visit_branch(c, player, game_start_time(game)):
-      # 40 bonus points for winning without doing any branches.
-      assign_points(c, 'branchless_win', player, 40)
+      # 50 bonus points for winning without doing any branches.
+      assign_points(c, 'branchless_win', player, 50)
       # And the banner:
       banner.safe_award_banner(c, player, 'kikubaaqudgha', 10)
 
