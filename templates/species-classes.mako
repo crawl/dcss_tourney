@@ -1,10 +1,11 @@
 <%
 
-   import loaddb, query, crawl_utils, html, combos
+   import loaddb, query, crawl_utils, html, combos, crawl
    c = attributes['cursor']
 
    all_species = set([ comb[:2] for comb in combos.VALID_COMBOS])
    all_classes = set([ comb[2:4] for comb in combos.VALID_COMBOS])
+   all_gods = set(crawl.GODS)
    num_wins = query.count_wins(c)
 
    species_data = [ [ r, query.count_wins(c, raceabbr=r) ]
@@ -16,6 +17,11 @@
             for r in all_classes ]
    class_data.sort(key=lambda e: e[0])
    class_data.sort(key=lambda e: e[1])
+
+   god_data = [ [ r, query.count_god_wins(c, r) ]
+            for r in all_gods ]
+   god_data.sort(key=lambda e: e[0])
+   god_data.sort(key=lambda e: e[1])
 
    condensed_species_data = []
    last_count = -1
@@ -45,11 +51,26 @@
        point_value = query.class_formula(num_wins, last_count)
    condensed_class_data = condensed_class_data + [[last_count, class_list, point_value],]
 
+   condensed_god_data = []
+   last_count = -1
+   point_value = -1
+   for s in god_data:
+     if s[1] == last_count:
+       god_list = "%s, %s" % (god_list, s[0])
+     else:
+       if last_count > -1:
+         condensed_god_data = condensed_god_data + [[last_count, god_list, point_value],]
+       god_list = s[0]
+       last_count = s[1]
+       point_value = query.god_formula(num_wins, last_count)
+   condensed_god_data = condensed_god_data + [[last_count, god_list, point_value],]
 
    species_text = html.table_text( [ 'Wins', 'Species', 'Current Value'],
                            condensed_species_data, count=False)
    class_text = html.table_text( [ 'Wins', 'Class', 'Current Value'],
                            condensed_class_data, count=False)
+   god_text = html.table_text( [ 'Wins', 'God', 'Current Value'],
+                           condensed_god_data, count=False)
 
    all_species_scores = query.get_species_scores(c)
    all_class_scores = query.get_class_scores(c)
@@ -69,7 +90,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-    <title>Species/Classes</title>
+    <title>Species/Classes/Gods</title>
     <link rel="stylesheet" type="text/css" href="tourney-score.css">
   </head>
 
@@ -82,6 +103,8 @@
         ${species_text}
 	<h2>Wins by Class</h2>
         ${class_text}
+	<h2>Wins by God</h2>
+        ${god_text}
         <hr>
 
         <h2>Species Scoreboard</h2>

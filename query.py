@@ -104,15 +104,14 @@ def get_game_god(c, game):
   game_god = game.get('god') or 'No God'
   if (game_god == 'Xom' or game_god == 'No God') and not did_change_god(c, game):
     return game_god
-  game_god = query_row(c,
-                         '''SELECT noun FROM milestones
-                            WHERE player = %s AND start_time = %s
-                              AND verb = 'god.maxpiety'
-                            ORDER BY milestone_time ASC''',
-                         game['name'], game['start'])
-  if game_god is None:
-    return 'faithless'
-  return game_god[0]
+  return get_first_max_piety(c, game['name'], game['start'])
+
+def count_god_wins(c, god, start_time=None):
+  q = Query('''SELECT COUNT(*) FROM player_won_gods
+               WHERE god=%s''', god)
+  if start_time:
+    q.append(' AND win_time < %s', start_time)
+  return q.first(c)
 
 def did_change_god(c, game):
   """Returns true if the player changed gods during the game, by checking
@@ -165,7 +164,7 @@ def get_player_won_gods(c, player):
   """Returns the names of all the gods that the player has won games with,
 wins counting only if the player has not switched gods during the game."""
   return query_first_col(c,
-                         "SELECT god FROM player_won_gods WHERE player = %s",
+                         "SELECT DISTINCT god FROM player_won_gods WHERE player = %s",
                          player)
 
 def get_player_best_streak_games(c, player):
@@ -533,6 +532,9 @@ def race_formula(total, subtotal):
 def class_formula(total, subtotal):
   return (56+total+1+subtotal)/(2+subtotal)
 
+def god_formula(total, subtotal):
+  return (3*(38+total)+3+2*subtotal)/(4+2*subtotal)
+
 def player_race_wins(c, name):
   return query_rows(c, """SELECT DISTINCT MID(charabbrev,1,2) FROM
        games WHERE killertype='winning' AND player=%s""", name)
@@ -800,15 +802,34 @@ def say_points(who, what, points):
   return points
 
 def is_god_repeated(c, player, god):
-  """Returns true if the player has already won a game with the
+  """Returns true if the player has been credited as the champion of the
   specified god."""
   return query_first_def(c, False,
-                         '''SELECT COUNT(*) FROM player_won_gods
+                         '''SELECT COUNT(*) FROM player_max_piety
                              WHERE player = %s AND COALESCE(god, '') = %s''',
                          player, god)
 
-def record_won_god(c, player, god):
-  query_do(c, "INSERT INTO player_won_gods VALUES (%s, %s)", player, god)
+def record_won_god(c, player, win_time, god):
+  query_do(c, "INSERT INTO player_won_gods VALUES (%s, %s, %s)", player, win_time, god)
+
+def record_max_piety(c, player, start_time, god):
+  if is_god_repeated(c, player, god):
+    return False
+  if get_first_max_piety(c, player, start_time) == god:
+    query_do(c, "INSERT INTO player_max_piety VALUES (%s, %s)", player, god)
+    return True
+  return False
+
+def get_first_max_piety(c, player, start_time):
+  row = query_row(c,
+                         '''SELECT noun FROM milestones
+                            WHERE player = %s AND start_time = %s
+                              AND verb = 'god.maxpiety'
+                            ORDER BY milestone_time ASC''',
+                         player, start_time)
+  if row is None:
+    return 'faithless'
+  return row[0]
 
 def audit_trail_player_points(c, player):
   """Gets the audit trail for the points assigned to the player."""

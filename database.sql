@@ -10,6 +10,7 @@ DROP TABLE IF EXISTS player_fifteen_skills;
 DROP TABLE IF EXISTS clan_banners;
 DROP TABLE IF EXISTS player_banners;
 DROP TABLE IF EXISTS player_won_gods;
+DROP TABLE IF EXISTS player_max_piety;
 DROP TABLE IF EXISTS active_streaks;
 DROP TABLE IF EXISTS whereis_table;
 DROP TABLE IF EXISTS last_game_table;
@@ -369,10 +370,18 @@ CREATE TABLE streaks (
 
 CREATE TABLE player_won_gods (
   player VARCHAR(20),
+  win_time DATETIME,
   god VARCHAR(20),
   FOREIGN KEY (player) REFERENCES players (name) ON DELETE CASCADE
 );
 CREATE INDEX player_won_gods_pg ON player_won_gods (player, god);
+
+CREATE TABLE player_max_piety (
+  player VARCHAR(20),
+  god VARCHAR(20),
+  FOREIGN KEY (player) REFERENCES players (name) ON DELETE CASCADE
+);
+CREATE INDEX player_max_piety_pg ON player_max_piety (player, god);
 
 -- Audit table for point assignment. Tracks both permanent and
 -- temporary points.

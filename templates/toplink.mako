@@ -12,7 +12,7 @@
 &nbsp;
 <a href="${CAO_TOURNEY_BASE}/combo-scoreboard.html">Combo Scoreboard</a>
 &nbsp;
-<a href="${CAO_TOURNEY_BASE}/species-classes.html">Species/Classes</a>
+<a href="${CAO_TOURNEY_BASE}/species-classes.html">Species/Classes/Gods</a>
 &nbsp;
 <a href="${CAO_TOURNEY_BASE}/wins-and-kills.html">Wins and Kills</a>
 &nbsp;
