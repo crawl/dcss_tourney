@@ -26,26 +26,26 @@
         <p>
           I: Kill any two uniques within two turns of each other.
         <br>
-          II: Kill two medium or hard uniques within one turn of each other.
+          II: Kill two medium or deep uniques within one turn of each other.
         <br>
-          III: Kill two hard uniques on the same turn.
+          III: Kill two deep uniques on the same turn.
         </p>
         <hr>
-        <h2>Hard Uniques</h2>
+        <h2>Deep Uniques</h2>
         <div class="fineprint">
-          Uniques who do not normally generate in the main dungeon before D:19, excluding Donald and Polyphemus.
+          Uniques who do not normally generate before depth 18.
         </div>
         <div class="inset">
           ${", ".join(hard_uniques)}
         </div>
         <h2>Medium Uniques</h2>
         <div class="fineprint">
-          Uniques who do not normally generate in the main dungeon before D:14 and are not on the previous list.
+          Uniques who do not normally generate before depth 11 and are not on the previous list.
         </div>
         <div class="inset">
           ${", ".join(medium_uniques)}
         </div>
-        <h2>Easy Uniques</h2>
+        <h2>Shallow Uniques</h2>
         <div class="fineprint">
           Uniques who are not on the previous lists.
         </div>

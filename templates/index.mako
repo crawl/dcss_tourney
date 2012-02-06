@@ -672,13 +672,13 @@ III: Reach D:27 in 27 minutes without being one of the speedy races (centaur, sp
               <p>
                 Vehumet wants you to demonstrate
                 <a name="ruthless_efficiency">RUTHLESS EFFICIENCY</a> by
-                killing two uniques at once. <a href="${CAO_TOURNEY_BASE}/unique-list.html">Vehumet's headhunting guide</a> lists which uniques Vehumet wants dead most.
+                killing two uniques at once. <a href="${CAO_TOURNEY_BASE}/unique-list.html">Vehumet's headhunting guide</a> gives Vehumet's classification of uniques into deep, medium, and shallow.
               <br>
                 I: Kill any two uniques within two turns of each other.
               <br>
-                II: Kill two <a href="${CAO_TOURNEY_BASE}/unique-list.html">medium</a> or <a href="${CAO_TOURNEY_BASE}/unique-list.html">hard</a> uniques within one turn of each other.
+                II: Kill two <a href="${CAO_TOURNEY_BASE}/unique-list.html">medium</a> or <a href="${CAO_TOURNEY_BASE}/unique-list.html">deep</a> uniques within one turn of each other.
               <br>
-                III: Kill two <a href="${CAO_TOURNEY_BASE}/unique-list.html">hard</a> uniques on the same turn.
+                III: Kill two <a href="${CAO_TOURNEY_BASE}/unique-list.html">deep</a> uniques on the same turn.
               </p>
             </div>
 

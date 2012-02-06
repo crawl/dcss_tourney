@@ -16,9 +16,9 @@ UNIQUES = [ "Ijyb", "Blork", "Urug", "Erolcha", "Snorg",
 
 HARD_UNIQUES = [ "Antaeus", "Asmodeus", "Boris", "Cerebov", "Dispater", "Dissolution", "Ereshkigal", "Frederick", "Geryon", "Gloorx Vloq", "Ignacio", "Ilsuiw", "Jory", "Khufu", "Lom Lobon", "Margery", "Mennas", "Mnoleg", "Murray", "the Enchantress", "the Lernaean hydra", "the Serpent of Hell", "the royal jelly", "Tiamat", "Xtahua" ]
 
-MEDIUM_UNIQUES = [ "Agnes", "Aizul", "Azrael", "Donald", "Frances", "Kirke", "Louise", "Maud", "Mara", "Nergalle", "Nikola", "Norris", "Polyphemus", "Roxanne", "Rupert", "Saint Roka", "Snorg", "Wiglaf" ]
+MEDIUM_UNIQUES = [ "Agnes", "Aizul", "Azrael", "Donald", "Frances", "Kirke", "Louise", "Maud", "Nergalle", "Nessos", "Nikola", "Norris", "Polyphemus", "Roxanne", "Rupert", "Saint Roka", "Snorg", "Wiglaf" ]
 
-EASY_UNIQUES = [ "Blork", "Crazy Yiuf", "Dowan", "Duvessa", "Edmund", "Erica", "Erolcha", "Eustachio", "Gastronok", "Grum", "Grinder", "Harold", "Ijyb", "Jessica", "Joseph", "Josephine", "Jozef", "Maurice", "Menkaure", "Nessos", "Pikel", "Polyphemus", "Prince Ribbit", "Psyche", "Purgy", "Sigmund", "Sonja", "Terence", "Urug" ]
+EASY_UNIQUES = [ "Blork", "Crazy Yiuf", "Dowan", "Duvessa", "Edmund", "Erica", "Erolcha", "Eustachio", "Gastronok", "Grum", "Grinder", "Harold", "Ijyb", "Jessica", "Joseph", "Josephine", "Jozef", "Maurice", "Menkaure", "Pikel", "Polyphemus", "Prince Ribbit", "Psyche", "Purgy", "Sigmund", "Sonja", "Terence", "Urug" ]
 
 UNIQ_SET = set(UNIQUES)
 
