@@ -530,7 +530,7 @@ def banner_suffix(banner):
     return banner[banner.index(':') + 1 :]
   return ''
 
-def banner_image(banner, full_name=False):
+def banner_image(banner, prestige, full_name=False):
   name_suffix = banner_suffix(banner)
   banner_subkey = _strip_banner_suffix(banner)
   img = BANNER_IMAGES.get(banner) or BANNER_IMAGES.get(banner_subkey)
@@ -540,7 +540,8 @@ def banner_image(banner, full_name=False):
   if full_name and name_suffix:
     name = name + " (" + name_suffix + ")"
   if img and img[0]:
-    return (crawl_utils.banner_link(img[0]), name)
+    filename = img[0][:-4]+("%d" % prestige)+img[0][-4:]
+    return (crawl_utils.banner_link(filename), name)
   return img
 
 def banner_img_for(b, nth):
@@ -554,14 +555,14 @@ def banner_img_for(b, nth):
                    %s class="banner">
             </div>''' % (b[0], b[1], b[1], bid)
 
-def banner_named(name):
-  img = banner_image(name)
+def banner_named(name, prestige):
+  img = banner_image(name, prestige)
   if not img:
     return None
   return banner_img_for(img, 0)
 
 def banner_images(banners):
-  images = [banner_image(x) for x in banners]
+  images = [banner_image(x[0],x[1]) for x in banners]
   images = [i for i in images if i and i[0]]
   seen_images = set()
   deduped = []

@@ -1386,29 +1386,29 @@ def clan_maxed_skills(c, captain):
   return skills
 
 def get_clan_banners(c, captain):
-  return query_first_col(c, '''SELECT banner FROM clan_banners
+  return query_rows(c, '''SELECT banner, prestige FROM clan_banners
                                 WHERE team_captain = %s
                                 ORDER BY prestige DESC, banner''',
                          captain)
 
 def get_player_banners(c, player):
-  return query_first_col(c, '''SELECT banner FROM player_banners
+  return query_rows(c, '''SELECT banner, prestige FROM player_banners
                                 WHERE player = %s
                                 ORDER BY prestige DESC, banner''',
-                         player)
+                          player)
 
 def player_banners_awarded(c):
-  """Returns a list of tuples as [(banner_name, [list of players]), ...]
+  """Returns a list of tuples as [(banner_name, prestige, [list of players]), ...]
   ordered by descending order of banner prestige."""
-  banner_rows = query_rows(c, '''SELECT banner, player
+  banner_rows = query_rows(c, '''SELECT banner, prestige, player
                                  FROM player_banners
-                                 ORDER BY prestige DESC, banner, player''')
+                                 ORDER BY banner, prestige, player''')
   banners = []
   for row in banner_rows:
-    banner_name, player = row
-    if not banners or banner_name != banners[-1][0]:
-      banners.append( (banner_name, []) )
-    banners[-1][1].append(player)
+    banner_name, prestige, player = row
+    if not banners or banner_name != banners[-1][0] or prestige != banners[-1][1]:
+      banners.append( (banner_name, prestige, []) )
+    banners[-1][2].append(player)
   return banners
 
 def clan_player_banners(c):

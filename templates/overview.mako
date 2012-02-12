@@ -66,7 +66,7 @@
                 </td>
 
                 <td>
-                  ${html.banner_named('nemelex')}
+                  ${html.banner_named('nemelex', 3)}
                 </td>
               </tr>
             </table>

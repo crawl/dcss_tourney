@@ -35,8 +35,7 @@ def pantheon(c, player):
 BANNERS = [['elyvilon', pantheon]]
 
 def process_banners(c, player):
-  existing_banners = set(query.get_player_banners(c, player))
-  for banner in [b for b in BANNERS if b[0] not in existing_banners]:
+  for banner in BANNERS:
     if banner[1]:
       banner[1](c, player)
 

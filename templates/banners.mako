@@ -27,12 +27,12 @@
           <hr>
 
           %for ban in all_banners:
-          <% img = html.banner_named(ban[0]) %>
+          <% img = html.banner_named(ban[0], ban[1]) %>
             %if img:
             ${img}
             <div class="text">
-              <h3>${html.banner_image(ban[0], full_name=True)[1]}</h3>
-              ${", ".join([crawl_utils.linked_player_name(p) for p in ban[1]])}
+              <h3>${html.banner_image(ban[0], ban[1], full_name=True)[1]}</h3>
+              ${", ".join([crawl_utils.linked_player_name(p) for p in ban[2]])}
             </div>
             <hr>
             %endif
