@@ -24,12 +24,8 @@ BANNER_IMAGES = \
       'xom': [ 'banner_xom.png', 'Descent into Madness' ],
       'yredelemnul': [ 'banner_yredelemnul.png', 'The Harvest' ],
       'zin': [ 'banner_zin.png', 'Angel of Justice' ],
-      'top_player_Nth:1': [ '1player.png', 'Best Player: 1st' ],
-      'top_player_Nth:2': [ '2player.png', 'Best Player: 2nd' ],
-      'top_player_Nth:3': [ '3player.png', 'Best Player: 3rd' ],
-      'top_clan_Nth:1':   [ '1clan.png', 'Best Clan: 1st' ],
-      'top_clan_Nth:2':   [ '2clan.png', 'Best Clan: 2nd' ],
-      'top_clan_Nth:3':   [ '3clan.png', 'Best Clan: 3rd' ],
+      '1top_player': [ 'player.png', 'Top Player'],
+      '2top_clan':   [ 'clan.png', 'Best Clan' ],
     }
 
 STOCK_WIN_COLUMNS = \

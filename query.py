@@ -1414,7 +1414,7 @@ def player_banners_awarded(c):
 def clan_player_banners(c):
   """Returns a list of tuples as [(banner_name, player_name)] for players
   in the top three clans."""
-  banner_rows = query_rows(c, '''SELECT c.banner, p.name FROM
+  banner_rows = query_rows(c, '''SELECT c.banner, c.prestige, p.name FROM
                                  clan_banners AS c, players AS p
                                  WHERE c.team_captain = p.team_captain''')
   return banner_rows
@@ -1422,7 +1422,7 @@ def clan_player_banners(c):
 def get_saints(c, captain):
   rows = query_rows_with_ties(c, '''SELECT name, score_full FROM players
                                     WHERE team_captain = %s
-                                    AND score_full >= 100''',
+                                    AND score_full > 0''',
                               'score_full', 1, 1, captain)
   return [x[0] for x in rows]
 

@@ -54,14 +54,13 @@ DROP VIEW IF EXISTS streak_scoreboard;
 DROP VIEW IF EXISTS best_ziggurat_dives;
 DROP VIEW IF EXISTS youngest_rune_finds;
 DROP VIEW IF EXISTS most_deaths_to_uniques;
-DROP VIEW IF EXISTS atheist_wins;
-DROP VIEW IF EXISTS super_sigmund_kills;
+DROP VIEW IF EXISTS atheist_goldless_wins;
 DROP VIEW IF EXISTS all_hellpan_kills;
-DROP VIEW IF EXISTS ziggy_players;
-DROP VIEW IF EXISTS ninenines_players;
+DROP VIEW IF EXISTS fivefives_nine;
+DROP VIEW IF EXISTS fivefives_rune;
+DROP VIEW IF EXISTS fivefives_win;
 DROP VIEW IF EXISTS speed_demons;
-DROP VIEW IF EXISTS orbrun_runes;
-DROP VIEW IF EXISTS scholars;
+DROP VIEW IF EXISTS orbrun_tomb;
 DROP VIEW IF EXISTS most_pacific_wins;
 DROP VIEW IF EXISTS last_started_win;
 
@@ -576,26 +575,15 @@ SELECT player, ndeaths, death_time
 ORDER BY ndeaths DESC, death_time
  LIMIT 3;
 
-CREATE VIEW atheist_wins AS
+CREATE VIEW atheist_goldless_wins AS
 SELECT g.*
   FROM games g
  WHERE g.killertype = 'winning'
+   AND (g.gold_spent IS NULL OR g.gold_spent = 0)
    AND (g.god IS NULL OR g.god = '')
-   AND g.raceabbr != 'DG'
    AND NOT EXISTS (SELECT noun FROM milestones m
                     WHERE m.player = g.player AND m.start_time = g.start_time
                       AND verb = 'god.renounce' LIMIT 1);
-
-CREATE VIEW super_sigmund_kills AS
-SELECT player, COUNT(*) AS sigmund_kills
-  FROM milestones
- WHERE noun = 'Sigmund'
-   AND verb = 'uniq'
-   AND place = 'Temple'
-   AND xl < 10
-GROUP BY player
-  HAVING sigmund_kills >= 1
-ORDER BY sigmund_kills DESC;
 
 CREATE VIEW all_hellpan_kills AS
 SELECT player, COUNT(DISTINCT monster) AS hellpan_kills
@@ -606,22 +594,29 @@ SELECT player, COUNT(DISTINCT monster) AS hellpan_kills
 GROUP BY player
   HAVING hellpan_kills >= 8;
 
-CREATE VIEW ziggy_players AS
-SELECT player, COUNT(*) AS zig_count
-  FROM milestones
- WHERE verb='zig'
-    OR verb='zig.enter'
-GROUP BY player
-HAVING zig_count >= 27
-ORDER BY zig_count DESC;
-
-CREATE VIEW ninenines_players AS
+CREATE VIEW fivefives_nine AS
 SELECT player, COUNT(DISTINCT MID(charabbrev,1,2)) AS race_count,
                COUNT(DISTINCT MID(charabbrev,3,2)) AS class_count
 FROM games
 WHERE xl>=9
 GROUP BY player
-HAVING race_count >= 9 AND class_count >= 9;
+HAVING race_count >= 5 AND class_count >= 5;
+
+CREATE VIEW fivefives_rune AS
+SELECT player, COUNT(DISTINCT MID(charabbrev,1,2)) AS race_count,
+               COUNT(DISTINCT MID(charabbrev,3,2)) AS class_count
+FROM milestones
+WHERE verb = 'rune'
+GROUP BY player
+HAVING race_count >= 5 AND class_count >= 5;
+
+CREATE VIEW fivefives_win AS
+SELECT player, COUNT(DISTINCT MID(charabbrev,1,2)) AS race_count,
+               COUNT(DISTINCT MID(charabbrev,3,2)) AS class_count
+FROM games
+WHERE killertype = 'winning'
+GROUP BY player
+HAVING race_count >= 5 AND class_count >= 5;
 
 CREATE VIEW speed_demons AS
 SELECT player, COUNT(*) AS speed_count
@@ -633,25 +628,20 @@ GROUP BY player
   HAVING speed_count >= 1
 ORDER BY speed_count DESC;
 
-CREATE VIEW orbrun_runes AS
-SELECT r.player, COUNT(*) AS orbrun_rune_count
+CREATE VIEW orbrun_tomb AS
+SELECT r.player, COUNT(*) AS orbrun_tomb_count
   FROM (milestones r INNER JOIN milestones o ON r.start_time = o.start_time)
                      INNER JOIN milestones b ON r.start_time = b.start_time
  WHERE r.verb = 'rune'
+   AND r.noun = 'golden'
    AND o.verb = 'orb'
    AND b.verb = 'br.enter'
+   AND b.noun = 'Tomb'
    AND r.turn > o.turn
    AND b.turn > o.turn
-   AND r.branch = b.noun
    AND r.player = o.player
    AND o.player = b.player
    AND NOT r.noun = 'abyssal'
 GROUP BY r.player
-  HAVING orbrun_rune_count >= 1
-ORDER BY orbrun_rune_count DESC;
-
-CREATE VIEW scholars AS
-SELECT player, COUNT(DISTINCT skill) AS skill_count
-  FROM player_fifteen_skills
-GROUP BY player
-  HAVING skill_count >= 13;
+  HAVING orbrun_tomb_count >= 1
+ORDER BY orbrun_tomb_count DESC;

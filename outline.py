@@ -111,10 +111,11 @@ def do_milestone_rune(c, mile):
 #    # 50 points for the first time the player finds a rune.
 #    assign_points(c, "rune_1st:" + rune, mile['name'], 50)
   player = mile['name']
-  banner.award_banner(c, player, 'tso', 4)
-  if (not banner.player_has_banner(c, player, 'ashenzari')
-      and query.player_count_distinct_runes(c, player) == crawl.NRUNES):
-    banner.award_banner(c, player, 'ashenzari', 9)
+  runes_found = query.player_count_distinct_runes(c, player)
+  if runes_found == crawl.NRUNES:
+    banner.award_banner(c, player, 'ashenzari', 3)
+  elif runes_found >= 5:
+    banner.award_banner(c, player, 'ashenzari', 2)
 
 def do_milestone_ghost(c, mile):
   """When you kill a player ghost, you get two clan points! Otherwise this
@@ -167,8 +168,8 @@ def check_fedhas_banner(c, g):
   if fruit_mask:
     player = game_player(g)
     full_fruit_mask = query.player_update_get_fruit_mask(c, player, fruit_mask)
-    if crawl.fruit_basket_complete(full_fruit_mask):
-      banner.award_banner(c, player, 'fedhas', 1)
+    #if crawl.fruit_basket_complete(full_fruit_mask):
+    #  banner.award_banner(c, player, 'fedhas', 1)
 
 def crunch_misc(c, g):
   player = g['name']
@@ -247,8 +248,10 @@ def crunch_winner(c, game):
   if query.first_win_for_combo(c, charabbrev, game_end):
     assign_team_points(c, "combo_first_win:" + charabbrev, player, 20)
 
-  # Award Orb banner for wins.
-  banner.award_banner(c, player, 'okawaru', 8)
+  # Award Okawaru banners for wins.
+  banner.award_banner(c, player, 'okawaru', 2)
+  if (game['turn'] < 50000):
+    banner.award_banner(c, player, 'okawaru', 3)
 
   if not query.game_did_visit_lair(c, player, game_start_time(game)):
     # assign_points(c, 'lairless_win', player, 20)
@@ -256,16 +259,18 @@ def crunch_winner(c, game):
       # 50 bonus points for winning without doing any branches.
       assign_points(c, 'branchless_win', player, 50)
       # And the banner:
-      banner.award_banner(c, player, 'kikubaaqudgha', 10)
+      banner.award_banner(c, player, 'kikubaaqudgha', 3)
+    else:
+      banner.award_banner(c, player, 'kikubaaqudgha', 2)
 
   debug("%s win (%s), runes: %d" % (player, charabbrev, game.get('urune') or 0))
 
   if nemelex.is_nemelex_choice(charabbrev, game_end):
     ban = 'nemelex:' + charabbrev
-    if banner.count_recipients(c, ban) < 5:
-      if not banner.player_has_banner(c, player, ban):
+    if banner.count_recipients(c, ban, 3) < 5:
+      if not banner.player_has_banner(c, player, ban, 3):
         assign_points(c, ban, player, 75)
-        banner.award_banner(c, player, ban, 0, temp=False)
+        banner.award_banner(c, player, ban, 3)
 
   if is_all_runer(game):
     all_allruners = number_of_allruners_before(c, game)
@@ -313,9 +318,11 @@ def crunch_winner(c, game):
     streak_len = -1
   else:
     # Award banner.
-    banner.award_banner(c, player, 'cheibriados', 10)
+    banner.award_banner(c, player, 'cheibriados', 2)
     # This length could be 1 even though it involves at least two games, beware!
     streak_len = compute_streak_length(streak_wins, game['char'])
+    if streak_len == 3 and len(streak_wins) == 2:
+      banner.award_banner(c, player, 'cheibriados', 3)
     streak_species = 'streak_species:'+(game['char'][0:2])
     streak_class = 'streak_class:'+(game['char'][2:])
     # 75 points for streak games, but only if they are with a new race and class.
@@ -393,7 +400,6 @@ def award_temp_trophy(c, point_map,
       log_temp_team_points(c, player, title, points)
     else:
       log_temp_points(c, player, title, points)
-    banner.award_banner(c, player, title, points, temp=True)
 
   def place_title(title_key, nth):
     if '%' in title_key:
@@ -458,38 +464,34 @@ def check_temp_trophies(c, pmap):
                     team_points=True)
 
 def check_banners(c):
-  award_player_banners(c, 'lugonu',
+  award_player_banners(c, 'sif',
                        query_first_col(c, '''SELECT DISTINCT player
-                                             FROM atheist_wins'''),
-                       9)
-  award_player_banners(c, 'trog',
-                       query_first_col(c, '''SELECT player
-                                             FROM super_sigmund_kills'''),
-                       4)
+                                             FROM atheist_goldless_wins'''),
+                       3)
   award_player_banners(c, 'zin',
                        query_first_col(c, '''SELECT player
                                              FROM all_hellpan_kills'''),
-                       10)
-  award_player_banners(c, 'xom',
-                       query_first_col(c,
-                                       '''SELECT player FROM ziggy_players'''),
-                       7)
+                       3)
   award_player_banners(c, 'jiyva',
                        query_first_col(c,
-                                       '''SELECT player FROM ninenines_players'''),
-                       4)
+                                       '''SELECT player FROM fivefives_nine'''),
+                       1)
+  award_player_banners(c, 'jiyva',
+                       query_first_col(c,
+                                       '''SELECT player FROM fivefives_rune'''),
+                       2)
+  award_player_banners(c, 'jiyva',
+                       query_first_col(c,
+                                       '''SELECT player FROM fivefives_win'''),
+                       3)
   award_player_banners(c, 'makhleb',
                        query_first_col(c,
                                        '''SELECT player FROM speed_demons'''),
-                       10)
-  award_player_banners(c, 'vehumet',
+                       2)
+  award_player_banners(c, 'fedhas',
                        query_first_col(c,
-                                       '''SELECT player FROM orbrun_runes'''),
-                       10)
-  award_player_banners(c, 'sif',
-                       query_first_col(c,
-                                       '''SELECT player FROM scholars'''),
-                       4)
+                                       '''SELECT player FROM orbrun_tomb'''),
+                       3)
 
 def check_misc_points(c, pmap):
   def award_misc_points(key, multiplier, rows):

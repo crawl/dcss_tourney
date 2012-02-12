@@ -4,21 +4,21 @@ from loaddb import query_first_def, query_first, query_do, query_rows, query_row
 import crawl
 import query
 
-def player_has_banner(c, player, banner):
+def player_has_banner(c, player, banner, prestige):
   return query_first_def(c, None,
                          '''SELECT banner FROM player_banners
-                             WHERE player = %s AND banner = %s''',
-                         player, banner)
+                             WHERE player = %s AND banner = %s AND prestige >= %s''',
+                         player, banner, prestige)
 
-def count_recipients(c, banner):
+def count_recipients(c, banner, prestige):
   return query_first(c, '''SELECT COUNT(*) FROM player_banners
-                         WHERE banner = %s''', banner)
+                         WHERE banner = %s AND prestige >= %s''', banner, prestige)
 
 def flush_temp_banners(c):
   query_do(c, '''DELETE FROM player_banners WHERE temp = true''')
 
 def award_banner(c, player, banner, prestige, temp=False):
-  if player_has_banner(c, player, banner):
+  if player_has_banner(c, player, banner, 0):
     query_do(c, '''UPDATE player_banners
                    SET prestige = %s
                    WHERE player = %s AND banner = %s AND prestige < %s''',
@@ -30,7 +30,11 @@ def award_banner(c, player, banner, prestige, temp=False):
 def pantheon(c, player):
   distinct_gods = query.player_distinct_gods(c, player) 
   if len(distinct_gods) == len(crawl.GODS) - 2:
-    award_banner(c, player, 'elyvilon', 7)
+    award_banner(c, player, 'elyvilon', 3)
+  elif len(distinct_gods) >= 5:
+    award_banner(c, player, 'elyvilon', 2)
+  elif len(distinct_gods) >= 1:
+    award_banner(c, player, 'elyvilon', 1)
 
 BANNERS = [['elyvilon', pantheon]]
 
@@ -45,7 +49,7 @@ def assign_top_player_banners(c):
                            WHERE score_full > 0''',
                            'score_full', 3, 1)
   def do_banner(r, nth):
-    award_banner(c, r[0], 'top_player_Nth:%d' % (nth + 1), 1000, temp=True)
+    award_banner(c, r[0], '1top_player', 100*(1+nth), temp=True)
     return True
   query.do_place_numeric(rows, do_banner)
 
@@ -62,6 +66,6 @@ def assign_top_clan_banners(c):
                            WHERE total_score > 0''',
                            'total_score', 3, 1)
   def do_banner(r, nth):
-    award_clan_banner(c, r[0], 'top_clan_Nth:%d' % (nth + 1), 100)
+    award_clan_banner(c, r[0], '2top_clan', 10*(1+nth))
     return True
   query.do_place_numeric(rows, do_banner)

@@ -67,7 +67,7 @@ def list_nemelex_choices(c):
   nem_list = []
   for x in combos:
     ban = 'nemelex:' + x[0]
-    nem_list.append([x[0], x[1], count_recipients(c, ban)])
+    nem_list.append([x[0], x[1], count_recipients(c, ban, 3)])
   return nem_list
 
 def is_nemelex_choice(combo, when):
@@ -102,4 +102,4 @@ def need_new_combo(c):
     nowtime = datetime.utcnow().strftime('%Y%m%d')
     return (nowtime >= START_TIME)
   ban = 'nemelex:' + current_nemelex_choice()[0]
-  return (count_recipients(c, ban) > 0)
+  return (count_recipients(c, ban, 3) > 0)
