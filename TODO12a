@@ -1,13 +1,6 @@
-TODO for tourney12a, as of Feb 1:
-
-* finalize rule list
-  - just a bit of polishing left
-
-* get tourney announced
+TODO for tourney12a, as of Feb 12:
 
 * fix scoring to agree with the rules
-  - add god "stock exchange" points
-  - change old god points to be not just for winners
   - banners! Lots to do here...
   - change Nemelex selection to look at high scores... probably pick randomly from the lowest 20ish combos that don't repeat, so it isn't too predictable. Also use the oldwon list for the first one, to make sure it isn't ridiculous.
 
