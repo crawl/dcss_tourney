@@ -111,7 +111,7 @@ def do_milestone_rune(c, mile):
 #    # 50 points for the first time the player finds a rune.
 #    assign_points(c, "rune_1st:" + rune, mile['name'], 50)
   player = mile['name']
-  banner.safe_award_banner(c, player, 'tso', 4)
+  banner.award_banner(c, player, 'tso', 4)
   if (not banner.player_has_banner(c, player, 'ashenzari')
       and query.player_count_distinct_runes(c, player) == crawl.NRUNES):
     banner.award_banner(c, player, 'ashenzari', 9)
@@ -168,7 +168,7 @@ def check_fedhas_banner(c, g):
     player = game_player(g)
     full_fruit_mask = query.player_update_get_fruit_mask(c, player, fruit_mask)
     if crawl.fruit_basket_complete(full_fruit_mask):
-      banner.safe_award_banner(c, player, 'fedhas', 1)
+      banner.award_banner(c, player, 'fedhas', 1)
 
 def crunch_misc(c, g):
   player = g['name']
@@ -248,7 +248,7 @@ def crunch_winner(c, game):
     assign_team_points(c, "combo_first_win:" + charabbrev, player, 20)
 
   # Award Orb banner for wins.
-  banner.safe_award_banner(c, player, 'okawaru', 8)
+  banner.award_banner(c, player, 'okawaru', 8)
 
   if not query.game_did_visit_lair(c, player, game_start_time(game)):
     # assign_points(c, 'lairless_win', player, 20)
@@ -256,7 +256,7 @@ def crunch_winner(c, game):
       # 50 bonus points for winning without doing any branches.
       assign_points(c, 'branchless_win', player, 50)
       # And the banner:
-      banner.safe_award_banner(c, player, 'kikubaaqudgha', 10)
+      banner.award_banner(c, player, 'kikubaaqudgha', 10)
 
   debug("%s win (%s), runes: %d" % (player, charabbrev, game.get('urune') or 0))
 
@@ -313,7 +313,7 @@ def crunch_winner(c, game):
     streak_len = -1
   else:
     # Award banner.
-    banner.safe_award_banner(c, player, 'cheibriados', 10)
+    banner.award_banner(c, player, 'cheibriados', 10)
     # This length could be 1 even though it involves at least two games, beware!
     streak_len = compute_streak_length(streak_wins, game['char'])
     streak_species = 'streak_species:'+(game['char'][0:2])
@@ -378,7 +378,7 @@ def update_player_scores(c):
 def award_player_banners(c, banner_name, players, prestige=0, temp=False):
   if players:
     for p in players:
-      banner.safe_award_banner(c, p, banner_name, prestige, temp)
+      banner.award_banner(c, p, banner_name, prestige, temp)
 
 def award_temp_trophy(c, point_map,
                       player_rows, key, points,
