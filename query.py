@@ -822,12 +822,19 @@ def record_max_piety(c, player, start_time, god):
 
 def get_first_max_piety(c, player, start_time):
   row = query_row(c,
-                         '''SELECT noun FROM milestones
+                         '''SELECT noun, milestone_time FROM milestones
                             WHERE player = %s AND start_time = %s
                               AND verb = 'god.maxpiety'
                             ORDER BY milestone_time ASC''',
                          player, start_time)
   if row is None:
+    return 'faithless'
+  if (query_first(c,
+                  '''SELECT COUNT(*) FROM milestones
+                     WHERE player = %s AND start_time = %s
+                       AND verb = 'god.renounce'
+                       AND milestone_time < %s''',
+                  player, start_time, row[1]) > 0):
     return 'faithless'
   return row[0]
 
