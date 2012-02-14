@@ -54,12 +54,10 @@ DROP VIEW IF EXISTS streak_scoreboard;
 DROP VIEW IF EXISTS best_ziggurat_dives;
 DROP VIEW IF EXISTS youngest_rune_finds;
 DROP VIEW IF EXISTS most_deaths_to_uniques;
-DROP VIEW IF EXISTS atheist_goldless_wins;
 DROP VIEW IF EXISTS all_hellpan_kills;
 DROP VIEW IF EXISTS fivefives_nine;
 DROP VIEW IF EXISTS fivefives_rune;
 DROP VIEW IF EXISTS fivefives_win;
-DROP VIEW IF EXISTS speed_demons;
 DROP VIEW IF EXISTS orbrun_tomb;
 DROP VIEW IF EXISTS most_pacific_wins;
 DROP VIEW IF EXISTS last_started_win;
@@ -575,16 +573,6 @@ SELECT player, ndeaths, death_time
 ORDER BY ndeaths DESC, death_time
  LIMIT 3;
 
-CREATE VIEW atheist_goldless_wins AS
-SELECT g.*
-  FROM games g
- WHERE g.killertype = 'winning'
-   AND (g.gold_spent IS NULL OR g.gold_spent = 0)
-   AND (g.god IS NULL OR g.god = '')
-   AND NOT EXISTS (SELECT noun FROM milestones m
-                    WHERE m.player = g.player AND m.start_time = g.start_time
-                      AND verb = 'god.renounce' LIMIT 1);
-
 CREATE VIEW all_hellpan_kills AS
 SELECT player, COUNT(DISTINCT monster) AS hellpan_kills
   FROM kills_of_uniques
@@ -617,16 +605,6 @@ FROM games
 WHERE killertype = 'winning'
 GROUP BY player
 HAVING race_count >= 5 AND class_count >= 5;
-
-CREATE VIEW speed_demons AS
-SELECT player, COUNT(*) AS speed_count
-  FROM milestones
- WHERE verb = 'br.end'
-   AND noun = 'D'
-   AND duration <= 1620
-GROUP BY player
-  HAVING speed_count >= 1
-ORDER BY speed_count DESC;
 
 CREATE VIEW orbrun_tomb AS
 SELECT r.player, COUNT(*) AS orbrun_tomb_count

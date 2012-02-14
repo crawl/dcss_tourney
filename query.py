@@ -123,6 +123,41 @@ def did_change_god(c, game):
                             OR verb = 'god.worship') ''',
                       game['name'], game['start']) > 0)
 
+def did_worship_god(c, god, name, start, end):
+  return (query_first(c,
+                      '''SELECT COUNT(*) FROM milestones
+                          WHERE player = %s AND start_time = %s
+                            AND (verb = 'god.renounce'
+                            OR verb = 'god.worship')
+                            AND noun = %s
+                            AND milestone_time < %s ''',
+                      name, start, god, end) > 0)
+
+def did_get_rune(c, rune, name, start, end):
+  return (query_first(c,
+                      '''SELECT COUNT(*) FROM milestones
+                          WHERE player = %s AND start_time = %s
+                            AND verb = 'rune'
+                            AND noun = %s
+                            AND milestone_time < %s ''',
+                      name, start, rune, end) > 0)
+
+def did_reach_d14(c, name, start, end):
+  if (query_first(c,
+                      '''SELECT COUNT(*) FROM milestones
+                          WHERE player = %s AND start_time = %s
+                            AND verb = 'br.mid'
+                            AND milestone_time < %s ''',
+                      name, start, end) > 0):
+    return True
+  return (query_first(c,
+                      '''SELECT COUNT(*) FROM milestones
+                          WHERE player = %s AND start_time = %s
+                            AND verb = 'shaft'
+                            AND (place = 'D:13' OR place = 'D:12')
+                            AND milestone_time < %s ''',
+                      name, start, end) > 0)
+
 def win_query(selected, order_by = None,
               player=None, charabbr=None, character_race=None, raceabbr=None,
               character_class=None, classabbr=None, runes=None,
@@ -1458,7 +1493,15 @@ def player_distinct_mollified_gods(c, player):
                                   AND (noun != god OR god IS NULL)''',
                          player)
 
-def game_did_visit_lair(c, player, start_time):
+def game_did_visit_lair(c, player, start_time, before_time=None):
+  if before_time:
+    return query_first(c, '''SELECT COUNT(*)
+                               FROM milestones
+                              WHERE player = %s
+                                AND start_time = %s
+                                AND milestone_time < %s
+                                AND verb = 'br.enter' AND noun = 'Lair' ''',
+                     player, start_time, before_time)
   return query_first(c, '''SELECT COUNT(*)
                              FROM milestones
                             WHERE player = %s

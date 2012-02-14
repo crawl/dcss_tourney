@@ -6,26 +6,26 @@ from crawl_utils import clan_link, player_link, linked_text
 import re
 
 BANNER_IMAGES = \
-    { 'ashenzari': [ 'banner_ashenzari.png', 'Runic Literacy' ],
-      'beogh': [ 'banner_beogh.png', 'Saint' ],
+    { 'ashenzari': [ 'banner_ashenzari.png', 'The Explorer' ],
+      'beogh': [ 'banner_beogh.png', 'The Saint' ],
       'cheibriados': [ 'banner_cheibriados.png', 'Slow and Steady' ],
-      'elyvilon': [ 'banner_elyvilon.png', 'The Pantheon' ],
-      'fedhas': [ 'banner_fedhas.png', 'The Fruit Basket' ],
+      'elyvilon': [ 'banner_elyvilon.png', 'The Pious' ],
+      'fedhas': [ 'banner_fedhas.png', "Nature's Ally" ],
       'jiyva': [ 'banner_jiyva.png', 'Gelatinous Body' ],
       'kikubaaqudgha': [ 'banner_kikubaaqudgha.png', 'Lord of Darkness' ],
-      'lugonu': [ 'banner_lugonu.png', 'The Atheist' ],
+      'lugonu': [ 'banner_lugonu.png', 'The Abyssal Tourist' ],
       'makhleb': [ 'banner_makhleb.png', 'Speed Demon' ],
       'nemelex': [ 'banner_nemelex.png', "Nemelex' Choice" ],
-      'okawaru': [ 'banner_okawaru.png', 'The Orb' ],
-      'sif': [ 'banner_sif.png', 'The Scholar' ],
-      'tso': [ 'banner_tso.png', 'Discovered Language' ],
-      'trog': [ 'banner_trog.png', 'The Scythe' ],
-      'vehumet': [ 'banner_vehumet.png', 'Let it end in hellfire' ],
+      'okawaru': [ 'banner_okawaru.png', 'The Conqueror' ],
+      'sif': [ 'banner_sif.png', 'The Student' ],
+      'tso': [ 'banner_tso.png', 'Vow of Courage' ],
+      'trog': [ 'banner_trog.png', 'The Sniper' ],
+      'vehumet': [ 'banner_vehumet.png', 'Ruthless Efficiency' ],
       'xom': [ 'banner_xom.png', 'Descent into Madness' ],
       'yredelemnul': [ 'banner_yredelemnul.png', 'The Harvest' ],
       'zin': [ 'banner_zin.png', 'Angel of Justice' ],
       '1top_player': [ 'player.png', 'Top Player'],
-      '2top_clan':   [ 'clan.png', 'Best Clan' ],
+      '2top_clan':   [ 'clan.png', 'Top Clan' ],
     }
 
 STOCK_WIN_COLUMNS = \

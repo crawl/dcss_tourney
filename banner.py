@@ -69,3 +69,18 @@ def assign_top_clan_banners(c):
     award_clan_banner(c, r[0], '2top_clan', 10*(1+nth))
     return True
   query.do_place_numeric(rows, do_banner)
+  def do_saint(r, prestige):
+    for player in query.get_saints(c, r[0]):
+      award_banner(c, player, 'beogh', prestige, temp=True)
+  rows = query_rows_with_ties(c, '''SELECT owner, total_score
+                            FROM teams
+                           WHERE total_score > 0''',
+                           'total_score', 5, 1)
+  for r in rows:
+    do_saint(r, 3)
+  rows = query_rows_with_ties(c, '''SELECT owner, total_score
+                            FROM teams
+                           WHERE total_score > 0''',
+                           'total_score', 20, 1)
+  for r in rows:
+    do_saint(r, 2)
