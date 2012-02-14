@@ -20,8 +20,8 @@
         <div class="heading">
           <h1>${title}</h1>
           <p class="fineprint">
-            Tournament starts Feb 25, ${year} at midnight UTC, and ends on
-            Mar 12, ${year} at midnight UTC.
+            Tournament starts on <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20120225T00">Feb 25, ${year} at 0:00 UTC (midnight Feb 25)</a>, and ends on
+            <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20120312T00">Mar 11, ${year} at 24:00 UTC (midnight Mar 12)</a>.
           </p>
         </div>
         <hr>
@@ -32,8 +32,8 @@
             ${version} Dungeon Crawl Stone Soup Tournament. The simple part:
             Play on <a href="http://crawl.akrasiac.org">crawl.akrasiac.org</a>
             or <a href="http://crawl.develz.org">crawl.develz.org</a> and all of
-            your Crawl ${version} games that <b>start after midnight UTC on
-            February 25</b> and <b>end before midnight UTC on March 12</b> will
+            your Crawl ${version} games that <b>start after <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20120225T00">0:00 UTC on
+            February 25 (midnight Feb 25)</a></b> and <b>end before <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20120312T00">24:00 UTC on March 11 (midnight Mar 12)</a></b> will
             count toward the tournament.
           </p>
 
@@ -101,7 +101,7 @@
 
           <p>
             Clans may be changed by adding or removing players at any
-            time until midnight UTC on <b>March 4</b>, after which clans will be
+            time until <b><a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20120304T00">24:00 UTC on March 3 (midnight Mar 4)</a></b>, after which clans will be
             effectively frozen.
           </p>
 
