@@ -1012,6 +1012,13 @@ def add_unique_milestone(cursor, game):
              game['name'],
              sqltime,
              extract_unique_name(game['milestone']))
+    query_do(cursor,
+             '''INSERT INTO kunique_turns (player, start_time, monster, turn)
+                VALUES (%s, %s, %s, %s);''',
+             game['name'],
+             game['start'],
+             extract_unique_name(game['milestone']),
+             game['turn'])
 
     # Update a convenient lookup table that we can use for trophy calcs.
     uniqcount = _player_count_unique_uniques(cursor, game['name'])

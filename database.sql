@@ -20,6 +20,7 @@ DROP TABLE IF EXISTS rune_finds;
 DROP TABLE IF EXISTS branch_enters;
 DROP TABLE IF EXISTS branch_ends;
 DROP TABLE IF EXISTS kunique_times;
+DROP TABLE IF EXISTS kunique_turns;
 DROP TABLE IF EXISTS kills_of_uniques;
 DROP TABLE IF EXISTS kills_of_ghosts;
 DROP TABLE IF EXISTS kills_by_ghosts;
@@ -54,11 +55,13 @@ DROP VIEW IF EXISTS streak_scoreboard;
 DROP VIEW IF EXISTS best_ziggurat_dives;
 DROP VIEW IF EXISTS youngest_rune_finds;
 DROP VIEW IF EXISTS most_deaths_to_uniques;
+DROP VIEW IF EXISTS have_hellpan_kills;
 DROP VIEW IF EXISTS all_hellpan_kills;
 DROP VIEW IF EXISTS fivefives_nine;
 DROP VIEW IF EXISTS fivefives_rune;
 DROP VIEW IF EXISTS fivefives_win;
 DROP VIEW IF EXISTS orbrun_tomb;
+DROP VIEW IF EXISTS nearby_uniques;
 DROP VIEW IF EXISTS most_pacific_wins;
 DROP VIEW IF EXISTS last_started_win;
 
@@ -280,6 +283,15 @@ CREATE TABLE kills_of_uniques (
   );
 
 CREATE INDEX kill_uniq_pmons ON kills_of_uniques (player, monster);
+
+CREATE TABLE kunique_turns (
+  player VARCHAR(20) NOT NULL,
+  start_time DATETIME NOT NULL,
+  monster VARCHAR(20),
+  turn INT,
+  FOREIGN KEY (player) REFERENCES players (name)
+  );
+CREATE INDEX kill_uniq_pgameturn ON kunique_turns (player, start_time);
 
 -- Keep track of who's killed how many uniques, and when they achieved this.
 CREATE TABLE kunique_times (
@@ -623,3 +635,21 @@ SELECT r.player, COUNT(*) AS orbrun_tomb_count
 GROUP BY r.player
   HAVING orbrun_tomb_count >= 1
 ORDER BY orbrun_tomb_count DESC;
+
+CREATE VIEW have_hellpan_kills AS
+SELECT h.player, COUNT(*) AS hellpan_kills
+  FROM kills_of_uniques h INNER JOIN kills_of_uniques p ON h.player = p.player
+ WHERE (h.monster = 'Antaeus' OR h.monster = 'Asmodeus' OR 
+        h.monster = 'Dispater' OR h.monster = 'Ereshkigal')
+   AND (p.monster = 'Cerebov' OR p.monster = 'Gloorx Vloq' OR 
+        p.monster = 'Lom Lobon' OR p.monster = 'Mnoleg')
+GROUP BY h.player
+  HAVING hellpan_kills >= 1;
+
+CREATE VIEW nearby_uniques AS
+SELECT f.player, f.monster, s.monster AS smonster, f.turn, s.turn AS sturn
+  FROM kunique_turns f INNER JOIN kunique_turns s ON f.player = s.player
+ WHERE f.start_time = s.start_time
+   AND f.turn <= s.turn
+   AND f.turn + 2 >= s.turn
+   AND NOT f.monster = s.monster;

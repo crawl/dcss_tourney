@@ -309,6 +309,30 @@ def get_combo_scores(c, how_many=None, player=None):
     query.append(" LIMIT %d" % how_many)
   return [ row_to_xdict(x) for x in query.rows(c) ]
 
+def previous_combo_highscore(c, game):
+  return query_row(c, '''SELECT player, score, killertype
+                         FROM games
+                         WHERE charabbrev = %s
+                         AND end_time < %s
+                         ORDER BY score DESC''',
+                   game['char'], game['end'])
+
+def previous_species_highscore(c, game):
+  return query_row(c, '''SELECT player, score, killertype
+                         FROM games
+                         WHERE raceabbr = %s
+                         AND end_time < %s
+                         ORDER BY score DESC''',
+                   game['char'][:2], game['end'])
+
+def previous_class_highscore(c, game):
+  return query_row(c, '''SELECT player, score, killertype
+                         FROM games
+                         WHERE MID(charabbrev,3,2) = %s
+                         AND end_time < %s
+                         ORDER BY score DESC''',
+                   game['char'][2:], game['end'])
+
 def get_clan_combo_scores(c, how_many=None, captain=None):
   query = Query("SELECT team_captain, " + ",".join(LOG_FIELDS) +
                 (""" FROM clan_combo_highscores
@@ -510,6 +534,14 @@ def get_streak_games(c, player, end_time):
                ORDER BY end_time''',
             player, player, end_time, end_time)
   return find_monotonic_games([ row_to_xdict(x) for x in q.rows(c) ])
+
+def check_xl9_streak(c, player, before_time):
+  r = query_row(c, '''SELECT xl FROM games
+                      WHERE player = %s
+                      AND end_time <= %s
+                      ORDER BY end_time DESC''',
+                player, before_time)
+  return (r and r[0] >= 9)
 
 def wins_in_streak_before(c, player, before):
   """Returns all the wins in the streak before the given game. Caller

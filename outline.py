@@ -10,7 +10,7 @@ import crawl_utils
 import crawl
 import uniq
 
-from loaddb import query_do, query_first_col
+from loaddb import query_do, query_first_col, query_rows
 from query import count_points, assign_points, assign_team_points, wrap_transaction
 from query import log_temp_points, log_temp_team_points, get_points
 
@@ -240,6 +240,12 @@ def crunch_misc(c, g):
   if g['xl'] >= 9 and nemelex.is_nemelex_choice(g['char'],g['start']):
     ban = 'nemelex:' + charabbrev
     banner.award_banner(c, player, ban, 1)
+  if g['xl'] >= 9 and query.check_xl9_streak(c, player, g['start']):
+    banner.award_banner(c, player, 'cheibriados', 1)
+  if g['sc'] >= 1000:
+    og = query.previous_combo_highscore(c, g)
+    if og and og[0] != player and og[1] >= 1000 and og[1] < g['sc']:
+      banner.award_banner(c, player, 'trog', 1)
   #check_fedhas_banner(c, g)
 
   killer = loaddb.strip_unique_qualifier(g.get('killer') or '')
@@ -325,6 +331,17 @@ def crunch_winner(c, game):
     else:
       banner.award_banner(c, player, 'kikubaaqudgha', 2)
 
+  ogame = query.previous_combo_highscore(c, game)
+  if ogame and ogame[0] != player and ogame[2] == 'winning' and ogame[1] < game['sc']:
+    banner.award_banner(c, player, 'trog', 2)
+  if game['sc'] >= 10000000:
+    ogame = query.previous_species_highscore(c, game)
+    if ogame and ogame[1] >= 10000000 and ogame[1] < game['sc'] and ogame[0] != player:
+      banner.award_banner(c, player, 'trog', 3)
+    ogame = query.previous_class_highscore(c, game)
+    if ogame and ogame[1] >= 10000000 and ogame[1] < game['sc'] and ogame[0] != player:
+      banner.award_banner(c, player, 'trog', 3)
+
   debug("%s win (%s), runes: %d" % (player, charabbrev, game.get('urune') or 0))
 
   if nemelex.is_nemelex_choice(charabbrev, game_end):
@@ -383,8 +400,9 @@ def crunch_winner(c, game):
     banner.award_banner(c, player, 'cheibriados', 2)
     # This length could be 1 even though it involves at least two games, beware!
     streak_len = compute_streak_length(streak_wins, game['char'])
-    if streak_len == 3 and len(streak_wins) == 2:
-      banner.award_banner(c, player, 'cheibriados', 3)
+    if len(streak_wins) >= 2:
+      if compute_streak_length(streak_wins[-2:], game['char']) == 3:
+        banner.award_banner(c, player, 'cheibriados', 3)
     streak_species = 'streak_species:'+(game['char'][0:2])
     streak_class = 'streak_class:'+(game['char'][2:])
     # 75 points for streak games, but only if they are with a new race and class.
@@ -535,6 +553,10 @@ def check_banners(c):
                        query_first_col(c, '''SELECT player
                                              FROM all_hellpan_kills'''),
                        3)
+  award_player_banners(c, 'zin',
+                       query_first_col(c, '''SELECT player
+                                             FROM have_hellpan_kills'''),
+                       2)
   award_player_banners(c, 'jiyva',
                        query_first_col(c,
                                        '''SELECT player FROM fivefives_nine'''),
@@ -551,6 +573,31 @@ def check_banners(c):
                        query_first_col(c,
                                        '''SELECT player FROM orbrun_tomb'''),
                        3)
+  award_player_banners(c, 'yredelemnul',
+                       query_first_col(c,
+                                       '''SELECT player FROM kunique_times
+                                          WHERE nuniques >= 65'''),
+                       3)
+  award_player_banners(c, 'yredelemnul',
+                       query_first_col(c,
+                                       '''SELECT player FROM kunique_times
+                                          WHERE nuniques >= 45'''),
+                       2)
+  award_player_banners(c, 'yredelemnul',
+                       query_first_col(c,
+                                       '''SELECT player FROM kunique_times
+                                          WHERE nuniques >= 25'''),
+                       1)
+  rows = query_rows(c, '''SELECT * FROM nearby_uniques''')
+  for r in rows:
+    a = uniq.how_deep(r[1])
+    b = uniq.how_deep(r[2])
+    d = 3 - (r[4] - r[3])
+    if b < a:
+      a = b
+    if d < a:
+      a = d
+    banner.award_banner(c, r[0], 'vehumet', a)
 
 def check_misc_points(c, pmap):
   def award_misc_points(key, multiplier, rows):

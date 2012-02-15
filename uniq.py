@@ -26,3 +26,10 @@ UNIQUES.sort()
 
 def is_uniq(name):
   return name in UNIQ_SET
+
+def how_deep(name):
+  if name in HARD_UNIQUES:
+    return 3
+  if name in MEDIUM_UNIQUES:
+    return 2
+  return 1

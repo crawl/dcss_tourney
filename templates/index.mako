@@ -657,7 +657,7 @@ III: Reach D:27 in 27 minutes without being one of the speedy races (centaur, sp
               <br>
                 II: Steal a combo high score for a previously won combo.
               <br>
-                III: Steal a species high score using a previously won species.
+                III: Steal a species or class high score that was previously of at least 10,000,000 points.
               </p>
             </div>
 
