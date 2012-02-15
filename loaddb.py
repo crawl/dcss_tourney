@@ -434,6 +434,9 @@ def xlog_dict(logline):
   if d.get('tmsg') and not d.get('vmsg'):
     d['vmsg'] = d['tmsg']
 
+  if not d.get('tiles'):
+    d['tiles'] = '0'
+
   if not d.get('nrune') and not d.get('urune'):
     d['nrune'] = 0
     d['urune'] = 0
@@ -839,6 +842,8 @@ def insert_xlog_db(cursor, xdict, filename, offset):
 def update_whereis(c, xdict, filename):
   player = xdict['name']
   src = filename[:3]
+  if xdict['tiles'] == '1':
+    src = filename[:2]+'t'
   start_time = xdict['start']
   mile_time = xdict['time']
   query_do(c, '''INSERT INTO whereis_table
@@ -849,6 +854,8 @@ def update_whereis(c, xdict, filename):
 def update_last_game(c, xdict, filename):
   player = xdict['name']
   src = filename[:3]
+  if xdict['tiles'] == '1':
+    src = filename[:2]+'t'
   start_time = xdict['start']
   query_do(c, '''INSERT INTO last_game_table
                       VALUES (%s, %s, %s)
