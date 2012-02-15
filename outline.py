@@ -238,7 +238,7 @@ def crunch_misc(c, g):
   if g['goldspent'] == 0 and g['gold'] >= 1000:
     banner.award_banner(c, player, 'sif', 1)
   if g['xl'] >= 9 and nemelex.is_nemelex_choice(g['char'],g['start']):
-    ban = 'nemelex:' + charabbrev
+    ban = 'nemelex:' + g['char']
     banner.award_banner(c, player, ban, 1)
   if g['xl'] >= 9 and query.check_xl9_streak(c, player, g['start']):
     banner.award_banner(c, player, 'cheibriados', 1)
