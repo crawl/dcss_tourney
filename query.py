@@ -309,6 +309,12 @@ def get_combo_scores(c, how_many=None, player=None):
     query.append(" LIMIT %d" % how_many)
   return [ row_to_xdict(x) for x in query.rows(c) ]
 
+def highscore(c, combo):
+  return query_first_def(c, 0, '''SELECT score FROM games
+                                  WHERE charabbrev = %s
+                                  ORDER BY score DESC''',
+                         combo)
+
 def previous_combo_highscore(c, game):
   return query_row(c, '''SELECT player, score, killertype
                          FROM games

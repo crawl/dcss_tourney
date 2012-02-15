@@ -3,7 +3,6 @@ DECK
 DEMo
 DESk
 DrAM
-FeCK
 FeSt
 GhEE
 HaCK
@@ -11,8 +10,6 @@ HaSt
 HEAr
 HECK
 HEWn
-HOAr
-HOMo
 HONe
 HOSt
 HuSk
