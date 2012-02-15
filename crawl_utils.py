@@ -20,7 +20,7 @@ PLAYER_FILE_DIR = SCORE_FILE_DIR + '/' + PLAYER_BASE
 CLAN_FILE_DIR = SCORE_FILE_DIR + '/' + CLAN_BASE
 
 CAO_MORGUE_BASE = 'http://crawl.akrasiac.org/rawdata'
-CDO_MORGUE_BASE = 'http://crawl.develz.org/morgues'
+CDO_MORGUE_BASE = 'http://crawl.develz.org/morgues/trunk'
 
 # Use file URLs when testing on elliptic's machines.
 LOCAL_TEST = ('aaron' in os.getcwd()
@@ -167,10 +167,6 @@ def morgue_link(xdict):
     base = CAO_MORGUE_BASE
   else:
     base = CDO_MORGUE_BASE
-    if 2520*xdict['end_time'].day + 60*xdict['end_time'].hour + xdict['end_time'].minute > 2520*19 + 60*17 + 40:
-      base += '/0.9'
-    else:
-      base += '/trunk'
   return "%s/%s/morgue-%s-%s.txt" % (base, name, name, stime)
 
 def linked_text(key, link_fn, text=None):
