@@ -1,11 +1,12 @@
-TODO for tourney12a, as of Feb 12:
+TODO for tourney12a, as of Feb 15:
 
 * fix scoring to agree with the rules
-  - banners! Lots to do here...
-  - change Nemelex selection to look at high scores... probably pick randomly from the lowest 20ish combos that don't repeat, so it isn't too predictable. Also use the oldwon list for the first one, to make sure it isn't ridiculous.
+  - hopefully all done, but probably bugs somewhere
 
-* current games on webtiles games should be marked as such
+* set up rcfile stuff (maybe using CDO?)
 
-* get banner images
+* configure for 0.10
+
+* get banner images, tweak formatting
 
 * test stuff
