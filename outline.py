@@ -185,7 +185,8 @@ def do_milestone_zig(c, mile):
     banner.award_banner(c, mile['name'], 'xom', 2)
 
 def do_milestone_zig_exit(c, mile):
-  banner.award_banner(c, mile['name'], 'xom', 3)
+  if mile['place'] == 'Zig:27':
+    banner.award_banner(c, mile['name'], 'xom', 3)
 
 def do_milestone_abyss_exit(c, mile):
   if not query.did_worship_god(c, 'Lugonu', mile['name'], mile['start'], mile['time']):
