@@ -367,7 +367,7 @@
 	      <img src="images/banner_ashenzari.png"
                    alt="The Explorer"
                    title="The Explorer"
-                   width="150" height="55"
+                   width="235" height="80"
                    >
               <p>
                 Ashenzari thinks that an
@@ -388,7 +388,7 @@
 	      <img src="images/banner_beogh.png"
                    alt="The Saint"
                    title="The Saint"
-                   width="150" height="55"
+                   width="235" height="80"
                    >
               <p>
 	        Beogh thinks that the only thing more important than
@@ -411,7 +411,7 @@
 	      <img src="images/banner_cheibriados.png"
                    alt="Slow and Steady"
                    title="Slow and Steady"
-                   width="150" height="55"
+                   width="235" height="80"
                    >
               <p>
                 Cheibriados believes in being
@@ -433,7 +433,7 @@
 	      <img src="images/banner_elyvilon.png"
                    alt="The Pious"
                    title="The Pious"
-                   width="150" height="55"
+                   width="235" height="80"
                    >
               <p>
                 Elyvilon thinks it's important to check out what all
@@ -456,7 +456,7 @@
 	      <img src="images/banner_fedhas.png"
                    alt="Nature's Ally"
                    title="Nature's Ally"
-                   width="150" height="55"
+                   width="235" height="80"
                    >
               <p>
                 Fedhas thinks that the Crypt and the Tomb are abominations against nature and will bestow the title of <a name="natures_ally">NATURE'S ALLY</a> on a player who works towards destroying them.
@@ -475,7 +475,7 @@
 	      <img src="images/banner_jiyva.png"
                    alt="Gelatinous Body"
                    title="Gelatinous Body"
-                   width="150" height="55"
+                   width="235" height="80"
                    >
               <p>
                 Jiyva thinks that it is important to be flexible and will gift
@@ -497,7 +497,7 @@
 	      <img src="images/banner_kikubaaqudgha.png"
                    alt="Lord of Darkness"
                    title="Lord of Darkness"
-                   width="150" height="55"
+                   width="235" height="80"
                    >
               <p>
                 Kikubaaqudgha wants players to demonstrate their mastery over
@@ -519,7 +519,7 @@
 	      <img src="images/banner_lugonu.png"
                    alt="The Abyssal Tourist"
                    title="The Abyssal Tourist"
-                   width="150" height="55"
+                   width="235" height="80"
                    >
               <p>
                 Lugonu would like to corrupt the worshippers of other gods by
@@ -539,7 +539,7 @@ III: Find the abyssal rune and then escape the Abyss before reaching experience 
 	      <img src="images/banner_makhleb.png"
                    alt="Speed Demon"
                    title="Speed Demon"
-                   width="150" height="55"
+                   width="235" height="80"
                    >
               <p>
                 Makhleb wants to see bloodshed as quickly as possible and
@@ -560,7 +560,7 @@ III: Reach D:27 in 27 minutes without being one of the speedy races (centaur, sp
 	      <img src="images/banner_nemelex.png"
                    alt="Nemelex' Choice"
                    title="Nemelex' Choice"
-                   width="150" height="55"
+                   width="235" height="80"
                    >
               <p>
                 Nemelex Xobeh wants to see players struggle and loves
@@ -584,7 +584,7 @@ III: Reach D:27 in 27 minutes without being one of the speedy races (centaur, sp
 	      <img src="images/banner_okawaru.png"
                    alt="The Conqueror"
                    title="The Conqueror"
-                   width="150" height="55"
+                   width="235" height="80"
                    >
               <p>
                 Okawaru is all about winning, all the time, and thus
@@ -605,7 +605,7 @@ III: Reach D:27 in 27 minutes without being one of the speedy races (centaur, sp
 	      <img src="images/banner_sif.png"
                    alt="The Student"
                    title="The Student"
-                   width="150" height="55"
+                   width="235" height="80"
                    >
               <p>
                 Sif Muna thinks that you should ignore distractions such
@@ -626,7 +626,7 @@ III: Reach D:27 in 27 minutes without being one of the speedy races (centaur, sp
 	      <img src="images/banner_the_shining_one.png"
                    alt="Vow of Courage"
                    title="Vow of Courage"
-                   width="150" height="55"
+                   width="235" height="80"
                    >
               <p>
                 The Shining One thinks each player should take a
@@ -647,7 +647,7 @@ III: Reach D:27 in 27 minutes without being one of the speedy races (centaur, sp
 	      <img src="images/banner_trog.png"
                    alt="The Sniper"
                    title="The Sniper"
-                   width="150" height="55"
+                   width="235" height="80"
                    >
               <p>
                 Trog will recognize as
@@ -668,7 +668,7 @@ III: Reach D:27 in 27 minutes without being one of the speedy races (centaur, sp
 	      <img src="images/banner_vehumet.png"
                    alt="Ruthless Efficiency"
                    title="Ruthless Efficiency"
-                   width="150" height="55"
+                   width="235" height="80"
                    >
               <p>
                 Vehumet wants you to demonstrate
@@ -689,7 +689,7 @@ III: Reach D:27 in 27 minutes without being one of the speedy races (centaur, sp
 	      <img src="images/banner_xom.png"
                    alt="Descent into Madness"
                    title="Descent into Madness"
-                   width="150" height="55"
+                   width="235" height="80"
                    >
               <p>
                 Xom is always looking for entertainment and thinks it would be
@@ -711,7 +711,7 @@ III: Reach D:27 in 27 minutes without being one of the speedy races (centaur, sp
 	      <img src="images/banner_yredelemnul.png"
                    alt="The Harvest"
                    title="The Harvest"
-                   width="150" height="55"
+                   width="235" height="80"
                    >
               <p>
                 Yredelemnul demands that you kill as many uniques as possible and
@@ -732,7 +732,7 @@ III: Reach D:27 in 27 minutes without being one of the speedy races (centaur, sp
 	      <img src="images/banner_zin.png"
                    alt="Angel of Justice"
                    title="Angel of Justice"
-                   width="150" height="55"
+                   width="235" height="80"
                    >
               <p>
                 Zin will give the

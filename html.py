@@ -658,7 +658,7 @@ def banner_img_for(b, nth):
     bid = ""
   return '''<div>
               <img src="%s" alt="%s"
-                   title="%s" width="150" height="55"
+                   title="%s" width="235" height="80"
                    %s class="banner">
             </div>''' % (b[0], b[1], b[1], bid)
 
