@@ -44,8 +44,7 @@ BLACKLIST_FILE = 'blacklist.txt'
 EXTENSION_FILE = 'modules.ext'
 TOURNAMENT_DB = 'tournament'
 COMMIT_INTERVAL = 3000
-# Probably this isn't the correct directory?
-CRAWLRC_DIRECTORY = LOCAL_TEST and 'rcfiles/' or '/chroot/dgldir/rcfiles/crawl-0.9'
+CRAWLRC_DIRECTORY_LIST = LOCAL_TEST and ['rcfiles/'] or ['/chroot/dgldir/rcfiles/crawl-0.9']
 
 LISTENERS = [ ]
 TIMERS = [ ]

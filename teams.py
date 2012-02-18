@@ -35,14 +35,14 @@ class TeamListener (loaddb.CrawlEventListener):
     def cleanup(self, db):
         cursor = db.cursor()
         try:
-            insert_teams(cursor, get_teams(loaddb.CRAWLRC_DIRECTORY))
+            insert_teams(cursor, get_teams(loaddb.CRAWLRC_DIRECTORY_LIST))
             update_clan_scores(cursor)
         finally:
             cursor.close()
 
 class TeamTimer (loaddb.CrawlTimerListener):
     def run(self, cursor, elapsed):
-        insert_teams(cursor, get_teams(loaddb.CRAWLRC_DIRECTORY))
+        insert_teams(cursor, get_teams(loaddb.CRAWLRC_DIRECTORY_LIST))
         update_clan_scores(cursor)
 
 LISTENER = [ TeamListener() ]
@@ -52,34 +52,39 @@ TIMER = [ ( crawl_utils.UPDATE_INTERVAL , TeamTimer() ) ]
 
 DEADLINE = datetime.datetime(2012, 3, 4, 0) # Mar 4, 00:00
 
-def get_teams(directory):
-    '''Searches all *.rc files in the given directory for team information
-    and returns a dictorary, indexed by team capatains, of tuples of
-    the team name and the set of members.'''
-    if not os.path.exists(directory):
-        return { }
+def get_teams(directory_list):
+    '''Searches all *.rc files in the given directories for team information
+    and returns a dictorary, indexed by team captains, of tuples of
+    the team name and the set of members. If there are multiple .rc files belonging to the same player with team information, use the first one.'''
+    existing_directory_list = [directory for directory in directory_list if os.path.exists(directory)]
+    if len(existing_directory_list) == 0:
+      return { }
     teams = {}
     teamname = {}
     draftees = {}
     volunteers = {}
     players = []
-    for filename in os.listdir(directory):
+    for directory in existing_directory_list:
+      for filename in os.listdir(directory):
         if fnmatch.fnmatch(filename, '*.rc'):
             player = filename[:-3].lower()
-            players.append(player)
+            if player in players:
+                continue
             rcfile = open(os.path.join(directory, filename))
             line = rcfile.readline()
             offset = line.find('TEAM')
             if offset != -1:
                 elements = re.sub('[^\w -]', '', line[offset:]).split(' ')
                 if elements[0] == 'TEAMCAPTAIN':
+                    players.append(player)
                     if len(elements) < 2:
                         elements.append(player)
                     volunteers.setdefault(elements[1].lower(), []).append(player)
                     line = rcfile.readline()
                     offset = line.find('TEAM')
                     elements = re.sub('[^\w -]', '', line[offset:]).split(' ')
-                if elements[0] == 'TEAMNAME':
+                elif elements[0] == 'TEAMNAME':
+                    players.append(player)
                     teamname[player] = ''.join(elements[1:]) or ('Team_' + player)
                     volunteers.setdefault(player, []).append(player)
                     line = rcfile.readline()
