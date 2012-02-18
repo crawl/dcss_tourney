@@ -11,7 +11,7 @@ UPDATE_INTERVAL = 7 * 60
 USING_CSO = ('crawl-tourney' == os.environ.get('USER'))
 
 LOCK = None
-BASEDIR = USING CSO and '/var/www/crawl/tourney' or os.environ['HOME']
+BASEDIR = USING_CSO and '/var/www/crawl/tourney' or os.environ['HOME']
 LOCKFILE = BASEDIR + '/tourney-py.lock'
 SCORE_FILE_DIR = 'html.tourney12a'
 
@@ -32,8 +32,8 @@ LOCAL_TEST = USING_CSO or ('aaron' in os.getcwd()
 CAO_BASE = (LOCAL_TEST
             and ('file:///' + os.getcwd() + '/' + SCORE_FILE_DIR)
             or 'http://crawl.akrasiac.org')
-CAO_TOURNEY_BASE = (USING_CSO and 'http://seleniac.org/crawl/tourney/12a') or
-                   (LOCAL_TEST and CAO_BASE) or ('%s/tourney11' % CAO_BASE)
+CAO_TOURNEY_BASE = ((USING_CSO and 'http://seleniac.org/crawl/tourney/12a') or
+                    (LOCAL_TEST and CAO_BASE) or ('%s/tourney11' % CAO_BASE))
 CAO_IMAGE_BASE = CAO_TOURNEY_BASE + '/images'
 CAO_PLAYER_BASE = '%s/players' % CAO_TOURNEY_BASE
 CAO_CLAN_BASE = '%s/clans' % CAO_TOURNEY_BASE
