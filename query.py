@@ -628,6 +628,12 @@ def clan_class_wins(c, captain):
                           WHERE g.killertype='winning' AND g.player = p.name
                           AND p.team_captain = %s""", captain)
 
+def clan_god_wins(c, captain):
+  return query_rows(c, """SELECT DISTINCT g.god
+                          FROM player_won_gods g, players p
+                          WHERE g.player = p.name AND p.team_captain = %s""",
+                    captain)
+
 def clan_max_points(c, captain, key):
   points = query_row(c,
                      '''SELECT pp.player, SUM(pp.points) total
@@ -647,6 +653,9 @@ def player_specific_points(c, name):
     points += count_points(c, name, 'species_win:'+g[0])
   for g in player_class_wins(c, name):
     points += count_points(c, name, 'class_win:'+g[0])
+  for god in get_player_won_gods(c, name):
+    banner_god = god.lower().replace(' ', '_')
+    points += count_points(c, name, 'god_win:'+banner_god)
   return points
 
 def row_to_xdict(row):

@@ -156,6 +156,11 @@ def clan_additional_score(c, owner):
     key = 'class_win:' + g[0]
     points = query.clan_max_points(c, owner, key)
     additional += log_temp_clan_points(c, owner, key, points)
+  for g in query.clan_god_wins(c, owner):
+    banner_god = g[0].lower().replace(' ', '_')
+    key = 'god_win:' + banner_god
+    points = query.clan_max_points(c, owner, key)
+    additional += log_temp_clan_points(c, owner, key, points)
 
   query.set_clan_points(c, owner, additional)
   # A clan-based banner.
