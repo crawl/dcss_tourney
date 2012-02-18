@@ -558,15 +558,16 @@ def banner_named(name, prestige):
   return banner_img_for(img, 0)
 
 def banner_images(banners):
-  images = [banner_image(x[0],x[1]) for x in banners]
-  images = [i for i in images if i and i[0]]
-  seen_images = set()
+  # First remove duplicates. We assume that higher prestige versions come first.
+  seen_banners = set()
   deduped = []
-  for i in images:
-    if not i[1] in seen_images:
-      deduped.append(i)
-      seen_images.add(i[1])
-  return deduped
+  for b in banners:
+    if not _strip_banner_suffix(b[0]) in seen_banners:
+      deduped.append(b)
+      seen_banners.add(_strip_banner_suffix(b[0]))
+  images = [banner_image(x[0],x[1]) for x in deduped]
+  images = [i for i in images if i and i[0]]
+  return images
 
 def banner_div(all_banners):
   res = ''
