@@ -28,6 +28,109 @@ BANNER_IMAGES = \
       '2top_clan':   [ 'clan.png', 'Top Clan' ],
     }
 
+BANNER_TEXT = \
+    { 'ashenzari':
+        [ 'Enter a branch that contains a rune.',
+          'Find 5 distinct runes over the course of the tourney.',
+          'Find 16 distinct runes over the course of the tourney.',
+        ],
+      'beogh':
+        [ 'Have the highest score in your clan.',
+          'Have the highest score in a clan that is ranked in the top 20.',
+          'Have the highest score in a clan that is ranked in the top 5.',
+        ],
+      'cheibriados':
+        [ 'Reach experience level 9 in two consecutive games.',
+          'Achieve a two-win streak.',
+          'Achieve a three-win streak with three distinct races and three distinct classes.',
+        ],
+      'elyvilon':
+        [ 'Become the champion of any god.',
+          'Become the champion of five different gods over the course of the tournament.',
+          'Become the champion of every god other than Xom over the course of the tournament.',
+        ],
+      'fedhas':
+        [ 'Enter the Crypt.',
+          'Get the golden rune.',
+          'Enter Tomb for the first time after picking up the Orb of Zot, and then get the golden rune.',
+        ],
+      'jiyva':
+        [ 'Reach experience level 9 with at least 5 distinct races and at least 5 distinct classes.',
+          'Get a rune with at least 5 distinct races and at least 5 distinct classes.',
+          'Win with at least 5 distinct races and at least 5 distinct classes.',
+        ],
+      'kikubaaqudgha':
+        [ 'Enter the Vestibule of Hell without having entered the Lair.',
+          'Win a game without having entered the Lair.',
+          'Win a game without having entered the Temple, the Orcish Mines, the Lair, or the Vaults.',
+        ],
+      'lugonu':
+        [ 'Survive the Abyss without having ever been a follower of Lugonu during that game.',
+          'Find the abyssal rune and then escape the Abyss without ever having been a follower of Lugonu during that game.',
+          'Find the abyssal rune and then escape the Abyss before reaching experience level 13 and without ever having been a follower of Lugonu during that game.',
+        ],
+      'makhleb':
+        [ 'Reach D:14 in 27 minutes.',
+          'Reach D:27 in 27 minutes.',
+          'Reach D:27 in 27 minutes without being one of the speedy races (centaur, spriggan, or felid).',
+        ],
+      'nemelex':
+        [ "Reach experience level 9 with a Nemelex' choice combo.",
+          "Get a rune with a Nemelex' choice combo.",
+          "Be one of the first 5 players to win a given Nemelex' choice combo.",
+        ],
+      'okawaru':
+        [ 'Reach the end of any branch that contains more than one level.',
+          'Win a game.',
+          'Win a game in under 50000 turns.',
+        ],
+      'sif':
+        [ "Get at least 1000 gold in a game, but don't spend any of it!",
+          'Win a game without spending any gold.',
+          'Win a game without spending any gold or worshipping a god.',
+        ],
+      'the_shining_one':
+        [ 'Get a rune before entering D:14 (or below) in that game.',
+          'Get two runes before entering D:14 (or below) in that game.',
+          'Get four runes before entering D:14 (or below) in that game.',
+        ],
+      'trog':
+        [ 'Steal a combo high score that was previously of at least 1,000 points.',
+          'Steal a combo high score for a previously won combo.',
+          'Steal a species or class high score that was previously of at least 10,000,000 points.',
+        ],
+      'vehumet':
+        [ 'Kill any two uniques within two turns of each other.',
+          'Kill two medium or deep uniques within one turn of each other.',
+          'Kill two deep uniques on the same turn.',
+        ],
+      'xom':
+        [ 'Enter a ziggurat.',
+          'Reach the 14th floor of a ziggurat.',
+          'Leave a ziggurat from its lowest floor.',
+        ],
+      'yredelemnul':
+        [ 'Kill 25 distinct uniques over the course of the tournament.',
+          'Kill 45 distinct uniques over the course of the tournament.',
+          'Kill 65 distinct uniques over the course of the tournament.',
+        ],
+      'zin':
+        [ 'Enter either Pandemonium or any branch of Hell.',
+          'Kill at least one unique pan lord and at least one unique hell lord over the course of the tournament.',
+          'Kill all four unique pan lords and all four unique hell lords over the course of the tournament.',
+        ],
+      '1top_player':
+        [ 'Individual with the most tournament points.',
+          'Individual with the second-most tournament points.',
+          'Individual with the third-most tournament points.',
+        ],
+      '2top_clan':
+        [ 'Clan with the most tournament points.',
+          'Clan with the second-most tournament points.',
+          'Clan with the third-most tournament points.',
+        ],
+    }
+
 STOCK_WIN_COLUMNS = \
     [ ('player', 'Player'),
       ('score', 'Score', True),
@@ -527,16 +630,24 @@ def banner_suffix(banner):
   return ''
 
 def banner_image(banner, prestige, full_name=False):
+  p = prestige
+  while p > 3:
+    p = p/10
+  i_string = ''
+  for i in range(p):
+    i_string = i_string + 'I'
   name_suffix = banner_suffix(banner)
   banner_subkey = _strip_banner_suffix(banner)
   img = BANNER_IMAGES.get(banner) or BANNER_IMAGES.get(banner_subkey)
+  banner_text = BANNER_TEXT[banner_subkey][p-1]
   name = ''
   if img:
-    name = img[1]
+    name = img[1] + " " + i_string
   if full_name and name_suffix:
     name = name + " (" + name_suffix + ")"
+  name = name + ": " + banner_text
   if img and img[0]:
-    filename = img[0][:-4]+("%d" % prestige)+img[0][-4:]
+    filename = img[0][:-4]+("%d" % p)+img[0][-4:]
     return (crawl_utils.banner_link(filename), name)
   return img
 

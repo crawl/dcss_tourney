@@ -482,7 +482,7 @@
                 races and at least 5 distinct classes with a 
                 <a name="gelatinous_body">GELATINOUS BODY</a>.
               <br>
-                I: Reach XL 9 with at least 5 distinct races and at least 5 distinct classes.
+                I: Reach experience level 9 with at least 5 distinct races and at least 5 distinct classes.
               <br>
                 II: Get a rune with at least 5 distinct races and at least 5 distinct classes.
               <br>
