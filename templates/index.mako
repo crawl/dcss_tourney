@@ -199,7 +199,7 @@
             </p>
 	    <p>
 	      <span>50 bonus points</span> for a win without visiting
-	      Temple, Lair, Orc, or the Vaults (<a href="#lord_of_darkness">LORD OF DARKNESS</a> banner).
+	      Temple, Lair, Orc, or the Vaults (<a href="#lord_of_darkness">LORD OF DARKNESS</a> banner III).
 	    </p>
             <p>
               <span>75 bonus points</span> for winning <a href="#nemelex_choice">NEMELEX' CHOICE</a> characters. The first Nemelex' Choice combo is chosen at the start of the tournament, and after that each one is chosen when the previous one is won for the first time. Each combo remains valid until it has been won five times. The race/class combinations are chosen by Nemelex from those with a low high score so far in the tournament, avoiding repetition of race or class.
@@ -804,7 +804,7 @@ III: Reach D:27 in 27 minutes without being one of the speedy races (centaur, sp
             </p>
             <p class="changed">
               <span>50 bonus points</span> for a win without visiting
-	      Temple, Lair, Orc, or the Vaults (<a href="#lord_of_darkness">LORD OF DARKNESS</a> banner). (Used to be 40 points.)
+	      Temple, Lair, Orc, or the Vaults (<a href="#lord_of_darkness">LORD OF DARKNESS</a> banner III). (Used to be 40 points.)
               <span class="changed">[CHANGED]</span>
             </p>
             <p class="changed">
