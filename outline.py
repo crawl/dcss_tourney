@@ -126,11 +126,11 @@ def do_milestone_rune(c, mile):
     banner.award_banner(c, player, ban, 2)
   if not query.did_reach_d14(c, player, mile['start'], mile['time']):
     if mile['urune'] >= 4:
-      banner.award_banner(c, player, 'tso', 3)
+      banner.award_banner(c, player, 'the_shining_one', 3)
     elif mile['urune'] >= 2:
-      banner.award_banner(c, player, 'tso', 2)
+      banner.award_banner(c, player, 'the_shining_one', 2)
     else:
-      banner.award_banner(c, player, 'tso', 1)
+      banner.award_banner(c, player, 'the_shining_one', 1)
 
 def do_milestone_ghost(c, mile):
   """When you kill a player ghost, you get two clan points! Otherwise this

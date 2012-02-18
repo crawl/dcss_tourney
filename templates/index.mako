@@ -622,7 +622,7 @@ III: Reach D:27 in 27 minutes without being one of the speedy races (centaur, sp
 	    <hr>
 
             <div>
-	      <img src="images/banner_tso.png"
+	      <img src="images/banner_the_shining_one.png"
                    alt="Vow of Courage"
                    title="Vow of Courage"
                    width="150" height="55"

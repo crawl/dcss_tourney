@@ -18,7 +18,7 @@ BANNER_IMAGES = \
       'nemelex': [ 'banner_nemelex.png', "Nemelex' Choice" ],
       'okawaru': [ 'banner_okawaru.png', 'The Conqueror' ],
       'sif': [ 'banner_sif.png', 'The Student' ],
-      'tso': [ 'banner_tso.png', 'Vow of Courage' ],
+      'the_shining_one': [ 'banner_the_shining_one.png', 'Vow of Courage' ],
       'trog': [ 'banner_trog.png', 'The Sniper' ],
       'vehumet': [ 'banner_vehumet.png', 'Ruthless Efficiency' ],
       'xom': [ 'banner_xom.png', 'Descent into Madness' ],
