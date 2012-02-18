@@ -1,8 +1,8 @@
 <%
    from crawl_utils import CAO_TOURNEY_BASE
-   import loaddb
-   version = loaddb.T_VERSION
-   year    = loaddb.T_YEAR
+   from test_data import USE_TEST
+   version = '0.10'
+   year    = '2012'
    title   = "Crawl %s Tournament Information" % version
  %>
 <!DOCTYPE html>
@@ -14,8 +14,9 @@
   </head>
   <body class="page_back">
     <div class="page information">
-      <%include file="toplink.mako"/> 
-
+      %if not USE_TEST:
+        <%include file="toplink.mako"/> 
+      %endif
       <div class="page_content">
         <div class="heading">
           <h1>${title}</h1>

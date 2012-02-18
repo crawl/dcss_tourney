@@ -13,18 +13,20 @@ import ConfigParser
 import imp
 import sys
 
-T_YEAR = '2012'
-T_VERSION = '0.10'
+from test_data import USE_TEST, TEST_YEAR, TEST_VERSION, TEST_START_TIME, TEST_END_TIME, TEST_HARE_START_TIME, TEST_LOGS, TEST_MILESTONES
+
+T_YEAR = TEST_YEAR or '2012'
+T_VERSION = TEST_VERSION or '0.10'
 
 # Start and end of the tournament, UTC.
-START_TIME = T_YEAR + '0101'
-END_TIME   = T_YEAR + '0312'
+START_TIME = TEST_START_TIME or (T_YEAR + '0225')
+END_TIME   = TEST_END_TIME or (T_YEAR + '0312')
 
 DATE_FORMAT = '%Y%m%d'
 
 GAME_VERSION = T_VERSION
 
-HARE_START_TIME = T_YEAR + '0311'
+HARE_START_TIME = TEST_HARE_START_TIME or (T_YEAR + '0311')
 
 CDO = 'http://crawl.develz.org/'
 CAO = 'http://crawl.akrasiac.org/'
@@ -32,12 +34,12 @@ CAO = 'http://crawl.akrasiac.org/'
 # Log and milestone files. A tuple indicates a remote file with t[1]
 # being the URL to wget -c from.
 
-LOGS = [ LOCAL_TEST and ('cao-logfile-git', CAO + 'logfile-git')
-         or 'cao-logfile-git',
+LOGS = TEST_LOGS or [ LOCAL_TEST and ('cao-logfile-0.10', CAO + 'logfile10')
+         or 'cao-logfile-0.10',
          ('cdo-logfile-svn', CDO + 'allgames-svn.txt') ]
 
-MILESTONES = [ LOCAL_TEST and ('cao-milestones-git', CAO + 'milestones-git')
-               or 'cao-milestones-git',
+MILESTONES = TEST_MILESTONES or [ LOCAL_TEST and ('cao-milestones-0.10', CAO + 'milestones10')
+               or 'cao-milestones-0.10',
                ('cdo-milestones-svn', CDO + 'milestones-svn.txt') ]
 
 BLACKLIST_FILE = 'blacklist.txt'

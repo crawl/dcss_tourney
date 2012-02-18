@@ -1,4 +1,5 @@
 <%
+   from test_data import USE_TEST
    import uniq
    hard_uniques = uniq.HARD_UNIQUES
    medium_uniques = uniq.MEDIUM_UNIQUES
@@ -17,8 +18,9 @@
 
   <body class="page_back">
     <div class="page">
-      <%include file="toplink.mako"/>
-
+      %if not USE_TEST:
+        <%include file="toplink.mako"/>
+      %endif
       <div class="page_content">
         <div class="content">
 
