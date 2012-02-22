@@ -104,7 +104,7 @@ div.centerable {
 div#player-banners {
   position: absolute;
   top: 30px;
-  right: -127px;
+  right: -62px;
 }
 
 div.player_status {
@@ -165,7 +165,7 @@ div.fineprint p {
 }
 
 .bannered {
-  margin-right: 117px;
+  margin-right: 52px;
 }
 
 .page_narrow {
