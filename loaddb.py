@@ -36,17 +36,17 @@ CAO = 'http://crawl.akrasiac.org/'
 
 LOGS = TEST_LOGS or [ LOCAL_TEST and ('cao-logfile-0.10', CAO + 'logfile10')
          or 'cao-logfile-0.10',
-         ('cdo-logfile-svn', CDO + 'allgames-svn.txt') ]
+         ('cdo-logfile-0.10', CDO + 'allgames-0.10.txt') ]
 
 MILESTONES = TEST_MILESTONES or [ LOCAL_TEST and ('cao-milestones-0.10', CAO + 'milestones10')
                or 'cao-milestones-0.10',
-               ('cdo-milestones-svn', CDO + 'milestones-svn.txt') ]
+               ('cdo-milestones-0.10', CDO + 'milestones-0.10.txt') ]
 
 BLACKLIST_FILE = 'blacklist.txt'
 EXTENSION_FILE = 'modules.ext'
 TOURNAMENT_DB = 'tournament'
 COMMIT_INTERVAL = 3000
-CRAWLRC_DIRECTORY_LIST = LOCAL_TEST and ['rcfiles/'] or ['/chroot/dgldir/rcfiles/crawl-0.9']
+CRAWLRC_DIRECTORY_LIST = LOCAL_TEST and ['rcfiles/','rcfiles2/'] or ['/chroot/dgldir/rcfiles/crawl-0.9']
 
 LISTENERS = [ ]
 TIMERS = [ ]
