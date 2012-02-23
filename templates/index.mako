@@ -48,7 +48,7 @@
           <p>
             Participants in the tournament may form clans of six or
             fewer players. If you wish to be a member of a clan, you
-            need to add a line to the top of your <b>CAO ${version}</b> rcfile
+            need to add a line to the top of your <b>CAO or CDO ${version}</b> rcfile
             like this:
           </p>
 
@@ -64,7 +64,7 @@
 
           <p>
             The team captain must have the name of her team and the
-            other team members in her <b>CAO ${version}</b> rcfile, like this:
+            other team members in her <b>CAO or CDO ${version}</b> rcfile, like this:
           </p>
 
           <pre>
@@ -84,11 +84,11 @@
 
           <div class="inset">
             <p>
-              <span class="inline_heading">For emphasis:</span> clan membership lines should be added to
-              your crawl.akrasiac.org ${version} rcfile. Even if you're playing
-              your games on crawl.develz.org, you must add clan
-              membership information to your crawl.akrasiac.org
-              ${version} rcfile.
+              <span class="inline_heading">New this tournament:</span> clan membership lines can be added to
+              either your crawl.akrasiac.org ${version} rcfile <b>or</b>
+              your crawl.develz.org ${version} rcfile. If you add clan
+              membership lines to both rcfiles, then the one on
+              crawl.akrasiac.org will take precedence.
             </p>
           </div>
 
@@ -96,13 +96,13 @@
             Clan names must contain only alphanumeric characters,
             underscores, and hyphens. Once a player's username is in
             the captain's rcfile and the captain's username is in the
-            player's rcfile and our script checks for updates, the
+            player's rcfile and our script checks for updates (once every four hours), the
             players will be in the same clan.
           </p>
 
           <p>
             Clans may be changed by adding or removing players at any
-            time until <b><a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20120304T00">24:00 UTC on March 3 (midnight Mar 4)</a></b>, after which clans will be
+            time until <b><a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20120303T23">23:00 UTC on March 3</a></b>, after which clans will be
             effectively frozen.
           </p>
 
