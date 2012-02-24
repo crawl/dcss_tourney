@@ -569,6 +569,10 @@ def clan_affiliation(c, player, include_clan=True):
   return clan_html
 
 def make_milestone_string(w, src, make_links=False):
+  if src == 'cdt':
+    pretty_src = 'tcdo'
+  else:
+    pretty_src = src
   ago,new = how_old(w[0])
   if ago == None:
     return None
@@ -580,7 +584,7 @@ def make_milestone_string(w, src, make_links=False):
     god_phrase = ''
   else:
     god_phrase = ' of %s' % w[5]
-  where_nice = (ago, plink) + w[2:5] + (god_phrase, ) + w[6:9] + (pretty_dur(w[9]),src)
+  where_nice = (ago, plink) + w[2:5] + (god_phrase, ) + w[6:9] + (pretty_dur(w[9]),pretty_src)
   return ("%s ago: %s the %s (L%d %s%s) %s (%s, turn %d, dur %s, %s)<br />" % where_nice)
 
 def whereis(c, *players):
@@ -604,6 +608,10 @@ def whereis_table(c):
   where_data = []
   for w in query.whereis_all_players(c):
     where = w[1]
+    if w[0] == 'cdt':
+      pretty_src = 'tcdo'
+    else:
+      pretty_src = w[0]
     ago,new = how_old(where[0],1)
     if ago == None:
       continue
@@ -611,7 +619,7 @@ def whereis_table(c):
       god_phrase = ''
     else:
       god_phrase = ' of %s' % where[5]
-    mile_data = [where[1], where[7], where[3], '%s%s' % (where[4], god_phrase), where[2], where[6], '%s ago' % ago, w[0].upper(), new]
+    mile_data = [where[1], where[7], where[3], '%s%s' % (where[4], god_phrase), where[2], where[6], '%s ago' % ago, pretty_src.upper(), new]
     where_data.append([where[7], where[3], where[0], mile_data])
   where_data.sort(key=lambda e: (e[0],e[1],e[2]), reverse=True)
   if len(where_data) > 50:
