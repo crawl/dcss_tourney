@@ -26,6 +26,8 @@ BANNER_IMAGES = \
       'zin': [ 'banner_zin.png', 'Angel of Justice' ],
       '1top_player': [ 'player.png', 'Top Player'],
       '2top_clan':   [ 'clan.png', 'Top Clan' ],
+      'header': ['banner_header.png', '' ],
+      'footer': ['banner_footer.png', '' ],
     }
 
 BANNER_TEXT = \
@@ -129,6 +131,8 @@ BANNER_TEXT = \
           'Clan with the second-most tournament points.',
           'Clan with the third-most tournament points.',
         ],
+      'header': [ '' ],
+      'footer': [ '' ],
     }
 
 STOCK_WIN_COLUMNS = \
@@ -641,11 +645,12 @@ def banner_image(banner, prestige, full_name=False):
   img = BANNER_IMAGES.get(banner) or BANNER_IMAGES.get(banner_subkey)
   banner_text = BANNER_TEXT[banner_subkey][p-1]
   name = ''
-  if img:
+  if img and img[1]:
     name = img[1] + " " + i_string
   if full_name and name_suffix:
     name = name + " (" + name_suffix + ")"
-  name = name + ": " + banner_text
+  if img and img[1]:
+    name = name + ": " + banner_text
   if img and img[0]:
     filename = img[0][:-4]+("%d" % p)+img[0][-4:]
     return (crawl_utils.banner_link(filename), name)

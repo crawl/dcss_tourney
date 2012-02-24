@@ -1474,10 +1474,20 @@ def get_clan_banners(c, captain):
                          captain)
 
 def get_player_banners(c, player):
-  return query_rows(c, '''SELECT banner, prestige FROM player_banners
-                                WHERE player = %s
-                                ORDER BY prestige DESC, banner''',
-                          player)
+  banners = query_rows(c, '''SELECT banner, prestige FROM player_banners
+                             WHERE player = %s
+                             ORDER BY prestige DESC, banner''',
+                       player)
+  if len(banners) > 0:
+    for i in range(len(banners)):
+      if banners[i][1] <= 3:
+        i = i-1
+        break
+    if i < len(banners) - 1:
+      banners = list(banners)
+      banners.insert(i+1, ['header', 1])
+      banners.append(['footer', 1])
+  return banners
 
 def player_banners_awarded(c):
   """Returns a list of tuples as [(banner_name, prestige, [list of players]), ...]
