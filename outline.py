@@ -189,7 +189,8 @@ def do_milestone_zig_exit(c, mile):
     banner.award_banner(c, mile['name'], 'xom', 3)
 
 def do_milestone_abyss_exit(c, mile):
-  if not query.did_worship_god(c, 'Lugonu', mile['name'], mile['start'], mile['time']):
+  god = mile.get('god') or 'No God'
+  if god != 'Lugonu' and not query.did_worship_god(c, 'Lugonu', mile['name'], mile['start'], mile['time']):
     if query.did_get_rune(c, 'abyssal', mile['name'], mile['start'], mile['time']):
       if mile['xl'] < 13:
         prestige = 3
