@@ -1198,6 +1198,14 @@ def player_uniques_killed(c, player):
                     player)
   return [ row[0] for row in rows ]
 
+def clan_uniques_killed(c, captain):
+  rows = query_rows(c, '''SELECT DISTINCT k.monster
+                          FROM players p INNER JOIN kills_of_uniques k
+                              ON p.name = k.player
+                          WHERE p.team_captain = %s ORDER BY k.monster''',
+                    captain)
+  return [ row[0] for row in rows ]
+
 def uniques_unkilled(uniques_killed):
   killset = set(uniques_killed)
   return [ u for u in uniq.UNIQUES if u not in killset ]

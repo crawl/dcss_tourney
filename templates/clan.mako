@@ -24,6 +24,15 @@
    clan_players = cinfo[1]
    clan_whereis = html.whereis(c, *clan_players)
 
+   won_gods = [x[0] for x in query.clan_god_wins(c, captain)]
+   won_gods.sort()
+
+   uniq_slain = query.clan_uniques_killed(c, captain)
+   uniq_unslain = query.uniques_unkilled(uniq_slain)
+
+   combo_highscores = html.clan_combo_scores(c, captain)
+   asterisk = """<p class='fineprint'>* Winning Game</p>"""
+
    def player_point_breakdown():
      text = ''
      total = 0
@@ -117,11 +126,66 @@
             ${won_html}
           </div>
 
+          % if won_gods:
+          <div id="won-gods">
+            <h3>Winning Gods:</h3>
+            <div class="bordered inline">
+              ${", ".join(won_gods)}
+            </div>
+
+            <p class="fineprint">
+              We say that a game is won using a (non-Xom) god if the player reaches
+              ****** piety with that god without worshipping any
+              other god first; this is not necessarily the same god worshipped at the end of the game. A game is won using Xom only if it is a Chaos Knight
+              who never abandons Xom. A game is won using 'No God' only if the player
+              never worships a god.
+            </p>
+
+            <h3>Remaining Gods:</h3>
+            <div class="bordered inline">
+              ${", ".join(query.find_remaining_gods(won_gods)) or 'None'}
+            </div>
+          </div>
+          % endif
+
           <div class="game_table">
             <h3>Recent Games</h3>
             ${recent_html}
           </div>
 
+          % if uniq_slain:
+          <hr>
+          <div>
+            <table class="bordered">
+              <colgroup>
+                 <col width="10%">
+                 <col width="85%">
+              </colgroup>
+              <tr>
+                <th>Uniques Slain</th>
+                <td>${", ".join(uniq_slain)}</td>
+              </tr>
+              % if len(uniq_slain) > len(uniq_unslain):
+                <tr>
+                  <th>Uniques Left</th>
+                  % if uniq_unslain:
+                  <td>${", ".join(uniq_unslain)}</td>
+                  % else:
+                  <td>None</td>
+                  % endif
+                </tr>
+              % endif
+            </table>
+          </div>
+          % endif
+
+          % if combo_highscores:
+            <hr>
+            <div>
+              ${html.player_scores_block(c, combo_highscores,
+                                         'Combo Highscores')}
+            </div>
+          % endif
           <hr>
 
           <div class="audit_table">

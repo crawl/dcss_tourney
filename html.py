@@ -733,6 +733,14 @@ def player_class_scores(c, player):
     for g in games ]
   return games
 
+def clan_combo_scores(c, captain):
+  games = [i[1] for i in query.get_clan_combo_scores(c, captain=captain)]
+  games = [ [ crawl_utils.linked_text(g, crawl_utils.morgue_link,
+                                      _scored_win_text(g, g['charabbrev'])),
+              g['score'] ]
+            for g in games ]
+  return games
+
 def player_scores_block(c, scores, title):
   asterisk = [ s for s in scores if '*' in s[0] ]
   score_table = (scores
