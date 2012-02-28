@@ -622,8 +622,8 @@ def whereis_table(c):
     mile_data = [where[1], where[7], where[3], '%s%s' % (where[4], god_phrase), where[2], where[6], '%s ago' % ago, pretty_src.upper(), new]
     where_data.append([where[7], where[3], where[0], mile_data])
   where_data.sort(key=lambda e: (e[0],e[1],e[2]), reverse=True)
-  if len(where_data) > 50:
-    where_data = where_data[:50]
+  if len(where_data) > 100:
+    where_data = where_data[:100]
   where_list = []
   for w in where_data:
     where_list.append(w[3])
