@@ -1387,7 +1387,9 @@ def get_clan_info(c, player):
 
 def find_remaining_gods(used_gods):
   used_god_set = set([x or 'No God' for x in used_gods])
-  return [god for god in crawl.GODS if god not in used_god_set]
+  remaining = [god for god in crawl.GODS if god not in used_god_set]
+  remaining.sort()
+  return remaining
 
 def player_ziggurat_deepest(c, player):
   return query_first_def(c, 0,
