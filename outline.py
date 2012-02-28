@@ -141,9 +141,8 @@ def do_milestone_ghost(c, mile):
 def do_milestone_br_enter(c, mile):
   """Five points for the first time you get each br.enter milestone (includes
   portal vaults). Also give out banners."""
-  if query.player_count_br_enter(c, mile['name'], mile['noun']) > 1:
-    return
-  assign_points(c, "branch_enter", mile['name'], 5)
+  if query.player_count_br_enter(c, mile['name'], mile['noun']) == 1:
+    assign_points(c, "branch_enter", mile['name'], 5)
   if mile['noun'] == 'Crypt':
     banner.award_banner(c, mile['name'], 'fedhas', 1)
   elif mile['noun'] in ['Vault', 'Snake', 'Swamp', 'Shoals', 'Pan', 'Slime',
