@@ -357,6 +357,7 @@ img.banner {
   background: #f6ecf9;
   padding: 2px 4px;
   font-weight: bold;
+  white-space: nowrap;
 }
 
 .information {
