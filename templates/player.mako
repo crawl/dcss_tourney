@@ -26,7 +26,7 @@
 
    audit = query.audit_trail_player_points(c, player)
    audit_team = query.audit_trail_player_team_points(c, player)
-
+   audit_category = query.audit_trail_player_category_points(c, player)
    whereis = html.whereis(c, player)
 
    def point_breakdown(audit):
@@ -215,6 +215,15 @@
                       <th>N</th> <th>Points</th> <th>Source</th>
                     </tr>
                     ${point_breakdown(audit)}
+                  </table>
+                </td>
+                <td>
+                  <h4>Category Breakdown</h4>
+                  <table class="bordered">
+                    <tr>
+                      <th>N</th> <th>Points</th> <th>Source</th>
+                    </tr>
+                    ${point_breakdown(audit_category)}
                   </table>
                 </td>
 
