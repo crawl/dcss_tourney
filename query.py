@@ -930,6 +930,17 @@ def audit_trail_player_points(c, player):
                     ORDER BY temp, total DESC, n DESC, point_source''',
                     player)
 
+def audit_trail_player_category_points(c, player):
+  """Gets the audit trail for the points assigned to the player."""
+  return query_rows(c,
+                    '''SELECT temp, SUBSTRING_INDEX(point_source, ':', 1) source,
+                          SUM(points) total, COUNT(*) n
+                    FROM player_points
+                    WHERE player=%s AND points > 0
+                    GROUP BY source
+                    ORDER BY temp, total DESC, n DESC, source''',
+                    player)
+
 def audit_trail_player_team_points(c, player):
   return query_rows(c,
                     '''SELECT temp, point_source, SUM(team_points) total,
