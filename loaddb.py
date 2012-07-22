@@ -250,7 +250,7 @@ class Xlogfile:
       try:
         xdict = apply_dbtypes( xlog_dict(line) )
         if self.blacklist and self.blacklist.is_blacklisted(xdict):
-          apply_blacklist(xdict)
+          self.apply_blacklist(xdict)
       except:
         sys.stderr.write("Error processing line: " + line + "\n")
         raise
