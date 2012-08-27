@@ -767,7 +767,7 @@ III: Reach D:27 in 27 minutes without being one of the speedy races (centaur, sp
 
               <p><span class="removed">[REMOVED]</span>
                 flags rules that existed in the 0.10 tournament and are gone in
-                this tournament.</p>
+                this tournament</p>
 
               <p><span class="added">[NEW]</span>
                 flags rules that are new to this tournament</p>
@@ -797,16 +797,12 @@ III: Reach D:27 in 27 minutes without being one of the speedy races (centaur, sp
               <span class="changed">[CHANGED]</span>
             </p>
             <p class="changed">
-              <span>Elyvilon</span> now only asks you to become the champion of thirteen different gods for the third tier of the <a href="#pious">PIOUS</a> banner. (Used to require every god other than Xom..)
+              <span>Elyvilon</span> now only asks you to become the champion of thirteen different gods for the third tier of the <a href="#pious">PIOUS</a> banner. (Used to require every god other than Xom.)
               <span class="changed">[CHANGED]</span>
             </p>
             <p class="changed">
               <span>Okawaru</span> now asks you to reach experience level 13 for the first tier of the <a href="#the_conqueror">CONQUEROR</a> banner. (Used to be reaching the last level of a multi-level branch.)
               <span class="changed">[CHANGED]</span>
-            </p>
-            <p class="removed">
-              <span>  points</span>
-              <span class="removed">[REMOVED]</span>
             </p>
 	    
           </div>
@@ -823,10 +819,7 @@ III: Reach D:27 in 27 minutes without being one of the speedy races (centaur, sp
               scripts that have been adapted for use in this tournament. 
             </p>
             <p>
-              <span>Wensley</span> for creating the banner images.
-            </p>
-            <p>
-              <span>???</span> for hosting the tournament scripts.
+              <span>Wensley</span> for hosting the tournament scripts and creating the banner images.
             </p>
           </div>
 
