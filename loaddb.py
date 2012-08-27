@@ -16,17 +16,17 @@ import sys
 from test_data import USE_TEST, TEST_YEAR, TEST_VERSION, TEST_START_TIME, TEST_END_TIME, TEST_HARE_START_TIME, TEST_LOGS, TEST_MILESTONES
 
 T_YEAR = TEST_YEAR or '2012'
-T_VERSION = TEST_VERSION or '0.10'
+T_VERSION = TEST_VERSION or '0.11'
 
 # Start and end of the tournament, UTC.
-START_TIME = TEST_START_TIME or (T_YEAR + '0224235945')
-END_TIME   = TEST_END_TIME or (T_YEAR + '0312')
+START_TIME = TEST_START_TIME or (T_YEAR + '0908')
+END_TIME   = TEST_END_TIME or (T_YEAR + '0924')
 
 DATE_FORMAT = '%Y%m%d'
 
 GAME_VERSION = T_VERSION
 
-HARE_START_TIME = TEST_HARE_START_TIME or (T_YEAR + '0311')
+HARE_START_TIME = TEST_HARE_START_TIME or (T_YEAR + '0923')
 
 CDO = 'http://crawl.develz.org/'
 CAO = 'http://crawl.akrasiac.org/'
@@ -34,19 +34,19 @@ CAO = 'http://crawl.akrasiac.org/'
 # Log and milestone files. A tuple indicates a remote file with t[1]
 # being the URL to wget -c from.
 
-LOGS = TEST_LOGS or [ LOCAL_TEST and ('cao-logfile-0.10', CAO + 'logfile10')
-         or 'cao-logfile-0.10',
-         ('cdo-logfile-0.10', CDO + 'allgames-0.10.txt') ]
+LOGS = TEST_LOGS or [ LOCAL_TEST and ('cao-logfile-0.11', CAO + 'logfile11')
+         or 'cao-logfile-0.11',
+         ('cdo-logfile-0.11', CDO + 'allgames-0.11.txt') ]
 
-MILESTONES = TEST_MILESTONES or [ LOCAL_TEST and ('cao-milestones-0.10', CAO + 'milestones10')
-               or 'cao-milestones-0.10',
-               ('cdo-milestones-0.10', CDO + 'milestones-0.10.txt') ]
+MILESTONES = TEST_MILESTONES or [ LOCAL_TEST and ('cao-milestones-0.11', CAO + 'milestones11')
+               or 'cao-milestones-0.11',
+               ('cdo-milestones-0.11', CDO + 'milestones-0.11.txt') ]
 
 BLACKLIST_FILE = 'blacklist.txt'
 EXTENSION_FILE = 'modules.ext'
 TOURNAMENT_DB = 'tournament'
 COMMIT_INTERVAL = 3000
-CRAWLRC_DIRECTORY_LIST = LOCAL_TEST and ['rcfiles/','rcfiles2/'] or ['/chroot/dgldir/rcfiles/crawl-0.9']
+CRAWLRC_DIRECTORY_LIST = LOCAL_TEST and ['rcfiles/','rcfiles2/'] or ['/chroot/dgldir/rcfiles/crawl-0.11']
 
 LISTENERS = [ ]
 TIMERS = [ ]

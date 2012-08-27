@@ -13,7 +13,7 @@ USING_CSO = ('crawl-tourney' == os.environ.get('USER'))
 LOCK = None
 BASEDIR = USING_CSO and '/var/www/crawl/tourney' or os.environ['HOME']
 LOCKFILE = BASEDIR + '/tourney-py.lock'
-SCORE_FILE_DIR = 'html.tourney12a'
+SCORE_FILE_DIR = 'html.tourney12'
 
 SCORE_CSS = 'tourney-score.css'
 SCORE_CSS_PATH = SCORE_FILE_DIR + "/" + SCORE_CSS
@@ -23,7 +23,7 @@ PLAYER_FILE_DIR = SCORE_FILE_DIR + '/' + PLAYER_BASE
 CLAN_FILE_DIR = SCORE_FILE_DIR + '/' + CLAN_BASE
 
 CAO_MORGUE_BASE = 'http://crawl.akrasiac.org/rawdata'
-CDO_MORGUE_BASE = 'http://crawl.develz.org/morgues/0.10'
+CDO_MORGUE_BASE = 'http://crawl.develz.org/morgues/0.11'
 
 # Use file URLs when testing on elliptic's machines.
 LOCAL_TEST = USING_CSO or ('aaron' in os.getcwd()

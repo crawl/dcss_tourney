@@ -1,7 +1,7 @@
 <%
    from crawl_utils import CAO_TOURNEY_BASE
    from test_data import USE_TEST
-   version = '0.10'
+   version = '0.11'
    year    = '2012'
    title   = "Crawl %s Tournament Information" % version
  %>
@@ -21,8 +21,8 @@
         <div class="heading">
           <h1>${title}</h1>
           <p class="fineprint">
-            Tournament starts on <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20120225T00">Feb 25, ${year} at 0:00 UTC (midnight Feb 25)</a>, and ends on
-            <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20120312T00">Mar 11, ${year} at 24:00 UTC (midnight Mar 12)</a>.
+            Tournament starts on <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20120908T00">Sep 8, ${year} at 0:00 UTC (midnight Sep 8)</a>, and ends on
+            <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20120924T00">Sep 23, ${year} at 24:00 UTC (midnight Sep 24)</a>.
           </p>
         </div>
         <hr>
@@ -33,8 +33,8 @@
             ${version} Dungeon Crawl Stone Soup Tournament. The simple part:
             Play on <a href="http://crawl.akrasiac.org">crawl.akrasiac.org</a>
             or <a href="http://crawl.develz.org">crawl.develz.org</a> and all of
-            your Crawl ${version} games that <b>start after <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20120225T00">0:00 UTC on
-            February 25 (midnight Feb 25)</a></b> and <b>end before <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20120312T00">24:00 UTC on March 11 (midnight Mar 12)</a></b> will
+            your Crawl ${version} games that <b>start after <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20120908T00">0:00 UTC on
+            September 8 (midnight Sep 8)</a></b> and <b>end before <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20120924T00">24:00 UTC on September 23 (midnight Sep 24)</a></b> will
             count toward the tournament.
           </p>
 
