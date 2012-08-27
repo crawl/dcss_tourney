@@ -31,8 +31,11 @@
           <p>
             Hello all! Welcome to the rules for the
             ${version} Dungeon Crawl Stone Soup Tournament. The simple part:
-            Play on <a href="http://crawl.akrasiac.org">crawl.akrasiac.org</a>
-            or <a href="http://crawl.develz.org">crawl.develz.org</a> and all of
+            Play on one of the <b>four</b> public servers (<a href="http://crawl.akrasiac.org">crawl.akrasiac.org</a>,
+            <a href="http://crawl.develz.org">crawl.develz.org</a>,
+            <a href="http://crawl.s-z.org">crawl.s-z.org</a>,
+            or <a href="http://crawlus.somatika.net">crawlus.somatika.net</a>)
+            and all of
             your Crawl ${version} games that <b>start after <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20120908T00">0:00 UTC on
             September 8 (midnight Sep 8)</a></b> and <b>end before <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20120924T00">24:00 UTC on September 23 (midnight Sep 24)</a></b> will
             count toward the tournament.
@@ -48,7 +51,7 @@
           <p>
             Participants in the tournament may form clans of six or
             fewer players. If you wish to be a member of a clan, you
-            need to add a line to the top of your <b>CAO or CDO ${version}</b> rcfile
+            need to add a line to the top of one of your <b>version ${version}</b> rcfiles
             like this:
           </p>
 
@@ -64,7 +67,7 @@
 
           <p>
             The team captain must have the name of her team and the
-            other team members in her <b>CAO or CDO ${version}</b> rcfile, like this:
+            other team members in one of her <b>version ${version}</b> rcfiles, like this:
           </p>
 
           <pre>
@@ -84,11 +87,11 @@
 
           <div class="inset">
             <p>
-              <span class="inline_heading">New this tournament:</span> clan membership lines can be added to
-              either your crawl.akrasiac.org ${version} rcfile <b>or</b>
-              your crawl.develz.org ${version} rcfile. If you add clan
-              membership lines to both rcfiles, then the one on
-              crawl.akrasiac.org will take precedence.
+              <span class="inline_heading">Note:</span> clan membership lines can be added to your ${version} rcfile on <b>any</b> of the four public servers.
+              If you add clan
+              membership lines to more than one rcfile, then the rcfile on
+              the server earliest in the list CAO, CDO, CSZO, CSN will take
+              precedence.
             </p>
           </div>
 
@@ -102,7 +105,7 @@
 
           <p>
             Clans may be changed by adding or removing players at any
-            time until <b><a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20120303T23">23:00 UTC on March 3</a></b>, after which clans will be
+            time until <b><a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20120915T23">23:00 UTC on September 15</a></b>, after which clans will be
             effectively frozen.
           </p>
 
@@ -201,6 +204,10 @@
 	    <p>
 	      <span>50 bonus points</span> for a win without visiting
 	      Temple, Lair, Orc, or the Vaults (<a href="#lord_of_darkness">LORD OF DARKNESS</a> banner III).
+	    </p>
+	    <p>
+	      <span>20 bonus points</span> for a win without visiting
+	      the Lair (<a href="#lord_of_darkness">LORD OF DARKNESS</a> banner II). This is not cumulative with the 50-point bonus above.
 	    </p>
             <p>
               <span>75 bonus points</span> for winning <a href="#nemelex_choice">NEMELEX' CHOICE</a> characters. The first Nemelex' Choice combo is chosen at the start of the tournament, and after that each one is chosen when the previous one is won for the first time. Each combo remains valid until it has been won five times. The race/class combinations are chosen by Nemelex from those with a low high score so far in the tournament, avoiding repetition of race or class.
@@ -423,7 +430,7 @@
               <br>
                 II: Achieve a two-win streak.
               <br>
-                III: Achieve a three-win streak with three distinct races and three distinct classes.
+                III: Achieve a four-win streak with four distinct races and four distinct classes.
               </p>
             </div>
 
@@ -446,7 +453,7 @@
               <br>
                 II: Become the champion of five different gods over the course of the tournament.
               <br>
-                III: Become the champion of every god other than Xom over the course of the tournament.
+                III: Become the champion of thirteen different gods over the course of the tournament.
               </p>
             </div>
 
@@ -507,7 +514,7 @@
               <br>
                 I: Enter the Vestibule of Hell without having entered the Lair.
               <br>
-                II: Win a game without having entered the Lair.
+                II: Win a game without having entered the Lair (+20 tournament points).
               <br>
                 III: Win a game without having entered the Temple, the Orcish Mines, the Lair, or the Vaults (+50 tournament points).
               </p>
@@ -591,7 +598,7 @@ III: Reach D:27 in 27 minutes without being one of the speedy races (centaur, sp
                 will recognize as <a name="the_conqueror">THE CONQUEROR</a> any player who
                 is victorious.
               <br>
-                I: Reach the end of any branch that contains more than one level.
+                I: Reach experience level 13.
               <br>
                 II: Win a game.
               <br>
@@ -603,20 +610,18 @@ III: Reach D:27 in 27 minutes without being one of the speedy races (centaur, sp
 
             <div>
 	      <img src="images/banner_sif1.png"
-                   alt="The Student"
-                   title="The Student"
+                   alt="Prepared"
+                   title="Prepared"
                    width="170" height="58"
                    >
               <p>
-                Sif Muna thinks that you should ignore distractions such
-                as gold and religion to focus on your studies
-                as a <a name="student">STUDENT</a> of magic.
+                Sif Muna thinks that you should be <a name="prepared">PREPARED</a> for anything and complete things on your first try.
               <br>
-                I: Get at least 1000 gold in a game, but don't spend any of it!
+                I: After entering the Lair for the first time, reach the last level of it before returning to the Dungeon.
               <br>
-                II: Win a game without spending any gold.
+                II: Win a game in which whenever you enter a branch for the first time, you reach the deepest level of it and pick up the rune(s) or orb (if the branch contains any) before leaving the branch. ("Branch" here means one of Lair, Swamp, Snake, Shoals, Spider, Slime, Vaults, Crypt, Tomb, Vestibule, Cocytus, Dis, Gehenna, Tartarus, Pandemonium, and Zot.)
               <br>
-                III: Win a game without spending any gold or worshipping a god.
+                III: Win a game as in II, except that you must additionally enter all subbranches of a branch before you can leave it for the first time. For example, if you enter Lair then you must enter (and get the runes from) all three subbranches before you can return to the Dungeon.
               </p>
             </div>
 
@@ -757,12 +762,11 @@ III: Reach D:27 in 27 minutes without being one of the speedy races (centaur, sp
             <hr>
             <div class="fineprint">
               <p>
-                Some rules have been changed from the August 2011
-                tournament. This is a list of rules differences.
+                Some rules have been changed from the 0.10 tournament held in February/March 2012. This is a list of rules differences.
               </p>
 
               <p><span class="removed">[REMOVED]</span>
-                flags rules that existed in August 2011 and are gone in
+                flags rules that existed in the 0.10 tournament and are gone in
                 this tournament.</p>
 
               <p><span class="added">[NEW]</span>
@@ -771,8 +775,8 @@ III: Reach D:27 in 27 minutes without being one of the speedy races (centaur, sp
               <p><span class="changed">[CHANGED]</span>
                 flags rules that have been modified for this 
 		tournament. To compare
-                changed rules with the rules in August 2011, see
-                the <a href="http://crawl.akrasiac.org/tourney11">August 2011
+                changed rules with the rules in the 0.10 tournament, see
+                the <a href="http://seleniac.org/crawl/tourney/12a/">old
                 rules</a>
               </p>
             </div>
@@ -780,47 +784,28 @@ III: Reach D:27 in 27 minutes without being one of the speedy races (centaur, sp
             <hr>
 
             <p class="added">
-	      <span>New banner system:</span> each god offers banners of three difficulty levels, each building on the previous one.
-              <span class="added">[NEW]</span>
-            </p>
-            <p class="added">
-              <span>1.5*(38+T)/(2+G) points</span> (rounded up) for a win with a given god if T is the total number of games won in the tournament before the start of the win in question and G of those T were with the given god. If a player wins with the same god multiple times, she only gets the largest value of this bonus, not the sum. For purposes of these points we say that a player wins with a god if she reaches full (******) piety with that god without worshipping any other god first. For Xom, you must play a Chaos Knight and never abandon Xom. For "No God", you must never worship a god.
-              <span class="added">[NEW]</span>
-            <p class="added">
-	      <span>5 points</span> the first time you enter each branch or
-              portal vault or reach the end of a multi-level branch.
+	      <span>20 points</span> for a win without visiting
+	      the Lair (<a href="#lord_of_darkness">LORD OF DARKNESS</a> banner II).
               <span class="added">[NEW]</span>
             </p>
             <p class="changed">
-              <span>60 extra points</span> for each consecutive (streak) win
-              by a player with a race that has not 
-	      previously been a streak win for that player. (Used to be 50 points.)
+              <span>Sif Muna</span> has a <a href="#prepared">completely new banner</a>.
               <span class="changed">[CHANGED]</span>
             </p>
             <p class="changed">
-              <span>30 extra points</span> for each consecutive (streak) win
-              by a player with a class that has not 
-	      previously been a streak win for that player. (Used to be 25 points.)
+              <span>Cheibriados</span> now requires a four-game streak for the third tier of the <a href="#slow_and_steady">SLOW AND STEADY</a> banner. (Used to be a three-game streak.)
               <span class="changed">[CHANGED]</span>
             </p>
             <p class="changed">
-              <span>50 bonus points</span> for a win without visiting
-	      Temple, Lair, Orc, or the Vaults (<a href="#lord_of_darkness">LORD OF DARKNESS</a> banner III). (Used to be 40 points.)
+              <span>Elyvilon</span> now only asks you to become the champion of thirteen different gods for the third tier of the <a href="#pious">PIOUS</a> banner. (Used to require every god other than Xom..)
               <span class="changed">[CHANGED]</span>
             </p>
             <p class="changed">
-              <span>10 points</span> the first time you reach full (******)
-              piety with each god without worshipping any other god first that game. (Used to be 25 points and only
-              for winning games.)
-              <span class="changed">[CHANGED]</span>
-            </p>
-            <p class="changed">
-	      <a href="#nemelex_choice">NEMELEX' CHOICE</a> characters are now chosen by Nemelex from those with a low high score so far in the tournament.
+              <span>Okawaru</span> now asks you to reach experience level 13 for the first tier of the <a href="#the_conqueror">CONQUEROR</a> banner. (Used to be reaching the last level of a multi-level branch.)
               <span class="changed">[CHANGED]</span>
             </p>
             <p class="removed">
-              <span>10 points</span> for each win of a player after her first
-              win.
+              <span>  points</span>
               <span class="removed">[REMOVED]</span>
             </p>
 	    
@@ -838,11 +823,10 @@ III: Reach D:27 in 27 minutes without being one of the speedy races (centaur, sp
               scripts that have been adapted for use in this tournament. 
             </p>
             <p>
-              <span>Wensley</span> for hosting the tournament scripts,
-                    creating the banner images, and helping a lot with the rules.
+              <span>Wensley</span> for creating the banner images.
             </p>
             <p>
-              <span>Many people</span> for banner ideas.
+              <span>???</span> for hosting the tournament scripts.
             </p>
           </div>
 
