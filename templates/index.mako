@@ -294,11 +294,14 @@
             </p>
 
             <p>
-              <span>200-100-50 clan points</span> for deepest level reached
-              in a Ziggurat. Completing a Ziggurat level (for instance
-              exiting to the dungeon from Zig:20) is also noted and is
-              better than merely reaching the level. Ties are broken by who 
-	      reaches/exits the Ziggurat level first.
+              <span>100 clan points</span> for the first Ziggurat to be
+              completed.
+            </p>
+
+            <p>
+              <span>5*D clan points</span> for reaching Zig:D. (Only the
+              best Ziggurat attempt in each clan counts.) Leaving the
+              Ziggurat safely counts as an extra level.
             </p>
 
             <p><span>50-20-10 clan points</span> for lowest XL at which a
@@ -787,6 +790,17 @@ III: Reach D:27 in 27 minutes without being one of the speedy races (centaur, sp
 	      <span>20 points</span> for a win without visiting
 	      the Lair (<a href="#lord_of_darkness">LORD OF DARKNESS</a> banner II).
               <span class="added">[NEW]</span>
+            </p>
+            <p class="added">
+              <span>5*D clan points</span> for reaching Zig:D. (Only the
+              best Ziggurat attempt in each clan counts.) Leaving the
+              Ziggurat safely counts as an extra level.
+              <span class="added">[NEW]</span>
+            </p>
+            <p class="changed">
+              <span>100 clan points</span> for the first Ziggurat to be
+              completed (used to be 200-100-50).
+              <span class="changed">[CHANGED]</span>
             </p>
             <p class="changed">
               <span>Sif Muna</span> has a <a href="#prepared">completely new banner</a>.
