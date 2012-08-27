@@ -13,7 +13,7 @@ USING_CSO = ('crawl-tourney' == os.environ.get('USER'))
 LOCK = None
 BASEDIR = USING_CSO and '/var/www/crawl/tourney' or os.environ['HOME']
 LOCKFILE = BASEDIR + '/tourney-py.lock'
-SCORE_FILE_DIR = 'html.tourney12'
+SCORE_FILE_DIR = 'html.tourney12b'
 
 SCORE_CSS = 'tourney-score.css'
 SCORE_CSS_PATH = SCORE_FILE_DIR + "/" + SCORE_CSS
