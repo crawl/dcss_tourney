@@ -1,0 +1,30 @@
+TODO for tourney12, as of Aug 27:
+
+* finalize rules so that they are ready to announce
+  - streak rules?
+  - sif banner image
+  - other banner names?
+  - rcfiles in CSN a problem?
+
+* choose start date, figure out where tourney scripts will live
+
+* announce tourney
+
+* fix scoring to agree with the rules
+  - 20 points for Kiku II
+  - new Sif banner
+  - Chei III banner (4-streak instead of 3-streak)
+  - Ely III banner (13 gods instead of 17)
+  - Oka I banner (XL 13 instead of br.end)
+    - check at every milestone and game end, I guess
+  - streak rules?
+
+* combine nemelex banners on banner page
+
+* think about what might have gotten broken by 0.11
+
+* handle more servers: morgue files, whereis, rcfiles, etc
+
+* get banner images
+
+* test stuff
