@@ -32,7 +32,7 @@ LOCAL_TEST = USING_CSO or ('aaron' in os.getcwd()
 CAO_BASE = (LOCAL_TEST
             and ('file:///' + os.getcwd() + '/' + SCORE_FILE_DIR)
             or 'http://crawl.akrasiac.org')
-CAO_TOURNEY_BASE = ((USING_CSO and 'http://seleniac.org/crawl/tourney/12a') or
+CAO_TOURNEY_BASE = ((USING_CSO and 'http://seleniac.org/crawl/tourney/12b') or
                     (LOCAL_TEST and CAO_BASE) or ('%s/tourney11' % CAO_BASE))
 CAO_IMAGE_BASE = CAO_TOURNEY_BASE + '/images'
 CAO_PLAYER_BASE = '%s/players' % CAO_TOURNEY_BASE
