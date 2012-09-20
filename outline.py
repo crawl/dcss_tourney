@@ -401,8 +401,8 @@ def crunch_winner(c, game):
     banner.award_banner(c, player, 'cheibriados', 2)
     # This length could be 1 even though it involves at least two games, beware!
     streak_len = compute_streak_length(streak_wins, game['char'])
-    if len(streak_wins) >= 2:
-      if compute_streak_length(streak_wins[-2:], game['char']) == 3:
+    if len(streak_wins) >= 3:
+      if compute_streak_length(streak_wins[-3:], game['char']) == 4:
         banner.award_banner(c, player, 'cheibriados', 3)
     streak_species = 'streak_species:'+(game['char'][0:2])
     streak_class = 'streak_class:'+(game['char'][2:])
