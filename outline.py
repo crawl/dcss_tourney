@@ -323,13 +323,15 @@ def crunch_winner(c, game):
     banner.award_banner(c, player, 'okawaru', 3)
 
   if not query.game_did_visit_lair(c, player, game_start_time(game)):
-    # assign_points(c, 'lairless_win', player, 20)
     if not query.game_did_visit_branch(c, player, game_start_time(game)):
       # 50 bonus points for winning without doing any branches.
       assign_points(c, 'branchless_win', player, 50)
       # And the banner:
       banner.award_banner(c, player, 'kikubaaqudgha', 3)
     else:
+      # Just 20 bonus points for winning without doing Lair.
+      assign_points(c, 'lairless_win', player, 20)
+      # And the banner:
       banner.award_banner(c, player, 'kikubaaqudgha', 2)
 
   ogame = query.previous_combo_highscore(c, game)
