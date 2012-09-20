@@ -29,7 +29,7 @@ def award_banner(c, player, banner, prestige, temp=False):
 
 def pantheon(c, player):
   distinct_gods = query.player_distinct_gods(c, player) 
-  if len(distinct_gods) == len(crawl.GODS) - 2:
+  if len(distinct_gods) >= 13:
     award_banner(c, player, 'elyvilon', 3)
   elif len(distinct_gods) >= 5:
     award_banner(c, player, 'elyvilon', 2)
