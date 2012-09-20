@@ -44,12 +44,12 @@ BANNER_TEXT = \
       'cheibriados':
         [ 'Reach experience level 9 in two consecutive games.',
           'Achieve a two-win streak.',
-          'Achieve a three-win streak with three distinct races and three distinct classes.',
+          'Achieve a four-win streak with four distinct races and four distinct classes.',
         ],
       'elyvilon':
         [ 'Become the champion of any god.',
           'Become the champion of five different gods over the course of the tournament.',
-          'Become the champion of every god other than Xom over the course of the tournament.',
+          'Become the champion of thirteen different gods over the course of the tournament.',
         ],
       'fedhas':
         [ 'Enter the Crypt.',
@@ -82,14 +82,14 @@ BANNER_TEXT = \
           "Be one of the first 5 players to win a given Nemelex' choice combo.",
         ],
       'okawaru':
-        [ 'Reach the end of any branch that contains more than one level.',
+        [ 'Reach experience level 13.',
           'Win a game.',
           'Win a game in under 50000 turns.',
         ],
       'sif':
-        [ "Get at least 1000 gold in a game, but don't spend any of it!",
-          'Win a game without spending any gold.',
-          'Win a game without spending any gold or worshipping a god.',
+        [ "Complete the Lair in a single attempt.",
+          'Win a game in which all branches entered are completed in a single attempt.',
+          'Win a game in which all branches entered and all their subbranches are completed in a single attempt.',
         ],
       'the_shining_one':
         [ 'Get a rune before entering D:14 (or below) in that game.',
