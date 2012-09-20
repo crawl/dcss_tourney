@@ -164,7 +164,6 @@ def do_milestone_br_mid(c, mile):
 def do_milestone_br_end(c, mile):
   """Five points for the first time you get each br.enter milestone (includes
   portal vaults)."""
-  banner.award_banner(c, mile['name'], 'okawaru', 1)
   if mile['noun'] == 'D':
     if mile['dur'] <= 1620:
       if mile['raceabbr'] in ['Ce','Fe','Sp']:
