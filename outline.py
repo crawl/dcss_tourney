@@ -69,6 +69,9 @@ def act_on_milestone(c, mile):
 
   player = game_player(mile)
 
+  if mile['xl'] >= 13:
+    banner.award_banner(c, player, 'okawaru', 1)
+
   miletype = milestone_type(mile)
   if miletype == 'uniq' and not milestone_desc(mile).startswith('banished '):
     do_milestone_unique(c, mile)
@@ -235,6 +238,9 @@ def crunch_misc(c, g):
 
   if ktyp != 'winning':
     query.kill_active_streak(c, player)
+
+  if g['xl'] >= 13:
+    banner.award_banner(c, player, 'okawaru', 1)
 
   if g['goldspent'] == 0 and g['gold'] >= 1000:
     banner.award_banner(c, player, 'sif', 1)
