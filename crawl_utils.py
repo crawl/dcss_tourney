@@ -7,11 +7,14 @@ import sys
 # Update every so often (seconds)
 UPDATE_INTERVAL = 7 * 60
 
-# Are we on CSO (seleniac.org), or local?
-USING_CSO = ('crawl-tourney' == os.environ.get('USER'))
+# Are we testing locally, or do we want output suitable for a website?
+# Test whether our username is the same that is used for the tourney on
+# seleniac.org.
+LOCAL_TEST = ('crawl-tourney' != os.environ.get('USER'))
+WEB_BASE = 'http://seleniac.org/crawl/tourney/12b'
 
 LOCK = None
-BASEDIR = USING_CSO and '/var/www/crawl/tourney' or os.environ['HOME']
+BASEDIR = LOCAL_TEST and os.environ['HOME'] or '/var/www/crawl/tourney'
 LOCKFILE = BASEDIR + '/tourney-py.lock'
 SCORE_FILE_DIR = 'html.tourney12b'
 
@@ -28,8 +31,8 @@ CSZO_MORGUE_BASE = 'http://dobrazupa.org/morgue'
 CSN_MORGUE_BASE = 'http://crawlus.somatika.net/dumps'
 
 # These aren't actually CAO any longer, so let's XXX that out.
-XXX_TOURNEY_BASE = ((USING_CSO and 'http://seleniac.org/crawl/tourney/12b') or
-                    ('file:///' + os.getcwd() + '/' + SCORE_FILE_DIR))
+XXX_TOURNEY_BASE = ((LOCAL_TEST and ('file:///' + os.getcwd() + '/' + SCORE_FILE_DIR))
+                   or WEB_BASE)
 XXX_IMAGE_BASE = XXX_TOURNEY_BASE + '/images'
 XXX_PLAYER_BASE = '%s/players' % XXX_TOURNEY_BASE
 XXX_CLAN_BASE = '%s/clans' % XXX_TOURNEY_BASE
