@@ -218,19 +218,6 @@ def act_on_logfile_line(c, this_game):
     if XL > 5:
       assign_team_points(c, "gkill", ghost, (XL - 5))
 
-
-def game_fruit_mask(g):
-  return g.has_key('fruit') and int(g['fruit']) or 0
-
-
-def check_fedhas_banner(c, g):
-  fruit_mask = game_fruit_mask(g)
-  if fruit_mask:
-    player = game_player(g)
-    full_fruit_mask = query.player_update_get_fruit_mask(c, player, fruit_mask)
-    #if crawl.fruit_basket_complete(full_fruit_mask):
-    #  banner.award_banner(c, player, 'fedhas', 1)
-
 def crunch_misc(c, g):
   player = g['name']
   ktyp = g['ktyp']
@@ -252,7 +239,6 @@ def crunch_misc(c, g):
     og = query.previous_combo_highscore(c, g)
     if og and og[0] != player and og[1] >= 1000 and og[1] < g['sc']:
       banner.award_banner(c, player, 'trog', 1)
-  #check_fedhas_banner(c, g)
 
   killer = loaddb.strip_unique_qualifier(g.get('killer') or '')
   if uniq.is_uniq(killer):

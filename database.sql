@@ -77,8 +77,6 @@ CREATE TABLE IF NOT EXISTS players (
   team_score_full BIGINT DEFAULT 0,
   -- So is this.
   player_score_only BIGINT DEFAULT 0,
-
-  fruit_mask INT DEFAULT 0,
   
   FOREIGN KEY (team_captain) REFERENCES players (name)
   ON DELETE SET NULL
