@@ -1,3 +1,5 @@
+import datetime
+
 CDO = 'http://crawl.develz.org/'
 CAO = 'http://crawl.akrasiac.org/'
 CSZO = 'http://dobrazupa.org/'
@@ -9,6 +11,8 @@ TEST_YEAR = USE_TEST and '2012'
 TEST_VERSION = USE_TEST and '0.11'
 TEST_START_TIME = USE_TEST and (TEST_YEAR + '0901')
 TEST_END_TIME   = USE_TEST and (TEST_YEAR + '1001')
+TEST_CLAN_DEADLINE = (USE_TEST and
+                     datetime.datetime(2012, 9, 16, 0)) # Sep 16, 00:00
 TEST_HARE_START_TIME = USE_TEST and (TEST_YEAR + '0931')
 TEST_LOGS = USE_TEST and [
          ('cdo-logfile-0.11', CDO + 'allgames-0.11.txt'),

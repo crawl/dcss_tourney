@@ -50,7 +50,7 @@ LISTENER = [ TeamListener() ]
 # Run the timer every so often to refresh team stats.
 TIMER = [ ( crawl_utils.UPDATE_INTERVAL , TeamTimer() ) ]
 
-DEADLINE = datetime.datetime(2012, 9, 16, 0) # Sep 16, 00:00
+DEADLINE = loaddb.CLAN_DEADLINE
 
 def get_teams(directory_list):
     '''Searches all *.rc files in the given directories for team information

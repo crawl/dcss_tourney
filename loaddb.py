@@ -12,7 +12,7 @@ import ConfigParser
 import imp
 import sys
 
-from test_data import USE_TEST, TEST_YEAR, TEST_VERSION, TEST_START_TIME, TEST_END_TIME, TEST_HARE_START_TIME, TEST_LOGS, TEST_MILESTONES
+from test_data import USE_TEST, TEST_YEAR, TEST_VERSION, TEST_START_TIME, TEST_END_TIME, TEST_HARE_START_TIME, TEST_LOGS, TEST_MILESTONES, TEST_CLAN_DEADLINE
 
 T_YEAR = TEST_YEAR or '2012'
 T_VERSION = TEST_VERSION or '0.11'
@@ -20,6 +20,10 @@ T_VERSION = TEST_VERSION or '0.11'
 # Start and end of the tournament, UTC.
 START_TIME = TEST_START_TIME or (T_YEAR + '0908')
 END_TIME   = TEST_END_TIME or (T_YEAR + '0924')
+
+# Deadline for forming teams.
+CLAN_DEADLINE = (TEST_CLAN_DEADLINE or
+                datetime.datetime(2012, 9, 16, 0)) # Sep 16, 00:00
 
 DATE_FORMAT = '%Y%m%d'
 
