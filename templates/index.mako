@@ -388,7 +388,7 @@
               <br>
                 II: Find 5 distinct runes over the course of the tourney.
               <br>
-                III: Find 16 distinct runes over the course of the tourney.
+                III: Find 17 distinct runes over the course of the tourney.
               </p>
             </div>
 
@@ -576,7 +576,7 @@ III: Reach D:27 in 27 minutes without being one of the speedy races (centaur, sp
                 Nemelex Xobeh wants to see players struggle and loves
                 randomness, and so will give the
                 <a name="nemelex_choice">NEMELEX' CHOICE</a> award
-                to players to persevere with one of several combos
+                to players who persevere with one of several combos
                 randomly chosen and announced throughout the
                 tournament.
               <br>
