@@ -380,15 +380,13 @@
                    width="170" height="58"
                    >
               <p>
-                Ashenzari thinks that an
-                <a name="explorer">EXPLORER</a> should be busy looking
-                for runes of Zot.
+                Ashenzari thinks an <a name="explorer">EXPLORER</a> should be prepared for anything and complete branches on her first try.
               <br>
-                I: Enter a branch that contains a rune.
+                I: After entering the Lair for the first time, reach the last level of it before returning to the Dungeon.
               <br>
-                II: Find 5 distinct runes over the course of the tourney.
+                II: Win a game in which whenever you enter a branch for the first time, you reach the deepest level of it and pick up the rune(s) or orb (if the branch contains such objects) before leaving the branch. ("Branch" here means one of Lair, Swamp, Snake, Shoals, Spider, Slime, Orc, Elf, Vaults, Crypt, Tomb, Vestibule, Cocytus, Dis, Gehenna, Tartarus, Pandemonium, and Zot.)
               <br>
-                III: Find 17 distinct runes over the course of the tourney.
+                III: Win a game as in II, except that you must additionally enter all subbranches of a branch before you can leave it for the first time. For example, if you enter Lair then you must enter (and get the runes from) all three subbranches before you can return to the Dungeon. This rule includes the Dungeon itself - you must enter all of Lair, Orc, Vaults, Vestibule, and Pandemonium before you may leave the Dungeon.
               </p>
             </div>
 
@@ -613,18 +611,20 @@ III: Reach D:27 in 27 minutes without being one of the speedy races (centaur, sp
 
             <div>
 	      <img src="images/banner_sif1.png"
-                   alt="Prepared"
-                   title="Prepared"
+                   alt="Lorekeeper"
+                   title="Lorekeeper"
                    width="170" height="58"
                    >
               <p>
-                Sif Muna thinks that you should be <a name="prepared">PREPARED</a> for anything and complete things on your first try.
+                Sif Muna thinks that a
+                <a name="lorekeeper">LOREKEEPER</a> should research the
+                secrets surrounding the runes of Zot.
               <br>
-                I: After entering the Lair for the first time, reach the last level of it before returning to the Dungeon.
+                I: Enter a branch that contains a rune.
               <br>
-                II: Win a game in which whenever you enter a branch for the first time, you reach the deepest level of it and pick up the rune(s) or orb (if the branch contains such objects) before leaving the branch. ("Branch" here means one of Lair, Swamp, Snake, Shoals, Spider, Slime, Orc, Elf, Vaults, Crypt, Tomb, Vestibule, Cocytus, Dis, Gehenna, Tartarus, Pandemonium, and Zot.)
+                II: Find 5 distinct runes over the course of the tourney.
               <br>
-                III: Win a game as in II, except that you must additionally enter all subbranches of a branch before you can leave it for the first time. For example, if you enter Lair then you must enter (and get the runes from) all three subbranches before you can return to the Dungeon. This rule includes the Dungeon itself - you must enter all of Lair, Orc, Vaults, Vestibule, and Pandemonium before you may leave the Dungeon.
+                III: Find 17 distinct runes over the course of the tourney.
               </p>
             </div>
 
@@ -803,7 +803,7 @@ III: Reach D:27 in 27 minutes without being one of the speedy races (centaur, sp
               <span class="changed">[CHANGED]</span>
             </p>
             <p class="changed">
-              <span>Sif Muna</span> has a <a href="#prepared">completely new banner</a>.
+              <span>Ashenzari</span> has a <a href="#explorer">completely new banner</a>. The <a href="#lorekeeper">old banner</a> was claimed by Sif Muna.
               <span class="changed">[CHANGED]</span>
             </p>
             <p class="changed">

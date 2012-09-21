@@ -119,9 +119,9 @@ def do_milestone_rune(c, mile):
   player = mile['name']
   runes_found = query.player_count_distinct_runes(c, player)
   if runes_found == crawl.NRUNES:
-    banner.award_banner(c, player, 'ashenzari', 3)
+    banner.award_banner(c, player, 'sif', 3)
   elif runes_found >= 5:
-    banner.award_banner(c, player, 'ashenzari', 2)
+    banner.award_banner(c, player, 'sif', 2)
   if rune == 'golden' and num_rune == 1:
     banner.award_banner(c, player, 'fedhas', 2)
   if nemelex.is_nemelex_choice(mile['char'], mile['time']):
@@ -150,7 +150,7 @@ def do_milestone_br_enter(c, mile):
     banner.award_banner(c, mile['name'], 'fedhas', 1)
   elif mile['noun'] in ['Vault', 'Snake', 'Swamp', 'Shoals', 'Pan', 'Slime',
                       'Tomb', 'Dis', 'Tar', 'Coc', 'Geh']:
-    banner.award_banner(c, mile['name'], 'ashenzari', 1)
+    banner.award_banner(c, mile['name'], 'sif', 1)
     if mile['noun'] in ['Pan', 'Dis', 'Tar', 'Coc', 'Geh']:
       banner.award_banner(c, mile['name'], 'zin', 1)
   elif mile['noun'] == 'Hell':
@@ -228,8 +228,6 @@ def crunch_misc(c, g):
   if g['xl'] >= 13:
     banner.award_banner(c, player, 'okawaru', 1)
 
-  if g['goldspent'] == 0 and g['gold'] >= 1000:
-    banner.award_banner(c, player, 'sif', 1)
   if g['xl'] >= 9 and nemelex.is_nemelex_choice(g['char'],g['start']):
     ban = 'nemelex:' + g['char']
     banner.award_banner(c, player, ban, 1)
@@ -430,11 +428,6 @@ def crunch_winner(c, game):
     query.record_won_god(c, game['name'], game['end'], game_god)
     god_wins_before = query.count_god_wins(c, game_god, game_start)
     assign_points(c, 'god_win:' + banner_god, game['name'], query.god_formula(wins_before, god_wins_before), False)
-  if game['goldspent'] == 0:
-    if game_god == 'No God':
-      banner.award_banner(c, game['name'], 'sif', 3)
-    else:
-      banner.award_banner(c, game['name'], 'sif', 2)
 
 def is_all_runer(game):
   """Did this game get every rune? This _might_ require checking the milestones

@@ -17,7 +17,7 @@ BANNER_IMAGES = \
       'makhleb': [ 'banner_makhleb.png', 'Speed Demon' ],
       'nemelex': [ 'banner_nemelex.png', "Nemelex' Choice" ],
       'okawaru': [ 'banner_okawaru.png', 'The Conqueror' ],
-      'sif': [ 'banner_sif.png', 'The Student' ],
+      'sif': [ 'banner_sif.png', 'The Lorekeeper' ],
       'the_shining_one': [ 'banner_the_shining_one.png', 'Vow of Courage' ],
       'trog': [ 'banner_trog.png', 'The Sniper' ],
       'vehumet': [ 'banner_vehumet.png', 'Ruthless Efficiency' ],
@@ -32,9 +32,9 @@ BANNER_IMAGES = \
 
 BANNER_TEXT = \
     { 'ashenzari':
-        [ 'Enter a branch that contains a rune.',
-          'Find 5 distinct runes over the course of the tourney.',
-          'Find 16 distinct runes over the course of the tourney.',
+        [ "Complete the Lair in a single attempt.",
+          'Win a game in which all branches entered are completed in a single attempt.',
+          'Win a game in which all branches entered and all their subbranches are completed in a single attempt.',
         ],
       'beogh':
         [ 'Have the highest score in your clan.',
@@ -87,9 +87,9 @@ BANNER_TEXT = \
           'Win a game in under 50000 turns.',
         ],
       'sif':
-        [ "Complete the Lair in a single attempt.",
-          'Win a game in which all branches entered are completed in a single attempt.',
-          'Win a game in which all branches entered and all their subbranches are completed in a single attempt.',
+        [ 'Enter a branch that contains a rune.',
+          'Find 5 distinct runes over the course of the tourney.',
+          'Find 17 distinct runes over the course of the tourney.',
         ],
       'the_shining_one':
         [ 'Get a rune before entering D:14 (or below) in that game.',
