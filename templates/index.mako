@@ -293,8 +293,7 @@
             </p>
 
             <p>
-              <span>100 clan points</span> for the first Ziggurat to be
-              completed.
+              <span>100-50-20 clan points</span> for deepest level reached in a Ziggurat. Completing a Ziggurat level (for instance exiting to the dungeon from Zig:20) is also noted and is better than merely reaching the level. Ties are broken by who reaches/exits the Ziggurat level first.
             </p>
 
             <p>
@@ -797,8 +796,7 @@ III: Reach D:27 in 27 minutes without being one of the speedy races (centaur, sp
               <span class="added">[NEW]</span>
             </p>
             <p class="changed">
-              <span>100 clan points</span> for the first Ziggurat to be
-              completed (used to be 200-100-50).
+              <span>100-50-20 clan points</span> for deepest level reached in a Ziggurat (used to be 200-100-50).
               <span class="changed">[CHANGED]</span>
             </p>
             <p class="changed">
