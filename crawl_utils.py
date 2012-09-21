@@ -7,7 +7,7 @@ import sys
 # Update every so often (seconds)
 UPDATE_INTERVAL = 7 * 60
 
-# Are we on CSO?
+# Are we on CSO (seleniac.org), or local?
 USING_CSO = ('crawl-tourney' == os.environ.get('USER'))
 
 LOCK = None
@@ -24,23 +24,16 @@ CLAN_FILE_DIR = SCORE_FILE_DIR + '/' + CLAN_BASE
 
 CAO_MORGUE_BASE = 'http://crawl.akrasiac.org/rawdata'
 CDO_MORGUE_BASE = 'http://crawl.develz.org/morgues/0.11'
+CSZO_MORGUE_BASE = 'http://dobrazupa.org/morgue'
+CSN_MORGUE_BASE = 'http://crawlus.somatika.net/dumps'
 
-# Use file URLs when testing on elliptic's machines.
-LOCAL_TEST = USING_CSO or ('aaron' in os.getcwd()
-              or 'aaron' == os.environ.get('USER'))
+# These aren't actually CAO any longer, so let's XXX that out.
+XXX_TOURNEY_BASE = ((USING_CSO and 'http://seleniac.org/crawl/tourney/12b') or
+                    ('file:///' + os.getcwd() + '/' + SCORE_FILE_DIR))
+XXX_IMAGE_BASE = XXX_TOURNEY_BASE + '/images'
+XXX_PLAYER_BASE = '%s/players' % XXX_TOURNEY_BASE
+XXX_CLAN_BASE = '%s/clans' % XXX_TOURNEY_BASE
 
-CAO_BASE = (LOCAL_TEST
-            and ('file:///' + os.getcwd() + '/' + SCORE_FILE_DIR)
-            or 'http://crawl.akrasiac.org')
-CAO_TOURNEY_BASE = ((USING_CSO and 'http://seleniac.org/crawl/tourney/12b') or
-                    (LOCAL_TEST and CAO_BASE) or ('%s/tourney11' % CAO_BASE))
-CAO_IMAGE_BASE = CAO_TOURNEY_BASE + '/images'
-CAO_PLAYER_BASE = '%s/players' % CAO_TOURNEY_BASE
-CAO_CLAN_BASE = '%s/clans' % CAO_TOURNEY_BASE
-
-CAO_OVERVIEW = '''<a href="%s/overview.html">Overview</a>''' % CAO_TOURNEY_BASE
-
-RAWDATA_PATH = '/var/www/crawl/rawdata'
 TAILDB_STOP_REQUEST_FILE = os.path.join(BASEDIR, 'taildb.stop')
 
 MKDIRS = [ SCORE_FILE_DIR, PLAYER_FILE_DIR, CLAN_FILE_DIR ]
@@ -149,16 +142,16 @@ def format_time(time):
                                        time.hour, time.minute, time.second)
 
 def player_link(player):
-  return "%s/%s.html" % (CAO_PLAYER_BASE, player.lower())
+  return "%s/%s.html" % (XXX_PLAYER_BASE, player.lower())
 
 def linked_player_name(player):
   return linked_text(player, player_link)
 
 def clan_link(clan):
-  return "%s/%s.html" % (CAO_CLAN_BASE, clan.lower())
+  return "%s/%s.html" % (XXX_CLAN_BASE, clan.lower())
 
 def banner_link(banner):
-  return CAO_IMAGE_BASE + '/' + banner
+  return XXX_IMAGE_BASE + '/' + banner
 
 def morgue_link(xdict):
   """Returns a hyperlink to the morgue file for a dictionary that contains
@@ -169,8 +162,12 @@ def morgue_link(xdict):
   stime = format_time( xdict['end_time'] )
   if src.find('cao') >= 0:
     base = CAO_MORGUE_BASE
-  else:
+  elif src.find('cdo') >= 0:
     base = CDO_MORGUE_BASE
+  elif src.find('cszo') >= 0:
+    base = CSZO_MORGUE_BASE
+  else:
+    base = CSN_MORGUE_BASE
   return "%s/%s/morgue-%s-%s.txt" % (base, name, name, stime)
 
 def linked_text(key, link_fn, text=None):

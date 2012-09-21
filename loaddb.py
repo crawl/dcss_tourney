@@ -4,7 +4,6 @@ import os
 import datetime
 import os.path
 import crawl_utils
-from crawl_utils import LOCAL_TEST
 
 import logging
 from logging import debug, info, warn, error
@@ -30,23 +29,30 @@ HARE_START_TIME = TEST_HARE_START_TIME or (T_YEAR + '0923')
 
 CDO = 'http://crawl.develz.org/'
 CAO = 'http://crawl.akrasiac.org/'
+CSZO = 'http://dobrazupa.org/'
+CSN = 'http://crawlus.somatika.net/'
 
 # Log and milestone files. A tuple indicates a remote file with t[1]
 # being the URL to wget -c from.
 
-LOGS = TEST_LOGS or [ LOCAL_TEST and ('cao-logfile-0.11', CAO + 'logfile11')
-         or 'cao-logfile-0.11',
-         ('cdo-logfile-0.11', CDO + 'allgames-0.11.txt') ]
+LOGS = TEST_LOGS or [
+         ('cao-logfile-0.11', CAO + 'logfile-0.11.txt'),
+         ('cdo-logfile-0.11', CDO + 'allgames-0.11.txt'),
+         ('cszo-logfile-0.11', CSZO + 'meta/0.11/logfile'),
+         ('csn-logfile-0.11', CSN + 'scoring/crawl-trunk/logfile')]
 
-MILESTONES = TEST_MILESTONES or [ LOCAL_TEST and ('cao-milestones-0.11', CAO + 'milestones11')
-               or 'cao-milestones-0.11',
-               ('cdo-milestones-0.11', CDO + 'milestones-0.11.txt') ]
+MILESTONES = TEST_MILESTONES or [
+         ('cao-milestones-0.11', CAO + 'milestones-0.11.txt'),
+         ('cdo-milestones-0.11', CDO + 'milestones-0.11.txt'),
+         ('cszo-milestones-0.11', CSZO + 'meta/0.11/milestones'),
+         ('csn-milestones-0.11', CSN + 'scoring/crawl-trunk/milestones')]
 
 BLACKLIST_FILE = 'blacklist.txt'
 EXTENSION_FILE = 'modules.ext'
 TOURNAMENT_DB = 'tournament'
 COMMIT_INTERVAL = 3000
-CRAWLRC_DIRECTORY_LIST = LOCAL_TEST and ['rcfiles/','rcfiles2/'] or ['/chroot/dgldir/rcfiles/crawl-0.11']
+# These rcfiles need to be updated from the servers every few hours.
+CRAWLRC_DIRECTORY_LIST = ['rcfiles-cao/','rcfiles-cdo/','rcfiles-cszo','rcfiles-csn']
 
 LISTENERS = [ ]
 TIMERS = [ ]
@@ -843,8 +849,9 @@ def insert_xlog_db(cursor, xdict, filename, offset):
 def update_whereis(c, xdict, filename):
   player = xdict['name']
   src = filename[:3]
-  if xdict['tiles'] == '1':
-    src = filename[:2]+'t'
+  # CDO tiles and console are separate.
+  if src == 'cdo' and xdict['tiles'] == '1':
+    src = 'cdt'
   start_time = xdict['start']
   mile_time = xdict['time']
   query_do(c, '''INSERT INTO whereis_table

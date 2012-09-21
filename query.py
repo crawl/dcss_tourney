@@ -45,17 +45,6 @@ def time_from_str(when):
     when = when[:-1]
   return datetime(*(time.strptime(when, '%Y%m%d%H%M%S')[0:6]))
 
-def canonical_where_name(name):
-  test = '%s/%s' % (crawl_utils.RAWDATA_PATH, name)
-  if os.path.exists(test) or not os.path.exists(crawl_utils.RAWDATA_PATH):
-    return name
-  names = os.listdir(crawl_utils.RAWDATA_PATH)
-  names = [ x for x in names if x.lower() == name.lower() ]
-  if names:
-    return names[0]
-  else:
-    return None
-
 def game_is_over(c, name, start):
   query = Query('''SELECT COUNT(*) FROM games WHERE player=%s 
                                    AND start_time=%s''', name, start)
