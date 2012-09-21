@@ -147,6 +147,11 @@ def clan_additional_score(c, owner):
                                               uscore_pos,
                                               100, 50, 20 ) )
 
+  zig_depth = int((query.clan_zig_depth(c, owner) + 1)/2)
+  additional += log_temp_clan_points( c, owner,
+                                      'zig_dive:%d' % zig_depth,
+                                      5 * zig_depth)
+
 # Now we give race/class points to clans.
   for g in query.clan_race_wins(c, owner):
     key = 'species_win:' + g[0]

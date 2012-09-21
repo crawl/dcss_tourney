@@ -1377,6 +1377,9 @@ def player_ziggurat_deepest(c, player):
                          '''SELECT deepest FROM ziggurats WHERE player = %s''',
                          player)
 
+def clan_zig_depth(c, owner):
+  return max([player_ziggurat_deepest(c, player) for player in players_in_team(c, owner)])
+
 def get_top_ziggurats(c):
   rows = query_rows(c, '''SELECT player, place, deepest, zig_time
                             FROM best_ziggurat_dives
