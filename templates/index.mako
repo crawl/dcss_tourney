@@ -119,9 +119,8 @@
             </p>
 
             <p>
-              <span>50 points</span> for a player's second win that is
-              not a repeat race or class of the character from her
-              first win.
+              <span>50 points</span> for a player winning two characters of
+              different races and classes at some point during the tourney.
             </p>
 
             <p>

@@ -261,13 +261,12 @@ def crunch_misc(c, g):
   #    if sk in crawl.MAGIC_SKILLS:
   #      query.register_fifteen_skill(c, player, sk)
 
-def repeat_race_class(previous_chars, char):
-  """Returns 0 if the game does not repeat a previous role or class, 1 if
-  it repeats a role xor class, 2 if it repeats a role and a class."""
+def repeat_race_class(char1, char2):
+  """Returns the number of race/class that the two chars have in common."""
   repeats = 0
-  if char[0:2] in [c[0:2] for c in previous_chars]:
+  if char1[0:2] == char2[0:2]:
     repeats += 1
-  if char[2:] in [c[2:] for c in previous_chars]:
+  if char1[2:] == char2[2:]:
     repeats += 1
   return repeats
 
@@ -364,22 +363,15 @@ def crunch_winner(c, game):
                                     before = game_end)
   n_my_wins = len(my_wins)
 
-  repeated = 0
-  if n_my_wins > 0:
-    repeated = repeat_race_class([x['charabbrev'] for x in my_wins],
-                                 game['char'])
-
   if n_my_wins == 0:
     # First win! I bet you don't have a streak
     assign_points(c, "my_1st_win", game['name'], 100)
 
-  elif n_my_wins == 1 and repeated == 0:
-    # Second win! If neither repeated race or class, bonus!
-    assign_points(c, "my_2nd_win_norep", game['name'], 50)
-
-  #else:
-    # Any win gets 10 points at this point.
-    #assign_points(c, "my_win", game['name'], 10)
+  else:
+    # If the new win is a different race/class from a previous win, bonus!
+    for x in my_wins:
+      if repeat_race_class(x['charabbrev'], game['char']) == 0:
+        assign_points(c, "my_2nd_win_norep", game['name'], 50, False)
 
   streak_wins = query.wins_in_streak_before(c, game['name'], game_end)
   debug("%s win (%s), previous games in streak: %s" %
