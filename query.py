@@ -131,6 +131,15 @@ def did_get_rune(c, rune, name, start, end):
                             AND milestone_time < %s ''',
                       name, start, rune, end) > 0)
 
+def did_exit_branch(c, br, name, start, end):
+  return (query_first(c,
+                      '''SELECT COUNT(*) FROM milestones
+                          WHERE player = %s AND start_time = %s
+                            AND verb = 'br.exit'
+                            AND noun = %s
+                            AND milestone_time < %s ''',
+                      name, start, br, end) > 0)
+
 def did_reach_d14(c, name, start, end):
   if (query_first(c,
                       '''SELECT COUNT(*) FROM milestones

@@ -405,6 +405,8 @@ def xlog_milestone_fixup(d):
     noun = R_BRANCH_ENTER.findall(d['place'])[0]
   if verb == 'br.end':
     noun = R_BRANCH_END.findall(d['place'])[0]
+  if verb == 'br.exit':
+    noun = R_BRANCH_EXIT.findall(d['oplace'])[0]
 
   if verb == 'ghost':
     match = R_MILE_GHOST.findall(milestone)
@@ -560,6 +562,7 @@ R_MONTH_FIX = re.compile(r'^(\d{4})(\d{2})(.*)')
 R_GHOST_NAME = re.compile(r"^(.*)'s? ghost")
 R_BRANCH_ENTER = re.compile(r"^(\w+)")
 R_BRANCH_END = re.compile(r"^(\w+)")
+R_BRANCH_EXIT = re.compile(r"^(\w+)")
 R_MILESTONE_GHOST_NAME = re.compile(r"the ghost of (.*) the ")
 R_KILL_UNIQUE = re.compile(r'^killed (.*)\.$')
 R_MILE_UNIQ = re.compile(r'^(\w+) (.*)\.$')

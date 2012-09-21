@@ -238,7 +238,7 @@ CREATE TABLE milestones (
   milestone_time DATETIME,
 
   -- Known milestones: abyss.enter, abyss.exit, rune, orb, ghost, uniq,
-  -- uniq.ban, br.enter, br.end.
+  -- uniq.ban, br.enter, br.end, br.exit.
   verb VARCHAR(20),
   noun VARCHAR(100),
 

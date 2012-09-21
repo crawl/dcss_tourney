@@ -170,9 +170,12 @@ def do_milestone_br_end(c, mile):
         banner.award_banner(c, mile['name'], 'makhleb', 2)
       else:
         banner.award_banner(c, mile['name'], 'makhleb', 3)
-  if query.player_count_br_end(c, mile['name'], mile['noun']) > 1:
-    return
-  assign_points(c, "branch_end", mile['name'], 5)
+  if mile['noun'] == 'Lair':
+    if not banner.player_has_banner(c, mile['name'], 'ashenzari', 1):
+      if not query.did_exit_branch(c, 'Lair', mile['name'], mile['start'], mile['time']):
+        banner.award_banner(c, mile['name'], 'ashenzari', 1)
+  if query.player_count_br_end(c, mile['name'], mile['noun']) <= 1:
+    assign_points(c, "branch_end", mile['name'], 5)
 
 def do_milestone_max_piety(c, mile):
   if query.record_max_piety(c, mile['name'], mile['start'], mile['noun']):
