@@ -1380,7 +1380,7 @@ def player_ziggurat_deepest(c, player):
 def get_top_ziggurats(c):
   rows = query_rows(c, '''SELECT player, place, deepest, zig_time
                             FROM best_ziggurat_dives
-                           LIMIT 5''')
+                           LIMIT 3''')
   # Convert to lists for doctoring.
   rows = [list(x) for x in rows]
   for r in rows:
