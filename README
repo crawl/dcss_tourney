@@ -7,6 +7,12 @@ Rules Template
 Tourney rules are described in templates/index.mako. When updating
 index.mako, run update_index.py to generate the html output.
 
+Configuring scripts
+-------------------
+
+The version, dates, etc used to get the game data are defined in loaddb.py.
+Some paths and URLs are defined in crawl_utils.py: see LOCAL_TEST, WEB_BASE,
+and SCORE_FILE_DIR.
 
 Running scripts
 ---------------
@@ -19,10 +25,7 @@ To run loaddb.py:
 2. mysql -ucrawl -p tournament < database.sql will (re)create the tables,
    discarding any existing data.
 
-3. ./link-setup will link the various logfiles into the current directory
-   for loaddb to work on.
-
-4. python loaddb.py will update the database with logfile and milestone
+3. python loaddb.py will update the database with logfile and milestone
    records that are not already in the db. If interrupted, it can continue
    where it left off.
 
@@ -30,11 +33,30 @@ To run loaddb.py:
    the logfile and milestones. taildb is otherwise identical in behaviour
    to loaddb.py.
 
+Testing scripts
+---------------
+
+If USE_TEST is set to True in test_data.py, then the version, dates, etc in
+that file will be used when running the scripts. Also, the rules page will
+not have toplinks on it (useful when announcing the tournament if you are
+still testing things).
    
 Nemelex' Choice
 ---------------
 
 Currently Nemelex' Choice combo selection happens automatically and does not
-require Sequell's database. However, it will only pick combos that are listed
-in the file nem_eligible.txt, so it is important to have this file be up to
-date at the start of the tournament.
+require Sequell's database. If NEMELEX_USE_LIST is set to True in nemelex.py,
+then the combos will all be chosen from the file nem_eligible.txt. Otherwise,
+the first combo will be chosen from this file and later combos will be chosen
+from those with the lowest high score thus far in the tournament.
+
+Other things
+------------
+
+* You will probably want to set up a cronjob to grab rcfiles from the various
+  servers and place them in the directories listed in CRAWLRC_DIRECTORY_LIST
+  in loaddb.py.
+
+* When running these scripts on one of the public servers, you will want to
+  link the various logfiles on that server into the current directory.
+  For the 0.9 tournament, ./link-setup was used for this (on CAO).
