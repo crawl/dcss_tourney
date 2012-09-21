@@ -39,13 +39,13 @@ LOGS = TEST_LOGS or [
          ('cao-logfile-0.11', CAO + 'logfile-0.11.txt'),
          ('cdo-logfile-0.11', CDO + 'allgames-0.11.txt'),
          ('cszo-logfile-0.11', CSZO + 'meta/0.11/logfile'),
-         ('csn-logfile-0.11', CSN + 'scoring/crawl-trunk/logfile')]
+         ('csn-logfile-0.11', CSN + 'scoring/crawl-0.11/logfile')]
 
 MILESTONES = TEST_MILESTONES or [
          ('cao-milestones-0.11', CAO + 'milestones-0.11.txt'),
          ('cdo-milestones-0.11', CDO + 'milestones-0.11.txt'),
          ('cszo-milestones-0.11', CSZO + 'meta/0.11/milestones'),
-         ('csn-milestones-0.11', CSN + 'scoring/crawl-trunk/milestones')]
+         ('csn-milestones-0.11', CSN + 'scoring/crawl-0.11/milestones')]
 
 BLACKLIST_FILE = 'blacklist.txt'
 EXTENSION_FILE = 'modules.ext'
