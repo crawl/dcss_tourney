@@ -210,7 +210,7 @@
 	      the Lair (<a href="#lord_of_darkness">LORD OF DARKNESS</a> banner II). This is not cumulative with the 50-point bonus above.
 	    </p>
             <p>
-              <span>75 bonus points</span> for winning <a href="#nemelex_choice">NEMELEX' CHOICE</a> characters. The first Nemelex' Choice combo is chosen at the start of the tournament, and after that each one is chosen when the previous one is won for the first time. Each combo remains valid until it has been won five times. The race/class combinations are chosen by Nemelex from those with a low high score so far in the tournament, avoiding repetition of race or class.
+              <span>75 bonus points</span> for winning <a href="#nemelex_choice">NEMELEX' CHOICE</a> characters. The first Nemelex' Choice combo is chosen at the start of the tournament, and after that each one is chosen when the previous one is won for the first time. Each combo remains valid until it has been won five times. The race/class combinations are chosen by Nemelex from those which have not been won online in version 0.10 or later.
             </p>
           </div>
 
@@ -812,6 +812,10 @@ III: Reach D:27 in 27 minutes without being one of the speedy races (centaur, sp
             </p>
             <p class="changed">
               <span>Elyvilon</span> now only asks you to become the champion of thirteen different gods for the third tier of the <a href="#pious">PIOUS</a> banner. (Used to require every god other than Xom.)
+              <span class="changed">[CHANGED]</span>
+            </p>
+            <p class="changed">
+              <span><a href="#nemelex_choice">NEMELEX' CHOICE</a></span> characters are now chosen by Nemelex from those which have not been won online in version 0.10 or later.
               <span class="changed">[CHANGED]</span>
             </p>
             <p class="changed">

@@ -16,6 +16,8 @@ from loaddb import START_TIME
 NOMINEE_FILE = 'nemelex-combos.txt'
 DATE_FORMAT = '%Y-%m-%d %H:%M:%S'
 
+NEMELEX_USE_LIST = True
+
 def parse_time(when):
   return datetime(*(time.strptime(when, DATE_FORMAT)[0:6]))
 
@@ -82,28 +84,38 @@ def is_nemelex_choice(combo, when):
   return False
 
 def eligible_combos(c):
-  eligible = combos.VALID_COMBOS
-  pcombo_names = [x[0] for x in NEMELEX_COMBOS]
-  # Try not to use a repeat race or class if possible.
-  filtered_eligible = filter_combos(eligible, pcombo_names)
-  if filtered_eligible:
-    eligible = filtered_eligible
-  eligible_with_scores = [[combo_name, query.highscore(c, combo_name)] for combo_name in eligible]
-  eligible_with_scores.sort(key = lambda e: e[1])
-  l = 19
-  if l > len(eligible_with_scores)-1:
-    l = len(eligible_with_scores)-1
-  candidates = [e[0] for e in eligible_with_scores if e[1] <= eligible_with_scores[l][1]]
-  return candidates
-  #won_games = query.get_winning_games(c)
-  #won_combos = set([x['charabbrev'] for x in won_games])
-  #return [x for x in combos.NEM_ELIGIBLE_COMBOS
-  #        if (x not in won_combos)]
+  # first one is always picked from the special list
+  if len(NEMELEX_COMBOS) == 0:
+    return combos.NEM_ELIGIBLE_COMBOS
+  # sometimes look at the special list for the later ones, too
+  if NEMELEX_USE_LIST:
+    won_games = query.get_winning_games(c)
+    won_combos = set([x['charabbrev'] for x in won_games])
+    eligible =  [x for x in combos.NEM_ELIGIBLE_COMBOS
+                 if (x not in won_combos)]
+    pcombo_names = [x[0] for x in NEMELEX_COMBOS]
+    # Try not to use a repeat race or class if possible.
+    filtered_eligible = filter_combos(eligible, pcombo_names)
+    if filtered_eligible:
+      eligible = filtered_eligible
+    return eligible
+  # otherwise pick from the valid combos with the lowest high score in the tourney:
+  else:
+    eligible = combos.VALID_COMBOS
+    pcombo_names = [x[0] for x in NEMELEX_COMBOS]
+    # Try not to use a repeat race or class if possible.
+    filtered_eligible = filter_combos(eligible, pcombo_names)
+    if filtered_eligible:
+      eligible = filtered_eligible
+    eligible_with_scores = [[combo_name, query.highscore(c, combo_name)] for combo_name in eligible]
+    eligible_with_scores.sort(key = lambda e: e[1])
+    l = 19
+    if l > len(eligible_with_scores)-1:
+      l = len(eligible_with_scores)-1
+    candidates = [e[0] for e in eligible_with_scores if e[1] <= eligible_with_scores[l][1]]
+    return candidates
 
 def pick_combo(eligible):
-  # first one is picked from a special list
-  if len(NEMELEX_COMBOS) == 0:
-    eligible = combos.NEM_ELIGIBLE_COMBOS
   if eligible:
     combo = eligible[random.randrange(len(eligible))]
     apply_combo(combo)
