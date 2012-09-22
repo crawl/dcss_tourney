@@ -20,6 +20,7 @@
 
    clan_player_points = query.audit_adjusted_clan_player_points(c, captain)
    clan_points = query.audit_clan_points(c, captain)
+   clan_category_points = query.audit_clan_category_points(c, captain)
 
    clan_players = cinfo[1]
    clan_whereis = html.whereis(c, *clan_players)
@@ -45,10 +46,10 @@
      text += '''<tr><th>Total</th><th class="numeric">%s</th></tr>''' % total
      return text
 
-   def clan_point_breakdown():
+   def clan_point_breakdown(c_points):
      text = ''
      total = 0
-     for source, points in clan_points:
+     for source, points in c_points:
        text += '''<tr class="point_temp">
                     <td>%s</td>
                     <td class="numeric">%s</td>
@@ -190,29 +191,68 @@
 
           <div class="audit_table">
             <h3>Score Breakdown</h3>
-            <table class="bordered">
-              %if clan_player_points:
+            <table class="grouping">
               <tr>
-                <th>Player</th> <th>Points</th>
-              </tr>
-              ${player_point_breakdown()}
-                %if clan_points:
-                  ${blank_row}
+                <td>
+                  %if len(clan_category_points)+3 < len(clan_points):
+                  <h4>Full details</h4>
+                  %endif
+                  <table class="bordered">
+                    %if clan_player_points:
+                    <tr>
+                      <th>Player</th> <th>Points</th>
+                    </tr>
+                    ${player_point_breakdown()}
+                      %if clan_points:
+                        ${blank_row}
+                      %endif
+                    %endif
+                    %if clan_points:
+                    <tr>
+                      <th>Source</th> <th>Points</th>
+                    </tr>
+                    ${clan_point_breakdown(clan_points)}
+                    %endif
+                    %if clan_points and clan_player_points:
+                      ${blank_row}
+                      <tr>
+                        <th>Grand Total</th>
+                        <th class="numeric">${grand_total}</th>
+                      </tr>
+                    %endif
+                  </table>
+                </td>
+                %if len(clan_category_points)+3 < len(clan_points):
+                <td></td><td></td>
+                <td>
+                  <h4>Category Breakdown</h4>
+                  <table class="bordered">
+                    %if clan_player_points:
+                    <tr>
+                      <th>Player</th> <th>Points</th>
+                    </tr>
+                    ${player_point_breakdown()}
+                      %if clan_points:
+                        ${blank_row}
+                      %endif
+                    %endif
+                    %if clan_points:
+                    <tr>
+                      <th>Source</th> <th>Points</th>
+                    </tr>
+                    ${clan_point_breakdown(clan_category_points)}
+                    %endif
+                    %if clan_points and clan_player_points:
+                      ${blank_row}
+                      <tr>
+                        <th>Grand Total</th>
+                        <th class="numeric">${grand_total}</th>
+                      </tr>
+                    %endif
+                  </table>
+                </td>
                 %endif
-              %endif
-              %if clan_points:
-              <tr>
-                <th>Source</th> <th>Points</th>
               </tr>
-              ${clan_point_breakdown()}
-              %endif
-              %if clan_points and clan_player_points:
-                ${blank_row}
-                <tr>
-                  <th>Grand Total</th>
-                  <th class="numeric">${grand_total}</th>
-                </tr>
-              %endif
             </table>
           </div>
         </div>

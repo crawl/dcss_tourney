@@ -135,14 +135,14 @@ def clan_additional_score(c, owner):
 
   combo_pos = query.clan_combo_pos(c, owner)
   additional += log_temp_clan_points( c, owner,
-                                      'combo_scores_Nth:%d' % (combo_pos + 1),
+                                      'clan_combo_scores_Nth:%d' % (combo_pos + 1),
                                       get_points(
                                               combo_pos,
                                               200, 100, 50 ) )
 
   uscore_pos = query.clan_unique_pos(c, owner)
   additional += log_temp_clan_points( c, owner,
-                                      'unique_kills_Nth:%d' % (uscore_pos + 1),
+                                      'clan_top_unique_killer:%d' % (uscore_pos + 1),
                                       get_points(
                                               uscore_pos,
                                               100, 50, 20 ) )

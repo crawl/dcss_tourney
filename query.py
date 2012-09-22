@@ -957,6 +957,16 @@ def audit_clan_points(c, captain):
                        ORDER BY p DESC, point_source''',
                     captain)
 
+def audit_clan_category_points(c, captain):
+  return query_rows(c,
+                    '''SELECT SUBSTRING_INDEX(point_source, ':', 1) source,
+                       SUM(points) p
+                       FROM clan_points
+                       WHERE captain = %s
+                       GROUP BY source
+                       ORDER BY p DESC, source''',
+                    captain)
+
 def audit_record_points(c, who, what, points, temp, credited='points'):
   if points > 0:
     # Update the audit table.
