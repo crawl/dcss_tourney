@@ -14,7 +14,7 @@ LOCAL_TEST = ('crawl-tourney' != os.environ.get('USER'))
 WEB_BASE = 'http://seleniac.org/crawl/tourney/12b'
 
 LOCK = None
-BASEDIR = LOCAL_TEST and os.environ['HOME'] or '/var/www/crawl/tourney'
+BASEDIR = LOCAL_TEST and os.environ['HOME'] or '/home/crawl-tourney/tourney'
 LOCKFILE = BASEDIR + '/tourney-py.lock'
 SCORE_FILE_DIR = 'html.tourney12b'
 
