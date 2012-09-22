@@ -1626,3 +1626,95 @@ def find_most_recent_character_since(c, player):
                              FROM milestones
                             WHERE player = %s
                               AND start_time = %s''', player, mile[0])
+
+def check_ash_banners(c, name, start):
+  rows = query_rows(c, '''SELECT verb, noun, turn
+                            FROM milestones
+                           WHERE player = %s
+                             AND start_time = %s
+                             AND (verb = 'br.enter'
+                                  AND (noun != 'Pan' OR milestone = 'entered Pandemonium.')
+                                  OR verb = 'br.end'
+                                  OR verb = 'br.exit'
+                                  OR verb = 'rune'
+                                  OR verb = 'orb')
+                        ORDER BY turn''', name, start)
+
+  def find_stone(verb,noun):
+    for r in rows:
+      if r[0] == verb and r[1] == noun:
+        return r[2]
+    return -1
+
+  def count_runes(turn1, turn2):
+    count = 0
+    for r in rows:
+      if r[0] == 'rune' and r[1] != 'abyssal':
+        if r[2] >= turn1 and r[2] <= turn2:
+          count += 1
+    return count
+
+  # Let's check a lot of things.
+  # First, reaching the ends of branches. We don't need to check this in
+  # rune or orb branches.
+  for br in ['Lair','Orc','Elf','Crypt']:
+    x = find_stone('br.enter',br)
+    if x > -1:
+      y = find_stone('br.end',br)
+      z = find_stone('br.exit',br)
+      if y == -1 or z < y:
+        return 0
+  # Next, getting runes.
+  for br in ['Swamp','Snake','Shoals','Spider','Slime','Tomb',
+             'Coc','Dis','Geh','Tar']:
+    x = find_stone('br.enter',br)
+    if x > -1:
+      z = find_stone('br.exit',br)
+      count = count_runes(x,z)
+      if count == 0:
+        return 0
+  # Handle Vaults separately because it contains Tomb.
+  x = find_stone('br.enter','Vaults')
+  if x > -1:
+    y = find_stone('rune','silver')
+    z = find_stone('br.exit','Vaults')
+    if y == -1 or z < y:
+      return 0
+  # Handle Pan separately also.
+  pan_entrances = [r[2] for r in rows if r[0] == 'br.enter' and r[1] == 'Pan']
+  if len(pan_entrances) > 0:
+    count = 0
+    for r in rows:
+      if r[2] > pan_entrances[0]:
+        if len(pan_entrances) == 1 or r[2] < pan_entrances[1]:
+          if r[0] == 'rune' and r[1] in ['demonic','magical','glowing','fiery','dark']:
+            count += 1
+    if count < 5:
+      return 0
+  # Finally, check for the orb.
+  y = find_stone('orb','orb')
+  z = find_stone('br.exit','Zot')
+  if z < y:
+    return 0
+  # Done checking for Ash banner II.
+  # Now check for entering subbranches.
+  # First, the subbranches of D have to be entered at some point in the game.
+  for br in ['Lair','Orc','Vaults','Hell','Pan']:
+    if find_stone('br.enter',br) == -1:
+      return 2
+  # Now check for guaranteed subbranches of other branches.
+  for br in [['Lair','Slime'],['Orc','Elf'],['Vaults','Crypt'],['Crypt','Tomb'],['Hell','Coc'],['Hell','Dis'],['Hell','Geh'],['Hell','Tar']]:
+    y = find_stone('br.enter',br[1])
+    z = find_stone('br.exit',br[0])
+    if z < y:
+      return 2
+  # Finally check for subbranches of Lair.
+  z = find_stone('br.exit','Lair')
+  count = 0
+  for r in rows:
+    if r[2] < z and r[0] == 'br.enter' and r[1] in ['Swamp','Snake','Shoals','Spider']:
+      count += 1
+  if count < 2:
+    return 2
+  # Congratulations, you made it this far...
+  return 3

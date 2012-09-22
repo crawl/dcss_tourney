@@ -325,6 +325,10 @@ def crunch_winner(c, game):
       # And the banner:
       banner.award_banner(c, player, 'kikubaaqudgha', 2)
 
+  ash_prestige = query.check_ash_banners(c, player, game_start_time(game))
+  if ash_prestige >= 2:
+    banner.award_banner(c, player, 'ashenzari', ash_prestige)
+
   ogame = query.previous_combo_highscore(c, game)
   if ogame and ogame[0] != player and ogame[2] == 'winning' and ogame[1] < game['sc']:
     banner.award_banner(c, player, 'trog', 2)

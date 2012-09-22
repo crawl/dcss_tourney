@@ -425,6 +425,8 @@ def xlog_milestone_fixup(d):
     noun = R_GOD_MOLLIFY.findall(milestone)[0]
   elif verb == 'god.maxpiety':
     noun = R_GOD_MAXPIETY.findall(milestone)[0]
+  if verb == 'orb':
+    noun = 'orb'
   noun = noun or milestone
   d['verb'] = verb
   d['type'] = verb
