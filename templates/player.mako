@@ -217,6 +217,7 @@
                     ${point_breakdown(audit)}
                   </table>
                 </td>
+                %if len(audit_category)+1 < len(audit):
                 <td>
                   <h4>Category Breakdown</h4>
                   <table class="bordered">
@@ -226,7 +227,7 @@
                     ${point_breakdown(audit_category)}
                   </table>
                 </td>
-
+                %endif
                 <td>
                   <h4>Team points</h4>
                   <table class="bordered">

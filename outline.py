@@ -145,7 +145,7 @@ def do_milestone_br_enter(c, mile):
   """Five points for the first time you get each br.enter milestone (includes
   portal vaults). Also give out banners."""
   if query.player_count_br_enter(c, mile['name'], mile['noun']) == 1:
-    assign_points(c, "branch_enter", mile['name'], 5)
+    assign_points(c, "branch:enter", mile['name'], 5)
   if mile['noun'] == 'Crypt':
     banner.award_banner(c, mile['name'], 'fedhas', 1)
   elif mile['noun'] in ['Vault', 'Snake', 'Swamp', 'Shoals', 'Spider', 'Pan', 'Slime',
@@ -175,7 +175,7 @@ def do_milestone_br_end(c, mile):
       if not query.did_exit_branch(c, 'Lair', mile['name'], mile['start'], mile['time']):
         banner.award_banner(c, mile['name'], 'ashenzari', 1)
   if query.player_count_br_end(c, mile['name'], mile['noun']) <= 1:
-    assign_points(c, "branch_end", mile['name'], 5)
+    assign_points(c, "branch:end", mile['name'], 5)
 
 def do_milestone_max_piety(c, mile):
   if query.record_max_piety(c, mile['name'], mile['start'], mile['noun']):
@@ -351,7 +351,7 @@ def crunch_winner(c, game):
 
   if is_all_runer(game):
     all_allruners = number_of_allruners_before(c, game)
-    assign_points(c, "nth_all_rune_win:%d" % (all_allruners + 1),
+    assign_points(c, "nth_allrune_win:%d" % (all_allruners + 1),
                   game['name'],
                   get_points(all_allruners, 200, 100, 50))
 
@@ -394,8 +394,8 @@ def crunch_winner(c, game):
     if len(streak_wins) >= 3:
       if compute_streak_length(streak_wins[-3:], game['char']) == 4:
         banner.award_banner(c, player, 'cheibriados', 3)
-    streak_species = 'streak_species:'+(game['char'][0:2])
-    streak_class = 'streak_class:'+(game['char'][2:])
+    streak_species = 'streak:species:'+(game['char'][0:2])
+    streak_class = 'streak:class:'+(game['char'][2:])
     # 75 points for streak games, but only if they are with a new race and class.
     assign_points(c, streak_species, game['name'], 60, False)
     assign_points(c, streak_class, game['name'], 30, False)
@@ -505,10 +505,10 @@ def check_temp_trophies(c, pmap):
                     "last_win", [100])
 
   award_temp_trophy(c, pmap, query.player_streak_best(c),
-                    'max_streak_Nth:%d', [200, 100, 50])
+                    'top_streak:%d', [200, 100, 50])
 
   award_temp_trophy(c, pmap, query.get_top_unique_killers(c),
-                    'top_uniq_killer:%d', [50, 20, 10])
+                    'top_unique_killer:%d', [50, 20, 10])
 
 #  award_temp_trophy(c, pmap, query.player_pacific_win_best(c),
 #                    'top_pacific_win:%d', [200, 100, 50],
@@ -593,10 +593,10 @@ def check_misc_points(c, pmap):
       record_points(pmap, player, points, team_points=False)
       log_temp_points(c, player, key % r[1], points)
 
-  award_misc_points('combo_hs:%d', 5, query.all_hs_combos(c))
-  award_misc_points('combo_hs_win:%d', 5, query.all_hs_combo_wins(c))
-  award_misc_points('species_hs:%d', 20, query.all_hs_species(c))
-  award_misc_points('class_hs:%d', 10, query.all_hs_classes(c))
+  award_misc_points('high_score:combo:%d', 5, query.all_hs_combos(c))
+  award_misc_points('high_score:combo_win:%d', 5, query.all_hs_combo_wins(c))
+  award_misc_points('high_score:species:%d', 20, query.all_hs_species(c))
+  award_misc_points('high_score:class:%d', 10, query.all_hs_classes(c))
 
 def compute_player_only(c):
   for p in query.get_players(c):
