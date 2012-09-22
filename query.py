@@ -1499,11 +1499,30 @@ def player_banners_awarded(c):
                                  FROM player_banners
                                  ORDER BY banner, prestige, player''')
   banners = []
+  nemelex_banners = [('nemelex', i, []) for i in range(1,4)]
+  inserted_nemelex = False
   for row in banner_rows:
     banner_name, prestige, player = row
-    if not banners or banner_name != banners[-1][0] or prestige != banners[-1][1]:
-      banners.append( (banner_name, prestige, []) )
-    banners[-1][2].append(player)
+    if banner_name >= 'nemeley' and not inserted_nemelex:
+      for ban in nemelex_banners:
+        if len(ban[2]) > 0:
+          ban[2].sort(key = lambda e: e[0].upper())
+          banners.append(ban)
+      inserted_nemelex = True
+    if len(banner_name) == 12 and banner_name[:7] == 'nemelex':
+      combo = banner_name[-4:]
+      found_player = False
+      for p in nemelex_banners[prestige-1][2]:
+        if player == p[0]:
+          p[1].append(combo)
+          found_player = True
+          break
+      if not found_player:
+        nemelex_banners[prestige-1][2].append((player,[combo]))
+    else:
+      if not banners or banner_name != banners[-1][0] or prestige != banners[-1][1]:
+        banners.append( (banner_name, prestige, []) )
+      banners[-1][2].append((player,[]))
   return banners
 
 def clan_player_banners(c):

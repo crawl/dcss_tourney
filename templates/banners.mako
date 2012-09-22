@@ -32,7 +32,7 @@
             ${img}
             <div class="text">
               <h3>${html.banner_image(ban[0], ban[1], full_name=True)[1]}</h3>
-              ${", ".join([crawl_utils.linked_player_name(p) for p in ban[2]])}
+              ${", ".join([crawl_utils.linked_text(p[0],crawl_utils.player_link,p[0]+(len(p[1]) > 0 and ("("+",".join(p[1])+")") or "")) for p in ban[2]])}
             </div>
             <hr>
             %endif
