@@ -21,8 +21,8 @@
         <div class="heading">
           <h1>${title}</h1>
           <p class="fineprint">
-            Tournament starts on <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20120908T00">Sep 8, ${year} at 0:00 UTC (midnight Sep 8)</a>, and ends on
-            <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20120924T00">Sep 23, ${year} at 24:00 UTC (midnight Sep 24)</a>.
+            Tournament starts on <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20121020T00">Oct 20, ${year} at 0:00 UTC (midnight Oct 20)</a>, and ends on
+            <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20121105T00">Nov 4, ${year} at 24:00 UTC (midnight Nov 5)</a>.
           </p>
         </div>
         <hr>
@@ -36,8 +36,8 @@
             <a href="http://crawl.s-z.org">crawl.s-z.org</a>,
             or <a href="http://crawlus.somatika.net">crawlus.somatika.net</a>)
             and all of
-            your Crawl ${version} games that <b>start after <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20120908T00">0:00 UTC on
-            September 8 (midnight Sep 8)</a></b> and <b>end before <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20120924T00">24:00 UTC on September 23 (midnight Sep 24)</a></b> will
+            your Crawl ${version} games that <b>start after <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20121020T00">0:00 UTC on
+            October 20 (midnight Oct 20)</a></b> and <b>end before <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20121105T00">24:00 UTC on November 4 (midnight Nov 5)</a></b> will
             count toward the tournament.
           </p>
 
@@ -105,7 +105,7 @@
 
           <p>
             Clans may be changed by adding or removing players at any
-            time until <b><a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20120915T23">23:00 UTC on September 15</a></b>, after which clans will be
+            time until <b><a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20121027T23">23:00 UTC on October 27</a></b>, after which clans will be
             effectively frozen.
           </p>
 
