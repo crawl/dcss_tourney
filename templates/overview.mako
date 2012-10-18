@@ -35,8 +35,8 @@
         <div class="heading">
           <h1>${title}</h1>
           <p class="fineprint">
-            Tournament starts on <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20120908T00">Sep 8, ${year} at 0:00 UTC (midnight Sep 8)</a>, and ends on
-            <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20120924T00">Sep 23, ${year} at 24:00 UTC (midnight Sep 24)</a>.
+            Tournament starts on <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20121020T00">Oct 20, ${year} at 0:00 UTC (midnight Oct 20)</a>, and ends on
+            <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20121105T00">Nov 4, ${year} at 24:00 UTC (midnight Nov 5)</a>.
           </p>
         </div>
         <hr>
