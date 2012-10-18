@@ -18,18 +18,18 @@ T_YEAR = TEST_YEAR or '2012'
 T_VERSION = TEST_VERSION or '0.11'
 
 # Start and end of the tournament, UTC.
-START_TIME = TEST_START_TIME or (T_YEAR + '0908')
-END_TIME   = TEST_END_TIME or (T_YEAR + '0924')
+START_TIME = TEST_START_TIME or (T_YEAR + '1020')
+END_TIME   = TEST_END_TIME or (T_YEAR + '1105')
 
 # Deadline for forming teams.
 CLAN_DEADLINE = (TEST_CLAN_DEADLINE or
-                datetime.datetime(2012, 9, 16, 0)) # Sep 16, 00:00
+                datetime.datetime(2012, 10, 28, 0)) # Oct 28, 00:00
 
 DATE_FORMAT = '%Y%m%d'
 
 GAME_VERSION = T_VERSION
 
-HARE_START_TIME = TEST_HARE_START_TIME or (T_YEAR + '0923')
+HARE_START_TIME = TEST_HARE_START_TIME or (T_YEAR + '1104')
 
 CDO = 'http://crawl.develz.org/'
 CAO = 'http://crawl.akrasiac.org/'
@@ -40,13 +40,13 @@ CSN = 'http://crawlus.somatika.net/'
 # being the URL to wget -c from.
 
 LOGS = TEST_LOGS or [
-         ('cao-logfile-0.11', CAO + 'logfile-0.11.txt'),
+         ('cao-logfile-0.11', CAO + 'logfile11'),
          ('cdo-logfile-0.11', CDO + 'allgames-0.11.txt'),
          ('cszo-logfile-0.11', CSZO + 'meta/0.11/logfile'),
          ('csn-logfile-0.11', CSN + 'scoring/crawl-0.11/logfile')]
 
 MILESTONES = TEST_MILESTONES or [
-         ('cao-milestones-0.11', CAO + 'milestones-0.11.txt'),
+         ('cao-milestones-0.11', CAO + 'milestones11'),
          ('cdo-milestones-0.11', CDO + 'milestones-0.11.txt'),
          ('cszo-milestones-0.11', CSZO + 'meta/0.11/milestones'),
          ('csn-milestones-0.11', CSN + 'scoring/crawl-0.11/milestones')]
