@@ -5,7 +5,7 @@ CAO = 'http://crawl.akrasiac.org/'
 CSZO = 'http://dobrazupa.org/'
 CSN = 'http://crawlus.somatika.net/'
 
-USE_TEST = True
+USE_TEST = False
 
 TEST_YEAR = USE_TEST and '2012'
 TEST_VERSION = USE_TEST and '0.11'
