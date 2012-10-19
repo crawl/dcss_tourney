@@ -382,7 +382,7 @@
               <br>
                 I: After entering the Lair for the first time, reach the last level of it before returning to the Dungeon.
               <br>
-                II: Win a game in which whenever you enter a branch for the first time, you reach the deepest level of it and pick up the rune(s) or orb (if the branch contains such objects) before leaving the branch. ("Branch" here means one of Lair, Swamp, Snake, Shoals, Spider, Slime, Orc, Elf, Vaults, Crypt, Tomb, Vestibule, Cocytus, Dis, Gehenna, Tartarus, Pandemonium, and Zot.)
+                II: Win a game in which whenever you enter a branch for the first time, you reach the deepest level of it and pick up the rune(s) or orb (if the branch contains such objects) before leaving the branch. ("Branch" here means one of Lair, Swamp, Snake, Shoals, Spider, Slime, Orc, Elf, Vaults, Crypt, Tomb, Vestibule, Cocytus, Dis, Gehenna, Tartarus, Pandemonium, and Zot. Entering a subbranch or the Abyss does not count as leaving the branch.)
               <br>
                 III: Win a game as in II, except that you must additionally enter all subbranches of a branch before you can leave it for the first time. For example, if you enter Lair then you must enter (and get the runes from) all three subbranches before you can return to the Dungeon. This rule includes the Dungeon itself - you must enter all of Lair, Orc, Vaults, Vestibule, and Pandemonium before you may leave the Dungeon.
               </p>
