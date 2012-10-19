@@ -871,8 +871,9 @@ def update_whereis(c, xdict, filename):
 def update_last_game(c, xdict, filename):
   player = xdict['name']
   src = filename[:3]
-  if xdict['tiles'] == '1':
-    src = filename[:2]+'t'
+  # CDO tiles and console are separate.
+  if src == 'cdo' and xdict['tiles'] == '1':
+    src = 'cdt'
   start_time = xdict['start']
   query_do(c, '''INSERT INTO last_game_table
                       VALUES (%s, %s, %s)
