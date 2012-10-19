@@ -834,7 +834,10 @@ III: Reach D:27 in 27 minutes without being one of the speedy races (centaur, sp
               scripts that have been adapted for use in this tournament. 
             </p>
             <p>
-              <span>Wensley</span> for hosting the tournament scripts and creating the banner images.
+              <span>Wensley</span> for hosting the tournament scripts.
+            </p>
+            <p>
+              <span>Wensley</span> and <span>ChrisOelmueller</span> for creating the banner images.
             </p>
           </div>
 
