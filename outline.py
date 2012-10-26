@@ -247,7 +247,7 @@ def crunch_misc(c, g):
              '''INSERT INTO deaths_to_uniques
                             (player, uniq, start_time, end_time)
                      VALUES (%s, %s, %s, %s)''',
-             player, killer, g['start'], g['end'])
+             player.lower(), killer, g['start'], g['end'])
     cuniqdeaths = query.count_deaths_to_distinct_uniques(c, player)
     olduniqdeaths = query.lookup_deaths_to_distinct_uniques(c, player)
     if cuniqdeaths > olduniqdeaths:

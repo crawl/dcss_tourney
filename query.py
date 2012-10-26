@@ -1436,15 +1436,13 @@ def most_deaths_to_uniques(c):
   uniques they've died to, sorted in alphabetical order."""
   players = [[r[0], r[2]] for r in player_deaths_to_uniques_best(c)]
   rows = query_rows(c, '''SELECT player, uniq
-                            FROM deaths_to_uniques
-                           WHERE player IN
-                                 (SELECT player FROM most_deaths_to_uniques)''')
+                            FROM deaths_to_uniques''')
   pmap = { }
   for player, uniq in rows:
     ulist = pmap.get(player) or set()
     ulist.add(uniq)
     pmap[player] = ulist
-  result = [[x[0], pmap[x[0]], x[1]] for x in players]
+  result = [[x[0], pmap[x[0].lower()], x[1]] for x in players]
   for r in result:
     r[1] = list(r[1])
     r[1].sort()
