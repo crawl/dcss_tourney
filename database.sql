@@ -57,7 +57,6 @@ DROP VIEW IF EXISTS youngest_rune_finds;
 DROP VIEW IF EXISTS most_deaths_to_uniques;
 DROP VIEW IF EXISTS have_hellpan_kills;
 DROP VIEW IF EXISTS all_hellpan_kills;
-DROP VIEW IF EXISTS fivefives_nine;
 DROP VIEW IF EXISTS fivefives_rune;
 DROP VIEW IF EXISTS fivefives_win;
 DROP VIEW IF EXISTS orbrun_tomb;
@@ -591,14 +590,6 @@ SELECT player, COUNT(DISTINCT monster) AS hellpan_kills
        monster = 'Gloorx Vloq' OR monster = 'Lom Lobon' OR monster = 'Mnoleg'
 GROUP BY player
   HAVING hellpan_kills >= 8;
-
-CREATE VIEW fivefives_nine AS
-SELECT player, COUNT(DISTINCT MID(charabbrev,1,2)) AS race_count,
-               COUNT(DISTINCT MID(charabbrev,3,2)) AS class_count
-FROM games
-WHERE xl>=9
-GROUP BY player
-HAVING race_count >= 5 AND class_count >= 5;
 
 CREATE VIEW fivefives_rune AS
 SELECT player, COUNT(DISTINCT MID(charabbrev,1,2)) AS race_count,

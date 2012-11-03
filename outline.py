@@ -545,7 +545,15 @@ def check_banners(c):
                        2)
   award_player_banners(c, 'jiyva',
                        query_first_col(c,
-                                       '''SELECT player FROM fivefives_nine'''),
+                                       '''
+SELECT player, COUNT(DISTINCT MID(charabbrev,1,2)) AS race_count,
+               COUNT(DISTINCT MID(charabbrev,3,2)) AS class_count
+FROM
+(SELECT player, charabbrev FROM games WHERE xl>=9
+UNION
+SELECT player, charabbrev FROM milestones WHERE xl>=9) AS T
+GROUP BY player
+HAVING race_count >= 5 AND class_count >= 5'''),
                        1)
   award_player_banners(c, 'jiyva',
                        query_first_col(c,
