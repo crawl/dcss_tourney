@@ -14,49 +14,46 @@ import sys
 
 from test_data import USE_TEST, TEST_YEAR, TEST_VERSION, TEST_START_TIME, TEST_END_TIME, TEST_HARE_START_TIME, TEST_LOGS, TEST_MILESTONES, TEST_CLAN_DEADLINE
 
-T_YEAR = TEST_YEAR or '2012'
-T_VERSION = TEST_VERSION or '0.11'
+T_YEAR = TEST_YEAR or '2013'
+T_VERSION = TEST_VERSION or '0.12'
 
 # Start and end of the tournament, UTC.
-START_TIME = TEST_START_TIME or (T_YEAR + '1020')
-END_TIME   = TEST_END_TIME or (T_YEAR + '1105')
+START_TIME = TEST_START_TIME or (T_YEAR + '0501') # not actual dates
+END_TIME   = TEST_END_TIME or (T_YEAR + '0601')
 
 # Deadline for forming teams.
 CLAN_DEADLINE = (TEST_CLAN_DEADLINE or
-                datetime.datetime(2012, 10, 28, 0)) # Oct 28, 00:00
+                datetime.datetime(2013, 5, 15, 0)) # May 15, 00:00
 
 DATE_FORMAT = '%Y%m%d'
 
 GAME_VERSION = T_VERSION
 
-HARE_START_TIME = TEST_HARE_START_TIME or (T_YEAR + '1104')
+HARE_START_TIME = TEST_HARE_START_TIME or (T_YEAR + '0531')
 
 CDO = 'http://crawl.develz.org/'
 CAO = 'http://crawl.akrasiac.org/'
 CSZO = 'http://dobrazupa.org/'
-CSN = 'http://crawlus.somatika.net/'
 
 # Log and milestone files. A tuple indicates a remote file with t[1]
 # being the URL to wget -c from.
 
 LOGS = TEST_LOGS or [
-         ('cao-logfile-0.11', CAO + 'logfile11'),
-         ('cdo-logfile-0.11', CDO + 'allgames-0.11.txt'),
-         ('cszo-logfile-0.11', CSZO + 'meta/0.11/logfile'),
-         ('csn-logfile-0.11', CSN + 'scoring/crawl-0.11/logfile')]
+         ('cao-logfile-0.12', CAO + 'logfile12'),
+         ('cdo-logfile-0.12', CDO + 'allgames-0.12.txt'),
+         ('cszo-logfile-0.12', CSZO + 'meta/0.12/logfile')]
 
 MILESTONES = TEST_MILESTONES or [
-         ('cao-milestones-0.11', CAO + 'milestones11'),
-         ('cdo-milestones-0.11', CDO + 'milestones-0.11.txt'),
-         ('cszo-milestones-0.11', CSZO + 'meta/0.11/milestones'),
-         ('csn-milestones-0.11', CSN + 'scoring/crawl-0.11/milestones')]
+         ('cao-milestones-0.12', CAO + 'milestones12'),
+         ('cdo-milestones-0.12', CDO + 'milestones-0.12.txt'),
+         ('cszo-milestones-0.12', CSZO + 'meta/0.12/milestones')]
 
 BLACKLIST_FILE = 'blacklist.txt'
 EXTENSION_FILE = 'modules.ext'
 TOURNAMENT_DB = 'tournament'
 COMMIT_INTERVAL = 3000
 # These rcfiles need to be updated from the servers every few hours.
-CRAWLRC_DIRECTORY_LIST = ['rcfiles-cao/','rcfiles-cdo/','rcfiles-cszo','rcfiles-csn']
+CRAWLRC_DIRECTORY_LIST = ['rcfiles-cao/','rcfiles-cdo/','rcfiles-cszo']
 
 LISTENERS = [ ]
 TIMERS = [ ]

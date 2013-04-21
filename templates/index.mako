@@ -1,8 +1,8 @@
 <%
    from crawl_utils import XXX_TOURNEY_BASE
    from test_data import USE_TEST
-   version = '0.11'
-   year    = '2012'
+   version = '0.12'
+   year    = '2013'
    title   = "Crawl %s Tournament Information" % version
  %>
 <!DOCTYPE html>
@@ -31,10 +31,9 @@
           <p>
             Hello all! Welcome to the rules for the
             ${version} Dungeon Crawl Stone Soup Tournament. The simple part:
-            Play on one of the <b>four</b> public servers (<a href="http://crawl.akrasiac.org">crawl.akrasiac.org</a>,
+            Play on one of the <b>three</b> public servers (<a href="http://crawl.akrasiac.org">crawl.akrasiac.org</a>,
             <a href="http://crawl.develz.org">crawl.develz.org</a>,
-            <a href="http://crawl.s-z.org">crawl.s-z.org</a>,
-            or <a href="http://crawlus.somatika.net">crawlus.somatika.net</a>)
+            or <a href="http://crawl.s-z.org">crawl.s-z.org</a>)
             and all of
             your Crawl ${version} games that <b>start after <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20121020T00">0:00 UTC on
             October 20 (midnight Oct 20)</a></b> and <b>end before <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20121105T00">24:00 UTC on November 4 (midnight Nov 5)</a></b> will
@@ -90,7 +89,7 @@
               <span class="inline_heading">Note:</span> clan membership lines can be added to your ${version} rcfile on <b>any</b> of the four public servers.
               If you add clan
               membership lines to more than one rcfile, then the rcfile on
-              the server earliest in the list CAO, CDO, CSZO, CSN will take
+              the server earliest in the list CAO, CDO, CSZO will take
               precedence.
             </p>
           </div>
