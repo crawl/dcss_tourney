@@ -86,7 +86,7 @@
 
           <div class="inset">
             <p>
-              <span class="inline_heading">Note:</span> clan membership lines can be added to your ${version} rcfile on <b>any</b> of the four public servers.
+              <span class="inline_heading">Note:</span> clan membership lines can be added to your ${version} rcfile on <b>any</b> of the three public servers.
               If you add clan
               membership lines to more than one rcfile, then the rcfile on
               the server earliest in the list CAO, CDO, CSZO will take
@@ -96,7 +96,8 @@
 
           <p>
             Clan names must contain only alphanumeric characters,
-            underscores, and hyphens. Once a player's username is in
+            underscores, and hyphens. Underscores will be converted into
+            spaces. Once a player's username is in
             the captain's rcfile and the captain's username is in the
             player's rcfile and our script checks for updates (once every four hours), the
             players will be in the same clan.
@@ -161,7 +162,7 @@
               win will be worth 2*(48+10)/(2+2) = 29 additional points.
             </p>
             <p>
-              <span>(56+T)/(2+C) points</span> (rounded up) for a win with a given class if T is the total number of games won in the tournament before the start of the win in question and C of those T were with the given class. If a player wins the same class multiple times, she only gets the largest value of this bonus, not the sum.
+              <span>(54+T)/(2+C) points</span> (rounded up) for a win with a given class if T is the total number of games won in the tournament before the start of the win in question and C of those T were with the given class. If a player wins the same class multiple times, she only gets the largest value of this bonus, not the sum.
             </p>
             <p>
               <span>1.5*(38+T)/(2+G) points</span> (rounded up) for a win with a given god if T is the total number of games won in the tournament before the start of the win in question and G of those T were with the given god. If a player wins with the same god multiple times, she only gets the largest value of this bonus, not the sum. For purposes of these points we say that a player wins with a god if she reaches full (******) piety with that god without worshipping any other god first. For Xom, you must play a Chaos Knight and never abandon Xom. For "No God", you must never worship a god.
@@ -202,10 +203,6 @@
 	    <p>
 	      <span>50 bonus points</span> for a win without visiting
 	      Temple, Lair, Orc, or the Vaults (<a href="#lord_of_darkness">LORD OF DARKNESS</a> banner III).
-	    </p>
-	    <p>
-	      <span>20 bonus points</span> for a win without visiting
-	      the Lair (<a href="#lord_of_darkness">LORD OF DARKNESS</a> banner II). This is not cumulative with the 50-point bonus above.
 	    </p>
             <p>
               <span>75 bonus points</span> for winning <a href="#nemelex_choice">NEMELEX' CHOICE</a> characters. The first Nemelex' Choice combo is chosen at the start of the tournament, and after that each one is chosen when the previous one is won for the first time. Each combo remains valid until it has been won five times. The race/class combinations are chosen by Nemelex from those which have not been won online in version 0.10 or later.
@@ -301,6 +298,11 @@
               Ziggurat safely counts as an extra level.
             </p>
 
+            <p><span>50-20-10 clan points</span> for finishing a game with the
+            highest value of AC+EV. Ties are broken by who reaches that number
+            first.
+            </p>
+
             <p><span>50-20-10 clan points</span> for lowest XL at which a
             rune is picked up, not including the abyssal and slimy runes. Ties
 	    are broken by who picked up the rune first.
@@ -377,14 +379,13 @@
                    width="170" height="58"
                    >
               <p>
-                Ashenzari thinks an <a name="explorer">EXPLORER</a> should be prepared for anything and complete branches on her first try.
+                Ashenzari thinks that an <a name="explorer">EXPLORER</a> should be be busy looking for runes of Zot.
               <br>
-                I: After entering the Lair for the first time, reach the last level of it before returning to the Dungeon.
+                I: Enter a branch that contains a rune.
               <br>
-                II: Win a game in which whenever you enter a branch for the first time, you reach the deepest level of it and pick up the rune(s) or orb (if the branch contains such objects) before leaving the branch. ("Branch" here means one of Lair, Swamp, Snake, Shoals, Spider, Slime, Orc, Elf, Vaults, Crypt, Tomb, Vestibule, Cocytus, Dis, Gehenna, Tartarus, Pandemonium, and Zot. Entering a subbranch or the Abyss does not count as leaving the branch.)
+                II: Find 5 distinct runes over the course of the tourney.
               <br>
-                III: Win a game as in II, except that you must additionally enter all subbranches of a branch before you can leave it for the first time. For example, if you enter Lair then you must enter (and get the runes from) all three subbranches before you can return to the Dungeon. This rule includes the Dungeon itself - you must enter all of Lair, Orc, Vaults, Vestibule, and Pandemonium before you may leave the Dungeon.
-              </p>
+                III: Find 17 distinct runes over the course of the tourney.
             </div>
 
 	    <hr>
@@ -512,7 +513,7 @@
               <br>
                 I: Enter the Vestibule of Hell without having entered the Lair.
               <br>
-                II: Win a game without having entered the Lair (+20 tournament points).
+                II: Get a rune without having entered the Lair.
               <br>
                 III: Win a game without having entered the Temple, the Orcish Mines, the Lair, or the Vaults (+50 tournament points).
               </p>
@@ -534,7 +535,7 @@ I: Survive the Abyss without having ever been a follower of Lugonu during that g
               <br>
 II: Find the abyssal rune and then escape the Abyss without ever having been a follower of Lugonu during that game.
               <br>
-III: Find the abyssal rune and then escape the Abyss before reaching experience level 13 and without ever having been a follower of Lugonu during that game.
+III: Find the abyssal rune and then escape the Abyss before reaching experience level 16 and without ever having been a follower of Lugonu during that game.
               </p>
             </div>
 
@@ -553,9 +554,9 @@ III: Find the abyssal rune and then escape the Abyss before reaching experience 
               <br>
 I: Reach D:14 in 27 minutes.
               <br>
-II: Reach D:27 in 27 minutes.
+II: Enter the Vestibule of Hell in 27 minutes.
               <br>
-III: Reach D:27 in 27 minutes without being one of the speedy races (centaur, spriggan, or felid).
+III: Reach D:27 in 27 minutes.
               </p>
             </div>
 
@@ -614,14 +615,13 @@ III: Reach D:27 in 27 minutes without being one of the speedy races (centaur, sp
                    >
               <p>
                 Sif Muna thinks that a
-                <a name="lorekeeper">LOREKEEPER</a> should research the
-                secrets surrounding the runes of Zot.
+                <a name="lorekeeper">LOREKEEPER</a> doesn't need skill, just knowledge of spells. Ashenzari has a different viewpoint on this subject, so Sif Muna has banned Ashenzari worshippers from receiving this banner.
               <br>
-                I: Enter a branch that contains a rune.
+                I: Reach the last level of the Lair without raising a skill to 13.
               <br>
-                II: Find 5 distinct runes over the course of the tourney.
+                II: Win without raising a skill to 20.
               <br>
-                III: Find 17 distinct runes over the course of the tourney.
+                III: Win without raising a skill to 13.
               </p>
             </div>
 
@@ -677,14 +677,13 @@ III: Reach D:27 in 27 minutes without being one of the speedy races (centaur, sp
                    >
               <p>
                 Vehumet wants you to demonstrate
-                <a name="ruthless_efficiency">RUTHLESS EFFICIENCY</a> by
-                killing two uniques at once. <a href="${XXX_TOURNEY_BASE}/unique-list.html">Vehumet's headhunting guide</a> gives Vehumet's classification of uniques into deep, medium, and shallow.
+                <a name="ruthless_efficiency">RUTHLESS EFFICIENCY</a> by playing within a span of just 27 hours (of real time, not the in-game timer).
               <br>
-                I: Kill any two uniques within two turns of each other.
+                I: Get a rune within 27 hours of the game's start.
               <br>
-                II: Kill two <a href="${XXX_TOURNEY_BASE}/unique-list.html">medium</a> or <a href="${XXX_TOURNEY_BASE}/unique-list.html">deep</a> uniques within one turn of each other.
+                II: Win a game within 27 hours of its start.
               <br>
-                III: Kill two <a href="${XXX_TOURNEY_BASE}/unique-list.html">deep</a> uniques on the same turn.
+                III: Start and win two games within a 27 hour time period.
               </p>
             </div>
 
@@ -762,11 +761,11 @@ III: Reach D:27 in 27 minutes without being one of the speedy races (centaur, sp
             <hr>
             <div class="fineprint">
               <p>
-                Some rules have been changed from the 0.10 tournament held in February/March 2012. This is a list of rules differences.
+                Some rules have been changed from the 0.11 tournament held in October/November 2012. This is a list of rules differences.
               </p>
 
               <p><span class="removed">[REMOVED]</span>
-                flags rules that existed in the 0.10 tournament and are gone in
+                flags rules that existed in the 0.11 tournament and are gone in
                 this tournament</p>
 
               <p><span class="added">[NEW]</span>
@@ -775,8 +774,8 @@ III: Reach D:27 in 27 minutes without being one of the speedy races (centaur, sp
               <p><span class="changed">[CHANGED]</span>
                 flags rules that have been modified for this 
 		tournament. To compare
-                changed rules with the rules in the 0.10 tournament, see
-                the <a href="http://seleniac.org/crawl/tourney/12a/">old
+                changed rules with the rules in the 0.11 tournament, see
+                the <a href="http://seleniac.org/crawl/tourney/12b/">old
                 rules</a>
               </p>
             </div>
@@ -784,39 +783,46 @@ III: Reach D:27 in 27 minutes without being one of the speedy races (centaur, sp
             <hr>
 
             <p class="added">
-	      <span>20 points</span> for a win without visiting
-	      the Lair (<a href="#lord_of_darkness">LORD OF DARKNESS</a> banner II).
+              <span>50-20-10 clan points</span> for finishing a game with the
+            highest value of AC+EV. Ties are broken by who reaches that number
+            first.
               <span class="added">[NEW]</span>
             </p>
-            <p class="added">
-              <span>5*D clan points</span> for reaching Zig:D. (Only the
-              best Ziggurat attempt in each clan counts.) Leaving the
-              Ziggurat safely counts as an extra level.
-              <span class="added">[NEW]</span>
-            </p>
+
             <p class="changed">
-              <span>100-50-20 clan points</span> for deepest level reached in a Ziggurat (used to be 200-100-50).
+              <span>Kikubaaqudgha</span> now only asks you to get a rune without entering Lair for the second tier of the <a href="#lord_of_darkness">LORD OF DARKNESS</a> banner. (Used to require winning a game without entering Lair and was worth 20 bonus points)
               <span class="changed">[CHANGED]</span>
             </p>
+
             <p class="changed">
-              <span>Ashenzari</span> has a <a href="#explorer">completely new banner</a>. The <a href="#lorekeeper">old banner</a> was claimed by Sif Muna.
+              <span>Lugonu</span> now only requires staying below experience level 16 for the third tier of the <a href="#abyssal_tourists">ABYSSAL TOURIST</a> banner. (Used to require staying below experience level 13.)
               <span class="changed">[CHANGED]</span>
             </p>
+
             <p class="changed">
-              <span>Cheibriados</span> now requires a four-game streak for the third tier of the <a href="#slow_and_steady">SLOW AND STEADY</a> banner. (Used to be a three-game streak.)
+              <span>Makhleb</span> now just wants you to enter the Vestibule of Hell for the second tier of the <a href="#speed_demons">SPEED DEMON</a> banner and does not place any restrictions on species for the third tier.
               <span class="changed">[CHANGED]</span>
             </p>
+
             <p class="changed">
-              <span>Elyvilon</span> now only asks you to become the champion of thirteen different gods for the third tier of the <a href="#pious">PIOUS</a> banner. (Used to require every god other than Xom.)
+              <span><a href="#nemelex_choice">NEMELEX' CHOICE</a></span> characters are now chosen by Nemelex from those with fewer than six online wins.
               <span class="changed">[CHANGED]</span>
             </p>
+
             <p class="changed">
-              <span><a href="#nemelex_choice">NEMELEX' CHOICE</a></span> characters are now chosen by Nemelex from those which have not been won online in version 0.10 or later.
+              <span>Sif Muna</span> has a <a href="#lorekeeper">completely new banner</a>. The <a href="#explorer">old banner</a> was reclaimed by Ashenzari.
               <span class="changed">[CHANGED]</span>
             </p>
+
             <p class="changed">
-              <span>Okawaru</span> now asks you to reach experience level 13 for the first tier of the <a href="#the_conqueror">CONQUEROR</a> banner. (Used to be reaching the last level of a multi-level branch.)
+              <span>Vehumet</span> has a <a href="#ruthless_efficiency">completely new banner</a>.
               <span class="changed">[CHANGED]</span>
+            </p>
+
+            <p class="removed">
+              <span>20 points</span> for a win without visiting
+	      the Lair.
+              <span class="removed">[REMOVED]</span>
             </p>
 	    
           </div>
@@ -833,7 +839,7 @@ III: Reach D:27 in 27 minutes without being one of the speedy races (centaur, sp
               scripts that have been adapted for use in this tournament. 
             </p>
             <p>
-              <span>Wensley</span> for hosting the tournament scripts.
+              <span>|amethyst</span> for hosting the tournament scripts on CSZO.
             </p>
             <p>
               <span>Wensley</span> and <span>ChrisOelmueller</span> for creating the banner images.
