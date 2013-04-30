@@ -205,7 +205,7 @@
 	      Temple, Lair, Orc, or the Vaults (<a href="#lord_of_darkness">LORD OF DARKNESS</a> banner III).
 	    </p>
             <p>
-              <span>75 bonus points</span> for winning <a href="#nemelex_choice">NEMELEX' CHOICE</a> characters. The first Nemelex' Choice combo is chosen at the start of the tournament, and after that each one is chosen when the previous one is won for the first time. Each combo remains valid until it has been won five times. The race/class combinations are chosen by Nemelex from those which have not been won online in version 0.10 or later.
+              <span>75 bonus points</span> for winning <a href="#nemelex_choice">NEMELEX' CHOICE</a> characters. The first Nemelex' Choice combo is chosen at the start of the tournament, and after that each one is chosen when the previous one is won for the first time. Each combo remains valid until it has been won five times. The race/class combinations are chosen by Nemelex from those with fewer than six online wins.
             </p>
           </div>
 
