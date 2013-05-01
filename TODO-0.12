@@ -1,0 +1,18 @@
+TODO as of May 1:
+
+make sure tourney gets announced
+
+change scoring
+- clan points and table for AC+EV
+- banners:
+  - new banners for Sif, Veh
+
+change nemelex selection algorithm
+
+get/make 0.12 banner footer
+
+set up cronjobs for rcfile mirroring
+
+test scripts
+
+update list of eligible nemelex combos right before tourney start
