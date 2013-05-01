@@ -123,9 +123,9 @@ def do_milestone_rune(c, mile):
   player = mile['name']
   runes_found = query.player_count_distinct_runes(c, player)
   if runes_found == crawl.NRUNES:
-    banner.award_banner(c, player, 'sif', 3)
+    banner.award_banner(c, player, 'ashenzari', 3)
   elif runes_found >= 5:
-    banner.award_banner(c, player, 'sif', 2)
+    banner.award_banner(c, player, 'ashenzari', 2)
   if rune == 'golden' and num_rune == 1:
     banner.award_banner(c, player, 'fedhas', 2)
   if nemelex.is_nemelex_choice(mile['char'], mile['time']):
@@ -138,6 +138,8 @@ def do_milestone_rune(c, mile):
       banner.award_banner(c, player, 'the_shining_one', 2)
     else:
       banner.award_banner(c, player, 'the_shining_one', 1)
+  if not query.game_did_visit_lair(c, mile['name'], mile['start'], mile['time']):
+    banner.award_banner(c, mile['name'], 'kikubaaqudgha', 2)
 
 def do_milestone_ghost(c, mile):
   """When you kill a player ghost, you get two clan points! Otherwise this
@@ -154,12 +156,14 @@ def do_milestone_br_enter(c, mile):
     banner.award_banner(c, mile['name'], 'fedhas', 1)
   elif mile['noun'] in ['Vault', 'Snake', 'Swamp', 'Shoals', 'Spider', 'Pan', 'Slime',
                       'Tomb', 'Dis', 'Tar', 'Coc', 'Geh']:
-    banner.award_banner(c, mile['name'], 'sif', 1)
+    banner.award_banner(c, mile['name'], 'ashenzari', 1)
     if mile['noun'] in ['Pan', 'Dis', 'Tar', 'Coc', 'Geh']:
       banner.award_banner(c, mile['name'], 'zin', 1)
   elif mile['noun'] == 'Hell':
     if not query.game_did_visit_lair(c, mile['name'], mile['start'], mile['time']):
       banner.award_banner(c, mile['name'], 'kikubaaqudgha', 1)
+    if mile['dur'] <= 1620:
+      banner.award_banner(c, mile['name'], 'makhleb', 2)
 
 def do_milestone_br_mid(c, mile):
   if mile['dur'] <= 1620:
@@ -170,14 +174,7 @@ def do_milestone_br_end(c, mile):
   portal vaults)."""
   if mile['noun'] == 'D':
     if mile['dur'] <= 1620:
-      if mile['raceabbr'] in ['Ce','Fe','Sp']:
-        banner.award_banner(c, mile['name'], 'makhleb', 2)
-      else:
-        banner.award_banner(c, mile['name'], 'makhleb', 3)
-  if mile['noun'] == 'Lair':
-    if not banner.player_has_banner(c, mile['name'], 'ashenzari', 1):
-      if not query.did_exit_branch(c, 'Lair', mile['name'], mile['start'], mile['time']):
-        banner.award_banner(c, mile['name'], 'ashenzari', 1)
+      banner.award_banner(c, mile['name'], 'makhleb', 3)
   if query.player_count_br_end(c, mile['name'], mile['noun']) <= 1:
     assign_points(c, "branch:end", mile['name'], 5)
 
@@ -200,7 +197,7 @@ def do_milestone_abyss_exit(c, mile):
   god = mile.get('god') or 'No God'
   if god != 'Lugonu' and not query.did_worship_god(c, 'Lugonu', mile['name'], mile['start'], mile['time']):
     if query.did_get_rune(c, 'abyssal', mile['name'], mile['start'], mile['time']):
-      if mile['xl'] < 13:
+      if mile['xl'] < 16:
         prestige = 3
       else:
         prestige = 2
@@ -323,15 +320,9 @@ def crunch_winner(c, game):
       assign_points(c, 'branchless_win', player, 50)
       # And the banner:
       banner.award_banner(c, player, 'kikubaaqudgha', 3)
-    else:
+    # else:
       # Just 20 bonus points for winning without doing Lair.
-      assign_points(c, 'lairless_win', player, 20)
-      # And the banner:
-      banner.award_banner(c, player, 'kikubaaqudgha', 2)
-
-  ash_prestige = query.check_ash_banners(c, player, game_start_time(game))
-  if ash_prestige >= 2:
-    banner.award_banner(c, player, 'ashenzari', ash_prestige)
+      # assign_points(c, 'lairless_win', player, 20)
 
   ogame = query.previous_combo_highscore(c, game)
   if ogame and ogame[0] != player and ogame[2] == 'winning' and ogame[1] < game['sc']:
@@ -586,16 +577,6 @@ HAVING race_count >= 5 AND class_count >= 5'''),
                                        '''SELECT player FROM kunique_times
                                           WHERE nuniques >= 25'''),
                        1)
-  rows = query_rows(c, '''SELECT * FROM nearby_uniques''')
-  for r in rows:
-    a = uniq.how_deep(r[1])
-    b = uniq.how_deep(r[2])
-    d = 3 - (r[4] - r[3])
-    if b < a:
-      a = b
-    if d < a:
-      a = d
-    banner.award_banner(c, r[0], 'vehumet', a)
 
 def check_misc_points(c, pmap):
   def award_misc_points(key, multiplier, rows):

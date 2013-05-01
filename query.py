@@ -582,7 +582,7 @@ def race_formula(total, subtotal):
   return (2*(48+total)+1+subtotal)/(2+subtotal)
 
 def class_formula(total, subtotal):
-  return (56+total+1+subtotal)/(2+subtotal)
+  return (54+total+1+subtotal)/(2+subtotal)
 
 def god_formula(total, subtotal):
   return (3*(38+total)+3+2*subtotal)/(4+2*subtotal)
