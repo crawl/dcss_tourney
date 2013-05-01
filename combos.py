@@ -5,7 +5,10 @@ NEM_ELIGIBLE_FILE = 'nem_eligible.txt'
 
 def _read_combos(filename):
   f = open(filename)
-  combos = [c.strip() for c in f.readlines() if c.strip()]
+  combos = []
+  for c in f.readlines():
+    if c.strip():
+      combos += c.strip().split(' ')
   combos.sort()
   return combos
 
