@@ -32,9 +32,9 @@ BANNER_IMAGES = \
 
 BANNER_TEXT = \
     { 'ashenzari':
-        [ "Complete the Lair in a single attempt.",
-          'Win a game in which all branches entered are completed in a single attempt.',
-          'Win a game in which all branches entered and all their subbranches are completed in a single attempt.',
+        [ 'Enter a branch that contains a rune.',
+          'Find 5 distinct runes over the course of the tourney.',
+          'Find 17 distinct runes over the course of the tourney.',
         ],
       'beogh':
         [ 'Have the highest score in your clan.',
@@ -63,18 +63,18 @@ BANNER_TEXT = \
         ],
       'kikubaaqudgha':
         [ 'Enter the Vestibule of Hell without having entered the Lair.',
-          'Win a game without having entered the Lair.',
+          'Get a rune without having entered the Lair.',
           'Win a game without having entered the Temple, the Orcish Mines, the Lair, or the Vaults.',
         ],
       'lugonu':
         [ 'Survive the Abyss without having ever been a follower of Lugonu during that game.',
           'Find the abyssal rune and then escape the Abyss without ever having been a follower of Lugonu during that game.',
-          'Find the abyssal rune and then escape the Abyss before reaching experience level 13 and without ever having been a follower of Lugonu during that game.',
+          'Find the abyssal rune and then escape the Abyss before reaching experience level 16 and without ever having been a follower of Lugonu during that game.',
         ],
       'makhleb':
         [ 'Reach D:14 in 27 minutes.',
+          'Enter the Vestibule of Hell in 27 minutes.',
           'Reach D:27 in 27 minutes.',
-          'Reach D:27 in 27 minutes without being one of the speedy races (centaur, spriggan, or felid).',
         ],
       'nemelex':
         [ "Reach experience level 9 with a Nemelex' choice combo.",
@@ -87,9 +87,9 @@ BANNER_TEXT = \
           'Win a game in under 50000 turns.',
         ],
       'sif':
-        [ 'Enter a branch that contains a rune.',
-          'Find 5 distinct runes over the course of the tourney.',
-          'Find 17 distinct runes over the course of the tourney.',
+        [ 'Reach the last level of the Lair without raising a skill to 13.',
+          'Win without raising a skill to 20.',
+          'Win without raising a skill to 13.',
         ],
       'the_shining_one':
         [ 'Get a rune before entering D:14 (or below) in that game.',
@@ -102,9 +102,9 @@ BANNER_TEXT = \
           'Steal a species or class high score that was previously of at least 10,000,000 points.',
         ],
       'vehumet':
-        [ 'Kill any two uniques within two turns of each other.',
-          'Kill two medium or deep uniques within one turn of each other.',
-          'Kill two deep uniques on the same turn.',
+        [ "Get a rune within 27 hours of the game's start.",
+          "Win a game within 27 hours of its start.",
+          "Start and win two games within a 27 hour time period.",
         ],
       'xom':
         [ 'Enter a ziggurat.',
