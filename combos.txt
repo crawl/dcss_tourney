@@ -38,8 +38,6 @@ HuHe
 FeHe
 HuAK
 FeAK
-HuSt
-FeSt
 HuMo
 HuWr
 FeWr
@@ -69,7 +67,6 @@ HECK
 HETm
 HEHe
 HEAK
-HESt
 HEMo
 HEWr
 HEWn
@@ -96,7 +93,6 @@ DECK
 DETm
 DEHe
 DEAK
-DESt
 DEMo
 DEWr
 DEWn
@@ -123,7 +119,6 @@ SECK
 SETm
 SEHe
 SEAK
-SESt
 SEMo
 SEWr
 SEWn
@@ -150,7 +145,6 @@ OpCK
 OpTm
 OpHe
 OpAK
-OpSt
 OpMo
 OpWr
 OpWn
@@ -177,7 +171,6 @@ HaCK
 HaTm
 HaHe
 HaAK
-HaSt
 HaMo
 HaWr
 HaWn
@@ -204,7 +197,6 @@ HOCK
 HOTm
 HOHe
 HOAK
-HOSt
 HOMo
 HOWr
 HOWn
@@ -231,7 +223,6 @@ KoCK
 KoTm
 KoHe
 KoAK
-KoSt
 KoMo
 KoWr
 KoWn
@@ -255,7 +246,6 @@ MuSk
 MuVM
 MuCK
 MuAK
-MuSt
 MuMo
 MuWr
 MuWn
@@ -282,7 +272,6 @@ NaCK
 NaTm
 NaHe
 NaAK
-NaSt
 NaMo
 NaWr
 NaWn
@@ -309,7 +298,6 @@ OgCK
 OgTm
 OgHe
 OgAK
-OgSt
 OgMo
 OgWr
 OgWn
@@ -336,7 +324,6 @@ TrCK
 TrTm
 TrHe
 TrAK
-TrSt
 TrMo
 TrWr
 TrWn
@@ -363,7 +350,6 @@ DrCK
 DrTm
 DrHe
 DrAK
-DrSt
 DrMo
 DrWr
 DrWn
@@ -390,7 +376,6 @@ CeCK
 CeTm
 CeHe
 CeAK
-CeSt
 CeMo
 CeWr
 CeWn
@@ -412,7 +397,6 @@ DgEE
 DgSk
 DgVM
 DgTm
-DgSt
 DgMo
 DgWr
 DgWn
@@ -438,7 +422,6 @@ SpCK
 SpTm
 SpHe
 SpAK
-SpSt
 SpMo
 SpWr
 SpWn
@@ -465,7 +448,6 @@ MiCK
 MiTm
 MiHe
 MiAK
-MiSt
 MiMo
 MiWr
 MiWn
@@ -490,7 +472,6 @@ DsVM
 DsCK
 DsTm
 DsAK
-DsSt
 DsMo
 DsWr
 DsWn
@@ -514,7 +495,6 @@ GhSk
 GhVM
 GhCK
 GhAK
-GhSt
 GhMo
 GhWr
 GhWn
@@ -541,7 +521,6 @@ TeCK
 TeTm
 TeHe
 TeAK
-TeSt
 TeMo
 TeWr
 TeWn
@@ -568,7 +547,6 @@ MfCK
 MfTm
 MfHe
 MfAK
-MfSt
 MfMo
 MfWr
 MfWn
@@ -593,7 +571,6 @@ VpVM
 VpCK
 VpTm
 VpAK
-VpSt
 VpMo
 VpWr
 VpWn
@@ -620,7 +597,6 @@ DDCK
 DDTm
 DDHe
 DDAK
-DDSt
 DDMo
 DDWr
 DDWn
