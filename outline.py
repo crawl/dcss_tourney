@@ -175,6 +175,10 @@ def do_milestone_br_end(c, mile):
   if mile['noun'] == 'D':
     if mile['dur'] <= 1620:
       banner.award_banner(c, mile['name'], 'makhleb', 3)
+  if mile['noun'] == 'Lair':
+    if mile['sklev'] < 13:
+      if not query.did_worship_god(c, 'Ashenzari', mile['name'], mile['start'], mile['time']):
+        banner.award_banner(c, mile['name'], 'sif', 1)
   if query.player_count_br_end(c, mile['name'], mile['noun']) <= 1:
     assign_points(c, "branch:end", mile['name'], 5)
 
@@ -323,6 +327,13 @@ def crunch_winner(c, game):
     # else:
       # Just 20 bonus points for winning without doing Lair.
       # assign_points(c, 'lairless_win', player, 20)
+
+  if game['sklev'] < 20:
+    if not query.did_worship_god(c, 'Ashenzari', player, game['start'], game['end']):
+      if game['sklev'] < 13:
+        banner.award_banner(c, player, 'sif', 3)
+      else:
+        banner.award_banner(c, player, 'sif', 2)
 
   ogame = query.previous_combo_highscore(c, game)
   if ogame and ogame[0] != player and ogame[2] == 'winning' and ogame[1] < game['sc']:
