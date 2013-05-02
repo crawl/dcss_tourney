@@ -251,6 +251,12 @@ def get_fastest_turn_player_games(c):
                            WHERE f.id = g.id''' % fields)
   return [ row_to_xdict(r) for r in games ]
 
+def get_dieselest_games(c):
+  fields = logfile_fields('g.')
+  games = query_rows(c, '''SELECT %s FROM most_diesel_games f, games g
+                           WHERE f.id = g.id''' % fields)
+  return [ row_to_xdict(r) for r in games ]
+
 def get_top_streaks_from(c, table, min_streak, how_many,
                          add_next_game=False):
   streaks = query_rows(c, '''SELECT player, streak, streak_time
@@ -1168,6 +1174,12 @@ def player_fastest_turn_win_best(c):
 
 def player_fastest_turn_win_pos(c, player):
   return find_place(player_fastest_turn_win_best(c), player)
+
+def player_dieselest_best(c):
+  return query_rows(c, 'SELECT player FROM most_diesel_games')
+
+def player_dieselest_pos(c, player):
+  return find_place(player_dieselest_best(c), player)
 
 def player_hs_combo_best(c):
   return query_rows(c, 'SELECT player, nscores FROM combo_hs_scoreboard')

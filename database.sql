@@ -39,6 +39,7 @@ DROP TABLE IF EXISTS players;
 DROP VIEW IF EXISTS fastest_realtime;
 DROP VIEW IF EXISTS fastest_realtime_allruner;
 DROP VIEW IF EXISTS fastest_turncount;
+DROP VIEW IF EXISTS most_diesel_games;
 DROP VIEW IF EXISTS combo_win_highscores;
 DROP VIEW IF EXISTS class_highscores;
 DROP VIEW IF EXISTS game_species_highscores;
@@ -127,6 +128,8 @@ CREATE TABLE games (
   strength INT,
   intelligence INT,
   dexterity INT,
+  ac INT,
+  ev INT,
   god VARCHAR(20),
   duration INT,
   turn BIGINT,
@@ -509,6 +512,12 @@ SELECT id, player, kills
  WHERE killertype = 'winning' AND kills IS NOT NULL
 ORDER BY kills
  LIMIT 3;
+
+CREATE VIEW most_diesel_games AS
+SELECT id, player, ac+ev AS dieselity
+  FROM games
+ORDER BY dieselity DESC, end_time
+LIMIT 3;
 
 CREATE VIEW clan_combo_highscores AS
 SELECT p.team_captain, g.*
