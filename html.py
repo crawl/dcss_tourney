@@ -1,4 +1,4 @@
-import query, crawl_utils, time
+import query, crawl_utils, time, datetime
 import loaddb
 import sys
 
@@ -247,45 +247,13 @@ def pretty_time(time):
                                             time.tm_hour, time.tm_min,
                                             time.tm_sec)
 
-def how_old(date, bold_cutoff = 0): #cutoff in hours 
+def how_old(date, bold_cutoff = 0): #cutoff in hours
   if not date:
     return None,None
-  if type(date) in [str, unicode]:
-    m = R_STR_DATE.search(date)
-    if not m:
-      return None,None
-    year = int(m.group(1))
-    month = int(m.group(2))
-    day = int(m.group(3))
-    hour = int(m.group(4))
-    minute = int(m.group(5))
-    second = int(m.group(6))
-  else:
-    year = date.year
-    month = date.month
-    day = date.day
-    hour = date.hour
-    minute = date.minute
-    second = date.second
-  t = time.gmtime()
-  if t.tm_year > year or t.tm_mon > month+1:
-    return None,None
-  d = t.tm_mday - day
-  if t.tm_mon == month+1:
-    month_lengths = [31,28,31,30,31,30,31,31,30,31,30,31]
-    if year % 4 == 0:
-      month_lengths[1] += 1
-    d += month_lengths[month-1]
-  h = t.tm_hour - hour
-  m = t.tm_min - minute
-  s = t.tm_sec - second
-  if s < 0:
-    s += 60
-    m -= 1
-  if m < 0:
-    m += 60
-    h -= 1
-  h += 24*d
+  delta = datetime.datetime.utcnow() - query.time_from_str(date)
+  h = 24*delta.days + delta.seconds / 60 / 60
+  m = (delta.seconds / 60) % 60
+  s = delta.seconds % 60
   if h < 0:
     return "0:00:00", (0 < bold_cutoff)
   return ("%d:%02d:%02d" % (h, m, s)), (h < bold_cutoff)
