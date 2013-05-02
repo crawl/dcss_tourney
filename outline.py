@@ -10,6 +10,8 @@ import crawl_utils
 import crawl
 import uniq
 
+import datetime
+
 from loaddb import query_do, query_first_col, query_rows
 from query import count_points, assign_points, assign_team_points, wrap_transaction
 from query import log_temp_points, log_temp_team_points, get_points
@@ -140,6 +142,8 @@ def do_milestone_rune(c, mile):
       banner.award_banner(c, player, 'the_shining_one', 1)
   if not query.game_did_visit_lair(c, mile['name'], mile['start'], mile['time']):
     banner.award_banner(c, mile['name'], 'kikubaaqudgha', 2)
+  if query.time_from_str(mile['time']) - query.time_from_str(mile['start']) <= datetime.timedelta(hours=27):
+    banner.award_banner(c, mile['name'], 'vehumet', 1)
 
 def do_milestone_ghost(c, mile):
   """When you kill a player ghost, you get two clan points! Otherwise this
@@ -334,6 +338,13 @@ def crunch_winner(c, game):
         banner.award_banner(c, player, 'sif', 3)
       else:
         banner.award_banner(c, player, 'sif', 2)
+
+  cutoff = query.time_from_str(game['end']) - datetime.timedelta(hours=27)
+  if query.time_from_str(game['start']) > cutoff:
+    if query.count_wins(c, player = game['name'], before = game_end, after = cutoff) > 0:
+      banner.award_banner(c, player, 'vehumet', 3)
+    else:
+      banner.award_banner(c, player, 'vehumet', 2)
 
   ogame = query.previous_combo_highscore(c, game)
   if ogame and ogame[0] != player and ogame[2] == 'winning' and ogame[1] < game['sc']:

@@ -159,7 +159,7 @@ def did_reach_d14(c, name, start, end):
 def win_query(selected, order_by = None,
               player=None, charabbr=None, character_race=None, raceabbr=None,
               character_class=None, classabbr=None, runes=None,
-              before=None, limit=None):
+              before=None, after=None, limit=None):
 
   table = 'games'
   query = Query("SELECT " + selected + " FROM " + table +
@@ -180,6 +180,8 @@ def win_query(selected, order_by = None,
     query.append(' AND runes >= %s', runes)
   if before:
     query.append(' AND end_time < %s', before)
+  if after:
+    query.append(' AND start_time > %s', after)
   if order_by:
     query.append(' ' + order_by)
   if limit:
