@@ -60,6 +60,16 @@ def filter_combos(combos, filters):
   class_set = set([x[2:] for x in filters])
   return [x for x in combos if x[:2] not in race_set and x[2:] not in class_set]
 
+def weight_combos(combos, previous):
+  weights = []
+  for x in combos:
+    w = 1
+    for y in previous:
+      if x[:2] == y[:2] or x[2:] == y[2:]:
+        w *= 10
+    weights.append(w)
+  return weights
+
 def current_nemelex_choice():
   return NEMELEX_COMBOS and NEMELEX_COMBOS[-1]
 
@@ -76,8 +86,6 @@ def is_nemelex_choice(combo, when):
   """Returns true if the given combo for a game that ended at the given
   datetime is a chosen combo for the Nemelex' Choice banner."""
   if combo in NEMELEX_SET:
-    if isinstance(when, str) or isinstance(when, unicode):
-      when = query.time_from_str(when)
     for c in NEMELEX_COMBOS:
       if c[0] == combo:
         return True
@@ -86,7 +94,7 @@ def is_nemelex_choice(combo, when):
 def eligible_combos(c):
   # first one is always picked from the special list
   if len(NEMELEX_COMBOS) == 0:
-    return combos.NEM_ELIGIBLE_COMBOS
+    return [combos.NEM_ELIGIBLE_COMBOS]
   # sometimes look at the special list for the later ones, too
   if NEMELEX_USE_LIST:
     won_games = query.get_winning_games(c)
@@ -94,11 +102,8 @@ def eligible_combos(c):
     eligible =  [x for x in combos.NEM_ELIGIBLE_COMBOS
                  if (x not in won_combos)]
     pcombo_names = [x[0] for x in NEMELEX_COMBOS]
-    # Try not to use a repeat race or class if possible.
-    filtered_eligible = filter_combos(eligible, pcombo_names)
-    if filtered_eligible:
-      eligible = filtered_eligible
-    return eligible
+    weighting = weight_combos(eligible, pcombo_names)
+    return [eligible,weighting]
   # otherwise pick from the valid combos with the lowest high score in the tourney:
   else:
     eligible = combos.VALID_COMBOS
@@ -113,11 +118,21 @@ def eligible_combos(c):
     if l > len(eligible_with_scores)-1:
       l = len(eligible_with_scores)-1
     candidates = [e[0] for e in eligible_with_scores if e[1] <= eligible_with_scores[l][1]]
-    return candidates
+    return [candidates]
 
-def pick_combo(eligible):
-  if eligible:
-    combo = eligible[random.randrange(len(eligible))]
+def pick_combo(data):
+  if data[0]:
+    eligible = data[0]
+    if len(data) > 1:
+      weighting = data[1]
+      n = len(eligible)
+      combo = None
+      while not combo:
+        i = random.randrange(len(eligible))
+        if random.randrange(weighting[i]) == 0:
+          combo = eligible[i]
+    else:
+      combo = eligible[random.randrange(len(eligible))]
     apply_combo(combo)
 
 def need_new_combo(c):
