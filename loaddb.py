@@ -660,7 +660,7 @@ dbfield_to_sqltype = {
 	'maxhp':sql_int,
  	'maxmaxhp':sql_int,
 	'strength':sql_int,
-	'intellegence':sql_int,
+	'intelligence':sql_int,
         'dexterity':sql_int,
         'ac':sql_int,
         'ev':sql_int,
