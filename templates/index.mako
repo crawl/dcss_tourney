@@ -89,7 +89,7 @@
               <span class="inline_heading">Note:</span> clan membership lines can be added to your ${version} rcfile on <b>any</b> of the three public servers.
               If you add clan
               membership lines to more than one rcfile, then the rcfile on
-              the server earliest in the list CAO, CDO, CSZO will take
+              the server earliest in the list CSZO, CAO, CDO will take
               precedence.
             </p>
           </div>
@@ -99,8 +99,10 @@
             underscores, and hyphens. Underscores will be converted into
             spaces. Once a player's username is in
             the captain's rcfile and the captain's username is in the
-            player's rcfile and our script checks for updates (once every four hours), the
-            players will be in the same clan.
+            player's rcfile and the tourney scripts notice this, the
+            players will be in the same clan. The tourney scripts only check for
+            updates to CAO or CDO rcfiles once every four hours, so if
+            you are impatient about this then you should edit your CSZO rcfile instead.
           </p>
 
           <p>
