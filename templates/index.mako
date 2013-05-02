@@ -301,7 +301,7 @@
             </p>
 
             <p><span>50-20-10 clan points</span> for finishing a game with the
-            highest value of AC+EV. Ties are broken by who reaches that number
+            highest value of AC+EV. Ties are broken by who finishes the game
             first.
             </p>
 
