@@ -619,11 +619,11 @@ III: Reach D:27 in 27 minutes.
                 Sif Muna thinks that a
                 <a name="lorekeeper">LOREKEEPER</a> doesn't need skill, just knowledge of spells. Ashenzari has a different viewpoint on this subject, so Sif Muna has banned Ashenzari worshippers from receiving this banner.
               <br>
-                I: Reach the last level of the Lair without raising a skill to 13.
+                I: Reach the last level of the Lair without raising any skill to 13.
               <br>
-                II: Win without raising a skill to 20.
+                II: Win without raising any skill to 20.
               <br>
-                III: Win without raising a skill to 13.
+                III: Win without raising any skill to 13.
               </p>
             </div>
 
