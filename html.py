@@ -87,9 +87,9 @@ BANNER_TEXT = \
           'Win a game in under 50000 turns.',
         ],
       'sif':
-        [ 'Reach the last level of the Lair without raising a skill to 13.',
-          'Win without raising a skill to 20.',
-          'Win without raising a skill to 13.',
+        [ 'Reach the last level of the Lair without raising any skill to 13.',
+          'Win without raising any skill to 20.',
+          'Win without raising any skill to 13.',
         ],
       'the_shining_one':
         [ 'Get a rune before entering D:14 (or below) in that game.',
@@ -102,9 +102,9 @@ BANNER_TEXT = \
           'Steal a species or class high score that was previously of at least 10,000,000 points.',
         ],
       'vehumet':
-        [ "Get a rune within 27 hours of the game's start.",
-          "Win a game within 27 hours of its start.",
-          "Start and win two games within a 27 hour time period.",
+        [ "Get a rune within 27 real-world hours of starting the game.",
+          "Win a game within 27 real-world hours of starting it.",
+          "Start and win two games within a single 27-hour time period.",
         ],
       'xom':
         [ 'Enter a ziggurat.',
