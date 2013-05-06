@@ -785,7 +785,7 @@ def get_all_player_stats(c):
                        WHERE player = p.name) playcount
                FROM players p LEFT JOIN teams t
                ON p.team_captain = t.owner
-               ORDER BY p.score_full DESC''')
+               ORDER BY p.score_full DESC, p.name''')
   rows = [ list(r) for r in q.rows(c) ]
   clean_rows = [ ]
   for r in rows:
