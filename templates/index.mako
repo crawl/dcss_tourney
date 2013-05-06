@@ -678,14 +678,15 @@ III: Reach D:27 in 27 minutes.
                    width="170" height="58"
                    >
               <p>
-                Vehumet wants you to demonstrate
-                <a name="ruthless_efficiency">RUTHLESS EFFICIENCY</a> by playing within a span of just 27 hours (of real time, not the in-game timer).
+                Vehumet values focus and dedication, and will reward those who
+                demonstrate
+                <a name="ruthless_efficiency">RUTHLESS EFFICIENCY</a> by achieving their goals within a (real-world) 27-hour time period.
               <br>
-                I: Get a rune within 27 hours of the game's start.
+                I: Get a rune within 27 real-world hours of starting the game.
               <br>
-                II: Win a game within 27 hours of its start.
+                II: Win a game within 27 real-world hours of starting it.
               <br>
-                III: Start and win two games within a 27 hour time period.
+                III: Start and win two games within a single 27-hour time period.
               </p>
             </div>
 
