@@ -85,7 +85,7 @@ def get_teams(directory_list):
                     elements = re.sub('[^\w -]', '', line[offset:]).split(' ')
                 elif elements[0] == 'TEAMNAME':
                     players.append(player)
-                    teamname[player] = ''.join(elements[1:]) or ('Team_' + player)
+                    teamname[player] = '_'.join(elements[1:]) or ('Team_' + player)
                     volunteers.setdefault(player, []).append(player)
                     line = rcfile.readline()
                     offset = line.find('TEAM')
