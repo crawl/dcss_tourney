@@ -72,6 +72,7 @@ def get_teams(directory_list):
                 continue
             rcfile = open(os.path.join(directory, filename))
             line = rcfile.readline()
+            line = line[:111] # only 100 characters for team name
             offset = line.find('TEAM')
             if offset != -1:
                 elements = re.sub('[^\w -]', '', line[offset:]).split(' ')
