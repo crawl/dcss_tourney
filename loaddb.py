@@ -42,11 +42,15 @@ LOGS = TEST_LOGS or [
          ('cao-logfile-0.12', CAO + 'logfile12'),
          ('cdo-logfile-0.12', CDO + 'allgames-0.12.txt'),
          ('cszo-logfile-0.12', CSZO + 'meta/0.12/logfile')]
+# this line was used on CSZO instead:
+#         'cszo-logfile-0.12']
 
 MILESTONES = TEST_MILESTONES or [
          ('cao-milestones-0.12', CAO + 'milestones12'),
          ('cdo-milestones-0.12', CDO + 'milestones-0.12.txt'),
          ('cszo-milestones-0.12', CSZO + 'meta/0.12/milestones')]
+# this line was used on CSZO instead:
+#         'cszo-milestones-0.12']
 
 BLACKLIST_FILE = 'blacklist.txt'
 EXTENSION_FILE = 'modules.ext'
