@@ -276,7 +276,7 @@ def get_top_streaks_from(c, table, min_streak, how_many,
         find_most_recent_character_since(c, streak[0]) or '?')
   return streaks
 
-def get_top_active_streaks(c, how_many = 10):
+def get_top_active_streaks(c, how_many = 20):
   return get_top_streaks_from(c, 'active_streaks', 2, how_many,
                               add_next_game=True)
 
