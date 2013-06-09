@@ -2,7 +2,7 @@
 
 NRUNES = 17
 
-GODS = ['No God', 'Zin', 'The Shining One', 'Kikubaaqudgha',
+GODS = ['No God', 'Zin', 'the Shining One', 'Kikubaaqudgha',
         'Yredelemnul', 'Xom', 'Vehumet', 'Okawaru', 'Makhleb',
         'Sif Muna', 'Trog', 'Nemelex Xobeh', 'Elyvilon', 'Lugonu',
         'Beogh', 'Fedhas', 'Jiyva', 'Cheibriados', 'Ashenzari']
