@@ -15,7 +15,7 @@ import sys
 from test_data import USE_TEST, TEST_YEAR, TEST_VERSION, TEST_START_TIME, TEST_END_TIME, TEST_HARE_START_TIME, TEST_LOGS, TEST_MILESTONES, TEST_CLAN_DEADLINE
 
 T_YEAR = TEST_YEAR or '2013'
-T_VERSION = TEST_VERSION or '0.12'
+T_VERSION = TEST_VERSION or '0.13'
 
 # Start and end of the tournament, UTC.
 START_TIME = TEST_START_TIME or (T_YEAR + '0511')
@@ -39,18 +39,18 @@ CSZO = 'http://dobrazupa.org/'
 # being the URL to wget -c from.
 
 LOGS = TEST_LOGS or [
-         ('cao-logfile-0.12', CAO + 'logfile12'),
-         ('cdo-logfile-0.12', CDO + 'allgames-0.12.txt'),
-         ('cszo-logfile-0.12', CSZO + 'meta/0.12/logfile')]
+         ('cao-logfile-0.13', CAO + 'logfile13'),
+         ('cdo-logfile-0.13', CDO + 'allgames-0.13.txt'),
+         ('cszo-logfile-0.13', CSZO + 'meta/0.13/logfile')]
 # this line was used on CSZO instead:
-#         'cszo-logfile-0.12']
+#         'cszo-logfile-0.13']
 
 MILESTONES = TEST_MILESTONES or [
-         ('cao-milestones-0.12', CAO + 'milestones12'),
-         ('cdo-milestones-0.12', CDO + 'milestones-0.12.txt'),
-         ('cszo-milestones-0.12', CSZO + 'meta/0.12/milestones')]
+         ('cao-milestones-0.13', CAO + 'milestones13'),
+         ('cdo-milestones-0.13', CDO + 'milestones-0.13.txt'),
+         ('cszo-milestones-0.13', CSZO + 'meta/0.13/milestones')]
 # this line was used on CSZO instead:
-#         'cszo-milestones-0.12']
+#         'cszo-milestones-0.13']
 
 BLACKLIST_FILE = 'blacklist.txt'
 EXTENSION_FILE = 'modules.ext'
