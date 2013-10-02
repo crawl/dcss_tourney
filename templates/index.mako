@@ -31,9 +31,11 @@
           <p>
             Hello all! Welcome to the rules for the
             ${version} Dungeon Crawl Stone Soup Tournament. The simple part:
-            Play on one of the <b>three</b> public servers (<a href="http://crawl.akrasiac.org">crawl.akrasiac.org</a>,
+            Play on one of the <b>five</b> public servers (<a href="http://crawl.akrasiac.org">crawl.akrasiac.org</a>,
             <a href="http://crawl.develz.org">crawl.develz.org</a>,
-            or <a href="http://crawl.s-z.org">crawl.s-z.org</a>)
+            <a href="http://crawl.lantea.net:8080">crawl.lantea.net</a>,
+            <a href="http://crawl.s-z.org">crawl.s-z.org</a>,
+            or <a href="http://rl.heh.fi:8080">rl.heh.fi</a>)
             and all of
             your Crawl ${version} games that <b>start after <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20131011T20">20:00 UTC on
             Oct 11</a></b> and <b>end before <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20131027T20">20:00 UTC on Oct 27</a></b> will
@@ -89,7 +91,7 @@
               <span class="inline_heading">Note:</span> clan membership lines can be added to your ${version} rcfile on <b>any</b> of the three public servers.
               If you add clan
               membership lines to more than one rcfile, then the rcfile on
-              the server earliest in the list CSZO, CAO, CDO will take
+              the server earliest in the list CSZO, CAO, CDO, CLN, RHF will take
               precedence.
             </p>
           </div>
@@ -101,7 +103,7 @@
             the captain's rcfile and the captain's username is in the
             player's rcfile and the tourney scripts notice this, the
             players will be in the same clan. The tourney scripts only check for
-            updates to CAO or CDO rcfiles once every four hours, so if
+            updates to non-CSZO rcfiles once every four hours, so if
             you are impatient about this then you should edit your CSZO rcfile instead.
           </p>
 
