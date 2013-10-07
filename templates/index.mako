@@ -209,7 +209,19 @@
 	      Temple, Lair, Orc, or the Vaults (<a href="#lord_of_darkness">LORD OF DARKNESS</a> banner III).
 	    </p>
             <p>
-              <span>75 bonus points</span> for winning <a href="#nemelex_choice">NEMELEX' CHOICE</a> characters. The first Nemelex' Choice combo is chosen at the start of the tournament, and after that each one is chosen when the previous one is won for the first time. Each combo remains valid until it has been won five times. The race/class combinations are chosen by Nemelex from those with fewer than six online wins.
+              <span>75 bonus points</span> for winning <a href="#nemelex_choice">NEMELEX' CHOICE</a> characters. The first Nemelex' Choice combo is chosen at the start of the tournament, and after that each one is chosen when the previous one is won for the first time. Each combo remains valid until it has been won five times. The race/class combinations are chosen by Nemelex from those with fewer than eight online wins.
+            </p>
+          </div>
+
+          <hr>
+
+          <div>
+            <h2>SPECIAL ACHIEVEMENTS</h2>
+
+            <p><span>25 points</span> for each game in which you enter Tomb for the first time after picking up the Orb of Zot and then get the golden rune (<a href="#natures_ally">NATURE's ALLY</a> banner III).
+            </p>
+
+            <p><span>25 points</span> for each game in which you get four runes before entering D:14 (or below) in that game (<a href="#vow_of_courage">VOW OF COURAGE</a> banner III).
             </p>
           </div>
 
@@ -409,7 +421,7 @@
               <br>
                 I: Have the highest score in your clan.
               <br>
-                II: Have the highest score in a clan that is ranked in the top 20.
+                II: Have the highest score in a clan that is ranked in the top 27.
               <br>
                 III: Have the highest score in a clan that is ranked in the top 5.
               </p>
@@ -475,7 +487,7 @@
               <br>
                 II: Get the golden rune.
               <br>
-                III: Enter Tomb for the first time after picking up the Orb of Zot, and then get the golden rune.
+                III: Enter Tomb for the first time after picking up the Orb of Zot, and then get the golden rune (+25 tournament points).
               </p>
             </div>
 
@@ -527,19 +539,18 @@
 
             <div>
 	      <img src="images/banner_lugonu1.png"
-                   alt="The Abyssal Tourist"
-                   title="The Abyssal Tourist"
+                   alt="The Unbeliever"
+                   title="The Unbeliever"
                    width="170" height="58"
                    >
               <p>
-                Lugonu would like to corrupt the worshippers of other gods by
-                inviting them to the Abyss. Those who prove worthy will be officially designated as <a name="abyssal_tourists">ABYSSAL TOURISTS</a>.
+                Lugonu hates all the other gods and admires <a name="unbelievers">UNBELIEVERS</a> who persevere without worshipping any god at all. Demigods cannot win Lugonu's praise for this, since they do not have a choice in the matter.
               <br>
-I: Survive the Abyss without having ever been a follower of Lugonu during that game.
+I: Reach the end of the Lair without worshipping a god or being a demigod.
               <br>
-II: Find the abyssal rune and then escape the Abyss without ever having been a follower of Lugonu during that game.
+II: Find a rune without worshipping a god or being a demigod.
               <br>
-III: Find the abyssal rune and then escape the Abyss before reaching experience level 16 and without ever having been a follower of Lugonu during that game.
+III: Win a game without worshipping a god or being a demigod.
               </p>
             </div>
 
@@ -646,7 +657,7 @@ III: Reach D:27 in 27 minutes.
               <br>
                 II: Get two runes before entering D:14 (or below) in that game.
               <br>
-                III: Get four runes before entering D:14 (or below) in that game.
+                III: Get four runes before entering D:14 (or below) in that game (+25 tournament points).
               </p>
             </div>
 
@@ -727,11 +738,11 @@ III: Reach D:27 in 27 minutes.
                 will recognise success by awarding 
                 <a name="the_harvest">THE HARVEST</a>.
               <br>
-                I: Kill 25 distinct uniques over the course of the tournament.
+                I: Kill 28 distinct uniques over the course of the tournament.
               <br>
-                II: Kill 45 distinct uniques over the course of the tournament.
+                II: Kill 48 distinct uniques over the course of the tournament.
               <br>
-                III: Kill 65 distinct uniques over the course of the tournament.
+                III: Kill 68 distinct uniques over the course of the tournament.
               </p>
             </div>
 
@@ -766,68 +777,55 @@ III: Reach D:27 in 27 minutes.
             <hr>
             <div class="fineprint">
               <p>
-                Some rules have been changed from the 0.11 tournament held in October/November 2012. This is a list of rules differences.
+                Some rules have been changed from the 0.12 tournament held in May 2013. This is a list of rules differences.
               </p>
 
               <p><span class="removed">[REMOVED]</span>
-                flags rules that existed in the 0.11 tournament and are gone in
-                this tournament</p>
+                flags rules that existed in the 0.12 tournament and are gone in
+                this tournament.</p>
 
               <p><span class="added">[NEW]</span>
-                flags rules that are new to this tournament</p>
+                flags rules that are new to this tournament.</p>
 
               <p><span class="changed">[CHANGED]</span>
                 flags rules that have been modified for this 
 		tournament. To compare
-                changed rules with the rules in the 0.11 tournament, see
-                the <a href="http://seleniac.org/crawl/tourney/12b/">old
-                rules</a>
+                changed rules with the rules in the 0.12 tournament, see
+                the <a href="http://dobrazupa.org/tournament/0.12/">old
+                rules</a>.
               </p>
             </div>
 
             <hr>
 
             <p class="added">
-              <span>50-20-10 clan points</span> for finishing a game with the
-            highest value of AC+EV. Ties are broken by who reaches that number
-            first.
+              <span>25 points</span> for each game in which you enter Tomb for the first time after picking up the Orb of Zot and then get the golden rune (<a href="#natures_ally">NATURE's ALLY</a> banner III).
+              <span class="added">[NEW]</span>
+            </p>
+
+            <p class="added">
+              <span>25 points</span> for each game in which you get four runes before entering D:14 (or below) in that game (<a href="#vow_of_courage">VOW OF COURAGE</a> banner III).
               <span class="added">[NEW]</span>
             </p>
 
             <p class="changed">
-              <span>Kikubaaqudgha</span> now only asks you to get a rune without entering Lair for the second tier of the <a href="#lord_of_darkness">LORD OF DARKNESS</a> banner. (Used to require winning a game without entering Lair and was worth 20 bonus points)
+              <span>Beogh</span> now only asks you to have the highest score in a clan that is ranked in the top 27 for the second tier of the <span><a href="#saint">SAINT</a></span> banner. (Used to require top 20.)
               <span class="changed">[CHANGED]</span>
             </p>
 
             <p class="changed">
-              <span>Lugonu</span> now only requires staying below experience level 16 for the third tier of the <a href="#abyssal_tourists">ABYSSAL TOURIST</a> banner. (Used to require staying below experience level 13.)
+              <span>Lugonu</span> has a <a href="#unbelievers">new banner</a>.
               <span class="changed">[CHANGED]</span>
             </p>
 
             <p class="changed">
-              <span>Makhleb</span> now just wants you to enter the Vestibule of Hell for the second tier of the <a href="#speed_demons">SPEED DEMON</a> banner and does not place any restrictions on species for the third tier.
+              <span><a href="#nemelex_choice">NEMELEX' CHOICE</a></span> characters are now chosen by Nemelex from those with fewer than eight online wins. (Used to be fewer than six online wins)
               <span class="changed">[CHANGED]</span>
             </p>
 
             <p class="changed">
-              <span><a href="#nemelex_choice">NEMELEX' CHOICE</a></span> characters are now chosen by Nemelex from those with fewer than six online wins.
+              <span>Yredelemnul</span> now requires three more distinct uniques to be killed to earn each tier of the <span><a href="#the_harvest">HARVEST</a></span> banner.
               <span class="changed">[CHANGED]</span>
-            </p>
-
-            <p class="changed">
-              <span>Sif Muna</span> has a <a href="#lorekeeper">completely new banner</a>. The <a href="#explorer">old banner</a> was reclaimed by Ashenzari.
-              <span class="changed">[CHANGED]</span>
-            </p>
-
-            <p class="changed">
-              <span>Vehumet</span> has a <a href="#ruthless_efficiency">completely new banner</a>.
-              <span class="changed">[CHANGED]</span>
-            </p>
-
-            <p class="removed">
-              <span>20 points</span> for a win without visiting
-	      the Lair.
-              <span class="removed">[REMOVED]</span>
             </p>
 	    
           </div>
