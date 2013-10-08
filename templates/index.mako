@@ -130,17 +130,17 @@
 
             <p>
               <span>50 points</span> for a player winning two characters of
-              different races and classes at some point during the tourney.
+              different species and backgrounds at some point during the tourney.
             </p>
 
             <p>
               <span>60 extra points</span> for each consecutive (streak) win
-              by a player with a race that has not 
+              by a player with a species that has not 
 	      previously been a streak win for that player.
             </p>
             <p>
               <span>30 extra points</span> for each consecutive (streak) win
-              by a player with a class that has not 
+              by a player with a background that has not 
 	      previously been a streak win for that player.
             </p>
 
@@ -164,31 +164,31 @@
           <hr>
 
           <div>
-            <h2>RACE/CLASS/GOD WINS</h2>
+            <h2>SPECIES/BACKGROUND/GOD WINS</h2>
             <p>
-              <span>2*(48+T)/(2+R) points</span> (rounded up) for a win with a given race if T is the total number of games won in the tournament before the start of the win in question and R of those T were with the given race. If a player wins the same race multiple times, she only gets the largest value of this bonus among the wins, not the sum.
+              <span>2*(48+T)/(2+S) points</span> (rounded up) for a win with a given species if T is the total number of games won in the tournament before the start of the win in question and S of those T were with the given species. If a player wins the same species multiple times, she only gets the largest value of this bonus among the wins, not the sum.
 
-              For example, if there have been 10 games won prior to the start of the win in question and 2 of them were with the same race, then the
+              For example, if there have been 10 games won prior to the start of the win in question and 2 of them were with the same species, then the
               win will be worth 2*(48+10)/(2+2) = 29 additional points.
             </p>
             <p>
-              <span>(54+T)/(2+C) points</span> (rounded up) for a win with a given class if T is the total number of games won in the tournament before the start of the win in question and C of those T were with the given class. If a player wins the same class multiple times, she only gets the largest value of this bonus, not the sum.
+              <span>(54+T)/(2+B) points</span> (rounded up) for a win with a given background if T is the total number of games won in the tournament before the start of the win in question and B of those T were with the given background. If a player wins the same background multiple times, she only gets the largest value of this bonus, not the sum.
             </p>
             <p>
               <span>1.5*(38+T)/(2+G) points</span> (rounded up) for a win with a given god if T is the total number of games won in the tournament before the start of the win in question and G of those T were with the given god. If a player wins with the same god multiple times, she only gets the largest value of this bonus, not the sum. For purposes of these points we say that a player wins with a god if she reaches full (******) piety with that god without worshipping any other god first. For Xom, you must play a Chaos Knight and never abandon Xom. For "No God", you must never worship a god.
             </p>
             <div class="inset">
               <p>
-	        For clan scoring, if a clan has multiple wins for the same race,
-                class, or god, only the largest value of the bonus among the
+	        For clan scoring, if a clan has multiple wins for the same species,
+                background, or god, only the largest value of the bonus among the
                 wins is used, not the sum.
 	      </p>
             </div>
             <div class="inset">
               <p>
-	        The current values of the bonus for each race, class, or god
+	        The current values of the bonus for each species, background, or god
                 will be
-                listed on the "Species/Classes/Gods" page for your convenience.
+                listed on the "Species/Backgrounds/Gods" page for your convenience.
 	      </p>
             </div>
           </div>
@@ -202,8 +202,8 @@
             <p><span>200-100-50 points</span> for first 15-rune victory.</p>
             <p><span>200-100-50 points</span> for longest streak of
               winning games, where "length" of 
-	      a streak is defined as min(number of distinct races used, number 
-	      of distinct classes used).
+	      a streak is defined as min(number of distinct species used, number 
+	      of distinct backgrounds used).
               Ties are broken by the first to achieve the streak.
             </p>
             <p>
@@ -215,7 +215,7 @@
 	      Temple, Lair, Orc, or the Vaults (<a href="#lord_of_darkness">LORD OF DARKNESS</a> banner III).
 	    </p>
             <p>
-              <span>75 bonus points</span> for winning <a href="#nemelex_choice">NEMELEX' CHOICE</a> characters. The first Nemelex' Choice combo is chosen at the start of the tournament, and after that each one is chosen when the previous one is won for the first time. Each combo remains valid until it has been won five times. The race/class combinations are chosen by Nemelex from those with fewer than eight online wins.
+              <span>75 bonus points</span> for winning <a href="#nemelex_choice">NEMELEX' CHOICE</a> characters. The first Nemelex' Choice combo is chosen at the start of the tournament, and after that each one is chosen when the previous one is won for the first time. Each combo remains valid until it has been won five times. The species/background combinations are chosen by Nemelex from those with fewer than eight online wins.
             </p>
           </div>
 
@@ -249,18 +249,18 @@
             <p><span>score/120,000 points</span> for each player's highest scoring winning game.</p>
 
             <p>
-              <span>5 points</span> per high score in a race/class combination
+              <span>5 points</span> per high score in a species/background combination
               (HuWn, not just Hu).
             </p>
 
             <p>
               <span>5 additional points</span> for each high score in a
-              race/class combination that is attained by a win.
+              species/background combination that is attained by a win.
             </p>
 
-            <p><span>20 points</span> per high score in a race.</p>
+            <p><span>20 points</span> per high score in a species.</p>
 
-            <p><span>10 points</span> per high score in a class.</p>
+            <p><span>10 points</span> per high score in a background.</p>
 
           </div>
 
@@ -350,12 +350,12 @@
 
             <p>
               <span>200-100-50 clan points</span> for the players with the most high 
-	      scores in race/class combinations.
+	      scores in species/background combinations.
             </p>
 
             <p>
               <span>200-100-50 clan points</span> for the <b>clans</b> with the most
-              high scores in race/class combos.
+              high scores in species/background combos.
             </p>
 
             <p>
@@ -372,7 +372,7 @@
 
             <p>
               Sum total of all individual points with the exception of
-              "Race/Class/God wins" points (for which only the largest value of the bonus among the clan's wins is used, as described in that section), plus the
+              "Species/Background/God wins" points (for which only the largest value of the bonus among the clan's wins is used, as described in that section), plus the
 	      "Clan points only" awards above.
             </p>
 
@@ -451,7 +451,7 @@
               <br>
                 II: Achieve a two-win streak.
               <br>
-                III: Achieve a four-win streak with four distinct races and four distinct classes.
+                III: Achieve a four-win streak with four distinct species and four distinct backgrounds.
               </p>
             </div>
 
@@ -508,14 +508,14 @@
               <p>
                 Jiyva thinks that it is important to be flexible and will gift
                 players who excel with at least 5 distinct
-                races and at least 5 distinct classes with a 
+                species and at least 5 distinct backgrounds with a 
                 <a name="gelatinous_body">GELATINOUS BODY</a>.
               <br>
-                I: Reach experience level 9 with at least 5 distinct races and at least 5 distinct classes.
+                I: Reach experience level 9 with at least 5 distinct species and at least 5 distinct backgrounds.
               <br>
-                II: Get a rune with at least 5 distinct races and at least 5 distinct classes.
+                II: Get a rune with at least 5 distinct species and at least 5 distinct backgrounds.
               <br>
-                III: Win with at least 5 distinct races and at least 5 distinct classes.
+                III: Win with at least 5 distinct species and at least 5 distinct backgrounds.
               </p>
             </div>
 
@@ -684,7 +684,7 @@ III: Reach D:27 in 27 minutes.
               <br>
                 II: Steal a combo high score for a previously won combo.
               <br>
-                III: Steal a species or class high score that was previously of at least 10,000,000 points.
+                III: Steal a species or background high score that was previously of at least 10,000,000 points.
               </p>
             </div>
 
