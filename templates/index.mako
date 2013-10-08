@@ -42,6 +42,12 @@
             count toward the tournament.
           </p>
 
+          <div class="inset">
+            <p>
+              <span class="inline_heading">Note:</span> Two of the servers, CDO and RHF, do not currently have 0.13 set up. Until they get 0.13 added to them, you will be unable to use these servers for tourney purposes; please use one of the other three servers instead.
+            </p>
+          </div>
+
           <p>
             For players who participated in previous
             tournaments, please look at
@@ -88,7 +94,7 @@
 
           <div class="inset">
             <p>
-              <span class="inline_heading">Note:</span> clan membership lines can be added to your ${version} rcfile on <b>any</b> of the three public servers.
+              <span class="inline_heading">Note:</span> clan membership lines can be added to your ${version} rcfile on <b>any</b> of the public servers.
               If you add clan
               membership lines to more than one rcfile, then the rcfile on
               the server earliest in the list CSZO, CAO, CDO, CLN, RHF will take
@@ -546,11 +552,11 @@
               <p>
                 Lugonu hates all the other gods and admires <a name="unbelievers">UNBELIEVERS</a> who persevere without worshipping any god at all. Demigods cannot win Lugonu's praise for this, since they do not have a choice in the matter.
               <br>
-I: Reach the end of the Lair without worshipping a god or being a demigod.
+I: Reach the end of the Lair as a non-demigod without worshipping a god.
               <br>
-II: Find a rune without worshipping a god or being a demigod.
+II: Find a rune as a non-demigod without worshipping a god.
               <br>
-III: Win a game without worshipping a god or being a demigod.
+III: Win a game as a non-demigod without worshipping a god.
               </p>
             </div>
 
