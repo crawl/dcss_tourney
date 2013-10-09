@@ -44,7 +44,7 @@
 
           <div class="inset">
             <p>
-              <span class="inline_heading">Note:</span> Two of the servers, CDO and RHF, do not currently have 0.13 set up. Until they get 0.13 added to them, you will be unable to use these servers for tourney purposes; please use one of the other three servers instead.
+              <span class="inline_heading">Note:</span> One of the servers, RHF, does not currently have 0.13 set up. Until it gets 0.13, you will be unable to use this server for tourney purposes; please use one of the other four servers instead.
             </p>
           </div>
 
