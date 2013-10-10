@@ -102,6 +102,15 @@ def count_god_wins(c, god, start_time=None):
     q.append(' AND win_time < %s', start_time)
   return q.first(c)
 
+def is_unbeliever(c, game):
+  if game.get('god'):
+    return False
+  if game['raceabbr'] == 'Dg':
+    return False
+  if did_change_god(c, game):
+    return False
+  return True
+
 def did_change_god(c, game):
   """Returns true if the player changed gods during the game, by checking
   for a god.renounce milestone."""
@@ -590,7 +599,7 @@ def race_formula(total, subtotal):
   return (2*(48+total)+1+subtotal)/(2+subtotal)
 
 def class_formula(total, subtotal):
-  return (54+total+1+subtotal)/(2+subtotal)
+  return (52+total+1+subtotal)/(2+subtotal)
 
 def god_formula(total, subtotal):
   return (3*(38+total)+3+2*subtotal)/(4+2*subtotal)

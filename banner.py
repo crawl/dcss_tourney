@@ -81,6 +81,6 @@ def assign_top_clan_banners(c):
   rows = query_rows_with_ties(c, '''SELECT owner, total_score
                             FROM teams
                            WHERE total_score > 0''',
-                           'total_score', 20, 1)
+                           'total_score', 27, 1)
   for r in rows:
     do_saint(r, 2)

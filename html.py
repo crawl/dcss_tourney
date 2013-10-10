@@ -13,7 +13,7 @@ BANNER_IMAGES = \
       'fedhas': [ 'banner_fedhas.png', "Nature's Ally" ],
       'jiyva': [ 'banner_jiyva.png', 'Gelatinous Body' ],
       'kikubaaqudgha': [ 'banner_kikubaaqudgha.png', 'Lord of Darkness' ],
-      'lugonu': [ 'banner_lugonu.png', 'The Abyssal Tourist' ],
+      'lugonu': [ 'banner_lugonu.png', 'The Unbeliever' ],
       'makhleb': [ 'banner_makhleb.png', 'Speed Demon' ],
       'nemelex': [ 'banner_nemelex.png', "Nemelex' Choice" ],
       'okawaru': [ 'banner_okawaru.png', 'The Conqueror' ],
@@ -38,7 +38,7 @@ BANNER_TEXT = \
         ],
       'beogh':
         [ 'Have the highest score in your clan.',
-          'Have the highest score in a clan that is ranked in the top 20.',
+          'Have the highest score in a clan that is ranked in the top 27.',
           'Have the highest score in a clan that is ranked in the top 5.',
         ],
       'cheibriados':
@@ -67,9 +67,9 @@ BANNER_TEXT = \
           'Win a game without having entered the Temple, the Orcish Mines, the Lair, or the Vaults.',
         ],
       'lugonu':
-        [ 'Survive the Abyss without having ever been a follower of Lugonu during that game.',
-          'Find the abyssal rune and then escape the Abyss without ever having been a follower of Lugonu during that game.',
-          'Find the abyssal rune and then escape the Abyss before reaching experience level 16 and without ever having been a follower of Lugonu during that game.',
+        [ 'Reach the end of the Lair as a non-demigod without worshipping a god.',
+          'Find a rune as a non-demigod without worshipping a god.',
+          'Win a game as a non-demigod without worshipping a god.',
         ],
       'makhleb':
         [ 'Reach D:14 in 27 minutes.',
@@ -112,9 +112,9 @@ BANNER_TEXT = \
           'Leave a ziggurat from its lowest floor.',
         ],
       'yredelemnul':
-        [ 'Kill 25 distinct uniques over the course of the tournament.',
-          'Kill 45 distinct uniques over the course of the tournament.',
-          'Kill 65 distinct uniques over the course of the tournament.',
+        [ 'Kill 28 distinct uniques over the course of the tournament.',
+          'Kill 48 distinct uniques over the course of the tournament.',
+          'Kill 68 distinct uniques over the course of the tournament.',
         ],
       'zin':
         [ 'Enter either Pandemonium or any branch of Hell.',
