@@ -137,7 +137,7 @@ def pick_combo(data):
 
 def need_new_combo(c):
   if not NEMELEX_COMBOS:
-    nowtime = datetime.utcnow().strftime('%Y%m%d')
+    nowtime = datetime.utcnow().strftime('%Y%m%d%H%M')
     return (nowtime >= START_TIME)
   ban = 'nemelex:' + current_nemelex_choice()[0]
   return (count_recipients(c, ban, 3) > 0)
