@@ -42,7 +42,7 @@ RHF = 'http://rl.heh.fi/'
 
 LOGS = TEST_LOGS or [
          ('cao-logfile-0.13', CAO + 'logfile13'),
-#         ('cdo-logfile-0.13', CDO + 'allgames-0.13.txt'),
+         ('cdo-logfile-0.13', CDO + 'allgames-0.13.txt'),
          ('cln-logfile-0.13', CLN + 'meta/0.13/logfile'),
 #         ('rhf-logfile-0.13', RHF + 'meta/crawl-0.13/logfile'),
          ('cszo-logfile-0.13', CSZO + 'meta/0.13/logfile')]
@@ -51,7 +51,7 @@ LOGS = TEST_LOGS or [
 
 MILESTONES = TEST_MILESTONES or [
          ('cao-milestones-0.13', CAO + 'milestones13'),
-#         ('cdo-milestones-0.13', CDO + 'milestones-0.13.txt'),
+         ('cdo-milestones-0.13', CDO + 'milestones-0.13.txt'),
          ('cln-milestones-0.13', CLN + 'meta/0.13/milestones'),
 #         ('rhf-milestones-0.13', RHF + 'meta/crawl-0.13/milestones'),
          ('cszo-milestones-0.13', CSZO + 'meta/0.13/milestones')]
