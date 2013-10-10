@@ -12,9 +12,9 @@ UNIQUES = [ "Ijyb", "Blork", "Urug", "Erolcha", "Snorg",
             "Grum", "Crazy Yiuf", "Gastronok", "Pikel", "Menkaure",
             "Khufu", "Ilsuiw", "Aizul", "Mara", "Purgy", "Grinder",
             "Kirke", "Nikola", "Maurice", "Mennas", "Jory", 
-            "the Serpent of Hell", "the Enchantress", "Ignacio", "Arachne", "Fannar", "Jorgrun", "Lamia" ]
+            "the Serpent of Hell", "the Enchantress", "Ignacio", "Arachne", "Fannar", "Jorgrun", "Lamia", "Sojobo" ]
 
-HARD_UNIQUES = [ "Antaeus", "Asmodeus", "Boris", "Cerebov", "Dispater", "Dissolution", "Ereshkigal", "Frederick", "Geryon", "Gloorx Vloq", "Ignacio", "Ilsuiw", "Jory", "Khufu", "Lom Lobon", "Mara", "Margery", "Mennas", "Mnoleg", "Murray", "the Enchantress", "the Lernaean hydra", "the Serpent of Hell", "the royal jelly", "Tiamat", "Xtahua" ]
+HARD_UNIQUES = [ "Antaeus", "Asmodeus", "Boris", "Cerebov", "Dispater", "Dissolution", "Ereshkigal", "Frederick", "Geryon", "Gloorx Vloq", "Ignacio", "Ilsuiw", "Jory", "Khufu", "Lom Lobon", "Mara", "Margery", "Mennas", "Mnoleg", "Murray", "Sojobo", "the Enchantress", "the Lernaean hydra", "the Serpent of Hell", "the royal jelly", "Tiamat", "Xtahua" ]
 
 MEDIUM_UNIQUES = [ "Agnes", "Aizul", "Arachne", "Azrael", "Donald", "Frances", "Jorgrun", "Kirke", "Lamia", "Louise", "Maud", "Nergalle", "Nessos", "Nikola", "Norris", "Polyphemus", "Roxanne", "Rupert", "Saint Roka", "Snorg", "Wiglaf" ]
 
