@@ -52,7 +52,7 @@
         % if won:
         <h2>Won Combos</h2>
         <div class="fineprint">
-          Species-class combinations won during the tournament.
+          Species-background combinations won during the tournament.
         </div>
         <div class="inset">
           ${", ".join(won)}

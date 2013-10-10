@@ -74,14 +74,14 @@
 
         <h2>Clan Combo Standings</h2>
         <div class="fineprint">
-          Clans with the most species-class combination high-scores.
+          Clans with the most species-background combination high-scores.
         </div>
 
         ${clan_text}
 
         <h2>Individual Combo Standings</h2>
         <div class="fineprint">
-          Players with the most species-class combination high-scores.
+          Players with the most species-background combination high-scores.
         </div>
 
         ${text}

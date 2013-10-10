@@ -12,7 +12,7 @@
 &nbsp;
 <a href="${XXX_TOURNEY_BASE}/combo-scoreboard.html">Combo Scoreboard</a>
 &nbsp;
-<a href="${XXX_TOURNEY_BASE}/species-classes.html">Species/Classes/Gods</a>
+<a href="${XXX_TOURNEY_BASE}/species-backgrounds.html">Species/Backgrounds/Gods</a>
 &nbsp;
 <a href="${XXX_TOURNEY_BASE}/wins-and-kills.html">Wins and Kills</a>
 &nbsp;

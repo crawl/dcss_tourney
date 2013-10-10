@@ -44,7 +44,7 @@ BANNER_TEXT = \
       'cheibriados':
         [ 'Reach experience level 9 in two consecutive games.',
           'Achieve a two-win streak.',
-          'Achieve a four-win streak with four distinct races and four distinct classes.',
+          'Achieve a four-win streak with four distinct species and four distinct backgrounds.',
         ],
       'elyvilon':
         [ 'Become the champion of any god.',
@@ -57,9 +57,9 @@ BANNER_TEXT = \
           'Enter Tomb for the first time after picking up the Orb of Zot, and then get the golden rune.',
         ],
       'jiyva':
-        [ 'Reach experience level 9 with at least 5 distinct races and at least 5 distinct classes.',
-          'Get a rune with at least 5 distinct races and at least 5 distinct classes.',
-          'Win with at least 5 distinct races and at least 5 distinct classes.',
+        [ 'Reach experience level 9 with at least 5 distinct species and at least 5 distinct backgrounds.',
+          'Get a rune with at least 5 distinct species and at least 5 distinct backgrounds.',
+          'Win with at least 5 distinct species and at least 5 distinct backgrounds.',
         ],
       'kikubaaqudgha':
         [ 'Enter the Vestibule of Hell without having entered the Lair.',
@@ -99,7 +99,7 @@ BANNER_TEXT = \
       'trog':
         [ 'Steal a combo high score that was previously of at least 1,000 points.',
           'Steal a combo high score for a previously won combo.',
-          'Steal a species or class high score that was previously of at least 10,000,000 points.',
+          'Steal a species or background high score that was previously of at least 10,000,000 points.',
         ],
       'vehumet':
         [ "Get a rune within 27 real-world hours of starting the game.",

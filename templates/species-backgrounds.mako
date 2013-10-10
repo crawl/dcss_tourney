@@ -67,7 +67,7 @@
 
    species_text = html.table_text( [ 'Wins', 'Species', 'Current Value'],
                            condensed_species_data, count=False)
-   class_text = html.table_text( [ 'Wins', 'Class', 'Current Value'],
+   class_text = html.table_text( [ 'Wins', 'Background', 'Current Value'],
                            condensed_class_data, count=False)
    god_text = html.table_text( [ 'Wins', 'God', 'Current Value'],
                            condensed_god_data, count=False)
@@ -90,7 +90,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-    <title>Species/Classes/Gods</title>
+    <title>Species/Backgrounds/Gods</title>
     <link rel="stylesheet" type="text/css" href="tourney-score.css">
   </head>
 
@@ -101,7 +101,7 @@
       <div class="page_content">
         <h2>Wins by Species</h2>
         ${species_text}
-	<h2>Wins by Class</h2>
+	<h2>Wins by Background</h2>
         ${class_text}
 	<h2>Wins by God</h2>
             <p class="fineprint">
@@ -122,9 +122,9 @@
 
         ${species_scores_text}
 
-        <h2>Class Scoreboard</h2>
+        <h2>Background Scoreboard</h2>
         <div class="fineprint">
-          Highest scoring game for each class played
+          Highest scoring game for each background played
           in the tournament.
         </div>
 

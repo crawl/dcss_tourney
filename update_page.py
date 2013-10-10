@@ -40,7 +40,7 @@ def tourney_overview(c):
 
 def player_pages(c):
   info("Updating all player pages")
-  render(c, 'species-classes')
+  render(c, 'species-backgrounds')
   render(c, 'banners')
   render(c, 'all-players')
   render(c, 'wins-and-kills')

@@ -32,7 +32,7 @@
 
         <h2>Combo Scoreboard</h2>
         <div class="fineprint">
-          Highest scoring game for each species-class combination played
+          Highest scoring game for each species-background combination played
           in the tournament.
         </div>
 

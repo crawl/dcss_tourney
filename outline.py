@@ -421,7 +421,7 @@ def crunch_winner(c, game):
       if compute_streak_length(streak_wins[-3:], game['char']) == 4:
         banner.award_banner(c, player, 'cheibriados', 3)
     streak_species = 'streak:species:'+(game['char'][0:2])
-    streak_class = 'streak:class:'+(game['char'][2:])
+    streak_class = 'streak:background:'+(game['char'][2:])
     # 75 points for streak games, but only if they are with a new race and class.
     assign_points(c, streak_species, game['name'], 60, False)
     assign_points(c, streak_class, game['name'], 30, False)
@@ -445,7 +445,7 @@ def crunch_winner(c, game):
   species_wins_before = query.count_wins(c, before=game_start, raceabbr=game['char'][0:2])
   class_wins_before = query.count_wins(c, before=game_start, classabbr=game['char'][2:])
   assign_points(c, 'species_win:' + game['char'][0:2], game['name'], query.race_formula(wins_before, species_wins_before), False)
-  assign_points(c, 'class_win:' + game['char'][2:], game['name'], query.class_formula(wins_before, class_wins_before), False)
+  assign_points(c, 'background_win:' + game['char'][2:], game['name'], query.class_formula(wins_before, class_wins_before), False)
   # and gods also
   game_god = query.get_game_god(c, game)
   banner_god = game_god.lower().replace(' ', '_')
@@ -626,7 +626,7 @@ def check_misc_points(c, pmap):
   award_misc_points('high_score:combo:%d', 5, query.all_hs_combos(c))
   award_misc_points('high_score:combo_win:%d', 5, query.all_hs_combo_wins(c))
   award_misc_points('high_score:species:%d', 20, query.all_hs_species(c))
-  award_misc_points('high_score:class:%d', 10, query.all_hs_classes(c))
+  award_misc_points('high_score:background:%d', 10, query.all_hs_classes(c))
 
 def compute_player_only(c):
   for p in query.get_players(c):

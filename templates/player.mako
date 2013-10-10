@@ -199,7 +199,7 @@
               ${html.player_scores_block(c, species_highscores,
                                          'Species Highscores')}
               ${html.player_scores_block(c, class_highscores,
-                                         'Class Highscores')}
+                                         'Background Highscores')}
             </div>
             <hr>
           % endif

@@ -163,7 +163,7 @@ def clan_additional_score(c, owner):
     points = query.clan_max_points(c, owner, key)
     additional += log_temp_clan_points(c, owner, key, points)
   for g in query.clan_class_wins(c, owner):
-    key = 'class_win:' + g[0]
+    key = 'background_win:' + g[0]
     points = query.clan_max_points(c, owner, key)
     additional += log_temp_clan_points(c, owner, key, points)
   for g in query.clan_god_wins(c, owner):
