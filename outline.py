@@ -231,8 +231,9 @@ def act_on_logfile_line(c, this_game):
 
   if loaddb.is_ghost_kill(this_game):
     ghost = loaddb.extract_ghost_name(this_game['killer'])
+    ghost = query.canonicalize_player_name(c, ghost)
     XL = this_game['xl']
-    if XL > 5:
+    if XL > 5 and ghost:
       assign_team_points(c, "gkill", ghost, (XL - 5))
 
 def crunch_misc(c, g):
