@@ -25,7 +25,7 @@ END_TIME   = TEST_END_TIME or (T_YEAR + '10272000')
 CLAN_DEADLINE = (TEST_CLAN_DEADLINE or
                 datetime.datetime(2013, 10, 19, 20)) # Oct 19, 20:00
 
-DATE_FORMAT = '%Y%m%d'
+DATE_FORMAT = '%Y%m%d%H%M'
 
 GAME_VERSION = T_VERSION
 
