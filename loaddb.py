@@ -272,6 +272,9 @@ class Xlogfile:
         sys.stderr.write("Error processing line: " + line + "\n")
         raise
 
+      if xdict['char'][:2] in ['Dj','LO','SE'] or xdict['char'][2:] in ['Pr']:
+        continue
+
       xline = Xlogline( self, self.filename, line_offset,
                         xdict.get('end') or xdict.get('time'),
                         xdict, self.proc_op )
