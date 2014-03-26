@@ -15,7 +15,7 @@ import sys
 from test_data import USE_TEST, TEST_YEAR, TEST_VERSION, TEST_START_TIME, TEST_END_TIME, TEST_HARE_START_TIME, TEST_LOGS, TEST_MILESTONES, TEST_CLAN_DEADLINE
 
 T_YEAR = TEST_YEAR or '2013'
-T_VERSION = TEST_VERSION or '0.13'
+T_VERSION = TEST_VERSION or '0.14'
 
 # Start and end of the tournament, UTC.
 START_TIME = TEST_START_TIME or (T_YEAR + '10112000')
@@ -41,22 +41,22 @@ RHF = 'http://rl.heh.fi/'
 # being the URL to wget -c from.
 
 LOGS = TEST_LOGS or [
-         ('cao-logfile-0.13', CAO + 'logfile13'),
-         ('cdo-logfile-0.13', CDO + 'allgames-0.13.txt'),
-         ('cln-logfile-0.13', CLN + 'meta/0.13/logfile'),
-#         ('rhf-logfile-0.13', RHF + 'meta/crawl-0.13/logfile'),
-         ('cszo-logfile-0.13', CSZO + 'meta/0.13/logfile')]
+         ('cao-logfile-0.14', CAO + 'logfile14'),
+         ('cdo-logfile-0.14', CDO + 'allgames-0.14.txt'),
+         ('cln-logfile-0.14', CLN + 'meta/0.14/logfile'),
+#         ('rhf-logfile-0.14', RHF + 'meta/crawl-0.14/logfile'),
+         ('cszo-logfile-0.14', CSZO + 'meta/0.14/logfile')]
 # this line should be used on CSZO instead:
-#         'cszo-logfile-0.13']
+#         'cszo-logfile-0.14']
 
 MILESTONES = TEST_MILESTONES or [
-         ('cao-milestones-0.13', CAO + 'milestones13'),
-         ('cdo-milestones-0.13', CDO + 'milestones-0.13.txt'),
-         ('cln-milestones-0.13', CLN + 'meta/0.13/milestones'),
-#         ('rhf-milestones-0.13', RHF + 'meta/crawl-0.13/milestones'),
-         ('cszo-milestones-0.13', CSZO + 'meta/0.13/milestones')]
+         ('cao-milestones-0.14', CAO + 'milestones14'),
+         ('cdo-milestones-0.14', CDO + 'milestones-0.14.txt'),
+         ('cln-milestones-0.14', CLN + 'meta/0.14/milestones'),
+#         ('rhf-milestones-0.14', RHF + 'meta/crawl-0.14/milestones'),
+         ('cszo-milestones-0.14', CSZO + 'meta/0.14/milestones')]
 # this line should be used on CSZO instead:
-#         'cszo-milestones-0.13']
+#         'cszo-milestones-0.14']
 
 BLACKLIST_FILE = 'blacklist.txt'
 EXTENSION_FILE = 'modules.ext'
