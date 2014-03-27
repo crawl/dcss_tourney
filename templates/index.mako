@@ -851,7 +851,7 @@ III: Reach D:27 in 27 minutes.
               <span>|amethyst</span> for hosting the tournament scripts on CSZO.
             </p>
             <p>
-              <span>Wensley</span> and <span>ChrisOelmueller</span> for creating the banner images.
+              <span>Wensley</span>, <span>ChrisOelmueller</span>, and <span>Grunt</span> for creating the banner images.
             </p>
           </div>
 
