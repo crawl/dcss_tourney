@@ -31,22 +31,17 @@
           <p>
             Hello all! Welcome to the rules for the
             ${version} Dungeon Crawl Stone Soup Tournament. The simple part:
-            Play on one of the <b>five</b> public servers (<a href="http://crawl.akrasiac.org">crawl.akrasiac.org</a>,
+            Play on one of the <b>six</b> public servers (<a href="http://crawl.akrasiac.org">crawl.akrasiac.org</a>,
+            <a href="http://crawl.beRotato.org">crawl.beRotato.org</a>,
             <a href="http://crawl.develz.org">crawl.develz.org</a>,
+            <a href="http://kr.dobrazupa.org">kr.dobrazupa.org</a>,
             <a href="http://crawl.lantea.net:8080">crawl.lantea.net</a>,
-            <a href="http://crawl.s-z.org">crawl.s-z.org</a>,
-            or <a href="http://rl.heh.fi:8080">rl.heh.fi</a>)
+            or <a href="http://crawl.s-z.org">crawl.s-z.org</a>)
             and all of
             your Crawl ${version} games that <b>start after <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20140411T20">20:00 UTC on
             Apr 11</a></b> and <b>end before <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20140427T20">20:00 UTC on Apr 27</a></b> will
             count toward the tournament.
           </p>
-
-          <div class="inset">
-            <p>
-              <span class="inline_heading">Note:</span> One of the servers, RHF, does not currently have 0.13 set up. Until it gets 0.13, you will be unable to use this server for tourney purposes; please use one of the other four servers instead.
-            </p>
-          </div>
 
           <p>
             For players who participated in previous
@@ -97,7 +92,7 @@
               <span class="inline_heading">Note:</span> clan membership lines can be added to your ${version} rcfile on <b>any</b> of the public servers.
               If you add clan
               membership lines to more than one rcfile, then the rcfile on
-              the server earliest in the list CSZO, CAO, CDO, CLN, RHF will take
+              the server earliest in the list CSZO, CAO, CBRO, CDO, CKR, CLN will take
               precedence.
             </p>
           </div>
@@ -146,8 +141,8 @@
 
             <div class="inset">
               <p>
-                For every game in a streak, the start time of the game
-                must be later than the previous game's end time. This
+                Every game in a streak must be the first game you start after
+                winning the previous game in the streak. This
                 will always be the case if you play all your games on
                 one server.
               </p>
@@ -156,7 +151,8 @@
                 If you're playing on multiple servers
                 simultaneously, note that you cannot start game A and
                 game B concurrently on two servers and win both in
-                succession to earn streak points.
+                succession to earn streak points - you can however have
+                multiple streaks in progress simultaneously.
               </p>
             </div>
           </div>
@@ -166,16 +162,16 @@
           <div>
             <h2>SPECIES/BACKGROUND/GOD WINS</h2>
             <p>
-              <span>2*(48+T)/(2+S) points</span> (rounded up) for a win with a given species if T is the total number of games won in the tournament before the start of the win in question and S of those T were with the given species. If a player wins the same species multiple times, she only gets the largest value of this bonus among the wins, not the sum.
+              <span>2*(52+T)/(2+S) points</span> (rounded up) for a win with a given species if T is the total number of games won in the tournament before the start of the win in question and S of those T were with the given species. If a player wins the same species multiple times, she only gets the largest value of this bonus among the wins, not the sum.
 
               For example, if there have been 10 games won prior to the start of the win in question and 2 of them were with the same species, then the
-              win will be worth 2*(48+10)/(2+2) = 29 additional points.
+              win will be worth 2*(52+10)/(2+2) = 31 additional points.
             </p>
             <p>
               <span>(52+T)/(2+B) points</span> (rounded up) for a win with a given background if T is the total number of games won in the tournament before the start of the win in question and B of those T were with the given background. If a player wins the same background multiple times, she only gets the largest value of this bonus, not the sum.
             </p>
             <p>
-              <span>1.5*(38+T)/(2+G) points</span> (rounded up) for a win with a given god if T is the total number of games won in the tournament before the start of the win in question and G of those T were with the given god. If a player wins with the same god multiple times, she only gets the largest value of this bonus, not the sum. For purposes of these points we say that a player wins with a god if she reaches full (******) piety with that god without worshipping any other god first. For Xom, you must play a Chaos Knight and never abandon Xom. For "No God", you must never worship a god.
+              <span>1.5*(40+T)/(2+G) points</span> (rounded up) for a win with a given god if T is the total number of games won in the tournament before the start of the win in question and G of those T were with the given god. If a player wins with the same god multiple times, she only gets the largest value of this bonus, not the sum. For purposes of these points we say that a player wins with a god if she reaches full (******) piety with that god without worshipping any other god first. For Xom, you must play a Chaos Knight and never abandon Xom. For "No God", you must never worship a god.
             </p>
             <div class="inset">
               <p>
@@ -214,6 +210,9 @@
 	      <span>50 bonus points</span> for a win without visiting
 	      Temple, Lair, Orc, or the Vaults (<a href="#lord_of_darkness">LORD OF DARKNESS</a> banner III).
 	    </p>
+	    <p>
+	      <span>25 bonus points</span> for a win in which ten non-good gods are abandoned before XL 13 and never rejoined (<a href="#heretics">HERETIC</a> banner III).
+	    </p>
             <p>
               <span>75 bonus points</span> for winning <a href="#nemelex_choice">NEMELEX' CHOICE</a> characters. The first Nemelex' Choice combo is chosen at the start of the tournament, and after that each one is chosen when the previous one is won for the first time. Each combo remains valid until it has been won five times. The species/background combinations are chosen by Nemelex from those with fewer than eight online wins.
             </p>
@@ -227,7 +226,7 @@
             <p><span>25 points</span> for each game in which you enter Tomb for the first time after picking up the Orb of Zot and then get the golden rune (<a href="#natures_ally">NATURE's ALLY</a> banner III).
             </p>
 
-            <p><span>25 points</span> for each game in which you get four runes before entering D:14 (or below) in that game (<a href="#vow_of_courage">VOW OF COURAGE</a> banner III).
+            <p><span>25 points</span> for each game in which you get six runes before entering the Depths in that game (<a href="#vow_of_courage">VOW OF COURAGE</a> banner III).
             </p>
           </div>
 
@@ -458,6 +457,27 @@
 	    <hr>
 
             <div>
+	      <img src="images/banner_dithmenos1.png"
+                   alt="The Politician"
+                   title="The Politician"
+                   width="170" height="58"
+                   >
+              <p>
+                Dithmenos appreciates the subtlety of a
+                <a name="politician">POLITICIAN</a> and will
+                thus reward any player who steals a high score from another player.
+              <br>
+                I: Steal a combo high score that was previously of at least 1,000 points.
+              <br>
+                II: Steal a combo high score for a previously won combo.
+              <br>
+                III: Steal a species or background high score that was previously of at least 10,000,000 points.
+              </p>
+            </div>
+
+	    <hr>
+
+            <div>
 	      <img src="images/banner_elyvilon1.png"
                    alt="The Pious"
                    title="The Pious"
@@ -533,9 +553,9 @@
                 who shows disdain for the Lair as
                 a <a name="lord_of_darkness">LORD OF DARKNESS</a>.
               <br>
-                I: Enter the Vestibule of Hell without having entered the Lair.
+                I: Reach the last level of the Orcish Mines without having entered the Lair.
               <br>
-                II: Get a rune without having entered the Lair.
+                II: Reach the last level of the Depths without having entered the Lair.
               <br>
                 III: Win a game without having entered the Temple, the Orcish Mines, the Lair, or the Vaults (+50 tournament points).
               </p>
@@ -545,18 +565,18 @@
 
             <div>
 	      <img src="images/banner_lugonu1.png"
-                   alt="The Unbeliever"
-                   title="The Unbeliever"
+                   alt="The Heretic"
+                   title="The Heretic"
                    width="170" height="58"
                    >
               <p>
-                Lugonu hates all the other gods and admires <a name="unbelievers">UNBELIEVERS</a> who persevere without worshipping any god at all. Demigods cannot win Lugonu's praise for this, since they do not have a choice in the matter.
+                Lugonu hates all the other gods and admires <a name="heretics">HERETICS</a> who go out of their way to incur their wrath. The good gods (Elyvilon, the Shining One, and Zin) are insufficiently wrathful, so abandoning them does not impress Lugonu.
               <br>
-I: Reach the end of the Lair as a non-demigod without worshipping a god.
+I: Abandon and mollify a non-good god.
               <br>
-II: Find a rune as a non-demigod without worshipping a god.
+II: Abandon three non-good gods before reaching XL 13, and win without rejoining them.
               <br>
-III: Win a game as a non-demigod without worshipping a god.
+III: Abandon ten non-good gods before reaching XL 13, and win without rejoining them (+25 tournament points).
               </p>
             </div>
 
@@ -573,11 +593,11 @@ III: Win a game as a non-demigod without worshipping a god.
                 will give players just 27
                 minutes to prove themselves as <a name="speed_demons">SPEED DEMONS</a>.
               <br>
-I: Reach D:14 in 27 minutes.
+I: Reach D:15 in 27 minutes.
               <br>
-II: Enter the Vestibule of Hell in 27 minutes.
+II: Reach the last level of the Swamp, the Snake Pit, the Shoals, or the Spider Nest in 27 minutes.
               <br>
-III: Reach D:27 in 27 minutes.
+III: Find a rune in 27 minutes.
               </p>
             </div>
 
@@ -656,14 +676,13 @@ III: Reach D:27 in 27 minutes.
                    >
               <p>
                 The Shining One thinks each player should take a
-                <a name="vow_of_courage">VOW OF COURAGE</a> and not delay
-                fighting for their runes.
+                <a name="vow_of_courage">VOW OF COURAGE</a> and face great terrors before entering the Depths.
               <br>
-                I: Get a rune before entering D:14 (or below) in that game.
+                I: Kill Sigmund before entering the Depths (in that game).
               <br>
-                II: Get two runes before entering D:14 (or below) in that game.
+                II: Get four runes before entering the Depths (in that game).
               <br>
-                III: Get four runes before entering D:14 (or below) in that game (+25 tournament points).
+                III: Get six runes before entering the Depths (in that game) (+25 tournament points).
               </p>
             </div>
 
@@ -671,20 +690,19 @@ III: Reach D:27 in 27 minutes.
 
             <div>
 	      <img src="images/banner_trog1.png"
-                   alt="The Sniper"
-                   title="The Sniper"
+                   alt="Brute Force"
+                   title="Brute Force"
                    width="170" height="58"
                    >
               <p>
-                Trog will recognize as
-                <a name="the_sniper">THE SNIPER</a> any player
-                who steals a high score from another player.
+                Trog thinks players should rely on
+                <a name="brute_force">BRUTE FORCE</a> and perservere without worshipping any god at all. Demigods cannot win Trog's praise for this, since they do not have a choice in the matter.
               <br>
-                I: Steal a combo high score that was previously of at least 1,000 points.
+I: Reach the last level of the Lair as a non-demigod without worshipping a god.
               <br>
-                II: Steal a combo high score for a previously won combo.
+II: Find a rune as a non-demigod without worshipping a god.
               <br>
-                III: Steal a species or background high score that was previously of at least 10,000,000 points.
+III: Win a game as a non-demigod without worshipping a god.
               </p>
             </div>
 
@@ -721,11 +739,11 @@ III: Reach D:27 in 27 minutes.
                 Xom is always looking for entertainment and thinks it would be
                 hilarious to watch a player's
                 <a name="descent_into_madness">DESCENT INTO MADNESS</a>
-                through a ziggurat.
+                into the Abyss or through a ziggurat.
               <br>
-                I: Enter a ziggurat.
+                I: Enter the Abyss.
               <br>
-                II: Reach the 14th floor of a ziggurat.
+                II: Reach the 10th floor of a ziggurat.
               <br>
                 III: Leave a ziggurat from its lowest floor.
               </p>
@@ -744,11 +762,11 @@ III: Reach D:27 in 27 minutes.
                 will recognise success by awarding 
                 <a name="the_harvest">THE HARVEST</a>.
               <br>
-                I: Kill 28 distinct uniques over the course of the tournament.
+                I: Kill 30 distinct uniques over the course of the tournament.
               <br>
-                II: Kill 48 distinct uniques over the course of the tournament.
+                II: Kill 50 distinct uniques over the course of the tournament.
               <br>
-                III: Kill 68 distinct uniques over the course of the tournament.
+                III: Kill 70 distinct uniques over the course of the tournament.
               </p>
             </div>
 
@@ -805,32 +823,32 @@ III: Reach D:27 in 27 minutes.
             <hr>
 
             <p class="added">
-              <span>25 points</span> for each game in which you enter Tomb for the first time after picking up the Orb of Zot and then get the golden rune (<a href="#natures_ally">NATURE's ALLY</a> banner III).
-              <span class="added">[NEW]</span>
-            </p>
-
-            <p class="added">
-              <span>25 points</span> for each game in which you get four runes before entering D:14 (or below) in that game (<a href="#vow_of_courage">VOW OF COURAGE</a> banner III).
+              <span>Lugonu</span> has a new banner, the <span><a href="#heretics">HERETIC</a></span> (+25 points for Tier III). (Trog now has Lugonu's old banner, and Dithmenos has Trog's old banner.)
               <span class="added">[NEW]</span>
             </p>
 
             <p class="changed">
-              <span>Beogh</span> now only asks you to have the highest score in a clan that is ranked in the top 27 for the second tier of the <span><a href="#saint">SAINT</a></span> banner. (Used to require top 20.)
+              <span>Kikubaaqudgha's <a href="#lord_of_darkness">LORD OF DARKNESS</a></span> banner now asks the player to enter Orc:4 or Depths:5 in Tiers I and II before entering Lair. (Used to be enter the Vestibule / win a game.)
               <span class="changed">[CHANGED]</span>
             </p>
 
             <p class="changed">
-              <span>Lugonu</span> has a <a href="#unbelievers">new banner</a>.
+              <span>Makhleb's <a href="#speed_demons">SPEED DEMON</a></span> banner now asks the player to reach D:15, Swamp/Snake/Shoals/Spider:5, or get a rune in 27 minutes. (Used to be D:14/Vestibule/D:27.)
               <span class="changed">[CHANGED]</span>
             </p>
 
             <p class="changed">
-              <span><a href="#nemelex_choice">NEMELEX' CHOICE</a></span> characters are now chosen by Nemelex from those with fewer than eight online wins. (Used to be fewer than six online wins)
+              <span>The Shining One's <a href="#vow_of_courage">VOW OF COURAGE</a></span> banner now asks for brave actions before entering the Depths instead of before entering D:14.
               <span class="changed">[CHANGED]</span>
             </p>
 
             <p class="changed">
-              <span>Yredelemnul</span> now requires three more distinct uniques to be killed to earn each tier of the <span><a href="#the_harvest">HARVEST</a></span> banner.
+              <span>Xom's <a href="#descent_into_madness">DESCENT INTO MADNESS</a></span> banner now asks the player to enter Abyss or Zig:10 in Tiers I and II. (Used to be Zig:1/Zig:14.)
+              <span class="changed">[CHANGED]</span>
+            </p>
+
+            <p class="changed">
+              <span>Yredelemnul</span> now requires two more distinct uniques to be killed to earn each tier of the <span><a href="#the_harvest">HARVEST</a></span> banner.
               <span class="changed">[CHANGED]</span>
             </p>
 	    
