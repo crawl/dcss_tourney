@@ -2,7 +2,7 @@
    from crawl_utils import XXX_TOURNEY_BASE
    from test_data import USE_TEST
    version = '0.14'
-   year    = '2013'
+   year    = '2014'
    title   = "Crawl %s Tournament Information" % version
  %>
 <!DOCTYPE html>
@@ -21,8 +21,8 @@
         <div class="heading">
           <h1>${title}</h1>
           <p class="fineprint">
-            Tournament starts on <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20131011T20">Oct 11, ${year} at 20:00 UTC</a>, and ends on
-            <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20131027T20">Oct 27, ${year} at 20:00 UTC</a>.
+            Tournament starts on <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20140411T20">Apr 11, ${year} at 20:00 UTC</a>, and ends on
+            <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20140427T20">Apr 27, ${year} at 20:00 UTC</a>.
           </p>
         </div>
         <hr>
@@ -37,8 +37,8 @@
             <a href="http://crawl.s-z.org">crawl.s-z.org</a>,
             or <a href="http://rl.heh.fi:8080">rl.heh.fi</a>)
             and all of
-            your Crawl ${version} games that <b>start after <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20131011T20">20:00 UTC on
-            Oct 11</a></b> and <b>end before <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20131027T20">20:00 UTC on Oct 27</a></b> will
+            your Crawl ${version} games that <b>start after <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20140411T20">20:00 UTC on
+            Apr 11</a></b> and <b>end before <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20140427T20">20:00 UTC on Apr 27</a></b> will
             count toward the tournament.
           </p>
 
@@ -115,7 +115,7 @@
 
           <p>
             Clans may be changed by adding or removing players at any
-            time until <b><a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20131019T19">19:00 UTC on Oct 19</a></b>, after which clans will be
+            time until <b><a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20140419T19">19:00 UTC on Apr 19</a></b>, after which clans will be
             effectively frozen.
           </p>
 
@@ -783,11 +783,11 @@ III: Reach D:27 in 27 minutes.
             <hr>
             <div class="fineprint">
               <p>
-                Some rules have been changed from the 0.12 tournament held in May 2013. This is a list of rules differences.
+                Some rules have been changed from the 0.13 tournament held in October 2013. This is a list of rules differences.
               </p>
 
               <p><span class="removed">[REMOVED]</span>
-                flags rules that existed in the 0.12 tournament and are gone in
+                flags rules that existed in the 0.13 tournament and are gone in
                 this tournament.</p>
 
               <p><span class="added">[NEW]</span>
@@ -796,8 +796,8 @@ III: Reach D:27 in 27 minutes.
               <p><span class="changed">[CHANGED]</span>
                 flags rules that have been modified for this 
 		tournament. To compare
-                changed rules with the rules in the 0.12 tournament, see
-                the <a href="http://dobrazupa.org/tournament/0.12/">old
+                changed rules with the rules in the 0.13 tournament, see
+                the <a href="http://dobrazupa.org/tournament/0.13/">old
                 rules</a>.
               </p>
             </div>

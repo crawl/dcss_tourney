@@ -14,22 +14,22 @@ import sys
 
 from test_data import USE_TEST, TEST_YEAR, TEST_VERSION, TEST_START_TIME, TEST_END_TIME, TEST_HARE_START_TIME, TEST_LOGS, TEST_MILESTONES, TEST_CLAN_DEADLINE
 
-T_YEAR = TEST_YEAR or '2013'
+T_YEAR = TEST_YEAR or '2014'
 T_VERSION = TEST_VERSION or '0.14'
 
 # Start and end of the tournament, UTC.
-START_TIME = TEST_START_TIME or (T_YEAR + '10112000')
-END_TIME   = TEST_END_TIME or (T_YEAR + '10272000')
+START_TIME = TEST_START_TIME or (T_YEAR + '04112000')
+END_TIME   = TEST_END_TIME or (T_YEAR + '04272000')
 
 # Deadline for forming teams.
 CLAN_DEADLINE = (TEST_CLAN_DEADLINE or
-                datetime.datetime(2013, 10, 19, 20)) # Oct 19, 20:00
+                datetime.datetime(2014, 4, 19, 20)) # Apr 19, 20:00
 
 DATE_FORMAT = '%Y%m%d%H%M'
 
 GAME_VERSION = T_VERSION
 
-HARE_START_TIME = TEST_HARE_START_TIME or (T_YEAR + '10262000')
+HARE_START_TIME = TEST_HARE_START_TIME or (T_YEAR + '04262000')
 
 CDO = 'http://crawl.develz.org/'
 CAO = 'http://crawl.akrasiac.org/'
