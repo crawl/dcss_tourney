@@ -402,7 +402,7 @@
               <p>
                 Ashenzari thinks that an <a name="explorer">EXPLORER</a> should be be busy looking for runes of Zot.
               <br>
-                I: Enter a branch that contains a rune.
+                I: Enter a branch of the dungeon that contains a rune.
               <br>
                 II: Find 5 distinct runes over the course of the tourney.
               <br>
@@ -591,13 +591,13 @@ III: Abandon ten non-good gods before reaching XL 13, and win without rejoining 
               <p>
                 Makhleb wants to see bloodshed as quickly as possible and
                 will give players just 27
-                minutes to prove themselves as <a name="speed_demons">SPEED DEMONS</a>.
+                minutes to prove themselves as <a name="speed_demons">SPEED DEMONS</a>. Formicids are not eligible for this banner, as they are incapable of being speedy.
               <br>
-I: Reach D:15 in 27 minutes.
+I: Reach D:15 in 27 minutes as a non-formicid.
               <br>
-II: Reach the last level of the Swamp, the Snake Pit, the Shoals, or the Spider Nest in 27 minutes.
+II: Reach the last level of the Swamp, the Snake Pit, the Shoals, or the Spider Nest in 27 minutes as a non-formicid.
               <br>
-III: Find a rune in 27 minutes.
+III: Find a rune in 27 minutes as a non-formicid.
               </p>
             </div>
 
@@ -833,7 +833,7 @@ III: Win a game as a non-demigod without worshipping a god.
             </p>
 
             <p class="changed">
-              <span>Makhleb's <a href="#speed_demons">SPEED DEMON</a></span> banner now asks the player to reach D:15, Swamp/Snake/Shoals/Spider:5, or get a rune in 27 minutes. (Used to be D:14/Vestibule/D:27.)
+              <span>Makhleb's <a href="#speed_demons">SPEED DEMON</a></span> banner now asks the player to reach D:15, Swamp/Snake/Shoals/Spider:5, or get a rune in 27 minutes. Also, formicids are not eligible. (Used to be D:14/Vestibule/D:27.)
               <span class="changed">[CHANGED]</span>
             </p>
 
