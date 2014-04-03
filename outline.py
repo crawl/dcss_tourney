@@ -87,18 +87,16 @@ def act_on_milestone(c, mile):
     do_milestone_ghost(c, mile)
   elif miletype == 'br.enter':
     do_milestone_br_enter(c, mile)
-  elif miletype == 'br.mid':
-    do_milestone_br_mid(c, mile)
   elif miletype == 'br.end':
     do_milestone_br_end(c, mile)
   elif miletype == 'god.maxpiety':
     do_milestone_max_piety(c, mile)
-  elif miletype == 'zig.enter':
-    do_milestone_zig_enter(c, mile)
   elif miletype == 'zig':
     do_milestone_zig(c, mile)
   elif miletype == 'zig.exit':
     do_milestone_zig_exit(c, mile)
+  elif miletype == 'abyss.enter':
+    do_milestone_abyss_enter(c, mile)
   elif miletype == 'abyss.exit':
     do_milestone_abyss_exit(c, mile)
 
@@ -110,9 +108,11 @@ def do_milestone_unique(c, mile):
   the player may be awarded points if they are one of the first to do so."""
   unique = loaddb.extract_unique_name(mile['milestone'])
   # DB already has the record for this kill, so == 1 => first kill.
-  if query.count_player_unique_kills(c, mile['name'], unique) > 1:
-    return
-  assign_points(c, "unique", mile['name'], 5)
+  if query.count_player_unique_kills(c, mile['name'], unique) == 1:
+    assign_points(c, "unique", mile['name'], 5)
+  if unique == 'Sigmund':
+    if not query.did_enter_branch(c, mile['name'], mile['start'], 'Depths', mile['time']):
+      banner.award_banner(c, player, 'the_shining_one', 1)
 
 def do_milestone_rune(c, mile):
   """Give out 30/N points for the Nth time a player finds a rune, and also give out banners."""
@@ -124,6 +124,8 @@ def do_milestone_rune(c, mile):
   assign_points(c, "rune:" + rune, mile['name'], rune_points)
   player = mile['name']
   runes_found = query.player_count_distinct_runes(c, player)
+  if mile['dur'] <= 1620:
+    banner.award_banner(c, mile['name'], 'makhleb', 3)
   if runes_found == crawl.NRUNES:
     banner.award_banner(c, player, 'ashenzari', 3)
   elif runes_found >= 5:
@@ -133,20 +135,16 @@ def do_milestone_rune(c, mile):
   if nemelex.is_nemelex_choice(mile['char'], mile['time']):
     ban = 'nemelex:' + mile['char']
     banner.award_banner(c, player, ban, 2)
-  if not query.did_reach_d14(c, player, mile['start'], mile['time']):
-    if mile['urune'] == 4:
+  if not query.did_enter_branch(c, player, mile['start'], 'Depths', mile['time']):
+    if mile['urune'] == 6:
       assign_points(c, 'vow_of_courage', player, 25)
       banner.award_banner(c, player, 'the_shining_one', 3)
-    elif mile['urune'] >= 2:
+    elif mile['urune'] >= 4:
       banner.award_banner(c, player, 'the_shining_one', 2)
-    else:
-      banner.award_banner(c, player, 'the_shining_one', 1)
-  if not query.game_did_visit_lair(c, mile['name'], mile['start'], mile['time']):
-    banner.award_banner(c, mile['name'], 'kikubaaqudgha', 2)
   if query.time_from_str(mile['time']) - query.time_from_str(mile['start']) <= datetime.timedelta(hours=27):
     banner.award_banner(c, mile['name'], 'vehumet', 1)
   if query.is_unbeliever(c, mile):
-    banner.award_banner(c, mile['name'], 'lugonu', 2)
+    banner.award_banner(c, mile['name'], 'trog', 2)
 
 def do_milestone_ghost(c, mile):
   """When you kill a player ghost, you get two clan points! Otherwise this
@@ -161,33 +159,31 @@ def do_milestone_br_enter(c, mile):
     assign_points(c, "branch:enter", mile['name'], 5)
   if mile['noun'] == 'Crypt':
     banner.award_banner(c, mile['name'], 'fedhas', 1)
-  elif mile['noun'] in ['Vault', 'Snake', 'Swamp', 'Shoals', 'Spider', 'Pan', 'Slime',
+  elif mile['noun'] in ['Vault', 'Snake', 'Swamp', 'Shoals', 'Spider', 'Slime',
                       'Tomb', 'Dis', 'Tar', 'Coc', 'Geh']:
     banner.award_banner(c, mile['name'], 'ashenzari', 1)
     if mile['noun'] in ['Pan', 'Dis', 'Tar', 'Coc', 'Geh']:
       banner.award_banner(c, mile['name'], 'zin', 1)
-  elif mile['noun'] == 'Hell':
-    if not query.game_did_visit_lair(c, mile['name'], mile['start'], mile['time']):
-      banner.award_banner(c, mile['name'], 'kikubaaqudgha', 1)
-    if mile['dur'] <= 1620:
-      banner.award_banner(c, mile['name'], 'makhleb', 2)
-
-def do_milestone_br_mid(c, mile):
-  if mile['dur'] <= 1620:
-    banner.award_banner(c, mile['name'], 'makhleb', 1)
+    if mile['noun'] in ['Snake', 'Swamp', 'Shoals', 'Spider']:
+      if mile['dur'] <= 1620:
+        banner.award_banner(c, mile['name'], 'makhleb', 2)
 
 def do_milestone_br_end(c, mile):
-  """Five points for the first time you get each br.enter milestone (includes
-  portal vaults)."""
+  if mile['noun'] == 'Orc':
+    if not query.game_did_visit_lair(c, mile['name'], mile['start'], mile['time']):
+      banner.award_banner(c, mile['name'], 'kikubaaqudgha', 1)
+  if mile['noun'] == 'Depths':
+    if not query.game_did_visit_lair(c, mile['name'], mile['start'], mile['time']):
+      banner.award_banner(c, mile['name'], 'kikubaaqudgha', 2)
   if mile['noun'] == 'D':
     if mile['dur'] <= 1620:
-      banner.award_banner(c, mile['name'], 'makhleb', 3)
+      banner.award_banner(c, mile['name'], 'makhleb', 1)
   if mile['noun'] == 'Lair':
     if mile['sklev'] < 13:
       if not query.did_worship_god(c, 'Ashenzari', mile['name'], mile['start'], mile['time']):
         banner.award_banner(c, mile['name'], 'sif', 1)
     if query.is_unbeliever(c, mile):
-      banner.award_banner(c, mile['name'], 'lugonu', 1)
+      banner.award_banner(c, mile['name'], 'trog', 1)
   if query.player_count_br_end(c, mile['name'], mile['noun']) <= 1:
     assign_points(c, "branch:end", mile['name'], 5)
 
@@ -195,11 +191,11 @@ def do_milestone_max_piety(c, mile):
   if query.record_max_piety(c, mile['name'], mile['start'], mile['noun']):
     assign_points(c, "champion", mile['name'], 10)
 
-def do_milestone_zig_enter(c, mile):
+def do_milestone_abyss_enter(c, mile):
   banner.award_banner(c, mile['name'], 'xom', 1)
 
 def do_milestone_zig(c, mile):
-  if mile['place'] == 'Zig:14':
+  if mile['place'] == 'Zig:10':
     banner.award_banner(c, mile['name'], 'xom', 2)
 
 def do_milestone_zig_exit(c, mile):
@@ -216,7 +212,7 @@ def do_milestone_abyss_exit(c, mile):
   #      prestige = 2
   #  else:
   #    prestige = 1
-  #  banner.award_banner(c, mile['name'], 'lugonu', prestige)
+  #  banner.award_banner(c, mile['name'], 'oldlugonu', prestige)
 
 def act_on_logfile_line(c, this_game):
   """Actually assign things and write to the db based on a logfile line
@@ -254,7 +250,7 @@ def crunch_misc(c, g):
   if g['sc'] >= 1000:
     og = query.previous_combo_highscore(c, g)
     if og and og[0] != player and og[1] >= 1000 and og[1] < g['sc']:
-      banner.award_banner(c, player, 'trog', 1)
+      banner.award_banner(c, player, 'dithmenos', 1)
 
   killer = loaddb.strip_unique_qualifier(g.get('killer') or '')
   if uniq.is_uniq(killer):
@@ -354,14 +350,14 @@ def crunch_winner(c, game):
 
   ogame = query.previous_combo_highscore(c, game)
   if ogame and ogame[0] != player and ogame[2] == 'winning' and ogame[1] < game['sc']:
-    banner.award_banner(c, player, 'trog', 2)
+    banner.award_banner(c, player, 'dithmenos', 2)
   if game['sc'] >= 10000000:
     ogame = query.previous_species_highscore(c, game)
     if ogame and ogame[1] >= 10000000 and ogame[1] < game['sc'] and ogame[0] != player:
-      banner.award_banner(c, player, 'trog', 3)
+      banner.award_banner(c, player, 'dithmenos', 3)
     ogame = query.previous_class_highscore(c, game)
     if ogame and ogame[1] >= 10000000 and ogame[1] < game['sc'] and ogame[0] != player:
-      banner.award_banner(c, player, 'trog', 3)
+      banner.award_banner(c, player, 'dithmenos', 3)
 
   debug("%s win (%s), runes: %d" % (player, charabbrev, game.get('urune') or 0))
 
@@ -373,7 +369,7 @@ def crunch_winner(c, game):
         banner.award_banner(c, player, ban, 3)
 
   if query.is_unbeliever(c, game):
-    banner.award_banner(c, player, 'lugonu', 3)
+    banner.award_banner(c, player, 'trog', 3)
 
   if is_all_runer(game):
     all_allruners = number_of_allruners_before(c, game)
@@ -602,17 +598,17 @@ HAVING race_count >= 5 AND class_count >= 5'''),
   award_player_banners(c, 'yredelemnul',
                        query_first_col(c,
                                        '''SELECT player FROM kunique_times
-                                          WHERE nuniques >= 68'''),
+                                          WHERE nuniques >= 70'''),
                        3)
   award_player_banners(c, 'yredelemnul',
                        query_first_col(c,
                                        '''SELECT player FROM kunique_times
-                                          WHERE nuniques >= 48'''),
+                                          WHERE nuniques >= 50'''),
                        2)
   award_player_banners(c, 'yredelemnul',
                        query_first_col(c,
                                        '''SELECT player FROM kunique_times
-                                          WHERE nuniques >= 28'''),
+                                          WHERE nuniques >= 30'''),
                        1)
 
 def check_misc_points(c, pmap):
