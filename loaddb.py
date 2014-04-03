@@ -35,6 +35,8 @@ CDO = 'http://crawl.develz.org/'
 CAO = 'http://crawl.akrasiac.org/'
 CSZO = 'http://dobrazupa.org/'
 CLN = 'http://crawl.lantea.net/crawl/'
+CBRO = 'http://crawl.berotato.org/crawl/'
+CKR = 'http://kr.dobrazupa.org/'
 RHF = 'http://rl.heh.fi/'
 
 # Log and milestone files. A tuple indicates a remote file with t[1]
@@ -42,18 +44,22 @@ RHF = 'http://rl.heh.fi/'
 
 LOGS = TEST_LOGS or [
          ('cao-logfile-0.14', CAO + 'logfile14'),
-         ('cdo-logfile-0.14', CDO + 'allgames-0.14.txt'),
+#         ('cdo-logfile-0.14', CDO + 'allgames-0.14.txt'),
          ('cln-logfile-0.14', CLN + 'meta/0.14/logfile'),
 #         ('rhf-logfile-0.14', RHF + 'meta/crawl-0.14/logfile'),
+         ('cbro-logfile-0.14', CBRO + 'meta/0.14/logfile'),
+         ('ckr-logfile-0.14', CKR + 'www/0.14/logfile'),
          ('cszo-logfile-0.14', CSZO + 'meta/0.14/logfile')]
 # this line should be used on CSZO instead:
 #         'cszo-logfile-0.14']
 
 MILESTONES = TEST_MILESTONES or [
          ('cao-milestones-0.14', CAO + 'milestones14'),
-         ('cdo-milestones-0.14', CDO + 'milestones-0.14.txt'),
+#         ('cdo-milestones-0.14', CDO + 'milestones-0.14.txt'),
          ('cln-milestones-0.14', CLN + 'meta/0.14/milestones'),
 #         ('rhf-milestones-0.14', RHF + 'meta/crawl-0.14/milestones'),
+         ('cbro-milestones-0.14', CBRO + 'meta/0.14/milestones'),
+         ('ckr-milestones-0.14', CKR + 'www/0.14/milestones'),
          ('cszo-milestones-0.14', CSZO + 'meta/0.14/milestones')]
 # this line should be used on CSZO instead:
 #         'cszo-milestones-0.14']
@@ -63,7 +69,7 @@ EXTENSION_FILE = 'modules.ext'
 TOURNAMENT_DB = 'tournament'
 COMMIT_INTERVAL = 3000
 # These rcfiles need to be updated from the servers every few hours.
-CRAWLRC_DIRECTORY_LIST = ['rcfiles-cszo/','rcfiles-cao/','rcfiles-cdo/','rcfiles-cln','rcfiles-rhf']
+CRAWLRC_DIRECTORY_LIST = ['rcfiles-cszo/','rcfiles-cao/','rcfiles-cbro/','rcfiles-cdo/','rcfiles-ckr/','rcfiles-cln/']
 
 LISTENERS = [ ]
 TIMERS = [ ]

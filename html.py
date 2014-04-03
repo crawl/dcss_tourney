@@ -539,6 +539,8 @@ def clan_affiliation(c, player, include_clan=True):
 def make_milestone_string(w, src, make_links=False):
   if src == 'csz':
     pretty_src = 'cszo'
+  elif src == 'cbr':
+    pretty_src = 'cbro'
   else:
     pretty_src = src
   ago,new = how_old(w[0])
@@ -558,7 +560,7 @@ def make_milestone_string(w, src, make_links=False):
 def whereis(c, *players):
   where_data = []
   for p in players:
-    for src in ['cao','cdo','cln','csz','rhf']:
+    for src in ['cao','cbro','cdo','ckr','cln','csz']:
       where = query.whereis_player(c, p, src)
       if not where:
         continue
@@ -578,6 +580,8 @@ def whereis_table(c):
     where = w[1]
     if w[0] == 'csz':
       pretty_src = 'cszo'
+    elif w[0] == 'cbr':
+      pretty_src = 'cbro'
     else:
       pretty_src = w[0]
     ago,new = how_old(where[0],1)
