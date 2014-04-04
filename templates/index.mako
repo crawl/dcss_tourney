@@ -211,7 +211,7 @@
 	      Temple, Lair, Orc, or the Vaults (<a href="#lord_of_darkness">LORD OF DARKNESS</a> banner III).
 	    </p>
 	    <p>
-	      <span>25 bonus points</span> for a win in which ten non-good gods are abandoned before XL 13 and never rejoined (<a href="#heretics">HERETIC</a> banner III).
+	      <span>25 bonus points</span> for a win in which nine non-good gods are abandoned before XL 14 and never rejoined (<a href="#heretics">HERETIC</a> banner III).
 	    </p>
             <p>
               <span>75 bonus points</span> for winning <a href="#nemelex_choice">NEMELEX' CHOICE</a> characters. The first Nemelex' Choice combo is chosen at the start of the tournament, and after that each one is chosen when the previous one is won for the first time. Each combo remains valid until it has been won five times. The species/background combinations are chosen by Nemelex from those with fewer than eight online wins.
@@ -574,9 +574,9 @@
               <br>
 I: Abandon and mollify a non-good god.
               <br>
-II: Abandon three non-good gods before reaching XL 13, and win without rejoining them.
+II: Abandon three non-good gods before reaching XL 14, and win without rejoining them.
               <br>
-III: Abandon ten non-good gods before reaching XL 13, and win without rejoining them (+25 tournament points).
+III: Abandon nine non-good gods before reaching XL 14, and win without rejoining them (+25 tournament points).
               </p>
             </div>
 
