@@ -324,6 +324,10 @@
             first.
             </p>
 
+            <p><span>100-50-20 clan points</span> for winning a game with the
+            lowest XL. Ties are broken by who finishes the game first.
+	    </p>
+
             <p><span>50-20-10 clan points</span> for lowest XL at which a
             rune is picked up, not including the abyssal and slimy runes. Ties
 	    are broken by who picked up the rune first.
@@ -824,6 +828,12 @@ III: Win a game as a non-demigod without worshipping a god.
 
             <p class="added">
               <span>Lugonu</span> has a new banner, the <span><a href="#heretics">HERETIC</a></span> (+25 points for Tier III). (Trog now has Lugonu's old banner, and Dithmenos has Trog's old banner.)
+              <span class="added">[NEW]</span>
+            </p>
+
+            <p class="added">
+              <span>100-50-20 clan points</span> for winning a game with the
+            lowest XL. Ties are broken by who finishes the game first.
               <span class="added">[NEW]</span>
             </p>
 
