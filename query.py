@@ -1623,6 +1623,35 @@ def game_did_visit_branch(c, player, start_time):
                                   OR (noun = 'Vault')) ''',
                      player, start_time)
 
+def count_gods_abandoned(c, player, start_time):
+  abandon_table = query_rows(c, '''SELECT noun, MAX(turn)
+                                     FROM milestones
+                                    WHERE player = %s
+                                      AND start_time = %s
+                                      AND verb = 'god.renounce'
+                                      AND xl < 14
+                                 GROUP BY noun
+                                 ORDER BY noun''', player, start_time)
+  worship_table = query_rows(c, '''SELECT noun, MAX(turn)
+                                     FROM milestones
+                                    WHERE player = %s
+                                      AND start_time = %s
+                                      AND verb = 'god.worship'
+                                      AND xl < 14
+                                 GROUP BY noun
+                                 ORDER BY noun''', player, start_time)
+  count = 0
+  for row1 in abandon_table:
+    if row1[0] in ['the Shining One', 'The Shining One', 'Zin', 'Elyvilon']:
+      continue
+    good = True
+    for row2 in worship_table:
+      if row1[0] == row2[0] and row1[1] < row2[1]:
+        good = False
+    if good:
+      count += 1
+  return count
+
 def count_deaths_to_distinct_uniques(c, player):
   return query_first(c, '''SELECT COUNT(DISTINCT uniq)
                              FROM deaths_to_uniques

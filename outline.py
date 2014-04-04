@@ -99,6 +99,8 @@ def act_on_milestone(c, mile):
     do_milestone_abyss_enter(c, mile)
   elif miletype == 'abyss.exit':
     do_milestone_abyss_exit(c, mile)
+  elif miletype == 'god.mollify':
+    do_milestone_mollify(c, mile)
 
 def do_milestone_unique(c, mile):
   """This function takes a parsed milestone known to commemorate the death of
@@ -214,6 +216,11 @@ def do_milestone_abyss_exit(c, mile):
   #    prestige = 1
   #  banner.award_banner(c, mile['name'], 'oldlugonu', prestige)
 
+def do_milestone_mollify(c, mile):
+  god = mile.get('god') or 'No God'
+  if god != mile['noun']:
+    banner.award_banner(c, mile['name'], 'lugonu', 1)
+
 def act_on_logfile_line(c, this_game):
   """Actually assign things and write to the db based on a logfile line
   coming through. All lines get written to the db; some will assign
@@ -323,6 +330,13 @@ def crunch_winner(c, game):
   banner.award_banner(c, player, 'okawaru', 2)
   if (game['turn'] < 50000):
     banner.award_banner(c, player, 'okawaru', 3)
+
+  gods_abandoned = query.count_gods_abandoned(c, player, game_start_time(game))
+  if gods_abandoned >= 9:
+    assign_points(c, 'heretical_win', player, 25)
+    banner.award_banner(c, player, 'lugonu', 3)
+  elif gods_abandoned >= 3:
+    banner.award_banner(c, player, 'lugonu', 2)
 
   if not query.game_did_visit_lair(c, player, game_start_time(game)):
     if not query.game_did_visit_branch(c, player, game_start_time(game)):
