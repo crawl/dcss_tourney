@@ -59,7 +59,7 @@ MILESTONES = TEST_MILESTONES or [
          ('cln-milestones-0.14', CLN + 'meta/0.14/milestones'),
 #         ('rhf-milestones-0.14', RHF + 'meta/crawl-0.14/milestones'),
          ('cbro-milestones-0.14', CBRO + 'meta/0.14/milestones'),
-         ('ckr-milestones-0.14', CKR + 'www/0.14/milestones'),
+         ('ckr-milestones-0.14', CKR + 'www/0.14/milestone'),
          ('cszo-milestones-0.14', CSZO + 'meta/0.14/milestones')]
 # this line should be used on CSZO instead:
 #         'cszo-milestones-0.14']
