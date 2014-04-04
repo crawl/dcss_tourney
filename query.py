@@ -589,13 +589,13 @@ def get_winning_games(c, **selectors):
                     killertype='winning', **selectors)
 
 def race_formula(total, subtotal):
-  return (2*(48+total)+1+subtotal)/(2+subtotal)
+  return (2*(52+total)+1+subtotal)/(2+subtotal)
 
 def class_formula(total, subtotal):
   return (52+total+1+subtotal)/(2+subtotal)
 
 def god_formula(total, subtotal):
-  return (3*(38+total)+3+2*subtotal)/(4+2*subtotal)
+  return (3*(40+total)+3+2*subtotal)/(4+2*subtotal)
 
 def player_race_wins(c, name):
   return query_rows(c, """SELECT DISTINCT MID(charabbrev,1,2) FROM
