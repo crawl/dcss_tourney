@@ -1430,12 +1430,18 @@ def get_top_ziggurats(c):
 def player_ziggurat_dive_pos(c, player):
   return find_place([x[0] for x in get_top_ziggurats(c)], player)
 
+def player_low_xl_win_best(c):
+  return query_rows(c, '''SELECT player FROM youngest_wins LIMIT 3''')
+
+def get_youngest_wins(c):
+  fields = logfile_fields('g.')
+  games = query_rows(c, '''SELECT %s FROM youngest_wins f, games g
+                           WHERE f.id = g.id''' % fields)
+  return [ row_to_xdict(r) for r in games ]
+
 def player_rune_dive_best(c):
   return query_rows(c, '''SELECT player FROM youngest_rune_finds
                                       LIMIT 3''')
-
-def player_rune_dive_pos(c, player):
-  return find_place(player_rune_dive_best(c), player)
 
 def youngest_rune_finds(c):
   return query_rows(c, '''SELECT player, rune, xl, rune_time

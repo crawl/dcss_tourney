@@ -55,6 +55,7 @@ DROP VIEW IF EXISTS combo_hs_clan_scoreboard;
 DROP VIEW IF EXISTS streak_scoreboard;
 DROP VIEW IF EXISTS best_ziggurat_dives;
 DROP VIEW IF EXISTS youngest_rune_finds;
+DROP VIEW IF EXISTS youngest_wins;
 DROP VIEW IF EXISTS most_deaths_to_uniques;
 DROP VIEW IF EXISTS have_hellpan_kills;
 DROP VIEW IF EXISTS all_hellpan_kills;
@@ -512,6 +513,13 @@ SELECT id, player, kills
  WHERE killertype = 'winning' AND kills IS NOT NULL
 ORDER BY kills
  LIMIT 3;
+
+CREATE VIEW youngest_wins AS
+SELECT id, player, xl
+  FROM games
+ WHERE killertype = 'winning'
+ORDER BY xl, end_time
+LIMIT 3;
 
 CREATE VIEW most_diesel_games AS
 SELECT id, player, ac+ev AS dieselity

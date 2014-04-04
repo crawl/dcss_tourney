@@ -184,6 +184,11 @@
             </div>
 
             <div>
+              <h3>Wins at Lowest XL</h3>
+              <%include file="youngest.mako"/>
+            </div>
+
+            <div>
               <h3>Runes Fetched at Lowest XL</h3>
               ${html.youngest_rune_finds(c)}
               <p class="fineprint">

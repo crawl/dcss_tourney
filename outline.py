@@ -566,6 +566,9 @@ def check_temp_trophies(c, pmap):
   award_temp_trophy(c, pmap, query.get_top_ziggurats(c),
                     'zig_rank:%d', [100, 50, 20], team_points=True)
 
+  award_temp_trophy(c, pmap, query.player_low_xl_win_best(c),
+                    'low_xl_win_rank:%d', [100, 50, 20], team_points=True)
+
   award_temp_trophy(c, pmap, query.player_rune_dive_best(c),
                     'rune_dive_rank:%d', [50, 20, 10], team_points=True)
 
