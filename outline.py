@@ -113,8 +113,8 @@ def do_milestone_unique(c, mile):
   if query.count_player_unique_kills(c, mile['name'], unique) == 1:
     assign_points(c, "unique", mile['name'], 5)
   if unique == 'Sigmund':
-    if not query.did_enter_branch(c, mile['name'], mile['start'], 'Depths', mile['time']):
-      banner.award_banner(c, player, 'the_shining_one', 1)
+    if not query.did_enter_branch(c, 'Depths', mile['name'], mile['start'], mile['time']):
+      banner.award_banner(c, mile['name'], 'the_shining_one', 1)
 
 def do_milestone_rune(c, mile):
   """Give out 30/N points for the Nth time a player finds a rune, and also give out banners."""
@@ -137,7 +137,7 @@ def do_milestone_rune(c, mile):
   if nemelex.is_nemelex_choice(mile['char'], mile['time']):
     ban = 'nemelex:' + mile['char']
     banner.award_banner(c, player, ban, 2)
-  if not query.did_enter_branch(c, player, mile['start'], 'Depths', mile['time']):
+  if not query.did_enter_branch(c, 'Depths', player, mile['start'], mile['time']):
     if mile['urune'] == 6:
       assign_points(c, 'vow_of_courage', player, 25)
       banner.award_banner(c, player, 'the_shining_one', 3)
