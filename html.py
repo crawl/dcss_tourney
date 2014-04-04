@@ -214,6 +214,8 @@ def fixup_column(col, data, game):
     return pretty_dur(data)
   elif col == 'place' and game.get('killertype') == 'winning':
     return ''
+  elif col == 'score' and data == '':
+    return 0
   return data
 
 def pretty_dur(dur):
