@@ -166,9 +166,6 @@ def do_milestone_br_enter(c, mile):
     banner.award_banner(c, mile['name'], 'ashenzari', 1)
     if mile['noun'] in ['Pan', 'Dis', 'Tar', 'Coc', 'Geh']:
       banner.award_banner(c, mile['name'], 'zin', 1)
-    if mile['noun'] in ['Snake', 'Swamp', 'Shoals', 'Spider']:
-      if mile['dur'] <= 1620:
-        banner.award_banner(c, mile['name'], 'makhleb', 2)
 
 def do_milestone_br_end(c, mile):
   if mile['noun'] == 'Orc':
@@ -178,8 +175,11 @@ def do_milestone_br_end(c, mile):
     if not query.game_did_visit_lair(c, mile['name'], mile['start'], mile['time']):
       banner.award_banner(c, mile['name'], 'kikubaaqudgha', 2)
   if mile['noun'] == 'D':
-    if mile['dur'] <= 1620:
+    if mile['dur'] <= 1620 and mile['race'] != 'Formicid':
       banner.award_banner(c, mile['name'], 'makhleb', 1)
+  if mile['noun'] in ['Snake', 'Swamp', 'Shoals', 'Spider']:
+    if mile['dur'] <= 1620 and mile['race'] != 'Formicid':
+      banner.award_banner(c, mile['name'], 'makhleb', 2)
   if mile['noun'] == 'Lair':
     if mile['sklev'] < 13:
       if not query.did_worship_god(c, 'Ashenzari', mile['name'], mile['start'], mile['time']):

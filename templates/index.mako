@@ -595,11 +595,11 @@ III: Abandon nine non-good gods before reaching XL 14, and win without rejoining
               <p>
                 Makhleb wants to see bloodshed as quickly as possible and
                 will give players just 27
-                minutes to prove themselves as <a name="speed_demons">SPEED DEMONS</a>. Makhleb isn't interested in digging (and has cacodemons for that), so formicids are not eligible for the first tier of this banner.
+                minutes to prove themselves as <a name="speed_demons">SPEED DEMONS</a>. Makhleb isn't interested in digging (and has cacodemons for that), so formicids are not eligible for the first two tiers of this banner.
               <br>
 I: Reach D:15 in 27 minutes as a non-formicid.
               <br>
-II: Reach the last level of the Swamp, the Snake Pit, the Shoals, or the Spider Nest in 27 minutes.
+II: Reach the last level of the Swamp, the Snake Pit, the Shoals, or the Spider Nest in 27 minutes as a non-formicid.
               <br>
 III: Find a rune in 27 minutes.
               </p>
@@ -843,7 +843,7 @@ III: Win a game as a non-demigod without worshipping a god.
             </p>
 
             <p class="changed">
-              <span>Makhleb's <a href="#speed_demons">SPEED DEMON</a></span> banner now asks the player to reach D:15, Swamp/Snake/Shoals/Spider:5, or get a rune in 27 minutes. Also, formicids are not eligible for the first tier. (Used to be D:14/Vestibule/D:27.)
+              <span>Makhleb's <a href="#speed_demons">SPEED DEMON</a></span> banner now asks the player to reach D:15, Swamp/Snake/Shoals/Spider:5, or get a rune in 27 minutes. Also, formicids are not eligible for the first two tiers. (Used to be D:14/Vestibule/D:27.)
               <span class="changed">[CHANGED]</span>
             </p>
 
