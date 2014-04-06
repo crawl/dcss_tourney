@@ -343,13 +343,6 @@ CREATE TABLE ziggurats (
   );
 CREATE INDEX ziggurat_depths ON ziggurats (deepest, zig_time);
 
-CREATE TABLE active_streaks (
-  player VARCHAR(20) PRIMARY KEY,
-  streak MEDIUMINT DEFAULT 1,
-  streak_time DATETIME NOT NULL,
-  FOREIGN KEY (player) REFERENCES players (name)
-  );
-
 -- Generated table to keep track of the last milestone for each player/server.
 CREATE TABLE whereis_table (
   player VARCHAR(20),
@@ -366,15 +359,6 @@ CREATE TABLE last_game_table (
   src CHAR(3),
   start_time DATETIME NOT NULL,
   PRIMARY KEY (player, src),
-  FOREIGN KEY (player) REFERENCES players (name)
-  );
-
--- Generated table to keep track of streaks for each player.
-CREATE TABLE streaks (
-  player VARCHAR(20) PRIMARY KEY,
-  -- Because you just know Stabwound's going to win 128 in a row
-  streak MEDIUMINT NOT NULL,
-  streak_time DATETIME NOT NULL,
   FOREIGN KEY (player) REFERENCES players (name)
   );
 
@@ -573,12 +557,6 @@ FROM combo_highscores
 GROUP BY player
 ORDER BY nscores DESC
 LIMIT 20;
-
-CREATE VIEW streak_scoreboard AS
-SELECT player, streak
-FROM streaks
-ORDER BY streak DESC, streak_time
-LIMIT 3;
 
 CREATE VIEW best_ziggurat_dives AS
 SELECT player, deepest, place, zig_time, start_time

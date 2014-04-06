@@ -205,14 +205,10 @@ wins counting only if the player has not switched gods during the game."""
                          player)
 
 def get_player_best_streak_games(c, player):
-  streaks = query_row(c, '''SELECT streak_time
-                            FROM streaks
-                            WHERE player = %s''',
-                      player)
-  if streaks is None:
-    return []
-
-  return get_streak_games(c, player, streaks[0])
+  streaks = list_all_streaks(c, player)
+  if len(streaks) > 0:
+    return streaks[0][3]
+  return None
 
 def player_top_scores(c, limit=5):
   return query_rows(c, '''SELECT player, score
@@ -259,31 +255,17 @@ def get_dieselest_games(c):
                            WHERE f.id = g.id''' % fields)
   return [ row_to_xdict(r) for r in games ]
 
-def get_top_streaks_from(c, table, min_streak, how_many,
-                         add_next_game=False):
-  streaks = query_rows(c, '''SELECT player, streak, streak_time
-                             FROM %s
-                             WHERE streak >= %s
-                             ORDER BY streak DESC, streak_time
-                             LIMIT %d''' % (table, '%s', how_many),
-                       min_streak)
-  # Convert tuples to lists.
-  streaks = [ list(x) for x in streaks ]
-  # And the fourth item in each row has to be a list of the streak games.
-  # And haha, you thought this was easy? :P
-  for streak in streaks:
-    streak.append( get_streak_games(c, streak[0], streak[2]) )
-    if add_next_game:
-      streak.append(
-        find_most_recent_character_since(c, streak[0]) or '?')
+def get_top_active_streaks(c, how_many = 20):
+  streaks = list_all_streaks(c, None, True)
+  if len(streaks) > how_many:
+    streaks = streaks[:how_many]
   return streaks
 
-def get_top_active_streaks(c, how_many = 20):
-  return get_top_streaks_from(c, 'active_streaks', 2, how_many,
-                              add_next_game=True)
-
 def get_top_streaks(c, how_many = 3):
-  return get_top_streaks_from(c, 'streaks', 2, how_many)
+  streaks = list_all_streaks(c)
+  if len(streaks) > how_many:
+    streaks = streaks[:how_many]
+  return streaks
 
 def get_top_clan_scores(c, how_many=10):
   return query_rows_with_ties(c, '''SELECT name, owner, total_score
@@ -494,55 +476,24 @@ def most_pacific_wins(c, how_many=3):
   games = [ row_to_xdict(x) for x in rows ]
   return games
 
-def find_monotonic_games(games):
-  """Given a list of game dictionaries in chronological order by
-  end_time, walks backwards from the end and returns the longest list
-  such that each game's end_time <= the start time of the next game
-  in the sequence."""
-  reverse_chrono_list = list(games)
-  reverse_chrono_list.reverse()
-  reverse_filtered_list = []
-  last_game = None
-  for g in reverse_chrono_list:
-    if last_game and g['end_time'] > last_game['start_time']:
-      break
-    last_game = g
-    reverse_filtered_list.append(g)
-  reverse_filtered_list.reverse()
-  return reverse_filtered_list
-
-def get_streak_games(c, player, end_time):
-  """Returns the games in the player's streak of wins with the last game in
-  the streak specified by the provided end_time. Streak times must be
-  monotonically increasing; each game's end-time must be <= the next game's
-  start time. Monotonicity will be checked from the most recent game backwards.
-  Streak games are returned in chronological order."""
-  q = Query('SELECT ' + ",".join(LOG_FIELDS) + ' FROM games ' +
-            '''WHERE player = %s
-               AND killertype = 'winning'
-               AND end_time >
-                     COALESCE((SELECT MAX(end_time) FROM games
-                               WHERE player = %s
-                               AND end_time < %s
-                               AND killertype != 'winning'), DATE('19700101'))
-               AND end_time <= %s
-               ORDER BY end_time''',
-            player, player, end_time, end_time)
-  return find_monotonic_games([ row_to_xdict(x) for x in q.rows(c) ])
-
-def check_xl9_streak(c, player, before_time):
-  r = query_row(c, '''SELECT xl FROM games
-                      WHERE player = %s
-                      AND end_time <= %s
-                      ORDER BY end_time DESC''',
-                player, before_time)
-  return (r and r[0] >= 9)
-
-def wins_in_streak_before(c, player, before):
-  """Returns all the wins in the streak before the given game. Caller
-  must ensure that there actually are wins before this game!"""
-  streak_games = get_streak_games(c, player, before)
-  return [ x['charabbrev'] for x in streak_games[0 : -1] ]
+def check_xl9_streak(c, player, start):
+  mile = query_row(c, '''SELECT start_time
+                           FROM milestones
+                          WHERE player = %s
+                            AND verb = 'begin'
+                            AND milestone_time < %s
+                       ORDER BY milestone_time DESC''', player, start)
+  if not mile:
+    return False
+  game = query_row(c, '''SELECT end_time
+                           FROM games
+                          WHERE player = %s
+                            AND xl > 8
+                            AND end_time < %s
+                            AND end_time > %s''', player, start, mile[0])
+  if game:
+    return True
+  return False
 
 def count_wins(c, **selectors):
   """Return the number wins recorded for the given player, optionally with
@@ -712,37 +663,6 @@ def find_games(c, sort_min=None, sort_max=None, limit=1, **dictionary):
     query.append(' LIMIT %d' % limit)
 
   return [ row_to_xdict(x) for x in query.rows(c) ]
-
-def was_last_game_win(c, player):
-  """Return a tuple (race, class) of the last game if the last game the player played was a win.  The "last
-     game" is a game such that it has the greatest start time <em>and</em>
-     greatest end time for that player (this is to prevent using multiple servers
-     to cheese streaks.  If the last game was not a win, return None"""
-
-  last_start_query = \
-      Query('''SELECT start_time, end_time FROM games WHERE player=%s
-               ORDER BY start_time DESC LIMIT 1;''',
-            player)
-
-  win_end_query = \
-      Query('''SELECT start_time, end_time, race, class FROM games
-               WHERE killertype='winning' AND player=%s
-	       ORDER BY end_time DESC LIMIT 1;''',
-            player)
-
-  res = win_end_query.row(c)
-  if res is None:
-    return None
-
-  win_start, win_end, race, character_class = res
-
-  # we've got to have some results, the player won. This is just their
-  # last start
-  recent_start, recent_end = last_start_query.row(c)
-  if recent_start == win_start and recent_end == win_end:
-    return race, character_class
-  else:
-    return None
 
 def num_uniques_killed(c, player):
   """Return the number of uniques the player has ever killed"""
@@ -1188,12 +1108,6 @@ def player_hs_combo_best(c):
 
 def player_hs_combo_pos(c, player):
   return find_place_numeric(player_hs_combo_best(c), player)
-
-def player_streak_best(c):
-  return query_rows(c, 'SELECT player, streak FROM streak_scoreboard')
-
-def player_streak_pos(c, player):
-  return find_place(player_streak_best(c), player)
 
 def player_unique_kill_pos(c, player):
   return find_place(
@@ -1677,33 +1591,100 @@ def update_deaths_to_distinct_uniques(c, player, ndeaths, time):
                  ON DUPLICATE KEY UPDATE ndeaths = %s, death_time = %s ''',
            player, ndeaths, time, ndeaths, time)
 
-def update_active_streak(c, player, end_time, streak_len):
-    query_do(c, '''INSERT INTO active_streaks
-                             (player, streak_time)
-                      VALUES (%s, %s)
-                 ON DUPLICATE KEY UPDATE streak = %s,
-                                         streak_time = %s''',
-           player, end_time, streak_len, end_time)
-
-def kill_active_streak(c, player):
-  query_do(c, '''DELETE FROM active_streaks WHERE player = %s''', player)
-
-def find_most_recent_character_since(c, player):
-  mile = query_row(c, '''SELECT start_time, src
-                          FROM whereis_table
-                         WHERE player = %s
-                      ORDER BY mile_time DESC''', player)
+def next_start_time(c, player, end_time):
+  mile = query_row(c, '''SELECT start_time
+                           FROM milestones
+                          WHERE player = %s
+                            AND verb = 'begin'
+                            AND milestone_time > %s
+                       ORDER BY milestone_time''', player, end_time)
   if not mile:
     return None
-  last_game = query_row(c, '''SELECT start_time
-                          FROM last_game_table
-                         WHERE player = %s AND src = %s''', player, mile[1])
-  if last_game and last_game[0] >= mile[0]:
-    return None  
-  return query_first(c, '''SELECT charabbrev
-                             FROM milestones
-                            WHERE player = %s
-                              AND start_time = %s''', player, mile[0])
+  return mile[0]
+
+def next_start_char(c, player, end_time):
+  mile = query_row(c, '''SELECT charabbrev
+                           FROM milestones
+                          WHERE player = %s
+                            AND verb = 'begin'
+                            AND milestone_time > %s
+                       ORDER BY milestone_time''', player, end_time)
+  if not mile:
+    return None
+  return mile[0]
+
+def next_game_in_streak(c, game):
+  start_time = next_start_time(c, game['player'], game['end_time'])
+  if not start_time:
+    return None
+  row = query_row(c, "SELECT " + ",".join(LOG_FIELDS)
+                      + """  FROM games
+                         WHERE player = %s
+                         AND start_time = %s""", game['player'], start_time)
+  if not row:
+    return None
+  return row_to_xdict(row)
+
+# Streak length is currently defined to be
+# min(# of distinct races, # of distinct classes).
+def compute_streak_length(games):
+  races = set([game['charabbrev'][0:2] for game in games])
+  classes = set([game['charabbrev'][2:] for game in games])
+  return min(len(races), len(classes))
+
+def list_all_streaks(c, name=None, active=False):
+  if name:
+    wins = get_winning_games(c, player = name)
+  else:
+    wins = get_winning_games(c)
+  streak_list = []
+  for game in wins:
+    if not win_is_streak(c, game['player'], game['start_time']):
+      new_streak = [game]
+      while True:
+        next_game = next_game_in_streak(c,new_streak[-1])
+        if next_game:
+          if next_game['killertype'] == 'winning':
+            new_streak.append(next_game)
+          else:
+            is_active = False
+            break
+        else:
+          is_active = True
+          break
+      if active:
+        if is_active:
+          next_char = next_start_char(c,game['player'],new_streak[-1]['end_time']) or "?"
+        else:
+          continue
+      length = compute_streak_length(new_streak)
+      if length < 2:
+        continue
+      streak_list.append([game['player'],length,new_streak[-1]['end_time'],new_streak])
+      if active:
+        streak_list[-1].append(next_char)
+  streak_list.sort(key=lambda row: (-row[1],row[2]))
+  return streak_list
+
+
+def win_is_streak(c, player, start):
+  mile = query_row(c, '''SELECT start_time
+                           FROM milestones
+                          WHERE player = %s
+                            AND verb = 'begin'
+                            AND milestone_time < %s
+                       ORDER BY milestone_time DESC''', player, start)
+  if not mile:
+    return False
+  game = query_row(c, '''SELECT end_time
+                           FROM games
+                          WHERE player = %s
+                            AND killertype = 'winning'
+                            AND end_time < %s
+                            AND end_time > %s''', player, start, mile[0])
+  if game:
+    return True
+  return False
 
 def check_ash_banners(c, name, start):
   rows = query_rows(c, '''SELECT verb, noun, turn

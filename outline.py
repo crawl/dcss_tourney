@@ -243,9 +243,6 @@ def crunch_misc(c, g):
   player = g['name']
   ktyp = g['ktyp']
 
-  if ktyp != 'winning':
-    query.kill_active_streak(c, player)
-
   if g['xl'] >= 13:
     banner.award_banner(c, player, 'okawaru', 1)
 
@@ -291,14 +288,6 @@ def repeat_race_class(char1, char2):
     repeats += 1
   return repeats
 
-# Streak length is currently defined to be 
-# min(# of distinct races, # of distinct classes).
-def compute_streak_length(previous_chars, char):
-  all_chars = previous_chars + [char,]
-  races = set([c[0:2] for c in all_chars])
-  classes = set([c[2:] for c in all_chars])
-  return min(len(races), len(classes))
-
 def game_is_win(g):
   return g.has_key('ktyp') and g['ktyp'] == 'winning'
 
@@ -320,6 +309,7 @@ def crunch_winner(c, game):
 
   player = game['name']
   charabbrev = game_character(game)
+  game_start = game_start_time(game)
   game_end = game_end_time(game)
 
   # 20 clan points for first win for a particular combo in the tournament.
@@ -407,7 +397,7 @@ def crunch_winner(c, game):
   n_my_wins = len(my_wins)
 
   if n_my_wins == 0:
-    # First win! I bet you don't have a streak
+    # First win!
     assign_points(c, "my_1st_win", game['name'], 100)
 
   else:
@@ -416,32 +406,15 @@ def crunch_winner(c, game):
       if repeat_race_class(x['charabbrev'], game['char']) == 0:
         assign_points(c, "my_2nd_win_norep", game['name'], 50, False)
 
-  streak_wins = query.wins_in_streak_before(c, game['name'], game_end)
-  debug("%s win (%s), previous games in streak: %s" %
-        (game['name'], game['char'], streak_wins))
-  if not streak_wins:
-    query.kill_active_streak(c, player)
-    streak_len = -1
-  else:
+  did_streak = query.win_is_streak(c, game['name'], game_start)
+  if did_streak:
     # Award banner.
     banner.award_banner(c, player, 'cheibriados', 2)
-    # This length could be 1 even though it involves at least two games, beware!
-    streak_len = compute_streak_length(streak_wins, game['char'])
-    if len(streak_wins) >= 3:
-      if compute_streak_length(streak_wins[-3:], game['char']) == 4:
-        banner.award_banner(c, player, 'cheibriados', 3)
     streak_species = 'streak:species:'+(game['char'][0:2])
     streak_class = 'streak:background:'+(game['char'][2:])
-    # 75 points for streak games, but only if they are with a new race and class.
+    # 90 points for streak games, but only if they are with a new race and class.
     assign_points(c, streak_species, game['name'], 60, False)
     assign_points(c, streak_class, game['name'], 30, False)
-  query.update_active_streak(c, player, game_end, streak_len)
-
-  if streak_len > 1:
-    # Update the streaks table. We're still in the logfile transaction
-    # here, so it's safe.
-    if streak_len > loaddb.longest_streak_count(c, game['name']):
-      loaddb.update_streak_count(c, game, streak_len)
 
   # Assign points for new personal records.
   assign_points(c, 'my_low_turncount_win', game['name'], 5000000/game['turn'], False)
@@ -540,9 +513,6 @@ def check_temp_trophies(c, pmap):
   award_temp_trophy(c, pmap, query.player_hare_candidates(c),
                     "last_win", [100])
 
-  award_temp_trophy(c, pmap, query.player_streak_best(c),
-                    'top_streak:%d', [200, 100, 50])
-
   award_temp_trophy(c, pmap, query.get_top_unique_killers(c),
                     'top_unique_killer:%d', [50, 20, 10])
 
@@ -576,6 +546,18 @@ def check_temp_trophies(c, pmap):
                     'deaths_to_uniques_Nth:%d', [50, 20, 10],
                     can_share_places=False,
                     team_points=True)
+  # streak handling
+  all_streaks = query.list_all_streaks(c)
+  award_temp_trophy(c, pmap, all_streaks, 'top_streak:%d', [200, 100, 50])
+  # handle Chei III here so we don't have to recompute all streaks yet again
+  for streak in all_streaks:
+    if streak[1] < 4:
+      continue
+    l = len(streak[3])
+    for i in range(l-3):
+      if query.compute_streak_length(streak[3][i:i+4]) == 4:
+        banner.award_banner(c, streak[0], 'cheibriados', 3)
+        break
 
 def check_banners(c):
   award_player_banners(c, 'zin',
