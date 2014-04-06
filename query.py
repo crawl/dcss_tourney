@@ -263,9 +263,14 @@ def get_top_active_streaks(c, how_many = 20):
 
 def get_top_streaks(c, how_many = 3):
   streaks = list_all_streaks(c)
-  if len(streaks) > how_many:
-    streaks = streaks[:how_many]
-  return streaks
+  filtered_streaks = []
+  for streak in streaks:
+    if streak[0] in [s[0] for s in filtered_streaks]:
+      continue
+    filtered_streaks.append(streak)
+  if len(filtered_streaks) > how_many:
+    filtered_streaks = filtered_streaks[:how_many]
+  return filtered_streaks
 
 def get_top_clan_scores(c, how_many=10):
   return query_rows_with_ties(c, '''SELECT name, owner, total_score
