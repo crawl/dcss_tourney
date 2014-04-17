@@ -219,7 +219,7 @@ def fixup_column(col, data, game):
   return data
 
 def pretty_dur(dur):
-  if not dur:
+  if (not dur) and dur != 0:
     return ""
   try:
     secs = dur % 60
