@@ -7,8 +7,9 @@
 
    fastest_turns = query.find_games(c, killertype='winning',
                                     sort_min='turn', limit=15)
-   fastest_time = query.find_games(c, sort_min='duration',
+   fastest_time_unfiltered = query.find_games(c, sort_min='duration',
                                    killertype='winning', limit=15)
+   fastest_time = [ row for row in fastest_time_unfiltered if row['player'] != 'qw' ]
    fastest_allrune_time = query.find_games(c, sort_min='duration',
                                    killertype='winning', runes=15, limit=5)
    top_scores = query.find_games(c, sort_max='score', limit=15)
