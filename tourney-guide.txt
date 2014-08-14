@@ -4,6 +4,8 @@ running a tournament. It might be missing some things currently, since it is bas
 Organizing a new tourney:
 * choose/announce dates for the tournament (usually 16 days long, including 3
   weekends)
+* tell greensnark the dates (including exact times of day) so that Sequell
+  will know about the tourney and !time will count down to it
 * decide on rules changes (usually there are at least a couple of new banners)
 * update templates/index.mako with the rules changes
 * announce tourney again, with link to the rules page
