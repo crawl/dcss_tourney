@@ -1,0 +1,69 @@
+This document is a checklist of all the steps involved in organizing and
+running a tournament. It might be missing some things currently, since it is based on elliptic's memory of the 0.14 tournament. The README file should be consulted for the actual technical details of how to run the scripts.
+
+Organizing a new tourney:
+* choose/announce dates for the tournament (usually 16 days long, including 3
+  weekends)
+* decide on rules changes (usually there are at least a couple of new banners)
+* update templates/index.mako with the rules changes
+* announce tourney again, with link to the rules page
+
+Cleaning up after the previous tourney:
+* commit the final nemelex-combos.txt file with the nchoices as
+  nemelex-combos-v14.txt
+* on CSZO: replace the symlink html.tourney0.14/images -> images with a
+  physical copy of the images (this is so that future image changes don't
+  affect past tourney pages)
+* on CSZO: rename the rcfiles-cao/, rcfiles-cdo/, ... directories to
+  0.14rcfiles-cao/, etc (so that team composition isn't lost)
+
+Updating the scripts:
+* change version everywhere
+* change dates everywhere, including clan deadline and last_win deadline
+* update list of servers everywhere
+* update banner images (Grunt seems happy to make these currently)
+  - you always need a new banner_footer1.png with the new version number at
+    least
+* banner text changes need to be mirrored in html.py
+* update list of uniques in uniq.py
+* update list of gods in crawl.py
+* update species/background/god win scoring based on the current number of each
+  - see race_formula(), class_formula(), god_formula() in query.py as well as
+    the rules page itself
+* update combos.txt (list of currently playable combos)
+* update nem_eligible.txt with nwons or oldwons or whatever
+  - should do this again within a day of tourney start to make sure it is up
+    to date
+* implement any new banners or other rules changes!
+
+CSZO setup:
+* create rcfiles-cao/, rcfiles-cdo/, ... directories for every other server
+* add/uncomment the cronjobs that mirror rcfiles from other servers
+* two lines need to be commented/uncommented in LOGS and MILESTONES in
+  loaddb.py to handle local logs/milestones correctly
+* while testing tourney scripts on CSZO, make sure that the rules page doesn't
+  have links at the top to the scoring pages so that fewer people are confused
+  by the testing
+  - this will automatically happen if you create the rules page (with
+    update_index.py) while USE_TEST = true (in test_data.py)
+* when you are done testing, delete all the player and clan pages in
+  html.tourney0.15/players/ and html.tourney0.15/clans/
+
+During tourney:
+* Add names of players to BAD_NAMERS in teams.py if they choose offensive
+  clan names. This sets their team name to the default team name
+  "Team player_name"
+* comment out/remove the cronjobs that mirror rcfiles from other servers once
+  the clan deadline is past
+  - should also make a copy of CSZO's rcfile directory at that time, to have
+    a fixed copy of it in case you have to rerun the scripts later
+* some players might have incorrect capitalization for their name at the
+  start of the tourney; rerunning the scoring scripts a few days into the
+  tournament seems to fix this
+* always test rerunning the scoring scripts locally first before rerunning
+  them on CSZO, to make sure you aren't somehow losing data
+
+At end of tourney:
+* kill taildb.py (make sure scripts have fully updated with the final results
+  first)
+* write results summary and post on CDO

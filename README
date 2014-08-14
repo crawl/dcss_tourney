@@ -60,3 +60,6 @@ Other things
 * When running these scripts on one of the public servers, you will want to
   link the various logfiles on that server into the current directory.
   For the 0.9 tournament, ./link-setup was used for this (on CAO).
+
+* The file tourney-guide.txt contains a checklist of all the steps involved in
+  organizing and running a tournament each new version.
