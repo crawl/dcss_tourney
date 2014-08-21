@@ -15,7 +15,7 @@ import sys
 from test_data import USE_TEST, TEST_YEAR, TEST_VERSION, TEST_START_TIME, TEST_END_TIME, TEST_HARE_START_TIME, TEST_LOGS, TEST_MILESTONES, TEST_CLAN_DEADLINE
 
 T_YEAR = TEST_YEAR or '2014'
-T_VERSION = TEST_VERSION or '0.14'
+T_VERSION = TEST_VERSION or '0.15'
 
 # Start and end of the tournament, UTC.
 START_TIME = TEST_START_TIME or (T_YEAR + '04112000')
@@ -43,26 +43,26 @@ RHF = 'http://rl.heh.fi/'
 # being the URL to wget -c from.
 
 LOGS = TEST_LOGS or [
-         ('cao-logfile-0.14', CAO + 'logfile14'),
-         ('cdo-logfile-0.14', CDO + 'allgames-0.14.txt'),
-         ('cln-logfile-0.14', CLN + 'meta/0.14/logfile'),
+         ('cao-logfile-0.15', CAO + 'logfile15'),
+         ('cdo-logfile-0.15', CDO + 'allgames-0.15.txt'),
+         ('cln-logfile-0.15', CLN + 'meta/0.15/logfile'),
 #         ('rhf-logfile-0.14', RHF + 'meta/crawl-0.14/logfile'),
-         ('cbro-logfile-0.14', CBRO + 'meta/0.14/logfile'),
-         ('ckr-logfile-0.14', CKR + 'www/0.14/logfile'),
-         ('cszo-logfile-0.14', CSZO + 'meta/0.14/logfile')]
+         ('cbro-logfile-0.15', CBRO + 'meta/0.15/logfile'),
+         ('ckr-logfile-0.15', CKR + 'www/0.15/logfile'),
+         ('cszo-logfile-0.15', CSZO + 'meta/0.15/logfile')]
 # this line should be used on CSZO instead:
-#         'cszo-logfile-0.14']
+#         'cszo-logfile-0.15']
 
 MILESTONES = TEST_MILESTONES or [
-         ('cao-milestones-0.14', CAO + 'milestones14'),
-         ('cdo-milestones-0.14', CDO + 'milestones-0.14.txt'),
-         ('cln-milestones-0.14', CLN + 'meta/0.14/milestones'),
+         ('cao-milestones-0.15', CAO + 'milestones15'),
+         ('cdo-milestones-0.15', CDO + 'milestones-0.15.txt'),
+         ('cln-milestones-0.15', CLN + 'meta/0.15/milestones'),
 #         ('rhf-milestones-0.14', RHF + 'meta/crawl-0.14/milestones'),
-         ('cbro-milestones-0.14', CBRO + 'meta/0.14/milestones'),
-         ('ckr-milestones-0.14', CKR + 'www/0.14/milestone'),
-         ('cszo-milestones-0.14', CSZO + 'meta/0.14/milestones')]
+         ('cbro-milestones-0.15', CBRO + 'meta/0.15/milestones'),
+         ('ckr-milestones-0.15', CKR + 'www/0.15/milestone'),
+         ('cszo-milestones-0.15', CSZO + 'meta/0.15/milestones')]
 # this line should be used on CSZO instead:
-#         'cszo-milestones-0.14']
+#         'cszo-milestones-0.15']
 
 BLACKLIST_FILE = 'blacklist.txt'
 EXTENSION_FILE = 'modules.ext'

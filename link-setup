@@ -1,7 +1,7 @@
 #!/bin/bash
 
-DIR=/var/www/meta/0.14
+DIR=/var/www/meta/0.15
 
-ln -s $DIR/logfile cszo-logfile-0.14
-ln -s $DIR/milestones cszo-milestones-0.14
-ln -s /var/www/rcfiles/crawl-0.14 rcfiles-cszo
+ln -s $DIR/logfile cszo-logfile-0.15
+ln -s $DIR/milestones cszo-milestones-0.15
+ln -s /var/www/rcfiles/crawl-0.15 rcfiles-cszo
