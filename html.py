@@ -18,6 +18,7 @@ BANNER_IMAGES = \
       'makhleb': [ 'banner_makhleb.png', 'Speed Demon' ],
       'nemelex': [ 'banner_nemelex.png', "Nemelex' Choice" ],
       'okawaru': [ 'banner_okawaru.png', 'The Conqueror' ],
+      'qazlal': [ 'banner_qazlal.png', 'The Prophet' ],
       'sif': [ 'banner_sif.png', 'The Lorekeeper' ],
       'the_shining_one': [ 'banner_the_shining_one.png', 'Vow of Courage' ],
       'trog': [ 'banner_trog.png', 'Brute Force' ],
@@ -79,8 +80,8 @@ BANNER_TEXT = \
         ],
       'makhleb':
         [ 'Reach D:15 in 27 minutes.',
-          'Reach the last level of the Swamp, the Snake Pit, the Shoals, or the Spider Nest in 27 minutes.',
-          'Find a rune in 27 minutes.',
+          'Find a rune in 81 minutes.',
+          'Win the game in 3 hours.',
         ],
       'nemelex':
         [ "Reach experience level 9 with a Nemelex' choice combo.",
@@ -91,6 +92,11 @@ BANNER_TEXT = \
         [ 'Reach experience level 13.',
           'Win a game.',
           'Win a game in under 50000 turns.',
+        ],
+      'qazlal':
+        [ 'Reach the Lair of Beasts with an Invocations title.',
+          'Win a game with an Invocations title.',
+          'Over the course of the tournament, win with three different Invocations titles.',
         ],
       'sif':
         [ 'Reach the last level of the Lair without raising any skill to 13.',
@@ -108,9 +114,9 @@ BANNER_TEXT = \
           'Win a game as a non-demigod without worshipping a god.',
         ],
       'vehumet':
-        [ "Get a rune within 27 real-world hours of starting the game.",
-          "Win a game within 27 real-world hours of starting it.",
-          "Start and win two games within a single 27-hour time period.",
+        [ "Reach the Ecumenical Temple without using any potions or scrolls.",
+          "Reach the last level of the Lair of Beasts without using any potions or scrolls.",
+          "Find a rune without using any potions or scrolls.",
         ],
       'xom':
         [ 'Enter the Abyss.',

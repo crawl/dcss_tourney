@@ -1,7 +1,7 @@
 <%
    from crawl_utils import XXX_TOURNEY_BASE
    from test_data import USE_TEST
-   version = '0.14'
+   version = '0.15'
    year    = '2014'
    title   = "Crawl %s Tournament Information" % version
  %>
@@ -21,8 +21,8 @@
         <div class="heading">
           <h1>${title}</h1>
           <p class="fineprint">
-            Tournament starts on <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20140411T20">Apr 11, ${year} at 20:00 UTC</a>, and ends on
-            <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20140427T20">Apr 27, ${year} at 20:00 UTC</a>.
+            Tournament starts on <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20140829T20">Aug 29, ${year} at 20:00 UTC</a>, and ends on
+            <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20140914T20">Sept 14, ${year} at 20:00 UTC</a>.
           </p>
         </div>
         <hr>
@@ -38,8 +38,8 @@
             <a href="http://crawl.lantea.net:8080">crawl.lantea.net</a>,
             or <a href="http://crawl.s-z.org">crawl.s-z.org</a>)
             and all of
-            your Crawl ${version} games that <b>start after <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20140411T20">20:00 UTC on
-            Apr 11</a></b> and <b>end before <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20140427T20">20:00 UTC on Apr 27</a></b> will
+            your Crawl ${version} games that <b>start after <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20140829T20">20:00 UTC on
+            Aug 29</a></b> and <b>end before <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20140914T20">20:00 UTC on Sept 14</a></b> will
             count toward the tournament.
           </p>
 
@@ -110,7 +110,7 @@
 
           <p>
             Clans may be changed by adding or removing players at any
-            time until <b><a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20140419T19">19:00 UTC on Apr 19</a></b>, after which clans will be
+            time until <b><a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20140906T19">19:00 UTC on Sep 6</a></b>, after which clans will be
             effectively frozen.
           </p>
 
@@ -171,7 +171,7 @@
               <span>(52+T)/(2+B) points</span> (rounded up) for a win with a given background if T is the total number of games won in the tournament before the start of the win in question and B of those T were with the given background. If a player wins the same background multiple times, she only gets the largest value of this bonus, not the sum.
             </p>
             <p>
-              <span>1.5*(40+T)/(2+G) points</span> (rounded up) for a win with a given god if T is the total number of games won in the tournament before the start of the win in question and G of those T were with the given god. If a player wins with the same god multiple times, she only gets the largest value of this bonus, not the sum. For purposes of these points we say that a player wins with a god if she reaches full (******) piety with that god without worshipping any other god first. For Xom, you must play a Chaos Knight and never abandon Xom. For "No God", you must never worship a god.
+              <span>1.5*(42+T)/(2+G) points</span> (rounded up) for a win with a given god if T is the total number of games won in the tournament before the start of the win in question and G of those T were with the given god. If a player wins with the same god multiple times, she only gets the largest value of this bonus, not the sum. For purposes of these points we say that a player wins with a god if she reaches full (******) piety with that god without worshipping any other god first. For Xom, you must play a Chaos Knight and never abandon Xom. For "No God", you must never worship a god.
             </p>
             <div class="inset">
               <p>
@@ -228,6 +228,10 @@
 
             <p><span>25 points</span> for each game in which you get six runes before entering the Depths in that game (<a href="#vow_of_courage">VOW OF COURAGE</a> banner III).
             </p>
+
+	    <p>
+	      <span>25 bonus points</span> for each game in which you get a rune without the use of any potions or scrolls (<a href="#ruthless_efficiency">RUTHLESS EFFICIENCY</a> banner III).
+	    </p>
           </div>
 
           <hr>
@@ -594,14 +598,13 @@ III: Abandon nine non-good gods before reaching XL 14, and win without rejoining
                    >
               <p>
                 Makhleb wants to see bloodshed as quickly as possible and
-                will give players just 27
-                minutes to prove themselves as <a name="speed_demons">SPEED DEMONS</a>. Makhleb isn't interested in digging (and has cacodemons for that), so formicids are not eligible for the first two tiers of this banner.
+                will give players the bare minimum of time needed to prove themselves as <a name="speed_demons">SPEED DEMONS</a>. Makhleb isn't interested in digging (and has cacodemons for that), so formicids are not eligible for the first tier of this banner.
               <br>
 I: Reach D:15 in 27 minutes as a non-formicid.
               <br>
-II: Reach the last level of the Swamp, the Snake Pit, the Shoals, or the Spider Nest in 27 minutes as a non-formicid.
+II: Find a rune in 81 minutes.
               <br>
-III: Find a rune in 27 minutes.
+III: Win the game in 3 hours.
               </p>
             </div>
 
@@ -647,6 +650,27 @@ III: Find a rune in 27 minutes.
                 II: Win a game.
               <br>
                 III: Win a game in under 50000 turns.
+              </p>
+            </div>
+
+	    <hr>
+
+            <div>
+	      <img src="images/banner_qazlal1.png"
+                   alt="The Prophet"
+                   title="The Prophet"
+                   width="170" height="58"
+                   >
+              <p>
+                Qazlal demands fervent worship! Accordingly, Qazlal will only
+                recognize as <a name="the_prophet">THE PROPHET</a> those who dedicate themselves to
+                Invocations.
+              <br>
+                I: Enter the Lair of Beasts with an Invocations title.
+              <br>
+                II: Win the game with an Invocations title.
+              <br>
+                III: Over the course of the tournament, win with three different Invocations titles.
               </p>
             </div>
 
@@ -721,13 +745,13 @@ III: Win a game as a non-demigod without worshipping a god.
               <p>
                 Vehumet values focus and dedication, and will reward those who
                 demonstrate
-                <a name="ruthless_efficiency">RUTHLESS EFFICIENCY</a> by achieving their goals within a (real-world) 27-hour time period.
+                <a name="ruthless_efficiency">RUTHLESS EFFICIENCY</a> by forgoing silly distractions like "potions" and "scrolls".
               <br>
-                I: Get a rune within 27 real-world hours of starting the game.
+                I: Reach the Ecumenical Temple without using any potions or scrolls.
               <br>
-                II: Win a game within 27 real-world hours of starting it.
+                II: Reach the last level of the Lair of Beasts without using any potions or scrolls.
               <br>
-                III: Start and win two games within a single 27-hour time period.
+                III: Find a rune without using any potions or scrolls (+25 tournament points, only counted once per game).
               </p>
             </div>
 
@@ -805,11 +829,11 @@ III: Win a game as a non-demigod without worshipping a god.
             <hr>
             <div class="fineprint">
               <p>
-                Some rules have been changed from the 0.13 tournament held in October 2013. This is a list of rules differences.
+                Some rules have been changed from the 0.14 tournament held in April 2014. This is a list of rules differences.
               </p>
 
               <p><span class="removed">[REMOVED]</span>
-                flags rules that existed in the 0.13 tournament and are gone in
+                flags rules that existed in the 0.14 tournament and are gone in
                 this tournament.</p>
 
               <p><span class="added">[NEW]</span>
@@ -818,8 +842,8 @@ III: Win a game as a non-demigod without worshipping a god.
               <p><span class="changed">[CHANGED]</span>
                 flags rules that have been modified for this 
 		tournament. To compare
-                changed rules with the rules in the 0.13 tournament, see
-                the <a href="http://dobrazupa.org/tournament/0.13/">old
+                changed rules with the rules in the 0.14 tournament, see
+                the <a href="http://dobrazupa.org/tournament/0.14/">old
                 rules</a>.
               </p>
             </div>
@@ -827,41 +851,19 @@ III: Win a game as a non-demigod without worshipping a god.
             <hr>
 
             <p class="added">
-              <span>Lugonu</span> has a new banner, the <span><a href="#heretics">HERETIC</a></span> (+25 points for Tier III). (Trog now has Lugonu's old banner, and Dithmenos has Trog's old banner.)
+              <span>Qazlal</span> has a newly-added banner, the banner of <span><a href="#the_prophet">THE PROPHET</a></span>.
               <span class="added">[NEW]</span>
             </p>
 
             <p class="added">
-              <span>100-50-20 clan points</span> for winning a game with the
-            lowest XL. Ties are broken by who finishes the game first.
+              <span>Vehumet's <a href="#ruthless_efficiency">RUTHLESS EFFICIENCY</a></span> banner has been replaced; it now asks players to reach various milestones without the use of potions or scrolls. (It previously asked the player to get runes & wins within 27 real-life hours.) The third level of the banner is now worth 25 tournament points.
               <span class="added">[NEW]</span>
             </p>
 
             <p class="changed">
-              <span>Kikubaaqudgha's <a href="#lord_of_darkness">LORD OF DARKNESS</a></span> banner now asks the player to enter Orc:4 or Depths:5 in Tiers I and II before entering Lair. (Used to be enter the Vestibule / win a game.)
+              <span>Makhleb's <a href="#speed_demons">SPEED DEMON</a></span> banner second and third tier have been revised; the second now asks the player to get a rune in 81 minutes (was previously 'reach the bottom of a rune branch in 27 minutes'), and the third now asks the player to win in 3 hours (previously 'get a rune in 27 minutes'). Formicids are now only forbidden from the first level of the banner (previously, also, the second).
               <span class="changed">[CHANGED]</span>
             </p>
-
-            <p class="changed">
-              <span>Makhleb's <a href="#speed_demons">SPEED DEMON</a></span> banner now asks the player to reach D:15, Swamp/Snake/Shoals/Spider:5, or get a rune in 27 minutes. Also, formicids are not eligible for the first two tiers. (Used to be D:14/Vestibule/D:27.)
-              <span class="changed">[CHANGED]</span>
-            </p>
-
-            <p class="changed">
-              <span>The Shining One's <a href="#vow_of_courage">VOW OF COURAGE</a></span> banner now asks for brave actions before entering the Depths instead of before entering D:14.
-              <span class="changed">[CHANGED]</span>
-            </p>
-
-            <p class="changed">
-              <span>Xom's <a href="#descent_into_madness">DESCENT INTO MADNESS</a></span> banner now asks the player to enter Abyss or Zig:10 in Tiers I and II. (Used to be Zig:1/Zig:14.)
-              <span class="changed">[CHANGED]</span>
-            </p>
-
-            <p class="changed">
-              <span>Yredelemnul</span> now requires two more distinct uniques to be killed to earn each tier of the <span><a href="#the_harvest">HARVEST</a></span> banner.
-              <span class="changed">[CHANGED]</span>
-            </p>
-	    
           </div>
 
           <hr>
@@ -880,6 +882,9 @@ III: Win a game as a non-demigod without worshipping a god.
             </p>
             <p>
               <span>Wensley</span>, <span>ChrisOelmueller</span>, and <span>Grunt</span> for creating the banner images.
+            </p>
+            <p>
+              <span>PleasingFungus</span> for helping to edit this page.
             </p>
           </div>
 
