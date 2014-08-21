@@ -114,6 +114,10 @@
             effectively frozen.
           </p>
 
+          <p>
+            <span>A final note:</span> Please do not do anything that would give you an unfair competitive advantage over other players or teams. This includes having two players playing on the same account to get twice as many wins, running bots on your own account for speedrun points, and so on - just remember that the objective here is to have fun. (You are welcome to run bots on their own accounts in the tourney, though as always on online servers you should be careful not to hammer the CPU with them. Also, bot wins will not be displayed on lists of fastest wins.)
+          </p>
+
           <hr>
 
           <div>
