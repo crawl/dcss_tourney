@@ -211,11 +211,11 @@
               starting time (among tournament wins) in the tournament.
             </p>
 	    <p>
-	      <span>50 bonus points</span> for a win without visiting
+	      <span>50 bonus points</span> for each win without visiting
 	      Temple, Lair, Orc, or the Vaults (<a href="#lord_of_darkness">LORD OF DARKNESS</a> banner III).
 	    </p>
 	    <p>
-	      <span>25 bonus points</span> for a win in which nine non-good gods are abandoned before XL 14 and never rejoined (<a href="#heretics">HERETIC</a> banner III).
+	      <span>25 bonus points</span> for each win in which nine non-good gods are abandoned before XL 14 and never rejoined (<a href="#heretics">HERETIC</a> banner III).
 	    </p>
             <p>
               <span>75 bonus points</span> for winning <a href="#nemelex_choice">NEMELEX' CHOICE</a> characters. The first Nemelex' Choice combo is chosen at the start of the tournament, and after that each one is chosen when the previous one is won for the first time. Each combo remains valid until it has been won five times. The species/background combinations are chosen by Nemelex from those with fewer than eight online wins.
@@ -234,7 +234,7 @@
             </p>
 
 	    <p>
-	      <span>25 bonus points</span> for each game in which you get a rune without the use of any potions or scrolls (<a href="#ruthless_efficiency">RUTHLESS EFFICIENCY</a> banner III).
+	      <span>25 bonus points</span> for each game in which you get your first rune (which cannot be the slimy rune) without the use of any potions or scrolls (<a href="#ruthless_efficiency">RUTHLESS EFFICIENCY</a> banner III).
 	    </p>
           </div>
 
@@ -755,7 +755,7 @@ III: Win a game as a non-demigod without worshipping a god.
               <br>
                 II: Reach the last level of the Lair of Beasts without using any potions or scrolls.
               <br>
-                III: Find a rune without using any potions or scrolls (+25 tournament points, only counted once per game).
+                III: Find your first rune of a game without using any potions or scrolls (+25 tournament points). This rune cannot be the slimy rune: Vehumet has no patience for those who outsource the important duties of item destruction to jellies!
               </p>
             </div>
 
