@@ -33,7 +33,7 @@ TEST_MILESTONES = USE_TEST and [
          ('cln-milestones-0.15', CLN + 'meta/0.15/milestones'),
 #         ('rhf-milestones-0.14', RHF + 'meta/crawl-0.14/milestones'),
          ('cbro-milestones-0.15', CBRO + 'meta/0.15/milestones'),
-         ('ckr-milestones-0.15', CKR + 'www/0.15/milestone'),
+         ('ckr-milestones-0.15', CKR + 'www/0.15/milestones'),
          ('cszo-milestones-0.15', CSZO + 'meta/0.15/milestones')]
 # this line should be used on CSZO instead:
 #         'cszo-milestones-0.15']
