@@ -228,6 +228,8 @@ CREATE TABLE milestones (
   strength INT,
   intelligence INT,
   dexterity INT,
+  scrolls_used INT,
+  potions_used INT,
   god VARCHAR(50),
   duration BIGINT,
   turn BIGINT,

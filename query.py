@@ -1012,6 +1012,14 @@ def player_count_distinct_runes(c, player):
                             WHERE player = %s''',
                      player)
 
+def player_count_invo_titles(c, player):
+  return query_first(c, '''SELECT COUNT(DISTINCT title)
+                             FROM games
+                            WHERE player = %s
+                              AND killertype = 'winning'
+                              AND skill = 'Invocations' ''',
+                     player)
+
 def player_count_runes(cursor, player, rune=None):
   """Counts the number of times the player has found runes (or a specific
   rune."""

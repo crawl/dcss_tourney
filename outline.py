@@ -126,8 +126,8 @@ def do_milestone_rune(c, mile):
   assign_points(c, "rune:" + rune, mile['name'], rune_points)
   player = mile['name']
   runes_found = query.player_count_distinct_runes(c, player)
-  if mile['dur'] <= 1620:
-    banner.award_banner(c, mile['name'], 'makhleb', 3)
+  if mile['dur'] <= 4860:
+    banner.award_banner(c, mile['name'], 'makhleb', 2)
   if runes_found == crawl.NRUNES:
     banner.award_banner(c, player, 'ashenzari', 3)
   elif runes_found >= 5:
@@ -143,10 +143,14 @@ def do_milestone_rune(c, mile):
       banner.award_banner(c, player, 'the_shining_one', 3)
     elif mile['urune'] >= 4:
       banner.award_banner(c, player, 'the_shining_one', 2)
-  if query.time_from_str(mile['time']) - query.time_from_str(mile['start']) <= datetime.timedelta(hours=27):
-    banner.award_banner(c, mile['name'], 'vehumet', 1)
+  #if query.time_from_str(mile['time']) - query.time_from_str(mile['start']) <= datetime.timedelta(hours=27):
+  #  banner.award_banner(c, mile['name'], 'oldbanner', 1)
   if query.is_unbeliever(c, mile):
     banner.award_banner(c, mile['name'], 'trog', 2)
+  if mile['urune'] == 1:
+    if rune != 'slimy':
+      if mile['potions_used'] == 0 and mile['scrolls_used'] == 0:
+        banner.award_banner(c, mile['name'], 'vehumet', 3)
 
 def do_milestone_ghost(c, mile):
   """When you kill a player ghost, you get two clan points! Otherwise this
@@ -166,6 +170,12 @@ def do_milestone_br_enter(c, mile):
     banner.award_banner(c, mile['name'], 'ashenzari', 1)
   if mile['noun'] in ['Pan', 'Dis', 'Tar', 'Coc', 'Geh']:
     banner.award_banner(c, mile['name'], 'zin', 1)
+  if mile['noun'] == 'Lair':
+    if mile['sk'] == 'Invocations':
+      banner.award_banner(c, mile['name'], 'qazlal', 1)
+  if mile['noun'] == 'Temple':
+    if mile['potions_used'] == 0 and mile['scrolls_used'] == 0:
+      banner.award_banner(c, mile['name'], 'vehumet', 1)
 
 def do_milestone_br_end(c, mile):
   if mile['noun'] == 'Orc':
@@ -177,15 +187,14 @@ def do_milestone_br_end(c, mile):
   if mile['noun'] == 'D':
     if mile['dur'] <= 1620 and mile['race'] != 'Formicid':
       banner.award_banner(c, mile['name'], 'makhleb', 1)
-  if mile['noun'] in ['Snake', 'Swamp', 'Shoals', 'Spider']:
-    if mile['dur'] <= 1620 and mile['race'] != 'Formicid':
-      banner.award_banner(c, mile['name'], 'makhleb', 2)
   if mile['noun'] == 'Lair':
     if mile['sklev'] < 13:
       if not query.did_worship_god(c, 'Ashenzari', mile['name'], mile['start'], mile['time']):
         banner.award_banner(c, mile['name'], 'sif', 1)
     if query.is_unbeliever(c, mile):
       banner.award_banner(c, mile['name'], 'trog', 1)
+    if mile['potions_used'] == 0 and mile['scrolls_used'] == 0:
+      banner.award_banner(c, mile['name'], 'vehumet', 2)
   if query.player_count_br_end(c, mile['name'], mile['noun']) <= 1:
     assign_points(c, "branch:end", mile['name'], 5)
 
@@ -321,6 +330,14 @@ def crunch_winner(c, game):
   if (game['turn'] < 50000):
     banner.award_banner(c, player, 'okawaru', 3)
 
+  if game['dur'] <= 10800:
+    banner.award_banner(c, player, 'makhleb', 3)
+
+  if game['sk'] == 'Invocations':
+    banner.award_banner(c, player, 'qazlal', 2)
+    if query.player_count_invo_titles(c, player) >= 3:
+      banner.award_banner(c, player, 'qazlal', 3)
+
   gods_abandoned = query.count_gods_abandoned(c, player, game_start_time(game))
   if gods_abandoned >= 9:
     assign_points(c, 'heretical_win', player, 25)
@@ -345,12 +362,12 @@ def crunch_winner(c, game):
       else:
         banner.award_banner(c, player, 'sif', 2)
 
-  cutoff = query.time_from_str(game['end']) - datetime.timedelta(hours=27)
-  if query.time_from_str(game['start']) > cutoff:
-    if query.count_wins(c, player = game['name'], before = game_end, after = cutoff) > 0:
-      banner.award_banner(c, player, 'vehumet', 3)
-    else:
-      banner.award_banner(c, player, 'vehumet', 2)
+  #cutoff = query.time_from_str(game['end']) - datetime.timedelta(hours=27)
+  #if query.time_from_str(game['start']) > cutoff:
+  #  if query.count_wins(c, player = game['name'], before = game_end, after = cutoff) > 0:
+  #    banner.award_banner(c, player, 'oldbanner', 3)
+  #  else:
+  #    banner.award_banner(c, player, 'oldbanner', 2)
 
   ogame = query.previous_combo_highscore(c, game)
   if ogame and ogame[0] != player and ogame[2] == 'winning' and ogame[1] < game['sc']:
