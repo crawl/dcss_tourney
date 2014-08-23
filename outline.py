@@ -78,6 +78,11 @@ def act_on_milestone(c, mile):
     ban = 'nemelex:' + mile['char']
     banner.award_banner(c, player, ban, 1)
 
+  # hack to handle milestones with no potions_used/scrolls_used fields
+  if not mile.has_key('potionsused'):
+    mile['potionsused'] = -1
+    mile['scrollsused'] = -1
+
   miletype = milestone_type(mile)
   if miletype == 'uniq' and not milestone_desc(mile).startswith('banished '):
     do_milestone_unique(c, mile)
@@ -149,7 +154,7 @@ def do_milestone_rune(c, mile):
     banner.award_banner(c, mile['name'], 'trog', 2)
   if mile['urune'] == 1:
     if rune != 'slimy':
-      if mile['potions_used'] == 0 and mile['scrolls_used'] == 0:
+      if mile['potionsused'] == 0 and mile['scrollsused'] == 0:
         banner.award_banner(c, mile['name'], 'vehumet', 3)
 
 def do_milestone_ghost(c, mile):
@@ -174,7 +179,7 @@ def do_milestone_br_enter(c, mile):
     if mile['sk'] == 'Invocations':
       banner.award_banner(c, mile['name'], 'qazlal', 1)
   if mile['noun'] == 'Temple':
-    if mile['potions_used'] == 0 and mile['scrolls_used'] == 0:
+    if mile['potionsused'] == 0 and mile['scrollsused'] == 0:
       banner.award_banner(c, mile['name'], 'vehumet', 1)
 
 def do_milestone_br_end(c, mile):
@@ -193,7 +198,7 @@ def do_milestone_br_end(c, mile):
         banner.award_banner(c, mile['name'], 'sif', 1)
     if query.is_unbeliever(c, mile):
       banner.award_banner(c, mile['name'], 'trog', 1)
-    if mile['potions_used'] == 0 and mile['scrolls_used'] == 0:
+    if mile['potionsused'] == 0 and mile['scrollsused'] == 0:
       banner.award_banner(c, mile['name'], 'vehumet', 2)
   if query.player_count_br_end(c, mile['name'], mile['noun']) <= 1:
     assign_points(c, "branch:end", mile['name'], 5)
