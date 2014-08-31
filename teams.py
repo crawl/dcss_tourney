@@ -68,6 +68,56 @@ def get_teams(directory_list):
     players = []
     for directory in existing_directory_list:
       for filename in os.listdir(directory):
+        if fnmatch.fnmatch(filename, '*.sh'):
+          shfile = open(os.path.join(directory, filename))
+          linelist = [x.strip() for x in shfile.readlines()]
+          shfile.close()
+          count = 0
+          max_count = len(linelist)
+          while (count < max_count):
+            line = linelist[count]
+            player = line.split('.')[0].lower()
+            if player in players:
+                count += 1
+                continue
+            linenum = line.split(':')[1]
+            if linenum != "1":
+                count += 1
+                continue
+            line = ':'.join(line.split(':')[2:])
+            line = line[:111] # only 100 characters for team name
+            offset = line.find('TEAM')
+            if offset != -1:
+                elements = re.sub('[^\w -]', '', line[offset:]).split(' ')
+                if elements[0] == 'TEAMCAPTAIN':
+                    players.append(player)
+                    if len(elements) < 2:
+                        elements.append(player)
+                    volunteers.setdefault(elements[1].lower(), []).append(player)
+                elif elements[0] == 'TEAMNAME':
+                    players.append(player)
+                    teamname[player] = '_'.join(elements[1:]) or ('Team_' + player)
+                    if player in BAD_NAMERS:
+                        teamname[player] = 'Team_' + player
+                    volunteers.setdefault(player, []).append(player)
+                    draftees[player] = [player]
+                    if count + 1 == max_count:
+                        break
+                    line = linelist[count + 1]
+                    draftees[player] = [player]
+                    if line.split('.')[0].lower() == player and line.split(':')[1] == "2":
+                        line = ':'.join(line.split(':')[2:])
+                        offset = line.find('TEAM')
+                        elements = re.sub('[^\w -]', '', line[offset:]).split(' ')
+                        if elements[0] == 'TEAMMEMBERS':
+                            draftedones = [name.lower() for name in elements[1:7]]
+                            if player in draftedones:
+                                draftees[player] = draftedones
+                            else:
+                                draftees[player] = draftedones[:5]
+                                draftees[player].append(player)
+            count += 1
+                        
         if fnmatch.fnmatch(filename, '*.rc'):
             player = filename[:-3].lower()
             if player in players:
@@ -83,9 +133,6 @@ def get_teams(directory_list):
                     if len(elements) < 2:
                         elements.append(player)
                     volunteers.setdefault(elements[1].lower(), []).append(player)
-                    line = rcfile.readline()
-                    offset = line.find('TEAM')
-                    elements = re.sub('[^\w -]', '', line[offset:]).split(' ')
                 elif elements[0] == 'TEAMNAME':
                     players.append(player)
                     teamname[player] = '_'.join(elements[1:]) or ('Team_' + player)
