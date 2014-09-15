@@ -18,14 +18,18 @@ Cleaning up after the previous tourney:
   affect past tourney pages)
 * on CSZO: rename the rcfiles-cao/, rcfiles-cdo/, ... directories to
   0.14rcfiles-cao/, etc (so that team composition isn't lost)
+  - this wasn't done for older tourneys, unfortunately
 
 Updating the scripts:
 * change version everywhere
+  - be sure to do this before running the scripts on CSZO so that you don't
+    overwrite stuff in the old html.tourney0.15 directory
 * change dates everywhere, including clan deadline and last_win deadline
 * update list of servers everywhere
 * update banner images (Grunt seems happy to make these currently)
   - you always need a new banner_footer1.png with the new version number at
     least
+  - bannerfactory.svg might be helpful for making the banners
 * banner text changes need to be mirrored in html.py
 * update list of uniques in uniq.py
 * update list of gods in crawl.py
@@ -40,6 +44,7 @@ Updating the scripts:
 
 CSZO setup:
 * create rcfiles-cao/, rcfiles-cdo/, ... directories for every other server
+* run ./link-setup (after updating it to the new version)
 * add/uncomment the cronjobs that mirror rcfiles from other servers
 * two lines need to be commented/uncommented in LOGS and MILESTONES in
   loaddb.py to handle local logs/milestones correctly
