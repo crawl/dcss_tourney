@@ -12,7 +12,7 @@ UNIQUES = [ "Ijyb", "Blork", "Urug", "Erolcha", "Snorg",
             "Grum", "Crazy Yiuf", "Gastronok", "Pikel", "Menkaure",
             "Khufu", "Ilsuiw", "Aizul", "Mara", "Purgy", "Grinder",
             "Kirke", "Nikola", "Maurice", "Mennas", "Jory", 
-            "the Serpent of Hell", "the Enchantress", "Ignacio", "Arachne", "Fannar", "Jorgrun", "Sojobo", "Asterion", "Natasha", "Vashnia" ]
+            "the Serpent of Hell", "the Enchantress", "Ignacio", "Arachne", "Fannar", "Jorgrun", "Sojobo", "Asterion", "Natasha", "Vashnia", "Robin" ]
 
 # lists below are out of date
 
