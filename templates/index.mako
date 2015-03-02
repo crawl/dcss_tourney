@@ -1,8 +1,8 @@
 <%
    from crawl_utils import XXX_TOURNEY_BASE
    from test_data import USE_TEST
-   version = '0.15'
-   year    = '2014'
+   version = '0.16'
+   year    = '2015'
    title   = "Crawl %s Tournament Information" % version
  %>
 <!DOCTYPE html>
@@ -833,11 +833,11 @@ III: Win a game as a non-demigod without worshipping a god.
             <hr>
             <div class="fineprint">
               <p>
-                Some rules have been changed from the 0.14 tournament held in April 2014. This is a list of rules differences.
+                Some rules have been changed from the 0.15 tournament held in August/September 2014. This is a list of rules differences.
               </p>
 
               <p><span class="removed">[REMOVED]</span>
-                flags rules that existed in the 0.14 tournament and are gone in
+                flags rules that existed in the 0.15 tournament and are gone in
                 this tournament.</p>
 
               <p><span class="added">[NEW]</span>
@@ -846,8 +846,8 @@ III: Win a game as a non-demigod without worshipping a god.
               <p><span class="changed">[CHANGED]</span>
                 flags rules that have been modified for this 
 		tournament. To compare
-                changed rules with the rules in the 0.14 tournament, see
-                the <a href="http://dobrazupa.org/tournament/0.14/">old
+                changed rules with the rules in the 0.15 tournament, see
+                the <a href="http://dobrazupa.org/tournament/0.15/">old
                 rules</a>.
               </p>
             </div>
