@@ -21,8 +21,8 @@
         <div class="heading">
           <h1>${title}</h1>
           <p class="fineprint">
-            Tournament starts on <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20140829T20">Aug 29, ${year} at 20:00 UTC</a>, and ends on
-            <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20140914T20">Sept 14, ${year} at 20:00 UTC</a>.
+            Tournament starts on <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20150313T20">Mar 13, ${year} at 20:00 UTC</a>, and ends on
+            <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20540329T20">Mar 29, ${year} at 20:00 UTC</a>.
           </p>
         </div>
         <hr>
@@ -38,8 +38,8 @@
             <a href="http://crawl.lantea.net:8080">crawl.lantea.net</a>,
             or <a href="http://crawl.s-z.org">crawl.s-z.org</a>)
             and all of
-            your Crawl ${version} games that <b>start after <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20140829T20">20:00 UTC on
-            Aug 29</a></b> and <b>end before <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20140914T20">20:00 UTC on Sept 14</a></b> will
+            your Crawl ${version} games that <b>start after <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20150313T20">20:00 UTC on
+            Mar 13</a></b> and <b>end before <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20150329T20">20:00 UTC on Mar 29</a></b> will
             count toward the tournament.
           </p>
 
@@ -110,7 +110,7 @@
 
           <p>
             Clans may be changed by adding or removing players at any
-            time until <b><a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20140906T19">19:00 UTC on Sep 6</a></b>, after which clans will be
+            time until <b><a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20150321T19">19:00 UTC on Mar 21</a></b>, after which clans will be
             effectively frozen.
           </p>
 
