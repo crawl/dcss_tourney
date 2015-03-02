@@ -31,12 +31,15 @@
           <p>
             Hello all! Welcome to the rules for the
             ${version} Dungeon Crawl Stone Soup Tournament. The simple part:
-            Play on one of the <b>six</b> public servers (<a href="http://crawl.akrasiac.org">crawl.akrasiac.org</a>,
+            Play on one of the <b>nine</b> public servers (<a href="http://crawl.akrasiac.org">crawl.akrasiac.org</a>,
             <a href="http://crawl.beRotato.org">crawl.beRotato.org</a>,
             <a href="http://crawl.develz.org">crawl.develz.org</a>,
-            <a href="http://kr.dobrazupa.org">kr.dobrazupa.org</a>,
             <a href="http://crawl.lantea.net:8080">crawl.lantea.net</a>,
-            or <a href="http://crawl.s-z.org">crawl.s-z.org</a>)
+            <a href="https://crawl.project357.org">crawl.project357.org</a>,
+            <a href="http://crawl.s-z.org">crawl.s-z.org</a>,
+            <a href="http://crawl.xtahua.com">crawl.xtahua.com</a>,
+            <a href="http://lazy-life.ddo.jp:8080">lazy-life.ddo.jp</a>,
+            or <a href="http://webzook.net:8080">webzook.net</a>)
             and all of
             your Crawl ${version} games that <b>start after <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20150313T20">20:00 UTC on
             Mar 13</a></b> and <b>end before <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20150329T20">20:00 UTC on Mar 29</a></b> will
@@ -92,7 +95,7 @@
               <span class="inline_heading">Note:</span> clan membership lines can be added to your ${version} rcfile on <b>any</b> of the public servers.
               If you add clan
               membership lines to more than one rcfile, then the rcfile on
-              the server earliest in the list CSZO, CAO, CBRO, CDO, CKR, CLN will take
+              the server earliest in the list CSZO, CAO, CBRO, CDO, CLN, CPO, CWZ, CXC, LLD will take
               precedence.
             </p>
           </div>
@@ -121,7 +124,8 @@
           <hr>
 
           <div>
-            <h2>WINS</h2>
+            <h2>GENERAL SCORING</h2>
+            <h4>WINS</h4>
             <p>
               <span>100 points</span> for a player's first win. (Since winning
               is kind of the goal.)
@@ -131,133 +135,32 @@
               <span>50 points</span> for a player winning two characters of
               different species and backgrounds at some point during the tourney.
             </p>
-
+            <h4>RUNES</h4>
+            <p><span>24/N points</span> (rounded up) each time you find a
+            type of rune for the Nth time. (So the first silver rune you
+            find is worth 24 points, the second silver rune is worth 12 points, the
+            third silver rune is worth 8 points, and so on.)</p>
+            <h4>GODS</h4>
             <p>
-              <span>60 extra points</span> for each consecutive (streak) win
-              by a player with a species that has not 
-	      previously been a streak win for that player.
+              <span>10 points</span> the first time you reach full (******)
+              piety with each god without having worshipped any
+              other god first that game.
             </p>
+            <h4>BRANCHES</h4>
             <p>
-              <span>30 extra points</span> for each consecutive (streak) win
-              by a player with a background that has not 
-	      previously been a streak win for that player.
+              <span>5 points</span> the first time you enter each branch or
+              portal vault or reach the end of a multi-level branch.
             </p>
+            <h4>UNIQUES</h4>
+            <p><span>5 points</span> the first time you kill each
+              unique.</p>
 
-            <div class="inset">
-              <p>
-                Every game in a streak must be the first game you start after
-                winning the previous game in the streak. This
-                will always be the case if you play all your games on
-                one server.
-              </p>
-
-              <p>
-                If you're playing on multiple servers
-                simultaneously, note that you cannot start game A and
-                game B concurrently on two servers and win both in
-                succession to earn streak points - you can however have
-                multiple streaks in progress simultaneously.
-              </p>
-            </div>
-          </div>
-
-          <hr>
-
-          <div>
-            <h2>SPECIES/BACKGROUND/GOD WINS</h2>
-            <p>
-              <span>2*(52+T)/(2+S) points</span> (rounded up) for a win with a given species if T is the total number of games won in the tournament before the start of the win in question and S of those T were with the given species. If a player wins the same species multiple times, she only gets the largest value of this bonus among the wins, not the sum.
-
-              For example, if there have been 10 games won prior to the start of the win in question and 2 of them were with the same species, then the
-              win will be worth 2*(52+10)/(2+2) = 31 additional points.
-            </p>
-            <p>
-              <span>(52+T)/(2+B) points</span> (rounded up) for a win with a given background if T is the total number of games won in the tournament before the start of the win in question and B of those T were with the given background. If a player wins the same background multiple times, she only gets the largest value of this bonus, not the sum.
-            </p>
-            <p>
-              <span>1.5*(42+T)/(2+G) points</span> (rounded up) for a win with a given god if T is the total number of games won in the tournament before the start of the win in question and G of those T were with the given god. If a player wins with the same god multiple times, she only gets the largest value of this bonus, not the sum. For purposes of these points we say that a player wins with a god if she reaches full (******) piety with that god without worshipping any other god first. For Xom, you must play a Chaos Knight and never abandon Xom. For "No God", you must never worship a god.
-            </p>
-            <div class="inset">
-              <p>
-	        For clan scoring, if a clan has multiple wins for the same species,
-                background, or god, only the largest value of the bonus among the
-                wins is used, not the sum.
-	      </p>
-            </div>
-            <div class="inset">
-              <p>
-	        The current values of the bonus for each species, background, or god
-                will be
-                listed on the "Species/Backgrounds/Gods" page for your convenience.
-	      </p>
-            </div>
-          </div>
-          <hr>
-
-          <div>
-            <h2>SPECIAL WINS</h2>
-	    <p><span>5,000,000/turncount points</span> for each player's fastest win (by turncount).</p>
-            <p><span>1,250,000/duration points</span> for each player's fastest win (by realtime, measured in seconds).</p>
-            <p><span>200-100-50 points</span> for first win scored.</p>
-            <p><span>200-100-50 points</span> for first 15-rune victory.</p>
-            <p><span>200-100-50 points</span> for longest streak of
-              winning games, where "length" of 
-	      a streak is defined as min(number of distinct species used, number 
-	      of distinct backgrounds used).
-              Ties are broken by the first to achieve the streak.
-            </p>
-            <p>
-              <span>100 bonus points</span> for the win with the last
-              starting time (among tournament wins) in the tournament.
-            </p>
-	    <p>
-	      <span>50 bonus points</span> for each win without visiting
-	      Temple, Lair, Orc, or the Vaults (<a href="#lord_of_darkness">LORD OF DARKNESS</a> banner III).
-	    </p>
-	    <p>
-	      <span>25 bonus points</span> for each win in which nine non-good gods are abandoned before XL 14 and never rejoined (<a href="#heretics">HERETIC</a> banner III).
-	    </p>
-            <p>
-              <span>75 bonus points</span> for winning <a href="#nemelex_choice">NEMELEX' CHOICE</a> characters. The first Nemelex' Choice combo is chosen at the start of the tournament, and after that each one is chosen when the previous one is won for the first time. Each combo remains valid until it has been won five times. The species/background combinations are chosen by Nemelex from those with fewer than eight online wins.
-            </p>
-          </div>
-
-          <hr>
-
-          <div>
-            <h2>SPECIAL ACHIEVEMENTS</h2>
-
-            <p><span>25 points</span> for each game in which you enter Tomb for the first time after picking up the Orb of Zot and then get the golden rune (<a href="#natures_ally">NATURE's ALLY</a> banner III).
-            </p>
-
-            <p><span>25 points</span> for each game in which you get six runes before entering the Depths in that game (<a href="#vow_of_courage">VOW OF COURAGE</a> banner III).
-            </p>
-
-	    <p>
-	      <span>25 bonus points</span> for each game in which you get your first rune (which cannot be the slimy rune) without the use of any potions or scrolls (<a href="#ruthless_efficiency">RUTHLESS EFFICIENCY</a> banner III).
-	    </p>
-          </div>
-
-          <hr>
-
-          <div>
-            <h2>RUNES</h2>
-
-            <p><span>30/N points</span> (rounded up) each time you find a 
-            type of rune for the Nth time. (So the first silver rune you 
-            find is worth 30 points, the second silver rune is worth 15 points, the 
-            third silver rune is worth 10 points, and so on.)</p>
-          </div>
-
-          <hr>
-
-          <div>
-            <h2>HIGH SCORES</h2>
-            <p><span>score/120,000 points</span> for each player's highest scoring winning game.</p>
-
+            <p><span>50-20-10 points</span> for the players with the most unique
+	    uniques killed; ties broken by who gets that number first.</p>
+            <h4>HIGH SCORES</h4>
             <p>
               <span>5 points</span> per high score in a species/background combination
-              (HuWn, not just Hu).
+              (HuFi, not just Hu).
             </p>
 
             <p>
@@ -274,34 +177,111 @@
           <hr>
 
           <div>
-            <h2>UNIQUES</h2>
+            <h2>SPECIES/BACKGROUND/GOD WINS</h2>
+            <p>
+              <span>2*(52+T)/(2+S) points</span> (rounded up) for a win with a given species if T is the total number of games won in the tournament before the start of the win in question and S of those T were with the given species. If a player wins the same species multiple times, she only gets the largest value of this bonus among the wins, not the sum.
 
-            <p><span>5 points</span> the first time you kill each
-              unique.</p>
+              For example, if there have been 10 games won prior to the start of the win in question and 2 of them were with the same species, then the
+              win will be worth 2*(52+10)/(2+2) = 31 additional points.
+            </p>
+            <p>
+              <span>(48+T)/(2+B) points</span> (rounded up) for a win with a given background if T is the total number of games won in the tournament before the start of the win in question and B of those T were with the given background. If a player wins the same background multiple times, she only gets the largest value of this bonus, not the sum.
+            </p>
+            <p>
+              <span>1.5*(46+T)/(2+G) points</span> (rounded up) for a win with a given god if T is the total number of games won in the tournament before the start of the win in question and G of those T were with the given god. If a player wins with the same god multiple times, she only gets the largest value of this bonus, not the sum. For purposes of these points we say that a player wins with a god if she reaches full (******) piety with that god without worshipping any other god first. For Xom, you must play a Chaos Knight and never abandon Xom. For "No God", you must never worship a god.
+            </p>
+            <p>
+              <span>75 bonus points</span> for winning <a href="#nemelex_choice">NEMELEX' CHOICE</a> characters. The first Nemelex' Choice combo is chosen at the start of the tournament, and after that each one is chosen when the previous one is won for the first time. Each combo remains valid until it has been won five times. The species/background combinations are chosen by Nemelex from those with at most ten online wins.
+            </p>
+            <div class="inset">
+              <p>
+	        The current values of the bonus for each species, background, or god
+                will be
+                listed on the "Species/Backgrounds/Gods" page. The current Nemelex' Choice combo as well as all past combos will be listed at the top of the "Overview" page.
+	      </p>
+            </div>
 
-            <p><span>50-20-10 points</span> for the players with the most unique 
-	    uniques killed; ties broken by who gets that number first.</p>
+            <div class="inset">
+              <p>
+	        <span class="inline_heading">Important note for scoring:</span> A stepdown function (with step size 800) will be applied to the total number of points each player or clan attains in this section. This means that the points in this section are worth less and less as you earn more of them!
+              </p>
+
+              <p>
+                Also, for clan scoring, if a clan has multiple wins for the same species,
+                background, or god, only the largest value of the bonus among the
+                wins is used, not the sum.
+	      </p>
+            </div>
           </div>
 
           <hr>
 
           <div>
-            <h2> GODS </h2>
+            <h2>SPEEDRUNS AND STREAKS</h2>
+            <h4>RACES</h4>
+            <p><span>200-100-50 points</span> for first win scored.</p>
+            <p><span>200-100-50 points</span> for first 15-rune victory.</p>
             <p>
-              <span>10 points</span> the first time you reach full (******)
-              piety with each god without having worshipped any
-              other god first that game.
+              <span>100 bonus points</span> for the win with the last
+              starting time (among tournament wins) in the tournament.
             </p>
+            <h4>PERSONAL RECORDS</h4>
+            <p><span>5,000,000/turncount points</span> for each player's fastest win (by turncount).</p>
+            <p><span>1,250,000/duration points</span> for each player's fastest win (by realtime, measured in seconds).</p>
+            <p><span>score/120,000 points</span> for each player's highest scoring winning game.</p>
+            <p><span>100*length points</span> for each player's longest streak of length at least 2, where length of
+	      a streak is defined as min(number of distinct species used, number
+	      of distinct backgrounds used).</p>
+            <div class="inset">
+              <p>
+                Every game in a streak must be the first game you start after
+                winning the previous game in the streak. This
+                will always be the case if you play all your games on
+                one server.
+              </p>
+
+              <p>
+                If you are playing on multiple servers
+                simultaneously, note that you cannot start game A and
+                game B concurrently on two servers and win both in
+                succession to earn streak points - you can however have
+                multiple streaks in progress simultaneously.
+              </p>
+            </div>
           </div>
 
           <hr>
 
           <div>
-            <h2> BRANCHES </h2>
+            <h2>OTHER SPECIAL ACHIEVEMENTS</h2>
             <p>
-              <span>5 points</span> the first time you enter each branch or
-              portal vault or reach the end of a multi-level branch.
+            These points are only granted once per player per tournament.
             </p>
+            <p>
+	      <span>50 points</span> for winning without visiting
+	      Temple, Lair, Orc, or the Vaults (<a href="#lord_of_darkness">LORD OF DARKNESS</a> banner III).
+	    </p>
+	    <p>
+	      <span>25 points</span> for a win in which you become the champion of Ru and then abandon Ru before entering any branches other than the Temple and the Lair (<a href="#heretics">HERETIC</a> banner III).
+	    </p>
+            <p><span>25 points</span> for a game in which you enter Tomb for the first time after picking up the Orb of Zot and then get the golden rune (<a href="#natures_ally">NATURE's ALLY</a> banner III).
+            </p>
+
+            <p><span>25 points</span> for a game in which you get six runes before entering the Depths in that game (<a href="#vow_of_courage">VOW OF COURAGE</a> banner III).
+            </p>
+
+	    <p>
+	      <span>25 points</span> for a game in which you get your first rune (which cannot be the slimy or abyssal runes) without the use of any potions or scrolls (<a href="#the_ascetic">THE ASCETIC</a> banner III).
+	    </p>
+
+            <p>
+              <span>25 points</span> for a game in which you find the iron rune before entering Pandemonium or any branch of the dungeon containing any other rune (<a href="#avarice">AVARICE</a> banner III). This means that only Temple, Lair, Orc, Elf, Abyss, Hell, and Dis can be entered.
+            </p>
+
+            <p>
+              <span>25 points</span> for winning the game before reaching experience level 19 (<a href="#ruthless_efficiency">RUTHLESS EFFICIENCY</a> banner III).
+            </p>
+
           </div>
 
           <hr>
@@ -532,6 +512,25 @@
 	    <hr>
 
             <div>
+	      <img src="images/banner_gozag1.png"
+                   alt="Avarice"
+                   title="Avarice"
+                   width="170" height="58"
+                   >
+              <p>
+                Gozag wants players to demonstrate their <a name="avarice">AVARICE</a> by obtaining certain valuable metals without delay.
+              <br>
+                I: Find 1000 gold in a single game.
+              <br>
+                II: Find the silver rune before entering the Depths.
+              <br>
+                III: Find the iron rune before entering Pandemonium or any branch of the dungeon containing any other rune (+25 tournament points). This means that only Temple, Lair, Orc, Elf, Abyss, Hell, and Dis can be entered.
+              </p>
+            </div>
+
+	    <hr>
+
+            <div>
 	      <img src="images/banner_jiyva1.png"
                    alt="Gelatinous Body"
                    title="Gelatinous Body"
@@ -582,13 +581,13 @@
                    width="170" height="58"
                    >
               <p>
-                Lugonu hates all the other gods and admires <a name="heretics">HERETICS</a> who go out of their way to incur their wrath. The good gods (Elyvilon, the Shining One, and Zin) are insufficiently wrathful, so abandoning them does not impress Lugonu.
+                Lugonu hates all the other gods. At the moment, Lugonu is especially spiteful towards Ru and admires <a name="heretics">HERETICS</a> who make sacrifices to Ru and then abandon Ru's worship.
               <br>
-I: Abandon and mollify a non-good god.
+I: Become the champion of Ru.
               <br>
-II: Abandon three non-good gods before reaching XL 14, and win without rejoining them.
+II: After becoming the champion of Ru, abandon Ru and become the champion of a different god.
               <br>
-III: Abandon nine non-good gods before reaching XL 14, and win without rejoining them (+25 tournament points).
+III: Win a game in which you become the champion of Ru and then abandon Ru before entering any branches other than the Temple and the Lair.
               </p>
             </div>
 
@@ -678,6 +677,23 @@ III: Win the game in 3 hours.
               </p>
             </div>
 
+            <div>
+	      <img src="images/banner_ru1.png"
+                   alt="The Ascetic"
+                   title="The Ascetic"
+                   width="170" height="58"
+                   >
+              <p>
+                Ru will recognize as <a name="the_ascetic">THE ASCETIC</a> those who sacrifice all use of potions and scrolls for a time.
+              <br>
+                I: Reach the Ecumenical Temple without using any potions or scrolls.
+              <br>
+                II: Reach the last level of the Lair of Beasts without using any potions or scrolls.
+              <br>
+                III: Find your first rune of a game without using any potions or scrolls (+25 tournament points). This rune cannot be the slimy or abyssal rune: Ru requires you to undergo this sacrifice for longer.
+              </p>
+            </div>
+
 	    <hr>
 
             <div>
@@ -690,7 +706,7 @@ III: Win the game in 3 hours.
                 Sif Muna thinks that a
                 <a name="lorekeeper">LOREKEEPER</a> doesn't need skill, just knowledge of spells. Ashenzari has a different viewpoint on this subject, so Sif Muna has banned Ashenzari worshippers from receiving this banner.
               <br>
-                I: Reach the last level of the Lair without raising any skill to 13.
+                I: Reach the last level of the Lair as a non-formicid without raising any skill to 13.
               <br>
                 II: Win without raising any skill to 20.
               <br>
@@ -749,13 +765,13 @@ III: Win a game as a non-demigod without worshipping a god.
               <p>
                 Vehumet values focus and dedication, and will reward those who
                 demonstrate
-                <a name="ruthless_efficiency">RUTHLESS EFFICIENCY</a> by forgoing silly distractions like "potions" and "scrolls".
+                <a name="ruthless_efficiency">RUTHLESS EFFICIENCY</a> by achieving their goals without stopping to gain unnecessary experience. Followers of Ru who sacrifice their experience are inefficient and will be disqualified from this banner.
               <br>
-                I: Reach the Ecumenical Temple without using any potions or scrolls.
+                I: Reach the last level of the Lair as a non-formicid before reaching experience level 12.
               <br>
-                II: Reach the last level of the Lair of Beasts without using any potions or scrolls.
+                II: Find a rune before reaching experience level 14.
               <br>
-                III: Find your first rune of a game without using any potions or scrolls (+25 tournament points). This rune cannot be the slimy rune: Vehumet has no patience for those who outsource the important duties of item destruction to jellies!
+                III: Win the game before reaching experience level 19 (+25 tournament points).
               </p>
             </div>
 
@@ -794,11 +810,11 @@ III: Win a game as a non-demigod without worshipping a god.
                 will recognise success by awarding 
                 <a name="the_harvest">THE HARVEST</a>.
               <br>
-                I: Kill 30 distinct uniques over the course of the tournament.
+                I: Kill 32 distinct uniques over the course of the tournament.
               <br>
-                II: Kill 50 distinct uniques over the course of the tournament.
+                II: Kill 52 distinct uniques over the course of the tournament.
               <br>
-                III: Kill 70 distinct uniques over the course of the tournament.
+                III: Kill 72 distinct uniques over the course of the tournament.
               </p>
             </div>
 
@@ -855,18 +871,61 @@ III: Win a game as a non-demigod without worshipping a god.
             <hr>
 
             <p class="added">
-              <span>Qazlal</span> has a newly-added banner, the banner of <span><a href="#the_prophet">THE PROPHET</a></span>.
+              <span>Gozag</span> has a newly-added banner, the banner of <span><a href="#avarice">AVARICE</a></span>.
               <span class="added">[NEW]</span>
             </p>
 
             <p class="added">
-              <span>Vehumet's <a href="#ruthless_efficiency">RUTHLESS EFFICIENCY</a></span> banner has been replaced; it now asks players to reach various milestones without the use of potions or scrolls. (It previously asked the player to get runes & wins within 27 real-life hours.) The third level of the banner is now worth 25 tournament points.
+              <span>Lugonu's</span> <span><a href="#heretics">HERETIC</a></span> banner has been remade.
+              <span class="added">[NEW]</span>
+            </p>
+
+            <p class="added">
+              <span>Vehumet's</span> <span><a href="#ruthless_efficiency">RUTHLESS EFFICIENCY</a></span> banner has been remade. (The old banner was given to Ru.)
               <span class="added">[NEW]</span>
             </p>
 
             <p class="changed">
-              <span>Makhleb's <a href="#speed_demons">SPEED DEMON</a></span> banner second and third tier have been revised; the second now asks the player to get a rune in 81 minutes (was previously 'reach the bottom of a rune branch in 27 minutes'), and the third now asks the player to win in 3 hours (previously 'get a rune in 27 minutes'). Formicids are now only forbidden from the first level of the banner (previously, also, the second).
+              Species/Backgrounds/God and Nemelex' Choice points now have a <span>stepdown function</span> applied to them, making them worth fewer points as you earn more of them.
               <span class="changed">[CHANGED]</span>
+            </p>
+
+            <p class="changed">
+              <span>100*length points</span> for each player's longest streak of length at least 2, where length of
+	      a streak is defined as min(number of distinct species used, number
+	      of distinct backgrounds used). (Used to be 60 points for each distinct species streaked and 30 points for each distinct background streaked, and now only applies to each player's longest streak.)
+              <span class="changed">[CHANGED]</span>
+            </p>
+
+            <p class="changed">
+              <span>24/N points</span> (rounded up) each time you find a
+            type of rune for the Nth time. (Used to be 30/N points.)
+              <span class="changed">[CHANGED]</span>
+            </p>
+
+            <p class="changed">
+              Many banners that gave tournament points only give those points <span>once per player</span> now (Nemelex' Choice points are the exception to this).
+              <span class="changed">[CHANGED]</span>
+            </p>
+
+            <p class="changed">
+              <span>Yredelemnul's <a href="#the_harvest">THE HARVEST</a></span> banner now requires killing two more uniques for each tier.
+              <span class="changed">[CHANGED]</span>
+            </p>
+
+            <p class="changed">
+              The first tier of <span>Sif Muna's <a href="#lorekeeper">LOREKEEPER</a></span> banner will no longer be awarded to formicids.
+              <span class="changed">[CHANGED]</span>
+            </p>
+
+            <p class="changed">
+              The list of ways of earning points has been <span>reordered and reorganized</span>.
+              <span class="changed">[CHANGED]</span>
+            </p>
+
+            <p class="removed">
+              <span>200-100-50 points</span> for the players with the longest streaks.
+              <span class="removed">[REMOVED]</span>
             </p>
           </div>
 
@@ -888,7 +947,7 @@ III: Win a game as a non-demigod without worshipping a god.
               <span>Wensley</span>, <span>ChrisOelmueller</span>, and <span>Grunt</span> for creating the banner images.
             </p>
             <p>
-              <span>PleasingFungus</span> for helping to edit this page.
+              <span>many others</span> for helping to create these rules!
             </p>
           </div>
 
