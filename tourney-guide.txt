@@ -1,5 +1,5 @@
 This document is a checklist of all the steps involved in organizing and
-running a tournament. It might be missing some things currently, since it is based on elliptic's memory of the 0.14 tournament. The README file should be consulted for the actual technical details of how to run the scripts.
+running a tournament. The README file should be consulted for the actual technical details of how to run the scripts.
 
 Organizing a new tourney:
 * choose/announce dates for the tournament (usually 16 days long, including 3
@@ -37,6 +37,7 @@ Updating the scripts:
   - see race_formula(), class_formula(), god_formula() in query.py as well as
     the rules page itself
 * update combos.txt (list of currently playable combos)
+  - can use command-line param in crawl to get this now
 * update nem_eligible.txt with nwons or oldwons or whatever
   - should do this again within a day of tourney start to make sure it is up
     to date
