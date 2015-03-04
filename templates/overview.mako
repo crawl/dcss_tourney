@@ -13,7 +13,7 @@
    if nem_list:
      pnem_list = []
      for x in nem_list[:-1]:
-       if x[2] >= 5:
+       if x[2] >= 7:
          pnem_list.append('<s>' + x[0] + ('(%d won)' % x[2]) + '</s>')
        else:
          pnem_list.append(x[0] + ('(%d won)' % x[2]))
@@ -57,7 +57,7 @@
                   <h3>Nemelex' Choice: </h3>
                   <span>${nem_list[-1][0]}</span>, chosen on ${nem_list[-1][1]} UTC
                   <p class="fineprint">
-                    75 bonus points for the first five players to win ${nem_list[-1][0]}
+                    75 bonus points for the first seven players to win ${nem_list[-1][0]}
                     during the tournament!
                   </p>
 
@@ -66,7 +66,7 @@
                   ${", ".join(['<span>' + x + '</span>' for x in pnem_list])}
                   <p class="fineprint">
                     All previous Nemelex' Choices also remain valid during the
-                    tournament until won by five players.
+                    tournament until won by seven players.
                   </p>
                   % endif
                 </td>
