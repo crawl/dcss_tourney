@@ -91,7 +91,7 @@ def whereis_all_players(c):
 
 def get_game_god(c, game):
   game_god = game.get('god') or 'No God'
-  if (game_god == 'Xom' or game_god == 'No God') and not did_change_god(c, game):
+  if (game_god == 'Xom' or game_god == 'Gozag' or game_god == 'No God') and not did_renounce_god(c, game):
     return game_god
   return get_first_max_piety(c, game['name'], game['start'])
 
@@ -113,12 +113,21 @@ def is_unbeliever(c, game):
 
 def did_change_god(c, game):
   """Returns true if the player changed gods during the game, by checking
-  for a god.renounce milestone."""
+  for a god.renounce or god.worship milestone."""
   return (query_first(c,
                       '''SELECT COUNT(*) FROM milestones
                           WHERE player = %s AND start_time = %s
                             AND (verb = 'god.renounce'
                             OR verb = 'god.worship') ''',
+                      game['name'], game['start']) > 0)
+
+def did_renounce_god(c, game):
+  """Returns true if the player renounced a god during the game, by checking
+  for a god.renounce milestone."""
+  return (query_first(c,
+                      '''SELECT COUNT(*) FROM milestones
+                          WHERE player = %s AND start_time = %s
+                            AND verb = 'god.renounce' ''',
                       game['name'], game['start']) > 0)
 
 def did_worship_god(c, god, name, start, end):
