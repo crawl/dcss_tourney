@@ -208,7 +208,7 @@ To become a member of a clan, you
 
             <div class="inset">
               <p>
-	        <span class="inline_heading">Important note for scoring:</span> A stepdown function (with step size 800) will be applied to the total number of points each player or clan attains in this section. This means that the points in this section are worth less and less as you earn more of them!
+	        <span class="inline_heading">Important note for scoring:</span> The function f(x) = 800*log_2(1+x/800) will be applied to the total number of points each player or clan attains in this section. This means that the points in this section are worth less and less as you earn more of them! For example, f(800) = 800 and f(2400) = 1600, so points between 800 and 2400 are worth half as much as points between 0 and 800 (on average).
               </p>
 
               <p>
@@ -901,7 +901,7 @@ III: Win a game as a non-demigod without worshipping a god.
             </p>
 
             <p class="changed">
-              Species/Backgrounds/God and Nemelex' Choice points now have a <span>stepdown function</span> applied to them, making them worth fewer points as you earn more of them.
+              <span>Species/Backgrounds/God and Nemelex' Choice points</span> now have the function f(x) = 800*log_2(1+x/800) applied to them, making them worth fewer points as you earn more of them.
               <span class="changed">[CHANGED]</span>
             </p>
 
