@@ -404,7 +404,7 @@
               <br>
                 II: Find 5 distinct runes over the course of the tourney.
               <br>
-                III: Find 17 distinct runes over the course of the tourney.
+                III: Find 17 distinct runes over the course of the tourney. (Only two of the four runes in Shoals/Snake/Spider/Swamp are available in a given game, so this requires multiple games.)
             </div>
 
 	    <hr>
