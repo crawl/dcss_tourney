@@ -433,11 +433,6 @@ def crunch_winner(c, game):
   if did_streak:
     # Award banner.
     banner.award_banner(c, player, 'cheibriados', 2)
-    streak_species = 'streak:species:'+(game['char'][0:2])
-    streak_class = 'streak:background:'+(game['char'][2:])
-    # 90 points for streak games, but only if they are with a new race and class.
-    assign_points(c, streak_species, game['name'], 60, False)
-    assign_points(c, streak_class, game['name'], 30, False)
 
   # Assign points for new personal records.
   assign_points(c, 'my_low_turncount_win', game['name'], 5000000/game['turn'], False)
@@ -571,9 +566,13 @@ def check_temp_trophies(c, pmap):
                     team_points=True)
   # streak handling
   all_streaks = query.list_all_streaks(c)
-  award_temp_trophy(c, pmap, all_streaks, 'top_streak:%d', [200, 100, 50])
-  # handle Chei III here so we don't have to recompute all streaks yet again
+  # not currently giving top_streak points
+  #award_temp_trophy(c, pmap, all_streaks, 'top_streak:%d', [200, 100, 50])
+  # give out streak points and handle Chei III here so we don't have to
+  # recompute all streaks yet again
   for streak in all_streaks:
+    if streak[1] > 1:
+      assign_points(c, "streak", streak[0], streak[1]*100, False)
     if streak[1] < 4:
       continue
     l = len(streak[3])
