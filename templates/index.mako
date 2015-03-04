@@ -382,7 +382,7 @@ To become a member of a clan, you
           <div>
             <h3>CONDUCT</h3>
             <p>
-              Please do not do anything that would give you an unfair competitive advantage over other players or clans. This includes stuff like scumming crash-on-deman bugs or running bots on your own account for speedrun points - just remember that the objective here is to have fun. (You are welcome to run bots on their own accounts in the tourney, though as always on online servers you should be careful not to hammer the CPU with them. Also, bot wins will not be displayed on lists of fastest wins.)
+              Please do not do anything that would give you an unfair competitive advantage over other players or clans. This includes stuff like scumming crash-on-demand bugs or running bots on your own account for speedrun points - just remember that the objective here is to have fun. (You are welcome to run bots on their own accounts in the tourney, though as always on online servers you should be careful not to hammer the CPU with them. Also, bot wins will not be displayed on lists of fastest wins.)
             </p>
           </div>
 
@@ -759,7 +759,7 @@ III: Win the game in 3 hours.
                    >
               <p>
                 Trog thinks players should rely on
-                <a name="brute_force">BRUTE FORCE</a> and perservere without worshipping any god at all. Demigods cannot win Trog's praise for this, since they do not have a choice in the matter.
+                <a name="brute_force">BRUTE FORCE</a> and persevere without worshipping any god at all. Demigods cannot win Trog's praise for this, since they do not have a choice in the matter.
               <br>
 I: Reach the last level of the Lair as a non-demigod without worshipping a god.
               <br>
