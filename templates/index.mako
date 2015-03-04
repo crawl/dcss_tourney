@@ -179,6 +179,9 @@
           <div>
             <h2>SPECIES/BACKGROUND/GOD WINS</h2>
             <p>
+              Wins with species, backgrounds, or gods that have been won fewer times in the tournament so far relative to other species, backgrounds, or gods are worth more points:
+            </p>
+            <p>
               <span>2*(52+T)/(2+S) points</span> (rounded up) for a win with a given species if T is the total number of games won in the tournament before the start of the win in question and S of those T were with the given species. If a player wins the same species multiple times, she only gets the largest value of this bonus among the wins, not the sum.
 
               For example, if there have been 10 games won prior to the start of the win in question and 2 of them were with the same species, then the
@@ -191,7 +194,10 @@
               <span>1.5*(46+T)/(2+G) points</span> (rounded up) for a win with a given god if T is the total number of games won in the tournament before the start of the win in question and G of those T were with the given god. If a player wins with the same god multiple times, she only gets the largest value of this bonus, not the sum. For purposes of these points we say that a player wins with a god if she reaches full (******) piety with that god without worshipping any other god first. Two gods (Gozag and Xom) do not have the usual ****** piety system -- for those, you must never worship another god during the game. For "No God", you must never worship a god.
             </p>
             <p>
-              <span>75 bonus points</span> for winning <a href="#nemelex_choice">NEMELEX' CHOICE</a> characters. The first Nemelex' Choice combo is chosen at the start of the tournament, and after that each one is chosen when the previous one is won for the first time. Each combo remains valid until it has been won five times. The species/background combinations are chosen by Nemelex from those with at most ten online wins.
+              In addition, certain randomly chosen species/background combinations will be worth more points for the first seven players to win them:
+            </p>
+            <p>
+              <span>75 bonus points</span> for winning <a href="#nemelex_choice">NEMELEX' CHOICE</a> characters. The first Nemelex' Choice combo is chosen at the start of the tournament, and after that each one is chosen when the previous one is won for the first time. Each combo remains valid until it has been won seven times. The species/background combinations are chosen by Nemelex from those with at most ten online wins.
             </p>
             <div class="inset">
               <p>
@@ -631,7 +637,7 @@ III: Win the game in 3 hours.
               <br>
                 II: Get a rune with a Nemelex' choice combo.
               <br>
-                III: Be one of the first 5 players to win a given Nemelex' choice combo (+75 tournament points).
+                III: Be one of the first 7 players to win a given Nemelex' choice combo (+75 tournament points).
               </p>
             </div>
 
@@ -904,7 +910,14 @@ III: Win a game as a non-demigod without worshipping a god.
             </p>
 
             <p class="changed">
+              <span>Nemelex' Choice</span> bonus points are now awarded to the first seven players to win each combo. (Used to be the first five players.)
+              <span class="changed">[CHANGED]</span>
+            </p>
+
+            <p class="changed">
               For points for winning with a specific god, <span>Gozag and Xom</span> just require never worshipping another god. (Xom used to require also being a Chaos Knight.)
+              <span class="changed">[CHANGED]</span>
+            </p>
 
             <p class="changed">
               Many banners that gave tournament points only give those points <span>once per player</span> now (Nemelex' Choice points are the exception to this).
