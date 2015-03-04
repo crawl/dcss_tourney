@@ -188,7 +188,7 @@
               <span>(48+T)/(2+B) points</span> (rounded up) for a win with a given background if T is the total number of games won in the tournament before the start of the win in question and B of those T were with the given background. If a player wins the same background multiple times, she only gets the largest value of this bonus, not the sum.
             </p>
             <p>
-              <span>1.5*(46+T)/(2+G) points</span> (rounded up) for a win with a given god if T is the total number of games won in the tournament before the start of the win in question and G of those T were with the given god. If a player wins with the same god multiple times, she only gets the largest value of this bonus, not the sum. For purposes of these points we say that a player wins with a god if she reaches full (******) piety with that god without worshipping any other god first. For Xom, you must play a Chaos Knight and never abandon Xom. For "No God", you must never worship a god.
+              <span>1.5*(46+T)/(2+G) points</span> (rounded up) for a win with a given god if T is the total number of games won in the tournament before the start of the win in question and G of those T were with the given god. If a player wins with the same god multiple times, she only gets the largest value of this bonus, not the sum. For purposes of these points we say that a player wins with a god if she reaches full (******) piety with that god without worshipping any other god first. Two gods (Gozag and Xom) do not have the usual ****** piety system -- for those, you must never worship another god during the game. For "No God", you must never worship a god.
             </p>
             <p>
               <span>75 bonus points</span> for winning <a href="#nemelex_choice">NEMELEX' CHOICE</a> characters. The first Nemelex' Choice combo is chosen at the start of the tournament, and after that each one is chosen when the previous one is won for the first time. Each combo remains valid until it has been won five times. The species/background combinations are chosen by Nemelex from those with at most ten online wins.
@@ -902,6 +902,9 @@ III: Win a game as a non-demigod without worshipping a god.
             type of rune for the Nth time. (Used to be 30/N points.)
               <span class="changed">[CHANGED]</span>
             </p>
+
+            <p class="changed">
+              For points for winning with a specific god, <span>Gozag and Xom</span> just require never worshipping another god. (Xom used to require also being a Chaos Knight.)
 
             <p class="changed">
               Many banners that gave tournament points only give those points <span>once per player</span> now (Nemelex' Choice points are the exception to this).
