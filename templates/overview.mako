@@ -18,7 +18,7 @@
        else:
          pnem_list.append(x[0] + ('(%d won)' % x[2]))
 
-   recent_wins = query.get_winning_games(c, limit = 5)
+   recent_wins = query.get_winning_games(c, limit = 10)
 %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
           "http://www.w3.org/TR/html4/strict.dtd">
