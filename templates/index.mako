@@ -190,7 +190,7 @@ To become a member of a clan, you
               <span>(48+T)/(2+B) points</span> (rounded up) for a win with a given background if T is the total number of games won in the tournament before the start of the win in question and B of those T were with the given background. If a player wins the same background multiple times, she only gets the largest value of this bonus, not the sum.
             </p>
             <p>
-              <span>1.5*(46+T)/(2+G) points</span> (rounded up) for a win with a given god if T is the total number of games won in the tournament before the start of the win in question and G of those T were with the given god. If a player wins with the same god multiple times, she only gets the largest value of this bonus, not the sum. For purposes of these points we say that a player wins with a god if she reaches full (******) piety with that god without worshipping any other god first. Two gods (Gozag and Xom) do not have the usual ****** piety system - for those, you must never worship another god during the game. For "No God", you must never worship a god.
+              <span>1.5*(46+T)/(2+G) points</span> (rounded up) for a win with a given god if T is the total number of games won in the tournament before the start of the win in question and G of those T were with the given god. If a player wins with the same god multiple times, she only gets the largest value of this bonus, not the sum. For purposes of these points we say that a player wins with a god if she reaches full (******) piety with that god without worshipping any other god first. Two gods (Gozag and Xom) do not have the usual ****** piety system; to get the points for these gods, you must never worship another god during the game. For "No God", you must never worship a god.
             </p>
             <p>
               In addition, certain randomly chosen species/background combinations will be worth more points for the first seven players to win them:
@@ -249,7 +249,7 @@ To become a member of a clan, you
                 If you are playing on multiple servers
                 simultaneously, note that you cannot start game A and
                 game B concurrently on two servers and win both in
-                succession to earn streak points - you can however have
+                succession to earn streak points. You can however have
                 multiple streaks in progress simultaneously.
               </p>
             </div>
@@ -382,7 +382,7 @@ To become a member of a clan, you
           <div>
             <h3>CONDUCT</h3>
             <p>
-              Please do not do anything that would give you an unfair competitive advantage over other players or clans. This includes stuff like scumming crash-on-demand bugs or running bots on your own account for speedrun points - just remember that the objective here is to have fun. (You are welcome to run bots on their own accounts in the tourney, though as always on online servers you should be careful not to hammer the CPU with them. Also, bot wins will not be displayed on lists of fastest wins.)
+              Please do not do anything that would give you an unfair competitive advantage over other players or clans. This includes stuff like scumming crash-on-demand bugs or running bots on your own account for speedrun points &ndash; just remember that the objective here is to have fun. (You are welcome to run bots on their own accounts in the tourney, though as always on online servers you should be careful not to hammer the CPU with them. Also, bot wins will not be displayed on lists of fastest wins.)
             </p>
           </div>
 
