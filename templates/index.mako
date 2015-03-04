@@ -533,13 +533,13 @@ To become a member of a clan, you
                    width="170" height="58"
                    >
               <p>
-                Gozag wants players to demonstrate their <a name="avarice">AVARICE</a> by collecting certain valuable metals without delay.
+                Gozag wants players to demonstrate their <a name="avarice">AVARICE</a> by collecting certain valuable metals.
               <br>
                 I: Find 1000 gold in a single game.
               <br>
-                II: Find the silver rune before entering the Depths.
+                II: Find the silver rune.
               <br>
-                III: Find the iron rune before entering Pandemonium or any branch of the dungeon containing any other rune (+25 tournament points). This means that only Temple, Lair, Orc, Elf, Abyss, Hell, and Dis can be entered.
+                III: Find the iron rune before entering Pandemonium or any branch of the dungeon containing any other rune (+25 tournament points). This means that only Temple, Lair, Orc, Elf, Depths, Abyss, Hell, and Dis can be entered.
               </p>
             </div>
 
