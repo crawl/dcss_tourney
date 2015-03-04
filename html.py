@@ -104,9 +104,9 @@ BANNER_TEXT = \
           'Win without raising any skill to 13.',
         ],
       'the_shining_one':
-        [ 'Kill Sigmund before entering the Depths (in that game).',
-          'Get four runes before entering the Depths (in that game).',
-          'Get six runes before entering the Depths (in that game).',
+        [ 'Kill Sigmund before entering the Depths.',
+          'Get four runes before entering the Depths.',
+          'Get six runes before entering the Depths.',
         ],
       'trog':
         [ 'Reach the last level of the Lair as a non-demigod without worshipping a god.',

@@ -267,7 +267,7 @@
             <p><span>25 points</span> for a game in which you enter Tomb for the first time after picking up the Orb of Zot and then get the golden rune (<a href="#natures_ally">NATURE's ALLY</a> banner III).
             </p>
 
-            <p><span>25 points</span> for a game in which you get six runes before entering the Depths in that game (<a href="#vow_of_courage">VOW OF COURAGE</a> banner III).
+            <p><span>25 points</span> for a game in which you get six runes before entering the Depths (<a href="#vow_of_courage">VOW OF COURAGE</a> banner III).
             </p>
 
 	    <p>
@@ -726,11 +726,11 @@ III: Win the game in 3 hours.
                 The Shining One thinks each player should take a
                 <a name="vow_of_courage">VOW OF COURAGE</a> and face great terrors before entering the Depths.
               <br>
-                I: Kill Sigmund before entering the Depths (in that game).
+                I: Kill Sigmund before entering the Depths.
               <br>
-                II: Get four runes before entering the Depths (in that game).
+                II: Get four runes before entering the Depths.
               <br>
-                III: Get six runes before entering the Depths (in that game) (+25 tournament points).
+                III: Get six runes before entering the Depths (+25 tournament points).
               </p>
             </div>
 
