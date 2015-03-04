@@ -167,6 +167,15 @@ def did_enter_branch(c, br, name, start, end):
                             AND milestone_time < %s ''',
                       name, start, br, end) > 0)
 
+def did_sacrifice(c, noun, name, start, end):
+  return (query_first(c,
+                      '''SELECT COUNT(*) FROM milestones
+                          WHERE player = %s AND start_time = %s
+                            AND verb = 'sacrifice'
+                            AND noun = %s
+                            AND milestone_time < %s ''',
+                      name, start, noun, end) > 0)
+
 def win_query(selected, order_by = None,
               player=None, charabbr=None, character_race=None, raceabbr=None,
               character_class=None, classabbr=None, runes=None,

@@ -157,6 +157,9 @@ def do_milestone_rune(c, mile):
       if mile['potionsused'] == 0 and mile['scrollsused'] == 0:
         assign_points(c, 'ascetic', player, 25, False)
         banner.award_banner(c, mile['name'], 'ru', 3)
+    if mile['xl'] < 14:
+      if not query.did_sacrifice(c, 'experience', mile['name'], mile['start'], mile['time']):
+        banner.award_banner(c, mile['name'], 'vehumet', 2)
 
 def do_milestone_ghost(c, mile):
   """When you kill a player ghost, you get two clan points! Otherwise this
@@ -197,6 +200,9 @@ def do_milestone_br_end(c, mile):
     if mile['sklev'] < 13 and mile['race'] != 'Formicid':
       if not query.did_worship_god(c, 'Ashenzari', mile['name'], mile['start'], mile['time']):
         banner.award_banner(c, mile['name'], 'sif', 1)
+    if mile['xl'] < 12 and mile['race'] != 'Formicid':
+      if not query.did_sacrifice(c, 'experience', mile['name'], mile['start'], mile['time']):
+        banner.award_banner(c, mile['name'], 'vehumet', 1)
     if query.is_unbeliever(c, mile):
       banner.award_banner(c, mile['name'], 'trog', 1)
     if mile['potionsused'] == 0 and mile['scrollsused'] == 0:
@@ -367,6 +373,11 @@ def crunch_winner(c, game):
         banner.award_banner(c, player, 'sif', 3)
       else:
         banner.award_banner(c, player, 'sif', 2)
+
+  if game['xl'] < 19:
+    if not query.did_sacrifice(c, 'experience', player, game['start'], game['end']):
+      assign_points(c, 'ruthless_efficiency', player, 25, False)
+      banner.award_banner(c, player, 'vehumet', 3)
 
   #cutoff = query.time_from_str(game['end']) - datetime.timedelta(hours=27)
   #if query.time_from_str(game['start']) > cutoff:

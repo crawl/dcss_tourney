@@ -443,6 +443,8 @@ def xlog_milestone_fixup(d):
     noun = R_GOD_MAXPIETY.findall(milestone)[0]
   if verb == 'orb':
     noun = 'orb'
+  if verb == 'sacrifice':
+    noun = R_SACRIFICE.findall(milestone)[0]
   noun = noun or milestone
   d['verb'] = verb
   d['type'] = verb
@@ -596,6 +598,7 @@ R_GOD_WORSHIP = re.compile(r'^became a worshipper of (.*)\.$')
 R_GOD_MOLLIFY = re.compile(r'^(?:partially )?mollified (.*)\.$')
 R_GOD_RENOUNCE = re.compile(r'^abandoned (.*)\.$')
 R_GOD_MAXPIETY = re.compile(r'^became the Champion of (.*)\.$')
+R_SACRIFICE = re.compile(r'^sacrificed (?:an? )?(\w+)')
 
 class SqlType:
   def __init__(self, str_to_sql):
