@@ -342,7 +342,7 @@
 
             <p>
               <span>N clan points</span> per ghost kill after dying, where
-              N is the dying character's XL minus 5.
+              N is the dying character's XL minus 5. (No points are awarded if the dying character is XL 5 or lower.)
             </p>
 
             <p>
