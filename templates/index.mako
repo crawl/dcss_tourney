@@ -533,7 +533,7 @@ To become a member of a clan, you
                    width="170" height="58"
                    >
               <p>
-                Gozag wants players to demonstrate their <a name="avarice">AVARICE</a> by obtaining certain valuable metals without delay.
+                Gozag wants players to demonstrate their <a name="avarice">AVARICE</a> by collecting certain valuable metals without delay.
               <br>
                 I: Find 1000 gold in a single game.
               <br>
@@ -598,7 +598,7 @@ To become a member of a clan, you
               <p>
                 Lugonu hates all the other gods. At the moment, Lugonu is especially spiteful towards Ru and admires <a name="heretics">HERETICS</a> who make sacrifices to Ru and then abandon Ru's worship.
               <br>
-I: Become the champion of Ru.
+I: Become the champion of Ru (the first step towards betraying Ru).
               <br>
 II: After becoming the champion of Ru, abandon Ru and become the champion of a different god.
               <br>
