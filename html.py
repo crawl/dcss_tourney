@@ -12,6 +12,7 @@ BANNER_IMAGES = \
       'dithmenos': [ 'banner_dithmenos.png', 'The Politician' ],
       'elyvilon': [ 'banner_elyvilon.png', 'The Pious' ],
       'fedhas': [ 'banner_fedhas.png', "Nature's Ally" ],
+      'gozag': [ 'banner_gozag.png', "Avarice" ],
       'jiyva': [ 'banner_jiyva.png', 'Gelatinous Body' ],
       'kikubaaqudgha': [ 'banner_kikubaaqudgha.png', 'Lord of Darkness' ],
       'lugonu': [ 'banner_lugonu.png', 'The Heretic' ],
@@ -19,6 +20,7 @@ BANNER_IMAGES = \
       'nemelex': [ 'banner_nemelex.png', "Nemelex' Choice" ],
       'okawaru': [ 'banner_okawaru.png', 'The Conqueror' ],
       'qazlal': [ 'banner_qazlal.png', 'The Prophet' ],
+      'ru': [ 'banner_ru.png', 'The Ascetic' ],
       'sif': [ 'banner_sif.png', 'The Lorekeeper' ],
       'the_shining_one': [ 'banner_the_shining_one.png', 'Vow of Courage' ],
       'trog': [ 'banner_trog.png', 'Brute Force' ],
@@ -63,6 +65,11 @@ BANNER_TEXT = \
           'Get the golden rune.',
           'Enter Tomb for the first time after picking up the Orb of Zot, and then get the golden rune.',
         ],
+      'gozag':
+        [ 'Find 1000 gold in a single game.',
+          'Find the silver rune.',
+          'Find the iron rune before entering Pandemonium or any branch of the dungeon containing any other rune.',
+        ],
       'jiyva':
         [ 'Reach experience level 9 with at least 5 distinct species and at least 5 distinct backgrounds.',
           'Get a rune with at least 5 distinct species and at least 5 distinct backgrounds.',
@@ -74,19 +81,19 @@ BANNER_TEXT = \
           'Win a game without having entered the Temple, the Orcish Mines, the Lair, or the Vaults.',
         ],
       'lugonu':
-        [ 'Abandon and mollify a non-good god.',
-          'Abandon three non-good gods before reaching XL 14, and win without rejoining them.',
-          'Abandon nine non-good gods before reaching XL 14, and win without rejoining them.',
+        [ 'Become the champion of Ru',
+          'After becoming the champion of Ru, abandon Ru and become the champion of a different god.',
+          'Win a game in which you become the champion of Ru and then abandon Ru before entering any branches other than the Temple and the Lair.',
         ],
       'makhleb':
-        [ 'Reach D:15 in 27 minutes.',
+        [ 'Reach D:15 in 27 minutes as a non-formicid.',
           'Find a rune in 81 minutes.',
           'Win the game in 3 hours.',
         ],
       'nemelex':
         [ "Reach experience level 9 with a Nemelex' choice combo.",
           "Get a rune with a Nemelex' choice combo.",
-          "Be one of the first 5 players to win a given Nemelex' choice combo.",
+          "Be one of the first 7 players to win a given Nemelex' choice combo.",
         ],
       'okawaru':
         [ 'Reach experience level 13.',
@@ -98,8 +105,13 @@ BANNER_TEXT = \
           'Win a game with an Invocations title.',
           'Over the course of the tournament, win with three different Invocations titles.',
         ],
+      'ru':
+        [ "Reach the Ecumenical Temple without using any potions or scrolls.",
+          "Reach the last level of the Lair of Beasts without using any potions or scrolls.",
+          "Find a rune (non-slimy, non-abyssal) without using any potions or scrolls.",
+        ],
       'sif':
-        [ 'Reach the last level of the Lair without raising any skill to 13.',
+        [ 'Reach the last level of the Lair as a non-formicid without raising any skill to 13.',
           'Win without raising any skill to 20.',
           'Win without raising any skill to 13.',
         ],
@@ -114,9 +126,9 @@ BANNER_TEXT = \
           'Win a game as a non-demigod without worshipping a god.',
         ],
       'vehumet':
-        [ "Reach the Ecumenical Temple without using any potions or scrolls.",
-          "Reach the last level of the Lair of Beasts without using any potions or scrolls.",
-          "Find a rune without using any potions or scrolls.",
+        [ 'Reach the last level of the Lair as a non-formicid before reaching experience level 12.',
+          'Find a rune before reaching experience level 14.',
+          'Win the game before reaching experience level 19.',
         ],
       'xom':
         [ 'Enter the Abyss.',
@@ -124,9 +136,9 @@ BANNER_TEXT = \
           'Leave a ziggurat from its lowest floor.',
         ],
       'yredelemnul':
-        [ 'Kill 30 distinct uniques over the course of the tournament.',
-          'Kill 50 distinct uniques over the course of the tournament.',
-          'Kill 70 distinct uniques over the course of the tournament.',
+        [ 'Kill 32 distinct uniques over the course of the tournament.',
+          'Kill 52 distinct uniques over the course of the tournament.',
+          'Kill 72 distinct uniques over the course of the tournament.',
         ],
       'zin':
         [ 'Enter either Pandemonium or any branch of Hell.',
