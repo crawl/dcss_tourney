@@ -30,32 +30,32 @@
         <div class="content">
           <p>
             Hello all! Welcome to the rules for the
-            ${version} Dungeon Crawl Stone Soup Tournament. The simple part:
-            Play on one of the <b>nine</b> public servers (<a href="http://crawl.akrasiac.org">crawl.akrasiac.org</a>,
-            <a href="http://crawl.beRotato.org">crawl.beRotato.org</a>,
-            <a href="http://crawl.develz.org">crawl.develz.org</a>,
-            <a href="http://crawl.lantea.net:8080">crawl.lantea.net</a>,
-            <a href="https://crawl.project357.org">crawl.project357.org</a>,
-            <a href="http://crawl.s-z.org">crawl.s-z.org</a>,
-            <a href="http://crawl.xtahua.com">crawl.xtahua.com</a>,
-            <a href="http://lazy-life.ddo.jp:8080">lazy-life.ddo.jp</a>,
-            or <a href="http://webzook.net:8080">webzook.net</a>)
-            and all of
-            your Crawl ${version} games that <b>start after <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20150313T20">20:00 UTC on
-            Mar 13</a></b> and <b>end before <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20150329T20">20:00 UTC on Mar 29</a></b> will
-            count toward the tournament.
-          </p>
-
-          <p>
-            For players who participated in previous
-            tournaments, please look at
-            the <a href="#changes">Changes</a> section for a list of
-            rule changes.
+            ${version} Dungeon Crawl Stone Soup Tournament, running from <b><a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20150313T20">20:00 UTC Friday 13 March</a></b> to <b><a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20150329T20">20:00 UTC Sunday 29 March</a></b>. All version ${version} games played fully during this time period on any of the <a href="https://crawl.develz.org/wordpress/howto">public servers</a> will automatically count for the tournament.
           </p>
 
           <p>
             Participants in the tournament may form clans of six or
-            fewer players. If you wish to be a member of a clan, you
+            fewer players. If you wish to join or captain a clan, see the <a href="#clans">Clans</a> section below.
+          </p>
+
+          <p>
+            The <a href="#scoring">Scoring</a> section contains the full details of how to earn tournament points. The <a href="#banners">Banners</a> section has a list of additional special achievements.
+          </p>
+
+          <p>
+            The <a href="#changes">Changes</a> section has a list of
+            rule changes since the previous tournament.
+          </p>
+
+          <p>
+            Have fun playing Crawl!
+          </p>
+
+          <hr>
+          <a name="clans"></a>
+          <h2>Clans</h2>
+
+To become a member of a clan, you
             need to add a line to the top of one of your <b>version ${version}</b> rcfiles
             like this:
           </p>
@@ -113,19 +113,18 @@
 
           <p>
             Clans may be changed by adding or removing players at any
-            time until <b><a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20150321T19">19:00 UTC on Mar 21</a></b>, after which clans will be
+            time until <b><a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20150321T19">19:00 UTC Saturday 21 March</a></b>, after which clans will be
             effectively frozen.
-          </p>
-
-          <p>
-            <span>A final note:</span> Please do not do anything that would give you an unfair competitive advantage over other players or teams. This includes things like running bots on your own account for speedrun points - just remember that the objective here is to have fun. (You are welcome to run bots on their own accounts in the tourney, though as always on online servers you should be careful not to hammer the CPU with them. Also, bot wins will not be displayed on lists of fastest wins.)
           </p>
 
           <hr>
 
+          <a name="scoring"></a>
+          <h2>Scoring</h2>
+          <hr>
           <div>
-            <h2>GENERAL SCORING</h2>
-            <h4>WINS</h4>
+            <h3>GENERAL SCORING</h3>
+            <h5>WINS</h5>
             <p>
               <span>100 points</span> for a player's first win. (Since winning
               is kind of the goal.)
@@ -135,29 +134,29 @@
               <span>50 points</span> for a player winning two characters of
               different species and backgrounds at some point during the tourney.
             </p>
-            <h4>RUNES</h4>
+            <h5>RUNES</h5>
             <p><span>24/N points</span> (rounded up) each time you find a
             type of rune for the Nth time. (So the first silver rune you
             find is worth 24 points, the second silver rune is worth 12 points, the
             third silver rune is worth 8 points, and so on.)</p>
-            <h4>GODS</h4>
+            <h5>GODS</h5>
             <p>
               <span>10 points</span> the first time you reach full (******)
               piety with each god without having worshipped any
               other god first that game.
             </p>
-            <h4>BRANCHES</h4>
+            <h5>BRANCHES</h5>
             <p>
               <span>5 points</span> the first time you enter each branch or
               portal vault or reach the end of a multi-level branch.
             </p>
-            <h4>UNIQUES</h4>
+            <h5>UNIQUES</h5>
             <p><span>5 points</span> the first time you kill each
               unique.</p>
 
             <p><span>50-20-10 points</span> for the players with the most unique
 	    uniques killed; ties broken by who gets that number first.</p>
-            <h4>HIGH SCORES</h4>
+            <h5>HIGH SCORES</h5>
             <p>
               <span>5 points</span> per high score in a species/background combination
               (HuFi, not just Hu).
@@ -177,7 +176,7 @@
           <hr>
 
           <div>
-            <h2>SPECIES/BACKGROUND/GOD WINS</h2>
+            <h3>SPECIES/BACKGROUND/GOD WINS</h3>
             <p>
               Wins with species, backgrounds, or gods that have been won fewer times in the tournament so far relative to other species, backgrounds, or gods are worth more points:
             </p>
@@ -191,7 +190,7 @@
               <span>(48+T)/(2+B) points</span> (rounded up) for a win with a given background if T is the total number of games won in the tournament before the start of the win in question and B of those T were with the given background. If a player wins the same background multiple times, she only gets the largest value of this bonus, not the sum.
             </p>
             <p>
-              <span>1.5*(46+T)/(2+G) points</span> (rounded up) for a win with a given god if T is the total number of games won in the tournament before the start of the win in question and G of those T were with the given god. If a player wins with the same god multiple times, she only gets the largest value of this bonus, not the sum. For purposes of these points we say that a player wins with a god if she reaches full (******) piety with that god without worshipping any other god first. Two gods (Gozag and Xom) do not have the usual ****** piety system -- for those, you must never worship another god during the game. For "No God", you must never worship a god.
+              <span>1.5*(46+T)/(2+G) points</span> (rounded up) for a win with a given god if T is the total number of games won in the tournament before the start of the win in question and G of those T were with the given god. If a player wins with the same god multiple times, she only gets the largest value of this bonus, not the sum. For purposes of these points we say that a player wins with a god if she reaches full (******) piety with that god without worshipping any other god first. Two gods (Gozag and Xom) do not have the usual ****** piety system - for those, you must never worship another god during the game. For "No God", you must never worship a god.
             </p>
             <p>
               In addition, certain randomly chosen species/background combinations will be worth more points for the first seven players to win them:
@@ -223,15 +222,15 @@
           <hr>
 
           <div>
-            <h2>SPEEDRUNS AND STREAKS</h2>
-            <h4>RACES</h4>
+            <h3>SPEEDRUNS AND STREAKS</h3>
+            <h5>RACES</h5>
             <p><span>200-100-50 points</span> for first win scored.</p>
             <p><span>200-100-50 points</span> for first 15-rune victory.</p>
             <p>
               <span>100 bonus points</span> for the win with the last
               starting time (among tournament wins) in the tournament.
             </p>
-            <h4>PERSONAL RECORDS</h4>
+            <h5>PERSONAL RECORDS</h5>
             <p><span>5,000,000/turncount points</span> for each player's fastest win (by turncount).</p>
             <p><span>1,250,000/duration points</span> for each player's fastest win (by realtime, measured in seconds).</p>
             <p><span>score/120,000 points</span> for each player's highest scoring winning game.</p>
@@ -259,7 +258,7 @@
           <hr>
 
           <div>
-            <h2>OTHER SPECIAL ACHIEVEMENTS</h2>
+            <h3>OTHER SPECIAL ACHIEVEMENTS</h3>
             <p>
             These points are only granted once per player per tournament.
             </p>
@@ -293,7 +292,7 @@
           <hr>
 
           <div>
-            <h2>CLAN POINTS ONLY</h2>
+            <h3>CLAN POINTS ONLY</h3>
 
             <p>
               These get you clan points but do not get you points
@@ -365,7 +364,7 @@
           <hr>
 
           <div>
-            <h2>CLAN SCORING</h2>
+            <h3>CLAN SCORING</h3>
 
             <p>
               Sum total of all individual points with the exception of
@@ -378,8 +377,18 @@
             </p>
           </div>
 
+          <hr>
+
+          <div>
+            <h3>CONDUCT</h3>
+            <p>
+              Please do not do anything that would give you an unfair competitive advantage over other players or clans. This includes stuff like scumming crash-on-deman bugs or running bots on your own account for speedrun points - just remember that the objective here is to have fun. (You are welcome to run bots on their own accounts in the tourney, though as always on online servers you should be careful not to hammer the CPU with them. Also, bot wins will not be displayed on lists of fastest wins.)
+            </p>
+          </div>
+
           <div>
             <hr>
+            <a name="banners"></a>
             <h2>BANNERS</h2>
 
             <div>
@@ -849,8 +858,8 @@ III: Win a game as a non-demigod without worshipping a god.
           <hr style="clear: both">
 
           <div>
-            <h2>CHANGED RULES</h2>
             <a name="changes"></a>
+            <h2>CHANGED RULES</h2>
 
             <hr>
             <div class="fineprint">
