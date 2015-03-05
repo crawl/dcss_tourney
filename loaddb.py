@@ -36,8 +36,13 @@ CAO = 'http://crawl.akrasiac.org/'
 CSZO = 'http://dobrazupa.org/'
 CLN = 'http://crawl.lantea.net/crawl/'
 CBRO = 'http://crawl.berotato.org/crawl/'
-CKR = 'http://kr.dobrazupa.org/'
-RHF = 'http://rl.heh.fi/'
+CPO = 'http://crawl.project357.org/'
+CWZ = 'http://webzook.net:82/'
+CXC = 'http://crawl.xtahua.com/crawl/'
+LLD = 'http://lazy-life.ddo.jp/'
+
+#CKR = 'http://kr.dobrazupa.org/'
+#RHF = 'http://rl.heh.fi/'
 
 # Log and milestone files. A tuple indicates a remote file with t[1]
 # being the URL to wget -c from.
@@ -46,9 +51,11 @@ LOGS = TEST_LOGS or [
          ('cao-logfile-0.16', CAO + 'logfile16'),
          ('cdo-logfile-0.16', CDO + 'allgames-0.16.txt'),
          ('cln-logfile-0.16', CLN + 'meta/0.16/logfile'),
-#         ('rhf-logfile-0.14', RHF + 'meta/crawl-0.14/logfile'),
          ('cbro-logfile-0.16', CBRO + 'meta/0.16/logfile'),
-#         ('ckr-logfile-0.15', CKR + 'www/0.15/logfile'),
+         ('cpo-logfile-0.16', CPO + 'dcss-logfiles-0.16'),
+         ('cwz-logfile-0.16', CWZ + '0.16/logfile'),
+         ('cxc-logfile-0.16', CXC + 'meta/0.16/logfile'),
+         ('lld-logfile-0.16', LLD + 'mirror/meta/0.16/logfile'),
          ('cszo-logfile-0.16', CSZO + 'meta/0.16/logfile')]
 # this line should be used on CSZO instead:
 #         'cszo-logfile-0.16']
@@ -57,9 +64,11 @@ MILESTONES = TEST_MILESTONES or [
          ('cao-milestones-0.16', CAO + 'milestones16'),
          ('cdo-milestones-0.16', CDO + 'milestones-0.16.txt'),
          ('cln-milestones-0.16', CLN + 'meta/0.16/milestones'),
-#         ('rhf-milestones-0.14', RHF + 'meta/crawl-0.14/milestones'),
          ('cbro-milestones-0.16', CBRO + 'meta/0.16/milestones'),
-#         ('ckr-milestones-0.15', CKR + 'www/0.15/milestones'),
+         ('cpo-milestones-0.16', CPO + 'dcss-milestones-0.16'),
+         ('cwz-milestones-0.16', CWZ + '0.16/milestones'),
+         ('cxc-milestones-0.16', CXC + 'meta/0.16/milestones'),
+         ('lld-milestones-0.16', LLD + 'mirror/meta/0.16/milestones'),
          ('cszo-milestones-0.16', CSZO + 'meta/0.16/milestones')]
 # this line should be used on CSZO instead:
 #         'cszo-milestones-0.16']
@@ -69,7 +78,7 @@ EXTENSION_FILE = 'modules.ext'
 TOURNAMENT_DB = 'tournament'
 COMMIT_INTERVAL = 3000
 # These rcfiles need to be updated from the servers every few hours.
-CRAWLRC_DIRECTORY_LIST = ['rcfiles-cszo/','rcfiles-cao/','rcfiles-cbro/','rcfiles-cdo/','rcfiles-ckr/','rcfiles-cln/']
+CRAWLRC_DIRECTORY_LIST = ['rcfiles-cszo/','rcfiles-cao/','rcfiles-cbro/','rcfiles-cdo/','rcfiles-cln/','rcfiles-cpo/','rcfiles-cwz/','rcfiles-cxc/','rcfiles-lld/']
 
 LISTENERS = [ ]
 TIMERS = [ ]

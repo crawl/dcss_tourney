@@ -29,8 +29,13 @@ CDO_MORGUE_BASE = 'http://crawl.develz.org/morgues/0.16'
 CLN_MORGUE_BASE = 'http://crawl.lantea.net/crawl/morgue'
 CSZO_MORGUE_BASE = 'http://dobrazupa.org/morgue'
 CBRO_MORGUE_BASE = 'http://crawl.berotato.org/crawl/morgue'
-CKR_MORGUE_BASE = 'http://kr.dobrazupa.org/morgue/0.16'
-RHF_MORGUE_BASE = 'http://rl.heh.fi/morgue'
+CPO_MORGUE_BASE = 'http://crawl.project357.org/morgue'
+CWZ_MORGUE_BASE = 'http://webzook.net:82/morgue/0.16'
+CXC_MORGUE_BASE = 'http://crawl.xtahua.com/crawl/morgue'
+LLD_MORGUE_BASE = 'http://lazy-life.ddo.jp:8080/morgue'
+
+#CKR_MORGUE_BASE = 'http://kr.dobrazupa.org/morgue/0.16'
+#RHF_MORGUE_BASE = 'http://rl.heh.fi/morgue'
 
 XXX_TOURNEY_BASE = ((LOCAL_TEST and ('file:///' + os.getcwd() + '/' + SCORE_FILE_DIR))
                    or WEB_BASE)
@@ -174,8 +179,14 @@ def morgue_link(xdict):
     base = CSZO_MORGUE_BASE
   elif src.find('cbr') >= 0:
     base = CBRO_MORGUE_BASE
+  elif src.find('cpo') >= 0:
+    base = CPO_MORGUE_BASE
+  elif src.find('cwz') >= 0:
+    base = CWZ_MORGUE_BASE
+  elif src.find('cxc') >= 0:
+    base = CXC_MORGUE_BASE
   else:
-    base = CKR_MORGUE_BASE
+    base = LLD_MORGUE_BASE
   return "%s/%s/morgue-%s-%s.txt" % (base, name, name, stime)
 
 def linked_text(key, link_fn, text=None):
