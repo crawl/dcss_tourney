@@ -1819,7 +1819,7 @@ def check_ash_banners(c, name, start):
   return 3
 
 def check_ru_abandonment_game(c, name, start):
-  champion_time = query_first(c, '''SELECT turn
+  champion_time = query_first_def(c, None, '''SELECT turn
                                       FROM milestones
                                      WHERE player = %s
                                        AND start_time = %s
@@ -1828,7 +1828,7 @@ def check_ru_abandonment_game(c, name, start):
                                   ORDER BY turn''', name, start)
   if not champion_time:
     return False
-  abandon_time = query_first(c, '''SELECT turn
+  abandon_time = query_first_def(c, None, '''SELECT turn
                                      FROM milestones
                                     WHERE player = %s
                                       AND start_time = %s
@@ -1838,7 +1838,7 @@ def check_ru_abandonment_game(c, name, start):
                                  ORDER BY turn''', name, start, champion_time)
   if not abandon_time:
     return False
-  return not query_first(c, '''SELECT COUNT(*)
+  return not query_first_def(c, None, '''SELECT COUNT(*)
                                  FROM milestones
                                 WHERE player = %s
                                   AND start_time = %s
