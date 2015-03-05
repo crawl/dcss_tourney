@@ -74,6 +74,9 @@ def act_on_milestone(c, mile):
   if mile['xl'] >= 13:
     banner.award_banner(c, player, 'okawaru', 1)
 
+  if mile['goldfound'] >= 1000:
+    banner.award_banner(c, player, 'gozag', 1)
+
   if mile['xl'] >= 9 and nemelex.is_nemelex_choice(mile['char'],mile['start']):
     ban = 'nemelex:' + mile['char']
     banner.award_banner(c, player, ban, 1)
@@ -139,6 +142,22 @@ def do_milestone_rune(c, mile):
     banner.award_banner(c, player, 'ashenzari', 2)
   if rune == 'golden' and num_rune == 1:
     banner.award_banner(c, player, 'fedhas', 2)
+  if rune == 'silver' and num_rune == 1:
+    banner.award_banner(c, player, 'gozag', 2)
+
+  # The abyssal rune is the only rune that the player can get before the iron
+  # rune for Avarice 3.
+  if rune == 'iron' and mile['urune'] <= 2:
+    other_rune_branches = ['Vaults', 'Shoals', 'Snake', 'Spider', 'Swamp', 'Slime', 'Pan', 'Coc', 'Geh', 'Tar']
+    eligible = True
+    for br in other_rune_branches:
+      if query.did_enter_branch(c, br, player, mile['start'], mile['time']):
+        eligible = False
+        break
+    if eligible:
+      assign_points(c, 'avarice', player, 25, False)
+      banner.award_banner(c, player, 'gozag', 3)
+
   if nemelex.is_nemelex_choice(mile['char'], mile['time']):
     ban = 'nemelex:' + mile['char']
     banner.award_banner(c, player, ban, 2)
