@@ -232,6 +232,10 @@ def do_milestone_br_end(c, mile):
 def do_milestone_max_piety(c, mile):
   if query.record_max_piety(c, mile['name'], mile['start'], mile['noun']):
     assign_points(c, "champion", mile['name'], 10)
+  if mile['noun'] == 'Ru':
+    banner.award_banner(c, mile['name'], 'lugonu', 1)
+  elif query.did_champion(c, 'Ru', mile['name'], mile['start'], mile['time']):
+    banner.award_banner(c, mile['name'], 'lugonu', 2)
 
 def do_milestone_abyss_enter(c, mile):
   banner.award_banner(c, mile['name'], 'xom', 1)
@@ -375,6 +379,10 @@ def crunch_winner(c, game):
   #  banner.award_banner(c, player, 'lugonu', 3)
   #elif gods_abandoned >= 3:
   #  banner.award_banner(c, player, 'lugonu', 2)
+
+  if query.check_ru_abandonment_game(c, player, game_start_time(game)):
+    assign_points(c, 'heretic_ru', player, 25, False)
+    banner.award_banner(c, player, 'lugonu', 3)
 
   if not query.game_did_visit_lair(c, player, game_start_time(game)):
     if not query.game_did_visit_branch(c, player, game_start_time(game)):

@@ -176,6 +176,15 @@ def did_sacrifice(c, noun, name, start, end):
                             AND milestone_time < %s ''',
                       name, start, noun, end) > 0)
 
+def did_champion(c, god, name, start, end):
+  return (query_first(c,
+                      '''SELECT COUNT(*) FROM milestones
+                          WHERE player = %s AND start_time = %s
+                            AND verb = 'god.maxpiety'
+                            AND noun = %s
+                            AND milestone_time < %s ''',
+                      name, start, god, end) > 0)
+
 def win_query(selected, order_by = None,
               player=None, charabbr=None, character_race=None, raceabbr=None,
               character_class=None, classabbr=None, runes=None,
@@ -1808,3 +1817,36 @@ def check_ash_banners(c, name, start):
     return 2
   # Congratulations, you made it this far...
   return 3
+
+def check_ru_abandonment_game(c, name, start):
+  champion_time = query_first(c, '''SELECT turn
+                                      FROM milestones
+                                     WHERE player = %s
+                                       AND start_time = %s
+                                       AND verb = 'god.maxpiety'
+                                       AND noun = 'Ru'
+                                  ORDER BY turn''', name, start)
+  if not champion_time:
+    return False
+  abandon_time = query_first(c, '''SELECT turn
+                                     FROM milestones
+                                    WHERE player = %s
+                                      AND start_time = %s
+                                      AND verb = 'god.renounce'
+                                      AND noun = 'Ru'
+                                      AND turn >= %s
+                                 ORDER BY turn''', name, start, champion_time)
+  if not abandon_time:
+    return False
+  return not query_first(c, '''SELECT COUNT(*)
+                                 FROM milestones
+                                WHERE player = %s
+                                  AND start_time = %s
+                                  AND verb = 'br.enter'
+                                  AND turn < %s
+                                  AND ((noun = 'Orc') OR (noun = 'Vaults')
+                                       OR (noun = 'Depths') OR (noun = 'Slime')
+                                       OR (noun = 'Shoals') OR (noun = 'Snake')
+                                       OR (noun = 'Spider') OR (noun = 'Swamp')
+                                      ) ''', name, start, abandon_time)
+  
