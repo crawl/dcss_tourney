@@ -1571,7 +1571,7 @@ def game_did_visit_branch(c, player, start_time):
                               AND verb = 'br.enter' 
                               AND ((noun = 'Temple') OR (noun = 'Lair')
                                   OR (noun = 'Orc')
-                                  OR (noun = 'Vault')) ''',
+                                  OR (noun = 'Vaults')) ''',
                      player, start_time)
 
 def count_gods_abandoned(c, player, start_time):

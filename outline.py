@@ -193,7 +193,7 @@ def do_milestone_br_enter(c, mile):
     assign_points(c, "branch:enter", mile['name'], 5)
   if mile['noun'] == 'Crypt':
     banner.award_banner(c, mile['name'], 'fedhas', 1)
-  if mile['noun'] in ['Vault', 'Snake', 'Swamp', 'Shoals', 'Spider', 'Slime',
+  if mile['noun'] in ['Vaults', 'Snake', 'Swamp', 'Shoals', 'Spider', 'Slime',
                       'Tomb', 'Dis', 'Tar', 'Coc', 'Geh']:
     banner.award_banner(c, mile['name'], 'ashenzari', 1)
   if mile['noun'] in ['Pan', 'Dis', 'Tar', 'Coc', 'Geh']:
