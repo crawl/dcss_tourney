@@ -11,6 +11,7 @@ import crawl
 import uniq
 
 import datetime
+import math
 
 from loaddb import query_do, query_first_col, query_rows
 from query import count_points, assign_points, assign_team_points, wrap_transaction
@@ -430,7 +431,7 @@ def crunch_winner(c, game):
     ban = 'nemelex:' + charabbrev
     if banner.count_recipients(c, ban, 3) < 7:
       if not banner.player_has_banner(c, player, ban, 3):
-        assign_points(c, ban, player, 75)
+        query.assign_stepdown_points(c, ban, player, 75)
         banner.award_banner(c, player, ban, 3)
 
   if query.is_unbeliever(c, game):
@@ -483,15 +484,15 @@ def crunch_winner(c, game):
   wins_before = query.count_wins(c, before=game_start)
   species_wins_before = query.count_wins(c, before=game_start, raceabbr=game['char'][0:2])
   class_wins_before = query.count_wins(c, before=game_start, classabbr=game['char'][2:])
-  assign_points(c, 'species_win:' + game['char'][0:2], game['name'], query.race_formula(wins_before, species_wins_before), False)
-  assign_points(c, 'background_win:' + game['char'][2:], game['name'], query.class_formula(wins_before, class_wins_before), False)
+  query.assign_stepdown_points(c, 'species_win:' + game['char'][0:2], game['name'], query.race_formula(wins_before, species_wins_before), False)
+  query.assign_stepdown_points(c, 'background_win:' + game['char'][2:], game['name'], query.class_formula(wins_before, class_wins_before), False)
   # and gods also
   game_god = query.get_game_god(c, game)
   banner_god = game_god.lower().replace(' ', '_')
   if (not game_god == 'faithless'):
     query.record_won_god(c, game['name'], game['end'], game_god)
     god_wins_before = query.count_god_wins(c, game_god, game_start)
-    assign_points(c, 'god_win:' + banner_god, game['name'], query.god_formula(wins_before, god_wins_before), False)
+    query.assign_stepdown_points(c, 'god_win:' + banner_god, game['name'], query.god_formula(wins_before, god_wins_before), False)
 
 def is_all_runer(game):
   """Did this game get every rune? This _might_ require checking the milestones
@@ -683,6 +684,18 @@ def check_misc_points(c, pmap):
   award_misc_points('high_score:species:%d', 20, query.all_hs_species(c))
   award_misc_points('high_score:background:%d', 10, query.all_hs_classes(c))
 
+def apply_stepdowns(c):
+  for p in query.get_players(c):
+    points = query.player_stepdown_points(c, p)
+    stepdowned_points = compute_stepdown(points)
+    #info("stepdown for %s: %s, %s" % (p, points, stepdowned_points))
+    if stepdowned_points != 0:
+      assign_points(c, 'combo_god_win', p, stepdowned_points, False)
+
+def compute_stepdown(points):
+  answer = 800.0*math.log(1.0+float(points)/800.0, 2.0)
+  return int(math.ceil(answer))
+
 def compute_player_only(c):
   for p in query.get_players(c):
     points = query.player_specific_points(c, p)
@@ -704,6 +717,7 @@ def safe_update_player_scores(c):
   check_misc_points(c, pmap)
   check_temp_trophies(c, pmap)
   check_banners(c)
+  apply_stepdowns(c)
   apply_point_map(c, pmap)
   compute_player_only(c)
 

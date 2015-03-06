@@ -606,6 +606,16 @@ def clan_god_wins(c, captain):
                           WHERE g.player = p.name AND p.team_captain = %s""",
                     captain)
 
+def clan_nemelex_points(c, captain):
+  return query_rows(c, '''SELECT psp.point_source, SUM(psp.points) total
+                          FROM player_stepdown_points psp, players p
+                          WHERE SUBSTRING_INDEX(psp.point_source, ':', 1)
+                                = 'nemelex'
+                          AND psp.player = p.name
+                          AND p.team_captain = %s
+                          GROUP BY psp.point_source
+                          ORDER BY total DESC''', captain)
+
 def clan_max_points(c, captain, key):
   points = query_row(c,
                      '''SELECT pp.player, SUM(pp.points) total
@@ -619,16 +629,30 @@ def clan_max_points(c, captain, key):
     return 0
   return points[1]
 
+def clan_max_stepdown_points(c, captain, key):
+  points = query_row(c,
+                     '''SELECT pp.player, SUM(pp.points) total
+                        FROM player_stepdown_points pp, players p
+                        WHERE pp.point_source = %s
+                        AND pp.player = p.name
+                        AND p.team_captain = %s
+                        GROUP BY pp.player
+                        ORDER BY total DESC''', key, captain)
+  if points == None:
+    return 0
+  return points[1]
+
 def player_specific_points(c, name):
-  points = 0
-  for g in player_race_wins(c, name):
-    points += count_points(c, name, 'species_win:'+g[0])
-  for g in player_class_wins(c, name):
-    points += count_points(c, name, 'class_win:'+g[0])
-  for god in get_player_won_gods(c, name):
-    banner_god = god.lower().replace(' ', '_')
-    points += count_points(c, name, 'god_win:'+banner_god)
-  return points
+  return count_points(c, name, 'combo_god_win')
+
+def player_stepdown_points(c, name):
+  total = query_first(c,
+                      '''SELECT SUM(points) FROM player_stepdown_points
+                         WHERE player = %s''',
+                      name)
+  if total is None:
+    return 0
+  return total
 
 def row_to_xdict(row):
   return dict( zip(LOG_FIELDS, row) )
@@ -871,8 +895,17 @@ def audit_trail_player_points(c, player):
                     ORDER BY temp, total DESC, n DESC, point_source''',
                     player)
 
+def audit_trail_player_stepdown_points(c, player):
+  rows = query_rows(c,
+                    '''SELECT point_source, SUM(points) total, COUNT(*) n
+                    FROM player_stepdown_points
+                    WHERE player=%s AND points > 0
+                    GROUP BY point_source
+                    ORDER BY total DESC, n DESC, point_source''',
+                    player)
+  return [tuple([False] + list(row)) for row in rows]
+
 def audit_trail_player_category_points(c, player):
-  """Gets the audit trail for the points assigned to the player."""
   return query_rows(c,
                     '''SELECT temp, SUBSTRING_INDEX(point_source, ':', 1) source,
                           SUM(points) total, COUNT(*) n
@@ -919,6 +952,15 @@ def audit_clan_points(c, captain):
                        ORDER BY p DESC, point_source''',
                     captain)
 
+def audit_clan_stepdown_points(c, captain):
+  return query_rows(c,
+                    '''SELECT point_source, SUM(points) p
+                       FROM clan_stepdown_points
+                       WHERE captain = %s
+                       GROUP BY point_source
+                       ORDER BY p DESC, point_source''',
+                    captain)
+
 def audit_clan_category_points(c, captain):
   return query_rows(c,
                     '''SELECT SUBSTRING_INDEX(point_source, ':', 1) source,
@@ -947,6 +989,9 @@ def audit_flush_player(c):
   """Discards temporary points assigned to players from the audit table."""
   query_do(c, '''DELETE FROM player_points
                  WHERE temp = 1''')
+
+def audit_stepdown_flush_clan(c, captain):
+  query_do(c, '''DELETE FROM clan_stepdown_points WHERE captain = %s''', captain)
 
 def audit_flush_clan(c, captain):
   query_do(c, '''DELETE FROM clan_points WHERE captain = %s''', captain)
@@ -991,6 +1036,15 @@ def count_points(cursor, name, point_source):
     return 0
   return total
 
+def count_stepdown_points(cursor, name, point_source):
+  total = query_first(cursor,
+                      '''SELECT SUM(points) FROM player_stepdown_points
+                         WHERE player = %s AND point_source = %s''',
+                      name, point_source)
+  if total is None:
+    return 0
+  return total
+
 def assign_points(cursor, point_source, name, points, add=True):
   """Add points to a player's points in the db"""
   if add:
@@ -1005,6 +1059,20 @@ def assign_points(cursor, point_source, name, points, add=True):
                 SET score_base = score_base + %s
                 WHERE name = %s""",
              new_points, name)
+
+def assign_stepdown_points(cursor, point_source, name, points, add=True):
+  if add:
+    new_points = points
+  else:
+    new_points = points - count_stepdown_points(cursor, name, point_source)
+  if new_points > 0:
+    query_do(cursor, '''INSERT INTO player_stepdown_points (player, points, point_source)
+                        VALUES (%s, %s, %s)''', name, new_points, point_source)
+
+def assign_stepdown_clan_points(cursor, point_source, captain, points, add=True):
+  if points > 0:
+    query_do(cursor, '''INSERT INTO clan_stepdown_points (captain, points, point_source)
+                        VALUES (%s, %s, %s)''', captain, points, point_source)
 
 def assign_team_points(cursor, point_source, name, points):
   """Add points to a players team in the db.  The name refers to the player, not the team"""

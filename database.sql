@@ -2,6 +2,8 @@
 -- SET storage_engine=InnoDB;
 
 DROP TABLE IF EXISTS player_points;
+DROP TABLE IF EXISTS player_stepdown_points;
+DROP TABLE IF EXISTS clan_stepdown_points;
 DROP TABLE IF EXISTS clan_points;
 DROP TABLE IF EXISTS deaths_to_distinct_uniques;
 DROP TABLE IF EXISTS deaths_to_uniques;
@@ -393,6 +395,22 @@ CREATE TABLE player_points (
   );
 
 CREATE INDEX point_player_src ON player_points (player, point_source);
+
+CREATE TABLE player_stepdown_points (
+  id BIGINT AUTO_INCREMENT PRIMARY KEY,
+  player VARCHAR(20) NOT NULL,
+  points MEDIUMINT NOT NULL DEFAULT 0,
+  point_source VARCHAR(150) NOT NULL,
+  FOREIGN KEY (player) REFERENCES players (name)
+  );
+
+CREATE TABLE clan_stepdown_points (
+  id BIGINT AUTO_INCREMENT PRIMARY KEY,
+  captain VARCHAR(20) NOT NULL,
+  points MEDIUMINT NOT NULL DEFAULT 0,
+  point_source VARCHAR(150) NOT NULL,
+  FOREIGN KEY (captain) REFERENCES players (name)
+  );
 
 -- Clan point assignments.
 CREATE TABLE clan_points (

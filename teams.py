@@ -205,19 +205,30 @@ def clan_additional_score(c, owner):
                                       5 * zig_depth)
 
 # Now we give race/class points to clans.
+  pre_stepdown_total = 0
+  query.audit_stepdown_flush_clan(c, owner)
   for g in query.clan_race_wins(c, owner):
     key = 'species_win:' + g[0]
-    points = query.clan_max_points(c, owner, key)
-    additional += log_temp_clan_points(c, owner, key, points)
+    points = query.clan_max_stepdown_points(c, owner, key)
+    query.assign_stepdown_clan_points(c, key, owner, points)
+    pre_stepdown_total += points
   for g in query.clan_class_wins(c, owner):
     key = 'background_win:' + g[0]
-    points = query.clan_max_points(c, owner, key)
-    additional += log_temp_clan_points(c, owner, key, points)
+    points = query.clan_max_stepdown_points(c, owner, key)
+    query.assign_stepdown_clan_points(c, key, owner, points)
+    pre_stepdown_total += points
   for g in query.clan_god_wins(c, owner):
     banner_god = g[0].lower().replace(' ', '_')
     key = 'god_win:' + banner_god
-    points = query.clan_max_points(c, owner, key)
-    additional += log_temp_clan_points(c, owner, key, points)
+    points = query.clan_max_stepdown_points(c, owner, key)
+    query.assign_stepdown_clan_points(c, key, owner, points)
+    pre_stepdown_total += points
+  for row in query.clan_nemelex_points(c, owner):
+    query.assign_stepdown_clan_points(c, row[0], owner, row[1])
+    pre_stepdown_total += row[1]
+
+  stepdown_points = outline.compute_stepdown(pre_stepdown_total)
+  additional += log_temp_clan_points(c, owner, 'combo_god_win', stepdown_points)
 
   query.set_clan_points(c, owner, additional)
   # A clan-based banner.

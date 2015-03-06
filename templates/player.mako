@@ -1,5 +1,6 @@
 <%
    import loaddb, query, crawl_utils, html
+   from outline import compute_stepdown
 
    c = attributes['cursor']
    player = attributes['player']
@@ -27,9 +28,10 @@
    audit = query.audit_trail_player_points(c, player)
    audit_team = query.audit_trail_player_team_points(c, player)
    audit_category = query.audit_trail_player_category_points(c, player)
+   audit_stepdown = query.audit_trail_player_stepdown_points(c, player)
    whereis = html.whereis(c, player)
 
-   def point_breakdown(audit):
+   def point_breakdown(audit, with_stepdown=False):
      if not audit:
        return '<tr><td colspan="3">No points</td></tr>'
      text = ''
@@ -48,6 +50,11 @@
      text += '''<tr><th class="numeric">%d</th>
                     <th class="numeric">%d</th>
                     <th>Total</th>''' % (n, total)
+     if with_stepdown:
+       text += '</tr>\n'
+       text += '''<tr><th class="numeric"></th>
+                    <th class="numeric">%d</th>
+                    <th>Adjusted Total</th>''' % compute_stepdown(total)
      return text
 
    uniq_slain = query.player_uniques_killed(c, player)
@@ -225,8 +232,20 @@
                     </tr>
                     ${point_breakdown(audit_category)}
                   </table>
+
+                %if len(audit_stepdown) > 0:
+                  <h4>Combo/God Points Breakdown</h4>
+                  <table class="bordered">
+                    <tr>
+                      <th>N</th> <th>Points</th> <th>Source</th>
+                    </tr>
+                    ${point_breakdown(audit_stepdown, True)}
+                  </table>
+                %endif
+
                 </td>
                 %endif
+
                 <td>
                   <h4>Team points</h4>
                   <table class="bordered">

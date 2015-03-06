@@ -1,5 +1,6 @@
 <%
    import loaddb, query, crawl_utils, html
+   from outline import compute_stepdown
 
    c = attributes['cursor']
    captain = attributes['captain']
@@ -21,6 +22,7 @@
    clan_player_points = query.audit_adjusted_clan_player_points(c, captain)
    clan_points = query.audit_clan_points(c, captain)
    clan_category_points = query.audit_clan_category_points(c, captain)
+   clan_stepdown_points = query.audit_clan_stepdown_points(c, captain)
 
    clan_players = cinfo[1]
    clan_whereis = html.whereis(c, *clan_players)
@@ -38,7 +40,7 @@
      text = ''
      total = 0
      for name, score in clan_player_points:
-       text += '''<tr class="point_temp">
+       text += '''<tr class="point_perm">
                     <td>%s</td>
                     <td class="numeric">%s</td>
                   </tr>''' % (name, score)
@@ -46,16 +48,20 @@
      text += '''<tr><th>Total</th><th class="numeric">%s</th></tr>''' % total
      return text
 
-   def clan_point_breakdown(c_points):
+   def clan_point_breakdown(c_points, with_stepdown=False):
      text = ''
      total = 0
      for source, points in c_points:
-       text += '''<tr class="point_temp">
+       text += '''<tr class="point_perm">
                     <td>%s</td>
                     <td class="numeric">%s</td>
                   </tr>''' % (source, points)
        total += points
      text += '''<tr><th>Total</th><th class="numeric">%s</th></tr>''' % total
+     if with_stepdown:
+       text += '</tr>\n'
+       text += '''<tr><th>Adjusted Total</th>
+                    <th class="numeric">%d</th>''' % compute_stepdown(total)
      return text
 
    blank_row = '''<tr>
@@ -193,9 +199,6 @@
             <table class="grouping">
               <tr>
                 <td>
-                  %if len(clan_category_points)+3 < len(clan_points):
-                  <h4>Full details</h4>
-                  %endif
                   <table class="bordered">
                     %if clan_player_points:
                     <tr>
@@ -221,32 +224,16 @@
                     %endif
                   </table>
                 </td>
-                %if len(clan_category_points)+3 < len(clan_points):
+                %if len(clan_stepdown_points) > 0:
                 <td></td><td></td>
                 <td>
-                  <h4>Category Breakdown</h4>
+                  <h4>Combo/God Points Breakdown</h4>
                   <table class="bordered">
-                    %if clan_player_points:
-                    <tr>
-                      <th>Player</th> <th>Points</th>
-                    </tr>
-                    ${player_point_breakdown()}
-                      %if clan_points:
-                        ${blank_row}
-                      %endif
-                    %endif
                     %if clan_points:
                     <tr>
                       <th>Source</th> <th>Points</th>
                     </tr>
-                    ${clan_point_breakdown(clan_category_points)}
-                    %endif
-                    %if clan_points and clan_player_points:
-                      ${blank_row}
-                      <tr>
-                        <th>Grand Total</th>
-                        <th class="numeric">${grand_total}</th>
-                      </tr>
+                    ${clan_point_breakdown(clan_stepdown_points, True)}
                     %endif
                   </table>
                 </td>
