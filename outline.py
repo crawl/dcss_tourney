@@ -185,7 +185,8 @@ def do_milestone_ghost(c, mile):
   """When you kill a player ghost, you get two clan points! Otherwise this
   isn't terribly remarkable."""
   if not mile['milestone'].startswith('banished'):
-    assign_team_points(c, "ghost", mile['name'], 2)
+    if query.count_team_points(c, mile['name'], 'ghost') < 200:
+      assign_team_points(c, "ghost", mile['name'], 2)
 
 def do_milestone_br_enter(c, mile):
   """Five points for the first time you get each br.enter milestone (includes

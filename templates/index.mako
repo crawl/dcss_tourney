@@ -337,7 +337,7 @@ To become a member of a clan, you
               not previously won in the tournament.
             </p>
 
-            <p><span>2 clan points</span> per player ghost killed while playing.</p>
+            <p><span>2 clan points</span> per player ghost killed while playing, up to a maximum of 100 ghosts killed by each player.</p>
 
             <p>
               <span>N clan points</span> per ghost kill after dying, where
@@ -940,6 +940,11 @@ III: Win a game as a non-demigod without worshipping a god.
 
             <p class="changed">
               The first tier of <span>Sif Muna's <a href="#lorekeeper">LOREKEEPER</a></span> banner will no longer be awarded to formicids.
+              <span class="changed">[CHANGED]</span>
+            </p>
+
+            <p class="changed">
+              The <span>2 clan points</span> awarded for killing player ghosts are now capped at 100 ghosts killed by each player.
               <span class="changed">[CHANGED]</span>
             </p>
 

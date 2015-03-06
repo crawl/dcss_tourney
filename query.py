@@ -1036,6 +1036,15 @@ def count_points(cursor, name, point_source):
     return 0
   return total
 
+def count_team_points(cursor, name, point_source):
+  total = query_first(cursor,
+                      '''SELECT SUM(team_points) FROM player_points
+                         WHERE player = %s AND point_source = %s''',
+                      name, point_source)
+  if total is None:
+    return 0
+  return total
+
 def count_stepdown_points(cursor, name, point_source):
   total = query_first(cursor,
                       '''SELECT SUM(points) FROM player_stepdown_points
