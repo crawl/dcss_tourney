@@ -48,6 +48,10 @@
           </p>
 
           <p>
+            Once the tournament has started, the <a href="overview.html">Tournament Leaderboard</a> will contain the current results. (Some scores might briefly appear on this page before tournament start as we test the tournament scripts, but they are just for testing.)
+          </p>
+
+          <p>
             Have fun playing Crawl!
           </p>
 
