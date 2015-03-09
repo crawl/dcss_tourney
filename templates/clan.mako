@@ -141,7 +141,7 @@
             </div>
 
             <p class="fineprint">
-              We say that a game is won using a (non-Xom) god if the player reaches
+              We say that a game is won using a (non-Gozag, non-Xom) god if the player reaches
               ****** piety with that god without worshipping any
               other god first; this is not necessarily the same god worshipped at the end of the game. A game is won using Gozag or Xom if the player never worships another god. A game is won using 'No God' only if the player
               never worships a god.
