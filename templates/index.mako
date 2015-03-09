@@ -158,7 +158,7 @@ To become a member of a clan, you
             <p><span>5 points</span> the first time you kill each
               unique.</p>
 
-            <p><span>50-20-10 points</span> for the players with the most unique
+            <p><span>50-20-10 points</span> for the players with the most distinct
 	    uniques killed; ties broken by who gets that number first.</p>
             <h5>HIGH SCORES</h5>
             <p>
@@ -332,7 +332,7 @@ To become a member of a clan, you
 
             <p>
               <span>50-20-10 clan points</span> for the "Most Unique Deaths"
-              trophy: Killed by the most unique uniques. Ties are broken by 
+              trophy: Killed by the most distinct uniques. Ties are broken by
 	      who reaches that number first.
             </p>
 
@@ -360,7 +360,7 @@ To become a member of a clan, you
 
             <p>
               <span>100-50-20 clan points</span> for the <b>clans</b> with the most
-              unique uniques killed; ties broken by who gets that number first.
+              distinct uniques killed; ties broken by who gets that number first.
             </p>
 
           </div>
