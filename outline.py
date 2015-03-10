@@ -292,6 +292,9 @@ def crunch_misc(c, g):
   if g['xl'] >= 13:
     banner.award_banner(c, player, 'okawaru', 1)
 
+  if g['goldfound'] >= 1000:
+    banner.award_banner(c, player, 'gozag', 1)
+
   if g['xl'] >= 9 and nemelex.is_nemelex_choice(g['char'],g['start']):
     ban = 'nemelex:' + g['char']
     banner.award_banner(c, player, ban, 1)
