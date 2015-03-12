@@ -273,7 +273,7 @@ To become a member of a clan, you
 	    <p>
 	      <span>25 points</span> for a win in which you become the champion of Ru and then abandon Ru before entering any branches other than the Temple and the Lair (<a href="#heretics">HERETIC</a> banner III).
 	    </p>
-            <p><span>25 points</span> for a game in which you enter Tomb for the first time after picking up the Orb of Zot and then get the golden rune (<a href="#natures_ally">NATURE's ALLY</a> banner III).
+            <p><span>25 points</span> for a game in which you enter Tomb for the first time after picking up the Orb of Zot and then get the golden rune (<a href="#natures_ally">NATURE'S ALLY</a> banner III).
             </p>
 
             <p><span>25 points</span> for a game in which you get six runes before entering the Depths (<a href="#vow_of_courage">VOW OF COURAGE</a> banner III).
