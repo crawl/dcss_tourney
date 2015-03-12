@@ -484,7 +484,7 @@ CREATE INDEX clan_banners_captain ON clan_banners (team_captain);
 CREATE VIEW fastest_realtime AS
 SELECT id, player, duration
   FROM games
- WHERE killertype = 'winning' AND player <> 'qw'
+ WHERE killertype = 'winning' AND player <> 'qw' AND player <> 'tstbtto'
  ORDER BY duration, end_time
  LIMIT 3;
 
