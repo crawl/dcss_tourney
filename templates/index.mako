@@ -288,7 +288,7 @@ To become a member of a clan, you
             </p>
 
             <p>
-              <span>25 points</span> for winning the game before reaching experience level 19 (<a href="#ruthless_efficiency">RUTHLESS EFFICIENCY</a> banner III).
+              <span>25 points</span> for winning the game before reaching experience level 19 (and without using Ru's Sacrifice Experience ability) (<a href="#ruthless_efficiency">RUTHLESS EFFICIENCY</a> banner III).
             </p>
 
           </div>
