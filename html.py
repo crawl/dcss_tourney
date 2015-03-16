@@ -276,7 +276,10 @@ def pretty_time(time):
 def how_old(date, bold_cutoff = 0): #cutoff in hours
   if not date:
     return None,None
-  delta = datetime.datetime.utcnow() - query.time_from_str(date)
+  if type(date) == "string":
+    delta = datetime.datetime.utcnow() - query.time_from_str(date)
+  else:
+    delta = datetime.datetime.utcnow() - date
   h = 24*delta.days + delta.seconds / 60 / 60
   m = (delta.seconds / 60) % 60
   s = delta.seconds % 60

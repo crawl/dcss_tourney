@@ -55,7 +55,7 @@
               <tr>
                 <td>
                   <h3>Nemelex' Choice: </h3>
-                  <span>${nem_list[-1][0]}</span>, chosen on ${nem_list[-1][1]} UTC
+                  <span>${nem_list[-1][0]}</span>, chosen on ${nem_list[-1][1]} UTC (${html.how_old(nem_list[-1][1])[0]} ago)
                   <p class="fineprint">
                     75 bonus points for the first seven players to win ${nem_list[-1][0]}
                     during the tournament!
