@@ -880,8 +880,9 @@ def get_first_max_piety(c, player, start_time):
                   '''SELECT COUNT(*) FROM milestones
                      WHERE player = %s AND start_time = %s
                        AND verb = 'god.renounce'
+                       AND noun <> %s
                        AND milestone_time < %s''',
-                  player, start_time, row[1]) > 0):
+                  player, start_time, row[0], row[1]) > 0):
     return 'faithless'
   return row[0]
 
