@@ -284,7 +284,7 @@ To become a member of a clan, you
 	    </p>
 
             <p>
-              <span>25 points</span> for a game in which you find the iron rune before entering Pandemonium or any branch of the dungeon containing any other rune (<a href="#avarice">AVARICE</a> banner III). This means that only Temple, Lair, Orc, Elf, Abyss, Hell, and Dis can be entered.
+              <span>25 points</span> for a game in which you find the iron rune before entering Pandemonium or any branch of the dungeon containing any other rune (<a href="#avarice">AVARICE</a> banner III). This means that only Temple, Lair, Orc, Elf, Depths, Abyss, Hell, and Dis can be entered.
             </p>
 
             <p>
