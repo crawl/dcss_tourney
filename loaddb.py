@@ -279,6 +279,13 @@ class Xlogfile:
       if line.startswith("             ..."):
         continue
 
+      # bad logfile lines in cdo 0.16
+      # I'm too tired to write a better check right now,
+      # this should be replaced with something more specific
+      if not line.startswith("v"):
+        info(line)
+        continue
+
       try:
         xdict = apply_dbtypes( xlog_dict(line) )
         if self.blacklist and self.blacklist.is_blacklisted(xdict):
