@@ -221,7 +221,7 @@ class Xlogfile:
 
   def fetch_remote(self):
     info("Fetching remote %s to %s with wget -c" % (self.url, self.filename))
-    res = os.system("wget -q -c %s -O %s" % (self.url, self.filename))
+    res = os.system("wget -q -c --no-check-certificate %s -O %s" % (self.url, self.filename))
     if res != 0:
       raise IOError, "Failed to fetch %s with wget" % self.url
 
