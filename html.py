@@ -41,9 +41,9 @@ BANNER_TEXT = \
           'Find 17 distinct runes over the course of the tourney.',
         ],
       'beogh':
-        [ 'Have the highest score in your clan.',
-          'Have the highest score in a clan that is ranked in the top 27.',
-          'Have the highest score in a clan that is ranked in the top 5.',
+        [ 'Abandon and mollify a god excluding Beogh, Elyvilon, Ru, The Shining One, and Zin.',
+          'Over the course of the tournament, abandon and mollify three gods excluding Beogh, Elyvilon, Ru, The Shining One, and Zin.',
+          'Over the course of the tournament, abandon and mollify nine gods excluding Beogh, Elyvilon, Ru, The Shining One, and Zin.'
         ],
       'cheibriados':
         [ 'Reach experience level 9 in two consecutive games.',
@@ -78,7 +78,7 @@ BANNER_TEXT = \
       'kikubaaqudgha':
         [ 'Reach the last level of the Orcish Mines without having entered the Lair.',
           'Reach the last level of the Depths without having entered the Lair.',
-          'Win a game without having entered the Temple, the Orcish Mines, the Lair, or the Vaults.',
+          'Win a game without having entered the Lair, the Orcish Mines, or the Vaults.',
         ],
       'lugonu':
         [ 'Become the champion of Ru',
@@ -143,7 +143,7 @@ BANNER_TEXT = \
       'zin':
         [ 'Enter either Pandemonium or any branch of Hell.',
           'Kill at least one unique pan lord and at least one unique hell lord over the course of the tournament.',
-          'Kill all four unique pan lords and all four unique hell lords over the course of the tournament.',
+          'Kill all four unique pan lords, all four unique hell lords, and the Serpent of Hell (at least once) over the course of the tournament.',
         ],
       '1top_player':
         [ 'Individual with the most tournament points.',
