@@ -1694,7 +1694,7 @@ def count_gods_mollified(c, player):
   abandon_table = query_rows(c, '''SELECT noun, MAX(turn)
                                      FROM milestones
                                     WHERE player = %s
-                                      AND verb = 'god.mollified'
+                                      AND verb = 'god.mollify'
                                  GROUP BY noun
                                  ORDER BY noun''', player)
   count = 0
