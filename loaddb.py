@@ -34,7 +34,7 @@ HARE_START_TIME = TEST_HARE_START_TIME or (T_YEAR + '11212000') # one day before
 CDO = 'http://crawl.develz.org/'
 CAO = 'http://crawl.akrasiac.org/'
 CSZO = 'http://dobrazupa.org/'
-CLN = 'http://crawl.lantea.net/crawl/'
+CUE = 'http://underhound.eu:81/crawl/'
 CBRO = 'http://crawl.berotato.org/crawl/'
 CPO = 'http://crawl.project357.org/'
 CWZ = 'http://webzook.net:82/'
@@ -50,7 +50,7 @@ LLD = 'http://lazy-life.ddo.jp/'
 LOGS = TEST_LOGS or [
          ('cao-logfile-0.17', CAO + 'logfile17'),
          ('cdo-logfile-0.17', CDO + 'allgames-0.17.txt'),
-         ('cln-logfile-0.17', CLN + 'meta/0.17/logfile'),
+         ('cue-logfile-0.17', CUE + 'meta/0.17/logfile'),
          ('cbro-logfile-0.17', CBRO + 'meta/0.17/logfile'),
          ('cpo-logfile-0.17', CPO + 'dcss-logfiles-0.17'),
          ('cwz-logfile-0.17', CWZ + '0.17/logfile'),
@@ -63,7 +63,7 @@ LOGS = TEST_LOGS or [
 MILESTONES = TEST_MILESTONES or [
          ('cao-milestones-0.17', CAO + 'milestones17'),
          ('cdo-milestones-0.17', CDO + 'milestones-0.17.txt'),
-         ('cln-milestones-0.17', CLN + 'meta/0.17/milestones'),
+         ('cue-milestones-0.17', CUE + 'meta/0.17/milestones'),
          ('cbro-milestones-0.17', CBRO + 'meta/0.17/milestones'),
          ('cpo-milestones-0.17', CPO + 'dcss-milestones-0.17'),
          ('cwz-milestones-0.17', CWZ + '0.17/milestones'),
@@ -78,7 +78,7 @@ EXTENSION_FILE = 'modules.ext'
 TOURNAMENT_DB = 'tournament'
 COMMIT_INTERVAL = 3000
 # These rcfiles need to be updated from the servers every few hours.
-CRAWLRC_DIRECTORY_LIST = ['rcfiles-cszo/','rcfiles-cao/','rcfiles-cbro/','rcfiles-cdo/','rcfiles-cln/','rcfiles-cpo/','rcfiles-cwz/','rcfiles-cxc/','rcfiles-lld/']
+CRAWLRC_DIRECTORY_LIST = ['rcfiles-cszo/','rcfiles-cao/','rcfiles-cbro/','rcfiles-cdo/','rcfiles-cpo/','rcfiles-cue/','rcfiles-cwz/','rcfiles-cxc/','rcfiles-lld/']
 
 LISTENERS = [ ]
 TIMERS = [ ]

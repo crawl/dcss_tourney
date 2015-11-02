@@ -3,7 +3,7 @@ import datetime
 CDO = 'http://crawl.develz.org/'
 CAO = 'http://crawl.akrasiac.org/'
 CSZO = 'http://dobrazupa.org/'
-CLN = 'http://crawl.lantea.net/crawl/'
+CUE = 'http://underhound.eu:81/crawl/'
 CBRO = 'http://crawl.berotato.org/crawl/'
 CPO = 'http://crawl.project357.org/'
 CWZ = 'http://webzook.net:82/'
@@ -22,7 +22,7 @@ TEST_HARE_START_TIME = USE_TEST and (TEST_YEAR + '1101')
 TEST_LOGS = USE_TEST and [
          ('cao-logfile-0.17', CAO + 'logfile17'),
          ('cdo-logfile-0.17', CDO + 'allgames-0.17.txt'),
-         ('cln-logfile-0.17', CLN + 'meta/0.17/logfile'),
+         ('cue-logfile-0.17', CUE + 'meta/0.17/logfile'),
          ('cbro-logfile-0.17', CBRO + 'meta/0.17/logfile'),
          ('cpo-logfile-0.17', CPO + 'dcss-logfiles-0.17'),
          ('cwz-logfile-0.17', CWZ + '0.17/logfile'),
@@ -34,7 +34,7 @@ TEST_LOGS = USE_TEST and [
 TEST_MILESTONES = USE_TEST and [
          ('cao-milestones-0.17', CAO + 'milestones17'),
          ('cdo-milestones-0.17', CDO + 'milestones-0.17.txt'),
-         ('cln-milestones-0.17', CLN + 'meta/0.17/milestones'),
+         ('cue-milestones-0.17', CUE + 'meta/0.17/milestones'),
          ('cbro-milestones-0.17', CBRO + 'meta/0.17/milestones'),
          ('cpo-milestones-0.17', CPO + 'dcss-milestones-0.17'),
          ('cwz-milestones-0.17', CWZ + '0.17/milestones'),
