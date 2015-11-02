@@ -598,8 +598,8 @@ To become a member of a clan, you
 
             <div>
               <img src="images/banner_lugonu1.png"
-                   alt="The Spiteful"
-                   title="The Spiteful"
+                   alt="Spiteful"
+                   title="Spiteful"
                    width="170" height="58"
                    >
               <p>
