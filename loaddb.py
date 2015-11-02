@@ -18,18 +18,18 @@ T_YEAR = TEST_YEAR or '2015'
 T_VERSION = TEST_VERSION or '0.17'
 
 # Start and end of the tournament, UTC.
-START_TIME = TEST_START_TIME or (T_YEAR + '03132000')
-END_TIME   = TEST_END_TIME or (T_YEAR + '03292000')
+START_TIME = TEST_START_TIME or (T_YEAR + '11062000')
+END_TIME   = TEST_END_TIME or (T_YEAR + '11222000')
 
 # Deadline for forming teams.
 CLAN_DEADLINE = (TEST_CLAN_DEADLINE or
-                datetime.datetime(2015, 3, 21, 20)) # Sep 6, 20:00
+                datetime.datetime(2015, 11, 14, 20)) # Nov 14, 20:00
 
 DATE_FORMAT = '%Y%m%d%H%M'
 
 GAME_VERSION = T_VERSION
 
-HARE_START_TIME = TEST_HARE_START_TIME or (T_YEAR + '03282000')
+HARE_START_TIME = TEST_HARE_START_TIME or (T_YEAR + '11212000') # one day before tourney end
 
 CDO = 'http://crawl.develz.org/'
 CAO = 'http://crawl.akrasiac.org/'
