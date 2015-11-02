@@ -30,7 +30,7 @@
         <div class="content">
           <p>
             Hello all! Welcome to the rules for the
-            ${version} Dungeon Crawl Stone Soup Tournament, running from <b><a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20150313T20">20:00 UTC Friday 13 March</a></b> to <b><a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20150329T20">20:00 UTC Sunday 29 March</a></b>. All version ${version} games played fully during this time period on any of the <a href="https://crawl.develz.org/wordpress/howto">public servers</a> will automatically count for the tournament.
+            ${version} Dungeon Crawl Stone Soup Tournament, running from <b><a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20151106T20">20:00 UTC Friday 6 November</a></b> to <b><a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20151122T20">20:00 UTC Sunday 22 November</a></b>. All version ${version} games played fully during this time period on any of the <a href="https://crawl.develz.org/wordpress/howto">public servers</a> will automatically count for the tournament.
           </p>
 
           <p>
@@ -96,28 +96,30 @@ To become a member of a clan, you
 
           <div class="inset">
             <p>
-              <span class="inline_heading">Note:</span> clan membership lines can be added to your ${version} rcfile on <b>any</b> of the public servers.
-              If you add clan
-              membership lines to more than one rcfile, then the rcfile on
-              the server earliest in the list CSZO, CAO, CBRO, CDO, CLN, CPO, CWZ, CXC, LLD will take
+              <span class="inline_heading">Note:</span> clan membership lines
+              can be added to your ${version} rcfile on <b>any</b> of the
+              public servers. If you add clan membership lines to more than
+              one rcfile, then the rcfile on the server earliest in the list
+              CSZO, CAO, CBRO, CDO, CPO, CUE, CWZ, CXC, LLD will take
               precedence.
             </p>
           </div>
 
           <p>
-            Clan names must contain only alphanumeric characters,
-            underscores, and hyphens. Underscores will be converted into
-            spaces. Once a player's username is in
-            the captain's rcfile and the captain's username is in the
-            player's rcfile and the tourney scripts notice this, the
-            players will be in the same clan. The tourney scripts only check for
-            updates to non-CSZO rcfiles once every four hours, so if
-            you are impatient about this then you should edit your CSZO rcfile instead.
+            Clan names must contain only alphanumeric characters, underscores,
+            and hyphens. Underscores will be converted into spaces. Once a
+            player's username is in the captain's rcfile and the captain's
+            username is in the player's rcfile and the tourney scripts notice
+            this, the players will be in the same clan. The tourney scripts
+            only check for updates to non-CSZO rcfiles once every four hours,
+            so if you are impatient about this then you should edit your CSZO
+            rcfile instead.
           </p>
 
           <p>
-            Clans may be changed by adding or removing players at any
-            time until <b><a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20150321T19">19:00 UTC Saturday 21 March</a></b>, after which clans will be
+            Clans may be changed by adding or removing players at any time
+            until <b><a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20151114T19">19:00
+            UTC Saturday 14 November</a></b>, after which clans will be
             effectively frozen.
           </p>
 
@@ -267,12 +269,13 @@ To become a member of a clan, you
             These points are only granted once per player per tournament.
             </p>
             <p>
-	      <span>50 points</span> for winning without visiting
-	      Temple, Lair, Orc, or the Vaults (<a href="#lord_of_darkness">LORD OF DARKNESS</a> banner III).
-	    </p>
-	    <p>
-	      <span>25 points</span> for a win in which you become the champion of Ru and then abandon Ru before entering any branches other than the Temple and the Lair (<a href="#heretics">HERETIC</a> banner III).
-	    </p>
+              <span>50 points</span> for winning without visiting Lair, Orc, or
+              the Vaults (<a href="#lord_of_darkness">LORD OF DARKNESS</a>
+              banner III).
+            </p>
+            <p>
+              <span>25 points</span> for a win in which you become the champion of Ru and then abandon Ru before entering any branches other than the Temple and the Lair (<a href="#heretics">HERETIC</a> banner III).
+            </p>
             <p><span>25 points</span> for a game in which you enter Tomb for the first time after picking up the Orb of Zot and then get the golden rune (<a href="#natures_ally">NATURE'S ALLY</a> banner III).
             </p>
 
@@ -314,11 +317,6 @@ To become a member of a clan, you
               <span>5*D clan points</span> for reaching Zig:D. (Only the
               best Ziggurat attempt in each clan counts.) Leaving the
               Ziggurat safely counts as an extra level.
-            </p>
-
-            <p><span>50-20-10 clan points</span> for finishing a game with the
-            highest value of AC+EV. Ties are broken by who finishes the game
-            first.
             </p>
 
             <p><span>100-50-20 clan points</span> for winning a game with the
@@ -423,23 +421,27 @@ To become a member of a clan, you
 	    <hr>
 
             <div>
-	      <img src="images/banner_beogh1.png"
-                   alt="The Saint"
-                   title="The Saint"
+              <img src="images/banner_beogh1.png"
+                   alt="The Heretic"
+                   title="The Heretic"
                    width="170" height="58"
                    >
               <p>
-	        Beogh thinks that the only thing more important than
-                having friends is dominating your friends, and will recognize
-                as a <a name="saint">SAINT</a> the player with the highest
-                tournament score on each clan, especially if that player
-                leads her clan to glory.
+                Beogh hates all the other gods and
+                admires <a name="heretic">HERETICS</a> who go out of their way
+                to incur their wrath. The good gods (Elyvilon, the Shining One,
+                and Zin) and Ru are insufficiently wrathful, so abandoning them
+                does not impress Beogh. Any god except the good gods, Ru, and
+                Beogh are hence applicable for this banner.
+
               <br>
-                I: Have the highest score in your clan.
+                I: Abandon and mollify an applicable god.
               <br>
-                II: Have the highest score in a clan that is ranked in the top 27.
+                II: Over the course of the tournament, abandon and mollify
+                three applicable gods.
               <br>
-                III: Have the highest score in a clan that is ranked in the top 5.
+                III: Over the course of the tournament, abandon and mollify
+                nine applicable gods.
               </p>
             </div>
 
@@ -587,26 +589,33 @@ To become a member of a clan, you
               <br>
                 II: Reach the last level of the Depths without having entered the Lair.
               <br>
-                III: Win a game without having entered the Temple, the Orcish Mines, the Lair, or the Vaults (+50 tournament points).
+                III: Win a game without having entered the Lair, the Orcish
+                Mines, or the Vaults (+50 tournament points).
               </p>
             </div>
 
 	    <hr>
 
             <div>
-	      <img src="images/banner_lugonu1.png"
-                   alt="The Heretic"
-                   title="The Heretic"
+              <img src="images/banner_lugonu1.png"
+                   alt="The Spiteful"
+                   title="The Spiteful"
                    width="170" height="58"
                    >
               <p>
-                Lugonu hates all the other gods. At the moment, Lugonu is especially spiteful towards Ru and admires <a name="heretics">HERETICS</a> who make sacrifices to Ru and then abandon Ru's worship.
+                Lugonu hates all the other gods. At the moment, Lugonu is
+                especially <a name="spiteful">SPITEFUL</a> towards Ru and
+                admires those who make sacrifices to Ru and then abandon Ru's
+                worship.
               <br>
-I: Become the champion of Ru (the first step towards betraying Ru).
+              I: Become the champion of Ru (the first step towards betraying Ru).
               <br>
-II: After becoming the champion of Ru, abandon Ru and become the champion of a different god.
+              II: After becoming the champion of Ru, abandon Ru and become the
+              champion of a different god.
               <br>
-III: Win a game in which you become the champion of Ru and then abandon Ru before entering any branches other than the Temple and the Lair.
+              III: Win a game in which you become the champion of Ru and then
+              abandon Ru before entering any branches other than the Temple and
+              the Lair.
               </p>
             </div>
 
@@ -854,7 +863,9 @@ III: Win a game as a non-demigod without worshipping a god.
               <br>
                 II: Kill at least one unique pan lord and at least one unique hell lord over the course of the tournament.
               <br>
-                III: Kill all four unique pan lords and all four unique hell lords over the course of the tournament.
+                III: Kill all four unique pan lords, all four unique hell
+                lords, and the Serpent of Hell (once) over the course of the
+                tournament.
               </p>
             </div>
           </div>
@@ -868,21 +879,22 @@ III: Win a game as a non-demigod without worshipping a god.
             <hr>
             <div class="fineprint">
               <p>
-                Some rules have been changed from the 0.15 tournament held in August/September 2014. This is a list of rules differences.
+                Some rules have been changed from the 0.16 tournament held in
+                March 2015. This is a list of rules differences.
               </p>
 
               <p><span class="removed">[REMOVED]</span>
-                flags rules that existed in the 0.15 tournament and are gone in
+                flags rules that existed in the 0.16 tournament and are gone in
                 this tournament.</p>
 
               <p><span class="added">[NEW]</span>
                 flags rules that are new to this tournament.</p>
 
               <p><span class="changed">[CHANGED]</span>
-                flags rules that have been modified for this 
-		tournament. To compare
-                changed rules with the rules in the 0.15 tournament, see
-                the <a href="http://dobrazupa.org/tournament/0.15/">old
+                flags rules that have been modified for this
+                tournament. To compare
+                changed rules with the rules in the 0.16 tournament, see
+                the <a href="http://dobrazupa.org/tournament/0.16/">old
                 rules</a>.
               </p>
             </div>
@@ -890,75 +902,34 @@ III: Win a game as a non-demigod without worshipping a god.
             <hr>
 
             <p class="added">
-              <span>Gozag</span> has a newly-added banner, the banner of <span><a href="#avarice">AVARICE</a></span>.
-              <span class="added">[NEW]</span>
-            </p>
-
-            <p class="added">
-              <span>Lugonu's</span> <span><a href="#heretics">HERETIC</a></span> banner has been remade.
-              <span class="added">[NEW]</span>
-            </p>
-
-            <p class="added">
-              <span>Vehumet's</span> <span><a href="#ruthless_efficiency">RUTHLESS EFFICIENCY</a></span> banner has been remade. (The old banner was given to Ru.)
+              <span>Beogh's</span> <span>SAINT</span> clan banner has been
+              reworked into the <span><a href="#heretic">HERETIC</a></span>
+              banner.
               <span class="added">[NEW]</span>
             </p>
 
             <p class="changed">
-              <span>Species/Backgrounds/God and Nemelex' Choice points</span> now have the function f(x) = 800 * log<sub>2</sub>(1 + x / 800) applied to them, making them worth fewer points as you earn more of them.
+              <span>Lugonu's</span> <span>HERETIC</span> banner has been renamed to <span><a href="#spiteful">SPITEFUL</a></span> with no changes to the rules.
               <span class="changed">[CHANGED]</span>
             </p>
 
             <p class="changed">
-              <span>100*length points</span> for each player's longest streak of length at least 2, where length of
-	      a streak is defined as min(number of distinct species used, number
-	      of distinct backgrounds used). (Used to be 60 points for each distinct species streaked and 30 points for each distinct background streaked, and now only applies to each player's longest streak.)
+              The third tier of <span>Kikubaaqudgha's</span> <span>LORD OF
+              DARKNESS</span> banner now allows the player to enter the Temple
+              branch.
               <span class="changed">[CHANGED]</span>
             </p>
 
             <p class="changed">
-              <span>24/N points</span> (rounded up) each time you find a
-            type of rune for the Nth time. (Used to be 30/N points.)
-              <span class="changed">[CHANGED]</span>
-            </p>
-
-            <p class="changed">
-              <span>Nemelex' Choice</span> bonus points are now awarded to the first seven players to win each combo. (Used to be the first five players.)
-              <span class="changed">[CHANGED]</span>
-            </p>
-
-            <p class="changed">
-              For points for winning with a specific god, <span>Gozag and Xom</span> just require never worshipping another god. (Xom used to require also being a Chaos Knight.)
-              <span class="changed">[CHANGED]</span>
-            </p>
-
-            <p class="changed">
-              Many banners that gave tournament points only give those points <span>once per player</span> now (Nemelex' Choice points are the exception to this).
-              <span class="changed">[CHANGED]</span>
-            </p>
-
-            <p class="changed">
-              <span>Yredelemnul's <a href="#the_harvest">THE HARVEST</a></span> banner now requires killing two more uniques for each tier.
-              <span class="changed">[CHANGED]</span>
-            </p>
-
-            <p class="changed">
-              The first tier of <span>Sif Muna's <a href="#lorekeeper">LOREKEEPER</a></span> banner will no longer be awarded to formicids.
-              <span class="changed">[CHANGED]</span>
-            </p>
-
-            <p class="changed">
-              The <span>2 clan points</span> awarded for killing player ghosts are now capped at 100 ghosts killed by each player.
-              <span class="changed">[CHANGED]</span>
-            </p>
-
-            <p class="changed">
-              The list of ways of earning points has been <span>reordered and reorganized</span>.
+              The third tier of <span>Zin's</span> <span>ANGEL OF
+              JUSTICE</span> banner now requires the player to kill the Serpent
+              of Hell once.
               <span class="changed">[CHANGED]</span>
             </p>
 
             <p class="removed">
-              <span>200-100-50 points</span> for the players with the longest streaks.
+              <span>50-20-10 clan points</span> for finishing a game with the
+              highest value of AC+EV.
               <span class="removed">[REMOVED]</span>
             </p>
           </div>
