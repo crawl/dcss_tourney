@@ -199,10 +199,10 @@ To become a member of a clan, you
               <span>1.5*(46+T)/(2+G) points</span> (rounded up) for a win with a given god if T is the total number of games won in the tournament before the start of the win in question and G of those T were with the given god. If a player wins with the same god multiple times, she only gets the largest value of this bonus, not the sum. For purposes of these points we say that a player wins with a god if she reaches full (******) piety with that god without worshipping any other god first. Two gods (Gozag and Xom) do not have the usual ****** piety system; to get the points for these gods, you must never worship another god during the game. For "No God", you must never worship a god.
             </p>
             <p>
-              In addition, certain randomly chosen species/background combinations will be worth more points for the first seven players to win them:
+              In addition, certain randomly chosen species/background combinations will be worth more points for the first eight players to win them:
             </p>
             <p>
-              <span>75 bonus points</span> for winning <a href="#nemelex_choice">NEMELEX' CHOICE</a> characters. The first Nemelex' Choice combo is chosen at the start of the tournament, and after that each one is chosen when the previous one is won for the first time. Each combo remains valid until it has been won seven times. The species/background combinations are chosen by Nemelex from those with at most ten online wins.
+              <span>75 bonus points</span> for winning <a href="#nemelex_choice">NEMELEX' CHOICE</a> characters. The first Nemelex' Choice combo is chosen at the start of the tournament, and after that each one is chosen when the previous one is won for the first time. Each combo remains valid until it has been won eight times. The species/background combinations are chosen by Nemelex from those with at most fifteen online wins.
             </p>
             <div class="inset">
               <p>
@@ -659,7 +659,7 @@ III: Win the game in 3 hours.
               <br>
                 II: Get a rune with a Nemelex' choice combo.
               <br>
-                III: Be one of the first 7 players to win a given Nemelex' choice combo (+75 tournament points).
+                III: Be one of the first 8 players to win a given Nemelex' choice combo (+75 tournament points).
               </p>
             </div>
 
@@ -926,6 +926,13 @@ III: Win a game as a non-demigod without worshipping a god.
               of Hell once.
               <span class="changed">[CHANGED]</span>
             </p>
+
+            <p class="changed"> <span>Nemelex' Choice</span> bonus points are
+              now awarded to the first eight players to win each combo. (Used
+              to be the first seven players.) The possible species/background
+              combinations chosen are now those with at most fifteen online
+              wins. (Used to be those with ten online
+              wins). <span class="changed">[CHANGED]</span> </p>
 
             <p class="removed">
               <span>50-20-10 clan points</span> for finishing a game with the
