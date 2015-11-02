@@ -17,7 +17,7 @@ TEST_VERSION = USE_TEST and '0.17'
 TEST_START_TIME = USE_TEST and (TEST_YEAR + '1101')
 TEST_END_TIME   = USE_TEST and (TEST_YEAR + '1201')
 TEST_CLAN_DEADLINE = (USE_TEST and
-                     datetime.datetime(2015, 11, 1, 0))
+                     datetime.datetime(2015, 12, 1, 0))
 TEST_HARE_START_TIME = USE_TEST and (TEST_YEAR + '1101')
 TEST_LOGS = USE_TEST and [
          ('cao-logfile-0.17', CAO + 'logfile17'),
