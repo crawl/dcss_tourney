@@ -602,9 +602,10 @@ SELECT player, COUNT(DISTINCT monster) AS hellpan_kills
   FROM kills_of_uniques
  WHERE monster = 'Antaeus' OR monster = 'Asmodeus' OR monster = 'Cerebov' OR
        monster = 'Dispater' OR monster = 'Ereshkigal' OR 
-       monster = 'Gloorx Vloq' OR monster = 'Lom Lobon' OR monster = 'Mnoleg'
+       monster = 'Gloorx Vloq' OR monster = 'Lom Lobon' OR
+       monster = 'Mnoleg' OR monster = 'the Serpent of Hell'
 GROUP BY player
-  HAVING hellpan_kills >= 8;
+  HAVING hellpan_kills >= 9;
 
 CREATE VIEW fivefives_rune AS
 SELECT player, COUNT(DISTINCT MID(charabbrev,1,2)) AS race_count,

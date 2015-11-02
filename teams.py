@@ -232,8 +232,8 @@ def clan_additional_score(c, owner):
 
   query.set_clan_points(c, owner, additional)
   # A clan-based banner.
-  for player in query.get_saints(c, owner):
-    banner.award_banner(c, player, 'beogh', 1, temp=True)
+  #for player in query.get_saints(c, owner):
+  #  banner.award_banner(c, player, 'beogh', 1, temp=True)
 
 def update_clan_scores(c):
   banner.flush_clan_banners(c)

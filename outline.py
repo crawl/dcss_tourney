@@ -433,7 +433,7 @@ def crunch_winner(c, game):
 
   if nemelex.is_nemelex_choice(charabbrev, game_end):
     ban = 'nemelex:' + charabbrev
-    if banner.count_recipients(c, ban, 3) < 7:
+    if banner.count_recipients(c, ban, 3) < 8:
       if not banner.player_has_banner(c, player, ban, 3):
         query.assign_stepdown_points(c, ban, player, 75)
         banner.award_banner(c, player, ban, 3)

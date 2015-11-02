@@ -1656,7 +1656,7 @@ def game_did_visit_branch(c, player, start_time):
                             WHERE player = %s
                               AND start_time = %s
                               AND verb = 'br.enter' 
-                              AND ((noun = 'Temple') OR (noun = 'Lair')
+                              AND ((noun = 'Lair')
                                   OR (noun = 'Orc')
                                   OR (noun = 'Vaults')) ''',
                      player, start_time)
@@ -1688,6 +1688,21 @@ def count_gods_abandoned(c, player, start_time):
         good = False
     if good:
       count += 1
+  return count
+
+def count_gods_mollified(c, player, start_time):
+  abandon_table = query_rows(c, '''SELECT noun, MAX(turn)
+                                     FROM milestones
+                                    WHERE player = %s
+                                      AND start_time = %s
+                                      AND verb = 'god.mollified'
+                                 GROUP BY noun
+                                 ORDER BY noun''', player, start_time)
+  count = 0
+  for row1 in abandon_table:
+    if row1[0] in ['the Shining One', 'The Shining One', 'Zin', 'Elyvilon', 'Ru', 'Beogh']:
+      continue
+    count += 1
   return count
 
 def count_deaths_to_distinct_uniques(c, player):
