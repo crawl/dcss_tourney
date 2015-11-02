@@ -15,7 +15,7 @@
   <body class="page_back">
     <div class="page information">
       %if not USE_TEST:
-        <%include file="toplink.mako"/> 
+        <%include file="toplink.mako"/>
       %endif
       <div class="page_content">
         <div class="heading">
@@ -161,7 +161,7 @@ To become a member of a clan, you
               unique.</p>
 
             <p><span>50-20-10 points</span> for the players with the most distinct
-	    uniques killed; ties broken by who gets that number first.</p>
+            uniques killed; ties broken by who gets that number first.</p>
             <h5>HIGH SCORES</h5>
             <p>
               <span>5 points</span> per high score in a species/background combination
@@ -206,22 +206,22 @@ To become a member of a clan, you
             </p>
             <div class="inset">
               <p>
-	        The current values of the bonus for each species, background, or god
+                The current values of the bonus for each species, background, or god
                 will be
                 listed on the "Species/Backgrounds/Gods" page. The current Nemelex' Choice combo as well as all past combos will be listed at the top of the "Overview" page.
-	      </p>
+              </p>
             </div>
 
             <div class="inset">
               <p>
-	        <span class="inline_heading">Important note for scoring:</span> The function f(x) = 800 * log<sub>2</sub>(1 + x / 800) will be applied to the total number of points each player or clan attains in this section. This means that the points in this section are worth less and less as you earn more of them! For example, f(800) = 800 and f(2400) = 1600, so points between 800 and 2400 are worth half as much as points between 0 and 800 (on average).
+                <span class="inline_heading">Important note for scoring:</span> The function f(x) = 800 * log<sub>2</sub>(1 + x / 800) will be applied to the total number of points each player or clan attains in this section. This means that the points in this section are worth less and less as you earn more of them! For example, f(800) = 800 and f(2400) = 1600, so points between 800 and 2400 are worth half as much as points between 0 and 800 (on average).
               </p>
 
               <p>
                 Also, for clan scoring, if a clan has multiple wins for the same species,
                 background, or god, only the largest value of the bonus among the
                 wins is used, not the sum.
-	      </p>
+              </p>
             </div>
           </div>
 
@@ -241,8 +241,8 @@ To become a member of a clan, you
             <p><span>1,250,000/duration points</span> for each player's fastest win (by realtime, measured in seconds).</p>
             <p><span>score/120,000 points</span> for each player's highest scoring winning game.</p>
             <p><span>100*length points</span> for each player's longest streak of length at least 2, where length of
-	      a streak is defined as min(number of distinct species used, number
-	      of distinct backgrounds used).</p>
+              a streak is defined as min(number of distinct species used, number
+              of distinct backgrounds used).</p>
             <div class="inset">
               <p>
                 Every game in a streak must be the first game you start after
@@ -282,9 +282,9 @@ To become a member of a clan, you
             <p><span>25 points</span> for a game in which you get six runes before entering the Depths (<a href="#vow_of_courage">VOW OF COURAGE</a> banner III).
             </p>
 
-	    <p>
-	      <span>25 points</span> for a game in which you get your first rune (which cannot be the slimy or abyssal runes) without the use of any potions or scrolls (<a href="#the_ascetic">THE ASCETIC</a> banner III).
-	    </p>
+            <p>
+              <span>25 points</span> for a game in which you get your first rune (which cannot be the slimy or abyssal runes) without the use of any potions or scrolls (<a href="#the_ascetic">THE ASCETIC</a> banner III).
+            </p>
 
             <p>
               <span>25 points</span> for a game in which you find the iron rune before entering Pandemonium or any branch of the dungeon containing any other rune (<a href="#avarice">AVARICE</a> banner III). This means that only Temple, Lair, Orc, Elf, Depths, Abyss, Hell, and Dis can be entered.
@@ -321,17 +321,17 @@ To become a member of a clan, you
 
             <p><span>100-50-20 clan points</span> for winning a game with the
             lowest XL. Ties are broken by who finishes the game first.
-	    </p>
+            </p>
 
             <p><span>50-20-10 clan points</span> for lowest XL at which a
             rune is picked up, not including the abyssal and slimy runes. Ties
-	    are broken by who picked up the rune first.
-	    </p>
+            are broken by who picked up the rune first.
+            </p>
 
             <p>
               <span>50-20-10 clan points</span> for the "Most Unique Deaths"
               trophy: Killed by the most distinct uniques. Ties are broken by
-	      who reaches that number first.
+              who reaches that number first.
             </p>
 
             <p>
@@ -347,8 +347,8 @@ To become a member of a clan, you
             </p>
 
             <p>
-              <span>200-100-50 clan points</span> for the players with the most high 
-	      scores in species/background combinations.
+              <span>200-100-50 clan points</span> for the players with the most high
+              scores in species/background combinations.
             </p>
 
             <p>
@@ -371,7 +371,7 @@ To become a member of a clan, you
             <p>
               Sum total of all individual points with the exception of
               "Species/Background/God wins" points (for which only the largest value of the bonus among the clan's wins is used, as described in that section), plus the
-	      "Clan points only" awards above.
+              "Clan points only" awards above.
             </p>
 
             <p>
@@ -403,7 +403,7 @@ To become a member of a clan, you
           </div>
           <div class="banner-desc">
             <div>
-	      <img src="images/banner_ashenzari1.png"
+              <img src="images/banner_ashenzari1.png"
                    alt="The Explorer"
                    title="The Explorer"
                    width="170" height="58"
@@ -418,7 +418,7 @@ To become a member of a clan, you
                 III: Find 17 distinct runes over the course of the tourney. (Only two of the four runes in Shoals/Snake/Spider/Swamp are available in a given game, so this requires multiple games.)
             </div>
 
-	    <hr>
+            <hr>
 
             <div>
               <img src="images/banner_beogh1.png"
@@ -445,10 +445,10 @@ To become a member of a clan, you
               </p>
             </div>
 
-	    <hr>
+            <hr>
 
             <div>
-	      <img src="images/banner_cheibriados1.png"
+              <img src="images/banner_cheibriados1.png"
                    alt="Slow and Steady"
                    title="Slow and Steady"
                    width="170" height="58"
@@ -467,10 +467,10 @@ To become a member of a clan, you
               </p>
             </div>
 
-	    <hr>
+            <hr>
 
             <div>
-	      <img src="images/banner_dithmenos1.png"
+              <img src="images/banner_dithmenos1.png"
                    alt="The Politician"
                    title="The Politician"
                    width="170" height="58"
@@ -488,10 +488,10 @@ To become a member of a clan, you
               </p>
             </div>
 
-	    <hr>
+            <hr>
 
             <div>
-	      <img src="images/banner_elyvilon1.png"
+              <img src="images/banner_elyvilon1.png"
                    alt="The Pious"
                    title="The Pious"
                    width="170" height="58"
@@ -511,10 +511,10 @@ To become a member of a clan, you
               </p>
             </div>
 
-	    <hr>
+            <hr>
 
             <div>
-	      <img src="images/banner_fedhas1.png"
+              <img src="images/banner_fedhas1.png"
                    alt="Nature's Ally"
                    title="Nature's Ally"
                    width="170" height="58"
@@ -530,10 +530,10 @@ To become a member of a clan, you
               </p>
             </div>
 
-	    <hr>
+            <hr>
 
             <div>
-	      <img src="images/banner_gozag1.png"
+              <img src="images/banner_gozag1.png"
                    alt="Avarice"
                    title="Avarice"
                    width="170" height="58"
@@ -549,10 +549,10 @@ To become a member of a clan, you
               </p>
             </div>
 
-	    <hr>
+            <hr>
 
             <div>
-	      <img src="images/banner_jiyva1.png"
+              <img src="images/banner_jiyva1.png"
                    alt="Gelatinous Body"
                    title="Gelatinous Body"
                    width="170" height="58"
@@ -560,7 +560,7 @@ To become a member of a clan, you
               <p>
                 Jiyva thinks that it is important to be flexible and will gift
                 players who excel with at least 5 distinct
-                species and at least 5 distinct backgrounds with a 
+                species and at least 5 distinct backgrounds with a
                 <a name="gelatinous_body">GELATINOUS BODY</a>.
               <br>
                 I: Reach experience level 9 with at least 5 distinct species and at least 5 distinct backgrounds.
@@ -571,10 +571,10 @@ To become a member of a clan, you
               </p>
             </div>
 
-	    <hr>
+            <hr>
 
             <div>
-	      <img src="images/banner_kikubaaqudgha1.png"
+              <img src="images/banner_kikubaaqudgha1.png"
                    alt="Lord of Darkness"
                    title="Lord of Darkness"
                    width="170" height="58"
@@ -594,7 +594,7 @@ To become a member of a clan, you
               </p>
             </div>
 
-	    <hr>
+            <hr>
 
             <div>
               <img src="images/banner_lugonu1.png"
@@ -619,10 +619,10 @@ To become a member of a clan, you
               </p>
             </div>
 
-	    <hr>
+            <hr>
 
             <div>
-	      <img src="images/banner_makhleb1.png"
+              <img src="images/banner_makhleb1.png"
                    alt="Speed Demon"
                    title="Speed Demon"
                    width="170" height="58"
@@ -639,10 +639,10 @@ III: Win the game in 3 hours.
               </p>
             </div>
 
-	    <hr>
+            <hr>
 
             <div>
-	      <img src="images/banner_nemelex1.png"
+              <img src="images/banner_nemelex1.png"
                    alt="Nemelex' Choice"
                    title="Nemelex' Choice"
                    width="170" height="58"
@@ -663,10 +663,10 @@ III: Win the game in 3 hours.
               </p>
             </div>
 
-	    <hr>
+            <hr>
 
             <div>
-	      <img src="images/banner_okawaru1.png"
+              <img src="images/banner_okawaru1.png"
                    alt="The Conqueror"
                    title="The Conqueror"
                    width="170" height="58"
@@ -684,10 +684,10 @@ III: Win the game in 3 hours.
               </p>
             </div>
 
-	    <hr>
+            <hr>
 
             <div>
-	      <img src="images/banner_qazlal1.png"
+              <img src="images/banner_qazlal1.png"
                    alt="The Prophet"
                    title="The Prophet"
                    width="170" height="58"
@@ -706,7 +706,7 @@ III: Win the game in 3 hours.
             </div>
 
             <div>
-	      <img src="images/banner_ru1.png"
+              <img src="images/banner_ru1.png"
                    alt="The Ascetic"
                    title="The Ascetic"
                    width="170" height="58"
@@ -722,10 +722,10 @@ III: Win the game in 3 hours.
               </p>
             </div>
 
-	    <hr>
+            <hr>
 
             <div>
-	      <img src="images/banner_sif1.png"
+              <img src="images/banner_sif1.png"
                    alt="Lorekeeper"
                    title="Lorekeeper"
                    width="170" height="58"
@@ -742,10 +742,10 @@ III: Win the game in 3 hours.
               </p>
             </div>
 
-	    <hr>
+            <hr>
 
             <div>
-	      <img src="images/banner_the_shining_one1.png"
+              <img src="images/banner_the_shining_one1.png"
                    alt="Vow of Courage"
                    title="Vow of Courage"
                    width="170" height="58"
@@ -762,10 +762,10 @@ III: Win the game in 3 hours.
               </p>
             </div>
 
-	    <hr>
+            <hr>
 
             <div>
-	      <img src="images/banner_trog1.png"
+              <img src="images/banner_trog1.png"
                    alt="Brute Force"
                    title="Brute Force"
                    width="170" height="58"
@@ -782,10 +782,10 @@ III: Win a game as a non-demigod without worshipping a god.
               </p>
             </div>
 
-	    <hr>
+            <hr>
 
             <div>
-	      <img src="images/banner_vehumet1.png"
+              <img src="images/banner_vehumet1.png"
                    alt="Ruthless Efficiency"
                    title="Ruthless Efficiency"
                    width="170" height="58"
@@ -803,10 +803,10 @@ III: Win a game as a non-demigod without worshipping a god.
               </p>
             </div>
 
-	    <hr>
+            <hr>
 
             <div>
-	      <img src="images/banner_xom1.png"
+              <img src="images/banner_xom1.png"
                    alt="Descent into Madness"
                    title="Descent into Madness"
                    width="170" height="58"
@@ -825,17 +825,17 @@ III: Win a game as a non-demigod without worshipping a god.
               </p>
             </div>
 
-	    <hr>
+            <hr>
 
             <div>
-	      <img src="images/banner_yredelemnul1.png"
+              <img src="images/banner_yredelemnul1.png"
                    alt="The Harvest"
                    title="The Harvest"
                    width="170" height="58"
                    >
               <p>
                 Yredelemnul demands that you kill as many uniques as possible and
-                will recognise success by awarding 
+                will recognise success by awarding
                 <a name="the_harvest">THE HARVEST</a>.
               <br>
                 I: Kill 32 distinct uniques over the course of the tournament.
@@ -846,10 +846,10 @@ III: Win a game as a non-demigod without worshipping a god.
               </p>
             </div>
 
-	    <hr>
+            <hr>
 
             <div>
-	      <img src="images/banner_zin1.png"
+              <img src="images/banner_zin1.png"
                    alt="Angel of Justice"
                    title="Angel of Justice"
                    width="170" height="58"
@@ -943,7 +943,7 @@ III: Win a game as a non-demigod without worshipping a god.
             </p>
             <p>
               <span>greensnark</span> for writing the original tournament
-              scripts that have been adapted for use in this tournament. 
+              scripts that have been adapted for use in this tournament.
             </p>
             <p>
               <span>|amethyst</span> for hosting the tournament scripts on CSZO.
