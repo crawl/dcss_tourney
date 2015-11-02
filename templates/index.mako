@@ -864,8 +864,8 @@ III: Win a game as a non-demigod without worshipping a god.
                 II: Kill at least one unique pan lord and at least one unique hell lord over the course of the tournament.
               <br>
                 III: Kill all four unique pan lords, all four unique hell
-                lords, and the Serpent of Hell (once) over the course of the
-                tournament.
+                lords, and the Serpent of Hell (at least once) over the course
+                of the tournament.
               </p>
             </div>
           </div>
@@ -923,7 +923,7 @@ III: Win a game as a non-demigod without worshipping a god.
             <p class="changed">
               The third tier of <span>Zin's</span> <span>ANGEL OF
               JUSTICE</span> banner now requires the player to kill the Serpent
-              of Hell once.
+              of Hell at least once.
               <span class="changed">[CHANGED]</span>
             </p>
 
