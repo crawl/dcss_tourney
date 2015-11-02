@@ -7,7 +7,7 @@ import re
 
 BANNER_IMAGES = \
     { 'ashenzari': [ 'banner_ashenzari.png', 'The Explorer' ],
-      'beogh': [ 'banner_beogh.png', 'The Saint' ],
+      'beogh': [ 'banner_beogh.png', 'The Heretic' ],
       'cheibriados': [ 'banner_cheibriados.png', 'Slow and Steady' ],
       'dithmenos': [ 'banner_dithmenos.png', 'The Politician' ],
       'elyvilon': [ 'banner_elyvilon.png', 'The Pious' ],
@@ -15,7 +15,7 @@ BANNER_IMAGES = \
       'gozag': [ 'banner_gozag.png', "Avarice" ],
       'jiyva': [ 'banner_jiyva.png', 'Gelatinous Body' ],
       'kikubaaqudgha': [ 'banner_kikubaaqudgha.png', 'Lord of Darkness' ],
-      'lugonu': [ 'banner_lugonu.png', 'The Heretic' ],
+      'lugonu': [ 'banner_lugonu.png', 'Spiteful' ],
       'makhleb': [ 'banner_makhleb.png', 'Speed Demon' ],
       'nemelex': [ 'banner_nemelex.png', "Nemelex' Choice" ],
       'okawaru': [ 'banner_okawaru.png', 'The Conqueror' ],
