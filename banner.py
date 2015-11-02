@@ -37,7 +37,7 @@ def pantheon(c, player):
     award_banner(c, player, 'elyvilon', 1)
 
 def mollified(c, player):
-  mollified_gods = count_mollified_gods(c, player)
+  mollified_gods = query.count_gods_mollified(c, player)
   if mollified_gods >= 9:
     award_banner(c, player, 'beogh', 3)
   elif mollified_gods >= 3:
