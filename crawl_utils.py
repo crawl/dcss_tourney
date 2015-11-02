@@ -10,12 +10,12 @@ UPDATE_INTERVAL = 7 * 60
 # Are we testing locally, or do we want output suitable for a website?
 # Test whether our username is the same that is used on the server.
 LOCAL_TEST = ('tourney' != os.environ.get('USER'))
-WEB_BASE = 'http://dobrazupa.org/tournament/0.16'
+WEB_BASE = 'http://dobrazupa.org/tournament/0.17'
 
 LOCK = None
 BASEDIR = LOCAL_TEST and os.environ['HOME'] or '/home/tourney/dcss_tourney'
 LOCKFILE = BASEDIR + '/tourney-py.lock'
-SCORE_FILE_DIR = 'html.tourney0.16'
+SCORE_FILE_DIR = 'html.tourney0.17'
 
 SCORE_CSS = 'tourney-score.css'
 SCORE_CSS_PATH = SCORE_FILE_DIR + "/" + SCORE_CSS
@@ -25,16 +25,16 @@ PLAYER_FILE_DIR = SCORE_FILE_DIR + '/' + PLAYER_BASE
 CLAN_FILE_DIR = SCORE_FILE_DIR + '/' + CLAN_BASE
 
 CAO_MORGUE_BASE = 'http://crawl.akrasiac.org/rawdata'
-CDO_MORGUE_BASE = 'http://crawl.develz.org/morgues/0.16'
+CDO_MORGUE_BASE = 'http://crawl.develz.org/morgues/0.17'
 CLN_MORGUE_BASE = 'http://crawl.lantea.net/crawl/morgue'
 CSZO_MORGUE_BASE = 'http://dobrazupa.org/morgue'
 CBRO_MORGUE_BASE = 'http://crawl.berotato.org/crawl/morgue'
 CPO_MORGUE_BASE = 'http://crawl.project357.org/morgue'
-CWZ_MORGUE_BASE = 'http://webzook.net:82/morgue/0.16'
+CWZ_MORGUE_BASE = 'http://webzook.net:82/morgue/0.17'
 CXC_MORGUE_BASE = 'http://crawl.xtahua.com/crawl/morgue'
-LLD_MORGUE_BASE = 'http://lazy-life.ddo.jp:8080/morgue-0.16'
+LLD_MORGUE_BASE = 'http://lazy-life.ddo.jp:8080/morgue-0.17'
 
-#CKR_MORGUE_BASE = 'http://kr.dobrazupa.org/morgue/0.16'
+#CKR_MORGUE_BASE = 'http://kr.dobrazupa.org/morgue/0.17'
 #RHF_MORGUE_BASE = 'http://rl.heh.fi/morgue'
 
 XXX_TOURNEY_BASE = ((LOCAL_TEST and ('file:///' + os.getcwd() + '/' + SCORE_FILE_DIR))

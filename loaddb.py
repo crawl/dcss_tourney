@@ -15,7 +15,7 @@ import sys
 from test_data import USE_TEST, TEST_YEAR, TEST_VERSION, TEST_START_TIME, TEST_END_TIME, TEST_HARE_START_TIME, TEST_LOGS, TEST_MILESTONES, TEST_CLAN_DEADLINE
 
 T_YEAR = TEST_YEAR or '2015'
-T_VERSION = TEST_VERSION or '0.16'
+T_VERSION = TEST_VERSION or '0.17'
 
 # Start and end of the tournament, UTC.
 START_TIME = TEST_START_TIME or (T_YEAR + '03132000')
@@ -48,30 +48,30 @@ LLD = 'http://lazy-life.ddo.jp/'
 # being the URL to wget -c from.
 
 LOGS = TEST_LOGS or [
-         ('cao-logfile-0.16', CAO + 'logfile16'),
-         ('cdo-logfile-0.16', CDO + 'allgames-0.16.txt'),
-         ('cln-logfile-0.16', CLN + 'meta/0.16/logfile'),
-         ('cbro-logfile-0.16', CBRO + 'meta/0.16/logfile'),
-         ('cpo-logfile-0.16', CPO + 'dcss-logfiles-0.16'),
-         ('cwz-logfile-0.16', CWZ + '0.16/logfile'),
-         ('cxc-logfile-0.16', CXC + 'meta/0.16/logfile'),
-         ('lld-logfile-0.16', LLD + 'mirror/meta/0.16/logfile'),
-         ('cszo-logfile-0.16', CSZO + 'meta/0.16/logfile')]
+         ('cao-logfile-0.17', CAO + 'logfile17'),
+         ('cdo-logfile-0.17', CDO + 'allgames-0.17.txt'),
+         ('cln-logfile-0.17', CLN + 'meta/0.17/logfile'),
+         ('cbro-logfile-0.17', CBRO + 'meta/0.17/logfile'),
+         ('cpo-logfile-0.17', CPO + 'dcss-logfiles-0.17'),
+         ('cwz-logfile-0.17', CWZ + '0.17/logfile'),
+         ('cxc-logfile-0.17', CXC + 'meta/0.17/logfile'),
+         ('lld-logfile-0.17', LLD + 'mirror/meta/0.17/logfile'),
+         ('cszo-logfile-0.17', CSZO + 'meta/0.17/logfile')]
 # this line should be used on CSZO instead:
-#         'cszo-logfile-0.16']
+#         'cszo-logfile-0.17']
 
 MILESTONES = TEST_MILESTONES or [
-         ('cao-milestones-0.16', CAO + 'milestones16'),
-         ('cdo-milestones-0.16', CDO + 'milestones-0.16.txt'),
-         ('cln-milestones-0.16', CLN + 'meta/0.16/milestones'),
-         ('cbro-milestones-0.16', CBRO + 'meta/0.16/milestones'),
-         ('cpo-milestones-0.16', CPO + 'dcss-milestones-0.16'),
-         ('cwz-milestones-0.16', CWZ + '0.16/milestones'),
-         ('cxc-milestones-0.16', CXC + 'meta/0.16/milestones'),
-         ('lld-milestones-0.16', LLD + 'mirror/meta/0.16/milestones'),
-         ('cszo-milestones-0.16', CSZO + 'meta/0.16/milestones')]
+         ('cao-milestones-0.17', CAO + 'milestones17'),
+         ('cdo-milestones-0.17', CDO + 'milestones-0.17.txt'),
+         ('cln-milestones-0.17', CLN + 'meta/0.17/milestones'),
+         ('cbro-milestones-0.17', CBRO + 'meta/0.17/milestones'),
+         ('cpo-milestones-0.17', CPO + 'dcss-milestones-0.17'),
+         ('cwz-milestones-0.17', CWZ + '0.17/milestones'),
+         ('cxc-milestones-0.17', CXC + 'meta/0.17/milestones'),
+         ('lld-milestones-0.17', LLD + 'mirror/meta/0.17/milestones'),
+         ('cszo-milestones-0.17', CSZO + 'meta/0.17/milestones')]
 # this line should be used on CSZO instead:
-#         'cszo-milestones-0.16']
+#         'cszo-milestones-0.17']
 
 BLACKLIST_FILE = 'blacklist.txt'
 EXTENSION_FILE = 'modules.ext'

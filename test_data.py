@@ -13,33 +13,33 @@ LLD = 'http://lazy-life.ddo.jp/'
 USE_TEST = False
 
 TEST_YEAR = USE_TEST and '2015'
-TEST_VERSION = USE_TEST and '0.16'
+TEST_VERSION = USE_TEST and '0.17'
 TEST_START_TIME = USE_TEST and (TEST_YEAR + '0301')
 TEST_END_TIME   = USE_TEST and (TEST_YEAR + '0401')
 TEST_CLAN_DEADLINE = (USE_TEST and
                      datetime.datetime(2015, 3, 1, 0))
 TEST_HARE_START_TIME = USE_TEST and (TEST_YEAR + '0301')
 TEST_LOGS = USE_TEST and [
-         ('cao-logfile-0.16', CAO + 'logfile16'),
-         ('cdo-logfile-0.16', CDO + 'allgames-0.16.txt'),
-         ('cln-logfile-0.16', CLN + 'meta/0.16/logfile'),
-         ('cbro-logfile-0.16', CBRO + 'meta/0.16/logfile'),
-         ('cpo-logfile-0.16', CPO + 'dcss-logfiles-0.16'),
-         ('cwz-logfile-0.16', CWZ + '0.16/logfile'),
-         ('cxc-logfile-0.16', CXC + 'meta/0.16/logfile'),
-         ('lld-logfile-0.16', LLD + 'mirror/meta/0.16/logfile'),
-         ('cszo-logfile-0.16', CSZO + 'meta/0.16/logfile')]
+         ('cao-logfile-0.17', CAO + 'logfile17'),
+         ('cdo-logfile-0.17', CDO + 'allgames-0.17.txt'),
+         ('cln-logfile-0.17', CLN + 'meta/0.17/logfile'),
+         ('cbro-logfile-0.17', CBRO + 'meta/0.17/logfile'),
+         ('cpo-logfile-0.17', CPO + 'dcss-logfiles-0.17'),
+         ('cwz-logfile-0.17', CWZ + '0.17/logfile'),
+         ('cxc-logfile-0.17', CXC + 'meta/0.17/logfile'),
+         ('lld-logfile-0.17', LLD + 'mirror/meta/0.17/logfile'),
+         ('cszo-logfile-0.17', CSZO + 'meta/0.17/logfile')]
 # this line should be used on CSZO instead:
-#         'cszo-logfile-0.16']
+#         'cszo-logfile-0.17']
 TEST_MILESTONES = USE_TEST and [
-         ('cao-milestones-0.16', CAO + 'milestones16'),
-         ('cdo-milestones-0.16', CDO + 'milestones-0.16.txt'),
-         ('cln-milestones-0.16', CLN + 'meta/0.16/milestones'),
-         ('cbro-milestones-0.16', CBRO + 'meta/0.16/milestones'),
-         ('cpo-milestones-0.16', CPO + 'dcss-milestones-0.16'),
-         ('cwz-milestones-0.16', CWZ + '0.16/milestones'),
-         ('cxc-milestones-0.16', CXC + 'meta/0.16/milestones'),
-         ('lld-milestones-0.16', LLD + 'mirror/meta/0.16/milestones'),
-         ('cszo-milestones-0.16', CSZO + 'meta/0.16/milestones')]
+         ('cao-milestones-0.17', CAO + 'milestones17'),
+         ('cdo-milestones-0.17', CDO + 'milestones-0.17.txt'),
+         ('cln-milestones-0.17', CLN + 'meta/0.17/milestones'),
+         ('cbro-milestones-0.17', CBRO + 'meta/0.17/milestones'),
+         ('cpo-milestones-0.17', CPO + 'dcss-milestones-0.17'),
+         ('cwz-milestones-0.17', CWZ + '0.17/milestones'),
+         ('cxc-milestones-0.17', CXC + 'meta/0.17/milestones'),
+         ('lld-milestones-0.17', LLD + 'mirror/meta/0.17/milestones'),
+         ('cszo-milestones-0.17', CSZO + 'meta/0.17/milestones')]
 # this line should be used on CSZO instead:
-#         'cszo-milestones-0.16']
+#         'cszo-milestones-0.17']
