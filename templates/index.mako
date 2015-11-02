@@ -705,6 +705,8 @@ III: Win the game in 3 hours.
               </p>
             </div>
 
+            <hr>
+
             <div>
               <img src="images/banner_ru1.png"
                    alt="The Ascetic"
