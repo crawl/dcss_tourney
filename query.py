@@ -1691,12 +1691,10 @@ def count_gods_abandoned(c, player, start_time):
   return count
 
 def count_gods_mollified(c, player):
-  abandon_table = query_rows(c, '''SELECT noun, MAX(turn)
+  abandon_table = query_rows(c, '''SELECT DISTINCT noun
                                      FROM milestones
                                     WHERE player = %s
-                                      AND verb = 'god.mollify'
-                                 GROUP BY noun
-                                 ORDER BY noun''', player)
+                                      AND verb = 'god.mollify' ''', player)
   count = 0
   for row1 in abandon_table:
     if row1[0] in ['the Shining One', 'The Shining One', 'Zin', 'Elyvilon', 'Ru', 'Beogh']:
