@@ -1695,7 +1695,7 @@ def count_gods_mollified(c, player):
                                      FROM milestones
                                     WHERE player = %s
                                       AND verb = 'god.mollify'
-                                      AND (noun != god OR god IS NULL)'''
+                                      AND (noun != god OR god IS NULL)''',
                              player)
   count = 0
   for row1 in mollify_table:
