@@ -577,9 +577,9 @@ def check_temp_trophies(c, pmap):
   award_temp_trophy(c, pmap, query.get_top_unique_killers(c),
                     'top_unique_killer:%d', [50, 20, 10])
 
-  award_temp_trophy(c, pmap, query.player_dieselest_best(c),
-                    'top_ac+ev_game:%d', [50, 20, 10],
-                    team_points=True)
+#  award_temp_trophy(c, pmap, query.player_dieselest_best(c),
+#                    'top_ac+ev_game:%d', [50, 20, 10],
+#                    team_points=True)
 
 #  award_temp_trophy(c, pmap, query.player_pacific_win_best(c),
 #                    'top_pacific_win:%d', [200, 100, 50],
