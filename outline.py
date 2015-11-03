@@ -386,7 +386,6 @@ def crunch_winner(c, game):
   #  banner.award_banner(c, player, 'lugonu', 2)
 
   if query.check_ru_abandonment_game(c, player, game_start_time(game)):
-    assign_points(c, 'heretic_ru', player, 25, False)
     banner.award_banner(c, player, 'lugonu', 3)
 
   if not query.game_did_visit_lair(c, player, game_start_time(game)):

@@ -273,9 +273,6 @@ To become a member of a clan, you
               the Vaults (<a href="#lord_of_darkness">LORD OF DARKNESS</a>
               banner III).
             </p>
-            <p>
-              <span>25 points</span> for a win in which you become the champion of Ru and then abandon Ru before entering any branches other than the Temple and the Lair (<a href="#heretics">HERETIC</a> banner III).
-            </p>
             <p><span>25 points</span> for a game in which you enter Tomb for the first time after picking up the Orb of Zot and then get the golden rune (<a href="#natures_ally">NATURE'S ALLY</a> banner III).
             </p>
 
@@ -911,7 +908,9 @@ III: Win a game as a non-demigod without worshipping a god.
             </p>
 
             <p class="changed">
-              <span>Lugonu's</span> <span>HERETIC</span> banner has been renamed to <span><a href="#spiteful">SPITEFUL</a></span> with no changes to the rules.
+              <span>Lugonu's</span> <span>HERETIC</span> banner has been
+              renamed to <span><a href="#spiteful">SPITEFUL</a></span>, and the
+              third tier of this banner no longer awards 25 tournament points.
               <span class="changed">[CHANGED]</span>
             </p>
 
