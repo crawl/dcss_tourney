@@ -54,7 +54,15 @@
           <p>
             Have fun playing Crawl!
           </p>
-
+          <div class="inset">
+            <p>
+              <span class="inline_heading">Note:</span> The server CDO
+              (crawl.develz.org) will not have version 0.17 available for the
+              time being. Hence games played on this server will not count
+              towards the tournament, and users must declare their clan
+              membership on one of the other public servers.
+            </p>
+          </div>
           <hr>
           <a name="clans"></a>
           <h2>Clans</h2>
@@ -98,10 +106,10 @@ To become a member of a clan, you
             <p>
               <span class="inline_heading">Note:</span> clan membership lines
               can be added to your ${version} rcfile on <b>any</b> of the
-              public servers. If you add clan membership lines to more than
-              one rcfile, then the rcfile on the server earliest in the list
-              CSZO, CAO, CBRO, CDO, CPO, CUE, CWZ, CXC, LLD will take
-              precedence.
+              public servers, with the exception of CDO. If you add clan
+              membership lines to more than one rcfile, then the rcfile on the
+              server earliest in the list CSZO, CAO, CBRO, CPO, CUE, CWZ, CXC,
+              LLD will take precedence.
             </p>
           </div>
 
