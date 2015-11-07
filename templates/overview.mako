@@ -57,7 +57,7 @@
                   <h3>Nemelex' Choice: </h3>
                   <span>${nem_list[-1][0]}</span>, chosen on ${nem_list[-1][1]} UTC (${html.how_old(nem_list[-1][1])[0]} ago)
                   <p class="fineprint">
-                    75 bonus points for the first seven players to win ${nem_list[-1][0]}
+                    75 bonus points for the first eight players to win ${nem_list[-1][0]}
                     during the tournament!
                   </p>
 
@@ -66,7 +66,7 @@
                   ${", ".join(['<span>' + x + '</span>' for x in pnem_list])}
                   <p class="fineprint">
                     All previous Nemelex' Choices also remain valid during the
-                    tournament until won by seven players.
+                    tournament until won by eight players.
                   </p>
                   % endif
                 </td>
