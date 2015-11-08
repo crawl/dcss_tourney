@@ -93,7 +93,7 @@ BANNER_TEXT = \
       'nemelex':
         [ "Reach experience level 9 with a Nemelex' choice combo.",
           "Get a rune with a Nemelex' choice combo.",
-          "Be one of the first 7 players to win a given Nemelex' choice combo.",
+          "Be one of the first 8 players to win a given Nemelex' choice combo.",
         ],
       'okawaru':
         [ 'Reach experience level 13.',

@@ -13,7 +13,7 @@
    if nem_list:
      pnem_list = []
      for x in nem_list[:-1]:
-       if x[2] >= 7:
+       if x[2] >= 8:
          pnem_list.append('<s>' + x[0] + ('(%d won)' % x[2]) + '</s>')
        else:
          pnem_list.append(x[0] + ('(%d won)' % x[2]))
