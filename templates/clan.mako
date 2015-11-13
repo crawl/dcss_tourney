@@ -112,6 +112,10 @@
                 <th>Tourney points total</th>
                 <td class="numeric">${stats['points']}</td>
               </tr>
+              <tr>
+                <th>Rank</th>
+                <td>${stats['rank1']} / ${stats['rank2']}</td>
+              </tr>
 
               <tr>
                 <th>Games won / played</th>
