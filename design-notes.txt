@@ -1,3 +1,0 @@
-there we go
-
-So hmm. If I went with a database it would have a bunch of benefits. But I could just write the information I want to a textfile on a per-player basis: I need ot track uniques killed, runes obtained and how many times, fastest real-time win, fastest turncount win, high score per race/class combination, lowest dungeon level at XL1, player ghosts killed, points for killing players, time at which all uniques were killed, time at which first win was scored, time at which first 14-rune win was scored, 
