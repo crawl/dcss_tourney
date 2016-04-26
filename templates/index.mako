@@ -21,8 +21,8 @@
         <div class="heading">
           <h1>${title}</h1>
           <p class="fineprint">
-            Tournament starts on <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20151106T20">Nov 6, ${year} at 20:00 UTC</a>, and ends on
-            <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20151122T20">Nov 22, ${year} at 20:00 UTC</a>.
+            Tournament starts on <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20160506T20">May 6, ${year} at 20:00 UTC</a>, and ends on
+            <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20160522T20">May 22, ${year} at 20:00 UTC</a>.
           </p>
         </div>
         <hr>
@@ -30,7 +30,7 @@
         <div class="content">
           <p>
             Hello all! Welcome to the rules for the
-            ${version} Dungeon Crawl Stone Soup Tournament, running from <b><a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20151106T20">20:00 UTC Friday 6 November</a></b> to <b><a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20151122T20">20:00 UTC Sunday 22 November</a></b>. All version ${version} games played fully during this time period on any of the <a href="https://crawl.develz.org/wordpress/howto">public servers</a> will automatically count for the tournament.
+            ${version} Dungeon Crawl Stone Soup Tournament, running from <b><a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20160506T20">20:00 UTC Friday 6 May</a></b> to <b><a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20160522T20">20:00 UTC Sunday 22 May</a></b>. All version ${version} games played fully during this time period on any of the <a href="https://crawl.develz.org/wordpress/howto">public servers</a> will automatically count for the tournament.
           </p>
 
           <p>
@@ -116,9 +116,9 @@ To become a member of a clan, you
 
           <p>
             Clans may be changed by adding or removing players at any time
-            until <b><a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20151114T19">19:00
-            UTC Saturday 14 November</a></b>, after which clans will be
-            effectively frozen.
+            until <b><a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20160513T20">20:00
+            UTC Friday 13 May</a></b>, after which clans will be
+            frozen.
           </p>
 
           <hr>
@@ -876,12 +876,12 @@ III: Win a game as a non-demigod without worshipping a god.
             <hr>
             <div class="fineprint">
               <p>
-                Some rules have been changed from the 0.16 tournament held in
-                March 2015. This is a list of rules differences.
+                Some rules have been changed from the 0.17 tournament held in
+                November 2015. This is a list of rules differences.
               </p>
 
               <p><span class="removed">[REMOVED]</span>
-                flags rules that existed in the 0.16 tournament and are gone in
+                flags rules that existed in the 0.17 tournament and are gone in
                 this tournament.</p>
 
               <p><span class="added">[NEW]</span>
@@ -890,33 +890,20 @@ III: Win a game as a non-demigod without worshipping a god.
               <p><span class="changed">[CHANGED]</span>
                 flags rules that have been modified for this
                 tournament. To compare
-                changed rules with the rules in the 0.16 tournament, see
-                the <a href="http://dobrazupa.org/tournament/0.16/">old
+                changed rules with the rules in the 0.17 tournament, see
+                the <a href="http://dobrazupa.org/tournament/0.17/">old
                 rules</a>.
               </p>
             </div>
 
             <hr>
 
+	    <!--
             <p class="added">
               <span>Beogh's</span> <span>SAINT</span> clan banner has been
               reworked into the <span><a href="#heretic">HERETIC</a></span>
               banner.
               <span class="added">[NEW]</span>
-            </p>
-
-            <p class="changed">
-              <span>Lugonu's</span> <span>HERETIC</span> banner has been
-              renamed to <span><a href="#spiteful">SPITEFUL</a></span>, and the
-              third tier of this banner no longer awards 25 tournament points.
-              <span class="changed">[CHANGED]</span>
-            </p>
-
-            <p class="changed">
-              The third tier of <span>Kikubaaqudgha's</span> <span>LORD OF
-              DARKNESS</span> banner now allows the player to enter the Temple
-              branch.
-              <span class="changed">[CHANGED]</span>
             </p>
 
             <p class="changed">
@@ -926,18 +913,12 @@ III: Win a game as a non-demigod without worshipping a god.
               <span class="changed">[CHANGED]</span>
             </p>
 
-            <p class="changed"> <span>Nemelex' Choice</span> bonus points are
-              now awarded to the first eight players to win each combo. (Used
-              to be the first seven players.) The possible species/background
-              combinations chosen are now those with at most fifteen online
-              wins. (Used to be those with ten online
-              wins). <span class="changed">[CHANGED]</span> </p>
-
             <p class="removed">
               <span>50-20-10 clan points</span> for finishing a game with the
               highest value of AC+EV.
               <span class="removed">[REMOVED]</span>
             </p>
+	    -->
           </div>
 
           <hr>

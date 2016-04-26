@@ -11,13 +11,13 @@ LLD = 'http://lazy-life.ddo.jp/'
 
 USE_TEST = False
 
-TEST_YEAR = USE_TEST and '2015'
-TEST_VERSION = USE_TEST and '0.18'
-TEST_START_TIME = USE_TEST and (TEST_YEAR + '1101')
-TEST_END_TIME   = USE_TEST and (TEST_YEAR + '1201')
+TEST_YEAR = USE_TEST and '2016'
+TEST_VERSION = USE_TEST and '0.17'
+TEST_START_TIME = USE_TEST and (TEST_YEAR + '0201')
+TEST_END_TIME   = USE_TEST and (TEST_YEAR + '0210')
 TEST_CLAN_DEADLINE = (USE_TEST and
-                     datetime.datetime(2015, 12, 1, 0))
-TEST_HARE_START_TIME = USE_TEST and (TEST_YEAR + '1101')
+                     datetime.datetime(2016, 12, 1, 0))
+TEST_HARE_START_TIME = USE_TEST and (TEST_YEAR + '0327')
 TEST_LOGS = USE_TEST and [
          ('cao-logfile-0.18', CAO + 'logfile17'),
          #('cdo-logfile-0.18', CDO + 'allgames-0.18.txt'),
