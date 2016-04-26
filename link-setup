@@ -1,7 +1,0 @@
-#!/bin/bash
-
-DIR=/var/www/meta/0.18
-
-ln -s $DIR/logfile cszo-logfile-0.18
-ln -s $DIR/milestones cszo-milestones-0.18
-ln -s /var/www/rcfiles/crawl-0.18 rcfiles-cszo
