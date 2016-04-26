@@ -939,6 +939,9 @@ III: Win a game as a non-demigod without worshipping a god.
               <span>Wensley</span>, <span>ChrisOelmueller</span>, and <span>Grunt</span> for creating the banner images.
             </p>
             <p>
+              <span>elliptic</span> for five years of work running the 0.8, 0.9, 0.10, 0.11, 0.12, 0.13, 0.14, 0.15, 0.16, and 0.17 tournaments.
+            </p>
+            <p>
               <span>many others</span> for helping to create these rules!
             </p>
           </div>
