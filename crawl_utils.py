@@ -27,7 +27,6 @@ CLAN_FILE_DIR = SCORE_FILE_DIR + '/' + CLAN_BASE
 CAO_MORGUE_BASE = 'http://crawl.akrasiac.org/rawdata'
 CDO_MORGUE_BASE = 'http://crawl.develz.org/morgues/0.18'
 CUE_MORGUE_BASE = 'http://underhound.eu:81/crawl/morgue'
-CSZO_MORGUE_BASE = 'http://dobrazupa.org/morgue'
 CBRO_MORGUE_BASE = 'http://crawl.berotato.org/crawl/morgue'
 CPO_MORGUE_BASE = 'http://crawl.project357.org/morgue'
 CWZ_MORGUE_BASE = 'http://webzook.net:82/morgue/0.18'
@@ -175,8 +174,6 @@ def morgue_link(xdict):
     base = CDO_MORGUE_BASE
   elif src.find('cue') >= 0:
     base = CUE_MORGUE_BASE
-  elif src.find('csz') >= 0:
-    base = CSZO_MORGUE_BASE
   elif src.find('cbr') >= 0:
     base = CBRO_MORGUE_BASE
   elif src.find('cpo') >= 0:

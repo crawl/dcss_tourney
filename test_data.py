@@ -2,7 +2,6 @@ import datetime
 
 CDO = 'http://crawl.develz.org/'
 CAO = 'http://crawl.akrasiac.org/'
-CSZO = 'http://dobrazupa.org/'
 CUE = 'http://underhound.eu:81/crawl/'
 CBRO = 'http://crawl.berotato.org/crawl/'
 CPO = 'http://crawl.project357.org/'
@@ -27,10 +26,8 @@ TEST_LOGS = USE_TEST and [
          ('cpo-logfile-0.18', CPO + 'dcss-logfiles-0.18'),
          #('cwz-logfile-0.18', CWZ + '0.18/logfile'),
          #('cxc-logfile-0.18', CXC + 'meta/0.18/logfile'),
-         ('lld-logfile-0.18', LLD + 'mirror/meta/0.18/logfile'),
-         ('cszo-logfile-0.18', CSZO + 'meta/0.18/logfile')]
-# this line should be used on CSZO instead:
-#         'cszo-logfile-0.18']
+         ('lld-logfile-0.18', LLD + 'mirror/meta/0.18/logfile')]
+
 TEST_MILESTONES = USE_TEST and [
          ('cao-milestones-0.18', CAO + 'milestones17'),
          #('cdo-milestones-0.18', CDO + 'milestones-0.18.txt'),
@@ -39,7 +36,5 @@ TEST_MILESTONES = USE_TEST and [
          ('cpo-milestones-0.18', CPO + 'dcss-milestones-0.18'),
          #('cwz-milestones-0.18', CWZ + '0.18/milestones'),
          #('cxc-milestones-0.18', CXC + 'meta/0.18/milestones'),
-         ('lld-milestones-0.18', LLD + 'mirror/meta/0.18/milestones'),
-         ('cszo-milestones-0.18', CSZO + 'meta/0.18/milestones')]
-# this line should be used on CSZO instead:
-#         'cszo-milestones-0.18']
+         ('lld-milestones-0.18', LLD + 'mirror/meta/0.18/milestones')]
+

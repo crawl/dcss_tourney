@@ -100,7 +100,7 @@ To become a member of a clan, you
               can be added to your ${version} rcfile on <b>any</b> of the
               public servers. If you add clan membership lines to more than
               one rcfile, then the rcfile on the server earliest in the list
-              CSZO, CAO, CBRO, CDO, CPO, CUE, CWZ, CXC, LLD will take
+              CAO, CBRO, CDO, CPO, CUE, CWZ, CXC, LLD will take
               precedence.
             </p>
           </div>
@@ -111,9 +111,7 @@ To become a member of a clan, you
             player's username is in the captain's rcfile and the captain's
             username is in the player's rcfile and the tourney scripts notice
             this, the players will be in the same clan. The tourney scripts
-            only check for updates to non-CSZO rcfiles once every four hours,
-            so if you are impatient about this then you should edit your CSZO
-            rcfile instead.
+            check for updates to rcfiles once every four hours.
           </p>
 
           <p>
@@ -954,7 +952,7 @@ III: Win a game as a non-demigod without worshipping a god.
               scripts that have been adapted for use in this tournament.
             </p>
             <p>
-              <span>|amethyst</span> for hosting the tournament scripts on CSZO.
+              <span>|amethyst</span> for hosting the tournament scripts.
             </p>
             <p>
               <span>Wensley</span>, <span>ChrisOelmueller</span>, and <span>Grunt</span> for creating the banner images.
