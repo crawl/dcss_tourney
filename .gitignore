@@ -12,3 +12,4 @@ allgames*.txt
 points.out
 html.tourney*
 nemelex-choice-out.txt
+venv/
