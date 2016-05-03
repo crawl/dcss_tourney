@@ -918,14 +918,13 @@ III: Win a game as a non-demigod without worshipping a god.
 
             <hr>
 
-	    <!--
             <p class="added">
-              <span>Beogh's</span> <span>SAINT</span> clan banner has been
-              reworked into the <span><a href="#heretic">HERETIC</a></span>
-              banner.
+              <span>Pakellas'</span> <span><a href="#the_test_subject">TEST SUBJECT</a></span>
+              banner has been added.
               <span class="added">[NEW]</span>
             </p>
 
+	    <!--
             <p class="changed">
               The third tier of <span>Zin's</span> <span>ANGEL OF
               JUSTICE</span> banner now requires the player to kill the Serpent
