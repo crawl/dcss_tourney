@@ -46,7 +46,7 @@ def time_from_str(when):
   return datetime(*(time.strptime(when, '%Y%m%d%H%M%S')[0:6]))
 
 def game_is_over(c, name, start):
-  query = Query('''SELECT COUNT(*) FROM games WHERE player=%s 
+  query = Query('''SELECT COUNT(*) FROM games WHERE player=%s
                                    AND start_time=%s''', name, start)
   return (query.count(c) > 0)
 
@@ -557,9 +557,9 @@ def won_unwon_combos_with_games(cu, won_games):
 
   def game_charabbrev_link(count, g):
     if count > 1:
-      return crawl_utils.linked_text(g, crawl_utils.morgue_link, 
+      return crawl_utils.linked_text(g, crawl_utils.morgue_link,
                    "%s(%d)" % (g['charabbrev'], count))
-    return crawl_utils.linked_text(g, crawl_utils.morgue_link, 
+    return crawl_utils.linked_text(g, crawl_utils.morgue_link,
                    g['charabbrev'])
 
   won_combo_list = [game_charabbrev_link(count_wins(cu, charabbr=c), combo_lookup[c])
@@ -958,7 +958,7 @@ def audit_clan_player_points(c, captain):
 
 def audit_adjusted_clan_player_points(c, captain):
   return query_rows(c,
-                    '''SELECT name, (score_full + team_score_full 
+                    '''SELECT name, (score_full + team_score_full
                                 - player_score_only) points
                        FROM players
                        WHERE team_captain = %s
@@ -1676,7 +1676,7 @@ def game_did_visit_branch(c, player, start_time):
                              FROM milestones
                             WHERE player = %s
                               AND start_time = %s
-                              AND verb = 'br.enter' 
+                              AND verb = 'br.enter'
                               AND ((noun = 'Lair')
                                   OR (noun = 'Orc')
                                   OR (noun = 'Vaults')) ''',
@@ -1962,4 +1962,3 @@ def check_ru_abandonment_game(c, name, start):
                                        OR (noun = 'Shoals') OR (noun = 'Snake')
                                        OR (noun = 'Spider') OR (noun = 'Swamp')
                                       ) ''', name, start, abandon_time)
-  

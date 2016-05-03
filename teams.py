@@ -118,7 +118,7 @@ def get_teams(directory_list):
                                 draftees[player] = draftedones[:5]
                                 draftees[player].append(player)
             count += 1
-                        
+
         if fnmatch.fnmatch(filename, '*.rc'):
             player = filename[:-3].lower()
             if player in players:

@@ -46,7 +46,7 @@ def tail_logfiles(logs, milestones, interval=60):
 
 if __name__ == '__main__':
   if crawl_utils.taildb_stop_requested():
-    print("""The taildb sentinel %s exists. The Nemelex' Choice script may be active.""" 
+    print("""The taildb sentinel %s exists. The Nemelex' Choice script may be active."""
           % crawl_utils.TAILDB_STOP_REQUEST_FILE)
     print ("""If you're sure it is not, please remove the file and restart taildb.py""")
     sys.exit(1)
