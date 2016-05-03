@@ -130,7 +130,7 @@ def did_renounce_god(c, name, start, end):
                           WHERE player = %s AND start_time = %s
                             AND verb = 'god.renounce'
 			    AND milestone_time < %s ''',
-                      name, start) > 0)
+                      name, start, end) > 0)
 
 def did_worship_god(c, god, name, start, end):
   return (query_first(c,
