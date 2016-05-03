@@ -81,6 +81,14 @@ CRAWLRC_DIRECTORY_LIST = ['rcfiles-cszo/','rcfiles-cao/','rcfiles-cbro/','rcfile
 LISTENERS = [ ]
 TIMERS = [ ]
 
+def support_mysql57(c):
+    c.execute('SELECT @@SESSION.sql_mode')
+    modes = c.fetchone()[0]
+    modes = modes.split(',')
+    if 'ONLY_FULL_GROUP_BY' in modes:
+        modes = [m for m in modes if m != 'ONLY_FULL_GROUP_BY']
+        c.execute("SET SESSION sql_mode = '%s'" % ','.join(modes))
+
 class Blacklist(object):
   def __init__(self, filename):
     self.filename = filename
@@ -123,6 +131,7 @@ class CrawlCleanupListener (CrawlEventListener):
 
   def cleanup(self, db):
     c = db.cursor()
+    support_mysql57(c)
     try:
       self.fn(c)
     finally:
@@ -1261,6 +1270,7 @@ if __name__ == '__main__':
       warn("Error reading %s, skipping it." % log)
 
   cursor = db.cursor()
+  support_mysql57(cursor)
   set_active_cursor(cursor)
   try:
     master = create_master_reader()

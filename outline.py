@@ -43,6 +43,7 @@ class OutlineListener (loaddb.CrawlEventListener):
 
   def cleanup(self, db):
     cursor = db.cursor()
+    loaddb.support_mysql57(cursor)
     try:
       update_player_scores(cursor)
     finally:

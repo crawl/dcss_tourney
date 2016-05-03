@@ -17,6 +17,7 @@ def tail_logfiles(logs, milestones, interval=60):
   loaddb.init_listeners(db)
 
   cursor = db.cursor()
+  loaddb.support_mysql57(cursor)
   loaddb.set_active_cursor(cursor)
   elapsed_time = 0
 
