@@ -39,6 +39,7 @@ CPO = 'https://crawl.project357.org/'
 CWZ = 'http://webzook.net:82/'
 CXC = 'http://crawl.xtahua.com/crawl/'
 LLD = 'http://lazy-life.ddo.jp/'
+CJR = 'http://www.jorgrun.rocks/'
 
 #CKR = 'http://kr.dobrazupa.org/'
 #RHF = 'http://rl.heh.fi/'
@@ -47,24 +48,28 @@ LLD = 'http://lazy-life.ddo.jp/'
 # being the URL to wget -c from.
 
 LOGS = TEST_LOGS or [
-         ('cao-logfile-0.18', CAO + 'logfile18'),
+         #('cao-logfile-0.18', CAO + 'logfile18'),
          ('cdo-logfile-0.18', CDO + 'allgames-0.18.txt'),
          ('cue-logfile-0.18', CUE + 'meta/0.18/logfile'),
          ('cbro-logfile-0.18', CBRO + 'meta/0.18/logfile'),
          ('cpo-logfile-0.18', CPO + 'dcss-logfiles-0.18'),
-         ('cwz-logfile-0.18', CWZ + '0.18/logfile'),
+         #('cwz-logfile-0.18', CWZ + '0.18/logfile'),
          ('cxc-logfile-0.18', CXC + 'meta/0.18/logfile'),
-         ('lld-logfile-0.18', LLD + 'mirror/meta/0.18/logfile')]
+         ('lld-logfile-0.18', LLD + 'mirror/meta/0.18/logfile'),
+	 ('cjr-logfile-0.18', CJR + 'meta/0.18/logfile'),
+	]
 
 MILESTONES = TEST_MILESTONES or [
-         ('cao-milestones-0.18', CAO + 'milestones18'),
+         #('cao-milestones-0.18', CAO + 'milestones18'),
          ('cdo-milestones-0.18', CDO + 'milestones-0.18.txt'),
          ('cue-milestones-0.18', CUE + 'meta/0.18/milestones'),
          ('cbro-milestones-0.18', CBRO + 'meta/0.18/milestones'),
          ('cpo-milestones-0.18', CPO + 'dcss-milestones-0.18'),
-         ('cwz-milestones-0.18', CWZ + '0.18/milestones'),
+         #('cwz-milestones-0.18', CWZ + '0.18/milestones'),
          ('cxc-milestones-0.18', CXC + 'meta/0.18/milestones'),
-         ('lld-milestones-0.18', LLD + 'mirror/meta/0.18/milestones')]
+         ('lld-milestones-0.18', LLD + 'mirror/meta/0.18/milestones'),
+	 ('cjr-milestones-0.18', CJR + 'meta/0.18/milestones'),
+	]
 
 BLACKLIST_FILE = 'blacklist.txt'
 EXTENSION_FILE = 'modules.ext'
@@ -693,7 +698,7 @@ dbfield_to_sqltype = {
 	'ltyp':char,
 	'hp':sql_int,
 	'maxhp':sql_int,
- 	'maxmaxhp':sql_int,
+	'maxmaxhp':sql_int,
 	'strength':sql_int,
 	'intelligence':sql_int,
         'dexterity':sql_int,
