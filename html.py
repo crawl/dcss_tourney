@@ -19,6 +19,7 @@ BANNER_IMAGES = \
       'makhleb': [ 'banner_makhleb.png', 'Speed Demon' ],
       'nemelex': [ 'banner_nemelex.png', "Nemelex' Choice" ],
       'okawaru': [ 'banner_okawaru.png', 'The Conqueror' ],
+      'pakellas': [ 'banner_pakellas.png', 'The Test Subject' ],
       'qazlal': [ 'banner_qazlal.png', 'The Prophet' ],
       'ru': [ 'banner_ru.png', 'The Ascetic' ],
       'sif': [ 'banner_sif.png', 'The Lorekeeper' ],
@@ -99,6 +100,11 @@ BANNER_TEXT = \
         [ 'Reach experience level 13.',
           'Win a game.',
           'Win a game in under 50000 turns.',
+        ],
+      'pakellas':
+        [ 'Enter the Lair of beasts while worshipping a god from a faded altar, having worshipped no other gods.',
+          'Find a rune while worshipping a god from a faded altar, having worshipped no other gods.',
+          'Win a game while worshipping a god from a faded altar, having worshipped no other gods.',
         ],
       'qazlal':
         [ 'Reach the Lair of Beasts with an Invocations title.',
