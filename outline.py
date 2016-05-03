@@ -145,6 +145,9 @@ def do_milestone_rune(c, mile):
     banner.award_banner(c, player, 'fedhas', 2)
   if rune == 'silver' and num_rune == 1:
     banner.award_banner(c, player, 'gozag', 2)
+  if query.did_use_ecumenical_altar(c, mile['name'], mile['start'], mile['end']) \
+      and not query.did_renounce_god(c, mile['name'], mile['start'], mile['end']):
+    banner.award_banner(c, mile['name'], 'pakellas', 2)
 
   # The abyssal rune is the only rune that the player can get before the iron
   # rune for Avarice 3.
@@ -203,6 +206,9 @@ def do_milestone_br_enter(c, mile):
   if mile['noun'] == 'Lair':
     if mile['sk'] == 'Invocations':
       banner.award_banner(c, mile['name'], 'qazlal', 1)
+    if query.did_use_ecumenical_altar(c, mile['name'], mile['start'], mile['end']) \
+        and not query.did_renounce_god(c, mile['name'], mile['start'], mile['end']):
+      banner.award_banner(c, mile['name'], 'pakellas', 1)
   if mile['noun'] == 'Temple':
     if mile['potionsused'] == 0 and mile['scrollsused'] == 0:
       banner.award_banner(c, mile['name'], 'ru', 1)
@@ -439,6 +445,10 @@ def crunch_winner(c, game):
 
   if query.is_unbeliever(c, game):
     banner.award_banner(c, player, 'trog', 3)
+
+  if query.did_use_ecumenical_altar(c, game['name'], game['start'], game['end']) \
+      and not query.did_renounce_god(c, game['name'], game['start'], game['end']):
+    banner.award_banner(c, game['name'], 'pakellas', 3)
 
   if is_all_runer(game):
     all_allruners = number_of_allruners_before(c, game)

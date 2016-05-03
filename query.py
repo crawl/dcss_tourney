@@ -142,6 +142,16 @@ def did_worship_god(c, god, name, start, end):
                             AND milestone_time < %s ''',
                       name, start, god, end) > 0)
 
+def did_use_ecumenical_altar(c, name, start, end):
+  """Returns true if the player joined a new religion at an ecumenical
+  altar."""
+  return (query_first(c,
+                      '''SELECT COUNT(*) FROM milestones
+                          WHERE player = %s AND start_time = %s
+                            AND verb = 'god.ecumenical'
+                            AND milestone_time < %s ''',
+                      name, start, end) > 0)
+
 def did_get_rune(c, rune, name, start, end):
   return (query_first(c,
                       '''SELECT COUNT(*) FROM milestones
