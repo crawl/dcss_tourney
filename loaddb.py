@@ -18,7 +18,7 @@ T_YEAR = TEST_YEAR or '2016'
 T_VERSION = TEST_VERSION or '0.18'
 
 # Start and end of the tournament, UTC.
-START_TIME = TEST_START_TIME or (T_YEAR + '05042000')
+START_TIME = TEST_START_TIME or (T_YEAR + '05062000')
 END_TIME   = TEST_END_TIME or (T_YEAR + '05222000')
 
 # Deadline for forming teams.
