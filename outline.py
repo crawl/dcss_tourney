@@ -178,9 +178,11 @@ def do_milestone_rune(c, mile):
     banner.award_banner(c, mile['name'], 'trog', 2)
   if mile['urune'] == 1:
     if rune != 'slimy' and rune != 'abyssal':
-      if mile['potionsused'] == 0 and mile['scrollsused'] == 0:
-        assign_points(c, 'ascetic', player, 25, False)
-        banner.award_banner(c, mile['name'], 'ru', 3)
+      pass
+      # Disabled for 0.18 tourney since potionsused and scrollsused were broken
+      #if mile['potionsused'] == 0 and mile['scrollsused'] == 0:
+        #assign_points(c, 'ascetic', player, 25, False)
+        #banner.award_banner(c, mile['name'], 'ru', 3)
     if mile['xl'] < 14:
       if not query.did_sacrifice(c, 'experience', mile['name'], mile['start'], mile['time']):
         banner.award_banner(c, mile['name'], 'vehumet', 2)
@@ -211,8 +213,10 @@ def do_milestone_br_enter(c, mile):
         and not query.did_renounce_god(c, mile['name'], mile['start'], mile['time']):
       banner.award_banner(c, mile['name'], 'pakellas', 1)
   if mile['noun'] == 'Temple':
-    if mile['potionsused'] == 0 and mile['scrollsused'] == 0:
-      banner.award_banner(c, mile['name'], 'ru', 1)
+    pass
+    # Disabled for 0.18 tourney since potionsused and scrollsused were broken
+    #if mile['potionsused'] == 0 and mile['scrollsused'] == 0:
+      #banner.award_banner(c, mile['name'], 'ru', 1)
 
 def do_milestone_br_end(c, mile):
   if mile['noun'] == 'Orc':
@@ -233,8 +237,9 @@ def do_milestone_br_end(c, mile):
         banner.award_banner(c, mile['name'], 'vehumet', 1)
     if query.is_unbeliever(c, mile):
       banner.award_banner(c, mile['name'], 'trog', 1)
-    if mile['potionsused'] == 0 and mile['scrollsused'] == 0:
-      banner.award_banner(c, mile['name'], 'ru', 2)
+    # Disabled for 0.18 tourney since potionsused and scrollsused were broken
+    #if mile['potionsused'] == 0 and mile['scrollsused'] == 0:
+      #banner.award_banner(c, mile['name'], 'ru', 2)
   if query.player_count_br_end(c, mile['name'], mile['noun']) <= 1:
     assign_points(c, "branch:end", mile['name'], 5)
 
