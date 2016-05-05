@@ -276,12 +276,10 @@ To become a member of a clan, you
 
             <p><span>25 points</span> for a game in which you get six runes before entering the Depths (<a href="#vow_of_courage">VOW OF COURAGE</a> banner III).
             </p>
-            <!--
-            # Disabled for 0.18 tourney since potionsused and scrollsused were broken
+
             <p>
               <span>25 points</span> for a game in which you get your first rune (which cannot be the slimy or abyssal runes) without the use of any potions or scrolls (<a href="#the_ascetic">THE ASCETIC</a> banner III).
             </p>
-            -->
 
             <p>
               <span>25 points</span> for a game in which you find the iron rune before entering Pandemonium or any branch of the dungeon containing any other rune (<a href="#avarice">AVARICE</a> banner III). This means that only Temple, Lair, Orc, Elf, Depths, Abyss, Hell, and Dis can be entered.
@@ -724,8 +722,6 @@ III: Win the game in 3 hours.
 
             <hr>
 
-            <!--
-            # Disabled for 0.18 tourney since potionsused and scrollsused were broken
             <div>
               <img src="images/banner_ru1.png"
                    alt="The Ascetic"
@@ -743,7 +739,7 @@ III: Win the game in 3 hours.
               </p>
             </div>
 
-            <hr> -->
+            <hr>
 
             <div>
               <img src="images/banner_sif1.png"
@@ -935,13 +931,13 @@ III: Win a game as a non-demigod without worshipping a god.
               of Hell at least once.
               <span class="changed">[CHANGED]</span>
             </p>
-	    -->
 
             <p class="removed">
-              <span>Ru's</span> <span><a href="#the_ascetic">THE ASCETIC</a></span>
-              banner and special achievement has been disabled for the 0.18 tournament due to a late-breaking bug.
+              <span>50-20-10 clan points</span> for finishing a game with the
+              highest value of AC+EV.
               <span class="removed">[REMOVED]</span>
             </p>
+	    -->
           </div>
 
           <hr>
