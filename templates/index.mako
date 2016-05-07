@@ -76,7 +76,7 @@ To become a member of a clan, you
 
           <p>
             The team captain must have the name of her team and the
-            other team members in one of her <b>version ${version}</b> rcfiles, like this:
+            names of all team members excluding herself (up to five) in one of her <b>version ${version}</b> rcfiles, like this:
           </p>
 
           <pre>
