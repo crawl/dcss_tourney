@@ -688,10 +688,9 @@ III: Win the game in 3 hours.
                    width="170" height="58"
                    >
               <p>
-                Pakellas has a hypothesis for you to test. Is worshipping an unknown god at a faded altar just as safe as bowing down before a deliberately chosen deity?
-		        Those who attempt to prove this hypothesis will be recognized as <a name="the_test_subject">THE TEST SUBJECT</a>!
+                Pakellas has a hypothesis for you to test: worshipping an unknown god at a faded altar is just as safe as any deliberately chosen deity. Those who attempt to prove this hypothesis will be recognized as <a name="the_test_subject">THE TEST SUBJECT</a>!
               <br>
-                I: Enter the Lair of beasts while worshipping a god from a faded altar, having worshipped no other gods.
+                I: Enter the Lair of Beasts while worshipping a god from a faded altar, having worshipped no other gods.
               <br>
                 II: Find a rune while worshipping a god from a faded altar, having worshipped no other gods.
               <br>
