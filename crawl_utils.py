@@ -27,6 +27,7 @@ CLAN_FILE_DIR = SCORE_FILE_DIR + '/' + CLAN_BASE
 CAO_MORGUE_BASE = 'http://crawl.akrasiac.org/rawdata'
 CDO_MORGUE_BASE = 'http://crawl.develz.org/morgues/0.18'
 CUE_MORGUE_BASE = 'http://underhound.eu:81/crawl/morgue'
+CJR_MORGUE_BASE = 'http://crawl.jorgrun.rocks/morgue'
 CBRO_MORGUE_BASE = 'http://crawl.berotato.org/crawl/morgue'
 CPO_MORGUE_BASE = 'http://crawl.project357.org/morgue'
 CWZ_MORGUE_BASE = 'http://webzook.net:82/morgue/0.18'
@@ -182,8 +183,12 @@ def morgue_link(xdict):
     base = CWZ_MORGUE_BASE
   elif src.find('cxc') >= 0:
     base = CXC_MORGUE_BASE
-  else:
+  elif src.find('cjr') >= 0:
+    base = CJR_MORGUE_BASE
+  elif src.find('lld') >= 0:
     base = LLD_MORGUE_BASE
+  else:
+    raise Exception("Unknown server: " + src)
   return "%s/%s/morgue-%s-%s.txt" % (base, name, name, stime)
 
 def linked_text(key, link_fn, text=None):
