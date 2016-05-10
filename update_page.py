@@ -11,7 +11,9 @@ import crawl_utils
 from logging import debug, info, warn, error
 
 TEMPLATE_DIR = os.path.abspath('templates')
-MAKO_LOOKUP = mako.lookup.TemplateLookup(directories = [ TEMPLATE_DIR ])
+MAKO_LOOKUP = mako.lookup.TemplateLookup(directories = [ TEMPLATE_DIR ],
+                                         imports=["from crawl_utils import handle_unicode"],
+                                         default_filters=["handle_unicode"])
 
 def render(c, page, dest=None, pars=None):
   """Given a db context and a .mako template (without the .mako extension)
