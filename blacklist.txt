@@ -1,0 +1,2 @@
+name=Yermak:turn=422:char=SpHu:killer=a dart slug:place=D::1
+name=Yermak:turn=100:char=SpHu:killer=a giant gecko:place=D::1
