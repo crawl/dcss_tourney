@@ -48,7 +48,7 @@ CJR = 'http://www.jorgrun.rocks/'
 # being the URL to wget -c from.
 
 LOGS = TEST_LOGS or [
-         ('cao-logfile-0.19', CAO + 'logfile18'),
+         ('cao-logfile-0.19', CAO + 'logfile19'),
          ('cdo-logfile-0.19', CDO + 'allgames-0.19.txt'),
          ('cue-logfile-0.19', CUE + 'meta/0.19/logfile'),
          ('cbro-logfile-0.19', CBRO + 'meta/0.19/logfile'),
@@ -60,7 +60,7 @@ LOGS = TEST_LOGS or [
   ]
 
 MILESTONES = TEST_MILESTONES or [
-         ('cao-milestones-0.19', CAO + 'milestones18'),
+         ('cao-milestones-0.19', CAO + 'milestones19'),
          ('cdo-milestones-0.19', CDO + 'milestones-0.19.txt'),
          ('cue-milestones-0.19', CUE + 'meta/0.19/milestones'),
          ('cbro-milestones-0.19', CBRO + 'meta/0.19/milestones'),
