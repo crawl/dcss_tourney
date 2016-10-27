@@ -1,7 +1,7 @@
 <%
    from crawl_utils import XXX_TOURNEY_BASE
    from test_data import USE_TEST
-   version = '0.18'
+   version = '0.19'
    year    = '2016'
    title   = "Crawl %s Tournament Information" % version
  %>

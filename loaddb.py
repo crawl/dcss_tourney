@@ -15,7 +15,7 @@ import sys
 from test_data import USE_TEST, TEST_YEAR, TEST_VERSION, TEST_START_TIME, TEST_END_TIME, TEST_HARE_START_TIME, TEST_LOGS, TEST_MILESTONES, TEST_CLAN_DEADLINE
 
 T_YEAR = TEST_YEAR or '2016'
-T_VERSION = TEST_VERSION or '0.18'
+T_VERSION = TEST_VERSION or '0.19'
 
 # Start and end of the tournament, UTC.
 START_TIME = TEST_START_TIME or (T_YEAR + '05062000')
@@ -48,28 +48,28 @@ CJR = 'http://www.jorgrun.rocks/'
 # being the URL to wget -c from.
 
 LOGS = TEST_LOGS or [
-         ('cao-logfile-0.18', CAO + 'logfile18'),
-         ('cdo-logfile-0.18', CDO + 'allgames-0.18.txt'),
-         ('cue-logfile-0.18', CUE + 'meta/0.18/logfile'),
-         ('cbro-logfile-0.18', CBRO + 'meta/0.18/logfile'),
-         ('cpo-logfile-0.18', CPO + 'dcss-logfiles-0.18'),
-         ('cwz-logfile-0.18', CWZ + '0.18/logfile'),
-         ('cxc-logfile-0.18', CXC + 'meta/0.18/logfile'),
-         ('lld-logfile-0.18', LLD + 'mirror/meta/0.18/logfile'),
-	 ('cjr-logfile-0.18', CJR + 'meta/0.18/logfile'),
-	]
+         ('cao-logfile-0.19', CAO + 'logfile18'),
+         ('cdo-logfile-0.19', CDO + 'allgames-0.19.txt'),
+         ('cue-logfile-0.19', CUE + 'meta/0.19/logfile'),
+         ('cbro-logfile-0.19', CBRO + 'meta/0.19/logfile'),
+         ('cpo-logfile-0.19', CPO + 'dcss-logfiles-0.19'),
+         ('cwz-logfile-0.19', CWZ + '0.19/logfile'),
+         ('cxc-logfile-0.19', CXC + 'meta/0.19/logfile'),
+         ('lld-logfile-0.19', LLD + 'mirror/meta/0.19/logfile'),
+         ('cjr-logfile-0.19', CJR + 'meta/0.19/logfile'),
+  ]
 
 MILESTONES = TEST_MILESTONES or [
-         ('cao-milestones-0.18', CAO + 'milestones18'),
-         ('cdo-milestones-0.18', CDO + 'milestones-0.18.txt'),
-         ('cue-milestones-0.18', CUE + 'meta/0.18/milestones'),
-         ('cbro-milestones-0.18', CBRO + 'meta/0.18/milestones'),
-         ('cpo-milestones-0.18', CPO + 'dcss-milestones-0.18'),
-         ('cwz-milestones-0.18', CWZ + '0.18/milestones'),
-         ('cxc-milestones-0.18', CXC + 'meta/0.18/milestones'),
-         ('lld-milestones-0.18', LLD + 'mirror/meta/0.18/milestones'),
-	 ('cjr-milestones-0.18', CJR + 'meta/0.18/milestones'),
-	]
+         ('cao-milestones-0.19', CAO + 'milestones18'),
+         ('cdo-milestones-0.19', CDO + 'milestones-0.19.txt'),
+         ('cue-milestones-0.19', CUE + 'meta/0.19/milestones'),
+         ('cbro-milestones-0.19', CBRO + 'meta/0.19/milestones'),
+         ('cpo-milestones-0.19', CPO + 'dcss-milestones-0.19'),
+         ('cwz-milestones-0.19', CWZ + '0.19/milestones'),
+         ('cxc-milestones-0.19', CXC + 'meta/0.19/milestones'),
+         ('lld-milestones-0.19', LLD + 'mirror/meta/0.19/milestones'),
+         ('cjr-milestones-0.19', CJR + 'meta/0.19/milestones'),
+  ]
 
 BLACKLIST_FILE = 'blacklist.txt'
 EXTENSION_FILE = 'modules.ext'
