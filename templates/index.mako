@@ -547,6 +547,25 @@ To become a member of a clan, you
             <hr>
 
             <div>
+              <img src="images/banner_hepliaklqana1.png"
+                   alt="The Inheritor"
+                   title="The Inheritor"
+                   width="170" height="58"
+                   >
+              <p>
+                Hepkliaqlana bestows a geas upon you: recall the forgotten deities forth from the mists. Worship at a faded altar to become <a name="the_inheritor">THE INHERITOR</a> of memory!
+              <br>
+                I: Enter the Lair of Beasts while worshipping a god from a faded altar, having worshipped no other gods.
+              <br>
+                II: Find a rune while worshipping a god from a faded altar, having worshipped no other gods.
+              <br>
+                III: Win a game while worshipping a god from a faded altar, having worshipped no other gods.
+              </p>
+            </div>
+
+            <hr>
+
+            <div>
               <img src="images/banner_jiyva1.png"
                    alt="Gelatinous Body"
                    title="Gelatinous Body"
@@ -782,6 +801,25 @@ III: Win a game as a non-demigod without worshipping a god.
             <hr>
 
             <div>
+              <img src="images/banner_uskayaw1.png"
+                   alt="Graceful"
+                   title="Graceful"
+                   width="170" height="58"
+                   >
+              <p>
+                Uskayaw requires all prospective students to prove themselves <a name="graceful">GRACEFUL</a>. Step with precision and efficiency to the deepest floors of the Dungeon!
+              <br>
+                I: Enter the Temple in under 3000 turns.
+              <br>
+                II: Enter the third floor of the Elven Halls in under 9000 turns.
+              <br>
+                III: Enter the final floor of Gehenna in under 27000 turns.
+              </p>
+            </div>
+
+            <hr>
+
+            <div>
               <img src="images/banner_vehumet1.png"
                    alt="Ruthless Efficiency"
                    title="Ruthless Efficiency"
@@ -899,6 +937,10 @@ III: Win a game as a non-demigod without worshipping a god.
             <hr>
 
             <p class="added">
+              <span>Hepliaklqana's</span> <span><a href="#the_inheritor">INHERITOR</a></span> banner has been added.
+              <span class="added">[NEW]</span>
+
+              <span>Uskayaw's</span> <span><a href="#graceful">GRACEFUL</a></span> banner has been added.
               <span class="added">[NEW]</span>
             </p>
 
