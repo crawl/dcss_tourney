@@ -213,6 +213,8 @@ def do_milestone_br_enter(c, mile):
   if mile['noun'] == 'Temple':
     if mile['potionsused'] == 0 and mile['scrollsused'] == 0:
       banner.award_banner(c, mile['name'], 'ru', 1)
+    if game['turn'] < 3000:
+      banner.award_banner(c, player, 'uskayaw', 1)
 
 def do_milestone_br_end(c, mile):
   if mile['noun'] == 'Orc':
@@ -235,6 +237,10 @@ def do_milestone_br_end(c, mile):
       banner.award_banner(c, mile['name'], 'trog', 1)
     if mile['potionsused'] == 0 and mile['scrollsused'] == 0:
       banner.award_banner(c, mile['name'], 'ru', 2)
+  if mile['noun'] == 'Elf' and game['turn'] < 9000:
+    banner.award_banner(c, player, 'uskayaw', 2)
+  if mile['noun'] == 'Geh' and game['turn'] < 27000:
+    banner.award_banner(c, player, 'uskayaw', 3)
   if query.player_count_br_end(c, mile['name'], mile['noun']) <= 1:
     assign_points(c, "branch:end", mile['name'], 5)
 
@@ -374,7 +380,7 @@ def crunch_winner(c, game):
 
   # Award Okawaru banners for wins.
   banner.award_banner(c, player, 'okawaru', 2)
-  if (game['turn'] < 50000):
+  if game['turn'] < 50000:
     banner.award_banner(c, player, 'okawaru', 3)
 
   if game['dur'] <= 10800:
