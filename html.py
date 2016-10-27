@@ -13,18 +13,19 @@ BANNER_IMAGES = \
       'elyvilon': [ 'banner_elyvilon.png', 'The Pious' ],
       'fedhas': [ 'banner_fedhas.png', "Nature's Ally" ],
       'gozag': [ 'banner_gozag.png', "Avarice" ],
+      'hepliaklqana': [ 'banner_hepliaklqana.png', 'The Inheritor' ],
       'jiyva': [ 'banner_jiyva.png', 'Gelatinous Body' ],
       'kikubaaqudgha': [ 'banner_kikubaaqudgha.png', 'Lord of Darkness' ],
       'lugonu': [ 'banner_lugonu.png', 'Spiteful' ],
       'makhleb': [ 'banner_makhleb.png', 'Speed Demon' ],
       'nemelex': [ 'banner_nemelex.png', "Nemelex' Choice" ],
       'okawaru': [ 'banner_okawaru.png', 'The Conqueror' ],
-      'pakellas': [ 'banner_pakellas.png', 'The Test Subject' ],
       'qazlal': [ 'banner_qazlal.png', 'The Prophet' ],
       'ru': [ 'banner_ru.png', 'The Ascetic' ],
       'sif': [ 'banner_sif.png', 'The Lorekeeper' ],
       'the_shining_one': [ 'banner_the_shining_one.png', 'Vow of Courage' ],
       'trog': [ 'banner_trog.png', 'Brute Force' ],
+      'uskayaw': [ 'banner_uskayaw.png', 'Graceful' ],
       'vehumet': [ 'banner_vehumet.png', 'Ruthless Efficiency' ],
       'xom': [ 'banner_xom.png', 'Descent into Madness' ],
       'yredelemnul': [ 'banner_yredelemnul.png', 'The Harvest' ],
@@ -71,6 +72,11 @@ BANNER_TEXT = \
           'Find the silver rune.',
           'Find the iron rune before entering Pandemonium or any branch of the dungeon containing any other rune.',
         ],
+      'hepliaklqana':
+        [ 'Enter the Lair of beasts while worshipping a god from a faded altar, having worshipped no other gods.',
+          'Find a rune while worshipping a god from a faded altar, having worshipped no other gods.',
+          'Win a game while worshipping a god from a faded altar, having worshipped no other gods.',
+        ],
       'jiyva':
         [ 'Reach experience level 9 with at least 5 distinct species and at least 5 distinct backgrounds.',
           'Get a rune with at least 5 distinct species and at least 5 distinct backgrounds.',
@@ -101,11 +107,6 @@ BANNER_TEXT = \
           'Win a game.',
           'Win a game in under 50000 turns.',
         ],
-      'pakellas':
-        [ 'Enter the Lair of beasts while worshipping a god from a faded altar, having worshipped no other gods.',
-          'Find a rune while worshipping a god from a faded altar, having worshipped no other gods.',
-          'Win a game while worshipping a god from a faded altar, having worshipped no other gods.',
-        ],
       'qazlal':
         [ 'Reach the Lair of Beasts with an Invocations title.',
           'Win a game with an Invocations title.',
@@ -131,6 +132,11 @@ BANNER_TEXT = \
           'Find a rune as a non-demigod without worshipping a god.',
           'Win a game as a non-demigod without worshipping a god.',
         ],
+      'uskayaw':
+        [ 'Enter the Temple in under 3000 turns.',
+          'Enter the third floor of the Elven Halls in under 9000 turns.',
+          'Enter the final floor of Gehenna in under 27000 turns.',
+        ]
       'vehumet':
         [ 'Reach the last level of the Lair as a non-formicid before reaching experience level 12.',
           'Find a rune before reaching experience level 14.',
