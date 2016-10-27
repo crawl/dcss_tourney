@@ -682,25 +682,6 @@ III: Win the game in 3 hours.
             <hr>
 
             <div>
-              <img src="images/banner_pakellas1.png"
-                   alt="The Test Subject"
-                   title="The Test Subject"
-                   width="170" height="58"
-                   >
-              <p>
-                Pakellas has a hypothesis for you to test: worshipping an unknown god at a faded altar is just as safe as any deliberately chosen deity. Those who attempt to prove this hypothesis will be recognized as <a name="the_test_subject">THE TEST SUBJECT</a>!
-              <br>
-                I: Enter the Lair of Beasts while worshipping a god from a faded altar, having worshipped no other gods.
-              <br>
-                II: Find a rune while worshipping a god from a faded altar, having worshipped no other gods.
-              <br>
-                III: Win a game while worshipping a god from a faded altar, having worshipped no other gods.
-              </p>
-            </div>
-
-            <hr>
-
-            <div>
               <img src="images/banner_qazlal1.png"
                    alt="The Prophet"
                    title="The Prophet"
@@ -918,25 +899,19 @@ III: Win a game as a non-demigod without worshipping a god.
             <hr>
 
             <p class="added">
-              <span>Pakellas'</span> <span><a href="#the_test_subject">TEST SUBJECT</a></span>
-              banner has been added.
               <span class="added">[NEW]</span>
             </p>
 
 	    <!--
             <p class="changed">
-              The third tier of <span>Zin's</span> <span>ANGEL OF
-              JUSTICE</span> banner now requires the player to kill the Serpent
-              of Hell at least once.
-              <span class="changed">[CHANGED]</span>
             </p>
+      -->
 
             <p class="removed">
-              <span>50-20-10 clan points</span> for finishing a game with the
-              highest value of AC+EV.
+              <span>Pakellas'</span> <span><a href="#the_test_subject">TEST SUBJECT</a></span>
+              banner has been removed.
               <span class="removed">[REMOVED]</span>
             </p>
-	    -->
           </div>
 
           <hr>
