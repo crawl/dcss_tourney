@@ -2,8 +2,8 @@ UNIQUES = [ "Ijyb", "Blork", "Urug", "Erolcha", "Snorg",
             "Antaeus", "Xtahua", "Tiamat", "Boris", "Murray", "Terence",
             "Jessica", "Sigmund", "Edmund", "Psyche", "Donald",
             "Joseph", "Erica", "Josephine", "Harold",
-            "Agnes", "Maud", "Louise", "Frances", "Rupert", "Wiglaf",
-            "Norris", "Frederick", "Margery", "Mnoleg", "Lom Lobon",
+            "Agnes", "Louise", "Frances", "Rupert",
+            "Frederick", "Margery", "Mnoleg", "Lom Lobon",
             "Cerebov", "Gloorx Vloq", "Geryon", "Dispater", "Asmodeus",
             "Ereshkigal", "Nessos", "Azrael", "Polyphemus",
             "Prince Ribbit", "the royal jelly", "Dissolution", "Sonja",
@@ -11,16 +11,16 @@ UNIQUES = [ "Ijyb", "Blork", "Urug", "Erolcha", "Snorg",
             "the Lernaean hydra", "Dowan", "Duvessa",
             "Grum", "Crazy Yiuf", "Gastronok", "Pikel", "Menkaure",
             "Khufu", "Ilsuiw", "Aizul", "Mara", "Purgy", "Grinder",
-            "Kirke", "Nikola", "Maurice", "Mennas", "Jory", 
-            "the Serpent of Hell", "the Enchantress", "Ignacio", "Arachne", "Fannar", "Jorgrun", "Sojobo", "Asterion", "Natasha", "Vashnia", "Robin" ]
+            "Kirke", "Nikola", "Maurice", "Mennas", "Jory",
+            "the Serpent of Hell", "the Enchantress", "Ignacio", "Arachne",
+            "Fannar", "Jorgrun", "Sojobo", "Asterion", "Natasha", "Vashnia",
+            "Robin", "Bai Suzhen" ]
 
-# lists below are out of date
+HARD_UNIQUES = [ "Antaeus", "Asmodeus", "Boris", "Cerebov", "Dispater", "Dissolution", "Ereshkigal", "Frederick", "Geryon", "Gloorx Vloq", "Ignacio", "Khufu", "Lom Lobon", "Mara", "Margery", "Mennas", "Mnoleg", "Murray", "Sojobo", "the Enchantress", "the Serpent of Hell", "the royal jelly", "Tiamat", "Xtahua" ]
 
-HARD_UNIQUES = [ "Antaeus", "Asmodeus", "Boris", "Cerebov", "Dispater", "Dissolution", "Ereshkigal", "Frederick", "Geryon", "Gloorx Vloq", "Ignacio", "Ilsuiw", "Jory", "Khufu", "Lom Lobon", "Mara", "Margery", "Mennas", "Mnoleg", "Murray", "Sojobo", "the Enchantress", "the Lernaean hydra", "the Serpent of Hell", "the royal jelly", "Tiamat", "Xtahua" ]
+MEDIUM_UNIQUES = [ "Agnes", "Aizul", "Arachne", "Azrael", "Bai Suzhen", "Donald", "Frances", "Gastronok", "Ilsuiw", "Jory", "Jorgrun", "Josephine", "Kirke", "Louise", "Nergalle", "Nessos", "Nikola", "Polyphemus", "Roxanne", "Rupert", "Saint Roka", "Snorg", "the Lernaean hydra", "Urug" ]
 
-MEDIUM_UNIQUES = [ "Agnes", "Aizul", "Arachne", "Azrael", "Donald", "Frances", "Jorgrun", "Kirke", "Lamia", "Louise", "Maud", "Nergalle", "Nessos", "Nikola", "Norris", "Polyphemus", "Roxanne", "Rupert", "Saint Roka", "Snorg", "Wiglaf" ]
-
-EASY_UNIQUES = [ "Blork", "Crazy Yiuf", "Dowan", "Duvessa", "Edmund", "Erica", "Erolcha", "Eustachio", "Fannar", "Gastronok", "Grum", "Grinder", "Harold", "Ijyb", "Jessica", "Joseph", "Josephine", "Maurice", "Menkaure", "Pikel", "Prince Ribbit", "Psyche", "Purgy", "Sigmund", "Sonja", "Terence", "Urug" ]
+EASY_UNIQUES = [ "Blork", "Crazy Yiuf", "Dowan", "Duvessa", "Edmund", "Erica", "Erolcha", "Eustachio", "Fannar", "Grum", "Grinder", "Harold", "Ijyb", "Jessica", "Joseph", "Maurice", "Menkaure", "Pikel", "Prince Ribbit", "Psyche", "Purgy", "Sigmund", "Sonja", "Terence"]
 
 UNIQ_SET = set(UNIQUES)
 
