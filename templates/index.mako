@@ -21,8 +21,8 @@
         <div class="heading">
           <h1>${title}</h1>
           <p class="fineprint">
-            Tournament starts on <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20160506T20">May 6, ${year} at 20:00 UTC</a>, and ends on
-            <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20160522T20">May 22, ${year} at 20:00 UTC</a>.
+            Tournament starts on <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20161104T20">Nov 4, ${year} at 20:00 UTC</a>, and ends on
+            <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20161120T20">Nov 20, ${year} at 20:00 UTC</a>.
           </p>
         </div>
         <hr>
@@ -30,7 +30,7 @@
         <div class="content">
           <p>
             Hello all! Welcome to the rules for the
-            ${version} Dungeon Crawl Stone Soup Tournament, running from <b><a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20160506T20">20:00 UTC Friday 6 May</a></b> to <b><a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20160522T20">20:00 UTC Sunday 22 May</a></b>. All version ${version} games played fully during this time period on any of the <a href="https://crawl.develz.org/wordpress/howto">public servers</a> will automatically count for the tournament.
+            ${version} Dungeon Crawl Stone Soup Tournament, running from <b><a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20161104T20">20:00 UTC Friday 4 Nov</a></b> to <b><a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20161120T20">20:00 UTC Sunday 20 Nov</a></b>. All version ${version} games played fully during this time period on any of the <a href="https://crawl.develz.org/wordpress/howto">public servers</a> will automatically count for the tournament.
           </p>
 
           <p>
@@ -116,8 +116,8 @@ To become a member of a clan, you
 
           <p>
             Clans may be changed by adding or removing players at any time
-            until <b><a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20160513T20">20:00
-            UTC Friday 13 May</a></b>, after which clans will be
+            until <b><a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20161111T20">20:00
+            UTC Friday 11 Nov</a></b>, after which clans will be
             frozen.
           </p>
 
@@ -194,13 +194,13 @@ To become a member of a clan, you
               <span>(48+T)/(2+B) points</span> (rounded up) for a win with a given background if T is the total number of games won in the tournament before the start of the win in question and B of those T were with the given background. If a player wins the same background multiple times, she only gets the largest value of this bonus, not the sum.
             </p>
             <p>
-              <span>1.5*(46+T)/(2+G) points</span> (rounded up) for a win with a given god if T is the total number of games won in the tournament before the start of the win in question and G of those T were with the given god. If a player wins with the same god multiple times, she only gets the largest value of this bonus, not the sum. For purposes of these points we say that a player wins with a god if she reaches full (******) piety with that god without worshipping any other god first. Two gods (Gozag and Xom) do not have the usual ****** piety system; to get the points for these gods, you must never worship another god during the game. For "No God", you must never worship a god.
+              <span>1.5*(48+T)/(2+G) points</span> (rounded up) for a win with a given god if T is the total number of games won in the tournament before the start of the win in question and G of those T were with the given god. If a player wins with the same god multiple times, she only gets the largest value of this bonus, not the sum. For purposes of these points we say that a player wins with a god if she reaches full (******) piety with that god without worshipping any other god first. Two gods (Gozag and Xom) do not have the usual ****** piety system; to get the points for these gods, you must never worship another god during the game. For "No God", you must never worship a god.
             </p>
             <p>
               In addition, certain randomly chosen species/background combinations will be worth more points for the first eight players to win them:
             </p>
             <p>
-              <span>75 bonus points</span> for winning <a href="#nemelex_choice">NEMELEX' CHOICE</a> characters. The first Nemelex' Choice combo is chosen at the start of the tournament, and after that each one is chosen when the previous one is won for the first time. Each combo remains valid until it has been won eight times. The species/background combinations are chosen by Nemelex from those with at most fifteen online wins.
+              <span>75 bonus points</span> for winning <a href="#nemelex_choice">NEMELEX' CHOICE</a> characters. The first Nemelex' Choice combo is chosen at the start of the tournament, and after that each one is chosen when the previous one is won for the first time. Each combo remains valid until it has been won eight times. The species/background combinations are chosen by Nemelex from those with at most 23 online wins.
             </p>
             <div class="inset">
               <p>
@@ -914,12 +914,12 @@ III: Win a game as a non-demigod without worshipping a god.
             <hr>
             <div class="fineprint">
               <p>
-                Some rules have been changed from the 0.17 tournament held in
-                November 2015. This is a list of rules differences.
+                Some rules have been changed from the 0.18 tournament held in
+                May 2016. This is a list of rules differences.
               </p>
 
               <p><span class="removed">[REMOVED]</span>
-                flags rules that existed in the 0.17 tournament and are gone in
+                flags rules that existed in the 0.18 tournament and are gone in
                 this tournament.</p>
 
               <p><span class="added">[NEW]</span>
@@ -928,8 +928,8 @@ III: Win a game as a non-demigod without worshipping a god.
               <p><span class="changed">[CHANGED]</span>
                 flags rules that have been modified for this
                 tournament. To compare
-                changed rules with the rules in the 0.17 tournament, see
-                the <a href="http://dobrazupa.org/tournament/0.17/">old
+                changed rules with the rules in the 0.18 tournament, see
+                the <a href="http://dobrazupa.org/tournament/0.18/">old
                 rules</a>.
               </p>
             </div>
@@ -939,7 +939,9 @@ III: Win a game as a non-demigod without worshipping a god.
             <p class="added">
               <span>Hepliaklqana's</span> <span><a href="#the_inheritor">INHERITOR</a></span> banner has been added.
               <span class="added">[NEW]</span>
+            </p>
 
+            <p class="added">
               <span>Uskayaw's</span> <span><a href="#graceful">GRACEFUL</a></span> banner has been added.
               <span class="added">[NEW]</span>
             </p>
@@ -948,7 +950,6 @@ III: Win a game as a non-demigod without worshipping a god.
             <p class="changed">
             </p>
       -->
-
             <p class="removed">
               <span>Pakellas'</span> <span><a href="#the_test_subject">TEST SUBJECT</a></span>
               banner has been removed.
@@ -971,7 +972,7 @@ III: Win a game as a non-demigod without worshipping a god.
               <span>|amethyst</span> for hosting the tournament scripts.
             </p>
             <p>
-              <span>Wensley</span>, <span>ChrisOelmueller</span>, and <span>Grunt</span> for creating the banner images.
+              <span>Wensley</span>, <span>ChrisOelmueller</span>, <span>Grunt</span>, and <span>CanOfWorms</span> for creating the banner images.
             </p>
             <p>
               <span>elliptic</span> for five years of work running the 0.8, 0.9, 0.10, 0.11, 0.12, 0.13, 0.14, 0.15, 0.16, and 0.17 tournaments.
