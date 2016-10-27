@@ -36,8 +36,8 @@
         <div class="heading">
           <h1>${title}</h1>
           <p class="fineprint">
-            Tournament starts on <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20160506T20">May 6, ${year} at 20:00 UTC</a>, and ends on
-            <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20160522T20">May 22, ${year} at 20:00 UTC</a>.
+            Tournament starts on <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20160506T20">November 4, ${year} at 20:00 UTC</a>, and ends on
+            <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20160522T20">November 20, ${year} at 20:00 UTC</a>.
           </p>
           % if USE_TEST:
           <div class="inset">
@@ -223,8 +223,8 @@
 	            <h3>Most Uniques Killed: Clan</h3>
                     ${html.clan_unique_kills(c)}
                   </div>
-	        </td>
-                
+          </td>
+
                 <td>
                   <div>
 	            <h3>Most High Scores: Clan</h3>
