@@ -10,7 +10,7 @@ CXC = 'http://crawl.xtahua.com/crawl/'
 LLD = 'http://lazy-life.ddo.jp/'
 CJR = 'http://www.jorgrun.rocks/'
 
-USE_TEST = False
+USE_TEST = True
 
 TEST_YEAR = USE_TEST and '2016'
 TEST_VERSION = USE_TEST and '0.19'
