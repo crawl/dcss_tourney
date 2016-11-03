@@ -136,7 +136,7 @@ BANNER_TEXT = \
         [ 'Enter the Temple in under 3000 turns.',
           'Enter the third floor of the Elven Halls in under 9000 turns.',
           'Enter the final floor of Gehenna in under 27000 turns.',
-        ]
+        ],
       'vehumet':
         [ 'Reach the last level of the Lair as a non-formicid before reaching experience level 12.',
           'Find a rune before reaching experience level 14.',
