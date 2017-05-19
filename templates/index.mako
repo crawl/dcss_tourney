@@ -553,7 +553,7 @@ To become a member of a clan, you
                    width="170" height="58"
                    >
               <p>
-                Hepkliaqlana bestows a geas upon you: recall the forgotten deities forth from the mists. Worship at a faded altar to become <a name="the_inheritor">THE INHERITOR</a> of memory!
+                Hepliaklqana bestows a geas upon you: recall the forgotten deities forth from the mists. Worship at a faded altar to become <a name="the_inheritor">THE INHERITOR</a> of memory!
               <br>
                 I: Enter the Lair of Beasts while worshipping a god from a faded altar, having worshipped no other gods.
               <br>
