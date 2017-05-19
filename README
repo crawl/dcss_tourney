@@ -22,7 +22,7 @@ To run loaddb.py:
 1. Make sure MySQL is up and running, with a db 'tournament' with access to
    the user 'crawl' with no pw.
 
-2. mysql -ucrawl -p tournament < database.sql will (re)create the tables,
+2. mysql -ucrawl tournament < database.sql will (re)create the tables,
    discarding any existing data.
 
 3. python loaddb.py will update the database with logfile and milestone
