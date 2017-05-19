@@ -10,12 +10,12 @@ CXC = 'http://crawl.xtahua.com/crawl/'
 LLD = 'http://lazy-life.ddo.jp/'
 CJR = 'http://www.jorgrun.rocks/'
 
-USE_TEST = True
+USE_TEST = False
 
 TEST_YEAR = USE_TEST and '2016'
 TEST_VERSION = USE_TEST and '0.19'
-TEST_START_TIME = USE_TEST and (TEST_YEAR + '0101')
-TEST_END_TIME   = USE_TEST and (TEST_YEAR + '0510')
+TEST_START_TIME = USE_TEST and (TEST_YEAR + '1028')
+TEST_END_TIME   = USE_TEST and (TEST_YEAR + '1104')
 TEST_CLAN_DEADLINE = (USE_TEST and
                      datetime.datetime(2016, 12, 1, 0))
 TEST_HARE_START_TIME = USE_TEST and (TEST_YEAR + '0327')
