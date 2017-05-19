@@ -301,7 +301,6 @@ DgEE
 DgSk
 DgVM
 DgTm
-DgMo
 DgWr
 DgWn
 DgAr
