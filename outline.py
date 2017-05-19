@@ -146,9 +146,12 @@ def do_milestone_rune(c, mile):
     banner.award_banner(c, player, 'fedhas', 2)
   if rune == 'silver' and num_rune == 1:
     banner.award_banner(c, player, 'gozag', 2)
-  if query.did_use_ecumenical_altar(c, mile['name'], mile['start'], mile['time']) \
-      and not query.did_renounce_god(c, mile['name'], mile['start'], mile['time']):
-    banner.award_banner(c, mile['name'], 'hepliaklqana', 2)
+  did_ecu = query.did_use_ecumenical_altar(c, mile['name'], mile['start'],
+		mile['time'])
+  did_renounce = query.did_renounce_god(c, mile['name'], mile['start'],
+			mile['time'])
+  if (did_ecu and not did_renounce):
+    banner.award_banner(c, player, 'hepliaklqana', 2)
 
   # The abyssal rune is the only rune that the player can get before the iron
   # rune for Avarice 3.
@@ -238,9 +241,9 @@ def do_milestone_br_end(c, mile):
     if mile['potionsused'] == 0 and mile['scrollsused'] == 0:
       banner.award_banner(c, mile['name'], 'ru', 2)
   if mile['noun'] == 'Elf' and mile['turn'] < 9000:
-    banner.award_banner(c, player, 'uskayaw', 2)
+    banner.award_banner(c, mile['name'], 'uskayaw', 2)
   if mile['noun'] == 'Geh' and mile['turn'] < 27000:
-    banner.award_banner(c, player, 'uskayaw', 3)
+    banner.award_banner(c, mile['name'], 'uskayaw', 3)
   if query.player_count_br_end(c, mile['name'], mile['noun']) <= 1:
     assign_points(c, "branch:end", mile['name'], 5)
 
