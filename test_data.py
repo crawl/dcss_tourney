@@ -21,7 +21,7 @@ TEST_CLAN_DEADLINE = (USE_TEST and
 TEST_HARE_START_TIME = USE_TEST and (TEST_YEAR + '0327')
 TEST_LOGS = USE_TEST and [
          ('cao-logfile-0.19', CAO + 'logfile19'),
-         #('cdo-logfile-0.19', CDO + 'allgames-0.19.txt'),
+         ('cdo-logfile-0.19', CDO + 'allgames-0.19.txt'),
          ('cue-logfile-0.19', CUE + 'meta/0.19/logfile'),
          ('cbro-logfile-0.19', CBRO + 'meta/0.19/logfile'),
          ('cpo-logfile-0.19', CPO + 'dcss-logfiles-0.19'),
@@ -33,7 +33,7 @@ TEST_LOGS = USE_TEST and [
 
 TEST_MILESTONES = USE_TEST and [
          ('cao-milestones-0.19', CAO + 'milestones19'),
-         #('cdo-milestones-0.19', CDO + 'milestones-0.19.txt'),
+         ('cdo-milestones-0.19', CDO + 'milestones-0.19.txt'),
          ('cue-milestones-0.19', CUE + 'meta/0.19/milestones'),
          ('cbro-milestones-0.19', CBRO + 'meta/0.19/milestones'),
          ('cpo-milestones-0.19', CPO + 'dcss-milestones-0.19'),
