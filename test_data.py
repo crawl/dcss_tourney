@@ -8,7 +8,7 @@ CPO = 'https://crawl.project357.org/'
 CWZ = 'http://webzook.net:82/'
 CXC = 'http://crawl.xtahua.com/crawl/'
 LLD = 'http://lazy-life.ddo.jp/'
-CJR = 'http://www.jorgrun.rocks/'
+CJR = 'https://www.jorgrun.rocks/'
 
 USE_TEST = True
 
