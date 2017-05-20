@@ -1,8 +1,8 @@
 <%
    from crawl_utils import XXX_TOURNEY_BASE
    from test_data import USE_TEST
-   version = '0.19'
-   year    = '2016'
+   version = '0.20'
+   year    = '2017'
    title   = "Crawl %s Tournament Information" % version
  %>
 <!DOCTYPE html>
@@ -21,8 +21,8 @@
         <div class="heading">
           <h1>${title}</h1>
           <p class="fineprint">
-            Tournament starts on <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20161104T20">Nov 4, ${year} at 20:00 UTC</a>, and ends on
-            <a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20161120T20">Nov 20, ${year} at 20:00 UTC</a>.
+            Tournament starts on <a href="https://www.timeanddate.com/worldclock/fixedtime.html?iso=20170526T20">May 26, ${year} at 20:00 UTC</a>, and ends on
+            <a href="https://www.timeanddate.com/worldclock/fixedtime.html?iso=20170611T20">June 11, ${year} at 20:00 UTC</a>.
           </p>
         </div>
         <hr>
@@ -30,7 +30,7 @@
         <div class="content">
           <p>
             Hello all! Welcome to the rules for the
-            ${version} Dungeon Crawl Stone Soup Tournament, running from <b><a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20161104T20">20:00 UTC Friday 4 Nov</a></b> to <b><a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20161120T20">20:00 UTC Sunday 20 Nov</a></b>. All version ${version} games played fully during this time period on any of the <a href="https://crawl.develz.org/wordpress/howto">public servers</a> will automatically count for the tournament.
+            ${version} Dungeon Crawl Stone Soup Tournament, running from <b><a href="https://www.timeanddate.com/worldclock/fixedtime.html?iso=20170526T20">20:00 UTC Friday 26 May</a></b> to <b><a href="https://www.timeanddate.com/worldclock/fixedtime.html?iso=20170611T20">20:00 UTC Sunday 11 June</a></b>. All version ${version} games played fully during this time period on any of the <a href="https://crawl.develz.org/wordpress/howto">public servers</a> will automatically count for the tournament.
           </p>
 
           <p>
@@ -116,8 +116,8 @@ To become a member of a clan, you
 
           <p>
             Clans may be changed by adding or removing players at any time
-            until <b><a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=20161111T20">20:00
-            UTC Friday 11 Nov</a></b>, after which clans will be
+            until <b><a href="https://www.timeanddate.com/worldclock/fixedtime.html?iso=20170602T20">20:00
+            UTC Friday 2 June</a></b>, after which clans will be
             frozen.
           </p>
 
@@ -914,12 +914,12 @@ III: Win a game as a non-demigod without worshipping a god.
             <hr>
             <div class="fineprint">
               <p>
-                Some rules have been changed from the 0.18 tournament held in
-                May 2016. This is a list of rules differences.
+                Some rules have been changed from the 0.19 tournament held in
+                November 2016. This is a list of rules differences.
               </p>
 
               <p><span class="removed">[REMOVED]</span>
-                flags rules that existed in the 0.18 tournament and are gone in
+                flags rules that existed in the 0.19 tournament and are gone in
                 this tournament.</p>
 
               <p><span class="added">[NEW]</span>
@@ -928,8 +928,8 @@ III: Win a game as a non-demigod without worshipping a god.
               <p><span class="changed">[CHANGED]</span>
                 flags rules that have been modified for this
                 tournament. To compare
-                changed rules with the rules in the 0.18 tournament, see
-                the <a href="http://dobrazupa.org/tournament/0.18/">old
+                changed rules with the rules in the 0.19 tournament, see
+                the <a href="http://dobrazupa.org/tournament/0.19/">old
                 rules</a>.
               </p>
             </div>

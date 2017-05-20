@@ -14,32 +14,32 @@ import sys
 
 from test_data import USE_TEST, TEST_YEAR, TEST_VERSION, TEST_START_TIME, TEST_END_TIME, TEST_HARE_START_TIME, TEST_LOGS, TEST_MILESTONES, TEST_CLAN_DEADLINE
 
-T_YEAR = TEST_YEAR or '2016'
-T_VERSION = TEST_VERSION or '0.19'
+T_YEAR = TEST_YEAR or '2017'
+T_VERSION = TEST_VERSION or '0.20'
 
 # Start and end of the tournament, UTC.
-START_TIME = TEST_START_TIME or (T_YEAR + '11042000')
-END_TIME   = TEST_END_TIME or (T_YEAR + '11202000')
+START_TIME = TEST_START_TIME or (T_YEAR + '05262000')
+END_TIME   = TEST_END_TIME or (T_YEAR + '06112000')
 
 # Deadline for forming teams.
 CLAN_DEADLINE = (TEST_CLAN_DEADLINE or
-                datetime.datetime(2016, 11, 11, 20))
+                datetime.datetime(2017, 6, 2, 20))
 
 DATE_FORMAT = '%Y%m%d%H%M'
 
 GAME_VERSION = T_VERSION
 
-HARE_START_TIME = TEST_HARE_START_TIME or (T_YEAR + '11192000') # one day before tourney end
+HARE_START_TIME = TEST_HARE_START_TIME or (T_YEAR + '06102000') # one day before tourney end
 
-CDO = 'http://crawl.develz.org/'
 CAO = 'http://crawl.akrasiac.org/'
-CUE = 'http://underhound.eu:81/crawl/'
 CBRO = 'http://crawl.berotato.org/crawl/'
+CDO = 'http://crawl.develz.org/'
+CJR = 'http://www.jorgrun.rocks/'
 CPO = 'https://crawl.project357.org/'
+CUE = 'https://underhound.eu:81/crawl/'
 CWZ = 'http://webzook.net:82/'
 CXC = 'http://crawl.xtahua.com/crawl/'
 LLD = 'http://lazy-life.ddo.jp/'
-CJR = 'http://www.jorgrun.rocks/'
 
 #CKR = 'http://kr.dobrazupa.org/'
 #RHF = 'http://rl.heh.fi/'
@@ -48,27 +48,27 @@ CJR = 'http://www.jorgrun.rocks/'
 # being the URL to wget -c from.
 
 LOGS = TEST_LOGS or [
-         ('cao-logfile-0.19', CAO + 'logfile19'),
-         ('cdo-logfile-0.19', CDO + 'allgames-0.19.txt'),
-         ('cue-logfile-0.19', CUE + 'meta/0.19/logfile'),
-         ('cbro-logfile-0.19', CBRO + 'meta/0.19/logfile'),
-         ('cpo-logfile-0.19', CPO + 'dcss-logfiles-0.19'),
-         ('cwz-logfile-0.19', CWZ + '0.19/logfile'),
-         ('cxc-logfile-0.19', CXC + 'meta/0.19/logfile'),
-         ('lld-logfile-0.19', LLD + 'mirror/meta/0.19/logfile'),
-         ('cjr-logfile-0.19', CJR + 'meta/0.19/logfile'),
+         ('cao-logfile-0.20', CAO + 'logfile20'),
+         ('cdo-logfile-0.20', CDO + 'allgames-0.20.txt'),
+         ('cue-logfile-0.20', CUE + 'meta/0.20/logfile'),
+         ('cbro-logfile-0.20', CBRO + 'meta/0.20/logfile'),
+         ('cpo-logfile-0.20', CPO + 'dcss-logfiles-0.20'),
+         ('cwz-logfile-0.20', CWZ + '0.20/logfile'),
+         ('cxc-logfile-0.20', CXC + 'meta/0.20/logfile'),
+         ('lld-logfile-0.20', LLD + 'mirror/meta/0.20/logfile'),
+         ('cjr-logfile-0.20', CJR + 'meta/0.20/logfile'),
   ]
 
 MILESTONES = TEST_MILESTONES or [
-         ('cao-milestones-0.19', CAO + 'milestones19'),
-         ('cdo-milestones-0.19', CDO + 'milestones-0.19.txt'),
-         ('cue-milestones-0.19', CUE + 'meta/0.19/milestones'),
-         ('cbro-milestones-0.19', CBRO + 'meta/0.19/milestones'),
-         ('cpo-milestones-0.19', CPO + 'dcss-milestones-0.19'),
-         ('cwz-milestones-0.19', CWZ + '0.19/milestones'),
-         ('cxc-milestones-0.19', CXC + 'meta/0.19/milestones'),
-         ('lld-milestones-0.19', LLD + 'mirror/meta/0.19/milestones'),
-         ('cjr-milestones-0.19', CJR + 'meta/0.19/milestones'),
+         ('cao-milestones-0.20', CAO + 'milestones20'),
+         ('cdo-milestones-0.20', CDO + 'milestones-0.20.txt'),
+         ('cue-milestones-0.20', CUE + 'meta/0.20/milestones'),
+         ('cbro-milestones-0.20', CBRO + 'meta/0.20/milestones'),
+         ('cpo-milestones-0.20', CPO + 'dcss-milestones-0.20'),
+         ('cwz-milestones-0.20', CWZ + '0.20/milestones'),
+         ('cxc-milestones-0.20', CXC + 'meta/0.20/milestones'),
+         ('lld-milestones-0.20', LLD + 'mirror/meta/0.20/milestones'),
+         ('cjr-milestones-0.20', CJR + 'meta/0.20/milestones'),
   ]
 
 BLACKLIST_FILE = 'blacklist.txt'
