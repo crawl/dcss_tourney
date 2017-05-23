@@ -1,14 +1,14 @@
 import datetime
 
-CDO = 'http://crawl.develz.org/'
 CAO = 'http://crawl.akrasiac.org/'
-CUE = 'https://underhound.eu:81/crawl/'
 CBRO = 'http://crawl.berotato.org/crawl/'
+CDO = 'http://crawl.develz.org/'
+CJR = 'https://crawl.jorgrun.rocks/'
 CPO = 'https://crawl.project357.org/'
+CUE = 'https://underhound.eu:81/crawl/'
 CWZ = 'http://webzook.net:82/'
 CXC = 'http://crawl.xtahua.com/crawl/'
 LLD = 'http://lazy-life.ddo.jp/'
-CJR = 'https://www.jorgrun.rocks/'
 
 USE_TEST = True
 

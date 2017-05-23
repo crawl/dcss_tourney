@@ -200,7 +200,7 @@ To become a member of a clan, you
               In addition, certain randomly chosen species/background combinations will be worth more points for the first eight players to win them:
             </p>
             <p>
-              <span>75 bonus points</span> for winning <a href="#nemelex_choice">NEMELEX' CHOICE</a> characters. The first Nemelex' Choice combo is chosen at the start of the tournament, and after that each one is chosen when the previous one is won for the first time. Each combo remains valid until it has been won eight times. The species/background combinations are chosen by Nemelex from those with at most 22 online wins and which weren't Nemelex Choices in the previous tournament.
+              <span>75 bonus points</span> for winning <a href="#nemelex_choice">NEMELEX' CHOICE</a> characters. The first Nemelex' Choice combo is chosen at the start of the tournament, and after that each one is chosen when the previous one is won for the first time. Each combo remains valid until it has been won eight times. The species/background combinations are chosen by Nemelex from those with at most 24 online wins and which weren't Nemelex Choices in the previous tournament.
             </p>
             <div class="inset">
               <p>
