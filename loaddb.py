@@ -49,26 +49,26 @@ LLD = 'http://lazy-life.ddo.jp/'
 
 LOGS = TEST_LOGS or [
          ('cao-logfile-0.20', CAO + 'logfile20'),
-         ('cdo-logfile-0.20', CDO + 'allgames-0.20.txt'),
-         ('cue-logfile-0.20', CUE + 'meta/0.20/logfile'),
          ('cbro-logfile-0.20', CBRO + 'meta/0.20/logfile'),
+         ('cdo-logfile-0.20', CDO + 'allgames-0.20.txt'),
+         ('cjr-logfile-0.20', CJR + 'meta/0.20/logfile'),
          ('cpo-logfile-0.20', CPO + 'dcss-logfiles-0.20'),
+         ('cue-logfile-0.20', CUE + 'meta/0.20/logfile'),
          ('cwz-logfile-0.20', CWZ + '0.20/logfile'),
          ('cxc-logfile-0.20', CXC + 'meta/0.20/logfile'),
          ('lld-logfile-0.20', LLD + 'mirror/meta/0.20/logfile'),
-         ('cjr-logfile-0.20', CJR + 'meta/0.20/logfile'),
   ]
 
 MILESTONES = TEST_MILESTONES or [
          ('cao-milestones-0.20', CAO + 'milestones20'),
-         ('cdo-milestones-0.20', CDO + 'milestones-0.20.txt'),
-         ('cue-milestones-0.20', CUE + 'meta/0.20/milestones'),
          ('cbro-milestones-0.20', CBRO + 'meta/0.20/milestones'),
+         ('cdo-milestones-0.20', CDO + 'milestones-0.20.txt'),
+         ('cjr-milestones-0.20', CJR + 'meta/0.20/milestones'),
          ('cpo-milestones-0.20', CPO + 'dcss-milestones-0.20'),
+         ('cue-milestones-0.20', CUE + 'meta/0.20/milestones'),
          ('cwz-milestones-0.20', CWZ + '0.20/milestones'),
          ('cxc-milestones-0.20', CXC + 'meta/0.20/milestones'),
          ('lld-milestones-0.20', LLD + 'mirror/meta/0.20/milestones'),
-         ('cjr-milestones-0.20', CJR + 'meta/0.20/milestones'),
   ]
 
 BLACKLIST_FILE = 'blacklist.txt'
