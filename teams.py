@@ -12,7 +12,7 @@
 #captain by putting the captain's name in her rcfile AND the captain "drafted"
 #her by listing her as a member of the team, that she's also named.
 
-BAD_NAMERS = [] # players who have lost the privilege of getting to name
+BAD_NAMERS = ["penus"] # players who have lost the privilege of getting to name
                 # their team in a given tourney
 
 import os
