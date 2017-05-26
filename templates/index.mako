@@ -913,7 +913,7 @@ III: Win a game as a non-demigod without worshipping a god.
 
             <hr>
             <p>
-               Tournament rules are unchange from the 0.19 tournament held in
+               Tournament rules are unchanged from the 0.19 tournament held in
                November 2016.
             </p>
             <!--
