@@ -6,7 +6,7 @@ CDO = 'http://crawl.develz.org/'
 CJR = 'https://crawl.jorgrun.rocks/'
 CPO = 'https://crawl.project357.org/'
 CUE = 'https://underhound.eu:81/crawl/'
-CWZ = 'http://webzook.net:82/'
+CWZ = 'https://webzook.net/soup/'
 CXC = 'http://crawl.xtahua.com/crawl/'
 LLD = 'http://lazy-life.ddo.jp/'
 
@@ -26,7 +26,7 @@ TEST_LOGS = USE_TEST and [
           ('cjr-logfile-0.20', CJR + 'meta/0.20/logfile'),
           ('cpo-logfile-0.20', CPO + 'dcss-logfiles-0.20'),
 #         ('cue-logfile-0.20', CUE + 'meta/0.20/logfile'),
-#         ('cwz-logfile-0.20', CWZ + '0.20/logfile'),
+          ('cwz-logfile-0.20', CWZ + '0.20/logfile'),
           ('cxc-logfile-0.20', CXC + 'meta/0.20/logfile'),
           ('lld-logfile-0.20', LLD + 'mirror/meta/0.20/logfile'),
   ]
@@ -38,7 +38,7 @@ TEST_MILESTONES = USE_TEST and [
           ('cjr-milestones-0.20', CJR + 'meta/0.20/milestones'),
           ('cpo-milestones-0.20', CPO + 'dcss-milestones-0.20'),
 #         ('cue-milestones-0.20', CUE + 'meta/0.20/milestones'),
-#         ('cwz-milestones-0.20', CWZ + '0.20/milestones'),
+          ('cwz-milestones-0.20', CWZ + '0.20/milestones'),
           ('cxc-milestones-0.20', CXC + 'meta/0.20/milestones'),
           ('lld-milestones-0.20', LLD + 'mirror/meta/0.20/milestones'),
   ]

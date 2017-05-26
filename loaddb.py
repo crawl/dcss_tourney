@@ -37,7 +37,7 @@ CDO = 'http://crawl.develz.org/'
 CJR = 'https://crawl.jorgrun.rocks/'
 CPO = 'https://crawl.project357.org/'
 CUE = 'https://underhound.eu:81/crawl/'
-CWZ = 'http://webzook.net:82/'
+CWZ = 'https://webzook.net/soup/'
 CXC = 'http://crawl.xtahua.com/crawl/'
 LLD = 'http://lazy-life.ddo.jp/'
 
