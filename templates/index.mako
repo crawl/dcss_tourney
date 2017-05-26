@@ -912,6 +912,11 @@ III: Win a game as a non-demigod without worshipping a god.
             <h2>CHANGED RULES</h2>
 
             <hr>
+            <p>
+               Tournament rules are unchange from the 0.19 tournament held in
+               November 2016.
+            </p>
+            <!--
             <div class="fineprint">
               <p>
                 Some rules have been changed from the 0.19 tournament held in
@@ -933,29 +938,7 @@ III: Win a game as a non-demigod without worshipping a god.
                 rules</a>.
               </p>
             </div>
-
-            <hr>
-
-            <p class="added">
-              <span>Hepliaklqana's</span> <span><a href="#the_inheritor">INHERITOR</a></span> banner has been added.
-              <span class="added">[NEW]</span>
-            </p>
-
-            <p class="added">
-              <span>Uskayaw's</span> <span><a href="#graceful">GRACEFUL</a></span> banner has been added.
-              <span class="added">[NEW]</span>
-            </p>
-
-	    <!--
-            <p class="changed">
-            </p>
-      -->
-            <p class="removed">
-              <span>Pakellas'</span> <span><a href="#the_test_subject">TEST SUBJECT</a></span>
-              banner has been removed.
-              <span class="removed">[REMOVED]</span>
-            </p>
-          </div>
+            -->
 
           <hr>
           <div>
