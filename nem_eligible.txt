@@ -26,7 +26,6 @@ CeEE
 CeEn
 CeFE
 CeIE
-CeSk
 CeSu
 CeTm
 CeWz
@@ -93,9 +92,7 @@ OgVM
 OpAE
 OpAK
 OpAM
-OpHu
 SpAK
-SpAM
 SpIE
 SpNe
 SpSu
