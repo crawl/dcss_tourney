@@ -25,6 +25,9 @@ Updating the scripts:
   - be sure to do this before running the scripts on CSZO so that you don't
     overwrite stuff in the old html.tourney0.15 directory
 * change dates everywhere, including clan deadline and last_win deadline
+  - Set the clan deadline to one hour after the actual clan deadline, since the final
+    RC fetch will be done at the deadline (see CSZO setup below), and any
+    fetching will take a few minutes.
 * update list of servers everywhere
 * update banner images (Grunt seems happy to make these currently)
   - you always need a new banner_footer1.png with the new version number at
@@ -46,7 +49,11 @@ Updating the scripts:
 CSZO setup:
 * create rcfiles-cao/, rcfiles-cdo/, ... directories for every other server
 * run ./link-setup (after updating it to the new version)
-* add/uncomment the cronjobs that mirror rcfiles from other servers
+* add/uncomment the cronjobs that mirror rcfiles from other servers.
+  - In the entry for each server, there should be an hour/time that RCs are
+    fetched that falls on the same hour as the clan deadline. This is so any RC
+    file changes that happen before the deadline will be fetched properly.
+  - Keep in mind that CSZO uses CDT when making these crontab entries.
 * two lines need to be commented/uncommented in LOGS and MILESTONES in
   loaddb.py to handle local logs/milestones correctly
 * while testing tourney scripts on CSZO, make sure that the rules page doesn't
