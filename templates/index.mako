@@ -30,7 +30,7 @@
         <div class="content">
           <p>
             Hello all! Welcome to the rules for the
-            ${version} Dungeon Crawl Stone Soup Tournament, running from <b><a href="https://www.timeanddate.com/worldclock/fixedtime.html?iso=20170526T20">20:00 UTC Friday 26 May</a></b> to <b><a href="https://www.timeanddate.com/worldclock/fixedtime.html?iso=20170611T20">20:00 UTC Sunday 11 June</a></b>. All version ${version} games played fully during this time period on any of the <a href="https://crawl.develz.org/wordpress/howto">public servers</a> will automatically count for the tournament.
+            ${version} Dungeon Crawl Stone Soup Tournament, running from <b><a href="https://www.timeanddate.com/worldclock/fixedtime.html?iso=20170526T20">20:00 UTC Friday 26 May</a></b> to <b><a href="https://www.timeanddate.com/worldclock/fixedtime.html?iso=20170611T20">20:00 UTC Sunday 11 June</a></b>. All version ${version} games played fully during this time period on any of the <a href="https://crawl.develz.org/wordpress/howto">public servers</a> will automatically count for the tournament, with the exception of CDO.
           </p>
 
           <p>
@@ -100,7 +100,7 @@ To become a member of a clan, you
               can be added to your ${version} rcfile on <b>any</b> of the
               public servers. If you add clan membership lines to more than
               one rcfile, then the rcfile on the server earliest in the list
-              CAO, CBRO, CDO, CJR, CPO, CUE, CWZ, CXC, LLD will take
+              CAO, CBRO, CJR, CPO, CUE, CWZ, CXC, LLD will take
               precedence.
             </p>
           </div>
