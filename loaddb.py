@@ -25,6 +25,8 @@ END_TIME   = TEST_END_TIME or (T_YEAR + '06112000')
 CLAN_DEADLINE = (TEST_CLAN_DEADLINE or
                 datetime.datetime(2017, 6, 2, 23))
 
+WHITELISTFILE = 'player-whitelist.txt'
+
 DATE_FORMAT = '%Y%m%d%H%M'
 
 GAME_VERSION = T_VERSION
@@ -743,7 +745,12 @@ def record_is_milestone(rec):
 def is_not_tourney(game):
   """A game started before the tourney start or played after the end
   doesn't count."""
-
+  if os.path.exists(WHITELISTFILE): 
+    f = open(WHITELISTFILE)
+    whitelist=f.read().splitlines()
+    if not (game.get('name').lower() in whitelist):
+      return True
+  
   start = game.get('start')
   if not start:
     return True
