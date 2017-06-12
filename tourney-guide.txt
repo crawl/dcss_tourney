@@ -3,12 +3,14 @@ running a tournament. The README file should be consulted for the actual
 technical details of how to run the scripts.
 
 NOTE: In examples in this document, we use 0.20 as the tournament release
-version and 0.19 as the previous tournament release version.
+version and 0.19 as the previous tournament release version. CSZO is the server
+where the tournament database and scripts are running.
 
 Notes on CSZO and the dcss_tourney repository:
 * As of 0.20, CSZO is the server from where the tournament is
-  run. The README has details on what's needed to support the scripts should
-  they need to be run on another server.
+  run and a shared login is used by everyone working on the tournament. The
+  README has details on what's needed to support the scripts should they need to
+  be run on another server.
 * Contact |amethyst or a previous tournament organizer (gammafunk for 0.20) if
   you need tournament login access.
 * The public tourney repo is https://github.com/crawl/dcss_tourney/ and should
@@ -16,6 +18,11 @@ Notes on CSZO and the dcss_tourney repository:
 * The tournaments scripts are run on CSZO through a local checkout of that repo
   in ~/dcss_tourney, and this directory is the 'live' directory for generating
   the tournament pages and database.
+* A git branch is made for each tournament using the branch name format e.g.
+  "0.20-tourney". The master branch can be kept up to date with any necessary
+  commits merged, but when making a new tournament branch, always check that it
+  has the necessary commits from the previous tournament and see if there are any
+  unpushed changes/commits on the CSZO checkout.
 * Commits can be made in ~/dcss_tourney and pushed to the github repo, but note
   that the commit author will be "Crawl Tournament Organizers". You can set the
   name and email to your details using `git config' while the tournament is
@@ -38,7 +45,8 @@ Organizing a new tourney:
 Cleaning up after the previous tourney:
 * Commit the final nemelex-combos.txt file with the nchoices as
   nemelex-combos-v19.txt
-* Push any commits relevant to the 0.19 tournament
+* Make any final commits relevant to the 0.19 tournament in the 0.19-tourney
+  branch (e.g. in ~/dcss_tourney on CSZO) and push these to the github repo.
 * On CSZO: replace the symlink html.tourney0.19/images -> images with a
   physical copy of the images (this is so that future image changes don't
   affect past tourney pages)
@@ -47,6 +55,13 @@ Cleaning up after the previous tourney:
   - This wasn't done for older tourneys, unfortunately
 
 Updating the scripts:
+* NOTE: These changes can be made in the ~/dcss_tourney repo on CSZO, but make
+  sure to set the new version before running the scripts to avoid overwriting
+  old tournament data. It's generally better if you can make these updates
+  first from a local checkout and test them locally.
+* Make a new 0.20-tourney git branch in the dcss_tourney repo. It's probably
+  best to do this starting from a checkout of 0.19-tourney, but master can
+  be used if it has any necessary commits from the previous tourney merged.
 * Change version everywhere
   - Be sure to do this before running the scripts on CSZO so that you don't
     overwrite stuff in the old html.tourney0.19 directory
