@@ -10,7 +10,7 @@ CWZ = 'https://webzook.net/soup/'
 CXC = 'http://crawl.xtahua.com/crawl/'
 LLD = 'http://lazy-life.ddo.jp/'
 
-USE_TEST = False
+USE_TEST = True
 
 TEST_YEAR = USE_TEST and '2017'
 TEST_VERSION = USE_TEST and '0.20'
@@ -25,7 +25,7 @@ TEST_LOGS = USE_TEST and [
 #         ('cdo-logfile-0.20', CDO + 'allgames-0.20.txt'),
           ('cjr-logfile-0.20', CJR + 'meta/0.20/logfile'),
           ('cpo-logfile-0.20', CPO + 'dcss-logfiles-0.20'),
-#         ('cue-logfile-0.20', CUE + 'meta/0.20/logfile'),
+          ('cue-logfile-0.20', CUE + 'meta/0.20/logfile'),
           ('cwz-logfile-0.20', CWZ + '0.20/logfile'),
           ('cxc-logfile-0.20', CXC + 'meta/0.20/logfile'),
           ('lld-logfile-0.20', LLD + 'mirror/meta/0.20/logfile'),
@@ -37,7 +37,7 @@ TEST_MILESTONES = USE_TEST and [
 #         ('cdo-milestones-0.20', CDO + 'milestones-0.20.txt'),
           ('cjr-milestones-0.20', CJR + 'meta/0.20/milestones'),
           ('cpo-milestones-0.20', CPO + 'dcss-milestones-0.20'),
-#         ('cue-milestones-0.20', CUE + 'meta/0.20/milestones'),
+          ('cue-milestones-0.20', CUE + 'meta/0.20/milestones'),
           ('cwz-milestones-0.20', CWZ + '0.20/milestones'),
           ('cxc-milestones-0.20', CXC + 'meta/0.20/milestones'),
           ('lld-milestones-0.20', LLD + 'mirror/meta/0.20/milestones'),
