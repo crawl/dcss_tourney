@@ -2,13 +2,31 @@ This document is a checklist of all the steps involved in organizing and
 running a tournament. The README file should be consulted for the actual
 technical details of how to run the scripts.
 
-Note: In examples in this document, we use 0.20 as the release version and 0.19
-as the previous release version.
+NOTE: In examples in this document, we use 0.20 as the tournament release
+version and 0.19 as the previous tournament release version.
+
+Notes on CSZO and the dcss_tourney repository:
+* As of 0.20, CSZO is the server from where the tournament is
+  run. The README has details on what's needed to support the scripts should
+  they need to be run on another server.
+* Contact |amethyst or a previous tournament organizer (gammafunk for 0.20) if
+  you need tournament login access.
+* The public tourney repo is https://github.com/crawl/dcss_tourney/ and should
+  be kept up to date so that any contributers can collaborate.
+* The tournaments scripts are run on CSZO through a local checkout of that repo
+  in ~/dcss_tourney, and this directory is the 'live' directory for generating
+  the tournament pages and database.
+* Commits can be made in ~/dcss_tourney and pushed to the github repo, but note
+  that the commit author will be "Crawl Tournament Organizers". You can set the
+  name and email to your details using `git config' while the tournament is
+  running. Please remember to set it back to the generic info after the
+  tournament so that commits made by others using the tourney login don't have
+  your author info.
 
 Organizing a new tourney:
 * Choose/announce dates for the tournament (usually 16 days long, including 3
   weekends)
-* tell greensnark the dates (including exact times of day) so that Sequell
+* Tell greensnark the dates (including exact times of day) so that Sequell
   will know about the tourney and !time will count down to it
   - You can commit a change to the sequell repo with the tournament change and
     it will automatically be loaded by the Sequell server, see this commit:
@@ -20,10 +38,10 @@ Organizing a new tourney:
 Cleaning up after the previous tourney:
 * Commit the final nemelex-combos.txt file with the nchoices as
   nemelex-combos-v19.txt
+* Push any commits relevant to the 0.19 tournament
 * On CSZO: replace the symlink html.tourney0.19/images -> images with a
   physical copy of the images (this is so that future image changes don't
   affect past tourney pages)
-
 * On CSZO: rename the rcfiles-cao/, rcfiles-cdo/, ... directories to
   0.19rcfiles-cao/, 0.19rcfiles-cdo, .. (so that team composition isn't lost)
   - This wasn't done for older tourneys, unfortunately
@@ -56,7 +74,10 @@ Updating the scripts:
   - Use the !nwon command to do this with using the smallest win cutoff that
     gives at least 110 combos, excluding nem choices from the previous
     tournament and any species/classes enabled in trunk that aren't in 0.20
-  - Example command for cutoff of 23 wins: !nwon 23 !nchoice-0.19 !gn
+  - Example Sequell command for 0.20 with a cutoff of 23 wins:
+
+      !nwon 23 !nchoice-0.19 !gn
+
   - Should do this again within a day of tourney start to make sure it is up
     to date
 * Implement any new banners or other rules changes!
