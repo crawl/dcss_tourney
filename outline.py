@@ -394,13 +394,6 @@ def crunch_winner(c, game):
     if query.player_count_invo_titles(c, player) >= 3:
       banner.award_banner(c, player, 'qazlal', 3)
 
-  #gods_abandoned = query.count_gods_abandoned(c, player, game_start_time(game))
-  #if gods_abandoned >= 9:
-  #  assign_points(c, 'heretical_win', player, 25)
-  #  banner.award_banner(c, player, 'lugonu', 3)
-  #elif gods_abandoned >= 3:
-  #  banner.award_banner(c, player, 'lugonu', 2)
-
   if query.check_ru_abandonment_game(c, player, game_start_time(game)):
     banner.award_banner(c, player, 'lugonu', 3)
 
