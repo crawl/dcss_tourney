@@ -163,7 +163,7 @@ def do_milestone_rune(c, mile):
         eligible = False
         break
     if eligible:
-      assign_points(c, 'avarice', player, 25, False)
+      assign_points(c, 'avarice', player, 50, False)
       banner.award_banner(c, player, 'gozag', 3)
 
   if nemelex.is_nemelex_choice(mile['char'], mile['time']):
@@ -171,7 +171,7 @@ def do_milestone_rune(c, mile):
     banner.award_banner(c, player, ban, 2)
   if not query.did_enter_branch(c, 'Depths', player, mile['start'], mile['time']):
     if mile['urune'] == 6:
-      assign_points(c, 'vow_of_courage', player, 25, False)
+      assign_points(c, 'vow_of_courage', player, 50, False)
       banner.award_banner(c, player, 'the_shining_one', 3)
     elif mile['urune'] >= 4:
       banner.award_banner(c, player, 'the_shining_one', 2)
@@ -182,7 +182,7 @@ def do_milestone_rune(c, mile):
   if mile['urune'] == 1:
     if rune != 'slimy' and rune != 'abyssal':
       if mile['potionsused'] == 0 and mile['scrollsused'] == 0:
-        assign_points(c, 'ascetic', player, 25, False)
+        assign_points(c, 'ascetic', player, 50, False)
         banner.award_banner(c, mile['name'], 'ru', 3)
     if mile['xl'] < 14:
       if not query.did_sacrifice(c, 'experience', mile['name'], mile['start'], mile['time']):
@@ -423,7 +423,7 @@ def crunch_winner(c, game):
 
   if game['xl'] < 19:
     if not query.did_sacrifice(c, 'experience', player, game['start'], game['end']):
-      assign_points(c, 'ruthless_efficiency', player, 25, False)
+      assign_points(c, 'ruthless_efficiency', player, 50, False)
       banner.award_banner(c, player, 'vehumet', 3)
 
   #cutoff = query.time_from_str(game['end']) - datetime.timedelta(hours=27)
@@ -677,7 +677,7 @@ HAVING race_count >= 5 AND class_count >= 5'''),
                                        '''SELECT player FROM orbrun_tomb'''),
                        3)
   for row in query_rows(c, '''SELECT player, orbrun_tomb_count FROM orbrun_tomb'''):
-    assign_points(c, "orbrun_tomb", row[0], 25, False)
+    assign_points(c, "orbrun_tomb", row[0], 50, False)
   award_player_banners(c, 'yredelemnul',
                        query_first_col(c,
                                        '''SELECT player FROM kunique_times

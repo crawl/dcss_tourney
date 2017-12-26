@@ -271,22 +271,22 @@ To become a member of a clan, you
               the Vaults (<a href="#lord_of_darkness">LORD OF DARKNESS</a>
               banner III).
             </p>
-            <p><span>25 points</span> for a game in which you enter Tomb for the first time after picking up the Orb of Zot and then get the golden rune (<a href="#natures_ally">NATURE'S ALLY</a> banner III).
+            <p><span>50 points</span> for a game in which you enter Tomb for the first time after picking up the Orb of Zot and then get the golden rune (<a href="#natures_ally">NATURE'S ALLY</a> banner III).
             </p>
 
-            <p><span>25 points</span> for a game in which you get six runes before entering the Depths (<a href="#vow_of_courage">VOW OF COURAGE</a> banner III).
-            </p>
-
-            <p>
-              <span>25 points</span> for a game in which you get your first rune (which cannot be the slimy or abyssal runes) without the use of any potions or scrolls (<a href="#the_ascetic">THE ASCETIC</a> banner III).
+            <p><span>50 points</span> for a game in which you get six runes before entering the Depths (<a href="#vow_of_courage">VOW OF COURAGE</a> banner III).
             </p>
 
             <p>
-              <span>25 points</span> for a game in which you find the iron rune before entering Pandemonium or any branch of the dungeon containing any other rune (<a href="#avarice">AVARICE</a> banner III). This means that only Temple, Lair, Orc, Elf, Depths, Abyss, Hell, and Dis can be entered.
+              <span>50 points</span> for a game in which you get your first rune (which cannot be the slimy or abyssal runes) without the use of any potions or scrolls (<a href="#the_ascetic">THE ASCETIC</a> banner III).
             </p>
 
             <p>
-              <span>25 points</span> for winning the game before reaching experience level 19 (and without using Ru's Sacrifice Experience ability) (<a href="#ruthless_efficiency">RUTHLESS EFFICIENCY</a> banner III).
+              <span>50 points</span> for a game in which you find the iron rune before entering Pandemonium or any branch of the dungeon containing any other rune (<a href="#avarice">AVARICE</a> banner III). This means that only Temple, Lair, Orc, Elf, Depths, Abyss, Hell, and Dis can be entered.
+            </p>
+
+            <p>
+              <span>50 points</span> for winning the game before reaching experience level 19 (and without using Ru's Sacrifice Experience ability) (<a href="#ruthless_efficiency">RUTHLESS EFFICIENCY</a> banner III).
             </p>
 
           </div>
@@ -940,6 +940,13 @@ III: Win a game as a non-demigod without worshipping a god.
             </div>
             -->
 
+	    <hr>
+	    <p class="changed">
+	      The points awarded for Tier-III banners <span><a href="#natures_ally">NATURE'S ALLY</a></span>,
+              <span><a href="#avarice">AVARICE</a></span>,
+              <span><a href="#ascetic">ASCETIC</a></span>, and <span><a href="#ruthless_efficiency">RUTHLESS EFFICIENCY</a></span>
+              banners have had their tournament point values increased from 25 to 50<span class="changed">[CHANGED]</span>
+            </p>
           <hr>
           <div>
             <h2>CREDITS</h2>
