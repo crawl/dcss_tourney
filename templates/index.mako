@@ -1,8 +1,8 @@
 <%
    from crawl_utils import XXX_TOURNEY_BASE
    from test_data import USE_TEST
-   version = '0.20'
-   year    = '2017'
+   version = '0.21'
+   year    = '2018'
    title   = "Crawl %s Tournament Information" % version
  %>
 <!DOCTYPE html>
@@ -21,8 +21,8 @@
         <div class="heading">
           <h1>${title}</h1>
           <p class="fineprint">
-            Tournament starts on <a href="https://www.timeanddate.com/worldclock/fixedtime.html?iso=20170526T20">May 26, ${year} at 20:00 UTC</a>, and ends on
-            <a href="https://www.timeanddate.com/worldclock/fixedtime.html?iso=20170611T20">June 11, ${year} at 20:00 UTC</a>.
+            Tournament starts on <a href="https://www.timeanddate.com/worldclock/fixedtime.html?iso=20180105T20">Jan 5, ${year} at 20:00 UTC</a>, and ends on
+            <a href="https://www.timeanddate.com/worldclock/fixedtime.html?iso=20180121T20">June 21, ${year} at 20:00 UTC</a>.
           </p>
         </div>
         <hr>
@@ -30,7 +30,7 @@
         <div class="content">
           <p>
             Hello all! Welcome to the rules for the
-            ${version} Dungeon Crawl Stone Soup Tournament, running from <b><a href="https://www.timeanddate.com/worldclock/fixedtime.html?iso=20170526T20">20:00 UTC Friday 26 May</a></b> to <b><a href="https://www.timeanddate.com/worldclock/fixedtime.html?iso=20170611T20">20:00 UTC Sunday 11 June</a></b>. All version ${version} games played fully during this time period on any of the <a href="https://crawl.develz.org/wordpress/howto">public servers</a> will automatically count for the tournament, with the exception of CDO.
+            ${version} Dungeon Crawl Stone Soup Tournament, running from <b><a href="https://www.timeanddate.com/worldclock/fixedtime.html?iso=20180105T20">20:00 UTC Friday 5 January</a></b> to <b><a href="https://www.timeanddate.com/worldclock/fixedtime.html?iso=20180121T20">20:00 UTC Sunday 21 January</a></b>. All version ${version} games played fully during this time period on any of the <a href="https://crawl.develz.org/wordpress/howto">public servers</a> will automatically count for the tournament, with the exception of CDO.
           </p>
 
           <p>
@@ -116,9 +116,8 @@ To become a member of a clan, you
 
           <p>
             Clans may be changed by adding or removing players at any time
-            until <b><a href="https://www.timeanddate.com/worldclock/fixedtime.html?iso=20170602T20">20:00
-            UTC Friday 2 June</a></b>, after which clans will be
-            frozen.
+            until <b><a href="https://www.timeanddate.com/worldclock/fixedtime.html?iso=20180112T20">20:00
+            UTC Friday 2 June</a></b>, after which clans will be frozen.
           </p>
 
           <hr>
@@ -910,21 +909,15 @@ III: Win a game as a non-demigod without worshipping a god.
           <div>
             <a name="changes"></a>
             <h2>CHANGED RULES</h2>
-
             <hr>
-            <p>
-               Tournament rules are unchanged from the 0.19 tournament held in
-               November 2016.
-            </p>
-            <!--
             <div class="fineprint">
               <p>
-                Some rules have been changed from the 0.19 tournament held in
-                November 2016. This is a list of rules differences.
+                Some rules have been changed from the 0.20 tournament held in
+                May & June 2017. This is a list of rules differences.
               </p>
 
               <p><span class="removed">[REMOVED]</span>
-                flags rules that existed in the 0.19 tournament and are gone in
+                flags rules that existed in the 0.20 tournament and are gone in
                 this tournament.</p>
 
               <p><span class="added">[NEW]</span>
@@ -933,13 +926,11 @@ III: Win a game as a non-demigod without worshipping a god.
               <p><span class="changed">[CHANGED]</span>
                 flags rules that have been modified for this
                 tournament. To compare
-                changed rules with the rules in the 0.19 tournament, see
-                the <a href="http://dobrazupa.org/tournament/0.19/">old
+                changed rules with the rules in the 0.20 tournament, see
+                the <a href="http://dobrazupa.org/tournament/0.20/">old
                 rules</a>.
               </p>
             </div>
-            -->
-
 	    <hr>
 	    <p class="changed">
 	      The points awarded for Tier-III banners <span><a href="#natures_ally">NATURE'S ALLY</a></span>,
