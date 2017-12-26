@@ -236,7 +236,7 @@ To become a member of a clan, you
             </p>
             <h5>PERSONAL RECORDS</h5>
             <p><span>5,000,000/turncount points</span> for each player's fastest win (by turncount).</p>
-            <p><span>1,250,000/duration points</span> for each player's fastest win (by realtime, measured in seconds).</p>
+            <p><span>937,500/duration points</span> for each player's fastest win (by realtime, measured in seconds).</p>
             <p><span>score/120,000 points</span> for each player's highest scoring winning game.</p>
             <p><span>100*length points</span> for each player's longest streak of length at least 2, where length of
               a streak is defined as min(number of distinct species used, number
@@ -946,6 +946,10 @@ III: Win a game as a non-demigod without worshipping a god.
               <span><a href="#avarice">AVARICE</a></span>,
               <span><a href="#ascetic">ASCETIC</a></span>, and <span><a href="#ruthless_efficiency">RUTHLESS EFFICIENCY</a></span>
               banners have had their tournament point values increased from 25 to 50<span class="changed">[CHANGED]</span>
+            </p>
+	    <p class="changed">
+	      The points awarded for a player's best realtime win has been
+              decreased by 25% <span class="changed">[CHANGED]</span>
             </p>
           <hr>
           <div>

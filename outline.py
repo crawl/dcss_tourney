@@ -491,7 +491,7 @@ def crunch_winner(c, game):
 
   # Assign points for new personal records.
   assign_points(c, 'my_low_turncount_win', game['name'], 5000000/game['turn'], False)
-  assign_points(c, 'my_low_realtime_win', game['name'], 1250000/game['dur'], False)
+  assign_points(c, 'my_low_realtime_win', game['name'], 937500/game['dur'], False)
   assign_points(c, 'my_highscore_win', game['name'], game['sc']/120000, False)
 
   # Assign race/class points, based on the games won before the start
