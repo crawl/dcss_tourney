@@ -6,7 +6,7 @@ GODS = ['No God', 'Zin', 'the Shining One', 'Kikubaaqudgha',
         'Yredelemnul', 'Xom', 'Vehumet', 'Okawaru', 'Makhleb',
         'Sif Muna', 'Trog', 'Nemelex Xobeh', 'Elyvilon', 'Lugonu',
         'Beogh', 'Fedhas', 'Jiyva', 'Cheibriados', 'Ashenzari', 'Dithmenos',
-        'Qazlal', 'Ru', 'Gozag', 'Hepliaklqana', 'Uskayaw']
+        'Qazlal', 'Ru', 'Gozag', 'Hepliaklqana', 'Uskayaw', 'Wu Jian']
 
 MAGIC_SKILLS = ['Spellcasting', 'Conjurations', 'Hexes', 'Charms',
                 'Summonings', 'Necromancy', 'Translocations',
