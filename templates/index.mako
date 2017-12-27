@@ -938,11 +938,11 @@ III: Win a game as a non-demigod without worshipping a god.
 	      The points awarded for Tier-III banners <span><a href="#natures_ally">NATURE'S ALLY</a></span>,
               <span><a href="#avarice">AVARICE</a></span>,
               <span><a href="#ascetic">ASCETIC</a></span>, and <span><a href="#ruthless_efficiency">RUTHLESS EFFICIENCY</a></span>
-              banners have had their tournament point values increased from 25 to 50<span class="changed">[CHANGED]</span>
+              banners have had their tournament point values increased from 25 to 50. <span class="changed">[CHANGED]</span>
             </p>
 	    <p class="changed">
 	      The points awarded for a player's best realtime win has been
-              decreased by 25% <span class="changed">[CHANGED]</span>
+              decreased by 25%. <span class="changed">[CHANGED]</span>
             </p>
           <hr>
           <div>
