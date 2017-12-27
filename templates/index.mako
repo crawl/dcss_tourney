@@ -520,7 +520,7 @@ To become a member of a clan, you
               <br>
                 II: Get the golden rune.
               <br>
-                III: Enter Tomb for the first time after picking up the Orb of Zot, and then get the golden rune (+25 tournament points).
+                III: Enter Tomb for the first time after picking up the Orb of Zot, and then get the golden rune (+50 tournament points).
               </p>
             </div>
 
@@ -539,7 +539,7 @@ To become a member of a clan, you
               <br>
                 II: Find the silver rune.
               <br>
-                III: Find the iron rune before entering Pandemonium or any branch of the dungeon containing any other rune (+25 tournament points). This means that only Temple, Lair, Orc, Elf, Depths, Abyss, Hell, and Dis can be entered.
+                III: Find the iron rune before entering Pandemonium or any branch of the dungeon containing any other rune (+50 tournament points). This means that only Temple, Lair, Orc, Elf, Depths, Abyss, Hell, and Dis can be entered.
               </p>
             </div>
 
@@ -733,7 +733,7 @@ III: Win the game in 3 hours.
               <br>
                 II: Reach the last level of the Lair of Beasts without using any potions or scrolls.
               <br>
-                III: Find your first rune of a game without using any potions or scrolls (+25 tournament points). This rune cannot be the slimy or abyssal rune: Ru requires you to undergo this sacrifice for longer.
+                III: Find your first rune of a game without using any potions or scrolls (+50 tournament points). This rune cannot be the slimy or abyssal rune: Ru requires you to undergo this sacrifice for longer.
               </p>
             </div>
 
@@ -773,7 +773,7 @@ III: Win the game in 3 hours.
               <br>
                 II: Get four runes before entering the Depths.
               <br>
-                III: Get six runes before entering the Depths (+25 tournament points).
+                III: Get six runes before entering the Depths (+50 tournament points).
               </p>
             </div>
 
@@ -833,7 +833,7 @@ III: Win a game as a non-demigod without worshipping a god.
               <br>
                 II: Find a rune before reaching experience level 14.
               <br>
-                III: Win the game before reaching experience level 19 (+25 tournament points).
+                III: Win the game before reaching experience level 19 (+50 tournament points).
               </p>
             </div>
 
