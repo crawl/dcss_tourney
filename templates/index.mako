@@ -22,7 +22,7 @@
           <h1>${title}</h1>
           <p class="fineprint">
             Tournament starts on <a href="https://www.timeanddate.com/worldclock/fixedtime.html?iso=20180105T20">Jan 5, ${year} at 20:00 UTC</a>, and ends on
-            <a href="https://www.timeanddate.com/worldclock/fixedtime.html?iso=20180121T20">June 21, ${year} at 20:00 UTC</a>.
+            <a href="https://www.timeanddate.com/worldclock/fixedtime.html?iso=20180121T20">Jan 21, ${year} at 20:00 UTC</a>.
           </p>
         </div>
         <hr>
@@ -117,7 +117,7 @@ To become a member of a clan, you
           <p>
             Clans may be changed by adding or removing players at any time
             until <b><a href="https://www.timeanddate.com/worldclock/fixedtime.html?iso=20180112T20">20:00
-            UTC Friday 2 June</a></b>, after which clans will be frozen.
+            UTC Friday 12 January</a></b>, after which clans will be frozen.
           </p>
 
           <hr>
