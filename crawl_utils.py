@@ -26,7 +26,7 @@ CLAN_FILE_DIR = SCORE_FILE_DIR + '/' + CLAN_BASE
 
 CAO_MORGUE_BASE = 'http://crawl.akrasiac.org/rawdata'
 CDO_MORGUE_BASE = 'http://crawl.develz.org/morgues/0.21'
-CUE_MORGUE_BASE = 'https://underhound.eu:81/crawl/morgue'
+CUE_MORGUE_BASE = 'https://underhound.eu/crawl/morgue'
 CJR_MORGUE_BASE = 'https://crawl.jorgrun.rocks/morgue'
 CBRO_MORGUE_BASE = 'http://crawl.berotato.org/crawl/morgue'
 CPO_MORGUE_BASE = 'http://crawl.project357.org/morgue'
