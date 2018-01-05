@@ -52,9 +52,9 @@ LOGS = TEST_LOGS or [
          ('cbro-logfile-0.21', CBRO + 'meta/0.21/logfile'),
 #        ('cdo-logfile-0.21', CDO + 'allgames-0.21.txt'),
          ('cjr-logfile-0.21', CJR + 'meta/0.21/logfile'),
-         ('cpo-logfile-0.21', CPO + 'dcss-logfiles-0.21'),
+#        ('cpo-logfile-0.21', CPO + 'dcss-logfiles-0.21'),
          ('cue-logfile-0.21', CUE + 'meta/0.21/logfile'),
-         ('cwz-logfile-0.21', CWZ + '0.21/logfile'),
+#        ('cwz-logfile-0.21', CWZ + '0.21/logfile'),
          ('cxc-logfile-0.21', CXC + 'meta/0.21/logfile'),
          ('lld-logfile-0.21', LLD + 'mirror/meta/0.21/logfile'),
   ]
@@ -64,9 +64,9 @@ MILESTONES = TEST_MILESTONES or [
          ('cbro-milestones-0.21', CBRO + 'meta/0.21/milestones'),
 #        ('cdo-milestones-0.21', CDO + 'milestones-0.21.txt'),
          ('cjr-milestones-0.21', CJR + 'meta/0.21/milestones'),
-         ('cpo-milestones-0.21', CPO + 'dcss-milestones-0.21'),
+#        ('cpo-milestones-0.21', CPO + 'dcss-milestones-0.21'),
          ('cue-milestones-0.21', CUE + 'meta/0.21/milestones'),
-         ('cwz-milestones-0.21', CWZ + '0.21/milestones'),
+#        ('cwz-milestones-0.21', CWZ + '0.21/milestones'),
          ('cxc-milestones-0.21', CXC + 'meta/0.21/milestones'),
          ('lld-milestones-0.21', LLD + 'mirror/meta/0.21/milestones'),
   ]
