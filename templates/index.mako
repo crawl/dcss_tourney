@@ -746,8 +746,7 @@ III: Win the game in 3 hours.
                    width="170" height="58"
                    >
               <p>
-                Sif Muna thinks that a
-                <a name="lorekeeper">LOREKEEPER</a> doesn't need skill, just knowledge of spells. Ashenzari has a different viewpoint on this subject, so Sif Muna has banned Ashenzari worshippers from receiving this banner.
+		Sif Muna thinks that a <a name="lorekeeper">LOREKEEPER</a> doesn't need skill, just knowledge of spells. Ashenzari has a different viewpoint on this subject, so Sif Muna has banned Ashenzari worshippers from receiving this banner. Gnolls lack the necessary discipline to fully undertake this challenge, so Sif Muna has also banned Gnolls from receiving this banner.
               <br>
                 I: Reach the last level of the Lair as a non-formicid without raising any skill to 13.
               <br>

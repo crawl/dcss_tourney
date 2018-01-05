@@ -230,7 +230,7 @@ def do_milestone_br_end(c, mile):
     if mile['dur'] <= 1620 and mile['race'] != 'Formicid':
       banner.award_banner(c, mile['name'], 'makhleb', 1)
   if mile['noun'] == 'Lair':
-    if mile['sklev'] < 13 and mile['race'] != 'Formicid':
+    if mile['sklev'] < 13 and mile['race'] != 'Formicid' and mile['race'] != 'Gnoll':
       if not query.did_worship_god(c, 'Ashenzari', mile['name'], mile['start'], mile['time']):
         banner.award_banner(c, mile['name'], 'sif', 1)
     if mile['xl'] < 12 and mile['race'] != 'Formicid':
@@ -407,7 +407,7 @@ def crunch_winner(c, game):
       # Just 20 bonus points for winning without doing Lair.
       # assign_points(c, 'lairless_win', player, 20)
 
-  if game['sklev'] < 20:
+  if game['race'] != 'Gnoll' and game['sklev'] < 20:
     if not query.did_worship_god(c, 'Ashenzari', player, game['start'], game['end']):
       if game['sklev'] < 13:
         banner.award_banner(c, player, 'sif', 3)
