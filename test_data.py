@@ -24,7 +24,7 @@ TEST_LOGS = USE_TEST and [
           ('cbro-logfile-0.21', CBRO + 'meta/0.21/logfile'),
 #         ('cdo-logfile-0.21', CDO + 'allgames-0.21.txt'),
           ('cjr-logfile-0.21', CJR + 'meta/0.21/logfile'),
-#         ('cpo-logfile-0.21', CPO + 'dcss-logfiles-0.21'),
+          ('cpo-logfile-0.21', CPO + 'dcss-logfiles-0.21'),
           ('cue-logfile-0.21', CUE + 'meta/0.21/logfile'),
           ('cwz-logfile-0.21', CWZ + '0.21/logfile'),
           ('cxc-logfile-0.21', CXC + 'meta/0.21/logfile'),
