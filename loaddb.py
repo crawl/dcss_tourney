@@ -50,7 +50,7 @@ LLD = 'http://lazy-life.ddo.jp/'
 LOGS = TEST_LOGS or [
          ('cao-logfile-0.21', CAO + 'logfile21'),
          ('cbro-logfile-0.21', CBRO + 'meta/0.21/logfile'),
-#        ('cdo-logfile-0.21', CDO + 'allgames-0.21.txt'),
+         ('cdo-logfile-0.21', CDO + 'allgames-0.21.txt'),
          ('cjr-logfile-0.21', CJR + 'meta/0.21/logfile'),
          ('cpo-logfile-0.21', CPO + 'dcss-logfiles-0.21'),
          ('cue-logfile-0.21', CUE + 'meta/0.21/logfile'),
@@ -62,7 +62,7 @@ LOGS = TEST_LOGS or [
 MILESTONES = TEST_MILESTONES or [
          ('cao-milestones-0.21', CAO + 'milestones21'),
          ('cbro-milestones-0.21', CBRO + 'meta/0.21/milestones'),
-#        ('cdo-milestones-0.21', CDO + 'milestones-0.21.txt'),
+         ('cdo-milestones-0.21', CDO + 'milestones-0.21.txt'),
          ('cjr-milestones-0.21', CJR + 'meta/0.21/milestones'),
          ('cpo-milestones-0.21', CPO + 'dcss-milestones-0.21'),
          ('cue-milestones-0.21', CUE + 'meta/0.21/milestones'),

@@ -22,7 +22,7 @@ TEST_HARE_START_TIME = USE_TEST and (TEST_YEAR + '0120')
 TEST_LOGS = USE_TEST and [
           ('cao-logfile-0.21', CAO + 'logfile21'),
           ('cbro-logfile-0.21', CBRO + 'meta/0.21/logfile'),
-#         ('cdo-logfile-0.21', CDO + 'allgames-0.21.txt'),
+          ('cdo-logfile-0.21', CDO + 'allgames-0.21.txt'),
           ('cjr-logfile-0.21', CJR + 'meta/0.21/logfile'),
           ('cpo-logfile-0.21', CPO + 'dcss-logfiles-0.21'),
           ('cue-logfile-0.21', CUE + 'meta/0.21/logfile'),
@@ -34,7 +34,7 @@ TEST_LOGS = USE_TEST and [
 TEST_MILESTONES = USE_TEST and [
           ('cao-milestones-0.21', CAO + 'milestones21'),
           ('cbro-milestones-0.21', CBRO + 'meta/0.21/milestones'),
-#         ('cdo-milestones-0.21', CDO + 'milestones-0.21.txt'),
+          ('cdo-milestones-0.21', CDO + 'milestones-0.21.txt'),
           ('cjr-milestones-0.21', CJR + 'meta/0.21/milestones'),
           ('cpo-milestones-0.21', CPO + 'dcss-milestones-0.21'),
           ('cue-milestones-0.21', CUE + 'meta/0.21/milestones'),

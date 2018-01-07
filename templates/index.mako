@@ -30,7 +30,7 @@
         <div class="content">
           <p>
             Hello all! Welcome to the rules for the
-            ${version} Dungeon Crawl Stone Soup Tournament, running from <b><a href="https://www.timeanddate.com/worldclock/fixedtime.html?iso=20180105T20">20:00 UTC Friday 5 January</a></b> to <b><a href="https://www.timeanddate.com/worldclock/fixedtime.html?iso=20180121T20">20:00 UTC Sunday 21 January</a></b>. All version ${version} games played fully during this time period on any of the <a href="https://crawl.develz.org/wordpress/howto">public servers</a> will automatically count for the tournament, with the exception of CDO.
+            ${version} Dungeon Crawl Stone Soup Tournament, running from <b><a href="https://www.timeanddate.com/worldclock/fixedtime.html?iso=20180105T20">20:00 UTC Friday 5 January</a></b> to <b><a href="https://www.timeanddate.com/worldclock/fixedtime.html?iso=20180121T20">20:00 UTC Sunday 21 January</a></b>. All version ${version} games played fully during this time period on any of the <a href="https://crawl.develz.org/wordpress/howto">public servers</a> will automatically count for the tournament.
           </p>
 
           <p>
