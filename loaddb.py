@@ -64,7 +64,7 @@ MILESTONES = TEST_MILESTONES or [
          ('cbro-milestones-0.21', CBRO + 'meta/0.21/milestones'),
 #        ('cdo-milestones-0.21', CDO + 'milestones-0.21.txt'),
          ('cjr-milestones-0.21', CJR + 'meta/0.21/milestones'),
-#        ('cpo-milestones-0.21', CPO + 'dcss-milestones-0.21'),
+         ('cpo-milestones-0.21', CPO + 'dcss-milestones-0.21'),
          ('cue-milestones-0.21', CUE + 'meta/0.21/milestones'),
          ('cwz-milestones-0.21', CWZ + '0.21/milestones'),
          ('cxc-milestones-0.21', CXC + 'meta/0.21/milestones'),
