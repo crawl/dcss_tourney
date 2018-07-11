@@ -916,14 +916,12 @@ III: Win a game as a non-demigod without worshipping a god.
                 January 2018. This is a list of rules differences.
               </p>
 
-              <!--
               <p><span class="removed">[REMOVED]</span>
                 flags rules that existed in the 0.21 tournament and are gone in
                 this tournament.</p>
 
               <p><span class="added">[NEW]</span>
                 flags rules that are new to this tournament.</p>
-              -->
 
               <p><span class="changed">[CHANGED]</span>
                 flags rules that have been modified for this
