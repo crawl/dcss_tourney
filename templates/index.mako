@@ -906,6 +906,7 @@ III: Win a game as a non-demigod without worshipping a god.
           <hr style="clear: both">
 
           <div>
+            <!--
             <a name="changes"></a>
             <h2>CHANGED RULES</h2>
             <hr>
@@ -944,6 +945,7 @@ III: Win a game as a non-demigod without worshipping a god.
               decreased by 25%. <span class="changed">[CHANGED]</span>
             </p>
           <hr>
+          -->
           <div>
             <h2>CREDITS</h2>
 
