@@ -100,7 +100,7 @@ To become a member of a clan, you
               can be added to your ${version} rcfile on <b>any</b> of the
               public servers. If you add clan membership lines to more than
               one rcfile, then the rcfile on the server earliest in the list
-              CAO, CBRO, CJR, CUE, CWZ, CXC, LLD will take
+              CAO, CBRO, CJR, CPO, CUE, CWZ, CXC, LLD will take
               precedence.
             </p>
           </div>
