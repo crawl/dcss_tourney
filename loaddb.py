@@ -48,27 +48,27 @@ LLD = 'http://lazy-life.ddo.jp/'
 # being the URL to wget -c from.
 
 LOGS = TEST_LOGS or [
-         ('cao-logfile-0.22', CAO + 'logfile22'),
-         ('cbro-logfile-0.22', CBRO + 'meta/0.22/logfile'),
-         ('cdo-logfile-0.22', CDO + 'allgames-0.22.txt'),
-         ('cjr-logfile-0.22', CJR + 'meta/0.22/logfile'),
-         ('cpo-logfile-0.22', CPO + 'dcss-logfiles-0.22'),
-         ('cue-logfile-0.22', CUE + 'meta/0.22/logfile'),
-         ('cwz-logfile-0.22', CWZ + '0.22/logfile'),
-         ('cxc-logfile-0.22', CXC + 'meta/0.22/logfile'),
-         ('lld-logfile-0.22', LLD + 'mirror/meta/0.22/logfile'),
+#         ('cao-logfile-0.22', CAO + 'logfile22'),
+#         ('cbro-logfile-0.22', CBRO + 'meta/0.22/logfile'),
+#         ('cdo-logfile-0.22', CDO + 'allgames-0.22.txt'),
+#         ('cjr-logfile-0.22', CJR + 'meta/0.22/logfile'),
+          ('cpo-logfile-0.22', CPO + 'dcss-logfiles-0.22'),
+          ('cue-logfile-0.22', CUE + 'meta/0.22/logfile'),
+#         ('cwz-logfile-0.22', CWZ + '0.22/logfile'),
+          ('cxc-logfile-0.22', CXC + 'meta/0.22/logfile'),
+          ('lld-logfile-0.22', LLD + 'mirror/meta/0.22/logfile'),
   ]
 
 MILESTONES = TEST_MILESTONES or [
-         ('cao-milestones-0.22', CAO + 'milestones22'),
-         ('cbro-milestones-0.22', CBRO + 'meta/0.22/milestones'),
-         ('cdo-milestones-0.22', CDO + 'milestones-0.22.txt'),
-         ('cjr-milestones-0.22', CJR + 'meta/0.22/milestones'),
-         ('cpo-milestones-0.22', CPO + 'dcss-milestones-0.22'),
-         ('cue-milestones-0.22', CUE + 'meta/0.22/milestones'),
-         ('cwz-milestones-0.22', CWZ + '0.22/milestones'),
-         ('cxc-milestones-0.22', CXC + 'meta/0.22/milestones'),
-         ('lld-milestones-0.22', LLD + 'mirror/meta/0.22/milestones'),
+#         ('cao-milestones-0.22', CAO + 'milestones22'),
+#         ('cbro-milestones-0.22', CBRO + 'meta/0.22/milestones'),
+#         ('cdo-milestones-0.22', CDO + 'milestones-0.22.txt'),
+#         ('cjr-milestones-0.22', CJR + 'meta/0.22/milestones'),
+          ('cpo-milestones-0.22', CPO + 'dcss-milestones-0.22'),
+          ('cue-milestones-0.22', CUE + 'meta/0.22/milestones'),
+#         ('cwz-milestones-0.22', CWZ + '0.22/milestones'),
+          ('cxc-milestones-0.22', CXC + 'meta/0.22/milestones'),
+          ('lld-milestones-0.22', LLD + 'mirror/meta/0.22/milestones'),
   ]
 
 BLACKLIST_FILE = 'blacklist.txt'
