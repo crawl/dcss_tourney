@@ -48,10 +48,10 @@ LLD = 'http://lazy-life.ddo.jp/'
 # being the URL to wget -c from.
 
 LOGS = TEST_LOGS or [
-#         ('cao-logfile-0.22', CAO + 'logfile22'),
-#         ('cbro-logfile-0.22', CBRO + 'meta/0.22/logfile'),
+          ('cao-logfile-0.22', CAO + 'logfile22'),
+          ('cbro-logfile-0.22', CBRO + 'meta/0.22/logfile'),
 #         ('cdo-logfile-0.22', CDO + 'allgames-0.22.txt'),
-#         ('cjr-logfile-0.22', CJR + 'meta/0.22/logfile'),
+          ('cjr-logfile-0.22', CJR + 'meta/0.22/logfile'),
           ('cpo-logfile-0.22', CPO + 'dcss-logfiles-0.22'),
           ('cue-logfile-0.22', CUE + 'meta/0.22/logfile'),
 #         ('cwz-logfile-0.22', CWZ + '0.22/logfile'),
@@ -60,10 +60,10 @@ LOGS = TEST_LOGS or [
   ]
 
 MILESTONES = TEST_MILESTONES or [
-#         ('cao-milestones-0.22', CAO + 'milestones22'),
-#         ('cbro-milestones-0.22', CBRO + 'meta/0.22/milestones'),
+          ('cao-milestones-0.22', CAO + 'milestones22'),
+          ('cbro-milestones-0.22', CBRO + 'meta/0.22/milestones'),
 #         ('cdo-milestones-0.22', CDO + 'milestones-0.22.txt'),
-#         ('cjr-milestones-0.22', CJR + 'meta/0.22/milestones'),
+          ('cjr-milestones-0.22', CJR + 'meta/0.22/milestones'),
           ('cpo-milestones-0.22', CPO + 'dcss-milestones-0.22'),
           ('cue-milestones-0.22', CUE + 'meta/0.22/milestones'),
 #         ('cwz-milestones-0.22', CWZ + '0.22/milestones'),
