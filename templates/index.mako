@@ -906,16 +906,15 @@ III: Win a game as a non-demigod without worshipping a god.
           <hr style="clear: both">
 
           <div>
-            <!--
             <a name="changes"></a>
             <h2>CHANGED RULES</h2>
             <hr>
             <div class="fineprint">
               <p>
-                Some rules have been changed from the 0.21 tournament held in
-                January 2018. This is a list of rules differences.
+		All rules are the same as the 0.21 tournament held in January
+                2018.
               </p>
-
+              <!--
               <p><span class="removed">[REMOVED]</span>
                 flags rules that existed in the 0.21 tournament and are gone in
                 this tournament.</p>
@@ -930,7 +929,9 @@ III: Win a game as a non-demigod without worshipping a god.
                 the <a href="http://dobrazupa.org/tournament/0.21/">old
                 rules</a>.
               </p>
+              -->
             </div>
+            <!--
 	    <hr>
 	    <p class="changed">
 	      The points awarded for Tier-III banners <span><a href="#natures_ally">NATURE'S ALLY</a></span>,
@@ -942,8 +943,9 @@ III: Win a game as a non-demigod without worshipping a god.
 	      The points awarded for a player's best realtime win has been
               decreased by 25%. <span class="changed">[CHANGED]</span>
             </p>
+            -->
+          </div>
           <hr>
-          -->
           <div>
             <h2>CREDITS</h2>
 
@@ -968,7 +970,6 @@ III: Win a game as a non-demigod without worshipping a god.
               <span>many others</span> for helping to create these rules!
             </p>
           </div>
-
         </div> <!-- Content -->
       </div>
     </div>
