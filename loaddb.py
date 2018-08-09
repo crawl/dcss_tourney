@@ -54,7 +54,7 @@ LOGS = TEST_LOGS or [
           ('cjr-logfile-0.22', CJR + 'meta/0.22/logfile'),
           ('cpo-logfile-0.22', CPO + 'dcss-logfiles-0.22'),
           ('cue-logfile-0.22', CUE + 'meta/0.22/logfile'),
-#         ('cwz-logfile-0.22', CWZ + '0.22/logfile'),
+          ('cwz-logfile-0.22', CWZ + '0.22/logfile'),
           ('cxc-logfile-0.22', CXC + 'meta/0.22/logfile'),
           ('lld-logfile-0.22', LLD + 'mirror/meta/0.22/logfile'),
   ]
@@ -66,7 +66,7 @@ MILESTONES = TEST_MILESTONES or [
           ('cjr-milestones-0.22', CJR + 'meta/0.22/milestones'),
           ('cpo-milestones-0.22', CPO + 'dcss-milestones-0.22'),
           ('cue-milestones-0.22', CUE + 'meta/0.22/milestones'),
-#         ('cwz-milestones-0.22', CWZ + '0.22/milestones'),
+          ('cwz-milestones-0.22', CWZ + '0.22/milestones'),
           ('cxc-milestones-0.22', CXC + 'meta/0.22/milestones'),
           ('lld-milestones-0.22', LLD + 'mirror/meta/0.22/milestones'),
   ]
