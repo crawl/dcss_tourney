@@ -36,7 +36,8 @@
         <div class="heading">
           <h1>${title}</h1>
           <p class="fineprint">
-            Tournament starts on <a href="https://www.timeanddate.com/worldclock/fixedtime.html?iso=20180105T20">Jan 5, ${year} at 20:00 UTC</a>, and ends on <a href="https://www.timeanddate.com/worldclock/fixedtime.html?iso=20180121T20">Jan 21, ${year} at 20:00 UTC</a>.
+            Tournament starts on <a href="https://www.timeanddate.com/worldclock/fixedtime.html?iso=20180810T20">Aug 10, ${year} at 20:00 UTC</a>, and ends on
+            <a href="https://www.timeanddate.com/worldclock/fixedtime.html?iso=20180826T20">Aug 26, ${year} at 20:00 UTC</a>.
           </p>
           % if USE_TEST:
           <div class="inset">
