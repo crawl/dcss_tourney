@@ -30,7 +30,7 @@ CUE_MORGUE_BASE = 'https://underhound.eu/crawl/morgue'
 CJR_MORGUE_BASE = 'https://crawl.jorgrun.rocks/morgue'
 CBRO_MORGUE_BASE = 'http://crawl.berotato.org/crawl/morgue'
 CPO_MORGUE_BASE = 'http://crawl.project357.org/morgue'
-CWZ_MORGUE_BASE = 'http://webzook.net:82/morgue/0.22'
+CWZ_MORGUE_BASE = 'https://webzook.net/soup/morgue/0.22'
 CXC_MORGUE_BASE = 'http://crawl.xtahua.com/crawl/morgue'
 LLD_MORGUE_BASE = 'http://lazy-life.ddo.jp:8080/morgue-0.22'
 
