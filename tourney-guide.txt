@@ -137,6 +137,33 @@ During tourney:
 * If you make any fixes to the tournament scripts during the tournament, test
   rerunning the scoring scripts locally first before rerunning
   them on CSZO, to make sure you aren't somehow losing data
+* To blacklist a player from the tournament:
+  You need to (1) add them to the player blacklist file to prevent further data
+  processing for their games, (2) remove their existing data from the database,
+  and (3) remove their existing player and clan pages.
+  - First, kill taildb.py if it's running.
+
+  - Add their name as a line in the file player_blacklist.txt, creating this
+    file if it doesn't exist. Case doesn't matter.
+
+  - Run the script blacklist-player-db.sh with the player's name as an
+    argument:
+
+       ./blacklist-player-db.sh iamabadplayer
+
+    Case doesn't matter.
+
+    Note that this step is irreversible in that if you accidentally remove data
+    for the wrong player or need to remove them from the blacklist later, the
+    database will need to be recreated and reprocessed from scratch. This can
+    take a long time once the tournament is underway.
+
+  - Remove their clan page and player page from the html directory. You do not
+    need to remove or modify their fetched RC file since the entry
+    player_blacklist.txt will cause the scripts to ignore their clan
+    definitions and memberships.
+
+  - Restart taildb.py
 
 At end of tourney:
 * Kill taildb.py (make sure scripts have fully updated with the final results

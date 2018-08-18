@@ -71,7 +71,16 @@ MILESTONES = TEST_MILESTONES or [
           ('lld-milestones-0.22', LLD + 'mirror/meta/0.22/milestones'),
   ]
 
-BLACKLIST_FILE = 'blacklist.txt'
+GAME_BLACKLIST_FILE = 'game_blacklist.txt'
+
+PLAYER_BLACKLIST_FILE = 'player_blacklist.txt'
+player_blacklist = []
+if os.path.isfile(PLAYER_BLACKLIST_FILE):
+    fh = open(PLAYER_BLACKLIST_FILE)
+    player_blacklist += [l.strip().lower() for l in fh.readlines()]
+    fh.close()
+
+
 EXTENSION_FILE = 'modules.ext'
 TOURNAMENT_DB = 'tournament'
 COMMIT_INTERVAL = 3000
@@ -89,11 +98,11 @@ def support_mysql57(c):
         modes = [m for m in modes if m != 'ONLY_FULL_GROUP_BY']
         c.execute("SET SESSION sql_mode = '%s'" % ','.join(modes))
 
-class Blacklist(object):
+class GameBlacklist(object):
   def __init__(self, filename):
     self.filename = filename
     if os.path.exists(filename):
-      info("Loading blacklist from " + filename)
+      info("Loading game blacklist from " + filename)
       self.load_blacklist()
 
   def load_blacklist(self):
@@ -744,6 +753,9 @@ def is_not_tourney(game):
   """A game started before the tourney start or played after the end
   doesn't count."""
 
+  if game.get('name').lower() in player_blacklist:
+    return True
+
   start = game.get('start')
   if not start:
     return True
@@ -1241,7 +1253,7 @@ def cleanup_listeners(db):
     e.cleanup(db)
 
 def create_master_reader():
-  blacklist = Blacklist(BLACKLIST_FILE)
+  blacklist = GameBlacklist(GAME_BLACKLIST_FILE)
   processors = ([ MilestoneFile(x) for x in MILESTONES ] +
                 [ Logfile(x, blacklist) for x in LOGS ])
   return MasterXlogReader(processors)
@@ -1250,6 +1262,7 @@ if __name__ == '__main__':
   logging.basicConfig(level=logging.INFO)
 
   crawl_utils.lock_or_die()
+
   print "Populating db (one-off) with logfiles and milestones. " + \
       "Running the taildb.py daemon is preferred."
 
