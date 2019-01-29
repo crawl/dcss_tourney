@@ -23,6 +23,7 @@ PLAYER_BASE = 'players'
 CLAN_BASE = 'clans'
 PLAYER_FILE_DIR = SCORE_FILE_DIR + '/' + PLAYER_BASE
 CLAN_FILE_DIR = SCORE_FILE_DIR + '/' + CLAN_BASE
+IMAGE_FILE_DIR = SCORE_FILE_DIR + '/images'
 
 CAO_MORGUE_BASE = 'http://crawl.akrasiac.org/rawdata'
 CDO_MORGUE_BASE = 'http://crawl.develz.org/morgues/0.22'
@@ -42,19 +43,17 @@ XXX_CLAN_BASE = '%s/clans' % XXX_TOURNEY_BASE
 
 TAILDB_STOP_REQUEST_FILE = os.path.join(BASEDIR, 'taildb.stop')
 
-MKDIRS = [ SCORE_FILE_DIR, PLAYER_FILE_DIR, CLAN_FILE_DIR ]
+MKDIRS = [ SCORE_FILE_DIR, PLAYER_FILE_DIR, CLAN_FILE_DIR, IMAGE_FILE_DIR ]
 
 def setup_scoring_dirs():
   for d in MKDIRS:
     if not os.path.exists(d):
       os.makedirs(d)
   if not os.path.exists(SCORE_CSS_PATH):
-    os.system("ln -s %s/templates/%s %s" % (os.getcwd(), SCORE_CSS,
+    os.system("cp %s/templates/%s %s" % (os.getcwd(), SCORE_CSS,
                                             SCORE_CSS_PATH))
 
-  images_link = SCORE_FILE_DIR + "/images"
-  if not os.path.exists(images_link):
-    os.system("ln -s %s/images %s" % (os.getcwd(), images_link))
+  os.system("cp -r %s/images/* %s" % (os.getcwd(), IMAGE_FILE_DIR))
 
 setup_scoring_dirs()
 
