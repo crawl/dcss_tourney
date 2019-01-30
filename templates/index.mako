@@ -1,8 +1,8 @@
 <%
    from crawl_utils import XXX_TOURNEY_BASE
    from test_data import USE_TEST
-   version = '0.22'
-   year    = '2018'
+   version = '0.23'
+   year    = '2019'
    title   = "Crawl %s Tournament Information" % version
  %>
 <!DOCTYPE html>
@@ -21,8 +21,8 @@
         <div class="heading">
           <h1>${title}</h1>
           <p class="fineprint">
-            Tournament starts on <a href="https://www.timeanddate.com/worldclock/fixedtime.html?iso=20180810T20">Aug 10, ${year} at 20:00 UTC</a>, and ends on
-            <a href="https://www.timeanddate.com/worldclock/fixedtime.html?iso=20180826T20">Aug 26, ${year} at 20:00 UTC</a>.
+            Tournament starts on <a href="https://www.timeanddate.com/worldclock/fixedtime.html?iso=20190208T20">Feb 8, ${year} at 20:00 UTC</a>, and ends on
+            <a href="https://www.timeanddate.com/worldclock/fixedtime.html?iso=20190224T20">Feb 24, ${year} at 20:00 UTC</a>.
           </p>
         </div>
         <hr>
@@ -30,7 +30,7 @@
         <div class="content">
           <p>
             Hello all! Welcome to the rules for the
-            ${version} Dungeon Crawl Stone Soup Tournament, running from <b><a href="https://www.timeanddate.com/worldclock/fixedtime.html?iso=20180810T20">20:00 UTC Friday 10 August</a></b> to <b><a href="https://www.timeanddate.com/worldclock/fixedtime.html?iso=20180826T20">20:00 UTC Sunday 26 August</a></b>. All version ${version} games played fully during this time period on any of the <a href="https://crawl.develz.org/wordpress/howto">public servers</a> will automatically count for the tournament, with the exception of CDO.
+            ${version} Dungeon Crawl Stone Soup Tournament, running from <b><a href="https://www.timeanddate.com/worldclock/fixedtime.html?iso=20190208T20">20:00 UTC Friday 8 February</a></b> to <b><a href="https://www.timeanddate.com/worldclock/fixedtime.html?iso=20190224T20">20:00 UTC Sunday 24 February</a></b>. All version ${version} games played fully during this time period on any of the <a href="https://crawl.develz.org/wordpress/howto">public servers</a> will automatically count for the tournament, with the exception of CDO.
           </p>
 
           <p>
@@ -116,8 +116,8 @@ CUE, CWZ, CXC, LLD will take
 
           <p>
             Clans may be changed by adding or removing players at any time
-            until <b><a href="https://www.timeanddate.com/worldclock/fixedtime.html?iso=20180817T20">20:00
-            UTC Friday 17 August</a></b>, after which clans will be frozen.
+            until <b><a href="https://www.timeanddate.com/worldclock/fixedtime.html?iso=20190215T20">20:00
+            UTC Friday 15 February</a></b>, after which clans will be frozen.
           </p>
 
           <hr>
@@ -911,12 +911,12 @@ III: Win a game as a non-demigod without worshipping a god.
             <hr>
             <div class="fineprint">
               <p>
-		All rules are the same as the 0.21 tournament held in January
+		All rules are the same as the 0.22 tournament held in August
                 2018.
               </p>
               <!--
               <p><span class="removed">[REMOVED]</span>
-                flags rules that existed in the 0.21 tournament and are gone in
+                flags rules that existed in the 0.22 tournament and are gone in
                 this tournament.</p>
 
               <p><span class="added">[NEW]</span>
@@ -925,8 +925,8 @@ III: Win a game as a non-demigod without worshipping a god.
               <p><span class="changed">[CHANGED]</span>
                 flags rules that have been modified for this
                 tournament. To compare
-                changed rules with the rules in the 0.21 tournament, see
-                the <a href="http://dobrazupa.org/tournament/0.21/">old
+                changed rules with the rules in the 0.22 tournament, see
+                the <a href="http://dobrazupa.org/tournament/0.22/">old
                 rules</a>.
               </p>
               -->
@@ -957,7 +957,7 @@ III: Win a game as a non-demigod without worshipping a god.
               scripts that have been adapted for use in this tournament.
             </p>
             <p>
-              <span>|amethyst</span> for hosting the tournament scripts.
+              <span>Napkin</span> for hosting the tournament scripts as well as <span>|amethyst</span> and <span>rax</span> for hosting past tournaments.
             </p>
             <p>
               <span>elliptic</span> for five years of work running the tournaments from versions 0.8 through 0.17.
