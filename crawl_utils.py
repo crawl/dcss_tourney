@@ -9,7 +9,7 @@ UPDATE_INTERVAL = 7 * 60
 
 # Are we testing locally, or do we want output suitable for a website?
 # Test whether our username is the same that is used on the server.
-LOCAL_TEST = ('tourney' != os.environ.get('USER'))
+LOCAL_TEST = True
 WEB_BASE = 'http://dobrazupa.org/tournament/0.22'
 
 LOCK = None
