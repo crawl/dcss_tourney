@@ -34,15 +34,12 @@ HARE_START_TIME = TEST_HARE_START_TIME or (T_YEAR + '08252000') # one day before
 CAO = 'http://crawl.akrasiac.org/'
 CBRO = 'http://crawl.berotato.org/crawl/'
 CDO = 'http://crawl.develz.org/'
-CJR = 'https://crawl.jorgrun.rocks/'
+CKO = 'https://crawl.kelbi.org/crawl/'
 CPO = 'https://crawl.project357.org/'
 CUE = 'https://underhound.eu/crawl/'
 CWZ = 'https://webzook.net/soup/'
 CXC = 'http://crawl.xtahua.com/crawl/'
 LLD = 'http://lazy-life.ddo.jp/'
-
-#CKR = 'http://kr.dobrazupa.org/'
-#RHF = 'http://rl.heh.fi/'
 
 # Log and milestone files. A tuple indicates a remote file with t[1]
 # being the URL to wget -c from.
@@ -51,7 +48,7 @@ LOGS = TEST_LOGS or [
           ('cao-logfile-0.22', CAO + 'logfile22'),
           ('cbro-logfile-0.22', CBRO + 'meta/0.22/logfile'),
 #         ('cdo-logfile-0.22', CDO + 'allgames-0.22.txt'),
-          ('cjr-logfile-0.22', CJR + 'meta/0.22/logfile'),
+          ('cko-logfile-0.23', CKO + 'meta/0.23/logfile'),
           ('cpo-logfile-0.22', CPO + 'dcss-logfiles-0.22'),
           ('cue-logfile-0.22', CUE + 'meta/0.22/logfile'),
           ('cwz-logfile-0.22', CWZ + '0.22/logfile'),
@@ -63,7 +60,7 @@ MILESTONES = TEST_MILESTONES or [
           ('cao-milestones-0.22', CAO + 'milestones22'),
           ('cbro-milestones-0.22', CBRO + 'meta/0.22/milestones'),
 #         ('cdo-milestones-0.22', CDO + 'milestones-0.22.txt'),
-          ('cjr-milestones-0.22', CJR + 'meta/0.22/milestones'),
+          ('cko-milestones-0.23', CKO + 'meta/0.23/milestones'),
           ('cpo-milestones-0.22', CPO + 'dcss-milestones-0.22'),
           ('cue-milestones-0.22', CUE + 'meta/0.22/milestones'),
           ('cwz-milestones-0.22', CWZ + '0.22/milestones'),
@@ -85,7 +82,7 @@ EXTENSION_FILE = 'modules.ext'
 TOURNAMENT_DB = 'tournament'
 COMMIT_INTERVAL = 3000
 # These rcfiles need to be updated from the servers every few hours.
-CRAWLRC_DIRECTORY_LIST = ['rcfiles-cao/','rcfiles-cbro/','rcfiles-cdo/', 'rcfiles-cjr/', 'rcfiles-cpo/','rcfiles-cue/','rcfiles-cwz/','rcfiles-cxc/','rcfiles-lld/']
+CRAWLRC_DIRECTORY_LIST = ['rcfiles-cao/','rcfiles-cbro/','rcfiles-cdo/', 'rcfiles-cko/', 'rcfiles-cpo/','rcfiles-cue/','rcfiles-cwz/','rcfiles-cxc/','rcfiles-lld/']
 
 LISTENERS = [ ]
 TIMERS = [ ]

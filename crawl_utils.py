@@ -28,7 +28,7 @@ IMAGE_FILE_DIR = SCORE_FILE_DIR + '/images'
 CAO_MORGUE_BASE = 'http://crawl.akrasiac.org/rawdata'
 CDO_MORGUE_BASE = 'http://crawl.develz.org/morgues/0.22'
 CUE_MORGUE_BASE = 'https://underhound.eu/crawl/morgue'
-CJR_MORGUE_BASE = 'https://crawl.jorgrun.rocks/morgue'
+CKO_MORGUE_BASE = 'https://crawl.kelbi.org/crawl/morgue'
 CBRO_MORGUE_BASE = 'http://crawl.berotato.org/crawl/morgue'
 CPO_MORGUE_BASE = 'http://crawl.project357.org/morgue'
 CWZ_MORGUE_BASE = 'https://webzook.net/soup/morgue/0.22'
@@ -179,8 +179,8 @@ def morgue_link(xdict):
     base = CWZ_MORGUE_BASE
   elif src.find('cxc') >= 0:
     base = CXC_MORGUE_BASE
-  elif src.find('cjr') >= 0:
-    base = CJR_MORGUE_BASE
+  elif src.find('cko') >= 0:
+    base = CKO_MORGUE_BASE
   elif src.find('lld') >= 0:
     base = LLD_MORGUE_BASE
   else:

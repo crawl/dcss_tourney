@@ -99,7 +99,7 @@ To become a member of a clan, you
 	      <span class="inline_heading">Note:</span> clan membership lines
 can be added to your ${version} rcfile on <b>any</b> of the public servers,
 with the exception of CDO. If you add clan membership lines to more than one
-rcfile, then the rcfile on the server earliest in the list CAO, CBRO, CJR, CPO,
+rcfile, then the rcfile on the server earliest in the list CAO, CBRO, CKO, CPO,
 CUE, CWZ, CXC, LLD will take
               precedence.
             </p>
