@@ -377,7 +377,7 @@ CUE, CWZ, CXC, LLD will take
           <hr>
 
           <div>
-            <h3>10 game challenge</h3>
+            <h3>10 GAME CHALLENGE</h3>
             <p>
               The 10 game challenge is a leaderboard for players who complete 10 or fewer games during the tournament. All points for those games apply in the usual way, but players with more than 10 games will not be ranked on this leaderboard.
             </p>
@@ -929,7 +929,6 @@ III: Win a game as a non-demigod without worshipping a god.
               <p><span class="removed">[REMOVED]</span>
                 Bonuses for being the first to kill the most distinct uniques have been removed.</p>
               <!--
-              
 
               <p><span class="added">[NEW]</span>
                 flags rules that are new to this tournament.</p>
