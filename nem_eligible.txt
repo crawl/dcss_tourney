@@ -19,7 +19,6 @@ CeNe
 CeSu
 CeTm
 CeVM
-CeWz
 DDAE
 DDAK
 DDAM
