@@ -627,7 +627,7 @@ def check_temp_trophies(c, pmap):
   # recompute all streaks yet again
   for streak in all_streaks:
     if streak[1] > 1:
-      assign_points(c, "streak", streak[0], streak[1]*100, False)
+      assign_points(c, "streak", streak[0], min(10, streak[1])*100, False)
     if streak[1] < 4:
       continue
     l = len(streak[3])

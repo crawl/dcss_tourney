@@ -237,9 +237,9 @@ CUE, CWZ, CXC, LLD will take
             <p><span>5,000,000/turncount points</span> for each player's fastest win (by turncount).</p>
             <p><span>937,500/duration points</span> for each player's fastest win (by realtime, measured in seconds).</p>
             <p><span>score/120,000 points</span> for each player's highest scoring winning game.</p>
-            <p><span>100*length points</span> for each player's longest streak of length at least 2, where length of
+            <p><span>100*min(length points, 10)</span> for each player's longest streak of length at least 2, where length of
               a streak is defined as min(number of distinct species used, number
-              of distinct backgrounds used).</p>
+              of distinct backgrounds used).
             <div class="inset">
               <p>
                 Every game in a streak must be the first game you start after
@@ -254,6 +254,9 @@ CUE, CWZ, CXC, LLD will take
                 game B concurrently on two servers and win both in
                 succession to earn streak points. You can however have
                 multiple streaks in progress simultaneously.
+              </p>
+              <p>
+                Streak points are capped at 10-streaks (though the leaderboards will show streaks of any length). That is, the most points you can get for streaks during the tournament is 1000.
               </p>
             </div>
           </div>
@@ -918,10 +921,13 @@ III: Win a game as a non-demigod without worshipping a god.
             <h2>CHANGED RULES</h2>
             <hr>
             <div class="fineprint">
+              <p><span class="added">[NEW]</span>
+                The 10 game challenge scoreboard has been added.</p>
               <p>
-		All rules are the same as the 0.22 tournament held in August
-                2018.
-                The 10 game challenge scoreboard has been added.
+              <p><span class="changed">[CHANGED]</span>
+                Points for streaking have been capped at 10-streaks for the 0.23
+                tournament. (Leaderboard streak displays are unchanged.)
+              </p>
               </p>
               <!--
               <p><span class="removed">[REMOVED]</span>
