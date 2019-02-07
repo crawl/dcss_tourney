@@ -157,8 +157,6 @@ CUE, CWZ, CXC, LLD will take
             <p><span>5 points</span> the first time you kill each
               unique.</p>
 
-            <p><span>50-20-10 points</span> for the players with the most distinct
-            uniques killed; ties broken by who gets that number first.</p>
             <h5>HIGH SCORES</h5>
             <p>
               <span>5 points</span> per high score in a species/background combination
@@ -921,18 +919,17 @@ III: Win a game as a non-demigod without worshipping a god.
             <h2>CHANGED RULES</h2>
             <hr>
             <div class="fineprint">
+            <p>This tournament contains some minor rule changes designed to eliminate certain incentives for grinding.</p>
               <p><span class="added">[NEW]</span>
                 The 10 game challenge scoreboard has been added.</p>
-              <p>
               <p><span class="changed">[CHANGED]</span>
                 Points for streaking have been capped at 10-streaks for the 0.23
                 tournament. (Leaderboard streak displays are unchanged.)
               </p>
-              </p>
-              <!--
               <p><span class="removed">[REMOVED]</span>
-                flags rules that existed in the 0.22 tournament and are gone in
-                this tournament.</p>
+                Bonuses for being the first to kill the most distinct uniques have been removed.</p>
+              <!--
+              
 
               <p><span class="added">[NEW]</span>
                 flags rules that are new to this tournament.</p>

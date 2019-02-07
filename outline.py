@@ -615,10 +615,6 @@ def check_temp_trophies(c, pmap):
   award_temp_trophy(c, pmap, query.player_rune_dive_best(c),
                     'rune_dive_rank:%d', [50, 20, 10], team_points=True)
 
-  award_temp_trophy(c, pmap, query.player_deaths_to_uniques_best(c),
-                    'deaths_to_uniques_Nth:%d', [50, 20, 10],
-                    can_share_places=False,
-                    team_points=True)
   # streak handling
   all_streaks = query.list_all_streaks(c)
   # not currently giving top_streak points
