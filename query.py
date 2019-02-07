@@ -766,7 +766,7 @@ def get_all_game_stats(c):
            'won' : won_text,
            'win_perc' : win_perc }
 
-def get_all_player_stats(c):
+def get_all_player_stats(c, max_games=None):
   q = Query('''SELECT p.name, p.team_captain, t.name, p.score_full,
                       (SELECT COUNT(*) FROM games
                        WHERE player = p.name
@@ -786,7 +786,8 @@ def get_all_player_stats(c):
     else:
       r[1] = crawl_utils.linked_text(captain, crawl_utils.clan_link, r[1])
     r.append( "%.2f%%" % calc_perc( r[3], r[4] ) )
-    clean_rows.append(r)
+    if (max_games is None or (r[4] <= max_games and r[4] > 0)): # could do this in the query?
+      clean_rows.append(r)
   return clean_rows
 
 def get_clan_stats(c, captain):
@@ -841,6 +842,20 @@ def get_player_stats(c, name):
       query_first(c,
                   """SELECT COUNT(*) FROM games WHERE player = %s""",
                   name)
+
+  if stats['played'] <= 10:
+    stats['10game_rank'] = query_first(c,
+                  """SELECT COUNT(*) FROM
+                        (SELECT p.name, p.score_full
+                         FROM games g INNER JOIN players p ON g.player = p.name
+                         HAVING COUNT(p.name) <= 10) AS t
+                     WHERE score_full > %s""", stats['points']) + 1
+    stats['10game_rank2'] = query_first(c,
+                  """SELECT COUNT(*) FROM
+                        (SELECT player FROM games GROUP BY player
+                         HAVING COUNT(player) <= 10) AS t""")
+  else:
+    stats['10game_rank'] = None
 
   stats['win_perc'] = "%.2f%%" % calc_perc(stats['won'], stats['played'])
   return stats

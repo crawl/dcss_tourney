@@ -376,6 +376,14 @@ CUE, CWZ, CXC, LLD will take
           <hr>
 
           <div>
+            <h3>10 game challenge</h3>
+            <p>
+              The 10 game challenge is a leaderboard for players who complete 10 or fewer games during the tournament. All points for those games apply in the usual way, but players with more than 10 games will not be ranked on this leaderboard.
+            </p>
+          </div>
+
+
+          <div>
             <h3>CONDUCT</h3>
             <p>
               Please do not do anything that would give you an unfair competitive advantage over other players or clans. This includes stuff like scumming crash-on-demand bugs or running bots on your own account for speedrun points &ndash; just remember that the objective here is to have fun. (You are welcome to run bots on their own accounts in the tourney, though as always on online servers you should be careful not to hammer the CPU with them. Also, bot wins will not be displayed on lists of fastest wins.)
@@ -913,6 +921,7 @@ III: Win a game as a non-demigod without worshipping a god.
               <p>
 		All rules are the same as the 0.22 tournament held in August
                 2018.
+                The 10 game challenge scoreboard has been added.
               </p>
               <!--
               <p><span class="removed">[REMOVED]</span>

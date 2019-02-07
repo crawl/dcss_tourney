@@ -45,6 +45,7 @@ def player_pages(c):
   render(c, 'species-backgrounds')
   render(c, 'banners')
   render(c, 'all-players')
+  render(c, 'all-players-10games')
   render(c, 'wins-and-kills')
   render(c, 'current-games')
   render(c, 'combo-scoreboard')

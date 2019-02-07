@@ -18,5 +18,7 @@
 &nbsp;
 <a href="${XXX_TOURNEY_BASE}/current-games.html">Current Games</a>
 &nbsp;
+<a href="${XXX_TOURNEY_BASE}/all-players-10games.html">10-game challenge</a>
+&nbsp;
 <a href="${XXX_TOURNEY_BASE}">Rules</a>
 </div>

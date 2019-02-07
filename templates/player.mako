@@ -107,7 +107,12 @@
                 <th>Rank</th>
                 <td>${stats['rank1']} / ${stats['rank2']}</td>
               </tr>
-
+              %if stats['10game_rank']:
+                <tr>
+                  <th>10-game challenge rank:</th>
+                  <td>${stats['10game_rank']} / ${stats['10game_rank2']}</td>
+                </tr>
+              %endif
               <tr>
                 <th>Tourney team points</th>
                 <td class="numeric">${stats['team_points']}</td>
