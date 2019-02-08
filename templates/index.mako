@@ -377,10 +377,24 @@ precedence.
           <div>
             <h3>CONDUCT</h3>
             <p>
-              Please do not do anything that would give you an unfair competitive advantage over other players or clans. This includes stuff like scumming crash-on-demand bugs or running bots on your own account for speedrun points &ndash; just remember that the objective here is to have fun. (You are welcome to run bots on their own accounts in the tourney, though as always on online servers you should be careful not to hammer the CPU with them. Also, bot wins will not be displayed on lists of fastest wins.)
+Please do not do anything that would give you an unfair competitive advantage
+over other players or clans. This includes things like scumming crash-on-demand
+bugs or using bots or input macros on your account to gain an advantage for
+speedrun points &ndash; just remember that the objective here is to have fun.
+We generally do not monitor games or RC files and hold players to the honor
+system. In extreme cases that come to our attention, we may, at our discretion,
+disqualify users and remove their games from the scoring database. Ignorance
+and negligence are not excuses for poor behavior.
+            </p>
+            <p>
+All contestants acknowledge an obligation not to commit misconduct in relation
+to their participation. Misconduct is any act that is a breach of good manners,
+a breach of good sportsmanship, or unethical behavior. Misconduct will also
+result in disqualification without recourse and with your games being deleted
+from the scoring database. Severe misconduct will lead to exclusion from future
+crawl tournaments.
             </p>
           </div>
-
           <div>
             <hr>
             <a name="banners"></a>
