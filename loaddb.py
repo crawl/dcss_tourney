@@ -46,7 +46,7 @@ LLD = 'http://lazy-life.ddo.jp/'
 # being the URL to wget -c from.
 
 LOGS = TEST_LOGS or [
-#          ('cao-logfile-0.23', CAO + 'logfile23'),
+           ('cao-logfile-0.23', CAO + 'logfile23'),
            ('cbro-logfile-0.23', CBRO + 'meta/0.23/logfile'),
            ('cdo-logfile-0.23', CDO + 'allgames-0.23.txt'),
            ('cko-logfile-0.23', CKO + 'meta/0.23/logfile'),
@@ -58,7 +58,7 @@ LOGS = TEST_LOGS or [
   ]
 
 MILESTONES = TEST_MILESTONES or [
-#          ('cao-milestones-0.23', CAO + 'milestones23'),
+           ('cao-milestones-0.23', CAO + 'milestones23'),
            ('cbro-milestones-0.23', CBRO + 'meta/0.23/milestones'),
            ('cdo-milestones-0.23', CDO + 'milestones-0.23.txt'),
            ('cko-milestones-0.23', CKO + 'meta/0.23/milestones'),

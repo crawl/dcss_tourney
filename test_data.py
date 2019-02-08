@@ -20,7 +20,7 @@ TEST_CLAN_DEADLINE = (USE_TEST and
                      datetime.datetime(2019, 2, 2, 23))
 TEST_HARE_START_TIME = USE_TEST and (TEST_YEAR + '02052000')
 TEST_LOGS = USE_TEST and [
-#          ('cao-logfile-0.23', CAO + 'logfile23'),
+           ('cao-logfile-0.23', CAO + 'logfile23'),
            ('cbro-logfile-0.23', CBRO + 'meta/0.23/logfile'),
            ('cdo-logfile-0.23', CDO + 'allgames-0.23.txt'),
            ('cko-logfile-0.23', CKO + 'meta/0.23/logfile'),
@@ -32,7 +32,7 @@ TEST_LOGS = USE_TEST and [
   ]
 
 TEST_MILESTONES = USE_TEST and [
-#          ('cao-milestones-0.23', CAO + 'milestones23'),
+           ('cao-milestones-0.23', CAO + 'milestones23'),
            ('cbro-milestones-0.23', CBRO + 'meta/0.23/milestones'),
            ('cdo-milestones-0.23', CDO + 'milestones-0.23.txt'),
            ('cko-milestones-0.23', CKO + 'meta/0.23/milestones'),
