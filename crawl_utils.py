@@ -8,13 +8,26 @@ import sys
 UPDATE_INTERVAL = 7 * 60
 
 # Are we testing locally, or do we want output suitable for a website?
-# Test whether our username is the same that is used on the server.
+#
+# If True, BASEDIR below is assumed to be $HOME and all page links use file://
+# urls. The urls will be have the script working directory and then the
+# SCORE_FILE_DIR added.
+#
+# If False, don't assume $HOME for BASEDIR and use WEB_BASE to make page link
+# urls.
 LOCAL_TEST = True
-WEB_BASE = 'http://dobrazupa.org/tournament/0.23'
+
+# Base URL of tournament pages, omitting any trailing slash.
+WEB_BASE = 'https://crawl.develz.org/tournament/0.23'
 
 LOCK = None
+# Where data needed for tournament calculations are stored.
 BASEDIR = LOCAL_TEST and os.environ['HOME'] or '/home/tourney/dcss_tourney'
 LOCKFILE = BASEDIR + '/tourney-py.lock'
+
+# Where to generate the tournament pages. Can be a directory relative to
+# current working directory of the script or a full path. Will be created if it
+# doesn't exist.
 SCORE_FILE_DIR = 'html.tourney0.23'
 
 SCORE_CSS = 'tourney-score.css'
