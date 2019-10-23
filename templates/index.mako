@@ -1,7 +1,7 @@
 <%
    from crawl_utils import XXX_TOURNEY_BASE
    from test_data import USE_TEST
-   version = '0.23'
+   version = '0.24'
    year    = '2019'
    title   = "Crawl %s Tournament Information" % version
  %>
@@ -21,8 +21,8 @@
         <div class="heading">
           <h1>${title}</h1>
           <p class="fineprint">
-            Tournament starts on <a href="https://www.timeanddate.com/worldclock/fixedtime.html?iso=20190208T20">Feb 8, ${year} at 20:00 UTC</a>, and ends on
-            <a href="https://www.timeanddate.com/worldclock/fixedtime.html?iso=20190224T20">Feb 24, ${year} at 20:00 UTC</a>.
+            Tournament starts on <a href="https://www.timeanddate.com/worldclock/fixedtime.html?iso=20191025T20">Oct 25, ${year} at 20:00 UTC</a>, and ends on
+            <a href="https://www.timeanddate.com/worldclock/fixedtime.html?iso=20191110T20">Nov 10, ${year} at 20:00 UTC</a>.
           </p>
         </div>
         <hr>
@@ -30,7 +30,7 @@
         <div class="content">
           <p>
             Hello all! Welcome to the rules for the
-            ${version} Dungeon Crawl Stone Soup Tournament, running from <b><a href="https://www.timeanddate.com/worldclock/fixedtime.html?iso=20190208T20">20:00 UTC Friday 8 February</a></b> to <b><a href="https://www.timeanddate.com/worldclock/fixedtime.html?iso=20190224T20">20:00 UTC Sunday 24 February</a></b>. All version ${version} games played fully during this time period on any of the <a href="https://crawl.develz.org/wordpress/howto">public servers</a> will automatically count for the tournament.
+            ${version} Dungeon Crawl Stone Soup Tournament, running from <b><a href="https://www.timeanddate.com/worldclock/fixedtime.html?iso=20191025T20">20:00 UTC Friday 25 October</a></b> to <b><a href="https://www.timeanddate.com/worldclock/fixedtime.html?iso=20191110T20">20:00 UTC Sunday 10 November</a></b>. All version ${version} games played fully during this time period on any of the <a href="https://crawl.develz.org/wordpress/howto">public servers</a> will automatically count for the tournament.
           </p>
 
           <p>
@@ -115,8 +115,8 @@ precedence.
 
           <p>
             Clans may be changed by adding or removing players at any time
-            until <b><a href="https://www.timeanddate.com/worldclock/fixedtime.html?iso=20190215T20">20:00
-            UTC Friday 15 February</a></b>, after which clans will be frozen.
+            until <b><a href="https://www.timeanddate.com/worldclock/fixedtime.html?iso=20191101T20">20:00
+            UTC Friday 1 November</a></b>, after which clans will be frozen.
           </p>
 
           <hr>
