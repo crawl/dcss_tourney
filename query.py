@@ -2007,3 +2007,12 @@ def first_allrune_win_order_query(limit = None):
 def first_allrune_win_order(c, limit = 3):
   query = first_allrune_win_order_query(limit)
   return [ row_to_xdict(x) for x in query.rows(c) ]
+
+def win_perc_order(c, limit = None):
+  query = Query('''SELECT player,
+                            SUM(killertype='winning') / (COUNT(*) + 1.0)
+                            AS win_perc FROM games
+                            GROUP BY player ORDER BY win_perc DESC''')
+  if limit:
+    query.append(' LIMIT %d' % limit)
+  return query.rows(c)
