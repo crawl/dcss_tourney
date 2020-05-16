@@ -44,6 +44,7 @@ def individual_category_pages(c):
   info("Updating individual category pages")
   render(c, 'first-win-order')
   render(c, 'first-allrune-win-order')
+  render(c, 'win-percentage-order')
 
 def player_pages(c):
   info("Updating all player pages")
