@@ -1962,3 +1962,48 @@ def check_ru_abandonment_game(c, name, start):
                                        OR (noun = 'Shoals') OR (noun = 'Snake')
                                        OR (noun = 'Spider') OR (noun = 'Swamp')
                                       ) ''', name, start, abandon_time)
+
+################################################################################
+# New (0.25) Tournament scoring queries begin here. Some will be cannibalized
+# from old tournament scoring above.
+################################################################################
+
+###############################
+# Individual Scoring Categories
+###############################
+
+def first_win_order_query(limit = None):
+  fields = logfile_fields('g.')
+  query = Query('''SELECT %s FROM (''' % fields
+                   + win_query(",".join(LOG_FIELDS)).query
+                   + ''') AS g
+                   LEFT OUTER JOIN games g2
+                   ON g.player = g2.player AND g.killertype = g2.killertype
+                   AND g.end_time > g2.end_time
+                   WHERE g2.end_time IS NULL ORDER BY g.end_time''')
+  if limit:
+    query.append(' LIMIT %d' % limit)
+
+  return query
+
+def first_win_order(c, limit = 3):
+  query = first_win_order_query(limit)
+  return [ row_to_xdict(x) for x in query.rows(c) ]
+
+def first_allrune_win_order_query(limit = None):
+  fields = logfile_fields('g.')
+  query =  Query('''SELECT %s FROM (''' % fields
+                  + win_query(",".join(LOG_FIELDS), runes = MAX_RUNES).query
+                  + ''') AS g
+                  LEFT OUTER JOIN games g2
+                  ON g.player = g2.player AND g.killertype = g2.killertype
+                  AND g.runes = g2.runes AND g.end_time > g2.end_time
+                  WHERE g2.end_time IS NULL ORDER BY g.end_time''', MAX_RUNES)
+  if limit:
+    query.append(' LIMIT %d' % limit)
+
+  return query
+
+def first_allrune_win_order(c, limit = 3):
+  query = first_allrune_win_order_query(limit)
+  return [ row_to_xdict(x) for x in query.rows(c) ]
