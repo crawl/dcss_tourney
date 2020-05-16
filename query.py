@@ -2010,7 +2010,8 @@ def first_allrune_win_order(c, limit = 3):
 
 def win_perc_order(c, limit = None):
   query = Query('''SELECT player,
-                            SUM(killertype='winning') / (COUNT(*) + 1.0)
+                   CAST( (SUM(killertype='winning') / (COUNT(*) + 1.0)) * 100.0
+                         AS DECIMAL(5,2) )
                             AS win_perc FROM games
                             GROUP BY player ORDER BY win_perc DESC''')
   if limit:
