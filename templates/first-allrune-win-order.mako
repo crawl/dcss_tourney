@@ -4,7 +4,7 @@
 
    game_text = \
       html.games_table( query.first_allrune_win_order(c, limit = None),
-                        first = 'end_time' )
+                        first = 'end_time', place_column = 1, skip = True )
 %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
           "http://www.w3.org/TR/html4/strict.dtd">
