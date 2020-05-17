@@ -368,7 +368,6 @@ CREATE TABLE last_game_table (
 
 CREATE TABLE player_won_gods (
   player VARCHAR(20),
-  win_time DATETIME,
   god VARCHAR(20),
   FOREIGN KEY (player) REFERENCES players (name) ON DELETE CASCADE
 );

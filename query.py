@@ -885,10 +885,10 @@ def is_god_win_repeated(c, player, god):
                              WHERE player = %s AND COALESCE(god, '') = %s''',
                          player, god)
 
-def record_won_god(c, player, win_time, god):
+def record_won_god(c, player, god):
   if is_god_win_repeated(c, player, god):
     return False
-  query_do(c, "INSERT INTO player_won_gods VALUES (%s, %s, %s)", player, win_time, god)
+  query_do(c, "INSERT INTO player_won_gods VALUES (%s, %s)", player, god)
   return True
 
 def record_max_piety(c, player, start_time, god):

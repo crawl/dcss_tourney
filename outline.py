@@ -492,7 +492,7 @@ def crunch_winner(c, game):
   game_god = query.get_game_god(c, game)
   banner_god = game_god.lower().replace(' ', '_')
   if (not game_god == 'faithless'):
-    query.record_won_god(c, game['name'], game['end'], game_god)
+    query.record_won_god(c, game['name'], game_god)
 
 def is_all_runer(game):
   """Did this game get every rune? This _might_ require checking the milestones
