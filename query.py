@@ -2097,3 +2097,15 @@ def piety_order(c, limit = None):
                           LEFT OUTER JOIN player_won_gods AS wg
                           ON mp.player = wg.player AND mp.god = wg.god
                           GROUP BY player ORDER BY piety DESC''')
+
+def banner_order(c, limit = None):
+  query = Query('''SELECT player,
+                          SUM(IF(prestige = 3, 4, prestige)) AS bscore,
+                          GROUP_CONCAT(CONCAT(banner, ' ', prestige)
+                                       SEPARATOR ',')
+                   FROM player_banners WHERE temp = false
+                   GROUP BY player
+                   ORDER BY bscore DESC''')
+  if limit:
+    query.append(' LIMIT %d' % limit)
+  return query.rows(c)
