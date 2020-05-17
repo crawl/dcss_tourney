@@ -2063,7 +2063,11 @@ def low_xl_win_order(c, limit = None):
   fields = logfile_fields('g.')
   query = Query('''SELECT %s FROM (''' % fields
                    + win_query(logfile_fields()).query
-                   + ''') AS g
+                   + ''' AND NOT EXISTS ( SELECT m.id FROM milestones AS m
+                        WHERE m.game_id = games.id
+                        AND (verb = 'god.renounce' OR verb='god.worship')
+                        AND NOUN = 'Hepliaklqana' )
+                   ) AS g
                    LEFT OUTER JOIN games g2
                    ON g.player = g2.player AND g.killertype = g2.killertype
                    AND g.xl > g2.xl
