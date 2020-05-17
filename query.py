@@ -1975,7 +1975,7 @@ def check_ru_abandonment_game(c, name, start):
 def first_win_order_query(limit = None):
   fields = logfile_fields('g.')
   query = Query('''SELECT %s FROM (''' % fields
-                   + win_query(",".join(LOG_FIELDS)).query
+                   + win_query(logfile_fields()).query
                    + ''') AS g
                    LEFT OUTER JOIN games g2
                    ON g.player = g2.player AND g.killertype = g2.killertype
@@ -1986,14 +1986,14 @@ def first_win_order_query(limit = None):
 
   return query
 
-def first_win_order(c, limit = 3):
+def first_win_order(c, limit = None):
   query = first_win_order_query(limit)
   return [ row_to_xdict(x) for x in query.rows(c) ]
 
 def first_allrune_win_order_query(limit = None):
   fields = logfile_fields('g.')
   query =  Query('''SELECT %s FROM (''' % fields
-                  + win_query(",".join(LOG_FIELDS), runes = MAX_RUNES).query
+                  + win_query(logfile_fields(), runes = MAX_RUNES).query
                   + ''') AS g
                   LEFT OUTER JOIN games g2
                   ON g.player = g2.player AND g.killertype = g2.killertype
@@ -2004,7 +2004,7 @@ def first_allrune_win_order_query(limit = None):
 
   return query
 
-def first_allrune_win_order(c, limit = 3):
+def first_allrune_win_order(c, limit = None):
   query = first_allrune_win_order_query(limit)
   return [ row_to_xdict(x) for x in query.rows(c) ]
 
