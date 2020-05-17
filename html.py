@@ -381,7 +381,8 @@ def table_text(headers, data, cls='bordered', count=True, link=None,
 
 def games_table(games, first=None, excluding=None, columns=None,
                 including=None,
-                cls='bordered', count=True, win=True):
+                cls='bordered', count=True, win=True,
+                place_column=-1, skip=False):
   columns = columns or (win and STOCK_WIN_COLUMNS or STOCK_COLUMNS)
 
   # Copy columns.
@@ -411,14 +412,16 @@ def games_table(games, first=None, excluding=None, columns=None,
     out += "<th>%s</th>" % col[1]
   out += "</tr>\n"
   odd = True
-  ngame = 0
 
   ncols = len(columns) + (count and 1 or 0)
   if not games:
     out += '''<tr><td colspan='%s'>No games</td></tr>''' % ncols
 
+  nplace = 0
+  rplace = 0
+  last_value = None
+
   for game in games:
-    ngame += 1
 
     ocls = odd and "odd" or "even"
     if game.get('killertype') == 'winning':
@@ -427,8 +430,17 @@ def games_table(games, first=None, excluding=None, columns=None,
     out += '''<tr class="%s">''' % ocls
     odd = not odd
 
+    rplace += 1
+    if place_column == -1:
+      nplace += 1
+    elif last_value != game.get(columns[place_column][0]):
+      nplace += 1
+      if skip:
+        nplace = rplace
+      last_value = game.get(columns[place_column][0])
+
     if count:
-      out += '''<td class="numeric">%s</td>''' % ngame
+      out += '''<td class="numeric">%s</td>''' % nplace
 
     for c in columns:
       val = fixup_column(c[0], game.get(c[0]) or '', game)
