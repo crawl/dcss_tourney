@@ -493,8 +493,6 @@ def crunch_winner(c, game):
   banner_god = game_god.lower().replace(' ', '_')
   if (not game_god == 'faithless'):
     query.record_won_god(c, game['name'], game['end'], game_god)
-    god_wins_before = query.count_god_wins(c, game_god, game_start)
-    query.assign_stepdown_points(c, 'god_win:' + banner_god, game['name'], query.god_formula(wins_before, god_wins_before), False)
 
 def is_all_runer(game):
   """Did this game get every rune? This _might_ require checking the milestones

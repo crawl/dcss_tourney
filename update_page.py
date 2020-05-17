@@ -49,6 +49,7 @@ def individual_category_pages(c):
   render(c, 'low-tc-win-order')
   render(c, 'fastest-realtime-win-order')
   render(c, 'low-xl-win-order')
+  render(c, 'piety-order')
 
 def player_pages(c):
   info("Updating all player pages")
