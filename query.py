@@ -2017,3 +2017,59 @@ def win_perc_order(c, limit = None):
   if limit:
     query.append(' LIMIT %d' % limit)
   return query.rows(c)
+
+def high_score_order(c, limit = None):
+  fields = logfile_fields('g.')
+  query = Query('''SELECT %s FROM (''' % fields
+              + '''SELECT ''' + logfile_fields() + ''' FROM games) AS g
+                   LEFT OUTER JOIN games g2 ON g.player = g2.player
+                   AND g.score < g2.score
+                   WHERE g2.score IS NULL AND g.score > 0
+                   ORDER BY g.score DESC''')
+  if limit:
+    query.append(' LIMIT %d' % limit)
+
+  return [ row_to_xdict(x) for x in query.rows(c) ]
+
+def low_turncount_win_order(c, limit = None):
+  fields = logfile_fields('g.')
+  query = Query('''SELECT %s FROM (''' % fields
+                   + win_query(logfile_fields()).query
+                   + ''') AS g
+                   LEFT OUTER JOIN games g2
+                   ON g.player = g2.player AND g.killertype = g2.killertype
+                   AND g.turn > g2.turn
+                   WHERE g2.turn IS NULL ORDER BY g.turn''')
+  if limit:
+    query.append(' LIMIT %d' % limit)
+
+  return [ row_to_xdict(x) for x in query.rows(c) ]
+
+def fastest_win_order(c, limit = None):
+  fields = logfile_fields('g.')
+  query = Query('''SELECT %s FROM (''' % fields
+                   + win_query(logfile_fields()).query
+                   + ''') AS g
+                   LEFT OUTER JOIN games g2
+                   ON g.player = g2.player AND g.killertype = g2.killertype
+                   AND g.duration > g2.duration
+                   WHERE g2.duration IS NULL ORDER BY g.duration''')
+  if limit:
+    query.append(' LIMIT %d' % limit)
+
+  return [ row_to_xdict(x) for x in query.rows(c) ]
+
+def low_xl_win_order(c, limit = None):
+  fields = logfile_fields('g.')
+  query = Query('''SELECT %s FROM (''' % fields
+                   + win_query(logfile_fields()).query
+                   + ''') AS g
+                   LEFT OUTER JOIN games g2
+                   ON g.player = g2.player AND g.killertype = g2.killertype
+                   AND g.xl > g2.xl
+                   WHERE g2.xl IS NULL AND g.xl < 27
+                   ORDER BY g.xl''')
+  if limit:
+    query.append(' LIMIT %d' % limit)
+
+  return [ row_to_xdict(x) for x in query.rows(c) ]
