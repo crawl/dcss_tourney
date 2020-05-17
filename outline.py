@@ -489,20 +489,6 @@ def crunch_winner(c, game):
     # Award banner.
     banner.award_banner(c, player, 'cheibriados', 2)
 
-  # Assign points for new personal records.
-  assign_points(c, 'my_low_turncount_win', game['name'], 5000000/game['turn'], False)
-  assign_points(c, 'my_low_realtime_win', game['name'], 937500/game['dur'], False)
-  assign_points(c, 'my_highscore_win', game['name'], game['sc']/120000, False)
-
-  # Assign race/class points, based on the games won before the start
-  # of the given win.
-  game_start = game_start_time(game)
-  wins_before = query.count_wins(c, before=game_start)
-  species_wins_before = query.count_wins(c, before=game_start, raceabbr=game['char'][0:2])
-  class_wins_before = query.count_wins(c, before=game_start, classabbr=game['char'][2:])
-  query.assign_stepdown_points(c, 'species_win:' + game['char'][0:2], game['name'], query.race_formula(wins_before, species_wins_before), False)
-  query.assign_stepdown_points(c, 'background_win:' + game['char'][2:], game['name'], query.class_formula(wins_before, class_wins_before), False)
-  # and gods also
   game_god = query.get_game_god(c, game)
   banner_god = game_god.lower().replace(' ', '_')
   if (not game_god == 'faithless'):
