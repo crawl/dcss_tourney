@@ -2089,7 +2089,7 @@ def low_xl_win_order(c, limit = None):
 
   return [ row_to_xdict(x) for x in query.rows(c) ]
 
-def piety_order(c, limit = None):
+def piety_order(c):
   return query_rows(c, '''SELECT mp.player, COUNT(mp.god) AS champion,
                           COUNT(wg.god) AS won,
                           COUNT(mp.god) + COUNT(wg.god) AS piety
