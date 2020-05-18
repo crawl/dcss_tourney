@@ -2109,3 +2109,15 @@ def banner_order(c, limit = None):
   if limit:
     query.append(' LIMIT %d' % limit)
   return query.rows(c)
+
+def exploration_order(c):
+  return query_rows(c,'''SELECT s.player, SUM(s.score) as sc
+                   FROM ((SELECT player, COUNT(DISTINCT br) AS score
+                          FROM branch_enters GROUP BY player)
+                         UNION ALL
+                         (SELECT player, COUNT(DISTINCT br)
+                          FROM branch_ends GROUP BY player)
+                         UNION ALL
+                         (SELECT player, 3 * COUNT(DISTINCT rune)
+                          FROM rune_finds GROUP BY player)) AS s
+                   GROUP BY s.player ORDER BY sc DESC''')

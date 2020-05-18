@@ -127,13 +127,11 @@ def do_milestone_unique(c, mile):
       banner.award_banner(c, mile['name'], 'the_shining_one', 1)
 
 def do_milestone_rune(c, mile):
-  """Give out 24/N points for the Nth time a player finds a rune, and also give out banners."""
+  """Give out banners for certain special rune finds."""
   # Check if this player already found this kind of rune. Remember the db
   # is already updated, so for the first rune the count will be 1.
   rune = loaddb.extract_rune(mile['milestone'])
   num_rune = query.player_count_runes(c, mile['name'], rune)
-  rune_points = (24 + num_rune - 1) / num_rune
-  assign_points(c, "rune:" + rune, mile['name'], rune_points)
   player = mile['name']
   runes_found = query.player_count_distinct_runes(c, player)
   if mile['dur'] <= 4860:

@@ -51,6 +51,7 @@ def individual_category_pages(c):
   render(c, 'low-xl-win-order')
   render(c, 'piety-order')
   render(c, 'banner-order')
+  render(c, 'exploration-order')
 
 def player_pages(c):
   info("Updating all player pages")
