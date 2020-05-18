@@ -22,7 +22,6 @@ DROP TABLE IF EXISTS rune_finds;
 DROP TABLE IF EXISTS branch_enters;
 DROP TABLE IF EXISTS branch_ends;
 DROP TABLE IF EXISTS kunique_times;
-DROP TABLE IF EXISTS kunique_turns;
 DROP TABLE IF EXISTS kills_of_uniques;
 DROP TABLE IF EXISTS kills_of_ghosts;
 DROP TABLE IF EXISTS kills_by_ghosts;
@@ -288,15 +287,6 @@ CREATE TABLE kills_of_uniques (
   );
 
 CREATE INDEX kill_uniq_pmons ON kills_of_uniques (player, monster);
-
-CREATE TABLE kunique_turns (
-  player VARCHAR(20) NOT NULL,
-  start_time DATETIME NOT NULL,
-  monster VARCHAR(20),
-  turn INT,
-  FOREIGN KEY (player) REFERENCES players (name)
-  );
-CREATE INDEX kill_uniq_pgameturn ON kunique_turns (player, start_time);
 
 -- Keep track of who's killed how many uniques, and when they achieved this.
 CREATE TABLE kunique_times (
@@ -649,11 +639,3 @@ SELECT h.player, COUNT(*) AS hellpan_kills
         p.monster = 'Lom Lobon' OR p.monster = 'Mnoleg')
 GROUP BY h.player
   HAVING hellpan_kills >= 1;
-
-CREATE VIEW nearby_uniques AS
-SELECT f.player, f.monster, s.monster AS smonster, f.turn, s.turn AS sturn
-  FROM kunique_turns f INNER JOIN kunique_turns s ON f.player = s.player
- WHERE f.start_time = s.start_time
-   AND f.turn <= s.turn
-   AND f.turn + 2 >= s.turn
-   AND NOT f.monster = s.monster;

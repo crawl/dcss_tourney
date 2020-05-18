@@ -5,7 +5,6 @@ DELETE FROM kills_by_ghosts WHERE killed_player = '#NAME#';
 DELETE FROM kills_by_ghosts WHERE killer = '#NAME#';
 DELETE FROM kills_of_ghosts WHERE player = '#NAME#';
 DELETE FROM kills_of_uniques WHERE player = '#NAME#';
-DELETE FROM kunique_turns WHERE player = '#NAME#';
 DELETE FROM kunique_times WHERE player = '#NAME#';
 DELETE FROM rune_finds WHERE player = '#NAME#';
 DELETE FROM branch_enters WHERE player = '#NAME#';
