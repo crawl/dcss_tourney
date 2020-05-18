@@ -2137,3 +2137,22 @@ def zig_dive_order(c, limit = None):
   if limit:
     query.append(' LIMIT %d' % limit)
   return query.rows(c)
+
+def combo_score_order(c, limit = None):
+  query = Query('''SELECT c.player,
+                   COUNT(*) + COUNT(c.killertype='winning')
+                   + 3 * COUNT(sp.raceabbr) + 3 * COUNT(cl.class) AS total,
+                   COUNT(*) AS combos,
+                   COUNT(c.killertype='winning') AS won_combos,
+                   COUNT(sp.raceabbr) AS sp_hs, COUNT(cl.class) AS cls_hs
+                   FROM combo_highscores AS c
+                   LEFT OUTER JOIN species_highscores AS sp
+                     ON c.player = sp.player AND c.charabbrev = sp.charabbrev
+                   LEFT OUTER JOIN class_highscores AS cl
+                     ON c.player = cl.player AND c.charabbrev = cl.charabbrev
+                   GROUP BY c.player
+                   ORDER BY total DESC, sp_hs DESC,
+                            cls_hs DESC, won_combos DESC''')
+  if limit:
+    query.append(' LIMIT %d' % limit)
+  return query.rows(c)
