@@ -114,14 +114,8 @@ def act_on_milestone(c, mile):
 
 def do_milestone_unique(c, mile):
   """This function takes a parsed milestone known to commemorate the death of
-  a unique, and checks to see if the player has already killed the unique.
-  If so, it does nothing; if not, it marks that the player has killed the
-  unique, and checks to see if the player has killed all uniques. If so,
-  the player may be awarded points if they are one of the first to do so."""
+  a unique, and assigns relevant banners."""
   unique = loaddb.extract_unique_name(mile['milestone'])
-  # DB already has the record for this kill, so == 1 => first kill.
-  if query.count_player_unique_kills(c, mile['name'], unique) == 1:
-    assign_points(c, "unique", mile['name'], 5)
   if unique == 'Sigmund':
     if not query.did_enter_branch(c, 'Depths', mile['name'], mile['start'], mile['time']):
       banner.award_banner(c, mile['name'], 'the_shining_one', 1)

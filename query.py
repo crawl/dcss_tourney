@@ -2121,3 +2121,12 @@ def exploration_order(c):
                          (SELECT player, 3 * COUNT(DISTINCT rune)
                           FROM rune_finds GROUP BY player)) AS s
                    GROUP BY s.player ORDER BY sc DESC''')
+
+def harvest_order(c):
+  return query_rows(c,'''SELECT s.player, SUM(s.score) as sc
+                      FROM ((SELECT player, COUNT(DISTINCT monster) as score
+                             FROM kills_of_uniques GROUP BY player)
+                            UNION ALL
+                            (SELECT player, COUNT(*)
+                             FROM kills_of_ghosts GROUP BY player)) AS s
+                      GROUP BY s.player ORDER BY sc DESC''')

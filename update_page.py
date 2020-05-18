@@ -52,6 +52,7 @@ def individual_category_pages(c):
   render(c, 'piety-order')
   render(c, 'banner-order')
   render(c, 'exploration-order')
+  render(c, 'harvest-order')
 
 def player_pages(c):
   info("Updating all player pages")
