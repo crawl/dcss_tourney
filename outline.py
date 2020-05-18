@@ -155,7 +155,6 @@ def do_milestone_rune(c, mile):
         eligible = False
         break
     if eligible:
-      assign_points(c, 'avarice', player, 50, False)
       banner.award_banner(c, player, 'gozag', 3)
 
   if nemelex.is_nemelex_choice(mile['char'], mile['time']):
@@ -163,7 +162,6 @@ def do_milestone_rune(c, mile):
     banner.award_banner(c, player, ban, 2)
   if not query.did_enter_branch(c, 'Depths', player, mile['start'], mile['time']):
     if mile['urune'] == 6:
-      assign_points(c, 'vow_of_courage', player, 50, False)
       banner.award_banner(c, player, 'the_shining_one', 3)
     elif mile['urune'] >= 4:
       banner.award_banner(c, player, 'the_shining_one', 2)
@@ -174,24 +172,18 @@ def do_milestone_rune(c, mile):
   if mile['urune'] == 1:
     if rune != 'slimy' and rune != 'abyssal':
       if mile['potionsused'] == 0 and mile['scrollsused'] == 0:
-        assign_points(c, 'ascetic', player, 50, False)
         banner.award_banner(c, mile['name'], 'ru', 3)
     if mile['xl'] < 14:
       if not query.did_sacrifice(c, 'experience', mile['name'], mile['start'], mile['time']):
         banner.award_banner(c, mile['name'], 'vehumet', 2)
 
 def do_milestone_ghost(c, mile):
-  """When you kill a player ghost, you get two clan points! Otherwise this
-  isn't terribly remarkable."""
-  if not mile['milestone'].startswith('banished'):
-    if query.count_team_points(c, mile['name'], 'ghost') < 200:
-      assign_team_points(c, "ghost", mile['name'], 2)
+  """Currently this isn't terribly remarkable. The DB already records the ghost
+     kill and there are no banners associated."""
+  return
 
 def do_milestone_br_enter(c, mile):
-  """Five points for the first time you get each br.enter milestone (includes
-  portal vaults). Also give out banners."""
-  if query.player_count_br_enter(c, mile['name'], mile['noun']) == 1:
-    assign_points(c, "branch:enter", mile['name'], 5)
+  """Give out banners for branch entry."""
   if mile['noun'] == 'Crypt':
     banner.award_banner(c, mile['name'], 'fedhas', 1)
   if mile['noun'] in ['Vaults', 'Snake', 'Swamp', 'Shoals', 'Spider', 'Slime',
@@ -236,12 +228,9 @@ def do_milestone_br_end(c, mile):
     banner.award_banner(c, mile['name'], 'uskayaw', 2)
   if mile['noun'] == 'Geh' and mile['turn'] < 27000:
     banner.award_banner(c, mile['name'], 'uskayaw', 3)
-  if query.player_count_br_end(c, mile['name'], mile['noun']) <= 1:
-    assign_points(c, "branch:end", mile['name'], 5)
 
 def do_milestone_max_piety(c, mile):
-  if query.record_max_piety(c, mile['name'], mile['start'], mile['noun']):
-    assign_points(c, "champion", mile['name'], 10)
+  query.record_max_piety(c, mile['name'], mile['start'], mile['noun'])
   if mile['noun'] == 'Ru':
     banner.award_banner(c, mile['name'], 'lugonu', 1)
   elif query.did_champion(c, 'Ru', mile['name'], mile['start'], mile['time']):
@@ -391,13 +380,7 @@ def crunch_winner(c, game):
 
   if not query.game_did_visit_lair(c, player, game_start_time(game)):
     if not query.game_did_visit_branch(c, player, game_start_time(game)):
-      # 50 bonus points for winning without doing any branches.
-      assign_points(c, 'branchless_win', player, 50, False)
-      # And the banner:
       banner.award_banner(c, player, 'kikubaaqudgha', 3)
-    # else:
-      # Just 20 bonus points for winning without doing Lair.
-      # assign_points(c, 'lairless_win', player, 20)
 
   if game['race'] != 'Gnoll' and game['sklev'] < 20:
     if not query.did_worship_god(c, 'Ashenzari', player, game['start'], game['end']):
@@ -408,7 +391,6 @@ def crunch_winner(c, game):
 
   if game['xl'] < 19:
     if not query.did_sacrifice(c, 'experience', player, game['start'], game['end']):
-      assign_points(c, 'ruthless_efficiency', player, 50, False)
       banner.award_banner(c, player, 'vehumet', 3)
 
   #cutoff = query.time_from_str(game['end']) - datetime.timedelta(hours=27)
@@ -447,20 +429,8 @@ def crunch_winner(c, game):
 
   if is_all_runer(game):
     all_allruners = number_of_allruners_before(c, game)
-    assign_points(c, "nth_allrune_win:%d" % (all_allruners + 1),
-                  game['name'],
-                  get_points(all_allruners, 200, 100, 50))
-
-    # If this is my first all-rune win, 50 points!
-    #if query.count_wins(c, player = game['name'],
-    #                    runes = query.MAX_RUNES,
-    #                    before = game_end) == 0:
-    #  assign_points(c, "my_1st_all_rune_win", game['name'], 50)
 
   previous_wins = query.count_wins(c, before = game_end)
-  assign_points(c,
-                "nth_win:%d" % (previous_wins + 1),
-                game['name'], get_points(previous_wins, 200, 100, 50))
 
   my_wins = query.get_winning_games(c, player = game['name'],
                                     before = game_end)
@@ -597,8 +567,6 @@ def check_temp_trophies(c, pmap):
                     team_points=True)
   # streak handling
   all_streaks = query.list_all_streaks(c)
-  # not currently giving top_streak points
-  #award_temp_trophy(c, pmap, all_streaks, 'top_streak:%d', [200, 100, 50])
   # give out streak points and handle Chei III here so we don't have to
   # recompute all streaks yet again
   for streak in all_streaks:
@@ -645,8 +613,6 @@ HAVING race_count >= 5 AND class_count >= 5'''),
                        query_first_col(c,
                                        '''SELECT player FROM orbrun_tomb'''),
                        3)
-  for row in query_rows(c, '''SELECT player, orbrun_tomb_count FROM orbrun_tomb'''):
-    assign_points(c, "orbrun_tomb", row[0], 50, False)
   award_player_banners(c, 'yredelemnul',
                        query_first_col(c,
                                        '''SELECT player FROM kunique_times
