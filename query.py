@@ -2130,3 +2130,10 @@ def harvest_order(c):
                             (SELECT player, COUNT(*)
                              FROM kills_of_ghosts GROUP BY player)) AS s
                       GROUP BY s.player ORDER BY sc DESC''')
+
+def zig_dive_order(c, limit = None):
+  query = Query('''SELECT player, completed, deepest, 27 * completed + deepest FROM ziggurats
+                   ORDER BY completed DESC, deepest DESC''')
+  if limit:
+    query.append(' LIMIT %d' % limit)
+  return query.rows(c)

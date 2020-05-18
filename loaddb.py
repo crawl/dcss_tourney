@@ -569,7 +569,7 @@ LOG_DB_MAPPINGS = [
     [ 'urune', 'runes' ],
     [ 'gold', 'gold' ],
     [ 'goldfound', 'gold_found' ],
-    [ 'goldspent', 'gold_spent' ]
+    [ 'goldspent', 'gold_spent' ],
     ]
 
 MILE_DB_MAPPINGS = [
@@ -609,6 +609,7 @@ MILE_DB_MAPPINGS = [
     [ 'noun', 'noun' ],
     [ 'milestone', 'milestone' ],
     [ 'time', 'milestone_time' ],
+    [ 'zigscompleted', 'zigscompleted']
     ]
 
 LOGLINE_TO_DBFIELD = dict(LOG_DB_MAPPINGS)
@@ -741,7 +742,8 @@ dbfield_to_sqltype = {
         'kills': sql_int,
         'gold': sql_int,
         'gold_found': sql_int,
-        'gold_spent': sql_int
+        'gold_spent': sql_int,
+        'zigscompleted': sql_int
 	}
 
 def record_is_milestone(rec):
@@ -796,7 +798,10 @@ def query_first_def(cursor, default, query, *values):
   row = q.row(cursor)
   if row is None:
     return default
-  return row[0]
+  if len(row) == 1:
+    return row[0]
+  else:
+    return row
 
 def query_row(cursor, query, *values):
   return Query(query, *values).row(cursor)
@@ -1134,35 +1139,36 @@ def add_br_end_milestone(cursor, game):
 def add_ziggurat_milestone(c, g):
   place = g['place']
   mtype = g['type']
+  completed = g.get('zigscompleted',0)
+  depth = 0
   if mtype == 'zig.enter':
-    level = 1
+    depth = 1
   else:
-    level = int(R_PLACE_DEPTH.findall(place)[0])
-  depth = level * 2
-  # Leaving a ziggurat level by the exit gets more props than merely
-  # entering the level.
-  if mtype == 'zig.exit':
-    depth += 1
+    depth = int(R_PLACE_DEPTH.findall(place)[0])
+  # Zig accomplishments are sorted in lex order
+  # (completed, depth of ongoing dive) and zig.exit increments completed
+  if mtype == 'zig.exit' and depth == 27:
+    depth = 0;
   player = g['name']
   def player_ziggurat_deepest(player):
-    return query_first_def(c, 0,
-                           '''SELECT deepest FROM ziggurats
+    return query_first_def(c, (0,0),
+                           '''SELECT completed, deepest FROM ziggurats
                               WHERE player = %s''',
                            player)
   deepest = player_ziggurat_deepest(g['name'])
-  if depth > deepest:
-    if deepest == 0:
+  if completed > deepest[0] or completed == deepest[0] and depth > deepest[1]:
+    if deepest[0] == 0 and deepest[1] == 0:
       query_do(c,
-               '''INSERT INTO ziggurats (player, deepest, place, zig_time,
-                                         start_time)
-                                VALUES (%s, %s, %s, %s, %s)''',
-               player, depth, place, g['time'], g['start'])
+               '''INSERT INTO ziggurats (player, completed, deepest, place,
+                                         zig_time, start_time)
+                                VALUES (%s, %s, %s, %s, %s, %s)''',
+               player, completed, depth, place, g['time'], g['start'])
     else:
       query_do(c,
-               '''UPDATE ziggurats SET deepest = %s, place = %s,
+               '''UPDATE ziggurats SET completed = %s, deepest = %s, place = %s,
                                        zig_time = %s, start_time = %s
                                  WHERE player = %s''',
-               depth, place, g['time'], g['start'], player)
+               completed, depth, place, g['time'], g['start'], player)
 
 MILESTONE_HANDLERS = {
   'uniq' : add_unique_milestone,

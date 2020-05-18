@@ -236,6 +236,7 @@ CREATE TABLE milestones (
   turn BIGINT,
   runes INT,
   nrune INT,
+  zigscompleted INT,
 
   -- Game start time.
   start_time DATETIME,
@@ -328,6 +329,7 @@ CREATE INDEX branch_ends_p ON branch_ends (player, br);
 
 CREATE TABLE ziggurats (
   player VARCHAR(20),
+  completed INT NOT NULL,
   deepest INT NOT NULL,
   place VARCHAR(10) NOT NULL,
   zig_time DATETIME NOT NULL,
@@ -335,7 +337,7 @@ CREATE TABLE ziggurats (
   start_time DATETIME NOT NULL,
   FOREIGN KEY (player) REFERENCES players (name)
   );
-CREATE INDEX ziggurat_depths ON ziggurats (deepest, zig_time);
+CREATE INDEX ziggurat_depths ON ziggurats (completed, deepest);
 
 -- Generated table to keep track of the last milestone for each player/server.
 CREATE TABLE whereis_table (
@@ -568,9 +570,9 @@ ORDER BY nscores DESC
 LIMIT 20;
 
 CREATE VIEW best_ziggurat_dives AS
-SELECT player, deepest, place, zig_time, start_time
+SELECT player, completed, deepest, place, zig_time, start_time
   FROM ziggurats
-ORDER BY deepest DESC, zig_time
+ORDER BY completed DESC, deepest DESC
 LIMIT 3;
 
 CREATE VIEW youngest_rune_finds AS
