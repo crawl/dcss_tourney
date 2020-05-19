@@ -65,6 +65,10 @@ def setup_scoring_dirs():
   if not os.path.exists(SCORE_CSS_PATH):
     os.system("cp %s/templates/%s %s" % (os.getcwd(), SCORE_CSS,
                                             SCORE_CSS_PATH))
+  os.system("cp {cwd}/templates/style.css {dest}".format(
+    cwd=os.getcwd(),
+    dest=SCORE_FILE_DIR + "/style.css",
+  ))
 
   os.system("cp -r %s/images/* %s" % (os.getcwd(), IMAGE_FILE_DIR))
 
