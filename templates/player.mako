@@ -2,6 +2,73 @@
    import loaddb, query, crawl_utils, html
    from outline import compute_stepdown
 
+   # NEW BOOTSTRAP DATA
+   MAX_POINTS = 10000
+   total_number_of_players = 1325
+   overall_rank = 70
+   categories = [
+     {
+       'name': 'The Shining One',
+       'desc': 'The Shining One values perserverence and courage in the face of adversity. In this category, TSO will award players 10,000 points if they win two distinct character combos, 5,000 points for winning their first combo, and 0 otherwise.',
+       'player_rank': 0,
+       'rank_details': 'Won combos: <a href="http://example.com/morgue.txt">MiFi</a>'
+     },
+     {
+       'name': 'Cheibriados',
+       'desc': 'Cheibriados believes in being slow and steady, and will recognize players who are careful enough to excel consistently. This category ranks players by their adjusted win percentage, calculated as the number of wins divided by the number of games played plus 1.',
+       'player_rank': 1,
+       'rank_details': 'Adjusted win percentage: 32.14% (9 wins in 27 games)'
+     },
+     {
+       'name': 'Jiyva',
+       'desc': u'Jiyva is ranking players by their streak length. Jiyva favours the flexibility of a gelatinous body—the length of a streak is defined as the number of distinct species or backgrounds won consecutively (whichever is smaller). Every game in a streak must be the first game you start after winning the previous game in the streak. This will always be the case if you play all your games on one server.',
+       'player_rank': 2,
+       'rank_details': 'No wins yet.',
+     },
+     {
+       'name': 'Nemelex Xobeh',
+       'desc': u'''Nemelex Xobeh wants to see players struggle against randomness and will rank players who perservere with one of several combos randomly chosen and announced throughout the tournament. The first 8 players to win a given Nemelex' choice combo earn a point in this category and Nemelex will rank players by their score in this category.''',
+       'player_rank': 10000,
+       'rank_details': 'Won combos: <a href="http://example.com/morgue.txt">MiFi</a>, <a href="http://example.com/morgue.txt">FeWz</a>, <a href="http://example.com/morgue.txt">BaFE</a>, <a href="http://example.com/morgue.txt">NaEE</a>, <a href="http://example.com/morgue.txt">GnSu</a>, <a href="http://example.com/morgue.txt">DrWn</a>, <a href="http://example.com/morgue.txt">HaCj</a>, <a href="http://example.com/morgue.txt">KoAs</a>'
+     }
+   ]
+   def css_slug(name):
+    return name.lower().replace(' ', '-')
+
+   def rank_ordinal(num):
+    if num == 0:
+      return u'∞'
+    remainder = num % 10
+    suffix = 'th'
+    if remainder == 1:
+      suffix = 'st'
+    elif remainder == 2:
+      suffix = 'nd'
+    elif remainder == 3:
+      suffix = 'rd'
+    if (num % 100) in (11, 12, 13):
+      suffix = 'th'
+    return '%s%s' % (num, suffix)
+
+   def points_for_rank(rank_num):
+    if rank_num == 0:
+      return "-"
+    return str(int(round(MAX_POINTS / rank_num, 0)))
+
+   def rank_description(rank_num):
+    if rank_num == 0:
+      return u"0 points<br><small>(rank: ∞)</small>"
+    else:
+      points = points_for_rank(rank_num)
+      ordinal = rank_ordinal(rank_num)
+      return "{points} point{s}<br><small>(rank: {ordinal})</small>".format(
+        points=points,
+        s="s" if points != '1' else "",
+        ordinal=ordinal,
+      )
+
+   # END NEW BOOTSTRAP DATA
+
    c = attributes['cursor']
    player = attributes['player']
 
@@ -77,207 +144,44 @@
     <link rel="stylesheet" href="../style.css"
   </head>
 
-  <body class="page_back">
+  <body>
     <div class="container">
       <%include file="toplink.mako"/>
 
-      <div id="player-banners">
-        ${html.banner_div(banners)}
+      <div class="row">
+        <h1>
+          ${player}<br>
+          <small class="text-muted">Overall rank: ${overall_rank} <small>of ${total_number_of_players}</small></small>
+        </h1>
       </div>
 
-      <div class="page_content content-bannered">
-        <div class="heading_left">
-          <h1>Player information for ${player}</h1>
-        </div>
-
-        <hr>
-
-        <div class="content">
-          <div class="player_clan">
-            <span class="inline_heading">Clan: </span>
-            ${html.clan_affiliation(c, player)}
-          </div>
-
-          <div class="player_status">
-            <table class="bordered">
-              <tr>
-                <th>Tourney points total</th>
-                <td class="numeric">${stats['points']}</td>
-              </tr>
-              <tr>
-                <th>Rank</th>
-                <td>${stats['rank1']} / ${stats['rank2']}</td>
-              </tr>
-
-              <tr>
-                <th>Tourney team points</th>
-                <td class="numeric">${stats['team_points']}</td>
-              </tr>
-              <tr>
-                <th>Games won / played</th>
-                <td>${stats['won']} / ${stats['played']}
-                  (${stats['win_perc']})</td>
-              </tr>
-            </table>
-          </div>
-
-          %if whereis:
-            <h3>Ongoing Games</h3>
-            <div>
-              ${whereis}
+      % for category in categories:
+      <%
+        name = category['name']
+        css_class = "category-%s" % css_slug(name)
+        rank_desc = rank_description(category['player_rank'])
+      %>
+      <div class="row">
+        <div class="jumbotron jumbotron-fluid category ${css_class} text-light p-3">
+          <h1 class="text-outline-black-1">${name}</h1>
+          <div class="row">
+            <div class="col col-sm-4">
+              <h2 class="text-outline-black-1">${rank_desc}</h2>
             </div>
-          %endif
-
-          <div class="game_table">
-            <h3>Wins</h3>
-            ${html.full_games_table(won_games, count=False)}
-          </div>
-
-          % if streak_games:
-          <div class="game_table">
-            <h3>Longest streak of wins</h3>
-            ${html.full_games_table(streak_games)}
-          </div>
-          % endif
-
-          %if best_games:
-          <div class="game_table">
-            <h3>Best Games</h3>
-            ${html.full_games_table(best_games, win=False)}
-          </div>
-          %endif
-
-          % if won_gods:
-          <div id="won-gods">
-            <h3>Winning Gods:</h3>
-            <div class="bordered inline">
-              ${", ".join(won_gods)}
+            <div class="col-sm">
+              <p>
+                <i>${category['desc']}</i>
+              </p>
+              <p class="lead">
+                ${category['rank_details']}
+              </p>
             </div>
-
-            <p class="fineprint">
-              We say that a game is won using a (non-Gozag, non-Xom) god if the player reaches
-              ****** piety with that god without worshipping any
-              other god first; this is not necessarily the same god worshipped at the end of the game. A game is won using Gozag or Xom if the player never worships another god. A game is won using 'No God' only if the player
-              never worships a god.
-            </p>
-
-            <h3>Remaining Gods:</h3>
-            <div class="bordered inline">
-              ${", ".join(query.find_remaining_gods(won_gods)) or 'None'}
-            </div>
-          </div>
-          % endif
-
-          <div class="game_table">
-            <h3>Recent Games</h3>
-            ${html.full_games_table(recent_games, count=False, win=False)}
-          </div>
-
-          <hr>
-
-          % if uniq_slain:
-          <div>
-            <table class="bordered">
-              <colgroup>
-                 <col width="10%">
-                 <col width="85%">
-              </colgroup>
-              <tr>
-                <th>Uniques Slain</th>
-                <td>${", ".join(uniq_slain)}</td>
-              </tr>
-              % if len(uniq_slain) > len(uniq_unslain):
-                <tr>
-                  <th>Uniques Left</th>
-                  % if uniq_unslain:
-                  <td>${", ".join(uniq_unslain)}</td>
-                  % else:
-                  <td>None</td>
-                  % endif
-                </tr>
-              % endif
-            </table>
-          </div>
-          <hr>
-          % endif
-
-          </div>
-
-          % if combo_highscores or species_highscores or class_highscores:
-            <div>
-              ${html.player_scores_block(c, combo_highscores,
-                                         'Combo Highscores')}
-              ${html.player_scores_block(c, species_highscores,
-                                         'Species Highscores')}
-              ${html.player_scores_block(c, class_highscores,
-                                         'Background Highscores')}
-            </div>
-            <hr>
-          % endif
-
-          <div class="audit_table">
-            <h3>Score Breakdown</h3>
-            <table class="grouping">
-              <tr>
-                <td>
-                  <h4>Player points</h4>
-                  <table class="bordered">
-                    <tr>
-                      <th>N</th> <th>Points</th> <th>Source</th>
-                    </tr>
-                    ${point_breakdown(audit)}
-                  </table>
-                </td>
-                %if len(audit_category)+1 < len(audit):
-                <td>
-                  <h4>Category Breakdown</h4>
-                  <table class="bordered">
-                    <tr>
-                      <th>N</th> <th>Points</th> <th>Source</th>
-                    </tr>
-                    ${point_breakdown(audit_category)}
-                  </table>
-
-                %if len(audit_stepdown) > 0:
-                  <h4>Combo/God Points Breakdown</h4>
-                  <table class="bordered">
-                    <tr>
-                      <th>N</th> <th>Points</th> <th>Source</th>
-                    </tr>
-                    ${point_breakdown(audit_stepdown, True)}
-                  </table>
-                %endif
-
-                </td>
-                %endif
-
-                <td>
-                  <h4>Team points</h4>
-                  <table class="bordered">
-                    <tr>
-                      <th>N</th> <th>Points</th> <th>Source</th>
-                    </tr>
-                    ${point_breakdown(audit_team)}
-                  </table>
-                </td>
-
-                <td class="legend">
-                  <h4>Legend</h4>
-                  <table class="bordered">
-                    <tr class="point_perm">
-                      <td>Permanent points</td>
-                    </tr>
-                    <tr class="point_temp">
-                      <td>Provisional points</td>
-                    </tr>
-                  </table>
-                </td>
-              </tr>
-            </table>
           </div>
         </div>
-      </div> <!-- content -->
-    </div> <!-- page -->
+      </div>
+      % endfor
+
+    </div> <!-- container -->
 
     ${html.update_time()}
 

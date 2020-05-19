@@ -1,3 +1,30 @@
 body {
-  font-size: 0.8rem; /* Usually 12.8pt on desktop */
+  /* font-size: 0.8rem; /* Usually 12.8pt on desktop */
+  font-family: monospace;
+  background-color: #ddd;
+}
+
+.category {
+  background-repeat: no-repeat;
+  background-position: left;
+  background-color: black;
+}
+
+/* Don't show any background on small displays (mobiles) */
+@media only screen and (min-width: 768px) {
+  .category-the-shining-one {
+    background-image:
+      linear-gradient(to right, rgba(0, 0, 0, 0.2) 31%, rgba(0, 0, 0, 1) 33%),
+      url("/images/title_froggy_goodgod_tengu_gold.png");
+  }
+
+  .category-jiyva {
+    background-image:
+      linear-gradient(to right, rgba(0, 0, 0, 0.2) 31%, rgba(0, 0, 0, 1) 33%),
+      url("/images/title_froggy_jiyva_felid.png");
+  }
+}
+
+.text-outline-black-1 {
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
