@@ -1256,6 +1256,24 @@ def load_args():
 
   return parser.parse_args()
 
+def validate_db(cursor):
+  """Check the database structure exists and create it if not."""
+  try:
+    query_do(cursor, 'SELECT * from players LIMIT 1')
+  except MySQLdb._exceptions.ProgrammingError as e:
+    if e.args[0] == 1146:
+      info("Database structure doesn't exist. Creating now.")
+      with open('database.sql') as f:
+        lines = [(line.rstrip() + ' ') for line in f.readlines() if (line.strip() and not line.lstrip().startswith('--'))]
+      lines = ''.join(lines)
+      lines = lines.split(';')
+      for line in lines:
+        if not line.strip():
+          continue
+        # info("Running %r" % line)
+        cursor.execute(line)
+      info("Created database structure")
+
 if __name__ == '__main__':
   logging.basicConfig(level=logging.INFO)
 
@@ -1285,6 +1303,7 @@ if __name__ == '__main__':
   cursor = db.cursor()
   support_mysql57(cursor)
   set_active_cursor(cursor)
+  validate_db(cursor)
   try:
     master = create_master_reader()
     master.tail_all(cursor)
