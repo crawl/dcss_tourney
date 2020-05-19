@@ -23,6 +23,7 @@ services:
       - ./loaddb.py
       - --db-host=mysql
       - --db-pass=crawl
+      - --db-retry-connect
 
 networks:
   tourney:
