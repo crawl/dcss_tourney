@@ -1,9 +1,13 @@
+#!/usr/bin/env python2
+
 import MySQLdb
 import re
 import os
 import datetime
 import os.path
 import crawl_utils
+import time
+import argparse
 
 import logging
 from logging import debug, info, warn, error
@@ -361,10 +365,27 @@ class MasterXlogReader:
     if proc > 0:
       info("Done processing %d lines." % proc)
 
-def connect_db():
-  connection = MySQLdb.connect(host='localhost',
-                               user='crawl',
-                               db=TOURNAMENT_DB)
+def connect_db(host, password, retry):
+  # type: (Optional[str], Optional[str], bool) -> MySQLdb.Connection
+  connection = None
+  conn_args = {
+    "host": "localhost",
+    "user": "crawl",
+    "db": TOURNAMENT_DB,
+  }
+  if host is not None:
+    conn_args["host"] = host
+  if password is not None:
+    conn_args["password"] = password
+  while connection is None:
+    try:
+      connection = MySQLdb.connect(**conn_args)
+    except MySQLdb._exceptions.OperationalError as e:
+      if retry:
+        info("Couldn't connect to MySQL (%s). Retrying in 5 seconds..." % e)
+        time.sleep(5)
+      else:
+        raise
   return connection
 
 def parse_logline(logline):
@@ -1224,6 +1245,17 @@ def create_master_reader():
                 [ Logfile(x, blacklist) for x in LOGS ])
   return MasterXlogReader(processors)
 
+def load_args():
+  parser = argparse.ArgumentParser(
+    formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+  parser.add_argument("--db-retry-connect", action='store_true',
+    help="Retry connecting to the database forever.")
+  parser.add_argument("--db-host", default="localhost",
+    help="Database hostname")
+  parser.add_argument("--db-pass", help="Database password")
+
+  return parser.parse_args()
+
 if __name__ == '__main__':
   logging.basicConfig(level=logging.INFO)
 
@@ -1232,9 +1264,11 @@ if __name__ == '__main__':
   print("Populating db (one-off) with logfiles and milestones. "
         "Running the taildb.py daemon is preferred.")
 
+  args = load_args()
+
   load_extensions()
 
-  db = connect_db()
+  db = connect_db(host=args.db_host, password=args.db_pass, retry=args.db_retry_connect)
   init_listeners(db)
 
   def proc_file(fn, filename):
