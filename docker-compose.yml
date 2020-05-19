@@ -24,9 +24,20 @@ services:
       - --db-host=mysql
       - --db-pass=crawl
       - --db-retry-connect
+    environment:
+      LOCAL_TEST: "false"
+      BASEDIR: /root
+      WEB_BASE: "http://localhost:8080"
     volumes:
       - logfiles:/usr/src/app/logfiles
       - milestones:/usr/src/app/milestones
+      - website:/usr/src/app/html.tourney0.24
+  web:
+    image: nginx
+    ports:
+      - 8080:80
+    volumes:
+      - website:/usr/share/nginx/html:ro
 
 networks:
   tourney:
@@ -35,3 +46,4 @@ volumes:
   mysql:
   logfiles:
   milestones:
+  website:
