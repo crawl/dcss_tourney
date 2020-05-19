@@ -1,0 +1,31 @@
+version: "3.8"
+
+services:
+  mysql:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: crawl
+      MYSQL_PASSWORD: crawl
+      MYSQL_DATABASE: tournament
+    volumes:
+      - mysql:/var/lib/mysql
+    networks:
+      - tourney
+  loaddb:
+    build:
+      context: .
+      dockerfile: Dockerfile.loaddb
+    networks:
+      - tourney
+    command:
+      - python
+      - ./loaddb.py
+      - --db-host=mysql
+      - --db-pass=crawl
+
+networks:
+  tourney:
+
+volumes:
+  mysql:
