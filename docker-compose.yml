@@ -24,9 +24,14 @@ services:
       - --db-host=mysql
       - --db-pass=crawl
       - --db-retry-connect
+    volumes:
+      - logfiles:/usr/src/app/logfiles
+      - milestones:/usr/src/app/milestones
 
 networks:
   tourney:
 
 volumes:
   mysql:
+  logfiles:
+  milestones:
