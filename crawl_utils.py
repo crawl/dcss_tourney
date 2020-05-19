@@ -15,14 +15,14 @@ UPDATE_INTERVAL = 7 * 60
 #
 # If False, don't assume $HOME for BASEDIR and use WEB_BASE to make page link
 # urls.
-LOCAL_TEST = True
+LOCAL_TEST = True if "LOCAL_TEST" not in os.environ else bool(os.environ["LOCAL_TEST"] == "true")
 
 # Base URL of tournament pages, omitting any trailing slash.
-WEB_BASE = 'https://crawl.develz.org/tournament/0.24'
+WEB_BASE = os.environ.get("WEB_BASE") or 'https://crawl.develz.org/tournament/0.24'
 
 LOCK = None
 # Where data needed for tournament calculations are stored.
-BASEDIR = LOCAL_TEST and os.environ['HOME'] or '/home/tourney/dcss_tourney'
+BASEDIR = os.environ.get("BASEDIR") or LOCAL_TEST and os.environ['HOME'] or '/home/tourney/dcss_tourney'
 LOCKFILE = BASEDIR + '/tourney-py.lock'
 
 # Where to generate the tournament pages. Can be a directory relative to
