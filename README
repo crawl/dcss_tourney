@@ -40,7 +40,7 @@ If USE_TEST is set to True in test_data.py, then the version, dates, etc in
 that file will be used when running the scripts. Also, the rules page will
 not have toplinks on it (useful when announcing the tournament if you are
 still testing things).
-   
+
 Nemelex' Choice
 ---------------
 
@@ -63,3 +63,15 @@ Other things
 
 * The file tourney-guide.txt contains a checklist of all the steps involved in
   organizing and running a tournament each new version.
+
+Running in Docker
+-----------------
+
+You can use the included docker-compose.yml file to run loaddb.py locally. Here
+are basic usage steps:
+
+* Edit the code and run 'docker-compose build && docker-compose up' to test it.
+  Press ctrl-c to stop.
+
+* The MySQL database is persisted to a Docker colume. Run
+  `docker-compose down -v` to delete it.
