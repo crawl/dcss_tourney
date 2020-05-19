@@ -203,8 +203,3 @@ def morgue_link(xdict):
 def linked_text(key, link_fn, text=None):
   link = link_fn(key)
   return '<a href="%s">%s</a>' % (link, (text or key).replace('_', ' '))
-
-def handle_unicode(value):
-   if isinstance(value, basestring):
-      return unicode(value.decode('ascii', errors='ignore'))
-   return unicode(value)
