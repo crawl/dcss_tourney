@@ -378,6 +378,17 @@ CREATE TABLE player_max_piety (
 );
 CREATE INDEX player_max_piety_pg ON player_max_piety (player, god);
 
+-- Track current streak lengths so they can be easily accessed for ranking
+-- purposes; full streak info is not cached.
+CREATE TABLE streaks (
+  player VARCHAR(20),
+  src CHAR(3),
+  start_time DATETIME NOT NULL,
+  length INT,
+  PRIMARY KEY (player, src, start_time),
+  FOREIGN KEY (player) REFERENCES players (name) ON DELETE CASCADE
+);
+
 -- Audit table for point assignment. Tracks both permanent and
 -- temporary points.
 

@@ -565,20 +565,6 @@ def check_temp_trophies(c, pmap):
                     'deaths_to_uniques_Nth:%d', [50, 20, 10],
                     can_share_places=False,
                     team_points=True)
-  # streak handling
-  all_streaks = query.list_all_streaks(c)
-  # give out streak points and handle Chei III here so we don't have to
-  # recompute all streaks yet again
-  for streak in all_streaks:
-    if streak[1] > 1:
-      assign_points(c, "streak", streak[0], streak[1]*100, False)
-    if streak[1] < 4:
-      continue
-    l = len(streak[3])
-    for i in range(l-3):
-      if query.compute_streak_length(streak[3][i:i+4]) == 4:
-        banner.award_banner(c, streak[0], 'cheibriados', 3)
-        break
 
 def check_banners(c):
   award_player_banners(c, 'zin',
@@ -642,6 +628,22 @@ def check_misc_points(c, pmap):
   award_misc_points('high_score:species:%d', 20, query.all_hs_species(c))
   award_misc_points('high_score:background:%d', 10, query.all_hs_classes(c))
 
+def update_streaks(c):
+  # streak handling
+  all_streaks = query.list_all_streaks(c)
+  # give out streak points and handle Chei III here so we don't have to
+  # recompute all streaks yet again
+  for streak in all_streaks:
+    if streak[1] > 1:
+      query.update_streak(c,streak)
+    if streak[1] < 4:
+      continue
+    l = len(streak[3])
+    for i in range(l-3):
+      if query.compute_streak_length(streak[3][i:i+4]) == 4:
+        banner.award_banner(c, streak[0], 'cheibriados', 3)
+        break
+
 def apply_stepdowns(c):
   for p in query.get_players(c):
     points = query.player_stepdown_points(c, p)
@@ -675,6 +677,7 @@ def safe_update_player_scores(c):
   check_misc_points(c, pmap)
   check_temp_trophies(c, pmap)
   check_banners(c)
+  update_streaks(c)
   apply_stepdowns(c)
   apply_point_map(c, pmap)
   compute_player_only(c)

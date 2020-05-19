@@ -294,21 +294,21 @@ def get_dieselest_games(c):
                            WHERE f.id = g.id''' % fields)
   return [ row_to_xdict(r) for r in games ]
 
-def get_top_active_streaks(c, how_many = 20):
+def get_top_active_streaks(c, limit = None):
   streaks = list_all_streaks(c, None, True)
-  if len(streaks) > how_many:
-    streaks = streaks[:how_many]
+  if limit and len(streaks) > limit:
+    streaks = streaks[:hlimit]
   return streaks
 
-def get_top_streaks(c, how_many = 3):
+def get_top_streaks(c, limit = None):
   streaks = list_all_streaks(c)
   filtered_streaks = []
   for streak in streaks:
     if streak[0] in [s[0] for s in filtered_streaks]:
       continue
     filtered_streaks.append(streak)
-  if len(filtered_streaks) > how_many:
-    filtered_streaks = filtered_streaks[:how_many]
+  if limit and len(filtered_streaks) > limit:
+    filtered_streaks = filtered_streaks[:limit]
   return filtered_streaks
 
 def get_top_clan_scores(c, how_many=10):
@@ -2172,6 +2172,22 @@ def get_nemelex_wins(c, how_many=None, player=None):
 def nemelex_order(c, limit=None):
   query = Query('''SELECT player, COUNT(DISTINCT charabbrev) AS sc
                    FROM player_nemelex_wins GROUP BY player ORDER BY sc DESC''')
+  if limit:
+    query.append(' LIMIT %d' % limit)
+  return query.rows(c)
+
+def update_streak(c, streak):
+  query_do(c, '''INSERT INTO streaks
+                      VALUES (%s, %s, %s, %s)
+                 ON DUPLICATE KEY UPDATE length = %s ''',
+           streak[0], streak[3][0]['source_file'][:3], streak[3][0]['start_time'],
+           streak[1], streak[1])
+
+def streak_order(c, limit=None):
+  query = Query('''SELECT s.player, s.src, s.start_time, s.length
+                   FROM streaks AS s LEFT OUTER JOIN streaks AS s2
+                   ON s.player = s2.player AND s.length < s2.length
+                   WHERE s2.length IS NULL ORDER BY s.length DESC''')
   if limit:
     query.append(' LIMIT %d' % limit)
   return query.rows(c)
