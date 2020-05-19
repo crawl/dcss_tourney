@@ -2156,3 +2156,22 @@ def combo_score_order(c, limit = None):
   if limit:
     query.append(' LIMIT %d' % limit)
   return query.rows(c)
+
+def get_nemelex_wins(c, how_many=None, player=None):
+  query = Query("SELECT " + ",".join(LOG_FIELDS) +
+                (""" FROM player_nemelex_wins
+                       %s
+                     ORDER BY end_time""" %
+                 (player and 'WHERE player = %s' or '')))
+  if player is not None:
+    query.vappend(player)
+  if how_many:
+    query.append(" LIMIT %d" % how_many)
+  return [ row_to_xdict(x) for x in query.rows(c) ]
+
+def nemelex_order(c, limit=None):
+  query = Query('''SELECT player, COUNT(DISTINCT charabbrev) AS sc
+                   FROM player_nemelex_wins GROUP BY player ORDER BY sc DESC''')
+  if limit:
+    query.append(' LIMIT %d' % limit)
+  return query.rows(c)

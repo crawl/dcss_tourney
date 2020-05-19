@@ -54,6 +54,7 @@ def individual_category_pages(c):
   render(c, 'exploration-order')
   render(c, 'harvest-order')
   render(c, 'zig-dive-order')
+  render(c, 'nemelex-order')
 
 def player_pages(c):
   info("Updating all player pages")

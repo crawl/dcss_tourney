@@ -35,8 +35,8 @@ import nemelex
 #    the obvious things"
 
 class OutlineListener (loaddb.CrawlEventListener):
-  def logfile_event(self, cursor, logdict):
-    act_on_logfile_line(cursor, logdict)
+  def logfile_event(self, cursor, logdict, filename=None):
+    act_on_logfile_line(cursor, logdict, filename)
 
   def milestone_event(self, cursor, milestone):
     act_on_milestone(cursor, milestone)
@@ -264,14 +264,14 @@ def do_milestone_mollify(c, mile):
   #if god != mile['noun']:
   #  banner.award_banner(c, mile['name'], 'lugonu', 1)
 
-def act_on_logfile_line(c, this_game):
+def act_on_logfile_line(c, this_game, filename):
   """Actually assign things and write to the db based on a logfile line
   coming through. All lines get written to the db; some will assign
   irrevocable points and those should be assigned immediately. Revocable
   points (high scores, lowest dungeon level, fastest wins) should be
   calculated elsewhere."""
   if game_is_win(this_game):
-    crunch_winner(c, this_game) # lots of math to do for winners
+    crunch_winner(c, this_game, filename) # lots of math to do for winners
 
   crunch_misc(c, this_game)
 
@@ -349,7 +349,7 @@ def game_start_time(g):
 def game_character(g):
   return g['char']
 
-def crunch_winner(c, game):
+def crunch_winner(c, game, filename):
   """A game that wins could assign a variety of irrevocable points for a
   variety of different things. This function needs to calculate them all."""
 
@@ -415,10 +415,10 @@ def crunch_winner(c, game):
 
   if nemelex.is_nemelex_choice(charabbrev, game_end):
     ban = 'nemelex:' + charabbrev
-    if banner.count_recipients(c, ban, 3) < 8:
-      if not banner.player_has_banner(c, player, ban, 3):
-        query.assign_stepdown_points(c, ban, player, 75)
-        banner.award_banner(c, player, ban, 3)
+    if not banner.player_has_banner(c, player, ban, 3):
+      if banner.count_recipients(c, ban, 3) < 8:
+        nemelex.award_nemelex_win(c, game, filename)
+      banner.award_banner(c, player, ban, 3)
 
   if query.is_unbeliever(c, game):
     banner.award_banner(c, player, 'trog', 3)

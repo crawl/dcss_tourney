@@ -33,6 +33,7 @@ DROP VIEW IF EXISTS combo_highscores;
 DROP TABLE IF EXISTS combo_highscores;
 DROP TABLE IF EXISTS class_highscores;
 DROP TABLE IF EXISTS species_highscores;
+DROP TABLE IF EXISTS player_nemelex_wins;
 DROP TABLE IF EXISTS games;
 DROP TABLE IF EXISTS teams;
 DROP TABLE IF EXISTS players;
@@ -196,6 +197,11 @@ SELECT * FROM games;
 ALTER TABLE class_highscores DROP COLUMN id;
 CREATE INDEX clh_player ON class_highscores (player, killertype, score);
 CREATE INDEX clh_killer ON class_highscores (killertype);
+
+CREATE TABLE player_nemelex_wins AS
+SELECT * FROM games;
+ALTER TABLE player_nemelex_wins DROP COLUMN id;
+CREATE INDEX nem_player ON player_nemelex_wins (player, charabbrev);
 
 CREATE TABLE milestones (
   id BIGINT AUTO_INCREMENT PRIMARY KEY,

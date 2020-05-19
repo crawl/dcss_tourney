@@ -11,7 +11,10 @@ import time
 import query
 import combos
 from banner import count_recipients
-from loaddb import START_TIME
+from loaddb import START_TIME, LOG_DB_MAPPINGS, make_xlog_db_query
+
+import logging
+from logging import debug, info, warn, error
 
 NOMINEE_FILE = 'nemelex-combos.txt'
 DATE_FORMAT = '%Y-%m-%d %H:%M:%S'
@@ -141,3 +144,13 @@ def need_new_combo(c):
     return (nowtime >= START_TIME)
   ban = 'nemelex:' + current_nemelex_choice()[0]
   return (count_recipients(c, ban, 3) > 0)
+
+def award_nemelex_win(c, xdict, filename):
+    iq = make_xlog_db_query(LOG_DB_MAPPINGS, xdict, filename, None,
+                            'player_nemelex_wins')
+    try:
+      iq.execute(c)
+    except Exception, e:
+      error("Error inserting %s into %s (query: %s [%s]): %s"
+            % (xdict, 'player_nemelex_wins', iq.query, iq.values, e))
+      raise

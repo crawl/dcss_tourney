@@ -125,7 +125,7 @@ class CrawlEventListener(object):
   def cleanup(self, db):
     """Called after we're done processing, do cleanup here."""
     pass
-  def logfile_event(self, cursor, logdict):
+  def logfile_event(self, cursor, logdict, filename=None):
     """Called for each logfile record. cursor will be in a transaction."""
     pass
   def milestone_event(self, cursor, mdict):
@@ -1047,7 +1047,7 @@ def process_log(cursor, filename, offset, d):
 
     # Tell the listeners to do their thang
     for listener in LISTENERS:
-      listener.logfile_event(cursor, d)
+      listener.logfile_event(cursor, d, filename)
 
     cursor.execute('COMMIT;')
   except:
