@@ -68,6 +68,12 @@ DROP VIEW IF EXISTS nearby_uniques;
 DROP VIEW IF EXISTS most_pacific_wins;
 DROP VIEW IF EXISTS last_started_win;
 
+DROP VIEW IF EXISTS wins;
+DROP VIEW IF EXISTS first_wins;
+DROP VIEW IF EXISTS allrune_wins;
+DROP VIEW IF EXISTS first_allrune_wins;
+DROP VIEW IF EXISTS player_win_perc;
+
 CREATE TABLE IF NOT EXISTS players (
   name VARCHAR(20) PRIMARY KEY,
   team_captain VARCHAR(20),
@@ -658,3 +664,29 @@ SELECT h.player, COUNT(*) AS hellpan_kills
         p.monster = 'Lom Lobon' OR p.monster = 'Mnoleg')
 GROUP BY h.player
   HAVING hellpan_kills >= 1;
+
+CREATE VIEW wins AS
+SELECT * FROM games WHERE killertype = 'winning';
+
+CREATE VIEW first_wins AS
+SELECT g.* FROM wins AS g
+  LEFT OUTER JOIN games AS g2
+  ON g.player = g2.player AND g.killertype = g2.killertype
+    AND g.end_time > g2.end_time
+  WHERE g2.end_time IS NULL;
+
+CREATE VIEW allrune_wins AS
+SELECT * FROM games WHERE killertype = 'winning' AND runes = 15;
+
+CREATE VIEW first_allrune_wins AS
+SELECT g.* FROM
+  allrune_wins AS g
+  LEFT OUTER JOIN games AS g2
+  ON g.player = g2.player AND g.killertype = g2.killertype 
+    AND g.runes = g2.runes AND g.end_time > g2.end_time
+  WHERE g2.end_time IS NULL;
+
+CREATE VIEW player_win_perc AS
+SELECT player,
+  CAST( (SUM(killertype='winning') / (COUNT(*) + 1.0)) * 100.0 AS DECIMAL(5,2))
+  AS win_perc FROM games GROUP BY player;

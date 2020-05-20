@@ -1985,13 +1985,8 @@ def check_ru_abandonment_game(c, name, start):
 
 def first_win_order_query(limit = None):
   fields = logfile_fields('g.')
-  query = Query('''SELECT %s FROM (''' % fields
-                   + win_query(logfile_fields()).query
-                   + ''') AS g
-                   LEFT OUTER JOIN games g2
-                   ON g.player = g2.player AND g.killertype = g2.killertype
-                   AND g.end_time > g2.end_time
-                   WHERE g2.end_time IS NULL ORDER BY g.end_time''')
+  query = Query("SELECT " + logfile_fields()
+                + " FROM first_wins ORDER BY end_time")
   if limit:
     query.append(' LIMIT %d' % limit)
 
@@ -2002,14 +1997,8 @@ def first_win_order(c, limit = None):
   return [ row_to_xdict(x) for x in query.rows(c) ]
 
 def first_allrune_win_order_query(limit = None):
-  fields = logfile_fields('g.')
-  query =  Query('''SELECT %s FROM (''' % fields
-                  + win_query(logfile_fields(), runes = MAX_RUNES).query
-                  + ''') AS g
-                  LEFT OUTER JOIN games g2
-                  ON g.player = g2.player AND g.killertype = g2.killertype
-                  AND g.runes = g2.runes AND g.end_time > g2.end_time
-                  WHERE g2.end_time IS NULL ORDER BY g.end_time''', MAX_RUNES)
+  query =  Query('SELECT ' + logfile_fields()
+                 + ' FROM first_allrune_wins ORDER BY end_time')
   if limit:
     query.append(' LIMIT %d' % limit)
 
@@ -2020,11 +2009,8 @@ def first_allrune_win_order(c, limit = None):
   return [ row_to_xdict(x) for x in query.rows(c) ]
 
 def win_perc_order(c, limit = None):
-  query = Query('''SELECT player,
-                   CAST( (SUM(killertype='winning') / (COUNT(*) + 1.0)) * 100.0
-                         AS DECIMAL(5,2) )
-                            AS win_perc FROM games
-                            GROUP BY player ORDER BY win_perc DESC''')
+  query = Query('''SELECT player, win_perc FROM player_win_perc
+                   ORDER BY win_perc DESC''')
   if limit:
     query.append(' LIMIT %d' % limit)
   return query.rows(c)
