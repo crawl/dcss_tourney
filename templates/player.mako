@@ -4,6 +4,9 @@
 <%!
   from crawl_utils import MAX_CATEGORY_SCORE
 
+  # Set active top level menu item
+  active_menu_item = 'Players'
+
   def rank_ordinal(num):
     if num == 0:
       return u'∞'
