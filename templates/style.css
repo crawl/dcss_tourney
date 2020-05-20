@@ -12,16 +12,22 @@ body {
 
 /* Don't show any background on small displays (mobiles) */
 @media only screen and (min-width: 768px) {
-  .category-the-shining-one {
+  .cat-indiv-the-shining-one {
     background-image:
       linear-gradient(to right, rgba(0, 0, 0, 0.2) 31%, rgba(0, 0, 0, 1) 33%),
       url("/images/title_froggy_goodgod_tengu_gold.png");
   }
 
-  .category-jiyva {
+  .cat-indiv-jiyva {
     background-image:
       linear-gradient(to right, rgba(0, 0, 0, 0.2) 31%, rgba(0, 0, 0, 1) 33%),
       url("/images/title_froggy_jiyva_felid.png");
+  }
+
+  .cat-clan-wins {
+    background-image:
+      linear-gradient(to right, rgba(0, 0, 0, 0.2) 31%, rgba(0, 0, 0, 1) 33%),
+      url("/images/title_froggy_goodgod_tengu_gold.png");
   }
 }
 

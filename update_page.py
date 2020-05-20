@@ -105,32 +105,41 @@ def player_page(c, player):
           # START FAKE DATA
           'total_number_of_players': 1325,
           'overall_rank': 70,
-          'categories': [
+          'clan_name': 'Sif\'s Supergroup',
+          'individual_categories': [
             {
               'name': 'The Shining One',
               'desc': 'The Shining One values perserverence and courage in the face of adversity. In this category, TSO will award players 10,000 points if they win two distinct character combos, 5,000 points for winning their first combo, and 0 otherwise.',
-              'player_rank': 0,
+              'rank': 0,
               'rank_details': 'Won combos: <a href="http://example.com/morgue.txt">MiFi</a>'
             },
             {
               'name': 'Cheibriados',
               'desc': 'Cheibriados believes in being slow and steady, and will recognize players who are careful enough to excel consistently. This category ranks players by their adjusted win percentage, calculated as the number of wins divided by the number of games played plus 1.',
-              'player_rank': 1,
+              'rank': 1,
               'rank_details': 'Adjusted win percentage: 32.14% (9 wins in 27 games)'
             },
             {
               'name': 'Jiyva',
               'desc': u'Jiyva is ranking players by their streak length. Jiyva favours the flexibility of a gelatinous body—the length of a streak is defined as the number of distinct species or backgrounds won consecutively (whichever is smaller). Every game in a streak must be the first game you start after winning the previous game in the streak. This will always be the case if you play all your games on one server.',
-              'player_rank': 2,
+              'rank': 2,
               'rank_details': 'No wins yet.',
             },
             {
               'name': 'Nemelex Xobeh',
               'desc': u'''Nemelex Xobeh wants to see players struggle against randomness and will rank players who perservere with one of several combos randomly chosen and announced throughout the tournament. The first 8 players to win a given Nemelex' choice combo earn a point in this category and Nemelex will rank players by their score in this category.''',
-              'player_rank': 10000,
+              'rank': 10000,
               'rank_details': 'Won combos: <a href="http://example.com/morgue.txt">MiFi</a>, <a href="http://example.com/morgue.txt">FeWz</a>, <a href="http://example.com/morgue.txt">BaFE</a>, <a href="http://example.com/morgue.txt">NaEE</a>, <a href="http://example.com/morgue.txt">GnSu</a>, <a href="http://example.com/morgue.txt">DrWn</a>, <a href="http://example.com/morgue.txt">HaCj</a>, <a href="http://example.com/morgue.txt">KoAs</a>'
             }
           ],
+          'clan_categories': [
+            {
+              'name': 'Wins',
+              'desc': 'Clans are ranked by the number of distinct combo wins Wins in this category are capped at twelve, with at most <code>12 / (clan size)</code> (rounded up) wins per member counted.',
+              'rank': 1,
+              'rank_details': '<ul><li>Wins: 4</li><li>Members: 5</li><li>Max wins per member: 3</li><li>Wins per member: chequers: 3 (MiFi, BaFE, FeMo), gammafunk: 0, ebering: 1 (TrEE)</li></ul>',
+            }
+          ]
          },
          # END FAKE DATA
          top_level_pars=True)

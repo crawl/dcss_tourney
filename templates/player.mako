@@ -62,32 +62,39 @@
   </div>
 
   <div class="row">
-    <h2>Categories</h2>
+    <ul class="nav nav-tabs" role="tablist">
+      <li class="nav-item" role="presentation">
+        <a class="nav-link active" id="individual-categories-tab" data-toggle="tab" href="#individual-categories" role="tab" aria-controls="individual-categories" aria-selected="true">Individual Categories</a>
+      </li>
+      % if clan_name is not None:
+      <li class="nav-item" role="presentation">
+        <a class="nav-link" id="clan-categories-tab" data-toggle="tab" href="#clan-categories" role="tab" aria-controls="clan-categories" aria-selected="false">Clan Categories</a>
+      </li>
+      % endif
+      <li class="nav-item" role="presentation">
+        <a class="nav-link" id="banners-tab" data-toggle="tab" href="#banners" role="tab" aria-controls="banners" aria-selected="false">Banners</a>
+      </li>
+    </ul>
   </div>
-  % for category in categories:
-  <%
-    import html
-    name = category['name']
-    css_class = "category-%s" % html.slugify(name)
-    rank_desc = rank_description(category['player_rank'])
-  %>
-  <div class="row">
-    <div class="jumbotron jumbotron-fluid category ${css_class} text-light p-3">
-      <h2 class="text-outline-black-1">${name}</h2>
-      <div class="row">
-        <div class="col col-sm-4">
-          <h3 class="text-outline-black-1">${rank_desc}</h3>
+  <div class="row justify-content-center">
+    <div class="tab-content">
+      <div class="tab-pane show active" id="individual-categories" role="tabpanel" aria-labelledby="individual-categories-tab">
+        <div class="col-11">
+          <%include file="player-individual-categories.mako" args="rank_description=rank_description"/>
         </div>
-        <div class="col-sm">
-          <p class="d-none d-sm-block">
-            <i>${category['desc']}</i>
-          </p>
-          <p class="lead">
-            ${category['rank_details']}
-          </p>
+      </div>
+      % if clan_name is not None:
+      <div class="tab-pane" id="clan-categories" role="tabpanel" aria-labelledby="clan-categories-tab">
+        <div class="col-11">
+          <%include file="player-clan-categories.mako" args="rank_description=rank_description"/>
+        </div>
+      </div>
+      % endif
+      <div class="tab-pane" id="banners" role="tabpanel" aria-labelledby="banners-tab">
+        <div class="col-11">
+          <%include file="player-banners.mako"/>
         </div>
       </div>
     </div>
   </div>
-  % endfor
 </%block>
