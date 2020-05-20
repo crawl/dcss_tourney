@@ -170,7 +170,7 @@
               <h3 class="text-outline-black-1">${rank_desc}</h3>
             </div>
             <div class="col-sm">
-              <p>
+              <p class="d-none d-sm-block">
                 <i>${category['desc']}</i>
               </p>
               <p class="lead">
