@@ -133,9 +133,7 @@
    class_highscores = html.player_class_scores(c, player)
    asterisk = """<p class='fineprint'>* Winning Game</p>"""
  %>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
-          "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<html lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
@@ -155,6 +153,9 @@
         </h1>
       </div>
 
+      <div class="row">
+        <h2>Categories</h2>
+      </div>
       % for category in categories:
       <%
         name = category['name']
@@ -163,10 +164,10 @@
       %>
       <div class="row">
         <div class="jumbotron jumbotron-fluid category ${css_class} text-light p-3">
-          <h1 class="text-outline-black-1">${name}</h1>
+          <h2 class="text-outline-black-1">${name}</h2>
           <div class="row">
             <div class="col col-sm-4">
-              <h2 class="text-outline-black-1">${rank_desc}</h2>
+              <h3 class="text-outline-black-1">${rank_desc}</h3>
             </div>
             <div class="col-sm">
               <p>
