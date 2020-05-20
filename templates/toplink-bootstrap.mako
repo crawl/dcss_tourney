@@ -1,7 +1,9 @@
-<% from crawl_utils import XXX_TOURNEY_BASE %>
-<% import loaddb %>
+<%
+  from crawl_utils import XXX_TOURNEY_BASE
+  import loaddb
+%>
 <nav class="navbar navbar-dark navbar-expand-lg" style="background-color: black;">
-  <a class="navbar-brand" href="${XXX_TOURNEY_BASE}">Dungeon Crawl Stone Soup ${loaddb.T_VERSION} Tournament</a>
+  <a class="navbar-brand overflow-hidden" href="${XXX_TOURNEY_BASE}">Dungeon Crawl Stone Soup ${loaddb.T_VERSION} Tournament</a>
 </nav>
 <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: black;">
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -10,7 +12,7 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" href="${XXX_TOURNEY_BASE}/overview.html">Overview</a>
       </li>
       <li class="nav-item">
