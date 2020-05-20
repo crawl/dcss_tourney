@@ -40,14 +40,17 @@
 ## Runs on render. Variables set in here are not accessible to <%blocks>. To
 ## make data available, write it to a key in the empty dict 'attributes', which
 ## was passed in at template render time.
-<%
-%>
+## <%
+## %>
 
+## The rest of the template is blocks or body (an implicit block called body).
+## Access any top level variables passed in as render args, including the dict
+## 'attributes' mentioned in the <% %> section comments above.
 <%block name="title">
   ${player}
 </%block>
 
-<%block name="body">
+<%block name="main">
   <div class="row">
     <h1>
       ${player}<br>
@@ -62,7 +65,7 @@
   <%
     import html
     name = category['name']
-    css_class = "category-%s" % slugify(name)
+    css_class = "category-%s" % html.slugify(name)
     rank_desc = rank_description(category['player_rank'])
   %>
   <div class="row">

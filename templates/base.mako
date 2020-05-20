@@ -16,8 +16,7 @@
   <body>
     <%include file="toplink-bootstrap.mako"/>
     <div class="container">
-      <%block name="body"/>
-      ${self.body()}
+      <%block name="main"/>
     </div>
     <hr>
     ${html.update_time()}
