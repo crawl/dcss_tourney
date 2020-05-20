@@ -13,6 +13,7 @@ from logging import debug, info, warn, error
 
 TEMPLATE_DIR = os.path.abspath('templates')
 MAKO_LOOKUP = mako.lookup.TemplateLookup(directories = [ TEMPLATE_DIR ],
+  strict_undefined=True,
   # If we ever migrate to Py3, remove the following parameters
   # Ref: https://docs.makotemplates.org/en/latest/unicode.html
   input_encoding='utf-8', output_encoding='utf-8', default_filters=['decode.utf8'],
