@@ -103,7 +103,6 @@ def player_page(c, player):
          dest = ('%s/%s' % (crawl_utils.PLAYER_BASE, player.lower())),
          pars = { 'player' : player,
           # START FAKE DATA
-          'MAX_POINTS': 10000,
           'total_number_of_players': 1325,
           'overall_rank': 70,
           'categories': [
