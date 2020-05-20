@@ -55,43 +55,43 @@
 
 <%block name="main">
   <div class="row">
-    <h1>
-      ${player}<br>
-      <small class="text-muted">Overall rank: ${overall_rank} <small>of ${total_number_of_players}</small></small>
-    </h1>
+    <div class="col">
+      <h1>
+        ${player}<br>
+        <small class="text-muted">Overall rank: ${overall_rank} <small>of ${total_number_of_players}</small></small>
+      </h1>
+    </div>
   </div>
 
   <div class="row">
-    <ul class="nav nav-tabs" role="tablist">
-      <li class="nav-item" role="presentation">
-        <a class="nav-link active" id="individual-categories-tab" data-toggle="tab" href="#individual-categories" role="tab" aria-controls="individual-categories" aria-selected="true">Individual Categories</a>
-      </li>
-      % if clan_name is not None:
-      <li class="nav-item" role="presentation">
-        <a class="nav-link" id="clan-categories-tab" data-toggle="tab" href="#clan-categories" role="tab" aria-controls="clan-categories" aria-selected="false">Clan Categories</a>
-      </li>
-      % endif
-      <li class="nav-item" role="presentation">
-        <a class="nav-link" id="banners-tab" data-toggle="tab" href="#banners" role="tab" aria-controls="banners" aria-selected="false">Banners</a>
-      </li>
-    </ul>
+    <div class="col">
+      <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item" role="presentation">
+          <a class="nav-link active" id="individual-categories-tab" data-toggle="tab" href="#individual-categories" role="tab" aria-controls="individual-categories" aria-selected="true">Individual Categories</a>
+        </li>
+        % if clan_name is not None:
+        <li class="nav-item" role="presentation">
+          <a class="nav-link" id="clan-categories-tab" data-toggle="tab" href="#clan-categories" role="tab" aria-controls="clan-categories" aria-selected="false">Clan Categories</a>
+        </li>
+        % endif
+        <li class="nav-item" role="presentation">
+          <a class="nav-link" id="banners-tab" data-toggle="tab" href="#banners" role="tab" aria-controls="banners" aria-selected="false">Banners</a>
+        </li>
+      </ul>
+    </div>
   </div>
   <div class="row justify-content-center">
-    <div class="tab-content">
-      <div class="tab-pane show active" id="individual-categories" role="tabpanel" aria-labelledby="individual-categories-tab">
-        <div class="col-11">
+    <div class="col-11">
+      <div class="tab-content">
+        <div class="tab-pane show active" id="individual-categories" role="tabpanel" aria-labelledby="individual-categories-tab">
           <%include file="player-individual-categories.mako" args="rank_description=rank_description"/>
         </div>
-      </div>
-      % if clan_name is not None:
-      <div class="tab-pane" id="clan-categories" role="tabpanel" aria-labelledby="clan-categories-tab">
-        <div class="col-11">
+        % if clan_name is not None:
+        <div class="tab-pane" id="clan-categories" role="tabpanel" aria-labelledby="clan-categories-tab">
           <%include file="player-clan-categories.mako" args="rank_description=rank_description"/>
         </div>
-      </div>
-      % endif
-      <div class="tab-pane" id="banners" role="tabpanel" aria-labelledby="banners-tab">
-        <div class="col-11">
+        % endif
+        <div class="tab-pane" id="banners" role="tabpanel" aria-labelledby="banners-tab">
           <%include file="player-banners.mako"/>
         </div>
       </div>
