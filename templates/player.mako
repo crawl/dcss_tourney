@@ -145,9 +145,9 @@
   </head>
 
   <body>
-    <div class="container">
-      <%include file="toplink.mako"/>
+    <%include file="toplink-bootstrap.mako"/>
 
+    <div class="container">
       <div class="row">
         <h1>
           ${player}<br>
