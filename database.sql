@@ -72,6 +72,25 @@ DROP VIEW IF EXISTS wins;
 DROP VIEW IF EXISTS first_wins;
 DROP VIEW IF EXISTS allrune_wins;
 DROP VIEW IF EXISTS first_allrune_wins;
+DROP VIEW IF EXISTS highest_scores;
+DROP VIEW IF EXISTS lowest_turncount_wins;
+DROP VIEW IF EXISTS fastest_wins;
+DROP VIEW IF EXISTS nonhep_wins;
+DROP VIEW IF EXISTS low_xl_nonhep_wins;
+DROP VIEW IF EXISTS player_piety_score;
+DROP VIEW IF EXISTS player_banner_score;
+DROP VIEW IF EXISTS branch_enter_count;
+DROP VIEW IF EXISTS branch_end_count;
+DROP VIEW IF EXISTS scaled_rune_find_count;
+DROP VIEW IF EXISTS exploration_union;
+DROP VIEW IF EXISTS player_exploration_score;
+DROP VIEW IF EXISTS unique_kill_count;
+DROP VIEW IF EXISTS ghost_kill_count;
+DROP VIEW IF EXISTS harvest_union;
+DROP VIEW IF EXISTS player_harvest_score;
+DROP VIEW IF EXISTS player_nemelex_score;
+DROP VIEW IF EXISTS player_combo_score;
+DROP VIEW IF EXISTS player_best_streak;
 DROP VIEW IF EXISTS player_win_perc;
 
 CREATE TABLE IF NOT EXISTS players (
@@ -670,9 +689,8 @@ SELECT * FROM games WHERE killertype = 'winning';
 
 CREATE VIEW first_wins AS
 SELECT g.* FROM wins AS g
-  LEFT OUTER JOIN games AS g2
-  ON g.player = g2.player AND g.killertype = g2.killertype
-    AND g.end_time > g2.end_time
+  LEFT OUTER JOIN wins AS g2
+  ON g.player = g2.player AND g.end_time > g2.end_time
   WHERE g2.end_time IS NULL;
 
 CREATE VIEW allrune_wins AS
@@ -681,12 +699,118 @@ SELECT * FROM games WHERE killertype = 'winning' AND runes = 15;
 CREATE VIEW first_allrune_wins AS
 SELECT g.* FROM
   allrune_wins AS g
-  LEFT OUTER JOIN games AS g2
-  ON g.player = g2.player AND g.killertype = g2.killertype 
-    AND g.runes = g2.runes AND g.end_time > g2.end_time
+  LEFT OUTER JOIN allrune_wins AS g2
+  ON g.player = g2.player AND g.end_time > g2.end_time
   WHERE g2.end_time IS NULL;
+
+CREATE VIEW highest_scores AS
+SELECT g.* FROM games AS g
+  LEFT OUTER JOIN games AS g2 ON g.player = g2.player AND g.score < g2.score
+  WHERE g2.score IS NULL AND g.score > 0;
+
+CREATE VIEW lowest_turncount_wins AS
+SELECT g.* FROM wins AS g
+  LEFT OUTER JOIN wins AS g2
+  ON g.player = g2.player AND g.turn > g2.turn
+  WHERE g2.turn IS NULL;
+
+CREATE VIEW fastest_wins AS
+SELECT g.* FROM wins AS g
+  LEFT OUTER JOIN wins AS g2
+  ON g.player = g2.player AND g.duration > g2.duration
+  WHERE g2.duration IS NULL;
+
+CREATE VIEW nonhep_wins AS
+SELECT * FROM wins AS g
+  WHERE NOT EXISTS (SELECT m.id FROM milestones AS m
+                        WHERE m.game_id = g.id
+                        AND (verb = 'god.renounce' OR verb='god.worship')
+                        AND NOUN = 'Hepliaklqana');
+
+CREATE VIEW low_xl_nonhep_wins AS
+SELECT g.* FROM nonhep_wins AS g
+  LEFT OUTER JOIN nonhep_wins AS g2
+  ON g.player = g2.player AND g.xl > g2.xl
+  WHERE g2.xl IS NULL AND g.xl < 27;
 
 CREATE VIEW player_win_perc AS
 SELECT player,
   CAST( (SUM(killertype='winning') / (COUNT(*) + 1.0)) * 100.0 AS DECIMAL(5,2))
   AS win_perc FROM games GROUP BY player;
+
+CREATE VIEW player_piety_score AS
+SELECT mp.player, COUNT(mp.god) AS champion,
+	  COUNT(wg.god) AS won,
+	  COUNT(mp.god) + COUNT(wg.god) AS piety
+  FROM player_max_piety AS mp
+  LEFT OUTER JOIN player_won_gods AS wg
+  ON mp.player = wg.player AND mp.god = wg.god
+  GROUP BY player;
+
+CREATE VIEW player_banner_score AS
+SELECT player, SUM(IF(prestige = 3, 4, prestige)) AS bscore,
+       GROUP_CONCAT(CONCAT(banner, ' ', prestige) SEPARATOR ',') AS banners
+  FROM player_banners WHERE temp = false GROUP BY player;
+
+CREATE VIEW branch_enter_count AS
+SELECT player, COUNT(DISTINCT br) AS score FROM branch_enters GROUP BY player;
+
+CREATE VIEW branch_end_count AS
+SELECT player, COUNT(DISTINCT br) AS score FROM branch_ends GROUP BY player;
+
+CREATE VIEW scaled_rune_find_count AS
+SELECT player, 3*COUNT(DISTINCT rune) AS score FROM rune_finds GROUP BY player;
+
+CREATE VIEW exploration_union AS
+SELECT player, score AS score
+  FROM branch_enter_count 
+  UNION ALL SELECT player, score FROM branch_end_count
+  UNION ALL SELECT player, score FROM scaled_rune_find_count;
+
+-- Can't use a join here because of (starting) abyss shenanigains
+-- and there's no full outer join
+CREATE VIEW player_exploration_score AS
+SELECT player, SUM(score) AS score
+  FROM exploration_union GROUP BY player;
+
+CREATE VIEW unique_kill_count AS
+SELECT player, COUNT(DISTINCT monster) AS score
+  FROM kills_of_uniques GROUP BY player;
+
+CREATE VIEW ghost_kill_count AS
+SELECT player, COUNT(*) AS score FROM kills_of_ghosts GROUP BY player;
+
+CREATE VIEW harvest_union AS
+SELECT player, score FROM unique_kill_count
+UNION ALL SELECT player, score FROM ghost_kill_count;
+
+-- Can't use a join because a player could have one but not the other
+-- and there's no full outer join
+CREATE VIEW player_harvest_score AS
+SELECT player, SUM(score) AS score
+  FROM harvest_union
+  GROUP BY player;
+
+CREATE VIEW player_combo_score AS
+SELECT c.player AS player,
+       COUNT(*) + COUNT(c.killertype='winning')
+                 + 3 * COUNT(sp.raceabbr) + 3 * COUNT(cl.class) AS total,
+       COUNT(*) AS combos,
+       COUNT(c.killertype='winning') AS won_combos,
+       COUNT(sp.raceabbr) AS sp_hs, COUNT(cl.class) AS cls_hs
+  FROM combo_highscores AS c
+  LEFT OUTER JOIN species_highscores AS sp
+    ON c.player = sp.player AND c.charabbrev = sp.charabbrev
+  LEFT OUTER JOIN class_highscores AS cl
+    ON c.player = cl.player AND c.charabbrev = cl.charabbrev
+  GROUP BY c.player;
+
+CREATE VIEW player_nemelex_score AS
+SELECT player, COUNT(DISTINCT charabbrev) AS score FROM player_nemelex_wins
+GROUP BY player;
+
+CREATE VIEW player_best_streak AS
+SELECT s.player, s.length FROM streaks AS s
+  LEFT OUTER JOIN streaks AS s2
+    ON s.player = s2.player AND s.length < s2.length
+  WHERE s2.length IS NULL;

@@ -2016,13 +2016,8 @@ def win_perc_order(c, limit = None):
   return query.rows(c)
 
 def high_score_order(c, limit = None):
-  fields = logfile_fields('g.')
-  query = Query('''SELECT %s FROM (''' % fields
-              + '''SELECT ''' + logfile_fields() + ''' FROM games) AS g
-                   LEFT OUTER JOIN games g2 ON g.player = g2.player
-                   AND g.score < g2.score
-                   WHERE g2.score IS NULL AND g.score > 0
-                   ORDER BY g.score DESC''')
+  query = Query("SELECT " + logfile_fields() + ''' FROM highest_scores
+                   ORDER BY score DESC''')
   if limit:
     query.append(' LIMIT %d' % limit)
 
@@ -2030,13 +2025,8 @@ def high_score_order(c, limit = None):
 
 def low_turncount_win_order(c, limit = None):
   fields = logfile_fields('g.')
-  query = Query('''SELECT %s FROM (''' % fields
-                   + win_query(logfile_fields()).query
-                   + ''') AS g
-                   LEFT OUTER JOIN games g2
-                   ON g.player = g2.player AND g.killertype = g2.killertype
-                   AND g.turn > g2.turn
-                   WHERE g2.turn IS NULL ORDER BY g.turn''')
+  query = Query('''SELECT ''' + logfile_fields()
+                + " FROM lowest_turncount_wins ORDER BY turn")
   if limit:
     query.append(' LIMIT %d' % limit)
 
@@ -2044,13 +2034,8 @@ def low_turncount_win_order(c, limit = None):
 
 def fastest_win_order(c, limit = None):
   fields = logfile_fields('g.')
-  query = Query('''SELECT %s FROM (''' % fields
-                   + win_query(logfile_fields()).query
-                   + ''') AS g
-                   LEFT OUTER JOIN games g2
-                   ON g.player = g2.player AND g.killertype = g2.killertype
-                   AND g.duration > g2.duration
-                   WHERE g2.duration IS NULL ORDER BY g.duration''')
+  query = Query('''SELECT ''' + logfile_fields()
+                + ''' FROM fastest_wins ORDER BY duration''')
   if limit:
     query.append(' LIMIT %d' % limit)
 
@@ -2058,64 +2043,31 @@ def fastest_win_order(c, limit = None):
 
 def low_xl_win_order(c, limit = None):
   fields = logfile_fields('g.')
-  query = Query('''SELECT %s FROM (''' % fields
-                   + win_query(logfile_fields()).query
-                   + ''' AND NOT EXISTS ( SELECT m.id FROM milestones AS m
-                        WHERE m.game_id = games.id
-                        AND (verb = 'god.renounce' OR verb='god.worship')
-                        AND NOUN = 'Hepliaklqana' )
-                   ) AS g
-                   LEFT OUTER JOIN games g2
-                   ON g.player = g2.player AND g.killertype = g2.killertype
-                   AND g.xl > g2.xl
-                   WHERE g2.xl IS NULL AND g.xl < 27
-                   ORDER BY g.xl''')
+  query = Query('''SELECT ''' + logfile_fields()
+                + ''' FROM low_xl_nonhep_wins ORDER BY xl''')
   if limit:
     query.append(' LIMIT %d' % limit)
 
   return [ row_to_xdict(x) for x in query.rows(c) ]
 
 def piety_order(c):
-  return query_rows(c, '''SELECT mp.player, COUNT(mp.god) AS champion,
-                          COUNT(wg.god) AS won,
-                          COUNT(mp.god) + COUNT(wg.god) AS piety
-                          FROM player_max_piety AS mp
-                          LEFT OUTER JOIN player_won_gods AS wg
-                          ON mp.player = wg.player AND mp.god = wg.god
-                          GROUP BY player ORDER BY piety DESC''')
+  return query_rows(c, "SELECT player, champion, won, piety"
+                       +" FROM player_piety_score ORDER BY piety DESC")
 
 def banner_order(c, limit = None):
-  query = Query('''SELECT player,
-                          SUM(IF(prestige = 3, 4, prestige)) AS bscore,
-                          GROUP_CONCAT(CONCAT(banner, ' ', prestige)
-                                       SEPARATOR ',')
-                   FROM player_banners WHERE temp = false
-                   GROUP BY player
+  query = Query('''SELECT player, bscore, banners FROM player_banner_score
                    ORDER BY bscore DESC''')
   if limit:
     query.append(' LIMIT %d' % limit)
   return query.rows(c)
 
 def exploration_order(c):
-  return query_rows(c,'''SELECT s.player, SUM(s.score) as sc
-                   FROM ((SELECT player, COUNT(DISTINCT br) AS score
-                          FROM branch_enters GROUP BY player)
-                         UNION ALL
-                         (SELECT player, COUNT(DISTINCT br)
-                          FROM branch_ends GROUP BY player)
-                         UNION ALL
-                         (SELECT player, 3 * COUNT(DISTINCT rune)
-                          FROM rune_finds GROUP BY player)) AS s
-                   GROUP BY s.player ORDER BY sc DESC''')
+  return query_rows(c,'''SELECT player, score FROM player_exploration_score
+                         ORDER BY score DESC''')
 
 def harvest_order(c):
-  return query_rows(c,'''SELECT s.player, SUM(s.score) as sc
-                      FROM ((SELECT player, COUNT(DISTINCT monster) as score
-                             FROM kills_of_uniques GROUP BY player)
-                            UNION ALL
-                            (SELECT player, COUNT(*)
-                             FROM kills_of_ghosts GROUP BY player)) AS s
-                      GROUP BY s.player ORDER BY sc DESC''')
+  return query_rows(c,'''SELECT player, score FROM player_harvest_score
+                         ORDER BY score DESC''')
 
 def zig_dive_order(c, limit = None):
   query = Query('''SELECT player, completed, deepest, 27 * completed + deepest FROM ziggurats
@@ -2125,18 +2077,8 @@ def zig_dive_order(c, limit = None):
   return query.rows(c)
 
 def combo_score_order(c, limit = None):
-  query = Query('''SELECT c.player,
-                   COUNT(*) + COUNT(c.killertype='winning')
-                   + 3 * COUNT(sp.raceabbr) + 3 * COUNT(cl.class) AS total,
-                   COUNT(*) AS combos,
-                   COUNT(c.killertype='winning') AS won_combos,
-                   COUNT(sp.raceabbr) AS sp_hs, COUNT(cl.class) AS cls_hs
-                   FROM combo_highscores AS c
-                   LEFT OUTER JOIN species_highscores AS sp
-                     ON c.player = sp.player AND c.charabbrev = sp.charabbrev
-                   LEFT OUTER JOIN class_highscores AS cl
-                     ON c.player = cl.player AND c.charabbrev = cl.charabbrev
-                   GROUP BY c.player
+  query = Query('''SELECT player, total, combos, won_combos, sp_hs, cls_hs
+                   FROM player_combo_score
                    ORDER BY total DESC, sp_hs DESC,
                             cls_hs DESC, won_combos DESC''')
   if limit:
