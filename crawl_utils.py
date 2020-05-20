@@ -4,6 +4,9 @@ import logging
 import fcntl
 import sys
 
+# Maximum score for placing first in a category. Player score is "10,000 / rank"
+MAX_CATEGORY_SCORE = 10000
+
 # Update every so often (seconds)
 UPDATE_INTERVAL = 7 * 60
 

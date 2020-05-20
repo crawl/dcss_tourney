@@ -780,3 +780,6 @@ def player_scores_block(c, scores, title):
   if asterisk:
     text += "<p class='fineprint'>* Winning Game</p>"
   return text
+
+def slugify(name):
+  return name.lower().replace(' ', '-')
