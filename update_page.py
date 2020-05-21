@@ -139,6 +139,24 @@ def player_page(c, player):
               'rank': 1,
               'rank_details': '<ul><li>Wins: 4</li><li>Members: 5</li><li>Max wins per member: 3</li><li>Wins per member: chequers: 3 (MiFi, BaFE, FeMo), gammafunk: 0, ebering: 1 (TrEE)</li></ul>',
             }
+          ],
+          'banners': [
+            {
+              'god': 'Ashenzari',
+              'name': 'Explorer',
+              'achieved': 0,
+              'tiers': ('enter a rune branch', 'collect 5 distinct runes', 'collect all 17 runes')
+            },
+            {
+              'god': 'Beogh',
+              'name': 'Heretic',
+              'achieved': 2,
+              'tiers': (
+                'Abandon and mollify one god',
+                'Abandon and mollify 3 gods in 3 different games',
+                'Abandon and mollify 9 gods in 9 different games',
+              )
+            }
           ]
          },
          # END FAKE DATA
