@@ -108,6 +108,7 @@ CREATE TABLE games (
 
   player VARCHAR(20),
   start_time DATETIME,
+  seed VARCHAR(255), -- currently 64bit uint, but allow extra space for changes
   score BIGINT,
   race VARCHAR(20),
   -- Two letter race abbreviation so we can group by it without pain.
@@ -138,8 +139,8 @@ CREATE TABLE games (
   turn BIGINT,
   runes INT DEFAULT 0,
   killertype VARCHAR(20),
-  killer CHAR(50),
-  kgroup CHAR(50),
+  killer CHAR(100),
+  kgroup CHAR(100),
   kaux VARCHAR(255),
   -- Kills may be null.
   kills INT,
@@ -277,7 +278,7 @@ CREATE TABLE kills_by_ghosts (
 CREATE TABLE kills_of_ghosts (
   player VARCHAR(20),
   start_time DATETIME,
-  ghost VARCHAR(20)
+  ghost VARCHAR(100)
   );
 
 CREATE TABLE kills_of_uniques (
