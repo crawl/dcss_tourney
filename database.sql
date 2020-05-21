@@ -22,6 +22,7 @@ DROP TABLE IF EXISTS rune_finds;
 DROP TABLE IF EXISTS branch_enters;
 DROP TABLE IF EXISTS branch_ends;
 DROP TABLE IF EXISTS kunique_times;
+DROP TABLE IF EXISTS kunique_turns; -- no longer used, but for temporary backwards compat
 DROP TABLE IF EXISTS kills_of_uniques;
 DROP TABLE IF EXISTS kills_of_ghosts;
 DROP TABLE IF EXISTS kills_by_ghosts;
@@ -316,7 +317,7 @@ CREATE TABLE kills_of_uniques (
   player VARCHAR(20) NOT NULL,
   kill_time DATETIME NOT NULL,
   monster VARCHAR(20),
-  FOREIGN KEY (player) REFERENCES players (name)
+  FOREIGN KEY (player) REFERENCES players (name) ON DELETE CASCADE
   );
 
 CREATE INDEX kill_uniq_pmons ON kills_of_uniques (player, monster);
@@ -367,7 +368,7 @@ CREATE TABLE ziggurats (
   zig_time DATETIME NOT NULL,
   -- Game start time, with player name can be used to locate the relevant game.
   start_time DATETIME NOT NULL,
-  FOREIGN KEY (player) REFERENCES players (name)
+  FOREIGN KEY (player) REFERENCES players (name) ON DELETE CASCADE
   );
 CREATE INDEX ziggurat_depths ON ziggurats (completed, deepest);
 
@@ -378,7 +379,7 @@ CREATE TABLE whereis_table (
   start_time DATETIME NOT NULL,
   mile_time DATETIME NOT NULL,
   PRIMARY KEY (player, src),
-  FOREIGN KEY (player) REFERENCES players (name)
+  FOREIGN KEY (player) REFERENCES players (name) ON DELETE CASCADE
   );
 
 -- Generated table to keep track of the last game finished for each player/server.
@@ -387,7 +388,7 @@ CREATE TABLE last_game_table (
   src CHAR(3),
   start_time DATETIME NOT NULL,
   PRIMARY KEY (player, src),
-  FOREIGN KEY (player) REFERENCES players (name)
+  FOREIGN KEY (player) REFERENCES players (name) ON DELETE CASCADE
   );
 
 CREATE TABLE player_won_gods (
@@ -425,7 +426,7 @@ CREATE TABLE player_points (
   points MEDIUMINT NOT NULL DEFAULT 0,
   team_points MEDIUMINT NOT NULL DEFAULT 0,
   point_source VARCHAR(150) NOT NULL,
-  FOREIGN KEY (player) REFERENCES players (name)
+  FOREIGN KEY (player) REFERENCES players (name) ON DELETE CASCADE
   );
 
 CREATE INDEX point_player_src ON player_points (player, point_source);
@@ -435,7 +436,7 @@ CREATE TABLE player_stepdown_points (
   player VARCHAR(20) NOT NULL,
   points MEDIUMINT NOT NULL DEFAULT 0,
   point_source VARCHAR(150) NOT NULL,
-  FOREIGN KEY (player) REFERENCES players (name)
+  FOREIGN KEY (player) REFERENCES players (name) ON DELETE CASCADE
   );
 
 CREATE TABLE clan_stepdown_points (
@@ -443,7 +444,7 @@ CREATE TABLE clan_stepdown_points (
   captain VARCHAR(20) NOT NULL,
   points MEDIUMINT NOT NULL DEFAULT 0,
   point_source VARCHAR(150) NOT NULL,
-  FOREIGN KEY (captain) REFERENCES players (name)
+  FOREIGN KEY (captain) REFERENCES players (name) ON DELETE CASCADE
   );
 
 -- Clan point assignments.
@@ -452,7 +453,7 @@ CREATE TABLE clan_points (
   captain VARCHAR(20) NOT NULL,
   points MEDIUMINT NOT NULL DEFAULT 0,
   point_source VARCHAR(150) NOT NULL,
-  FOREIGN KEY (captain) REFERENCES players (name)
+  FOREIGN KEY (captain) REFERENCES players (name) ON DELETE CASCADE
   );
 
 CREATE TABLE deaths_to_uniques (
@@ -460,7 +461,7 @@ CREATE TABLE deaths_to_uniques (
   uniq    VARCHAR(50),
   start_time DATETIME,
   end_time   DATETIME,
-  FOREIGN KEY (player) REFERENCES players (name)
+  FOREIGN KEY (player) REFERENCES players (name) ON DELETE CASCADE
   );
 CREATE INDEX deaths_to_uniques_p ON deaths_to_uniques (player);
 
@@ -469,7 +470,7 @@ CREATE TABLE deaths_to_distinct_uniques (
   ndeaths INT,
   death_time DATETIME,
   PRIMARY KEY (player),
-  FOREIGN KEY (player) REFERENCES players (name)
+  FOREIGN KEY (player) REFERENCES players (name) ON DELETE CASCADE
   );
 CREATE INDEX deaths_to_distinct_uniques_p
 ON deaths_to_distinct_uniques (player, ndeaths);
@@ -478,7 +479,7 @@ CREATE TABLE player_maxed_skills (
   player VARCHAR(20),
   skill VARCHAR(25),
   PRIMARY KEY (player, skill),
-  FOREIGN KEY (player) REFERENCES players (name)
+  FOREIGN KEY (player) REFERENCES players (name) ON DELETE CASCADE
   );
 CREATE INDEX player_maxed_sk ON player_maxed_skills (player, skill);
 
@@ -486,7 +487,7 @@ CREATE TABLE player_fifteen_skills (
   player VARCHAR(20),
   skill VARCHAR(25),
   PRIMARY KEY (player, skill),
-  FOREIGN KEY (player) REFERENCES players (name)
+  FOREIGN KEY (player) REFERENCES players (name) ON DELETE CASCADE
   );
 CREATE INDEX player_fifteen_sk ON player_fifteen_skills (player, skill);
 
@@ -499,7 +500,7 @@ CREATE TABLE player_banners (
   prestige INT NOT NULL,
   temp BOOLEAN,
   PRIMARY KEY (player, banner),
-  FOREIGN KEY (player) REFERENCES players (name)
+  FOREIGN KEY (player) REFERENCES players (name) ON DELETE CASCADE
   );
 CREATE INDEX player_banners_player ON player_banners (player);
 
@@ -508,7 +509,7 @@ CREATE TABLE clan_banners (
   banner VARCHAR(50),
   prestige INT NOT NULL,
   PRIMARY KEY (team_captain, banner),
-  FOREIGN KEY (team_captain) REFERENCES players (name)
+  FOREIGN KEY (team_captain) REFERENCES players (name) ON DELETE CASCADE -- is cascade correct here?
 );
 CREATE INDEX clan_banners_captain ON clan_banners (team_captain);
 
