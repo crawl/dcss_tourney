@@ -13,9 +13,19 @@
         <h2 class="card-title">${banner['name']}</h2>
         <ul class="list-group list-group-flush">
           % for tier in range(0,3):
-          <li class="list-group-item py-1 ${'bg-success' if banner['achieved'] > tier else 'bg-danger'}">
-            <p class="lead mb-0">Tier ${tier + 1}: <small><i>${banner['tiers'][tier]}</i></small></p>
-            <p class="mb-0">${banner['tier_notes'][tier]}</p>
+          <%
+            achieved = banner['achieved'] > tier
+          %>
+          <li class="list-group-item bg-dark py-1">
+            % if achieved:
+            <img src="/images/gui/prompt_yes.png" class="float-left mr-1" alt="Tier achieved">
+            % endif
+            <p class="lead mb-0">${'<s>' if achieved else ''}
+              Tier ${tier + 1}: <small><i>${banner['tiers'][tier]}</i></small>
+            ${'</s>' if achieved else ''}</p>
+            <p class="mb-0">
+              ${banner['tier_notes'][tier]}
+            </p>
           </li>
           % endfor
         </ul>
