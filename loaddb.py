@@ -8,7 +8,11 @@ import crawl_utils
 import logging
 from logging import debug, info, warn, error
 
-import ConfigParser
+try:
+  import configparser
+except:
+  import ConfigParser
+  configparser = ConfigParser
 import imp
 import sys
 
@@ -181,8 +185,7 @@ class Xlogline:
     self.offset = offset
     self.time = time
     if not time:
-      raise Exception, \
-          "Xlogline time missing from %s:%d: %s" % (filename, offset, xdict)
+      raise Exception("Xlogline time missing from %s:%d: %s" % (filename, offset, xdict))
     self.xdict = xdict
     self.processor = processor
 
@@ -237,7 +240,7 @@ class Xlogfile:
     info("Fetching remote %s to %s with wget -c" % (self.url, self.filename))
     res = os.system("wget -q -c --no-check-certificate %s -O %s" % (self.url, self.filename))
     if res != 0:
-      raise IOError, "Failed to fetch %s with wget" % self.url
+      raise IOError("Failed to fetch %s with wget" % self.url)
 
   def _open(self):
     try:
@@ -372,11 +375,11 @@ def parse_logline(logline):
   D:7 and such. It also works on milestones and whereis."""
   # This is taken from Henzell. Yay Henzell!
   if not logline:
-    raise Exception, "no logline"
+    raise Exception("no logline")
   if logline[0] == ':' or (logline[-1] == ':' and not logline[-2] == ':'):
-    raise Exception,  "starts with colon"
+    raise Exception("starts with colon")
   if '\n' in logline:
-    raise Exception, "more than one line"
+    raise Exception("more than one line")
   logline = logline.replace("::", "\n")
   details = dict([(item[:item.index('=')], item[item.index('=') + 1:])
                   for item in logline.split(':')])
@@ -634,7 +637,6 @@ R_SACRIFICE = re.compile(r'^sacrificed (?:an? )?(\w+)')
 
 class SqlType:
   def __init__(self, str_to_sql):
-    #print str_to_sql('1')
     self.str_to_sql = str_to_sql
 
   def to_sql(self, string):
@@ -681,7 +683,7 @@ class Query:
     self.execute(cursor)
     row = cursor.fetchone()
     if row is None:
-      raise exc, (msg or "No rows returned for %s" % self.query)
+      raise exc(msg or "No rows returned for %s" % self.query)
     return row[0]
 
   first = count
@@ -897,7 +899,7 @@ def insert_xlog_db(cursor, xdict, filename, offset):
                              save_offset and offset, table)
   try:
     query.execute(cursor)
-  except Exception, e:
+  except Exception as e:
     error("Error inserting %s %s (query: %s [%s]): %s"
           % (thingname, milestone, query.query, query.values, e))
     raise
@@ -940,7 +942,7 @@ def update_highscore_table(c, xdict, filename, offset, table, field, value):
                             table)
     try:
       iq.execute(c)
-    except Exception, e:
+    except Exception as e:
       error("Error inserting %s into %s (query: %s [%s]): %s"
             % (xdict, table, iq.query, iq.values, e))
       raise
@@ -1225,7 +1227,7 @@ def run_timers(c, elapsed_time):
     timer.run(c, elapsed_time)
 
 def load_extensions():
-  c = ConfigParser.ConfigParser()
+  c = configparser.ConfigParser()
   c.read(EXTENSION_FILE)
 
   exts = c.get('extensions', 'ext') or ''
@@ -1261,8 +1263,8 @@ if __name__ == '__main__':
 
   crawl_utils.lock_or_die()
 
-  print "Populating db (one-off) with logfiles and milestones. " + \
-      "Running the taildb.py daemon is preferred."
+  print("Populating db (one-off) with logfiles and milestones. "
+        "Running the taildb.py daemon is preferred.")
 
   load_extensions()
 

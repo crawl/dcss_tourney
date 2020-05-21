@@ -254,7 +254,7 @@ def pretty_dur(dur):
   try:
     secs = dur % 60
   except:
-    print "FAIL on %s" % dur
+    print("FAIL on %s" % dur)
     raise
   dur /= 60
   mins = dur % 60

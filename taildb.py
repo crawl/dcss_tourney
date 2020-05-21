@@ -29,7 +29,7 @@ def tail_logfiles(logs, milestones, interval=60):
         if not interval:
           break
         loaddb.run_timers(cursor, elapsed_time)
-      except IOError, e:
+      except IOError as e:
         error("IOError: %s" % e)
 
       time.sleep(interval)

@@ -31,7 +31,7 @@ def render(c, page, dest=None, pars=None):
       f.write( t.render( attributes = pars ) )
     finally:
       f.close()
-  except Exception, e:
+  except Exception as e:
     warn("Error generating page %s: %s" % (page, e))
     raise
     # Don't rethrow.
