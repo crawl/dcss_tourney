@@ -118,10 +118,10 @@ def daemonize(lockfile = LOCKFILE):
                      % lockfile)
     sys.exit(1)
 
-  print "Starting daemon..."
+  print("Starting daemon...")
   pid = os.fork()
   if pid is None:
-    raise "Unable to fork."
+    raise Exception("Unable to fork.")
   if pid == 0:
     # Child
     os.setsid()

@@ -1436,7 +1436,7 @@ def players_in_team(cursor, team_owner):
   """Returns a list of all the players in the team, with the team's
   owner first."""
   if not team_owner:
-    raise Exception, "Team owner not provided!"
+    raise Exception("Team owner not provided!")
   prows = query_rows(cursor,
                      '''SELECT name FROM players
                         WHERE team_captain = %s''',
