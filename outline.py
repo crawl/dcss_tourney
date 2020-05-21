@@ -525,6 +525,8 @@ def safe_update_player_scores(c):
 
   check_banners(c)
   update_streaks(c)
+  query.update_all_player_ranks(c)
+  query.update_player_scores(c)
 
   # And award overall top banners.
   banner.assign_top_player_banners(c)

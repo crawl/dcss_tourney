@@ -27,7 +27,7 @@
         <hr>
 
         <div class="content">
-          ${html.table_text( [ 'Player', 'Clan', 'Points',
+          ${html.table_text( [ 'Player', 'Clan', 'Overall Score',
                                'Games Won', 'Games Played',
                                'Win %' ],
                              stats,

@@ -59,17 +59,15 @@ def individual_category_pages(c):
 
 def player_pages(c):
   info("Updating all player pages")
-  render(c, 'species-backgrounds')
   render(c, 'banners')
   render(c, 'all-players')
-  render(c, 'wins-and-kills')
+#  render(c, 'wins-and-kills')
   render(c, 'current-games')
   render(c, 'combo-scoreboard')
   render(c, 'combo-leaders')
   render(c, 'killers')
-  render(c, 'gkills')
-  for p in query.get_players(c):
-    player_page(c, p)
+#  for p in query.get_players(c):
+#    player_page(c, p)
 
 def index_page(c):
   info("Updating index page")
@@ -97,12 +95,12 @@ def player_page(c, player):
 INTERVAL = crawl_utils.UPDATE_INTERVAL
 TIMER = [ #loaddb.define_timer( INTERVAL, tourney_overview ),
           #loaddb.define_timer( INTERVAL, team_pages ),
-          #loaddb.define_timer( INTERVAL, player_pages ),
+          loaddb.define_timer( INTERVAL, player_pages ),
           loaddb.define_timer( INTERVAL, individual_category_pages )
           ]
 LISTENER = [ #loaddb.define_cleanup(tourney_overview),
              #loaddb.define_cleanup(team_pages),
-             #loaddb.define_cleanup(player_pages),
+             loaddb.define_cleanup(player_pages),
              loaddb.define_cleanup(individual_category_pages)
            ]
 

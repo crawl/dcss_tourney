@@ -1536,3 +1536,43 @@ def streak_order(c, limit=None):
   if limit:
     query.append(' LIMIT %d' % limit)
   return query.rows(c)
+
+def update_player_rank(c, rank_column, source_table, source_window):
+    query_do(c, '''INSERT INTO player_ranks (player, %s)
+                   SELECT * FROM
+                     (SELECT player, RANK() OVER(%s) AS rk FROM %s) AS dt
+                   ON DUPLICATE KEY UPDATE %s = rk'''
+                   % (rank_column, source_window, source_table, rank_column))
+    return
+
+RANKING_WINDOWS = [
+        ('first_win', 'first_wins', 'ORDER BY end_time'),
+        ('first_allrune_win', 'first_allrune_wins', 'ORDER BY end_time'),
+        ('streak', 'player_best_streak', 'ORDER BY length DESC'),
+        ('highest_score', 'highest_scores', 'ORDER BY score DESC'),
+        ('lowest_turncount_win', 'lowest_turncount_wins', 'ORDER BY turn'),
+        ('fastest_win', 'fastest_wins', 'ORDER BY duration'),
+        ('low_xl_win', 'low_xl_nonhep_wins', 'ORDER BY xl'),
+        ('win_perc', 'player_win_perc', 'ORDER BY win_perc DESC'),
+        ('piety', 'player_piety_score', 'ORDER BY piety DESC'),
+        ('banner_score', 'player_banner_score', 'ORDER BY bscore DESC'),
+        ('exploration', 'player_exploration_score', 'ORDER BY score DESC'),
+        ('harvest', 'player_harvest_score', 'ORDER BY score DESC'),
+        ('combo_score', 'player_combo_score', 'ORDER BY total DESC'),
+        ('nemelex_score', 'player_nemelex_score', 'ORDER BY score DESC'),
+]
+
+def update_all_player_ranks(c):
+    for rt in RANKING_WINDOWS:
+        update_player_rank(c, rt[0], rt[1], rt[2])
+    return
+
+def update_player_scores(c):
+    def score_term(col):
+        return "COALESCE( 10000.0 / %s, 0.0 )" % col
+    SCOREFUNC = "(" + "+".join([ score_term('r.' + rt[0]) for rt in RANKING_WINDOWS]) \
+                + ") / %d" % len(RANKING_WINDOWS);
+
+    query_do(c, '''UPDATE players AS p LEFT OUTER JOIN player_ranks AS r
+                   ON p.name = r.player
+                   SET p.score_full = ''' + SCOREFUNC)

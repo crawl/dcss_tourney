@@ -64,7 +64,7 @@ CREATE TABLE IF NOT EXISTS players (
   team_captain VARCHAR(20),
   -- This is the computed score! We will overwrite it each time we
   -- recalculate it, and it may be null at any point.
-  score_full BIGINT DEFAULT 0,
+  score_full DECIMAL(8,3),
   
   FOREIGN KEY (team_captain) REFERENCES players (name)
   ON DELETE SET NULL
