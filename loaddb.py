@@ -1284,6 +1284,7 @@ def load_args():
   parser.add_argument("--db-host", default="localhost",
     help="Database hostname")
   parser.add_argument("--db-pass", help="Database password")
+  parser.add_argument("--validate-database", action='store_true', help="Check the database exists and load 'database.sql' if not.")
 
   return parser.parse_args()
 
@@ -1334,7 +1335,8 @@ if __name__ == '__main__':
   cursor = db.cursor()
   support_mysql57(cursor)
   set_active_cursor(cursor)
-  validate_db(cursor)
+  if args.validate_database:
+    validate_db(cursor)
   try:
     master = create_master_reader()
     master.tail_all(cursor)
