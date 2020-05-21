@@ -2,29 +2,28 @@
 
 <%
   import html
+  import scoring_data
 %>
 
 <h2>Individual Categories</h2>
-% for category in individual_categories:
+% for category in scoring_data.INDIVIDUAL_CATEGORIES:
 <%
-  name = category['name']
-  css_class = "cat-indiv-%s" % html.slugify(name)
-  rank_desc = rank_description(category['rank'])
+  results = individual_category_results[category.name]
 %>
 <div class="row">
   <div class="col">
-    <div class="jumbotron category ${css_class} text-light p-3">
-      <h2 class="text-outline-black-1">${name}</h2>
+    <div class="jumbotron category category-image text-light p-3" style="background-image: linear-gradient(to right, rgba(0,0,0,0.2) 31%, rgba(0,0,0,1) 33%), url('/images/individual/${html.slugify(category.god)}.png');">
+      <h2 class="text-outline-black-1">${category.god}</h2>
       <div class="row">
         <div class="col col-sm-4">
-          <h3 class="text-outline-black-1">${rank_desc}</h3>
+          <h3 class="text-outline-black-1">${rank_description(results.rank)}</h3>
         </div>
         <div class="col-sm">
           <p class="d-none d-sm-block">
-            <i>${category['desc']}</i>
+            <i>${category.desc}</i>
           </p>
           <p class="lead">
-            ${category['rank_details']}
+            ${results.details}
           </p>
         </div>
       </div>

@@ -8,8 +8,13 @@ import os.path
 import loaddb
 import query
 import crawl_utils
-
+import collections
 from logging import debug, info, warn, error
+
+import scoring_data
+
+CategoryResult = collections.namedtuple('CategoryResult', ('rank', 'details'))
+BannerResult = collections.namedtuple('BannerResult', ('tier', 'details'))
 
 TEMPLATE_DIR = os.path.abspath('templates')
 MAKO_LOOKUP = mako.lookup.TemplateLookup(directories = [ TEMPLATE_DIR ],
@@ -99,112 +104,43 @@ def team_pages(c):
 
 def player_page(c, player):
   info("Updating player page for %s" % player)
+  player_params = {
+    'player' : player,
+    'total_number_of_players': 1325, # TODO
+    'overall_rank': 70, # TODO
+    'clan_name': 'Sif\'s Supergroup', # TODO
+    'individual_category_results': player_individual_category_results(c, player),
+    'clan_category_results': player_clan_category_results(c, player),
+    'banner_results': player_banner_results(c, player),
+  }
   render(c, 'player',
          dest = ('%s/%s' % (crawl_utils.PLAYER_BASE, player.lower())),
-         pars = { 'player' : player,
-          # START FAKE DATA
-          'total_number_of_players': 1325,
-          'overall_rank': 70,
-          'clan_name': 'Sif\'s Supergroup',
-          'individual_categories': [
-            {
-              'name': 'The Shining One',
-              'desc': 'The Shining One values perserverence and courage in the face of adversity. In this category, TSO will award players 10,000 points if they win two distinct character combos, 5,000 points for winning their first combo, and 0 otherwise.',
-              'rank': 0,
-              'rank_details': 'Won combos: <a href="http://example.com/morgue.txt">MiFi</a>'
-            },
-            {
-              'name': 'Cheibriados',
-              'desc': 'Cheibriados believes in being slow and steady, and will recognize players who are careful enough to excel consistently. This category ranks players by their adjusted win percentage, calculated as the number of wins divided by the number of games played plus 1.',
-              'rank': 1,
-              'rank_details': 'Adjusted win percentage: 32.14% (9 wins in 27 games)'
-            },
-            {
-              'name': 'Jiyva',
-              'desc': u'Jiyva is ranking players by their streak length. Jiyva favours the flexibility of a gelatinous body—the length of a streak is defined as the number of distinct species or backgrounds won consecutively (whichever is smaller). Every game in a streak must be the first game you start after winning the previous game in the streak. This will always be the case if you play all your games on one server.',
-              'rank': 2,
-              'rank_details': 'No wins yet.',
-            },
-            {
-              'name': 'Nemelex Xobeh',
-              'desc': u'''Nemelex Xobeh wants to see players struggle against randomness and will rank players who perservere with one of several combos randomly chosen and announced throughout the tournament. The first 8 players to win a given Nemelex' choice combo earn a point in this category and Nemelex will rank players by their score in this category.''',
-              'rank': 10000,
-              'rank_details': 'Won combos: <a href="http://example.com/morgue.txt">MiFi</a>, <a href="http://example.com/morgue.txt">FeWz</a>, <a href="http://example.com/morgue.txt">BaFE</a>, <a href="http://example.com/morgue.txt">NaEE</a>, <a href="http://example.com/morgue.txt">GnSu</a>, <a href="http://example.com/morgue.txt">DrWn</a>, <a href="http://example.com/morgue.txt">HaCj</a>, <a href="http://example.com/morgue.txt">KoAs</a>'
-            }
-          ],
-          'clan_categories': [
-            {
-              'name': 'Wins',
-              'desc': 'Clans are ranked by the number of distinct combo wins Wins in this category are capped at twelve, with at most <code>12 / (clan size)</code> (rounded up) wins per member counted.',
-              'rank': 1,
-              'rank_details': '<ul><li>Wins: 4</li><li>Members: 5</li><li>Max wins per member: 3</li><li>Wins per member: chequers: 3 (MiFi, BaFE, FeMo), gammafunk: 0, ebering: 1 (TrEE)</li></ul>',
-            }
-          ],
-          'banners': [
-            {
-              'god': 'Ashenzari',
-              'name': 'Explorer',
-              'achieved': 2,
-              'tiers': (
-                'Enter a rune branch',
-                'Collect 5 distinct runes',
-                'Collect all 17 runes'
-              ),
-              'tier_notes': (
-                '1/1: <a href="#">Snake</a>',
-                '4/5: <a href="#">Slimy</a>, <a href="#">Golden</a>, <a href="#">Silver</a>, <a href="#">Demonic</a>, <a href="#">Abyssal</a>',
-                '',
-              )
-            },
-            {
-              'god': 'Beogh',
-              'name': 'Heretic',
-              'achieved': 1,
-              'tiers': (
-                'Abandon and mollify one god',
-                'Abandon and mollify 3 gods in 3 different games',
-                'Abandon and mollify 9 gods in 9 different games',
-              ),
-              'tier_notes': (
-                '1/1: <a href="#">Beogh</a>',
-                '2/3: <a href="#">Beogh</a>, <a href="#">Zin</a>',
-                '',
-              )
-            },
-            {
-              'god': 'Cheibriados',
-              'name': 'Slow &amp; Steady',
-              'achieved': 2,
-              'tiers': (
-                'Reach experience level 9 in two consecutive games.',
-                'Collect a rune in two consecutive games.',
-                'Achieve a two-win streak.',
-              ),
-              'tier_notes': (
-                '<a href="#">MiFi</a>, <a href="#">MiBe</a>',
-                '<a href="#">MiFi</a>, <a href="#">MiBe</a>',
-                'Three wins but no streak yet, keep going!',
-              )
-            },
-            {
-              'god': 'Dithmenos',
-              'name': 'Politician',
-              'achieved': 2,
-              'tiers': (
-                'Steal a combo high score that was previously of at least 1,000 points.',
-                'Steal a combo high score for a previously won combo.',
-                'Steal a species or background high score that was previously of at least 10,000,000 points.',
-              ),
-              'tier_notes': (
-                '<a href="#">BaFE</a> (<a href="#">previous game</a>)',
-                '<a href="#">FeWr</a> (<a href="#">previous game</a>)',
-                'Best steal: 8,487,132 points (<a href="#">GrEn</a>)',
-              )
-            },
-          ]
-         },
-         # END FAKE DATA
+         pars = player_params,
          top_level_pars=True)
+
+def player_individual_category_results(c, player):
+  # TODO
+  import random
+  data = {}
+  for category in scoring_data.INDIVIDUAL_CATEGORIES:
+    data[category.name] = CategoryResult(random.randrange(0, 10), 'Details about individual challenge %s for %s' % (category.name, category.god))
+  return data
+
+def player_clan_category_results(c, player):
+  # TODO
+  import random
+  data = {}
+  for category in scoring_data.CLAN_CATEGORIES:
+    data[category.name] = CategoryResult(random.randrange(0, 10), 'Details about clan challenge %s' % category.name)
+  return data
+
+def player_banner_results(c, player):
+  # TODO
+  import random
+  data = {}
+  for banner in scoring_data.BANNERS:
+    data[banner.name] = BannerResult(random.randrange(0, 3), ("Tier 1 notes", "Tier 2 notes", "Tier 3 notes"))
+  return data
 
 # Update tourney overview every 5 mins.
 INTERVAL = crawl_utils.UPDATE_INTERVAL

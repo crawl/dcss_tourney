@@ -1,8 +1,10 @@
+# -*- coding: utf-8 -*-
 import collections
 
 IndividualCategory = collections.namedtuple(
     "IndividualCategory", ("name", "god", "desc")
 )
+# This list (and the clan categories & banner lists) are in display order
 INDIVIDUAL_CATEGORIES = (
     IndividualCategory(
         "Winning",
@@ -25,7 +27,6 @@ INDIVIDUAL_CATEGORIES = (
         u"Nemelex Xobeh wants to see players struggle against randomness and will rank players who perservere with one of several combos randomly chosen and announced throughout the tournament. The first 8 players to win a given Nemelex' choice combo earn a point in this category and Nemelex will rank players by their score in this category.",
     ),
     IndividualCategory(
-        "Combo High Scores",
         "Combo High Scores",
         "Dithmenos",
         "Dithmenos is ranking players by the combo high scores they can acquire and defend from rivals. A combo high score gives 1 point in this category; a winning high score 2 points; and a species or background high score 5 points.",
@@ -369,3 +370,10 @@ BANNERS = [
         None,
     ),
 ]
+
+def individual_category_by_name(name):
+    # type: (str) -> Optional[IndividualCategory]
+    for cat in INDIVIDUAL_CATEGORIES:
+        if cat.name == name:
+            return cat
+    raise KeyError("Invalid individual category name '%s'" % name)
