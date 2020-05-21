@@ -599,7 +599,7 @@ def get_all_player_stats(c):
       r[1] = ''
     else:
       r[1] = crawl_utils.linked_text(captain, crawl_utils.clan_link, r[1])
-    r.append( "%.2f%%" % calc_perc( r[3], r[4] ) )
+    r.append( "%.2f%%" % calc_perc( r[3], r[4] + 1 ) )
     clean_rows.append(r)
   return clean_rows
 
@@ -655,7 +655,7 @@ def get_player_stats(c, name):
                   """SELECT COUNT(*) FROM games WHERE player = %s""",
                   name)
 
-  stats['win_perc'] = "%.2f%%" % calc_perc(stats['won'], stats['played'])
+  stats['win_perc'] = "%.2f%%" % calc_perc(stats['won'], stats['played'] + 1)
   return stats
 
 def get_players(c):
