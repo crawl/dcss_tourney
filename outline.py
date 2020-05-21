@@ -14,8 +14,7 @@ import datetime
 import math
 
 from loaddb import query_do, query_first_col, query_rows
-from query import count_points, assign_points, assign_team_points, wrap_transaction
-from query import log_temp_points, log_temp_team_points, get_points
+from query import wrap_transaction
 
 import nemelex
 
@@ -275,13 +274,6 @@ def act_on_logfile_line(c, this_game, filename):
 
   crunch_misc(c, this_game)
 
-  if loaddb.is_ghost_kill(this_game):
-    ghost = loaddb.extract_ghost_name(this_game['killer'])
-    ghost = query.canonicalize_player_name(c, ghost)
-    XL = this_game['xl']
-    if XL > 5 and ghost:
-      assign_team_points(c, "gkill", ghost, (XL - 5))
-
 def crunch_misc(c, g):
   player = g['name']
   ktyp = g['ktyp']
@@ -303,27 +295,6 @@ def crunch_misc(c, g):
       banner.award_banner(c, player, 'dithmenos', 1)
 
   killer = loaddb.strip_unique_qualifier(g.get('killer') or '')
-  if uniq.is_uniq(killer):
-    query_do(c,
-             '''INSERT INTO deaths_to_uniques
-                            (player, uniq, start_time, end_time)
-                     VALUES (%s, %s, %s, %s)''',
-             player.lower(), killer, g['start'], g['end'])
-    cuniqdeaths = query.count_deaths_to_distinct_uniques(c, player)
-    olduniqdeaths = query.lookup_deaths_to_distinct_uniques(c, player)
-    if cuniqdeaths > olduniqdeaths:
-      query.update_deaths_to_distinct_uniques(c, player, cuniqdeaths,
-                                              g['end'])
-
-  #if g.has_key('maxskills'):
-  #  maxed_skills = g['maxskills'].split(",")
-  #  for sk in maxed_skills:
-  #    query.register_maxed_skill(c, player, sk)
-  #if g.has_key('fifteenskills'):
-  #  fifteen_skills = g['fifteenskills'].split(",")
-  #  for sk in fifteen_skills:
-  #    if sk in crawl.MAGIC_SKILLS:
-  #      query.register_fifteen_skill(c, player, sk)
 
 def repeat_race_class(char1, char2):
   """Returns the number of race/class that the two chars have in common."""
@@ -357,10 +328,6 @@ def crunch_winner(c, game, filename):
   charabbrev = game_character(game)
   game_start = game_start_time(game)
   game_end = game_end_time(game)
-
-  # 20 clan points for first win for a particular combo in the tournament.
-  if query.first_win_for_combo(c, charabbrev, game_end):
-    assign_team_points(c, "combo_first_win:" + charabbrev, player, 20)
 
   # Award Okawaru banners for wins.
   banner.award_banner(c, player, 'okawaru', 2)
@@ -436,15 +403,15 @@ def crunch_winner(c, game, filename):
                                     before = game_end)
   n_my_wins = len(my_wins)
 
-  if n_my_wins == 0:
+  #if n_my_wins == 0:
     # First win!
-    assign_points(c, "my_1st_win", game['name'], 100)
+    #assign_points(c, "my_1st_win", game['name'], 100)
 
-  else:
+  #else:
     # If the new win is a different race/class from a previous win, bonus!
-    for x in my_wins:
-      if repeat_race_class(x['charabbrev'], game['char']) == 0:
-        assign_points(c, "my_2nd_win_norep", game['name'], 50, False)
+    #for x in my_wins:
+      #if repeat_race_class(x['charabbrev'], game['char']) == 0:
+        #assign_points(c, "my_2nd_win_norep", game['name'], 50, False)
 
   did_streak = query.win_is_streak(c, game['name'], game_start)
   if did_streak:
@@ -467,12 +434,6 @@ def number_of_allruners_before(c, game):
 
 ###################### Additional scoring math ##########################
 
-def record_points(point_map, player, points, team_points):
-  lplayer = player.lower()
-  pdef = point_map.get(lplayer) or { 'team': 0, 'you': 0 }
-  pdef[team_points and 'team' or 'you'] += points
-  point_map[lplayer] = pdef
-
 def player_additional_score(c, player, pmap):
   """Calculates the player's total score, including unchanging score and the
   current volatile score. Best-of-X trophies are not calculated here."""
@@ -485,86 +446,6 @@ def award_player_banners(c, banner_name, players, prestige=0, temp=False):
   if players:
     for p in players:
       banner.award_banner(c, p, banner_name, prestige, temp)
-
-def award_temp_trophy(c, point_map,
-                      player_rows, key, points,
-                      can_share_places=False, team_points=False):
-  place = -1
-  rplace = -1
-  last_value = None
-
-  def do_points(player, title, points):
-    record_points(point_map, player, points, team_points)
-    if team_points:
-      log_temp_team_points(c, player, title, points)
-    else:
-      log_temp_points(c, player, title, points)
-
-  def place_title(title_key, nth):
-    if '%' in title_key:
-      return title_key % (place + 1)
-    else:
-      return title_key
-
-  npoints = len(points)
-  for row in player_rows:
-    rplace += 1
-    if not can_share_places or row[1] != last_value:
-      place = rplace
-    if can_share_places:
-      last_value = row[1]
-
-    if place >= npoints:
-      break
-
-    title = place_title(key, place)
-    p = points[place]
-    player = row[0]
-    do_points(player, title, p)
-
-def apply_point_map(c, pmap):
-  for player, points in pmap.iteritems():
-    loaddb.update_player_fullscore(c, player,
-                                   points['you'],
-                                   points['team'])
-
-def check_temp_trophies(c, pmap):
-  award_temp_trophy(c, pmap, query.player_hare_candidates(c),
-                    "last_win", [100])
-
-  award_temp_trophy(c, pmap, query.get_top_unique_killers(c),
-                    'top_unique_killer:%d', [50, 20, 10])
-
-#  award_temp_trophy(c, pmap, query.player_dieselest_best(c),
-#                    'top_ac+ev_game:%d', [50, 20, 10],
-#                    team_points=True)
-
-#  award_temp_trophy(c, pmap, query.player_pacific_win_best(c),
-#                    'top_pacific_win:%d', [200, 100, 50],
-#                    team_points=True)
-
-  # [snark] xl1 dive disabled for 2010 tourney.
-  #award_temp_trophy(c, pmap, query.player_xl1_dive_best(c),
-  #                  'xl1_dive_rank:%d', [50, 20, 10],
-  #                  team_points=True)
-
-  award_temp_trophy(c, pmap, query.player_hs_combo_best(c),
-                    'combo_scores_Nth:%d', [200, 100, 50],
-                    can_share_places=True, team_points=True)
-
-  award_temp_trophy(c, pmap, query.get_top_ziggurats(c),
-                    'zig_rank:%d', [100, 50, 20], team_points=True)
-
-  award_temp_trophy(c, pmap, query.player_low_xl_win_best(c),
-                    'low_xl_win_rank:%d', [100, 50, 20], team_points=True)
-
-  award_temp_trophy(c, pmap, query.player_rune_dive_best(c),
-                    'rune_dive_rank:%d', [50, 20, 10], team_points=True)
-
-  award_temp_trophy(c, pmap, query.player_deaths_to_uniques_best(c),
-                    'deaths_to_uniques_Nth:%d', [50, 20, 10],
-                    can_share_places=False,
-                    team_points=True)
 
 def check_banners(c):
   award_player_banners(c, 'zin',
@@ -601,32 +482,19 @@ HAVING race_count >= 5 AND class_count >= 5'''),
                        3)
   award_player_banners(c, 'yredelemnul',
                        query_first_col(c,
-                                       '''SELECT player FROM kunique_times
-                                          WHERE nuniques >= 72'''),
+                                       '''SELECT player FROM unique_kill_count
+                                          WHERE score >= 73'''),
                        3)
   award_player_banners(c, 'yredelemnul',
                        query_first_col(c,
-                                       '''SELECT player FROM kunique_times
-                                          WHERE nuniques >= 52'''),
+                                       '''SELECT player FROM unique_kill_count
+                                          WHERE  score >= 54'''),
                        2)
   award_player_banners(c, 'yredelemnul',
                        query_first_col(c,
-                                       '''SELECT player FROM kunique_times
-                                          WHERE nuniques >= 32'''),
+                                       '''SELECT player FROM unique_kill_count
+                                          WHERE score >= 27'''),
                        1)
-
-def check_misc_points(c, pmap):
-  def award_misc_points(key, multiplier, rows):
-    for r in rows:
-      player = r[0]
-      points = r[1] * multiplier
-      record_points(pmap, player, points, team_points=False)
-      log_temp_points(c, player, key % r[1], points)
-
-  award_misc_points('high_score:combo:%d', 5, query.all_hs_combos(c))
-  award_misc_points('high_score:combo_win:%d', 5, query.all_hs_combo_wins(c))
-  award_misc_points('high_score:species:%d', 20, query.all_hs_species(c))
-  award_misc_points('high_score:background:%d', 10, query.all_hs_classes(c))
 
 def update_streaks(c):
   # streak handling
@@ -644,43 +512,19 @@ def update_streaks(c):
         banner.award_banner(c, streak[0], 'cheibriados', 3)
         break
 
-def apply_stepdowns(c):
-  for p in query.get_players(c):
-    points = query.player_stepdown_points(c, p)
-    stepdowned_points = compute_stepdown(points)
-    #info("stepdown for %s: %s, %s" % (p, points, stepdowned_points))
-    if stepdowned_points != 0:
-      assign_points(c, 'combo_god_win', p, stepdowned_points, False)
-
-def compute_stepdown(points):
-  answer = 800.0*math.log(1.0+float(points)/800.0, 2.0)
-  return int(math.ceil(answer))
-
-def compute_player_only(c):
-  for p in query.get_players(c):
-    points = query.player_specific_points(c, p)
-    loaddb.update_player_only_score(c, p, points)
-
 def safe_update_player_scores(c):
   players = query.get_players(c)
 
-  query.audit_flush_player(c)
   banner.flush_temp_banners(c)
 
   pmap = { }
 
   for p in players:
-    record_points(pmap, p, 0, team_points=False)
     info("Processing banners for " + p)
     banner.process_banners(c, p)
 
-  check_misc_points(c, pmap)
-  check_temp_trophies(c, pmap)
   check_banners(c)
   update_streaks(c)
-  apply_stepdowns(c)
-  apply_point_map(c, pmap)
-  compute_player_only(c)
 
   # And award overall top banners.
   banner.assign_top_player_banners(c)

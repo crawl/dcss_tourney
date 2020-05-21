@@ -1,19 +1,13 @@
 -- Use InnoDB for transaction support?
 -- SET storage_engine=InnoDB;
 
-DROP TABLE IF EXISTS player_points;
-DROP TABLE IF EXISTS player_stepdown_points;
-DROP TABLE IF EXISTS clan_stepdown_points;
-DROP TABLE IF EXISTS clan_points;
-DROP TABLE IF EXISTS deaths_to_distinct_uniques;
-DROP TABLE IF EXISTS deaths_to_uniques;
+DROP TABLE IF EXISTS player_ranks;
 DROP TABLE IF EXISTS player_maxed_skills;
 DROP TABLE IF EXISTS player_fifteen_skills;
 DROP TABLE IF EXISTS clan_banners;
 DROP TABLE IF EXISTS player_banners;
 DROP TABLE IF EXISTS player_won_gods;
 DROP TABLE IF EXISTS player_max_piety;
-DROP TABLE IF EXISTS active_streaks;
 DROP TABLE IF EXISTS whereis_table;
 DROP TABLE IF EXISTS last_game_table;
 DROP TABLE IF EXISTS streaks;
@@ -21,16 +15,10 @@ DROP TABLE IF EXISTS ziggurats;
 DROP TABLE IF EXISTS rune_finds;
 DROP TABLE IF EXISTS branch_enters;
 DROP TABLE IF EXISTS branch_ends;
-DROP TABLE IF EXISTS kunique_times;
-DROP TABLE IF EXISTS kunique_turns; -- no longer used, but for temporary backwards compat
 DROP TABLE IF EXISTS kills_of_uniques;
 DROP TABLE IF EXISTS kills_of_ghosts;
-DROP TABLE IF EXISTS kills_by_ghosts;
 DROP TABLE IF EXISTS milestone_bookmark;
 DROP TABLE IF EXISTS milestones;
-DROP VIEW IF EXISTS class_highscores;
-DROP VIEW IF EXISTS species_highscores;
-DROP VIEW IF EXISTS combo_highscores;
 DROP TABLE IF EXISTS combo_highscores;
 DROP TABLE IF EXISTS class_highscores;
 DROP TABLE IF EXISTS species_highscores;
@@ -39,35 +27,12 @@ DROP TABLE IF EXISTS games;
 DROP TABLE IF EXISTS teams;
 DROP TABLE IF EXISTS players;
 
-DROP VIEW IF EXISTS fastest_realtime;
-DROP VIEW IF EXISTS fastest_realtime_allruner;
-DROP VIEW IF EXISTS fastest_turncount;
-DROP VIEW IF EXISTS most_diesel_games;
-DROP VIEW IF EXISTS combo_win_highscores;
-DROP VIEW IF EXISTS class_highscores;
-DROP VIEW IF EXISTS game_species_highscores;
-DROP VIEW IF EXISTS game_class_highscores;
-DROP VIEW IF EXISTS game_combo_highscores;
-DROP VIEW IF EXISTS clan_combo_highscores;
-DROP VIEW IF EXISTS clan_total_scores;
-DROP VIEW IF EXISTS clan_unique_kills;
-DROP VIEW IF EXISTS clan_dated_unique_kills;
 DROP VIEW IF EXISTS game_combo_win_highscores;
-DROP VIEW IF EXISTS combo_hs_scoreboard;
-DROP VIEW IF EXISTS combo_hs_clan_scoreboard;
-DROP VIEW IF EXISTS streak_scoreboard;
-DROP VIEW IF EXISTS best_ziggurat_dives;
-DROP VIEW IF EXISTS youngest_rune_finds;
-DROP VIEW IF EXISTS youngest_wins;
-DROP VIEW IF EXISTS most_deaths_to_uniques;
 DROP VIEW IF EXISTS have_hellpan_kills;
 DROP VIEW IF EXISTS all_hellpan_kills;
 DROP VIEW IF EXISTS fivefives_rune;
 DROP VIEW IF EXISTS fivefives_win;
 DROP VIEW IF EXISTS orbrun_tomb;
-DROP VIEW IF EXISTS nearby_uniques;
-DROP VIEW IF EXISTS most_pacific_wins;
-DROP VIEW IF EXISTS last_started_win;
 
 DROP VIEW IF EXISTS wins;
 DROP VIEW IF EXISTS first_wins;
@@ -97,15 +62,9 @@ DROP VIEW IF EXISTS player_win_perc;
 CREATE TABLE IF NOT EXISTS players (
   name VARCHAR(20) PRIMARY KEY,
   team_captain VARCHAR(20),
-  score_base BIGINT,
   -- This is the computed score! We will overwrite it each time we
   -- recalculate it, and it may be null at any point.
   score_full BIGINT DEFAULT 0,
-  team_score_base BIGINT,
-  -- This is also computed and will be overwritten each time.
-  team_score_full BIGINT DEFAULT 0,
-  -- So is this.
-  player_score_only BIGINT DEFAULT 0,
   
   FOREIGN KEY (team_captain) REFERENCES players (name)
   ON DELETE SET NULL
@@ -301,12 +260,6 @@ CREATE TABLE milestone_bookmark (
   source_file_offset BIGINT
   );
 
-CREATE TABLE kills_by_ghosts (
-  killed_player VARCHAR(20) NOT NULL,
-  killed_start_time DATETIME NOT NULL,
-  killer VARCHAR(20) NOT NULL
-  );
-
 CREATE TABLE kills_of_ghosts (
   player VARCHAR(20),
   start_time DATETIME,
@@ -321,16 +274,6 @@ CREATE TABLE kills_of_uniques (
   );
 
 CREATE INDEX kill_uniq_pmons ON kills_of_uniques (player, monster);
-
--- Keep track of who's killed how many uniques, and when they achieved this.
-CREATE TABLE kunique_times (
-  player VARCHAR(20) PRIMARY KEY,
-  -- Number of distinct uniques slain.
-  nuniques INT DEFAULT 0 NOT NULL,
-  -- When this number was reached.
-  kill_time DATETIME NOT NULL,
-  FOREIGN KEY (player) REFERENCES players (name) ON DELETE CASCADE
-  );
 
 CREATE TABLE rune_finds (
   player VARCHAR(20),
@@ -416,64 +359,28 @@ CREATE TABLE streaks (
   FOREIGN KEY (player) REFERENCES players (name) ON DELETE CASCADE
 );
 
--- Audit table for point assignment. Tracks both permanent and
--- temporary points.
-
-CREATE TABLE player_points (
-  id BIGINT AUTO_INCREMENT PRIMARY KEY,
-  player VARCHAR(20) NOT NULL,
-  temp BOOLEAN DEFAULT 0,
-  points MEDIUMINT NOT NULL DEFAULT 0,
-  team_points MEDIUMINT NOT NULL DEFAULT 0,
-  point_source VARCHAR(150) NOT NULL,
-  FOREIGN KEY (player) REFERENCES players (name) ON DELETE CASCADE
-  );
-
-CREATE INDEX point_player_src ON player_points (player, point_source);
-
-CREATE TABLE player_stepdown_points (
-  id BIGINT AUTO_INCREMENT PRIMARY KEY,
-  player VARCHAR(20) NOT NULL,
-  points MEDIUMINT NOT NULL DEFAULT 0,
-  point_source VARCHAR(150) NOT NULL,
-  FOREIGN KEY (player) REFERENCES players (name) ON DELETE CASCADE
-  );
-
-CREATE TABLE clan_stepdown_points (
-  id BIGINT AUTO_INCREMENT PRIMARY KEY,
-  captain VARCHAR(20) NOT NULL,
-  points MEDIUMINT NOT NULL DEFAULT 0,
-  point_source VARCHAR(150) NOT NULL,
-  FOREIGN KEY (captain) REFERENCES players (name) ON DELETE CASCADE
-  );
-
--- Clan point assignments.
-CREATE TABLE clan_points (
-  id BIGINT AUTO_INCREMENT PRIMARY KEY,
-  captain VARCHAR(20) NOT NULL,
-  points MEDIUMINT NOT NULL DEFAULT 0,
-  point_source VARCHAR(150) NOT NULL,
-  FOREIGN KEY (captain) REFERENCES players (name) ON DELETE CASCADE
-  );
-
-CREATE TABLE deaths_to_uniques (
-  player  VARCHAR(20),
-  uniq    VARCHAR(50),
-  start_time DATETIME,
-  end_time   DATETIME,
-  FOREIGN KEY (player) REFERENCES players (name) ON DELETE CASCADE
-  );
-CREATE INDEX deaths_to_uniques_p ON deaths_to_uniques (player);
-
-CREATE TABLE deaths_to_distinct_uniques (
+-- Player ranking in various categories; in principle this can
+-- all be achieved from the extant database, but requires the RANK() window
+-- function on a large join, so we cache it here.
+CREATE TABLE player_ranks (
   player VARCHAR(20),
-  ndeaths INT,
-  death_time DATETIME,
+  first_win INT,
+  first_allrune_win INT,
+  streak INT,
+  highest_score INT,
+  lowest_turncount_win INT,
+  fastest_win INT,
+  low_xl_win INT,
+  win_perc INT,
+  piety INT,
+  banner_score INT,
+  exploration INT,
+  harvest INT,
+  combo_score INT,
+  nemelex_score INT,
   PRIMARY KEY (player),
   FOREIGN KEY (player) REFERENCES players (name) ON DELETE CASCADE
-  );
-CREATE INDEX deaths_to_distinct_uniques_p
-ON deaths_to_distinct_uniques (player, ndeaths);
+);
 
 CREATE TABLE player_maxed_skills (
   player VARCHAR(20),
@@ -515,122 +422,10 @@ CREATE INDEX clan_banners_captain ON clan_banners (team_captain);
 
 -- Views for trophies
 
--- The three fastest realtime wins. Ties are broken by who got there first.
-CREATE VIEW fastest_realtime AS
-SELECT id, player, duration
-  FROM games
- WHERE killertype = 'winning' AND player <> 'qw' AND player <> 'tstbtto'
- ORDER BY duration, end_time
- LIMIT 3;
-
--- The three fastest realtime allrune wins. Ties are broken by who got there first.
-CREATE VIEW fastest_realtime_allruner AS
-SELECT id, player, duration
-  FROM games
- WHERE killertype = 'winning' AND runes = 15
- ORDER BY duration, end_time
- LIMIT 3;
-
--- If there's a tie on start time, break it by seeing which game finished first.
-CREATE VIEW last_started_win AS
-SELECT *
-  FROM games
- WHERE killertype = 'winning'
-ORDER BY start_time DESC, end_time LIMIT 1;
-
--- The three fastest wins (turncount)
-CREATE VIEW fastest_turncount AS
-SELECT id, player, turn
-  FROM games
- WHERE killertype = 'winning'
-ORDER BY turn, end_time
-LIMIT 3;
-
-CREATE VIEW most_pacific_wins AS
-SELECT id, player, kills
-  FROM games
- WHERE killertype = 'winning' AND kills IS NOT NULL
-ORDER BY kills
- LIMIT 3;
-
-CREATE VIEW youngest_wins AS
-SELECT id, player, xl
-  FROM games
- WHERE killertype = 'winning'
-ORDER BY xl, end_time
-LIMIT 3;
-
-CREATE VIEW most_diesel_games AS
-SELECT id, player, ac+ev AS dieselity
-  FROM games
-ORDER BY dieselity DESC, end_time
-LIMIT 3;
-
-CREATE VIEW clan_combo_highscores AS
-SELECT p.team_captain, g.*
-FROM combo_highscores g, players p
-WHERE g.player = p.name
-AND p.team_captain IS NOT NULL;
-
-CREATE VIEW combo_hs_clan_scoreboard AS
-SELECT team_captain, COUNT(*) AS combos
-FROM clan_combo_highscores
-GROUP BY team_captain
-ORDER BY combos DESC
-LIMIT 20;
-
-CREATE VIEW clan_total_scores AS
-SELECT team_captain, (SUM(score_full) + SUM(team_score_full) - SUM(player_score_only)) score
-FROM players
-WHERE team_captain IS NOT NULL
-GROUP BY team_captain
-ORDER BY score DESC;
-
-CREATE VIEW clan_dated_unique_kills AS
-SELECT p.team_captain AS team_captain, k.monster AS monster, 
-                  MIN(k.kill_time) AS first_time
-FROM  players p INNER JOIN kills_of_uniques k
-                       ON p.name = k.player
-WHERE p.team_captain IS NOT NULL
-GROUP BY p.team_captain, k.monster;
-
-CREATE VIEW clan_unique_kills AS
-SELECT team_captain, COUNT(*) AS kills, MAX(first_time) AS end_time
-FROM clan_dated_unique_kills
-GROUP BY team_captain
-ORDER BY kills DESC, end_time
-LIMIT 10;
-
 CREATE VIEW game_combo_win_highscores AS
 SELECT *
 FROM combo_highscores
 WHERE killertype = 'winning';
-
-CREATE VIEW combo_hs_scoreboard AS
-SELECT player, COUNT(*) AS nscores
-FROM combo_highscores
-GROUP BY player
-ORDER BY nscores DESC
-LIMIT 20;
-
-CREATE VIEW best_ziggurat_dives AS
-SELECT player, completed, deepest, place, zig_time, start_time
-  FROM ziggurats
-ORDER BY completed DESC, deepest DESC
-LIMIT 3;
-
-CREATE VIEW youngest_rune_finds AS
-SELECT player, rune, start_time, rune_time, xl
-  FROM rune_finds
- WHERE rune != 'abyssal' AND rune != 'slimy'
-ORDER BY xl, rune_time
- LIMIT 5;
-
-CREATE VIEW most_deaths_to_uniques AS
-SELECT player, ndeaths, death_time
-  FROM deaths_to_distinct_uniques
-ORDER BY ndeaths DESC, death_time
- LIMIT 3;
 
 CREATE VIEW all_hellpan_kills AS
 SELECT player, COUNT(DISTINCT monster) AS hellpan_kills

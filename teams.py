@@ -23,7 +23,6 @@ import datetime
 import loaddb
 import query
 import crawl_utils
-from query import say_points, get_points, log_temp_clan_points
 import banner
 import outline
 

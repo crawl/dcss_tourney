@@ -95,14 +95,14 @@ def player_page(c, player):
 
 # Update tourney overview every 5 mins.
 INTERVAL = crawl_utils.UPDATE_INTERVAL
-TIMER = [ loaddb.define_timer( INTERVAL, tourney_overview ),
-          loaddb.define_timer( INTERVAL, team_pages ),
-          loaddb.define_timer( INTERVAL, player_pages ),
+TIMER = [ #loaddb.define_timer( INTERVAL, tourney_overview ),
+          #loaddb.define_timer( INTERVAL, team_pages ),
+          #loaddb.define_timer( INTERVAL, player_pages ),
           loaddb.define_timer( INTERVAL, individual_category_pages )
           ]
-LISTENER = [ loaddb.define_cleanup(tourney_overview),
-             loaddb.define_cleanup(team_pages),
-             loaddb.define_cleanup(player_pages),
+LISTENER = [ #loaddb.define_cleanup(tourney_overview),
+             #loaddb.define_cleanup(team_pages),
+             #loaddb.define_cleanup(player_pages),
              loaddb.define_cleanup(individual_category_pages)
            ]
 

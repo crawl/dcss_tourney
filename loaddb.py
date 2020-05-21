@@ -835,8 +835,8 @@ player_exists = crawl_utils.Memoizer(_player_exists, lambda args: args[1 : ])
 def add_player(c, name):
   """Add the given player with no score yet"""
   query_do(c,
-           """INSERT INTO players (name, score_base, team_score_base)
-              VALUES (%s, 0, 0);""",
+           """INSERT INTO players (name, score_full)
+              VALUES (%s, 0);""",
            name)
   # And register with the Memoizer to let it know that the player now exists.
   player_exists.record((c, name), True)
@@ -1018,19 +1018,6 @@ def extract_milestone_ghost_name(milestone):
 def extract_rune(milestone):
   return R_RUNE.findall(milestone)[0]
 
-def record_ghost_kill(cursor, game):
-  """Given a game where the character was slain by a ghost, adds an entry in
-  the kills_by_ghosts table."""
-  query_do(cursor,
-           '''INSERT INTO kills_by_ghosts
-              (killed_player, killed_start_time, killer) VALUES
-              (%s, %s, %s);''',
-           game['name'], game['start'], extract_ghost_name(game['killer']))
-
-def is_ghost_kill(game):
-  killer = game.get('killer') or ''
-  return R_GHOST_NAME.search(killer)
-
 def process_log(cursor, filename, offset, d):
   if is_not_tourney(d):
     return
@@ -1043,9 +1030,6 @@ def process_log(cursor, filename, offset, d):
     insert_xlog_db(cursor, d, filename, offset)
     update_last_game(cursor, d, filename)
     update_highscores(cursor, d, filename, offset)
-
-    if is_ghost_kill(d):
-      record_ghost_kill(cursor, d)
 
     # Tell the listeners to do their thang
     for listener in LISTENERS:
@@ -1091,23 +1075,6 @@ def add_unique_milestone(cursor, game):
              game['name'],
              sqltime,
              extract_unique_name(game['milestone']))
-
-    # Update a convenient lookup table that we can use for trophy calcs.
-    uniqcount = _player_count_unique_uniques(cursor, game['name'])
-    cachecount = player_get_nunique_uniques(cursor, game['name'])
-    if uniqcount > cachecount:
-      if cachecount == 0:
-        query_do(cursor,
-                 '''INSERT INTO kunique_times (player, nuniques, kill_time)
-                    VALUES (%s, %s, %s)''',
-                 game['name'], uniqcount, sqltime)
-      else:
-        query_do(cursor,
-                 '''UPDATE kunique_times
-                    SET nuniques = %s, kill_time = %s
-                    WHERE player = %s
-                    AND nuniques < %s''',
-                 uniqcount, sqltime, game['name'], uniqcount)
 
 def add_ghost_milestone(cursor, game):
   if not game['milestone'].startswith('banished '):

@@ -255,44 +255,11 @@ def player_top_scores(c, limit=5):
                         ORDER BY score DESC
                            LIMIT %d''' % limit)
 
-def player_last_started_win(c):
-  return query_rows(c, '''SELECT player, end_time FROM last_started_win''')
-
-def player_hare_candidates(c):
-  if loaddb.time_in_hare_window():
-    return player_last_started_win(c)
-  else:
-    return []
-
 def logfile_fields(prefix = None):
   if prefix:
     return ",".join([ prefix + x for x in LOG_FIELDS ])
   else:
     return ",".join(LOG_FIELDS)
-
-def get_fastest_time_player_games(c):
-  fields = logfile_fields('g.')
-  games = query_rows(c, '''SELECT %s FROM fastest_realtime f, games g
-                           WHERE f.id = g.id''' % fields)
-  return [ row_to_xdict(r) for r in games ]
-
-def get_fastest_time_allruner_player_games(c):
-  fields = logfile_fields('g.')
-  games = query_rows(c, '''SELECT %s FROM fastest_realtime_allruner f, games g
-                           WHERE f.id = g.id''' % fields)
-  return [ row_to_xdict(r) for r in games ]
-
-def get_fastest_turn_player_games(c):
-  fields = logfile_fields('g.')
-  games = query_rows(c, '''SELECT %s FROM fastest_turncount f, games g
-                           WHERE f.id = g.id''' % fields)
-  return [ row_to_xdict(r) for r in games ]
-
-def get_dieselest_games(c):
-  fields = logfile_fields('g.')
-  games = query_rows(c, '''SELECT %s FROM most_diesel_games f, games g
-                           WHERE f.id = g.id''' % fields)
-  return [ row_to_xdict(r) for r in games ]
 
 def get_top_active_streaks(c, limit = None):
   streaks = list_all_streaks(c, None, True)
@@ -310,26 +277,6 @@ def get_top_streaks(c, limit = None):
   if limit and len(filtered_streaks) > limit:
     filtered_streaks = filtered_streaks[:limit]
   return filtered_streaks
-
-def get_top_clan_scores(c, how_many=10):
-  return query_rows_with_ties(c, '''SELECT name, owner, total_score
-                           FROM teams
-                           WHERE total_score > 0''',
-                           'total_score', how_many, 2)
-
-def get_top_clan_unique_kills(c, how_many=3):
-  return query_rows(c, '''SELECT c.name, u.team_captain, u.kills, u.end_time
-                          FROM teams c, clan_unique_kills u
-                          WHERE c.owner = u.team_captain
-                            AND u.kills > 0
-                          ORDER BY u.kills DESC, u.end_time
-                          LIMIT %d''' % how_many)
-
-def get_top_clan_combos(c, how_many = 3):
-  return query_rows_with_ties(c, '''SELECT c.name, hs.team_captain, hs.combos
-                          FROM teams c, combo_hs_clan_scoreboard hs
-                          WHERE c.owner = hs.team_captain''',
-                          'hs.combos', how_many, 2)
 
 def get_combo_scores(c, how_many=None, player=None):
   query = Query("SELECT " + ",".join(LOG_FIELDS) +
@@ -373,18 +320,6 @@ def previous_class_highscore(c, game):
                          ORDER BY score DESC''',
                    game['char'][2:], game['end'])
 
-def get_clan_combo_scores(c, how_many=None, captain=None):
-  query = Query("SELECT team_captain, " + ",".join(LOG_FIELDS) +
-                (""" FROM clan_combo_highscores
-                       %s
-                     ORDER BY score DESC, charabbrev""" %
-                 (captain and 'WHERE team_captain = %s' or '')))
-  if captain is not None:
-    query.vappend(captain)
-  if how_many:
-    query.append(" LIMIT %d" % how_many)
-  return [ [x[0], row_to_xdict(x[1:])] for x in query.rows(c) ]
-
 def get_species_scores(c, how_many=None, player=None):
   query = Query("SELECT " + ",".join(LOG_FIELDS) +
                 (""" FROM species_highscores
@@ -408,28 +343,6 @@ def get_class_scores(c, how_many=None, player=None):
   if how_many:
     query.append(" LIMIT %d" % how_many)
   return [ row_to_xdict(x) for x in query.rows(c) ]
-
-def get_gkills(c):
-  rows = query_rows(c,
-                    """SELECT killer, COUNT(*) kills
-                       FROM games
-                       WHERE kgroup='player ghost'
-                       GROUP BY killer
-                       ORDER BY kills DESC""")
-  if len(rows) > 50:
-    rows = [ list(r) for r in rows if r[1] >= rows[49][1] ]
-  else:
-    rows = [ list(r) for r in rows ]
-  for r in rows:
-    ghost = r[0]
-    victims = query_rows(c,
-                         """SELECT player, COUNT(*) ntimes FROM games
-                            WHERE killer = %s
-                            GROUP BY player
-                            ORDER BY ntimes DESC""",
-                         ghost)
-    r.append(victims)
-  return rows
 
 def get_death_causes(c):
   rows = query_rows(c,
@@ -496,30 +409,6 @@ def get_top_players(c, how_many=10):
                              WHERE score_full > 0''',
                              'score_full', how_many, 1)
 
-def get_top_unique_killers(c, how_many=3):
-  return query_rows(c,
-                    '''SELECT player, nuniques, kill_time FROM kunique_times
-                       ORDER BY nuniques DESC, kill_time
-                       LIMIT %d''' % how_many)
-
-def get_top_combo_highscorers(c, how_many=3):
-  return query_rows_with_ties(c,
-                    '''SELECT player, nscores FROM combo_hs_scoreboard
-                        WHERE nscores > 0''',
-                        'nscores', how_many, 1)
-
-def get_deepest_xl1_games(c, how_many=3):
-  return find_games(c, xl = 1, sort_max = 'lvl', limit = how_many)
-
-def most_pacific_wins(c, how_many=3):
-  fields = ",".join(['g.' + x for x in LOG_FIELDS])
-  rows = query_rows(c,
-                    "SELECT " + fields + " FROM " +
-                    ''' most_pacific_wins m, games g
-                       WHERE m.id = g.id''')
-  games = [ row_to_xdict(x) for x in rows ]
-  return games
-
 def check_xl9_streak(c, player, start):
   mile = query_row(c, '''SELECT start_time
                            FROM milestones
@@ -583,15 +472,6 @@ def get_winning_games(c, **selectors):
   return find_games(c, sort_max='end_time',
                     killertype='winning', **selectors)
 
-def race_formula(total, subtotal):
-  return (2*(54+total)+1+subtotal)/(2+subtotal)
-
-def class_formula(total, subtotal):
-  return (48+total+1+subtotal)/(2+subtotal)
-
-def god_formula(total, subtotal):
-  return (3*(50+total)+3+2*subtotal)/(4+2*subtotal)
-
 def player_race_wins(c, name):
   return query_rows(c, """SELECT DISTINCT MID(charabbrev,1,2) FROM
        games WHERE killertype='winning' AND player=%s""", name)
@@ -599,72 +479,6 @@ def player_race_wins(c, name):
 def player_class_wins(c, name):
   return query_rows(c, """SELECT DISTINCT MID(charabbrev,3,2) FROM
        games WHERE killertype='winning' AND player=%s""", name)
-
-def clan_race_wins(c, captain):
-  return query_rows(c, """SELECT DISTINCT MID(g.charabbrev,1,2)
-                          FROM games g, players p
-                          WHERE g.killertype='winning' AND g.player = p.name
-                          AND p.team_captain = %s""", captain)
-
-def clan_class_wins(c, captain):
-  return query_rows(c, """SELECT DISTINCT MID(g.charabbrev,3,2)
-                          FROM games g, players p
-                          WHERE g.killertype='winning' AND g.player = p.name
-                          AND p.team_captain = %s""", captain)
-
-def clan_god_wins(c, captain):
-  return query_rows(c, """SELECT DISTINCT g.god
-                          FROM player_won_gods g, players p
-                          WHERE g.player = p.name AND p.team_captain = %s""",
-                    captain)
-
-def clan_nemelex_points(c, captain):
-  return query_rows(c, '''SELECT psp.point_source, SUM(psp.points) total
-                          FROM player_stepdown_points psp, players p
-                          WHERE SUBSTRING_INDEX(psp.point_source, ':', 1)
-                                = 'nemelex'
-                          AND psp.player = p.name
-                          AND p.team_captain = %s
-                          GROUP BY psp.point_source
-                          ORDER BY total DESC''', captain)
-
-def clan_max_points(c, captain, key):
-  points = query_row(c,
-                     '''SELECT pp.player, SUM(pp.points) total
-                        FROM player_points pp, players p
-                        WHERE pp.point_source = %s
-                        AND pp.player = p.name
-                        AND p.team_captain = %s
-                        GROUP BY pp.player
-                        ORDER BY total DESC''', key, captain)
-  if points == None:
-    return 0
-  return points[1]
-
-def clan_max_stepdown_points(c, captain, key):
-  points = query_row(c,
-                     '''SELECT pp.player, SUM(pp.points) total
-                        FROM player_stepdown_points pp, players p
-                        WHERE pp.point_source = %s
-                        AND pp.player = p.name
-                        AND p.team_captain = %s
-                        GROUP BY pp.player
-                        ORDER BY total DESC''', key, captain)
-  if points == None:
-    return 0
-  return points[1]
-
-def player_specific_points(c, name):
-  return count_points(c, name, 'combo_god_win')
-
-def player_stepdown_points(c, name):
-  total = query_first(c,
-                      '''SELECT SUM(points) FROM player_stepdown_points
-                         WHERE player = %s''',
-                      name)
-  if total is None:
-    return 0
-  return total
 
 def row_to_xdict(row):
   return dict( zip(LOG_FIELDS, row) )
@@ -816,7 +630,7 @@ def get_clan_stats(c, captain):
 
 def get_player_stats(c, name):
   """Returns a dictionary of miscellaneous stats for the player."""
-  points = query_row(c, '''SELECT score_full, team_score_full
+  points = query_row(c, '''SELECT score_full
                            FROM players WHERE name = %s''',
                      name)
   if points is None:
@@ -824,7 +638,6 @@ def get_player_stats(c, name):
 
   stats = { }
   stats['points'] = points[0]
-  stats['team_points'] = points[1]
   stats['rank1'] = query_first(c, '''SELECT COUNT(*) FROM players
                                     WHERE score_full > %s''',
                               stats['points']) + 1
@@ -845,29 +658,12 @@ def get_player_stats(c, name):
   stats['win_perc'] = "%.2f%%" % calc_perc(stats['won'], stats['played'])
   return stats
 
-def get_player_base_score(c, name):
-  """Return the unchanging part of a player's score"""
-  query = Query("""SELECT score_base FROM players WHERE name=%s;""",
-                name)
-  return query.first(c, "Player not found: %s" % name)
-
-def get_player_base_team_score(c, name):
-  """Return the unchanging part of a player's team score contribution"""
-  query = Query("""SELECT team_score_base FROM players WHERE name=%s;""",
-                name)
-  return query.first(c, "Player not found: %s" % name)
-
 def get_players(c):
   return [r[0] for r in
           query_rows(c, 'SELECT name FROM players')]
 
 def get_clans(c):
   return [r[0] for r in query_rows(c, 'SELECT owner FROM teams')]
-
-def say_points(who, what, points):
-  if points > 0:
-    debug("%s: ADD %d points [%s]" % (who, points, what))
-  return points
 
 def is_god_repeated(c, player, god):
   """Returns true if the player has been credited as the champion of the
@@ -917,225 +713,6 @@ def get_first_max_piety(c, player, start_time):
                   player, start_time, row[0], row[1]) > 0):
     return 'faithless'
   return row[0]
-
-def audit_trail_player_points(c, player):
-  """Gets the audit trail for the points assigned to the player."""
-  return query_rows(c,
-                    '''SELECT temp, point_source, SUM(points) total, COUNT(*) n
-                    FROM player_points
-                    WHERE player=%s AND points > 0
-                    GROUP BY temp, point_source
-                    ORDER BY temp, total DESC, n DESC, point_source''',
-                    player)
-
-def audit_trail_player_stepdown_points(c, player):
-  rows = query_rows(c,
-                    '''SELECT point_source, SUM(points) total, COUNT(*) n
-                    FROM player_stepdown_points
-                    WHERE player=%s AND points > 0
-                    GROUP BY point_source
-                    ORDER BY total DESC, n DESC, point_source''',
-                    player)
-  return [tuple([False] + list(row)) for row in rows]
-
-def audit_trail_player_category_points(c, player):
-  return query_rows(c,
-                    '''SELECT temp, SUBSTRING_INDEX(point_source, ':', 1) source,
-                          SUM(points) total, COUNT(*) n
-                    FROM player_points
-                    WHERE player=%s AND points > 0
-                    GROUP BY source
-                    ORDER BY temp, total DESC, n DESC, source''',
-                    player)
-
-def audit_trail_player_team_points(c, player):
-  return query_rows(c,
-                    '''SELECT temp, point_source, SUM(team_points) total,
-                          COUNT(*) n
-                       FROM player_points
-                       WHERE player=%s AND team_points > 0
-                       GROUP BY temp, point_source
-                       ORDER BY temp, total DESC, n DESC, point_source''',
-                    player)
-
-def audit_clan_player_points(c, captain):
-  """Gets the total points contributed to a clan by each player in the clan."""
-  return query_rows(c,
-                    '''SELECT name, (score_full + team_score_full) points
-                       FROM players
-                       WHERE team_captain = %s
-                       ORDER BY points DESC, name''',
-                    captain)
-
-def audit_adjusted_clan_player_points(c, captain):
-  return query_rows(c,
-                    '''SELECT name, (score_full + team_score_full
-                                - player_score_only) points
-                       FROM players
-                       WHERE team_captain = %s
-                       ORDER BY points DESC, name''',
-                    captain)
-
-def audit_clan_points(c, captain):
-  return query_rows(c,
-                    '''SELECT point_source, SUM(points) p
-                       FROM clan_points
-                       WHERE captain = %s
-                       GROUP BY point_source
-                       ORDER BY p DESC, point_source''',
-                    captain)
-
-def audit_clan_stepdown_points(c, captain):
-  return query_rows(c,
-                    '''SELECT point_source, SUM(points) p
-                       FROM clan_stepdown_points
-                       WHERE captain = %s
-                       GROUP BY point_source
-                       ORDER BY p DESC, point_source''',
-                    captain)
-
-def audit_clan_category_points(c, captain):
-  return query_rows(c,
-                    '''SELECT SUBSTRING_INDEX(point_source, ':', 1) source,
-                       SUM(points) p
-                       FROM clan_points
-                       WHERE captain = %s
-                       GROUP BY source
-                       ORDER BY p DESC, source''',
-                    captain)
-
-def audit_record_points(c, who, what, points, temp, credited='points'):
-  if points > 0:
-    # Update the audit table.
-    query_do(c, 'INSERT INTO player_points (player, temp, ' + credited + ',' +
-                '''                         point_source)
-                   VALUES (%s, %s, %s, %s)''',
-             who, temp and 1 or 0, points, what)
-
-def clan_audit_record_points(c, captain, what, points):
-  if points > 0:
-    query_do(c, '''INSERT INTO clan_points (captain, points, point_source)
-                   VALUES (%s, %s, %s)''',
-             captain, points, what)
-
-def audit_flush_player(c):
-  """Discards temporary points assigned to players from the audit table."""
-  query_do(c, '''DELETE FROM player_points
-                 WHERE temp = 1''')
-
-def audit_stepdown_flush_clan(c, captain):
-  query_do(c, '''DELETE FROM clan_stepdown_points WHERE captain = %s''', captain)
-
-def audit_flush_clan(c, captain):
-  query_do(c, '''DELETE FROM clan_points WHERE captain = %s''', captain)
-
-def log_temp_points(c, who, what, points):
-  """Assign provisional points to a player."""
-  if points > 0:
-    say_points(who, what, points)
-    audit_record_points(c, who, what, points, True)
-  return points
-
-def log_temp_team_points(c, who, what, points):
-  """Assign provisional team points to a player. Team points are added only
-  to the player's team, not to the player's individual score, but they
-  still 'belong' to the player."""
-  if points > 0:
-    say_points(who + '(c)', what, points)
-    audit_record_points(c, who, what, points, True, credited = 'team_points')
-  return points
-
-def log_temp_clan_points(c, captain, what, points):
-  """Assign provisional clan points to the clan, given the captain of the clan.
-  Clan points belong to the clan as a whole, not to any of the individual
-  players. Clan points are always provisional, since the players in a clan
-  are free to leave/rejoin at any time."""
-  if points > 0:
-    say_points('CLAN:' + captain, what, points)
-    clan_audit_record_points(c, captain, what, points)
-  return points
-
-def get_points(index, *points):
-  if index >= 0 and index < len(points):
-    return points[index];
-  return 0
-
-def count_points(cursor, name, point_source):
-  total = query_first(cursor,
-                      '''SELECT SUM(points) FROM player_points
-                         WHERE player = %s AND point_source = %s''',
-                      name, point_source)
-  if total is None:
-    return 0
-  return total
-
-def count_team_points(cursor, name, point_source):
-  total = query_first(cursor,
-                      '''SELECT SUM(team_points) FROM player_points
-                         WHERE player = %s AND point_source = %s''',
-                      name, point_source)
-  if total is None:
-    return 0
-  return total
-
-def count_stepdown_points(cursor, name, point_source):
-  total = query_first(cursor,
-                      '''SELECT SUM(points) FROM player_stepdown_points
-                         WHERE player = %s AND point_source = %s''',
-                      name, point_source)
-  if total is None:
-    return 0
-  return total
-
-def assign_points(cursor, point_source, name, points, add=True):
-  """Add points to a player's points in the db"""
-  if add:
-    new_points = points
-  else:
-    new_points = points - count_points(cursor, name, point_source)
-  if new_points > 0:
-    debug("%s: %d points [%s]" % (name, new_points, point_source))
-    audit_record_points(cursor, name, point_source, new_points, False)
-    query_do(cursor,
-             """UPDATE players
-                SET score_base = score_base + %s
-                WHERE name = %s""",
-             new_points, name)
-
-def assign_stepdown_points(cursor, point_source, name, points, add=True):
-  if add:
-    new_points = points
-  else:
-    new_points = points - count_stepdown_points(cursor, name, point_source)
-  if new_points > 0:
-    query_do(cursor, '''INSERT INTO player_stepdown_points (player, points, point_source)
-                        VALUES (%s, %s, %s)''', name, new_points, point_source)
-
-def assign_stepdown_clan_points(cursor, point_source, captain, points, add=True):
-  if points > 0:
-    query_do(cursor, '''INSERT INTO clan_stepdown_points (captain, points, point_source)
-                        VALUES (%s, %s, %s)''', captain, points, point_source)
-
-def assign_team_points(cursor, point_source, name, points):
-  """Add points to a players team in the db.  The name refers to the player, not the team"""
-  if points > 0:
-    debug("TEAM %s: %d points [%s]" % (name, points, point_source))
-    audit_record_points(cursor, name, point_source, points, False,
-                        credited = 'team_points')
-    query_do(cursor,
-             """UPDATE players
-                SET team_score_base = team_score_base + %s
-                WHERE name=%s;""",
-             points, name)
-
-def set_clan_points(c, captain, points):
-  debug("TEAM %s: additional points = %d" % (captain, points))
-  query_do(c, '''UPDATE teams
-                 SET total_score =
-                    (SELECT score FROM clan_total_scores
-                     WHERE team_captain = %s) + %s
-                 WHERE owner = %s''',
-           captain, points, captain)
 
 def count_player_unique_kills(cursor, player, unique):
   return query_first(cursor,
@@ -1211,67 +788,6 @@ def do_place_numeric(rows, callfn):
     if not callfn(r, index):
       break
 
-def find_place_numeric(rows, player):
-  """Given a list of two-tuple rows, returns the index at which the given
-  player name occurs in the two-tuples, or -1 if the player name is not
-  present in the list. The second element of each tuple is considered to be
-  a score. If any element has the same score as a preceding element, it is
-  treated as being at the same index."""
-  index = -1
-  rindex = -1
-  last_num = None
-  for r in rows:
-    rindex += 1
-    if last_num != r[1]:
-      index = rindex
-    last_num = r[1]
-    if r[0] == player:
-      return index
-  return -1
-
-def player_fastest_realtime_win_best(c):
-  return query_rows(c, 'SELECT player FROM fastest_realtime')
-
-def player_fastest_realtime_allruner_win_best(c):
-  return query_rows(c, 'SELECT player FROM fastest_realtime_allruner')
-
-def player_fastest_realtime_win_pos(c, player):
-  return find_place(player_fastest_realtime_win_best(c), player)
-
-def player_fastest_realtime_allruner_win_pos(c, player):
-  return find_place(player_fastest_realtime_allruner_win_best(c), player)
-
-def player_fastest_turn_win_best(c):
-  return query_rows(c, 'SELECT player FROM fastest_turncount')
-
-def player_fastest_turn_win_pos(c, player):
-  return find_place(player_fastest_turn_win_best(c), player)
-
-def player_dieselest_best(c):
-  return query_rows(c, 'SELECT player FROM most_diesel_games')
-
-def player_dieselest_pos(c, player):
-  return find_place(player_dieselest_best(c), player)
-
-def player_hs_combo_best(c):
-  return query_rows(c, 'SELECT player, nscores FROM combo_hs_scoreboard')
-
-def player_hs_combo_pos(c, player):
-  return find_place_numeric(player_hs_combo_best(c), player)
-
-def player_unique_kill_pos(c, player):
-  return find_place(
-    query_rows(c, '''SELECT player FROM kunique_times
-                   ORDER BY nuniques DESC, kill_time
-                      LIMIT 3'''),
-    player)
-
-def player_pacific_win_best(c):
-  return query_rows(c, '''SELECT player FROM most_pacific_wins''')
-
-def player_pacific_win_pos(c, player):
-  return find_place(player_pacific_win_best(c), player)
-
 def player_uniques_killed(c, player):
   rows = query_rows(c, '''SELECT DISTINCT monster FROM kills_of_uniques
                           WHERE player = %s ORDER BY monster''',
@@ -1289,27 +805,6 @@ def clan_uniques_killed(c, captain):
 def uniques_unkilled(uniques_killed):
   killset = set(uniques_killed)
   return [ u for u in uniq.UNIQUES if u not in killset ]
-
-def player_xl1_dive_best(c):
-  return [ [g['player']] for g in get_deepest_xl1_games(c) ]
-
-def player_xl1_dive_pos(c, player):
-  return find_place(player_xl1_dive_best(c), player)
-
-def clan_combo_pos(c, owner):
-  return find_place_numeric(
-    query_rows(c,
-               '''SELECT team_captain, combos FROM
-                         combo_hs_clan_scoreboard'''),
-    owner)
-
-def clan_unique_pos(c, owner):
-  return find_place(
-    query_rows(c,
-               '''SELECT team_captain, kills FROM
-                         clan_unique_kills
-                   WHERE kills > 0'''),
-    owner)
 
 def all_hs_combos(c):
   return query_rows(c,
@@ -1473,70 +968,11 @@ def find_remaining_gods(used_gods):
 
 def player_ziggurat_deepest(c, player):
   return query_first_def(c, 0,
-                         '''SELECT deepest FROM ziggurats WHERE player = %s''',
+                         '''SELECT completed, deepest FROM ziggurats WHERE player = %s''',
                          player)
 
 def clan_zig_depth(c, owner):
   return max([player_ziggurat_deepest(c, player) for player in players_in_team(c, owner)])
-
-def get_top_ziggurats(c):
-  rows = query_rows(c, '''SELECT player, place, deepest, zig_time
-                            FROM best_ziggurat_dives
-                           LIMIT 3''')
-  # Convert to lists for doctoring.
-  rows = [list(x) for x in rows]
-  for r in rows:
-    # Distinguish between entering and leaving ziggurat levels.
-    if r[2] % 2 == 1:
-      r[1] += " (out)"
-  return [[x[0], x[1], x[3]] for x in rows]
-
-def player_ziggurat_dive_pos(c, player):
-  return find_place([x[0] for x in get_top_ziggurats(c)], player)
-
-def player_low_xl_win_best(c):
-  return query_rows(c, '''SELECT player FROM youngest_wins LIMIT 3''')
-
-def get_youngest_wins(c):
-  fields = logfile_fields('g.')
-  games = query_rows(c, '''SELECT %s FROM youngest_wins f, games g
-                           WHERE f.id = g.id''' % fields)
-  return [ row_to_xdict(r) for r in games ]
-
-def player_rune_dive_best(c):
-  return query_rows(c, '''SELECT player FROM youngest_rune_finds
-                                      LIMIT 3''')
-
-def youngest_rune_finds(c):
-  return query_rows(c, '''SELECT player, rune, xl, rune_time
-                            FROM youngest_rune_finds LIMIT 3''')
-
-def player_deaths_to_uniques_best(c):
-  """Returns the players who have died to the most uniques and the number of
-  distinct uniques they've died to."""
-  return query_rows(c, '''SELECT player, ndeaths, death_time
-                            FROM most_deaths_to_uniques''')
-
-def most_deaths_to_uniques(c):
-  """Returns the players who have died to the most uniques and the distinct
-  uniques they've died to, sorted in alphabetical order."""
-  players = [[r[0], r[2]] for r in player_deaths_to_uniques_best(c)]
-  rows = query_rows(c, '''SELECT player, uniq
-                            FROM deaths_to_uniques''')
-  pmap = { }
-  for player, uniq in rows:
-    ulist = pmap.get(player) or set()
-    ulist.add(uniq)
-    pmap[player] = ulist
-  result = [[x[0], pmap[x[0].lower()], x[1]] for x in players]
-  for r in result:
-    r[1] = list(r[1])
-    r[1].sort()
-  return result
-
-def player_deaths_to_uniques_pos(c, player):
-  return find_place(
-    player_deaths_to_uniques_best(c), player)
 
 def register_maxed_skill(c, player, sk):
   if not query_first_def(c, None, '''SELECT player
@@ -1735,25 +1171,6 @@ def count_gods_mollified(c, player):
       continue
     count += 1
   return count
-
-def count_deaths_to_distinct_uniques(c, player):
-  return query_first(c, '''SELECT COUNT(DISTINCT uniq)
-                             FROM deaths_to_uniques
-                             WHERE player = %s''',
-                     player)
-
-def lookup_deaths_to_distinct_uniques(c, player):
-  return query_first_def(c, 0,
-                         '''SELECT ndeaths
-                              FROM deaths_to_distinct_uniques
-                             WHERE player = %s''',
-                         player)
-
-def update_deaths_to_distinct_uniques(c, player, ndeaths, time):
-  query_do(c, '''INSERT INTO deaths_to_distinct_uniques
-                      VALUES (%s, %s, %s)
-                 ON DUPLICATE KEY UPDATE ndeaths = %s, death_time = %s ''',
-           player, ndeaths, time, ndeaths, time)
 
 def next_start_time(c, player, end_time):
   mile = query_row(c, '''SELECT start_time
