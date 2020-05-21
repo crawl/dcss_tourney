@@ -24,6 +24,7 @@ services:
       - --db-host=mysql
       - --db-pass=crawl
       - --db-retry-connect
+      - --validate-database
     environment:
       LOCAL_TEST: "false"
       BASEDIR: /root

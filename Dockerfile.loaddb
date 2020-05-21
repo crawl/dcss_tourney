@@ -7,5 +7,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-# you'll want to override this to set your own args, probably
+# You'll probably want to override this to set your own args
 CMD [ "python", "./loaddb.py" ]
