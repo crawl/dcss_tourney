@@ -144,19 +144,63 @@ def player_page(c, player):
             {
               'god': 'Ashenzari',
               'name': 'Explorer',
-              'achieved': 0,
-              'tiers': ('enter a rune branch', 'collect 5 distinct runes', 'collect all 17 runes')
+              'achieved': 2,
+              'tiers': (
+                'Enter a rune branch',
+                'Collect 5 distinct runes',
+                'Collect all 17 runes'
+              ),
+              'tier_notes': (
+                '1/1: <a href="#">Snake</a>',
+                '4/5: <a href="#">Slimy</a>, <a href="#">Golden</a>, <a href="#">Silver</a>, <a href="#">Demonic</a>, <a href="#">Abyssal</a>',
+                '',
+              )
             },
             {
               'god': 'Beogh',
               'name': 'Heretic',
-              'achieved': 2,
+              'achieved': 1,
               'tiers': (
                 'Abandon and mollify one god',
                 'Abandon and mollify 3 gods in 3 different games',
                 'Abandon and mollify 9 gods in 9 different games',
+              ),
+              'tier_notes': (
+                '1/1: <a href="#">Beogh</a>',
+                '2/3: <a href="#">Beogh</a>, <a href="#">Zin</a>',
+                '',
               )
-            }
+            },
+            {
+              'god': 'Cheibriados',
+              'name': 'Slow &amp; Steady',
+              'achieved': 2,
+              'tiers': (
+                'Reach experience level 9 in two consecutive games.',
+                'Collect a rune in two consecutive games.',
+                'Achieve a two-win streak.',
+              ),
+              'tier_notes': (
+                '<a href="#">MiFi</a>, <a href="#">MiBe</a>',
+                '<a href="#">MiFi</a>, <a href="#">MiBe</a>',
+                'Three wins but no streak yet, keep going!',
+              )
+            },
+            {
+              'god': 'Dithmenos',
+              'name': 'Politician',
+              'achieved': 2,
+              'tiers': (
+                'Steal a combo high score that was previously of at least 1,000 points.',
+                'Steal a combo high score for a previously won combo.',
+                'Steal a species or background high score that was previously of at least 10,000,000 points.',
+              ),
+              'tier_notes': (
+                '<a href="#">BaFE</a> (<a href="#">previous game</a>)',
+                '<a href="#">FeWr</a> (<a href="#">previous game</a>)',
+                'Best steal: 8,487,132 points (<a href="#">GrEn</a>)',
+              )
+            },
           ]
          },
          # END FAKE DATA

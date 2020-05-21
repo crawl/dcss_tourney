@@ -1,9 +1,12 @@
 <%page args="rank_description"/>
 
+<%
+  import html
+%>
+
 <h2>Individual Categories</h2>
 % for category in individual_categories:
 <%
-  import html
   name = category['name']
   css_class = "cat-indiv-%s" % html.slugify(name)
   rank_desc = rank_description(category['rank'])

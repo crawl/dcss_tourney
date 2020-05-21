@@ -1,24 +1,26 @@
+<%
+  import html
+%>
+
 <h2>Banners</h2>
 
-% for banner in banners:
-<div class="row">
-  <div class="col">
-    <div class="jumbotron banner banner-${banner['god']} text-light p-3">
-      <h2>${banner['name']}<br><small>${banner['god']}</small></h2>
-      <div class="row">
-        <div class="col-3">
-          <img class="pixel-art banner-image" src="/images/banner-${banner['god']}.png">
-        </div>
-        <div class="col">
-          <ul class="list-unstyled">
-            <li class="${'bg-success' if banner['achieved'] > 0 else 'bg-danger'}">Tier 1: ${banner['tiers'][0]}</li>
-            <li class="${'bg-success' if banner['achieved'] > 1 else 'bg-danger'}">Tier 2: ${banner['tiers'][0]}</li>
-            <li class="${'bg-success' if banner['achieved'] > 2 else 'bg-danger'}">Tier 3: ${banner['tiers'][0]}</li>
-          </ul>
-        </div>
+<div class="row row-cols-sm-1 row-cols-xl-2">
+  % for banner in banners:
+  <div class="col mb-4">
+    <div class="card h-100 banner text-light">
+      <img src="/images/altar/${html.slugify(banner['god'])}.png" class="card-img-top pixel-art px-5 mt-3 mx-auto" style="max-width: 240px;" alt="${banner['god']">
+      <div class="card-body">
+        <h2 class="card-title">${banner['name']}</h2>
+        <ul class="list-group list-group-flush">
+          % for tier in range(0,3):
+          <li class="list-group-item py-1 ${'bg-success' if banner['achieved'] > tier else 'bg-danger'}">
+            <p class="lead mb-0">Tier ${tier + 1}: <small><i>${banner['tiers'][tier]}</i></small></p>
+            <p class="mb-0">${banner['tier_notes'][tier]}
+          </li>
+          % endfor
+        </ul>
       </div>
     </div>
   </div>
+  % endfor
 </div>
-
-% endfor
