@@ -4,16 +4,16 @@
   from loaddb import T_VERSION
 
   menu_items = (
-    ("${XXX_TOURNEY_BASE}/overview.html", "Overview"),
-    ("${XXX_TOURNEY_BASE}/banners.html", "Banners"),
-    ("${XXX_TOURNEY_BASE}/all-players.html", "Players"),
-    ("${XXX_TOURNEY_BASE}/teams.html", "Clans"),
-    ("${XXX_TOURNEY_BASE}/combo-leaders.html", "Combo Standings"),
-    ("${XXX_TOURNEY_BASE}/combo-scoreboard.html", "Combo Scoreboard"),
-    ("${XXX_TOURNEY_BASE}/species-backgrounds.html", "Species/Backgrounds/Gods"),
-    ("${XXX_TOURNEY_BASE}/wins-and-kills.html", "Wins & Kills"),
-    ("${XXX_TOURNEY_BASE}/current-games.html", "Current Games"),
-    ("${XXX_TOURNEY_BASE}", "Rules"),
+    (XXX_TOURNEY_BASE + "/overview.html", "Overview"),
+    (XXX_TOURNEY_BASE + "/banners.html", "Banners"),
+    (XXX_TOURNEY_BASE + "/all-players.html", "Players"),
+    (XXX_TOURNEY_BASE + "/teams.html", "Clans"),
+    (XXX_TOURNEY_BASE + "/combo-leaders.html", "Combo Standings"),
+    (XXX_TOURNEY_BASE + "/combo-scoreboard.html", "Combo Scoreboard"),
+    (XXX_TOURNEY_BASE + "/species-backgrounds.html", "Species/Backgrounds/Gods"),
+    (XXX_TOURNEY_BASE + "/wins-and-kills.html", "Wins & Kills"),
+    (XXX_TOURNEY_BASE + "/current-games.html", "Current Games"),
+    (XXX_TOURNEY_BASE + "", "Rules"),
   )
 %>
 <html lang="en">
