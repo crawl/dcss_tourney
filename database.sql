@@ -64,7 +64,7 @@ CREATE TABLE IF NOT EXISTS players (
   team_captain VARCHAR(20),
   -- This is the computed score! We will overwrite it each time we
   -- recalculate it, and it may be null at any point.
-  score_full DECIMAL(8,3),
+  score_full DECIMAL(5,0),
   
   FOREIGN KEY (team_captain) REFERENCES players (name)
   ON DELETE SET NULL
@@ -239,7 +239,7 @@ CREATE TABLE milestones (
   -- Known milestones: abyss.enter, abyss.exit, rune, orb, ghost, uniq,
   -- uniq.ban, br.enter, br.end, br.exit.
   verb VARCHAR(20),
-  noun VARCHAR(100),
+  noun VARCHAR(200),
 
   -- The actual milestone message.
   milestone VARCHAR(255),
