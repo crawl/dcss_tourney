@@ -18,6 +18,8 @@ UPDATE_INTERVAL = 7 * 60
 #
 # If False, don't assume $HOME for BASEDIR and use WEB_BASE to make page link
 # urls.
+#
+# Set LOCAL_TEST="false" in env to disable.
 LOCAL_TEST = True if "LOCAL_TEST" not in os.environ else bool(os.environ["LOCAL_TEST"] == "true")
 
 # Base URL of tournament pages, omitting any trailing slash.
@@ -65,13 +67,14 @@ def setup_scoring_dirs():
   for d in MKDIRS:
     if not os.path.exists(d):
       os.makedirs(d)
-  if not os.path.exists(SCORE_CSS_PATH):
-    os.system("cp %s/templates/%s %s" % (os.getcwd(), SCORE_CSS,
-                                            SCORE_CSS_PATH))
   os.system("cp {cwd}/templates/style.css {dest}".format(
     cwd=os.getcwd(),
     dest=SCORE_FILE_DIR + "/style.css",
   ))
+  # Legacy CSS
+  if not os.path.exists(SCORE_CSS_PATH):
+    os.system("cp %s/templates/%s %s" % (os.getcwd(), SCORE_CSS,
+                                            SCORE_CSS_PATH))
 
   os.system("cp -r %s/images/* %s" % (os.getcwd(), IMAGE_FILE_DIR))
 

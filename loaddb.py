@@ -1253,7 +1253,8 @@ def load_args():
   parser.add_argument("--db-host", default="localhost",
     help="Database hostname")
   parser.add_argument("--db-pass", help="Database password")
-  parser.add_argument("--validate-database", action='store_true', help="Check the database exists and load 'database.sql' if not.")
+  parser.add_argument("--validate-database", action='store_true',
+    help="Check the database exists and load 'database.sql' if not.")
 
   return parser.parse_args()
 
