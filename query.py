@@ -1570,8 +1570,8 @@ def update_all_player_ranks(c):
 def update_player_scores(c):
     def score_term(col):
         return "COALESCE( 10000.0 / %s, 0.0 )" % col
-    SCOREFUNC = "(" + "+".join([ score_term('r.' + rt[0]) for rt in RANKING_WINDOWS]) \
-                + ") / %d" % len(RANKING_WINDOWS);
+    SCOREFUNC = "CAST( (" + "+".join([ score_term('r.' + rt[0]) for rt in RANKING_WINDOWS]) \
+                + ") / %d AS DECIMAL(5,0))" % len(RANKING_WINDOWS);
 
     query_do(c, '''UPDATE players AS p LEFT OUTER JOIN player_ranks AS r
                    ON p.name = r.player
