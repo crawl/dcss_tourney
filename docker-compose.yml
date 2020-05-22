@@ -36,6 +36,21 @@ services:
       - ./logfiles:/usr/src/app/logfiles
       - ./milestones:/usr/src/app/milestones
       - ./html.tourney0.24:/usr/src/app/html.tourney0.24
+  index:
+    build:
+      context: .
+      dockerfile: Dockerfile.loaddb
+    networks:
+      - tourney
+    volumes:
+      - ./html.tourney0.24:/usr/src/app/html.tourney0.24
+    command:
+      - python
+      - update_index.py
+      - --db-host=mysql
+      - --db-pass=crawl
+      - --db-retry-connect
+      - --validate-database
   web:
     image: nginx
     ports:

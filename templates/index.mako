@@ -3,6 +3,8 @@
 ## Run on template load (no render context)
 <%!
   import scoring_data
+
+  active_menu_item = "Rules"
 %>
 
 ## Runs on render. Variables set in here are not accessible to <%blocks>. To
