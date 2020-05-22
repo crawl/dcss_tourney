@@ -83,8 +83,8 @@ def player_pages(c):
   render(c, 'combo-scoreboard')
   render(c, 'combo-leaders')
   render(c, 'killers')
-#  for p in query.get_players(c):
-#    player_page(c, p)
+  for p in query.get_players(c):
+    player_page(c, p)
 
 def index_page(c):
   info("Updating index page")
