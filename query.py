@@ -23,6 +23,23 @@ MAX_RUNES = 15
 
 LOG_FIELDS = [ 'source_file' ] + [ x[1] for x in loaddb.LOG_DB_MAPPINGS ]
 
+RANKING_WINDOWS = [
+        ('first_win', 'first_wins', 'ORDER BY end_time'),
+        ('first_allrune_win', 'first_allrune_wins', 'ORDER BY end_time'),
+        ('streak', 'player_best_streak', 'ORDER BY length DESC'),
+        ('highest_score', 'highest_scores', 'ORDER BY score DESC'),
+        ('lowest_turncount_win', 'lowest_turncount_wins', 'ORDER BY turn'),
+        ('fastest_win', 'fastest_wins', 'ORDER BY duration'),
+        ('low_xl_win', 'low_xl_nonhep_wins', 'ORDER BY xl'),
+        ('win_perc', 'player_win_perc', 'ORDER BY win_perc DESC'),
+        ('piety', 'player_piety_score', 'ORDER BY piety DESC'),
+        ('banner_score', 'player_banner_score', 'ORDER BY bscore DESC'),
+        ('exploration', 'player_exploration_score', 'ORDER BY score DESC'),
+        ('harvest', 'player_harvest_score', 'ORDER BY score DESC'),
+        ('combo_score', 'player_combo_score', 'ORDER BY total DESC'),
+        ('nemelex_score', 'player_nemelex_score', 'ORDER BY score DESC'),
+]
+
 def _cursor():
   """Easy retrieve of cursor to make interactive testing easier."""
   d = loaddb.connect_db()
@@ -657,6 +674,13 @@ def get_player_stats(c, name):
 
   stats['win_perc'] = "%.2f%%" % calc_perc(stats['won'], stats['played'] + 1)
   return stats
+
+def get_player_ranks(c, name):
+    """Returns a dictionary of player ranks in different categories"""
+    ranks = query_row(c, '''SELECT '''
+                          + ",".join([ rt[0] for rt in RANKING_WINDOWS])
+                          + ''' FROM player_ranks WHERE player = %s''' % name)
+    return dict(zip( [ rt[0] for rt in RANKING_WINDOWS ], ranks))
 
 def get_players(c):
   return [r[0] for r in
@@ -1545,23 +1569,6 @@ def update_player_rank(c, rank_column, source_table, source_window):
                    % (rank_column, source_window, source_table, rank_column))
     return
 
-RANKING_WINDOWS = [
-        ('first_win', 'first_wins', 'ORDER BY end_time'),
-        ('first_allrune_win', 'first_allrune_wins', 'ORDER BY end_time'),
-        ('streak', 'player_best_streak', 'ORDER BY length DESC'),
-        ('highest_score', 'highest_scores', 'ORDER BY score DESC'),
-        ('lowest_turncount_win', 'lowest_turncount_wins', 'ORDER BY turn'),
-        ('fastest_win', 'fastest_wins', 'ORDER BY duration'),
-        ('low_xl_win', 'low_xl_nonhep_wins', 'ORDER BY xl'),
-        ('win_perc', 'player_win_perc', 'ORDER BY win_perc DESC'),
-        ('piety', 'player_piety_score', 'ORDER BY piety DESC'),
-        ('banner_score', 'player_banner_score', 'ORDER BY bscore DESC'),
-        ('exploration', 'player_exploration_score', 'ORDER BY score DESC'),
-        ('harvest', 'player_harvest_score', 'ORDER BY score DESC'),
-        ('combo_score', 'player_combo_score', 'ORDER BY total DESC'),
-        ('nemelex_score', 'player_nemelex_score', 'ORDER BY score DESC'),
-]
-
 def update_all_player_ranks(c):
     for rt in RANKING_WINDOWS:
         update_player_rank(c, rt[0], rt[1], rt[2])
@@ -1576,3 +1583,28 @@ def update_player_scores(c):
     query_do(c, '''UPDATE players AS p LEFT OUTER JOIN player_ranks AS r
                    ON p.name = r.player
                    SET p.score_full = ''' + SCOREFUNC)
+
+def get_all_player_ranks(c):
+  q = Query('''SELECT p.name, p.team_captain, t.name, p.score_full, '''
+               + ",".join([ 'r.' + rt[0] for rt in RANKING_WINDOWS ]) +
+               ''' FROM players p LEFT JOIN player_ranks r
+               ON p.name = r.player
+               LEFT JOIN teams t
+               ON p.team_captain = t.owner
+               ORDER BY p.score_full DESC, p.name''')
+  rows = [ list(r) for r in q.rows(c) ]
+  clean_rows = [ ]
+  for r in rows:
+    captain = r[1]
+    r = r[0:1] + r[2:]
+    if captain is None:
+      r[1] = ''
+    else:
+      r[1] = crawl_utils.linked_text(captain, crawl_utils.clan_link, r[1])
+    def render_rank(n):
+        if n is None:
+            return "&#x221E;"
+        return n
+    r = [ render_rank(n) for n in r ]
+    clean_rows.append(r)
+  return clean_rows
