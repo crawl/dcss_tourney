@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   mysql:
-    image: mysql:5.7
+    image: mysql:8
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_USER: crawl
@@ -12,6 +12,9 @@ services:
       - mysql:/var/lib/mysql
     networks:
       - tourney
+    ports:
+      - "3306:3306"
+    command: "--default-authentication-plugin=mysql_native_password"
   loaddb:
     build:
       context: .
