@@ -1,6 +1,13 @@
 # -*- coding: utf-8 -*-
 import collections
 
+TOURNAMENT_VERSION = "0.25"
+YEAR = "2020"
+
+SERVERS = {
+    "cpo": "https://crawl.project357.org/",
+}
+
 IndividualCategory = collections.namedtuple(
     "IndividualCategory", ("name", "god", "desc")
 )
@@ -370,6 +377,7 @@ BANNERS = [
         None,
     ),
 ]
+
 
 def individual_category_by_name(name):
     # type: (str) -> Optional[IndividualCategory]
