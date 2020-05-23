@@ -4,6 +4,9 @@ import collections
 TOURNAMENT_VERSION = "0.25"
 YEAR = "2020"
 
+# Maximum score for placing first in a category. Player score is "10,000 / rank"
+MAX_CATEGORY_SCORE = 10000
+
 SERVERS = {
     "cpo": "https://crawl.project357.org/",
 }

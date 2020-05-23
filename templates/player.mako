@@ -2,7 +2,7 @@
 
 ## Run on template load (no render context)
 <%!
-  from crawl_utils import MAX_CATEGORY_SCORE
+  import scoring_data
 
   # Set active top level menu item
   active_menu_item = 'Players'
@@ -25,7 +25,7 @@
   def points_for_rank(rank_num):
     if rank_num == 0:
       return "-"
-    return str(int(round(MAX_CATEGORY_SCORE / rank_num, 0)))
+    return str(int(round(scoring_data.MAX_CATEGORY_SCORE / rank_num, 0)))
 
   def rank_description(rank_num):
     if rank_num == 0:
