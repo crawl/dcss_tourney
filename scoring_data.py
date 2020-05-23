@@ -64,8 +64,14 @@ INDIVIDUAL_CATEGORIES = (
         "Lowest XL Win",
         "Vehumet values ruthless efficiency, and will recognize the players who win at the lowest XL. Waiting around for an ancestor to return from memory is inefficient, so games where Hepliaklqana is worshipped do not count in this category. For the purposes of this category, players who have not won and players who have won only at XL 27 are both ranked ∞.",
     ),
-    # TODO # IndividualCategory("Tournament Win Order", "Qazlal", "Qazlal wants to see destruction as soon as possible, and will rank those who are the fastest to win a game in the tournament. This category is ranked by the finish datetime of a player's first win in the tournament.")"
-    # TODO # IndividualCategory("Tournament All Rune Win Order", "Lugonu", "Lugonu suggests players visit all the planes of the dungeon, and will rank those who are first to win a 15-rune game in the tournament. This category is ranked by the finish datetime of a player's first all rune win in the tournament.")
+    IndividualCategory(
+        "Tournament Win Order",
+        "Qazlal wants destruction and they want it as soon as possible! This category ranks players in order of their first win in the tournament.",
+    ),
+    IndividualCategory(
+        "Tournament All Rune Win Order",
+        "Lugonu appreciates all planes of reality, and wants players tour as many of them as soon as possible. They will rank players in order of their first 15-rune win in the tournament.",
+    ),
     IndividualCategory(
         "Exploration",
         "Ashenzari wants players to explore the dungeon and seek out runes of Zot. In this category, players earn 3 points per distinct rune of Zot collected and 1 point each for distinct branch entry and end floor reached.",
@@ -82,6 +88,10 @@ INDIVIDUAL_CATEGORIES = (
         "Ziggurat Diving",
         """Xom is entertained by a player's descent into madness, and will rank players by the number of Ziggurat floors they reach in a single game. Exiting a Ziggurat from the lowest floor counts as "reaching a floor" for scoring in this category, and an unlimited number of Ziggurats in a single game count. For example: completing two Ziggurats counts as 56 floors.""",
     ),
+    IndividualCategory(
+        "Banner Score",
+        """The other DCSS gods are too busy with divine affairs to rank an entire category, but every DCSS god will reward players for certain achievements with tiered bannners.""",
+    )
 )
 
 ClanCategory = collections.namedtuple("ClanCategory", ("name", "desc"))
