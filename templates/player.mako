@@ -24,12 +24,12 @@
     return '%s%s' % (num, suffix)
 
   def points_for_rank(rank_num):
-    if rank_num == 0:
+    if rank_num is None:
       return "-"
     return str(int(round(scoring_data.MAX_CATEGORY_SCORE / rank_num, 0)))
 
   def rank_description(rank_num):
-    if rank_num == 0:
+    if rank_num is None:
       return u"0 points<br><small>(rank: ∞)</small>"
     else:
       points = points_for_rank(rank_num)

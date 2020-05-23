@@ -123,11 +123,15 @@ def player_page(c, player):
          top_level_pars=True)
 
 def player_individual_category_results(c, player):
-  # TODO
-  import random
   data = {}
+  ranks = query.get_player_ranks(c, player)
   for category in scoring_data.INDIVIDUAL_CATEGORIES:
-    data[category.name] = CategoryResult(random.randrange(0, 10), 'Details about individual challenge %s' % category.name)
+    resdesc = 'Details about individual challenge %s' % category.name
+    if ranks is None:
+      data[category.name] = CategoryResult(None, resdesc)
+    else:
+      data[category.name] = CategoryResult(ranks[category.name], resdesc)
+
   return data
 
 def player_clan_category_results(c, player):
