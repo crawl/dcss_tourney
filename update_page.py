@@ -124,7 +124,7 @@ def player_individual_category_results(c, player):
   import random
   data = {}
   for category in scoring_data.INDIVIDUAL_CATEGORIES:
-    data[category.name] = CategoryResult(random.randrange(0, 10), 'Details about individual challenge %s for %s' % (category.name, category.god))
+    data[category.name] = CategoryResult(random.randrange(0, 10), 'Details about individual challenge %s' % category.name)
   return data
 
 def player_clan_category_results(c, player):

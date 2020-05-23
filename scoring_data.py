@@ -24,75 +24,62 @@ SERVERS = {
 }
 
 IndividualCategory = collections.namedtuple(
-    "IndividualCategory", ("name", "god", "desc")
+    "IndividualCategory", ("name", "desc")
 )
 # This list (and the clan categories & banner lists) are in display order
 INDIVIDUAL_CATEGORIES = (
     IndividualCategory(
         "Winning",
-        "The Shining One",
         "The Shining One values perserverence and courage in the face of adversity. In this category, TSO will award players 10,000 points if they win two distinct character combos, 5,000 points for winning their first combo, and 0 otherwise.",
     ),
     IndividualCategory(
         "Win Rate",
-        "Cheibriados",
         "Cheibriados believes in being slow and steady, and will recognize players who are careful enough to excel consistently. This category ranks players by their adjusted win percentage, calculated as the number of wins divided by the number of games played plus 1.",
     ),
     IndividualCategory(
         "Streak Length",
-        "Jiyva",
         u"Jiyva is ranking players by their streak length. Jiyva favours the flexibility of a gelatinous body—the length of a streak is defined as the number of distinct species or backgrounds won consecutively (whichever is smaller). Every game in a streak must be the first game you start after winning the previous game in the streak. This will always be the case if you play all your games on one server.",
     ),
     IndividualCategory(
         "Nemelex' Choice",
-        "Nemelex Xobeh",
         u"Nemelex Xobeh wants to see players struggle against randomness and will rank players who perservere with one of several combos randomly chosen and announced throughout the tournament. The first 8 players to win a given Nemelex' choice combo earn a point in this category and Nemelex will rank players by their score in this category.",
     ),
     IndividualCategory(
         "Combo High Scores",
-        "Dithmenos",
         "Dithmenos is ranking players by the combo high scores they can acquire and defend from rivals. A combo high score gives 1 point in this category; a winning high score 2 points; and a species or background high score 5 points.",
     ),
     IndividualCategory(
         "Best High Score",
-        "Okawaru",
         "Okawaru is all about winning, and will rank players based on their best high score.",
     ),
     IndividualCategory(
         "Lowest Turncount Win",
-        "Wu Jian Council",
         "The Wu Jian Council favours the unquestioned excellence and efficient combat of the Sifu. The Council will rank players based on their lowest turn count win.",
     ),
     IndividualCategory(
         "Fastest Real Time Win",
-        "Makhleb",
-        "Makhleb wants to see bloodshed as quickly as possible and will rank players accordingly, ranking players according to their fastest win.",
+        "Makhleb wants to see bloodshed as quickly as possible and will rank players according to their fastest win.",
     ),
     IndividualCategory(
         "Lowest XL Win",
-        "Vehumet",
         "Vehumet values ruthless efficiency, and will recognize the players who win at the lowest XL. Waiting around for an ancestor to return from memory is inefficient, so games where Hepliaklqana is worshipped do not count in this category. For the purposes of this category, players who have not won and players who have won only at XL 27 are both ranked ∞.",
     ),
     # TODO # IndividualCategory("Tournament Win Order", "Qazlal", "Qazlal wants to see destruction as soon as possible, and will rank those who are the fastest to win a game in the tournament. This category is ranked by the finish datetime of a player's first win in the tournament.")"
     # TODO # IndividualCategory("Tournament All Rune Win Order", "Lugonu", "Lugonu suggests players visit all the planes of the dungeon, and will rank those who are first to win a 15-rune game in the tournament. This category is ranked by the finish datetime of a player's first all rune win in the tournament.")
     IndividualCategory(
         "Exploration",
-        "Ashenzari",
         "Ashenzari wants players to explore the dungeon and seek out runes of Zot. In this category, players earn 3 points per distinct rune of Zot collected and 1 point each for distinct branch entry and end floor reached.",
     ),
     IndividualCategory(
         "Piety",
-        "Elyvilon",
         "Elyvilon thinks it's important to evaluate what all the gods have to offer. Elyvilon will award 1 point per god championed (****** piety) and an additional point for a win after championing that god. Two gods (Gozag and Xom) do not have the usual ****** piety system; to get the points for these gods, you must never worship another god during the game.",
     ),
     IndividualCategory(
         "Unique Harvesting",
-        "Yredelemnul",
         "Yredelemnul demands that players kill as many distinct uniques and player ghosts as possible, and will rank players based on the number of such kills.",
     ),
     IndividualCategory(
         "Ziggurat Diving",
-        "Xom",
         """Xom is entertained by a player's descent into madness, and will rank players by the number of Ziggurat floors they reach in a single game. Exiting a Ziggurat from the lowest floor counts as "reaching a floor" for scoring in this category, and an unlimited number of Ziggurats in a single game count. For example: completing two Ziggurats counts as 56 floors.""",
     ),
 )
