@@ -365,6 +365,7 @@ CREATE TABLE streaks (
 -- function on a large join, so we cache it here.
 CREATE TABLE player_ranks (
   player VARCHAR(20),
+  nonrep_wins INT,
   first_win INT,
   first_allrune_win INT,
   streak INT,
@@ -379,6 +380,7 @@ CREATE TABLE player_ranks (
   harvest INT,
   combo_score INT,
   nemelex_score INT,
+  ziggurat_dive INT,
   PRIMARY KEY (player),
   FOREIGN KEY (player) REFERENCES players (name) ON DELETE CASCADE
 );
