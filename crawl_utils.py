@@ -4,6 +4,9 @@ import logging
 import fcntl
 import sys
 
+# Maximum score for placing first in a category. Player score is "10,000 / rank"
+MAX_CATEGORY_SCORE = 10000
+
 # Update every so often (seconds)
 UPDATE_INTERVAL = 7 * 60
 
@@ -15,14 +18,16 @@ UPDATE_INTERVAL = 7 * 60
 #
 # If False, don't assume $HOME for BASEDIR and use WEB_BASE to make page link
 # urls.
-LOCAL_TEST = True
+#
+# Set LOCAL_TEST="false" in env to disable.
+LOCAL_TEST = True if "LOCAL_TEST" not in os.environ else bool(os.environ["LOCAL_TEST"] == "true")
 
 # Base URL of tournament pages, omitting any trailing slash.
-WEB_BASE = 'https://crawl.develz.org/tournament/0.24'
+WEB_BASE = os.environ.get("WEB_BASE") or 'https://crawl.develz.org/tournament/0.24'
 
 LOCK = None
 # Where data needed for tournament calculations are stored.
-BASEDIR = LOCAL_TEST and os.environ['HOME'] or '/home/tourney/dcss_tourney'
+BASEDIR = os.environ.get("BASEDIR") or LOCAL_TEST and os.environ['HOME'] or '/home/tourney/dcss_tourney'
 LOCKFILE = BASEDIR + '/tourney-py.lock'
 
 # Where to generate the tournament pages. Can be a directory relative to
@@ -62,6 +67,11 @@ def setup_scoring_dirs():
   for d in MKDIRS:
     if not os.path.exists(d):
       os.makedirs(d)
+  os.system("cp {cwd}/templates/style.css {dest}".format(
+    cwd=os.getcwd(),
+    dest=SCORE_FILE_DIR + "/style.css",
+  ))
+  # Legacy CSS
   if not os.path.exists(SCORE_CSS_PATH):
     os.system("cp %s/templates/%s %s" % (os.getcwd(), SCORE_CSS,
                                             SCORE_CSS_PATH))
@@ -203,8 +213,3 @@ def morgue_link(xdict):
 def linked_text(key, link_fn, text=None):
   link = link_fn(key)
   return '<a href="%s">%s</a>' % (link, (text or key).replace('_', ' '))
-
-def handle_unicode(value):
-   if isinstance(value, basestring):
-      return unicode(value.decode('ascii', errors='ignore'))
-   return unicode(value)

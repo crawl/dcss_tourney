@@ -1,4 +1,5 @@
 #!/usr/bin/python
+# coding=utf8
 
 import mako.template
 import mako.lookup
@@ -7,34 +8,50 @@ import os.path
 import loaddb
 import query
 import crawl_utils
-
+import collections
 from logging import debug, info, warn, error
+
+import scoring_data
+
+CategoryResult = collections.namedtuple('CategoryResult', ('rank', 'details'))
+BannerResult = collections.namedtuple('BannerResult', ('tier', 'details'))
 
 TEMPLATE_DIR = os.path.abspath('templates')
 MAKO_LOOKUP = mako.lookup.TemplateLookup(directories = [ TEMPLATE_DIR ],
-                                         imports=["from crawl_utils import handle_unicode"],
-                                         default_filters=["handle_unicode"])
+  strict_undefined=True,
+  # If we ever migrate to Py3, remove the following parameters
+  # Ref: https://docs.makotemplates.org/en/latest/unicode.html
+  input_encoding='utf-8', output_encoding='utf-8', default_filters=['decode.utf8'],
+  )
 
-def render(c, page, dest=None, pars=None):
+def render(c, page, dest=None, pars=None, top_level_pars=False):
   """Given a db context and a .mako template (without the .mako extension)
   renders the template and writes it back to <page>.html in the tourney
-  scoring directory. Setting dest overrides the destination filename."""
+  scoring directory. Setting dest overrides the destination filename.
+
+  pars is a dictionary of parameters to pass through to renderer as 'attributes'.
+
+  If top_level_pars is true, the items in pars are sent through as individual context items.
+  """
+  pars = pars or { }
+  pars['cursor'] = c
   target = "%s/%s.html" % (crawl_utils.SCORE_FILE_DIR, dest or page)
-  t = MAKO_LOOKUP.get_template(page + '.mako')
   try:
-    f = open(target, 'w')
-
-    pars = pars or { }
-    pars['cursor'] = c
-
-    try:
-      f.write( t.render( attributes = pars ) )
-    finally:
-      f.close()
-  except Exception as e:
-    warn("Error generating page %s: %s" % (page, e))
+    t = MAKO_LOOKUP.get_template(page + '.mako')
+    if top_level_pars:
+      assert 'attributes' not in pars
+      template_data = t.render(attributes={}, **pars)
+    else:
+      template_data = t.render( attributes = pars )
+  except:
+    print("TEMPLATE ERROR")
+    print(mako.exceptions.text_error_template().render())
     raise
-    # Don't rethrow.
+  f = open(target, 'w')
+  try:
+    f.write(template_data)
+  finally:
+    f.close()
 
 def tourney_overview(c):
   info("Updating overview page")
@@ -67,8 +84,8 @@ def player_pages(c):
   render(c, 'combo-scoreboard')
   render(c, 'combo-leaders')
   render(c, 'killers')
-#  for p in query.get_players(c):
-#    player_page(c, p)
+  for p in query.get_players(c):
+    player_page(c, p)
 
 def index_page(c):
   info("Updating index page")
@@ -88,9 +105,43 @@ def team_pages(c):
 
 def player_page(c, player):
   info("Updating player page for %s" % player)
+  player_params = {
+    'player' : player,
+    'total_number_of_players': 1325, # TODO
+    'overall_rank': 70, # TODO
+    'clan_name': 'Sif\'s Supergroup', # TODO
+    'individual_category_results': player_individual_category_results(c, player),
+    'clan_category_results': player_clan_category_results(c, player),
+    'banner_results': player_banner_results(c, player),
+  }
   render(c, 'player',
          dest = ('%s/%s' % (crawl_utils.PLAYER_BASE, player.lower())),
-         pars = { 'player' : player })
+         pars = player_params,
+         top_level_pars=True)
+
+def player_individual_category_results(c, player):
+  # TODO
+  import random
+  data = {}
+  for category in scoring_data.INDIVIDUAL_CATEGORIES:
+    data[category.name] = CategoryResult(random.randrange(0, 10), 'Details about individual challenge %s for %s' % (category.name, category.god))
+  return data
+
+def player_clan_category_results(c, player):
+  # TODO
+  import random
+  data = {}
+  for category in scoring_data.CLAN_CATEGORIES:
+    data[category.name] = CategoryResult(random.randrange(0, 10), 'Details about clan challenge %s' % category.name)
+  return data
+
+def player_banner_results(c, player):
+  # TODO
+  import random
+  data = {}
+  for banner in scoring_data.BANNERS:
+    data[banner.name] = BannerResult(random.randrange(0, 3), ("Tier 1 notes", "Tier 2 notes", "Tier 3 notes"))
+  return data
 
 # Update tourney overview every 5 mins.
 INTERVAL = crawl_utils.UPDATE_INTERVAL

@@ -1,0 +1,27 @@
+body {
+  /* font-size: 0.8rem; /* Usually 12.8pt on desktop */
+  font-family: monospace;
+  background-color: #ddd;
+}
+
+.category {
+  background-color: black;
+}
+
+.category-image {
+  background-repeat: no-repeat;
+  background-position: left center;
+  background-size: contain;
+}
+
+.text-outline-black-1 {
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
+.banner {
+  background-color: black;
+}
+
+.pixel-art {
+  image-rendering: crisp-edges;
+}

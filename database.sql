@@ -93,7 +93,8 @@ CREATE TABLE games (
 
   player VARCHAR(20),
   start_time DATETIME,
-  seed VARCHAR(255), -- currently 64bit uint, but allow extra space for changes
+  -- currently 64bit uint, but allow extra space for changes
+  seed VARCHAR(255),
   score BIGINT,
   race VARCHAR(20),
   -- Two letter race abbreviation so we can group by it without pain.
@@ -416,7 +417,8 @@ CREATE TABLE clan_banners (
   banner VARCHAR(50),
   prestige INT NOT NULL,
   PRIMARY KEY (team_captain, banner),
-  FOREIGN KEY (team_captain) REFERENCES players (name) ON DELETE CASCADE -- is cascade correct here?
+  -- is cascade correct here?
+  FOREIGN KEY (team_captain) REFERENCES players (name) ON DELETE CASCADE
 );
 CREATE INDEX clan_banners_captain ON clan_banners (team_captain);
 

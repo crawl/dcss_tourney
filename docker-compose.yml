@@ -1,0 +1,65 @@
+version: "3.8"
+
+services:
+  mysql:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: crawl
+      MYSQL_PASSWORD: crawl
+      MYSQL_DATABASE: tournament
+    volumes:
+      - mysql:/var/lib/mysql
+    networks:
+      - tourney
+    ports:
+      - "3306:3306"
+    command: "--default-authentication-plugin=mysql_native_password"
+  loaddb:
+    build:
+      context: .
+      dockerfile: Dockerfile.loaddb
+    networks:
+      - tourney
+    command:
+      - python
+      - ./loaddb.py
+      - --db-host=mysql
+      - --db-pass=crawl
+      - --db-retry-connect
+      - --validate-database
+    environment:
+      LOCAL_TEST: "false"
+      BASEDIR: /root
+      WEB_BASE: "http://localhost:8080"
+    volumes:
+      - ./logfiles:/usr/src/app/logfiles
+      - ./milestones:/usr/src/app/milestones
+      - ./html.tourney0.24:/usr/src/app/html.tourney0.24
+  index:
+    build:
+      context: .
+      dockerfile: Dockerfile.loaddb
+    networks:
+      - tourney
+    volumes:
+      - ./html.tourney0.24:/usr/src/app/html.tourney0.24
+    command:
+      - python
+      - update_index.py
+      - --db-host=mysql
+      - --db-pass=crawl
+      - --db-retry-connect
+      - --validate-database
+  web:
+    image: nginx
+    ports:
+      - 8080:80
+    volumes:
+      - ./html.tourney0.24:/usr/share/nginx/html:ro
+
+networks:
+  tourney:
+
+volumes:
+  mysql:

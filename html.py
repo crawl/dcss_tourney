@@ -300,8 +300,8 @@ def how_old(date, bold_cutoff = 0): #cutoff in hours
   return ("%d:%02d:%02d" % (h, m, s)), (h < bold_cutoff)
 
 def update_time():
-  return '''<div class="updatetime">
-            Last updated %s UTC.
+  return '''<div class="row">
+              <small>Last updated %s UTC.</small>
             </div>''' % pretty_time(time.gmtime())
 
 def wrap_tuple(x):
@@ -780,3 +780,6 @@ def player_scores_block(c, scores, title):
   if asterisk:
     text += "<p class='fineprint'>* Winning Game</p>"
   return text
+
+def slugify(name):
+  return name.lower().replace(' ', '-')

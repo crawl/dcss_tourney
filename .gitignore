@@ -13,3 +13,6 @@ points.out
 html.tourney*
 nemelex-choice-out.txt
 venv/
+.vscode/
+/logfiles
+/milestones
