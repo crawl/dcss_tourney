@@ -10,6 +10,9 @@ from loaddb import Query, query_do, query_first, query_row, query_rows
 from loaddb import query_rows_with_ties
 from loaddb import query_first_col, query_first_def
 
+import scoring_data
+from scoring_data import INDIVIDUAL_CATEGORIES, MAX_CATEGORY_SCORE
+
 import combos
 import crawl
 import crawl_utils
@@ -22,23 +25,6 @@ import time
 MAX_RUNES = 15
 
 LOG_FIELDS = [ 'source_file' ] + [ x[1] for x in loaddb.LOG_DB_MAPPINGS ]
-
-RANKING_WINDOWS = [
-        ('first_win', 'first_wins', 'ORDER BY end_time'),
-        ('first_allrune_win', 'first_allrune_wins', 'ORDER BY end_time'),
-        ('streak', 'player_best_streak', 'ORDER BY length DESC'),
-        ('highest_score', 'highest_scores', 'ORDER BY score DESC'),
-        ('lowest_turncount_win', 'lowest_turncount_wins', 'ORDER BY turn'),
-        ('fastest_win', 'fastest_wins', 'ORDER BY duration'),
-        ('low_xl_win', 'low_xl_nonhep_wins', 'ORDER BY xl'),
-        ('win_perc', 'player_win_perc', 'ORDER BY win_perc DESC'),
-        ('piety', 'player_piety_score', 'ORDER BY piety DESC'),
-        ('banner_score', 'player_banner_score', 'ORDER BY bscore DESC'),
-        ('exploration', 'player_exploration_score', 'ORDER BY score DESC'),
-        ('harvest', 'player_harvest_score', 'ORDER BY score DESC'),
-        ('combo_score', 'player_combo_score', 'ORDER BY total DESC'),
-        ('nemelex_score', 'player_nemelex_score', 'ORDER BY score DESC'),
-]
 
 def _cursor():
   """Easy retrieve of cursor to make interactive testing easier."""
@@ -678,9 +664,12 @@ def get_player_stats(c, name):
 def get_player_ranks(c, name):
     """Returns a dictionary of player ranks in different categories"""
     ranks = query_row(c, '''SELECT '''
-                          + ",".join([ rt[0] for rt in RANKING_WINDOWS])
-                          + ''' FROM player_ranks WHERE player = %s''' % name)
-    return dict(zip( [ rt[0] for rt in RANKING_WINDOWS ], ranks))
+                          + ",".join([ ic.db_column for ic in
+                              INDIVIDUAL_CATEGORIES ])
+                          + ''' FROM player_ranks WHERE player = %s''', name)
+    if ranks is None:
+        return None
+    return dict(zip( [ ic.name for ic in INDIVIDUAL_CATEGORIES ], ranks))
 
 def get_players(c):
   return [r[0] for r in
@@ -1561,32 +1550,40 @@ def streak_order(c, limit=None):
     query.append(' LIMIT %d' % limit)
   return query.rows(c)
 
-def update_player_rank(c, rank_column, source_table, source_window):
+def update_player_rank(c, rank_column, source_table, source_column, desc):
     query_do(c, '''INSERT INTO player_ranks (player, %s)
                    SELECT * FROM
-                     (SELECT player, RANK() OVER(%s) AS rk FROM %s) AS dt
+                     (SELECT player, RANK() OVER(ORDER BY %s %s) AS rk FROM %s) AS dt
                    ON DUPLICATE KEY UPDATE %s = rk'''
-                   % (rank_column, source_window, source_table, rank_column))
+                   % (rank_column, source_column, desc and "DESC" or "", source_table, rank_column))
     return
 
 def update_all_player_ranks(c):
-    for rt in RANKING_WINDOWS:
-        update_player_rank(c, rt[0], rt[1], rt[2])
+    for ic in INDIVIDUAL_CATEGORIES:
+        if ic.source_table is not None:
+            update_player_rank(c, ic.db_column, ic.source_table,
+            ic.source_column, ic.desc_order)
     return
 
 def update_player_scores(c):
     def score_term(col):
-        return "COALESCE( 10000.0 / %s, 0.0 )" % col
-    SCOREFUNC = "CAST( (" + "+".join([ score_term('r.' + rt[0]) for rt in RANKING_WINDOWS]) \
-                + ") / %d AS DECIMAL(5,0))" % len(RANKING_WINDOWS);
+        return "COALESCE( %5.1f / %s, 0.0 )" % (MAX_CATEGORY_SCORE, col)
+    SCOREFUNC = "CAST( (" + "+".join([ score_term('r.' + ic.db_column) for
+        ic in INDIVIDUAL_CATEGORIES]) \
+        + ") / %d AS DECIMAL(5,0))" % len(INDIVIDUAL_CATEGORIES);
 
     query_do(c, '''UPDATE players AS p LEFT OUTER JOIN player_ranks AS r
                    ON p.name = r.player
                    SET p.score_full = ''' + SCOREFUNC)
 
+def render_rank(n):
+    if n is None:
+        return "&#x221E;"
+    return n
+
 def get_all_player_ranks(c):
   q = Query('''SELECT p.name, p.team_captain, t.name, p.score_full, '''
-               + ",".join([ 'r.' + rt[0] for rt in RANKING_WINDOWS ]) +
+               + ",".join([ 'r.' + ic.db_column for ic in INDIVIDUAL_CATEGORIES ]) +
                ''' FROM players p LEFT JOIN player_ranks r
                ON p.name = r.player
                LEFT JOIN teams t
@@ -1601,10 +1598,6 @@ def get_all_player_ranks(c):
       r[1] = ''
     else:
       r[1] = crawl_utils.linked_text(captain, crawl_utils.clan_link, r[1])
-    def render_rank(n):
-        if n is None:
-            return "&#x221E;"
-        return n
     r = [ render_rank(n) for n in r ]
     clean_rows.append(r)
   return clean_rows

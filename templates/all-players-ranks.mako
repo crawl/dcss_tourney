@@ -1,5 +1,5 @@
 <%
-   import loaddb, query, crawl_utils, html
+   import loaddb, query, crawl_utils, html, scoring_data
 
    c = attributes['cursor']
 
@@ -28,7 +28,8 @@
 
         <div class="content">
           ${html.table_text( [ 'Player', 'Clan', 'Overall Score' ]
-	                    + [ rt[0] for rt in query.RANKING_WINDOWS ],
+	                    + [ ic.name for ic in
+			    scoring_data.INDIVIDUAL_CATEGORIES ],
                              stats,
                              place_column=2, skip=True )}
         </div>
