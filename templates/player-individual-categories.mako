@@ -22,9 +22,11 @@
           <p class="d-none d-sm-block">
             <i>${category.desc}</i>
           </p>
+          % if results.details is not None:
           <p class="lead">
             ${results.details}
           </p>
+          % endif
         </div>
       </div>
     </div>
