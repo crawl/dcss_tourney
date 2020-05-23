@@ -63,7 +63,7 @@
       <h2 id="how-to-play">How To Play</h2>
       <p>
         <%
-          server_list = html.english_join(['<a href="%s">%s</a>' % (server[1], server[0]) for server in scoring_data.SERVERS.items()])
+          server_list = html.english_join(['<a href="%s">%s</a>' % (server[1], server[0]) for server in sorted(scoring_data.SERVERS.items())])
         %>
         All games of DCSS v${scoring_data.TOURNAMENT_VERSION} played on official servers (${server_list}) will count for the tournament!
       </p>
@@ -74,7 +74,7 @@
         # TEAMNAME nameofteam
         # TEAMMEMBERS player1 player2 player3 player4 player5
         </pre>
-        Clan names can contain letters, numbers, underscores, and hyphens.
+        Clan names can contain letters, numbers, underscores, and hyphens. There can be a maximum of six people (including the captain) in a clan.
       </p>
       <p>
         If you'd like to play in an existing clan, add <code># TEAMCAPTAIN nameofcaptain</code> as the first line of your v${scoring_data.TOURNAMENT_VERSION} rc file.

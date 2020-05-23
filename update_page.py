@@ -109,11 +109,14 @@ def player_page(c, player):
     'player' : player,
     'total_number_of_players': 1325, # TODO
     'overall_rank': 70, # TODO
-    'clan_name': 'Sif\'s Supergroup', # TODO
     'individual_category_results': player_individual_category_results(c, player),
     'clan_category_results': player_clan_category_results(c, player),
     'banner_results': player_banner_results(c, player),
   }
+  _clan_info = query.get_clan_info(c, player)
+  if _clan_info is None:
+    _clan_info = (None, None)
+  player_params['clan_name'], player_params['clan_members'] = _clan_info
   render(c, 'player',
          dest = ('%s/%s' % (crawl_utils.PLAYER_BASE, player.lower())),
          pars = player_params,
