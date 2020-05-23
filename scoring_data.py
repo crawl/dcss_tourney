@@ -1,14 +1,26 @@
 # -*- coding: utf-8 -*-
 import collections
+import datetime
 
 TOURNAMENT_VERSION = "0.25"
 YEAR = "2020"
+START_TIME = datetime.datetime(2020, 6, 5, 20, 0)
+END_TIME = START_TIME + datetime.timedelta(days=16)
+CLAN_CUTOFF_TIME = START_TIME + datetime.timedelta(days=7)
 
 # Maximum score for placing first in a category. Player score is "10,000 / rank"
 MAX_CATEGORY_SCORE = 10000
 
 SERVERS = {
-    "cpo": "https://crawl.project357.org/",
+    "CPO": "https://crawl.project357.org/",
+    "CAO": "http://crawl.akrasiac.org/",
+    "CBRO": "http://crawl.berotato.org/",
+    "CDO": "http://crawl.develz.org/",
+    "CKO": "https://crawl.kelbi.org/crawl/",
+    "CUE": "https://underhound.eu/crawl/",
+    "CWZ": "https://webzook.net/soup/",
+    "CXC": "http://crawl.xtahua.com/crawl/",
+    "LLD": "http://lazy-life.ddo.jp/",
 }
 
 IndividualCategory = collections.namedtuple(

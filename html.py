@@ -783,3 +783,12 @@ def player_scores_block(c, scores, title):
 
 def slugify(name):
   return name.lower().replace(' ', '-')
+
+def english_join(items, final="and"):
+  """Join a list of items with an oxford comma and joining word.
+
+  eg [1,2,3] => "1, 2, and 3".
+  """
+  # type: (List[str], str) -> str
+  items[-1] = "%s %s" % (final, items[-1])
+  return ", ".join(str(item) for item in items)

@@ -3,6 +3,7 @@
 ## Run on template load (no render context)
 <%!
   import scoring_data
+  import html
 
   active_menu_item = "Rules"
 %>
@@ -23,36 +24,105 @@
 <%block name="main">
   <div class="row">
     <div class="col">
-      <h1>
+      <h1 id="introduction">
         Dungeon Crawl Stone Soup v${scoring_data.TOURNAMENT_VERSION} Tournament
       </h1>
+      <p class="lead">
+        Welcome! The tournament starts
+        ## These get updated by momentjs
+        <span class="font-weight-bold" id="tournament-start-time">
+          ${scoring_data.START_TIME.strftime("at %I:%M%p %A %d %B %Z UTC")}
+        </span>
+        and runs for 16 days (
+        <span class="font-weight-bold" id="tournament-end-time">
+          ${scoring_data.END_TIME.strftime("until %I:%M%p %A %d %B %Z UTC")}
+        </span>
+        ).
     </div>
   </div>
 
   <div class="row">
     <div class="col">
       <h2>Contents</h2>
-      <ul>
+      <ol>
         <li><a href="#introduction">Introduction</a></li>
-        <li><a href="#individual-categories">Individual Categories</a></li>
-        <li><a href="#individual-banners">Individual Banners</a></li>
-        <li><a href="#clan-categories">Clan Categories</a></li>
-      </ul>
+        <li><a href="#how-to-play">How To Play</a></li>
+        <li><a href="#scoring">Scoring</a>
+          <ol>
+            <li><a href="#individual-categories">Individual Categories</a></li>
+            <li><a href="#individual-banners">Individual Banners</a></li>
+            <li><a href="#clan-categories">Clan Categories</a></li>
+          </ol>
+        </li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <h2 id="how-to-play">How To Play</h2>
+      <p>
+        <%
+          server_list = html.english_join(['<a href="%s">%s</a>' % (server[1], server[0]) for server in scoring_data.SERVERS.items()])
+        %>
+        All games of DCSS v${scoring_data.TOURNAMENT_VERSION} played on official servers (${server_list}) will count for the tournament!
+      </p>
+      <h3>Playing in a Clan</h3>
+      <p>
+        If you would like to create a clan, add the following as the first lines in your v${scoring_data.TOURNAMENT_VERSION} rc file:
+        <pre>
+        # TEAMNAME nameofteam
+        # TEAMMEMBERS player1 player2 player3 player4 player5
+        </pre>
+        Clan names can contain letters, numbers, underscores, and hyphens.
+      </p>
+      <p>
+        If you'd like to play in an existing clan, add <code># TEAMCAPTAIN nameofcaptain</code> as the first line of your v${scoring_data.TOURNAMENT_VERSION} rc file.
+        <div class="alert alert-primary" role="alert">
+          The captain doesn't need a <code># TEAMCAPTAIN</code> line in their rc file!
+        </div>
+      </p>
+      <p>
+        You can create, join, and leave clans for the first seven days of the tournament, until
+        ## This gets updated by momentjs
+        <span class="font-weight-bold" id="clan-end-time">
+          ${scoring_data.CLAN_CUTOFF_TIME.strftime("%h:%M%p %A %d %B %Z UTC")}
+        </span>
+        .
+      </p>
+      <p>
+        If you're looking for a clan (or players to fill out your clan), try <a href="https://www.reddit.com/r/DCSStourney/">Reddit's /r/dcsstourney</a>.
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <h2 id="scoring">Scoring</h2>
+      <p>
+        Players are ranked across a number of categories (listed below). Your rank in a category determines how many point you win from it. The points received are: <code>${"{:,}".format(scoring_data.MAX_CATEGORY_SCORE)} / rank in category</code>. Your overall rank is based on the total number of points gained across all categories.
+        <div class="alert alert-primary" role="alert">
+          If you place last in a category, you will always receive 0 points.
+        </div>
+        <div class="alert alert-primary" role="alert">
+          Your ranking for each category may change as the tournament progresses. Therefore the points you receive for each category may change too!
+        </div>
+      </p>
+      <p>
+        Clans are scored separately using the same system, except with clan categories instead of individual categories.
+      </p>
     </div>
   </div>
 
   <div class="row">
     <div class="col">
       <h2 id="individual-categories">Individual Categories</h2>
-      % for category in scoring_data.INDIVIDUAL_CATEGORIES:
-      <div class="row">
-        <div class="col">
-          <p>
-            <b>${category.name}:</b> ${category.desc}
-          </p>
-        </div>
-      </div>
-      % endfor
+      <ul>
+        % for category in scoring_data.INDIVIDUAL_CATEGORIES:
+        <li>
+          <b>${category.name}:</b> ${category.desc}
+        </li>
+        % endfor
+      </ul>
     </div>
   </div>
 
