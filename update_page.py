@@ -105,10 +105,11 @@ def team_pages(c):
 
 def player_page(c, player):
   info("Updating player page for %s" % player)
+  stats = query.get_player_stats(c, player)
   player_params = {
     'player' : player,
-    'total_number_of_players': 1325, # TODO
-    'overall_rank': 70, # TODO
+    'total_number_of_players': stats['rank2'],
+    'overall_rank': stats['rank1'],
     'individual_category_results': player_individual_category_results(c, player),
     'clan_category_results': player_clan_category_results(c, player),
     'banner_results': player_banner_results(c, player),
