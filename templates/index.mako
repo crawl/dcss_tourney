@@ -28,4 +28,70 @@
       </h1>
     </div>
   </div>
+
+  <div class="row">
+    <div class="col">
+      <h2>Contents</h2>
+      <ul>
+        <li><a href="#introduction">Introduction</a></li>
+        <li><a href="#individual-categories">Individual Categories</a></li>
+        <li><a href="#individual-banners">Individual Banners</a></li>
+        <li><a href="#clan-categories">Clan Categories</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <h2 id="individual-categories">Individual Categories</h2>
+      % for category in scoring_data.INDIVIDUAL_CATEGORIES:
+      <div class="row">
+        <div class="col">
+          <p>
+            <b>${category.name}:</b> ${category.desc}
+          </p>
+        </div>
+      </div>
+      % endfor
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <h2 id="individual-banners">Individual Banners</h2>
+      % for banner in scoring_data.BANNERS:
+      <div class="row">
+        <div class="col">
+          <p>
+            <b>${banner.name} (${banner.god})</b>
+          </p>
+          <ol>
+            % for num, desc in enumerate(banner.tiers):
+              <li><b>Tier ${num + 1}:</b> ${desc}</li>
+            % endfor
+          </ol>
+        </div>
+      </div>
+      % if banner.notes:
+      <p><i>${banner.notes}</i></p>
+      % endif
+      % endfor
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <h2 id="clan-categories">Clan Categories</h2>
+      % for category in scoring_data.CLAN_CATEGORIES:
+      <div class="row">
+        <div class="col">
+          <p>
+            <b>${category.name}:</b> ${category.desc}
+          </p>
+        </div>
+      </div>
+      % endfor
+    </div>
+  </div>
+
 </%block>
