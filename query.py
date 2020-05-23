@@ -1413,6 +1413,11 @@ def check_ru_abandonment_game(c, name, start):
 # Individual Scoring Categories
 ###############################
 
+def assign_nonrep_win(c, player, number):
+  query_do(c, '''INSERT INTO player_ranks (player, nonrep_wins) VALUES (%s, %s)
+                 ON DUPLICATE KEY UPDATE nonrep_wins = %s''',
+                 player, 3 - number, 3 - number)
+
 def first_win_order_query(limit = None):
   fields = logfile_fields('g.')
   query = Query("SELECT " + logfile_fields()
