@@ -324,9 +324,9 @@ def table_text(headers, data, count=True,
   :param List[str] headers: Column headers
   :param List[List[str]] data: Column data
   :param bool count: Add a "count" column at the start
-  :param int place_column: ?
+  :param int place_column: Use this column to determine ranking ties (-1 there are no ties)
   :param str stub_text: Text to show if the table has no data.
-  :param bool skip: ?
+  :param bool skip: Use sparse rank numbers (eg two people at rank n means next rank is n+2)
   :param bool bold: Mark winning rows
   """
   out = '''<table class="table table-sm table-hover table-striped">\n'''
