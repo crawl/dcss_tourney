@@ -4,6 +4,7 @@
 <%!
   import html
   import scoring_data
+  import query
 
   # Set active top level menu item
   active_menu_item = 'Players'
@@ -76,6 +77,19 @@
       % endif
     </div>
   </div>
+
+  <hr>
+
+  <div class="row">
+    <div class="col">
+      <h2>Recent Games</h2>
+      ${html.full_games_table(
+          query.find_games(cursor, player = player, sort_max = 'end_time', limit = 10),
+          count=False, win=False)}
+    </div>
+  </div>
+
+  <hr>
 
   <div class="row">
     <div class="col">
