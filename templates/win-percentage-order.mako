@@ -1,34 +1,32 @@
-<%
-   import loaddb, query, html
-   c = attributes['cursor']
+<%inherit file="base.mako"/>
 
-   text = html.table_text( [ 'Player', 'Win Percentage' ],
-   							query.win_perc_order(c), place_column=1, skip=True)
+<%!
+  import html
+  import query
+
+  active_menu_item = None
 %>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
-          "http://www.w3.org/TR/html4/strict.dtd">
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-    <title>Win Percentage Ranking</title>
-    <link rel="stylesheet" type="text/css" href="tourney-score.css">
-  </head>
+<%block name="title">
+  Win Percentage Ranking
+</%block>
 
-  <body class="page_back">
-    <div class="page">
-      <%include file="toplink.mako"/>
+<%block name="main">
+<%
+   c = attributes['cursor']
+%>
+  <div class="row">
+    <div class="col">
+      <h2>Win Percentage Ranking</h2>
+      <p>
+        Win percentage is calculated as:
+        <pre>
+          number of wins / ( number of games played + 1 )
+        </pre>
+      </p>
 
-      <div class="page_content">
-
-        <h2>Win Percentage Ranking</h2>
-        <div class="fineprint">
-		  Win percentage is defined to be <pre>number of wins / number of games played + 1</pre>.
-        </div>
-
-		${text}
+		  ${html.table_text( [ 'Player', 'Win Percentage' ],
+   							query.win_perc_order(c), place_column=1, skip=True)}
 	  </div>
-
-    ${html.update_time()}
-  </body>
-</html>
+  </div>
+</%block>

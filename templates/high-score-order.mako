@@ -1,32 +1,26 @@
-<%
-   import loaddb, query, html
-   c = attributes['cursor']
+<%inherit file="base.mako"/>
 
-   game_text = \
-      html.games_table( query.high_score_order(c, limit = None),
-                        first = 'score', place_column = 1, skip = True )
+<%!
+  import html
+  import query
+
+  active_menu_item = None
 %>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
-          "http://www.w3.org/TR/html4/strict.dtd">
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-    <title>Best High Score Ranking</title>
-    <link rel="stylesheet" type="text/css" href="tourney-score.css">
-  </head>
+<%block name="title">
+  Best High Score Ranking
+</%block>
 
-  <body class="page_back">
-    <div class="page">
-      <%include file="toplink.mako"/>
+<%block name="main">
+<%
+   c = attributes['cursor']
+%>
+  <div class="row">
+    <div class="col">
+      <h2>Best High Score Ranking</h2>
 
-      <div class="page_content">
-
-        <h2>Best High Score Ranking</h2>
-
-		${game_text}
+		  ${html.games_table( query.high_score_order(c, limit = None),
+                        first = 'score', place_column = 1, skip = True )}
 	  </div>
-
-    ${html.update_time()}
-  </body>
-</html>
+  </div>
+</%block>

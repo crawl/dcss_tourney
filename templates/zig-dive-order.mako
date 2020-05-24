@@ -1,31 +1,26 @@
-<%
-   import loaddb, query, html
-   c = attributes['cursor']
+<%inherit file="base.mako"/>
 
-   text = html.table_text( [ 'Player', 'Ziggurats Completed', 'Deepest Floor in last Ziggurat'],
-   							query.zig_dive_order(c), place_column=3, skip=True)
+<%!
+  import html
+  import query
+
+  active_menu_item = None
 %>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
-          "http://www.w3.org/TR/html4/strict.dtd">
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-    <title>Ziggurat Dive Ranking</title>
-    <link rel="stylesheet" type="text/css" href="tourney-score.css">
-  </head>
+<%block name="title">
+  Ziggurat Dive Ranking
+</%block>
 
-  <body class="page_back">
-    <div class="page">
-      <%include file="toplink.mako"/>
+<%block name="main">
+<%
+   c = attributes['cursor']
+%>
+  <div class="row">
+    <div class="col">
+      <h2>Ziggurat Dive Ranking</h2>
 
-      <div class="page_content">
-
-        <h2>Ziggurat Dive Ranking</h2>
-
-		${text}
+		  ${html.table_text( [ 'Player', 'Ziggurats Completed', 'Deepest Floor in last Ziggurat'],
+   							query.zig_dive_order(c), place_column=3, skip=True)}
 	  </div>
-
-    ${html.update_time()}
-  </body>
-</html>
+  </div>
+</%block>
