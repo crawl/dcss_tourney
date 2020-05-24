@@ -27,6 +27,13 @@
             ${results.details}
           </p>
           % endif
+          % if category.url:
+          <p class="small">
+            <a href="${category.url}">
+              View full ranking.
+            </a>
+          </p>
+          % endif
         </div>
       </div>
     </div>
