@@ -24,7 +24,7 @@
     return '%s%s' % (num, suffix)
 
   def points_for_rank(rank_num):
-    if rank_num is None:
+    if not rank_num:
       return "-"
     return str(int(round(scoring_data.MAX_CATEGORY_SCORE / rank_num, 0)))
 
