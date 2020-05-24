@@ -10,7 +10,7 @@
        c[0] = r_ghost.sub('<a href="gkills.html">player ghost</a>', c[0])
 
    table = html.table_text([ 'Killer', '%', 'Kills', 'Last Victim' ],
-                           death_causes, width='100', place_column=2, skip=True)
+                           death_causes, place_column=2, skip=True)
 
 %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"

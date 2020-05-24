@@ -317,40 +317,44 @@ def is_clan_header(header):
   return header in ['Clan', 'Team', 'Teamname']
 
 
-def table_text(headers, data, cls='bordered', count=True, link=None,
-               width=None, place_column=-1, stub_text='No data', skip=False, bold=False):
-  if cls:
-    cls = ''' class="%s"''' % cls
-  if width:
-    width = ' width="%s%%"' % width
-  out = '''<table%s%s>\n<tr>''' % (cls or '', width or '')
+def table_text(headers, data, count=True,
+               place_column=-1, stub_text='No data', skip=False, bold=False):
+  """Create a HTML table.
+
+  :param List[str] headers: Column headers
+  :param List[List[str]] data: Column data
+  :param bool count: Add a "count" column at the start
+  :param int place_column: ?
+  :param str stub_text: Text to show if the table has no data.
+  :param bool skip: ?
+  :param bool bold: Mark winning rows
+  """
+  out = '''<table class="table table-sm table-hover table-striped">\n'''
+
+  out += '''<thead>\n<tr>'''
 
   headers = [ wrap_tuple(x) for x in headers ]
 
   if count:
-    out += "<th></th>"
+    out += '''<th scope="col"></th>'''
   for head in headers:
-    out += "<th>%s</th>" % head[0]
-  out += "</tr>\n"
-  odd = True
+    out += '''<th scope="col">%s</th>''' % head[0]
+  out += "</tr>\n</thead>\n"
 
-  nrow = 0
-
-  ncols = len(headers) + (count and 1 or 0)
   if not data:
+    ncols = len(headers) + (1 if count else 0)
     out += '''<tr><td colspan='%s'>%s</td></tr>''' % (ncols, stub_text)
 
+  # XXX: this is something to do with ranking?
   nplace = 0
   rplace = 0
   last_value = None
 
   for row in data:
-    nrow += 1
     if bold and row[-1]:
-      out += '''<tr class="%s win">''' % (odd and "odd" or "even")
+      out += '''<tr class="table-success">'''
     else:
-      out += '''<tr class="%s">''' % (odd and "odd" or "even")
-    odd = not odd
+      out += '''<tr class="">'''
 
     rplace += 1
     if place_column == -1:
@@ -362,19 +366,23 @@ def table_text(headers, data, cls='bordered', count=True, link=None,
       last_value = row[place_column]
 
     if count:
-      out += '''<td class="numeric">%s</td>''' % nplace
+      out += '''<th scope="row">%s</td>''' % nplace
 
     for c in range(len(headers)):
       val = row[c]
       header = headers[c]
-      tcls = (isinstance(val, str) and not val.endswith('%')) \
-          and "celltext" or "numeric"
-      out += '''<td class="%s">''' % tcls
+      if c == place_column:
+        out += '''<th scope="row">'''
+      else:
+        out += '''<td>'''
       val = str(val)
       if is_player_header(header[0]):
         val = linked_text(val, player_link)
       out += val
-      out += '</td>'
+      if c == place_column:
+        out += '</th>'
+      else:
+        out += '</td>'
     out += "</tr>\n"
   out += '</table>\n'
   return out
