@@ -72,7 +72,7 @@ INDIVIDUAL_CATEGORIES = (
         "player_combo_score",
         "total",
         True,
-        None,
+        "/combo-leaders.html",
     ),
     IndividualCategory(
         "Best High Score",
