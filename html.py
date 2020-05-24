@@ -388,7 +388,7 @@ def games_table(games, first=None, excluding=None, columns=None,
   :param bool first: ?
   :param Optional[List[str]] excluding: If set, a list of column names to exclude from columns
   :param Optional[List[Union[Tuple[str,str],Tuple[str,str,bool]]]] columns: If set, a list of colum descriptions. The format is (sql column name, html column name[, link col=False]). Defaults to STOCK_WIN_COLUMNS if win is True, otherwise STOCK_COLUMNS.
-  :param Optional[List[Tuple[int,str]]] including: If set, a list of (pos, name) tuples of columns to include. pos is the position to insert at.
+  :param Optional[List[Tuple[int,Union[Tuple[str,str],Tuple[str,str,bool]]]]] including: If set, a list of (pos, name) tuples of columns to include. pos is the position to insert at.
   :param bool count: Add a count column at the start.
   :param bool win: Select default columns if `columns` is None. See `columns` param for more info.
   """
