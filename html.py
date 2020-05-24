@@ -310,7 +310,7 @@ def is_clan_header(header):
 
 def table_text(headers, data, count=True,
                place_column=-1, stub_text='No data', skip=False, bold=False):
-  """Create a HTML table.
+  """Create a HTML table of players.
 
   :param List[str] headers: Column headers
   :param List[List[str]] data: Column data
@@ -357,7 +357,7 @@ def table_text(headers, data, count=True,
       last_value = row[place_column]
 
     if count:
-      out += '''<th scope="row">%s</td>''' % nplace
+      out += '''<th scope="row">%s</th>''' % nplace
 
     for c in range(len(headers)):
       val = row[c]
