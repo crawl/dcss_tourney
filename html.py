@@ -171,17 +171,6 @@ BANNER_TEXT = \
       'footer': [ '' ],
     }
 
-STOCK_WIN_COLUMNS = \
-    [ ('player', 'Player'),
-      ('score', 'Score', True),
-      ('charabbrev', 'Character'),
-      ('turn', 'Turns'),
-      ('duration', 'Duration'),
-      ('god', 'God'),
-      ('runes', 'Runes'),
-      ('end_time', 'Time', True)
-    ]
-
 EXT_WIN_COLUMNS = \
     [ ('score', 'Score', True),
       ('race', 'Species'),
@@ -207,6 +196,8 @@ STOCK_COLUMNS = \
       ('runes', 'Runes'),
       ('end_time', 'Time', True)
     ]
+
+STOCK_WIN_COLUMNS = [col for col in STOCK_COLUMNS if col[0] not in ('place', 'verb_msg')]
 
 EXT_COLUMNS = \
     [ ('score', 'Score', True),
@@ -389,9 +380,22 @@ def table_text(headers, data, count=True,
 
 def games_table(games, first=None, excluding=None, columns=None,
                 including=None,
-                cls='bordered', count=True, win=True,
-                place_column=-1, skip=False):
-  columns = columns or (win and STOCK_WIN_COLUMNS or STOCK_COLUMNS)
+                count=True, win=True,
+                place_column=-1, skip=False,
+                highlight_wins=True):
+  """Create a HTML table of games.
+
+  :param List[List[str]] games: Games to list
+  :param bool first: ?
+  :param Optional[List[str]] excluding: If set, a list of column names to exclude from columns
+  :param Optional[List[Union[Tuple[str,str],Tuple[str,str,bool]]]] columns: If set, a list of colum descriptions. The format is (sql column name, html column name[, link col=False]). Defaults to STOCK_WIN_COLUMNS if win is True, otherwise STOCK_COLUMNS.
+  :param Optional[List[Tuple[int,str]]] including: If set, a list of (pos, name) tuples of columns to include. pos is the position to insert at.
+  :param bool count: Add a count column at the start.
+  :param bool win: Select default columns if `columns` is None. See `columns` param for more info.
+  :param bool highlight_wins: Highlight wins in the table.
+  """
+  if columns is None:
+    columns = STOCK_WIN_COLUMNS if win else STOCK_COLUMNS
 
   # Copy columns.
   columns = list(columns)
@@ -411,32 +415,26 @@ def games_table(games, first=None, excluding=None, columns=None,
     columns = [ c for c in columns if c[0] != first[0] ]
     columns.insert( first[1], firstc[0] )
 
-  if cls:
-    cls = ''' class="%s"''' % cls
-  out = '''<table%s>\n<tr>''' % (cls or '')
+  out = '''<table class="table table-sm table-hover table-striped">\n<thead>\n<tr>'''
   if count:
-    out += "<th></th>"
+    out += '''<th scope="col"></th>'''
   for col in columns:
-    out += "<th>%s</th>" % col[1]
-  out += "</tr>\n"
-  odd = True
+    out += '''<th scope="col">%s</th>''' % col[1]
+  out += "</tr>\n</thead>\n"
 
-  ncols = len(columns) + (count and 1 or 0)
   if not games:
+    ncols = len(columns) + (1 if count else 0)
     out += '''<tr><td colspan='%s'>No games</td></tr>''' % ncols
 
+  # XXX: this is something to do with ranking?
   nplace = 0
   rplace = 0
   last_value = None
 
   for game in games:
+    row_class = "table-success" if (highlight_wins and game.get('killertype') == 'winning') else ""
 
-    ocls = odd and "odd" or "even"
-    if game.get('killertype') == 'winning':
-      ocls += " win"
-
-    out += '''<tr class="%s">''' % ocls
-    odd = not odd
+    out += '''<tr class="%s">''' % row_class
 
     rplace += 1
     if place_column == -1:
@@ -448,13 +446,16 @@ def games_table(games, first=None, excluding=None, columns=None,
       last_value = game.get(columns[place_column][0])
 
     if count:
-      out += '''<td class="numeric">%s</td>''' % nplace
+      out += '''<th scope="row">%s</th>''' % nplace
 
-    for c in columns:
+    for i, c in enumerate(columns):
       val = fixup_column(c[0], game.get(c[0]) or '', game)
-      tcls = isinstance(val, str) and "celltext" or "numeric"
-      out += '''<td class="%s">''' % tcls
+      if i == place_column:
+        out += '''<th scope="row">'''
+      else:
+        out += '''<td>'''
 
+      print('need_link: c:%s' % repr(c))
       need_link = len(c) >= 3 and c[2]
       if need_link:
         try:
@@ -467,7 +468,10 @@ def games_table(games, first=None, excluding=None, columns=None,
       out += str(val)
       if need_link:
         out += '</a>'
-      out += '</td>'
+      if i == place_column:
+        out += '</th>'
+      else:
+        out += '</td>'
     out += "</tr>\n"
   out += "</table>\n"
   return out
