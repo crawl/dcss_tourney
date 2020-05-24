@@ -8,6 +8,7 @@ import os.path
 import crawl_utils
 import time
 import argparse
+from typing import Type, Union, NamedTuple
 
 import logging
 from logging import debug, info, warn, error
@@ -548,53 +549,61 @@ def xlog_str(xlog):
 
 # The mappings in order so that we can generate our db queries with all the
 # fields in order and generally debug things more easily.
+LogDbMapping = NamedTuple(
+  'LogDbMapping',
+  (
+    ('field', str),
+    ('column', str),
+    ('type', Union[Type[str], Type[int]]),
+  )
+)
 LOG_DB_MAPPINGS = [
-    [ 'v', 'version' ],
-    [ 'lv', 'lv' ],
-    [ 'name', 'player' ],
-    [ 'uid', 'uid' ],
-    [ 'race', 'race' ],
-    [ 'raceabbr', 'raceabbr' ],
-    [ 'cls', 'class' ],
-    [ 'char', 'charabbrev' ],
-    [ 'xl', 'xl' ],
-    [ 'sk', 'skill' ],
-    [ 'sklev', 'sk_lev' ],
-    [ 'title', 'title' ],
-    [ 'place', 'place' ],
-    [ 'br', 'branch' ],
-    [ 'lvl', 'lvl' ],
-    [ 'ltyp', 'ltyp' ],
-    [ 'hp', 'hp' ],
-    [ 'mhp', 'maxhp' ],
-    [ 'mmhp', 'maxmaxhp' ],
-    [ 'str', 'strength' ],
-    [ 'int', 'intelligence' ],
-    [ 'dex', 'dexterity' ],
-    [ 'ac',  'ac' ],
-    [ 'ev',  'ev' ],
-    [ 'god', 'god' ],
-    [ 'start', 'start_time' ],
-    [ 'dur', 'duration' ],
-    [ 'turn', 'turn' ],
-    [ 'sc', 'score' ],
-    [ 'ktyp', 'killertype' ],
-    [ 'killer', 'killer' ],
-    [ 'kgroup', 'kgroup' ],
-    [ 'dam', 'damage' ],
-    [ 'piety', 'piety' ],
-    [ 'pen', 'penitence' ],
-    [ 'end', 'end_time' ],
-    [ 'tmsg', 'terse_msg' ],
-    [ 'vmsg', 'verb_msg' ],
-    [ 'kaux', 'kaux' ],
-    [ 'kills', 'kills' ],
-    [ 'nrune', 'nrune' ],
-    [ 'urune', 'runes' ],
-    [ 'gold', 'gold' ],
-    [ 'goldfound', 'gold_found' ],
-    [ 'goldspent', 'gold_spent' ],
-    ]
+    LogDbMapping('v', 'version', str),
+    LogDbMapping('lv', 'lv', str),
+    LogDbMapping('name', 'player', str),
+    LogDbMapping('uid', 'uid', str),
+    LogDbMapping('race', 'race', str),
+    LogDbMapping('raceabbr', 'raceabbr', str),
+    LogDbMapping('cls', 'class', str),
+    LogDbMapping('char', 'charabbrev', str),
+    LogDbMapping('xl', 'xl', int),
+    LogDbMapping('sk', 'skill', str),
+    LogDbMapping('sklev', 'sk_lev', str),
+    LogDbMapping('title', 'title', str),
+    LogDbMapping('place', 'place', str),
+    LogDbMapping('br', 'branch', str),
+    LogDbMapping('lvl', 'lvl', str),
+    LogDbMapping('ltyp', 'ltyp', str),
+    LogDbMapping('hp', 'hp', int),
+    LogDbMapping('mhp', 'maxhp', int),
+    LogDbMapping('mmhp', 'maxmaxhp', int),
+    LogDbMapping('str', 'strength', int),
+    LogDbMapping('int', 'intelligence', int),
+    LogDbMapping('dex', 'dexterity', int),
+    LogDbMapping('ac',  'ac', int),
+    LogDbMapping('ev',  'ev', int),
+    LogDbMapping('god', 'god', str),
+    LogDbMapping('start', 'start_time', str),
+    LogDbMapping('dur', 'duration', str),
+    LogDbMapping('turn', 'turn', int),
+    LogDbMapping('sc', 'score', int),
+    LogDbMapping('ktyp', 'killertype', str),
+    LogDbMapping('killer', 'killer', str),
+    LogDbMapping('kgroup', 'kgroup', str),
+    LogDbMapping('dam', 'damage', int),
+    LogDbMapping('piety', 'piety', str),
+    LogDbMapping('pen', 'penitence', str),
+    LogDbMapping('end', 'end_time', str),
+    LogDbMapping('tmsg', 'terse_msg', str),
+    LogDbMapping('vmsg', 'verb_msg', str),
+    LogDbMapping('kaux', 'kaux', str),
+    LogDbMapping('kills', 'kills', str),
+    LogDbMapping('nrune', 'nrune', int),
+    LogDbMapping('urune', 'runes', int),
+    LogDbMapping('gold', 'gold', int),
+    LogDbMapping('goldfound', 'gold_found', int),
+    LogDbMapping('goldspent', 'gold_spent', int),
+]
 
 MILE_DB_MAPPINGS = [
     [ 'v', 'version' ],
@@ -636,8 +645,8 @@ MILE_DB_MAPPINGS = [
     [ 'zigscompleted', 'zigscompleted']
     ]
 
-LOGLINE_TO_DBFIELD = dict(LOG_DB_MAPPINGS)
-COMBINED_LOG_TO_DB = dict(LOG_DB_MAPPINGS + MILE_DB_MAPPINGS)
+LOGLINE_TO_DBFIELD = dict((item.field, item.column) for item in LOG_DB_MAPPINGS)
+COMBINED_LOG_TO_DB = dict([(item.field, item.column) for item in LOG_DB_MAPPINGS] + MILE_DB_MAPPINGS)
 
 R_MONTH_FIX = re.compile(r'^(\d{4})(\d{2})(.*)')
 R_GHOST_NAME = re.compile(r"^(.*)'s? ghost")
@@ -907,7 +916,8 @@ def make_xlog_db_query(db_mappings, xdict, filename, offset, table):
   if offset is not None and offset != False:
     fields.append('source_file_offset')
     values.append(offset)
-  for logkey, sqlkey in db_mappings:
+  for mapping in db_mappings:
+    logkey, sqlkey = mapping[0:2]
     if xdict.has_key(logkey):
       fields.append(sqlkey)
       values.append(xdict[logkey])
