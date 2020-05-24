@@ -116,8 +116,9 @@ def player_page(c, player):
   }
   _clan_info = query.get_clan_info(c, player)
   if _clan_info is None:
-    _clan_info = (None, None)
-  player_params['clan_name'], player_params['clan_members'] = _clan_info
+    _clan_info = (None, [])
+  player_params['clan_name'] = _clan_info[0]
+  player_params['clan_members'] = _clan_info[1]
   render(c, 'player',
          dest = ('%s/%s' % (crawl_utils.PLAYER_BASE, player.lower())),
          pars = player_params,

@@ -59,12 +59,16 @@
     <div class="col">
       <h1>
         ${player}<br>
-        <small class="text-muted">Overall rank: ${overall_rank} <small>of ${total_number_of_players}</small></small>
+        <small class="text-muted">
+            Overall rank:
+            <a href="/all-players-ranks.html">
+              ${overall_rank}
+              <small>
+                of ${total_number_of_players}
+              </small>
+            </a>
+        </small>
       </h1>
-      <%
-        captain = 'hoo'
-        all_clan_members = "hah"
-      %>
       % if clan_name is not None:
       <p>
         Clan: <a href="clans/${html.slugify(clan_name)}.html">${clan_name}</a>. Members: ${html.english_join(clan_members)}.
