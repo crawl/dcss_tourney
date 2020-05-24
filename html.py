@@ -455,7 +455,6 @@ def games_table(games, first=None, excluding=None, columns=None,
       else:
         out += '''<td>'''
 
-      print('need_link: c:%s' % repr(c))
       need_link = len(c) >= 3 and c[2]
       if need_link:
         try:
