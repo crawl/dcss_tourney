@@ -403,15 +403,13 @@ def crunch_winner(c, game, filename):
                                     before = game_end)
   n_my_wins = len(my_wins)
 
-  #if n_my_wins == 0:
+  if n_my_wins == 0:
     # First win!
-    #assign_points(c, "my_1st_win", game['name'], 100)
-
-  #else:
-    # If the new win is a different race/class from a previous win, bonus!
-    #for x in my_wins:
-      #if repeat_race_class(x['charabbrev'], game['char']) == 0:
-        #assign_points(c, "my_2nd_win_norep", game['name'], 50, False)
+    query.assign_nonrep_win(c, game['name'], 1)
+  else:
+    for x in my_wins:
+      if repeat_race_class(x['charabbrev'], game['char']) == 0:
+        query.assign_nonrep_win(c, game['name'], 2)
 
   did_streak = query.win_is_streak(c, game['name'], game_start)
   if did_streak:
