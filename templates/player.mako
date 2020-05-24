@@ -34,7 +34,7 @@
     else:
       points = points_for_rank(rank_num)
       ordinal = rank_ordinal(rank_num)
-      return "{points} point{s}<br><small>(rank: {ordinal})</small>".format(
+      return u"{points} point{s}<br><small>(rank: {ordinal})</small>".format(
         points=points,
         s="s" if points != '1' else "",
         ordinal=ordinal,
