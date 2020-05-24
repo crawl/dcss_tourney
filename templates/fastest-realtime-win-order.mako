@@ -22,7 +22,7 @@
 
 		  ${html.games_table( query.fastest_win_order(c, limit = None),
           first = 'duration', place_column = 1, skip = True,
-          win = True, highlight_wins = False )}
+          win = True)}
 	  </div>
   </div>
 </%block>

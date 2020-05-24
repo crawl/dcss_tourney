@@ -381,8 +381,7 @@ def table_text(headers, data, count=True,
 def games_table(games, first=None, excluding=None, columns=None,
                 including=None,
                 count=True, win=True,
-                place_column=-1, skip=False,
-                highlight_wins=True):
+                place_column=-1, skip=False):
   """Create a HTML table of games.
 
   :param List[List[str]] games: Games to list
@@ -392,7 +391,6 @@ def games_table(games, first=None, excluding=None, columns=None,
   :param Optional[List[Tuple[int,str]]] including: If set, a list of (pos, name) tuples of columns to include. pos is the position to insert at.
   :param bool count: Add a count column at the start.
   :param bool win: Select default columns if `columns` is None. See `columns` param for more info.
-  :param bool highlight_wins: Highlight wins in the table.
   """
   if columns is None:
     columns = STOCK_WIN_COLUMNS if win else STOCK_COLUMNS
@@ -432,7 +430,7 @@ def games_table(games, first=None, excluding=None, columns=None,
   last_value = None
 
   for game in games:
-    row_class = "table-success" if (highlight_wins and game.get('killertype') == 'winning') else ""
+    row_class = "table-success" if game.get('killertype') == 'winning' else ""
 
     out += '''<tr class="%s">''' % row_class
 

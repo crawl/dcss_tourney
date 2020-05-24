@@ -27,7 +27,7 @@
 		  ${html.games_table( query.first_allrune_win_order(c, limit = None),
                         first = 'end_time', place_column = 1, skip = True,
                         excluding = ['runes'],
-                        win = True, highlight_wins = False)}
+                        win = True)}
 	  </div>
   </div>
 </%block>
