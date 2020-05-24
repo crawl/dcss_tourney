@@ -320,7 +320,7 @@ def table_text(headers, data, count=True,
   :param bool skip: Use sparse rank numbers (eg two people at rank n means next rank is n+2)
   :param bool bold: Mark winning rows
   """
-  out = '''<table class="table table-sm table-hover table-striped">\n'''
+  out = '''<table class="table table-sm table-hover table-striped table-responsive">\n'''
 
   out += '''<thead>\n<tr>'''
 
@@ -415,7 +415,7 @@ def games_table(games, first=None, excluding=None, columns=None,
     columns = [ c for c in columns if c[0] != first[0] ]
     columns.insert( first[1], firstc[0] )
 
-  out = '''<table class="table table-sm table-hover table-striped">\n<thead>\n<tr>'''
+  out = '''<table class="table table-sm table-hover table-striped table-responsive">\n<thead>\n<tr>'''
   if count:
     out += '''<th scope="col"></th>'''
   for col in columns:
