@@ -790,5 +790,7 @@ def english_join(items, final="and"):
   eg [1,2,3] => "1, 2, and 3".
   """
   # type: (List[str], str) -> str
+  if not items:
+    return ""
   items[-1] = "%s %s" % (final, items[-1])
   return ", ".join(str(item) for item in items)
