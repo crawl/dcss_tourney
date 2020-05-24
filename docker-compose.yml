@@ -14,7 +14,9 @@ services:
       - tourney
     ports:
       - "3306:3306"
-    command: "--default-authentication-plugin=mysql_native_password"
+    # The first option uses MySQL 5.x era authentication. The rest are performance
+    # optimisation.
+    command: "--default-authentication-plugin=mysql_native_password --skip_log_bin --innodb-flush-log-at-trx-commit=0"
   loaddb:
     build:
       context: .
