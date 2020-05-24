@@ -127,11 +127,11 @@ def player_individual_category_results(c, player):
   data = {}
   ranks = query.get_player_ranks(c, player)
   for category in scoring_data.INDIVIDUAL_CATEGORIES:
-    resdesc = 'Details about individual challenge %s' % category.name
+    description = None
     if ranks is None:
-      data[category.name] = CategoryResult(None, resdesc)
+      data[category.name] = CategoryResult(None, description)
     else:
-      data[category.name] = CategoryResult(ranks[category.name], resdesc)
+      data[category.name] = CategoryResult(ranks[category.name], description)
 
   return data
 
