@@ -24,8 +24,8 @@ SERVERS = {
 }
 
 IndividualCategory = collections.namedtuple(
-    "IndividualCategory", ("name", "desc", "db_column", "source_table",
-    "source_column", "desc_order")
+    "IndividualCategory",
+    ("name", "desc", "db_column", "source_table", "source_column", "desc_order", "url"),
 )
 # This list (and the clan categories & banner lists) are in display order
 INDIVIDUAL_CATEGORIES = (
@@ -33,6 +33,7 @@ INDIVIDUAL_CATEGORIES = (
         "Winning",
         "The Shining One values perserverence and courage in the face of adversity. In this category, TSO will award players 10,000 points if they win two distinct character combos, 5,000 points for winning their first combo, and 0 otherwise.",
         "nonrep_wins",
+        None,
         None,
         None,
         None,
@@ -44,6 +45,7 @@ INDIVIDUAL_CATEGORIES = (
         "player_win_perc",
         "win_perc",
         True,
+        "/win-percentage-order.html",
     ),
     IndividualCategory(
         "Streak Length",
@@ -52,6 +54,7 @@ INDIVIDUAL_CATEGORIES = (
         "player_best_streak",
         "length",
         True,
+        "/streak-order-active-streaks.html",
     ),
     IndividualCategory(
         "Nemelex' Choice",
@@ -60,6 +63,7 @@ INDIVIDUAL_CATEGORIES = (
         "player_nemelex_score",
         "score",
         True,
+        "/nemelex-order.html",
     ),
     IndividualCategory(
         "Combo High Scores",
@@ -68,6 +72,7 @@ INDIVIDUAL_CATEGORIES = (
         "player_combo_score",
         "total",
         True,
+        None,
     ),
     IndividualCategory(
         "Best High Score",
@@ -76,6 +81,7 @@ INDIVIDUAL_CATEGORIES = (
         "highest_scores",
         "score",
         True,
+        "/high-score-order.html",
     ),
     IndividualCategory(
         "Lowest Turncount Win",
@@ -84,6 +90,7 @@ INDIVIDUAL_CATEGORIES = (
         "lowest_turncount_wins",
         "turn",
         False,
+        "/low-tc-win-order.html",
     ),
     IndividualCategory(
         "Fastest Real Time Win",
@@ -92,6 +99,7 @@ INDIVIDUAL_CATEGORIES = (
         "fastest_wins",
         "duration",
         False,
+        "/fastest-realtime-win-order.html",
     ),
     IndividualCategory(
         "Lowest XL Win",
@@ -100,6 +108,7 @@ INDIVIDUAL_CATEGORIES = (
         "low_xl_nonhep_wins",
         "xl",
         False,
+        "/low-xl-win-order.html",
     ),
     IndividualCategory(
         "Tournament Win Order",
@@ -108,6 +117,7 @@ INDIVIDUAL_CATEGORIES = (
         "first_wins",
         "end_time",
         False,
+        "/first-win-order.html",
     ),
     IndividualCategory(
         "Tournament All Rune Win Order",
@@ -115,7 +125,8 @@ INDIVIDUAL_CATEGORIES = (
         "first_allrune_win",
         "first_allrune_wins",
         "end_time",
-        False
+        False,
+        "/first-allrune-win-order.html",
     ),
     IndividualCategory(
         "Exploration",
@@ -124,6 +135,7 @@ INDIVIDUAL_CATEGORIES = (
         "player_exploration_score",
         "score",
         True,
+        "/exploration-order.html",
     ),
     IndividualCategory(
         "Piety",
@@ -132,6 +144,7 @@ INDIVIDUAL_CATEGORIES = (
         "player_piety_score",
         "piety",
         True,
+        "/piety-order.html",
     ),
     IndividualCategory(
         "Unique Harvesting",
@@ -140,6 +153,7 @@ INDIVIDUAL_CATEGORIES = (
         "player_harvest_score",
         "score",
         True,
+        "/harvest-order.html",
     ),
     IndividualCategory(
         "Ziggurat Diving",
@@ -148,6 +162,7 @@ INDIVIDUAL_CATEGORIES = (
         "ziggurats",
         "27 * completed + deepest",
         True,
+        "/zig-dive-order.html",
     ),
     IndividualCategory(
         "Banner Score",
@@ -156,7 +171,8 @@ INDIVIDUAL_CATEGORIES = (
         "player_banner_score",
         "bscore",
         True,
-    )
+        "/banner-order.html",
+    ),
 )
 
 ClanCategory = collections.namedtuple("ClanCategory", ("name", "desc"))
