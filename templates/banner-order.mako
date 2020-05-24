@@ -15,7 +15,6 @@
 
 <%block name="main">
   <%
-    import loaddb, query, html
     c = attributes['cursor']
   %>
   <div class="row">
