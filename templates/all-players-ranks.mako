@@ -1,40 +1,40 @@
-<%
-   import loaddb, query, crawl_utils, html, scoring_data
+<%inherit file="base.mako"/>
 
-   c = attributes['cursor']
+## Run on template load (no render context)
+<%!
+  import scoring_data
+  import html
+  import query
 
-   stats = query.get_all_player_ranks(c)
- %>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
-          "http://www.w3.org/TR/html4/strict.dtd">
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>All Players</title>
-    <link rel="stylesheet" type="text/css" href="tourney-score.css">
-  </head>
+  active_menu_item = "Players"
+%>
 
+## Runs on render. Variables set in here are not accessible to <%blocks>. To
+## make data available, write it to a key in the empty dict 'attributes', which
+## was passed in at template render time.
+## <%
+## %>
 
-  <body class="page_back">
-    <div class="page">
-      <%include file="toplink.mako"/>
+## The rest of the template is blocks or body (an implicit block called body).
+## Access any top level variables passed in as render args, including the dict
+## 'attributes' mentioned in the <% %> section comments above.
+<%block name="title">
+  All Players
+</%block>
 
-      <div class="page_content">
-        <div class="heading_left">
-          <h1>All Players</h1>
-        </div>
+<%block name="main">
+  <%
+    c = attributes['cursor']
+    stats = query.get_all_player_ranks(c)
+  %>
+  <div class="row">
+    <div class="col">
+      <h1>All Players</h1>
 
-        <hr>
-
-        <div class="content">
-          ${html.table_text( [ 'Player', 'Clan', 'Overall Score' ]
-	                    + [ ic.name for ic in
-			    scoring_data.INDIVIDUAL_CATEGORIES ],
-                             stats,
-                             place_column=2, skip=True )}
-        </div>
-      </div>
+      ${html.table_text(
+        [ 'Player', 'Clan', 'Overall Score' ] + [ ic.name for ic in scoring_data.INDIVIDUAL_CATEGORIES ],
+        data=stats, place_column=2, skip=True )
+      }
     </div>
-    ${html.update_time()}
-  </body>
-</html>
+  </div>
+</%block>
