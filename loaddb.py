@@ -1329,10 +1329,9 @@ if __name__ == '__main__':
   if args.validate_database:
     validate_db(cursor)
   try:
+    update_page.index_page(cursor)
     master = create_master_reader()
     master.tail_all(cursor)
-    info("Updating index page")
-    update_page.index_page(cursor)
   finally:
     set_active_cursor(None)
     cursor.close()
