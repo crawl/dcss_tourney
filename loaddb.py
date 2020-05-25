@@ -344,7 +344,7 @@ class MasterXlogReader:
     proc = 0
     while lines:
       # Sort dates in descending order.
-      lines.sort()
+      lines.sort(reverse=True)
       # And pick the oldest.
       oldest = lines.pop()
       # Grab a replacement for the one we're going to read from the same file:

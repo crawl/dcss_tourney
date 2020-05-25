@@ -385,7 +385,7 @@ def get_death_causes(c):
       clean_rows.append( [ killer, r[2], r[3] ] )
     last = r
 
-  clean_rows.sort(key=lambda i:i[1])
+  clean_rows.sort(key=lambda i:i[1], reverse=True)
 
   r_art = re.compile(r'^an? ')
 
