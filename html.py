@@ -444,14 +444,15 @@ def games_table(games, first=None, excluding=None, columns=None,
       last_value = game.get(columns[place_column][0])
 
     if count:
-      out += '''<th scope="row">%s</th>''' % nplace
+      out += '''<th class="text-right" scope="row">%s</th>''' % nplace
 
     for i, c in enumerate(columns):
       val = fixup_column(c[0], game.get(c[0]) or '', game)
+      td_class = "text-right" if isinstance(val, (int, float)) else ""
       if i == place_column:
-        out += '''<th scope="row">'''
+        out += '''<th class="%s" scope="row">''' % td_class
       else:
-        out += '''<td>'''
+        out += '''<td class="%s">''' % td_class
 
       need_link = len(c) >= 3 and c[2]
       if need_link:
