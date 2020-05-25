@@ -2,6 +2,7 @@
 
 ## Run on template load (no render context)
 <%!
+  from crawl_utils import XXX_TOURNEY_BASE
   import html
   import scoring_data
   import query
@@ -62,7 +63,7 @@
         ${player}<br>
         <small class="text-muted">
             Overall rank:
-            <a href="/all-players-ranks.html">
+            <a href="${XXX_TOURNEY_BASE}/all-players-ranks.html">
               ${overall_rank}
               <small>
                 of ${total_number_of_players}
