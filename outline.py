@@ -79,8 +79,7 @@ def act_on_milestone(c, mile):
     banner.award_banner(c, player, 'gozag', 1)
 
   if mile['xl'] >= 9 and nemelex.is_nemelex_choice(mile['char'],mile['start']):
-    ban = 'nemelex:' + mile['char']
-    banner.award_banner(c, player, ban, 1)
+    banner.award_banner(c, player, 'nemelex', 1)
 
   # hack to handle milestones with no potions_used/scrolls_used fields
   if not mile.has_key('potionsused'):
@@ -157,8 +156,7 @@ def do_milestone_rune(c, mile):
       banner.award_banner(c, player, 'gozag', 3)
 
   if nemelex.is_nemelex_choice(mile['char'], mile['time']):
-    ban = 'nemelex:' + mile['char']
-    banner.award_banner(c, player, ban, 2)
+    banner.award_banner(c, player, 'nemelex', 2)
   if not query.did_enter_branch(c, 'Depths', player, mile['start'], mile['time']):
     if mile['urune'] == 6:
       banner.award_banner(c, player, 'the_shining_one', 3)
@@ -285,8 +283,7 @@ def crunch_misc(c, g):
     banner.award_banner(c, player, 'gozag', 1)
 
   if g['xl'] >= 9 and nemelex.is_nemelex_choice(g['char'],g['start']):
-    ban = 'nemelex:' + g['char']
-    banner.award_banner(c, player, ban, 1)
+    banner.award_banner(c, player, 'nemelex', 1)
   if g['xl'] >= 9 and query.check_xl9_streak(c, player, g['start']):
     banner.award_banner(c, player, 'cheibriados', 1)
   if g['sc'] >= 1000:
@@ -381,11 +378,10 @@ def crunch_winner(c, game, filename):
   debug("%s win (%s), runes: %d" % (player, charabbrev, game.get('urune') or 0))
 
   if nemelex.is_nemelex_choice(charabbrev, game_end):
-    ban = 'nemelex:' + charabbrev
-    if not banner.player_has_banner(c, player, ban, 3):
-      if banner.count_recipients(c, ban, 3) < 8:
+    if not nemelex.player_has_nemelex_win(c, player, charabbrev):
+      if nemelex.count_nemelex_wins(c, charabbrev) < 8:
         nemelex.award_nemelex_win(c, game, filename)
-      banner.award_banner(c, player, ban, 3)
+      banner.award_banner(c, player, 'nemelex', 3)
 
   if query.is_unbeliever(c, game):
     banner.award_banner(c, player, 'trog', 3)
