@@ -24,8 +24,6 @@ except:
 import imp
 import sys
 
-import update_page
-
 from test_data import USE_TEST, TEST_YEAR, TEST_VERSION, TEST_START_TIME, TEST_END_TIME, TEST_HARE_START_TIME, TEST_LOGS, TEST_MILESTONES, TEST_CLAN_DEADLINE
 
 T_YEAR = TEST_YEAR or '2019'
@@ -1329,6 +1327,7 @@ if __name__ == '__main__':
   if args.validate_database:
     validate_db(cursor)
   try:
+    import update_page
     update_page.index_page(cursor)
     master = create_master_reader()
     master.tail_all(cursor)
