@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 
-import MySQLdb
 import loaddb
 import time
 import crawl_utils
@@ -18,7 +17,7 @@ def tail_logfiles(logs, milestones, interval=60):
   db = loaddb.connect_db()
   loaddb.init_listeners(db)
 
-  cursor = db.cursor()
+  cursor = db.cursor(buffered=True)
   loaddb.support_mysql57(cursor)
   loaddb.set_active_cursor(cursor)
   elapsed_time = 0

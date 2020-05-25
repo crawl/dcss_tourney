@@ -29,7 +29,7 @@ LOG_FIELDS = [ 'source_file' ] + [ x[1] for x in loaddb.LOG_DB_MAPPINGS ]
 def _cursor():
   """Easy retrieve of cursor to make interactive testing easier."""
   d = loaddb.connect_db()
-  return d.cursor()
+  return d.cursor(buffered=True)
 
 def _filter_invalid_where(d):
   if loaddb.is_not_tourney(d):

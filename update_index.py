@@ -10,7 +10,7 @@ args = loaddb.load_args()
 print("Connecting to database")
 db = loaddb.connect_db(host=args.db_host, password=args.db_pass, retry=args.db_retry_connect)
 
-c = db.cursor()
+c = db.cursor(buffered=True)
 loaddb.support_mysql57(c)
 print("Building index page")
 try:

@@ -34,7 +34,7 @@ from logging import debug, info, warn, error
 
 class TeamListener (loaddb.CrawlEventListener):
     def cleanup(self, db):
-        cursor = db.cursor()
+        cursor = db.cursor(buffered=True)
         loaddb.support_mysql57(cursor)
         try:
             insert_teams(cursor, get_teams(loaddb.CRAWLRC_DIRECTORY_LIST))

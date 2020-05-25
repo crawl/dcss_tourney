@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import MySQLdb
+import mysql.connector
 import re
 import os
 import datetime
@@ -141,7 +141,7 @@ class CrawlCleanupListener (CrawlEventListener):
     self.fn = fn
 
   def cleanup(self, db):
-    c = db.cursor()
+    c = db.cursor(buffered=True)
     support_mysql57(c)
     try:
       self.fn(c)
@@ -360,7 +360,7 @@ class MasterXlogReader:
       info("Done processing %d lines." % proc)
 
 def connect_db(host, password, retry):
-  # type: (Optional[str], Optional[str], bool) -> MySQLdb.Connection
+  # type: (Optional[str], Optional[str], bool) -> mysql.connector.Connection
   connection = None
   conn_args = {
     "host": "localhost",
@@ -373,8 +373,8 @@ def connect_db(host, password, retry):
     conn_args["password"] = password
   while connection is None:
     try:
-      connection = MySQLdb.connect(**conn_args)
-    except MySQLdb._exceptions.OperationalError as e:
+      connection = mysql.connector.connect(**conn_args)
+    except mysql.connector.Error as e:
       if retry:
         info("Couldn't connect to MySQL (%s). Retrying in 5 seconds..." % e)
         time.sleep(5)
@@ -870,7 +870,7 @@ def check_add_player(cursor, player):
   try:
     if not player_exists(cursor, player):
       add_player(cursor, player)
-  except MySQLdb.IntegrityError:
+  except mysql.connector.IntegrityError:
     # We don't care, this just means someone else added the player
     # just now. However we do need to update the player_exists cache.
     player_exists.record((cursor, player), True)
@@ -1265,7 +1265,7 @@ def validate_db(cursor):
   """Check the database structure exists and create it if not."""
   try:
     query_do(cursor, 'SELECT * from players LIMIT 1')
-  except MySQLdb._exceptions.ProgrammingError as e:
+  except mysql.connector.ProgrammingError as e:
     if e.args[0] == 1146:
       info("Database structure doesn't exist. Creating now.")
       with open('database.sql') as f:
@@ -1305,7 +1305,12 @@ if __name__ == '__main__':
     except IOError:
       warn("Error reading %s, skipping it." % log)
 
-  cursor = db.cursor()
+  cursor = db.cursor(
+    # Fully read result sets into RAM. This means we can get the total row
+    # count, and prevents errors when you don't consume the full result set
+    # before sending another query.
+    buffered=True
+  )
   support_mysql57(cursor)
   set_active_cursor(cursor)
   if args.validate_database:

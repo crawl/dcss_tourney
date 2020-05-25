@@ -1,4 +1,3 @@
-import MySQLdb
 import crawl_utils
 import random
 import sys
