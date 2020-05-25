@@ -1,4 +1,5 @@
-FROM python:3
+# Same version as CDO
+FROM python:3.4
 
 WORKDIR /usr/src/app
 
