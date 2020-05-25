@@ -1,7 +1,7 @@
 <%inherit file="base.mako"/>
 
 <%!
-  import html
+  import htmlgen
   import query
 
   active_menu_item = None
@@ -34,7 +34,7 @@
         not appear in this ranking.
       </p>
 
-		  ${html.games_table(query.low_xl_win_order(c),
+		  ${htmlgen.games_table(query.low_xl_win_order(c),
                         columns=YOUNG_COLUMNS,
                         place_column=1, skip = True)}
 	  </div>

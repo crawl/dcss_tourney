@@ -1,7 +1,7 @@
 <%page args="rank_description"/>
 
 <%
-  import html
+  import htmlgen
   import scoring_data
 %>
 
@@ -12,7 +12,7 @@
 %>
 <div class="row">
   <div class="col">
-    <div class="jumbotron category cat-clan-${html.slugify(category.name)} text-light p-3">
+    <div class="jumbotron category cat-clan-${htmlgen.slugify(category.name)} text-light p-3">
       <h2 class="text-outline-black-1">${category.name}</h2>
       <div class="row">
         <div class="col col-sm-4">

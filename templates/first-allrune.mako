@@ -1,9 +1,9 @@
 <%
-   import loaddb, query, html
+   import loaddb, query, htmlgen
    c = attributes['cursor']
 
    game_text = \
-      html.games_table( query.find_games(c, killertype='winning',
+      htmlgen.games_table( query.find_games(c, killertype='winning',
                                          runes = query.MAX_RUNES,
                                          limit=3) )
 %>

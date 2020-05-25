@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python
 
 import MySQLdb
 import re
@@ -9,16 +9,11 @@ import crawl_utils
 import time
 import argparse
 from typing import Type, Union, NamedTuple
+import functools
 
 import logging
 from logging import debug, info, warn, error
 
-try:
-  import configparser
-except:
-  import ConfigParser
-  configparser = ConfigParser
-import imp
 import sys
 
 from test_data import USE_TEST, TEST_YEAR, TEST_VERSION, TEST_START_TIME, TEST_END_TIME, TEST_HARE_START_TIME, TEST_LOGS, TEST_MILESTONES, TEST_CLAN_DEADLINE
@@ -181,6 +176,7 @@ class CrawlTimerState:
 
 # These classes merely read lines from the logfile, and do not parse them.
 
+@functools.total_ordering # Implement __{gt,le,ge}__ based on __lt__ and __eq__
 class Xlogline:
   """A dictionary from an Xlogfile, along with information about where and
   when it came from."""
@@ -194,16 +190,13 @@ class Xlogline:
     self.xdict = xdict
     self.processor = processor
 
-  def __cmp__(self, other):
-    ltime = self.time
-    rtime = other.time
-    # Descending time sort order, so that later dates go first.
-    if ltime > rtime:
-      return -1
-    elif ltime < rtime:
-      return 1
-    else:
-      return 0
+  def __lt__(self, other):
+    """Sorting only takes into account the time of a line."""
+    return self.time < other.time
+
+  def __eq__(self, other):
+    """Equality only takes into account the time of a line."""
+    return self.time == other.time
 
   def process(self, cursor):
     try:
@@ -448,7 +441,7 @@ def strip_unique_qualifier(x):
   return x
 
 def xlog_milestone_fixup(d):
-  for field in [x for x in ['uid'] if d.has_key(x)]:
+  for field in [x for x in ['uid'] if x in d]:
     del d[field]
   if not d.get('milestone'):
     d['milestone'] = ' '
@@ -510,7 +503,7 @@ def xlog_milestone_fixup(d):
 def xlog_match(ref, target):
   """Returns True if all keys in the given reference dictionary are
 associated with the same values in the target dictionary."""
-  for key in ref.keys():
+  for key in list(ref.keys()):
     if ref[key] != target.get(key):
       return False
   return True
@@ -779,7 +772,7 @@ dbfield_to_sqltype = {
 	}
 
 def record_is_milestone(rec):
-  return rec.has_key('milestone') or rec.has_key('type')
+  return 'milestone' in rec or 'type' in rec
 
 def is_not_tourney(game):
   """A game started before the tourney start or played after the end
@@ -902,9 +895,9 @@ def apply_dbtypes(game):
   that can be inserted directly into a db table. Keys that are not recognized
   (i.e. not in dbfield_to_sqltype) are ignored."""
   new_hash = { }
-  for key, value in game.items():
-    if (COMBINED_LOG_TO_DB.has_key(key) and
-        dbfield_to_sqltype.has_key(COMBINED_LOG_TO_DB[key])):
+  for key, value in list(game.items()):
+    if (key in COMBINED_LOG_TO_DB and
+        COMBINED_LOG_TO_DB[key] in dbfield_to_sqltype):
       new_hash[key] = dbfield_to_sqltype[COMBINED_LOG_TO_DB[key]].to_sql(value)
     else:
       new_hash[key] = value
@@ -918,7 +911,7 @@ def make_xlog_db_query(db_mappings, xdict, filename, offset, table):
     values.append(offset)
   for mapping in db_mappings:
     logkey, sqlkey = mapping[0:2]
-    if xdict.has_key(logkey):
+    if logkey in xdict:
       fields.append(sqlkey)
       values.append(xdict[logkey])
   return Query('INSERT INTO %s (%s) VALUES (%s);' %
@@ -1224,22 +1217,22 @@ def run_timers(c, elapsed_time):
     timer.run(c, elapsed_time)
 
 def load_extensions():
-  c = configparser.ConfigParser()
-  c.read(EXTENSION_FILE)
+  import outline, teams, update_page
 
-  exts = c.get('extensions', 'ext') or ''
+  for l in outline.LISTENER:
+    add_listener(l)
+  for t in outline.TIMER:
+    add_timed(*t)
 
-  for ext in exts.split(','):
-    key = ext.strip()
-    filename = key + '.py'
-    info("Loading %s as %s" % (filename, key))
-    module = imp.load_source(key, filename)
-    if 'LISTENER' in dir(module):
-      for l in module.LISTENER:
-        add_listener(l)
-    if 'TIMER' in dir(module):
-      for t in module.TIMER:
-        add_timed(*t)
+  for l in teams.LISTENER:
+    add_listener(l)
+  for t in teams.TIMER:
+    add_timed(*t)
+
+  for l in update_page.LISTENER:
+    add_listener(l)
+  for t in update_page.TIMER:
+    add_timed(*t)
 
 def init_listeners(db):
   for e in LISTENERS:

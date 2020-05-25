@@ -1,7 +1,7 @@
 <%inherit file="base.mako"/>
 
 <%!
-  import html
+  import htmlgen
   import query
   import crawl_utils
 
@@ -42,7 +42,7 @@
         XXX describe this.
       </p>
 
-		  ${html.table_text( [ 'Player', "Nemelex' Choice Wins", 'Combos' ],
+		  ${htmlgen.table_text( [ 'Player', "Nemelex' Choice Wins", 'Combos' ],
                            data, place_column=1, skip=True )}
 	  </div>
   </div>

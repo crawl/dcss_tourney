@@ -1,7 +1,7 @@
 <%inherit file="base.mako"/>
 
 <%!
-  import html
+  import htmlgen
   import query
 
   active_menu_item = None
@@ -24,7 +24,7 @@
         ranking.
       </p>
 
-		  ${html.games_table( query.first_win_order(c, limit = None),
+		  ${htmlgen.games_table( query.first_win_order(c, limit = None),
                         first = 'end_time', place_column = 1, skip = True,
                         excluding = ['runes'],
                         win = True)}

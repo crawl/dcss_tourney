@@ -1,10 +1,7 @@
-#! /usr/bin/python
-
 import MySQLdb
 import crawl_utils
 import random
 import sys
-import html
 import os.path
 from datetime import datetime
 import time
@@ -150,7 +147,7 @@ def award_nemelex_win(c, xdict, filename):
                             'player_nemelex_wins')
     try:
       iq.execute(c)
-    except Exception, e:
+    except Exception as e:
       error("Error inserting %s into %s (query: %s [%s]): %s"
             % (xdict, 'player_nemelex_wins', iq.query, iq.values, e))
       raise

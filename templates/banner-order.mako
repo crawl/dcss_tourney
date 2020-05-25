@@ -2,7 +2,7 @@
 
 <%!
   import scoring_data
-  import html
+  import htmlgen
   import query
 
   active_menu_item = None
@@ -25,7 +25,7 @@
         or 4 points in this category.
       </p>
 
-      ${html.table_text( [ 'Player', 'Banner Score', 'Banners Earned' ],
+      ${htmlgen.table_text( [ 'Player', 'Banner Score', 'Banners Earned' ],
                       query.banner_order(c), place_column=1, skip=True)}
     </div>
   </div>

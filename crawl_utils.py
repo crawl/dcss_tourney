@@ -151,7 +151,7 @@ class Memoizer:
     if len(self.cache) > Memoizer.FLUSH_THRESHOLD:
       self.flush()
     key = self.extractor(args)
-    if not self.cache.has_key(key):
+    if key not in self.cache:
       self.cache[key] = self.fn(*args)
     return self.cache[key]
 

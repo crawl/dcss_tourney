@@ -1,7 +1,7 @@
 <%inherit file="base.mako"/>
 
 <%!
-  import html
+  import htmlgen
   import query
 
   active_menu_item = None
@@ -19,7 +19,7 @@
     <div class="col">
       <h2>Lowest Turn-count Win Ranking</h2>
 
-		  ${html.games_table( query.low_turncount_win_order(c, limit = None),
+		  ${htmlgen.games_table( query.low_turncount_win_order(c, limit = None),
                         first = 'turn', place_column = 1, skip = True )}
 	  </div>
   </div>

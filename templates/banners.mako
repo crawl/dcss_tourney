@@ -1,5 +1,5 @@
 <%
-   import query, html, crawl_utils
+   import query, htmlgen, crawl_utils
 
    c = attributes['cursor']
 
@@ -27,11 +27,11 @@
           <hr>
 
           %for ban in all_banners:
-          <% img = html.banner_named(ban[0], ban[1]) %>
+          <% img = htmlgen.banner_named(ban[0], ban[1]) %>
             %if img:
             ${img}
             <div class="text">
-              <h3>${html.banner_image(ban[0], ban[1], full_name=True)[1]}</h3>
+              <h3>${htmlgen.banner_image(ban[0], ban[1], full_name=True)[1]}</h3>
               ${", ".join([crawl_utils.linked_text(p[0],crawl_utils.player_link,p[0]+(len(p[1]) > 0 and ("("+",".join(p[1])+")") or "")) for p in ban[2]])}
             </div>
             <hr>
@@ -41,6 +41,6 @@
 
       </div>
     </div>
-    ${html.update_time()}
+    ${htmlgen.update_time()}
   </body>
 </html>

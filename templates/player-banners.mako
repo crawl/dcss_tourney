@@ -1,5 +1,5 @@
 <%
-  import html
+  import htmlgen
   import scoring_data
 %>
 
@@ -12,7 +12,7 @@
   %>
   <div class="col mb-4">
     <div class="card h-100 banner text-light">
-      <img src="/images/altar/${html.slugify(banner.god)}.png" class="card-img-top pixel-art px-5 mt-3 mx-auto" style="max-width: 240px;" alt="${banner.god}">
+      <img src="/images/altar/${htmlgen.slugify(banner.god)}.png" class="card-img-top pixel-art px-5 mt-3 mx-auto" style="max-width: 240px;" alt="${banner.god}">
       <div class="card-body">
         <h2 class="card-title">${banner.name}</h2>
         <ul class="list-group list-group-flush">

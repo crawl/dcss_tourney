@@ -385,7 +385,7 @@ def get_death_causes(c):
       clean_rows.append( [ killer, r[2], r[3] ] )
     last = r
 
-  clean_rows.sort(lambda a,b: int(b[1] - a[1]))
+  clean_rows.sort(key=lambda i:i[1])
 
   r_art = re.compile(r'^an? ')
 
@@ -470,7 +470,7 @@ def get_winning_games(c, **selectors):
   """Returns the games for wins matching the provided criteria, ordered
   with earlier wins first. Exactly the same as get_wins, but returns
   the xlog dictionaries instead of the charabbrev"""
-  if not selectors.has_key('limit'):
+  if 'limit' not in selectors:
     selectors['limit'] = None
   return find_games(c, sort_max='end_time',
                     killertype='winning', **selectors)
@@ -484,7 +484,7 @@ def player_class_wins(c, name):
        games WHERE killertype='winning' AND player=%s""", name)
 
 def row_to_xdict(row):
-  return dict( zip(LOG_FIELDS, row) )
+  return dict( list(zip(LOG_FIELDS, row)) )
 
 def find_clan_games(c, captain, sort_min=None, sort_max=None, limit=1,
                     **dictionary):
@@ -495,7 +495,7 @@ def find_clan_games(c, captain, sort_min=None, sort_max=None, limit=1,
                 '''WHERE g.player = p.name
                    AND p.team_captain = %s''',
                 captain)
-  for key, value in dictionary.items():
+  for key, value in list(dictionary.items()):
     query.append(' AND ' + key + ' = %s', value)
 
   if sort_min:
@@ -526,7 +526,7 @@ def find_games(c, sort_min=None, sort_max=None, limit=1, **dictionary):
     for v in newvalues:
       values.append(v)
 
-  for key, value in dictionary.items():
+  for key, value in list(dictionary.items()):
     if key == 'before':
       append_where(where, "end_time < %s", value)
     else:
@@ -669,7 +669,7 @@ def get_player_ranks(c, name):
                           + ''' FROM player_ranks WHERE player = %s''', name)
     if ranks is None:
         return None
-    return dict(zip( [ ic.name for ic in INDIVIDUAL_CATEGORIES ], ranks))
+    return dict(list(zip( [ ic.name for ic in INDIVIDUAL_CATEGORIES ], ranks)))
 
 def get_players(c):
   return [r[0] for r in

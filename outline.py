@@ -1,5 +1,3 @@
-#!/usr/bin/python
-
 import loaddb
 import query
 import banner
@@ -83,7 +81,7 @@ def act_on_milestone(c, mile):
     banner.award_banner(c, player, ban, 1)
 
   # hack to handle milestones with no potions_used/scrolls_used fields
-  if not mile.has_key('potionsused'):
+  if 'potionsused' not in mile:
     mile['potionsused'] = -1
     mile['scrollsused'] = -1
 
@@ -306,7 +304,7 @@ def repeat_race_class(char1, char2):
   return repeats
 
 def game_is_win(g):
-  return g.has_key('ktyp') and g['ktyp'] == 'winning'
+  return 'ktyp' in g and g['ktyp'] == 'winning'
 
 def game_player(g):
   return g['name']

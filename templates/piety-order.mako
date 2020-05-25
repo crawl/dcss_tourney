@@ -1,7 +1,7 @@
 <%inherit file="base.mako"/>
 
 <%!
-  import html
+  import htmlgen
   import query
 
   active_menu_item = None
@@ -26,7 +26,7 @@
         game.
       </p>
 
-		  ${html.table_text( [ 'Player', 'Gods Championed', 'Gods Won', 'Piety Score' ],
+		  ${htmlgen.table_text( [ 'Player', 'Gods Championed', 'Gods Won', 'Piety Score' ],
    							query.piety_order(c), place_column=3, skip=True)}
 	  </div>
   </div>

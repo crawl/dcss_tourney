@@ -2,7 +2,7 @@
 
 <%!
   import scoring_data
-  import html
+  import htmlgen
   import query
   import crawl_utils
 
@@ -45,7 +45,7 @@
         additional points for species and background high-scores.
       </p>
 
-      ${html.table_text( [ 'Player', 'Combo High Scores Points', 'Combos' ],
+      ${htmlgen.table_text( [ 'Player', 'Combo High Scores Points', 'Combos' ],
                             data, place_column=1, skip=True )}
     </div>
   </div>

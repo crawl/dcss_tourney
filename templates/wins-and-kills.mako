@@ -1,6 +1,6 @@
 <%
 
-   import loaddb, query, crawl_utils, html
+   import loaddb, query, crawl_utils, htmlgen
    c = attributes['cursor']
 
    won, unwon = query.won_unwon_combos(c)
@@ -63,14 +63,14 @@
 
         <div>
           <h2>Fastest Wins (turncount)</h2>
-          ${html.ext_games_table(fastest_turns)}
+          ${htmlgen.ext_games_table(fastest_turns)}
         </div>
 
         <hr>
-        
+
         <div>
           <h2>Fastest Wins (real time)</h2>
-          ${html.ext_games_table(fastest_time)}
+          ${htmlgen.ext_games_table(fastest_time)}
         </div>
 
         <hr>
@@ -78,20 +78,20 @@
         <div>
           <h2>Top Scores</h1>
 
-          ${html.ext_games_table(top_scores)}
+          ${htmlgen.ext_games_table(top_scores)}
         </div>
 
 	<hr>
 
 	<div>
           <h2>Fastest 15-Rune Wins (real time)</h2>
-          ${html.ext_games_table(fastest_allrune_time)}
+          ${htmlgen.ext_games_table(fastest_allrune_time)}
         </div>
 
         </div>
       </div>
     </div>
 
-    ${html.update_time()}
+    ${htmlgen.update_time()}
   </body>
 </html>

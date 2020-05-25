@@ -1,5 +1,5 @@
 <%
-   import loaddb, query, crawl_utils, html, re
+   import loaddb, query, crawl_utils, htmlgen, re
    c = attributes['cursor']
 
    death_causes = query.get_death_causes(c)
@@ -9,7 +9,7 @@
      if c[0].startswith('player ghost'):
        c[0] = r_ghost.sub('<a href="gkills.html">player ghost</a>', c[0])
 
-   table = html.table_text([ 'Killer', '%', 'Kills', 'Last Victim' ],
+   table = htmlgen.table_text([ 'Killer', '%', 'Kills', 'Last Victim' ],
                            death_causes, place_column=2, skip=True)
 
 %>
@@ -35,6 +35,6 @@
       </div>
     </div>
 
-    ${html.update_time()}
+    ${htmlgen.update_time()}
   </body>
 </html>

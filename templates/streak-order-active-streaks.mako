@@ -1,8 +1,8 @@
 <%
-   import loaddb, query, html
+   import loaddb, query, htmlgen
    c = attributes['cursor']
 
-   text = html.table_text( [ 'Player', 'Win Percentage' ],
+   text = htmlgen.table_text( [ 'Player', 'Win Percentage' ],
    							query.win_perc_order(c), place_column=1, skip=True)
 %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
@@ -22,16 +22,16 @@
       <div class="page_content">
 
          <h2>Active Streaks</h2>
-          ${html.best_active_streaks(c)}
+          ${htmlgen.best_active_streaks(c)}
 
         <h2>Streak Ranking</h2>
         <div class="fineprint">
 		  XXX: Streak rules.
         </div>
 
-		${html.best_streaks(c)}
+		${htmlgen.best_streaks(c)}
 	  </div>
 
-    ${html.update_time()}
+    ${htmlgen.update_time()}
   </body>
 </html>

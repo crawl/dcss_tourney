@@ -2,7 +2,7 @@
 
 <%!
   import scoring_data
-  import html
+  import htmlgen
   import query
 
   active_menu_item = None
@@ -20,7 +20,7 @@
     <div class="col">
       <h2>Fastest Real-time Win Ranking</h2>
 
-		  ${html.games_table( query.fastest_win_order(c, limit = None),
+		  ${htmlgen.games_table( query.fastest_win_order(c, limit = None),
           first = 'duration', place_column = 1, skip = True,
           win = True)}
 	  </div>

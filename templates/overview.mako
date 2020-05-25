@@ -1,5 +1,5 @@
 <%
-   import query, loaddb, html, time, nemelex
+   import query, loaddb, htmlgen, time, nemelex
    from test_data import USE_TEST
    c = attributes['cursor']
 
@@ -55,7 +55,7 @@
               <tr>
                 <td>
                   <h3>Nemelex' Choice: </h3>
-                  <span>${nem_list[-1][0]}</span>, chosen on ${nem_list[-1][1]} UTC (${html.how_old(nem_list[-1][1])[0]} ago)
+                  <span>${nem_list[-1][0]}</span>, chosen on ${nem_list[-1][1]} UTC (${htmlgen.how_old(nem_list[-1][1])[0]} ago)
                   <p class="fineprint">
                     75 bonus points for the first eight players to win ${nem_list[-1][0]}
                     during the tournament!
@@ -72,7 +72,7 @@
                 </td>
 
                 <td>
-                  ${html.banner_named('nemelex', 3)}
+                  ${htmlgen.banner_named('nemelex', 3)}
                 </td>
               </tr>
             </table>
@@ -96,7 +96,7 @@
 	            <td>
                   <div>
 	                <h3>Leading Clans</h3>
-                    ${html.best_clans(c)}
+                    ${htmlgen.best_clans(c)}
                   </div>
 	            </td>
        	      </tr>
@@ -117,7 +117,7 @@
 
             <div>
               <h3>Top Scores</h3>
-              ${html.games_table(top_scores)}
+              ${htmlgen.games_table(top_scores)}
             </div>
           </div>
 
@@ -140,12 +140,12 @@
           <div class="row">
             <div>
 	      <h3>Longest Streak</h3>
-              ${html.best_streaks(c)}
+              ${htmlgen.best_streaks(c)}
             </div>
 
             <div>
               <h3>Active Streaks</h3>
-              ${html.best_active_streaks(c)}
+              ${htmlgen.best_active_streaks(c)}
             </div>
           </div>
 
@@ -155,7 +155,7 @@
           <div class="row">
           <div>
             <h3>Recent Wins</h3>
-            ${html.games_table(recent_wins)}
+            ${htmlgen.games_table(recent_wins)}
           </div>
 
           </div>
@@ -168,7 +168,7 @@
                 <td>
                   <div>
                     <h3>Most High Scores</h3>
-                    ${html.combo_highscorers(c)}
+                    ${htmlgen.combo_highscorers(c)}
                   </div>
                 </td>
                 <td>
@@ -186,7 +186,7 @@
           <div class="row">
             <div>
               <h3>Ziggurat Raiders</h3>
-              ${html.best_ziggurats(c)}
+              ${htmlgen.best_ziggurats(c)}
             </div>
 
             <div>
@@ -196,7 +196,7 @@
 
             <div>
               <h3>Runes Fetched at Lowest XL</h3>
-              ${html.youngest_rune_finds(c)}
+              ${htmlgen.youngest_rune_finds(c)}
               <p class="fineprint">
                 Note: the abyssal and slimy runes are not eligible.
               </p>
@@ -209,7 +209,7 @@
 
             <div>
               <h3>Most Deaths to Uniques</h3>
-              ${html.most_deaths_to_uniques(c)}
+              ${htmlgen.most_deaths_to_uniques(c)}
             </div>
           </div>
 
@@ -221,14 +221,14 @@
 	        <td>
                   <div>
 	            <h3>Most Uniques Killed: Clan</h3>
-                    ${html.clan_unique_kills(c)}
+                    ${htmlgen.clan_unique_kills(c)}
                   </div>
           </td>
 
                 <td>
                   <div>
 	            <h3>Most High Scores: Clan</h3>
-                    ${html.clan_combo_highscores(c)}
+                    ${htmlgen.clan_combo_highscores(c)}
                   </div>
 	        </td>
               </tr>
@@ -237,6 +237,6 @@
         </div> <!-- Content -->
       </div>
     </div>
-    ${html.update_time()}
+    ${htmlgen.update_time()}
   </body>
 </html>

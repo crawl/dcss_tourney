@@ -1,11 +1,11 @@
 <%
 
-   import loaddb, query, crawl_utils, html, combos
+   import loaddb, query, crawl_utils, htmlgen, combos
    c = attributes['cursor']
 
    all_combo_scores = query.get_combo_scores(c)
 
-   text = html.ext_games_table(all_combo_scores,
+   text = htmlgen.ext_games_table(all_combo_scores,
                                excluding=['race', 'class'],
                                including=[(1, ('charabbrev', 'Combo'))])
    count = len(all_combo_scores)
@@ -51,6 +51,6 @@
       </div>
     </div>
 
-    ${html.update_time()}
+    ${htmlgen.update_time()}
   </body>
 </html>

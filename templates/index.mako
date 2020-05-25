@@ -3,7 +3,7 @@
 ## Run on template load (no render context)
 <%!
   import scoring_data
-  import html
+  import htmlgen
 
   active_menu_item = "Rules"
 %>
@@ -63,7 +63,7 @@
       <h2 id="how-to-play">How To Play</h2>
       <p>
         <%
-          server_list = html.english_join(['<a href="%s">%s</a>' % (server[1], server[0]) for server in sorted(scoring_data.SERVERS.items())])
+          server_list = htmlgen.english_join(['<a href="%s">%s</a>' % (server[1], server[0]) for server in sorted(scoring_data.SERVERS.items())])
         %>
         All games of DCSS v${scoring_data.TOURNAMENT_VERSION} played on official servers (${server_list}) will count for the tournament!
       </p>

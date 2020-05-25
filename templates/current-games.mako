@@ -1,8 +1,8 @@
 <%
 
-   import loaddb, query, crawl_utils, html
+   import loaddb, query, crawl_utils, htmlgen
    c = attributes['cursor']
-   whereis_list = html.whereis_table(c)
+   whereis_list = htmlgen.whereis_table(c)
 
 %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
@@ -26,12 +26,12 @@
         <div class="fineprint">
           Games in bold have been active within the past hour.
         </div>
-        ${html.table_text( [ 'Player', 'Runes', 'Level', 'Character', 'Title', 'Location', 'Time', 'Server' ], whereis_list, count=False, bold=True)}
+        ${htmlgen.table_text( [ 'Player', 'Runes', 'Level', 'Character', 'Title', 'Location', 'Time', 'Server' ], whereis_list, count=False, bold=True)}
 
         </div>
       </div>
     </div>
 
-    ${html.update_time()}
+    ${htmlgen.update_time()}
   </body>
 </html>

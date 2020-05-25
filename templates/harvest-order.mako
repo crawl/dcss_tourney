@@ -1,7 +1,7 @@
 <%inherit file="base.mako"/>
 
 <%!
-  import html
+  import htmlgen
   import query
 
   active_menu_item = None
@@ -23,7 +23,7 @@
         killed and 1 point for each player ghost killed.
       </p>
 
-		  ${html.table_text( [ 'Player', 'Harvest Score' ],
+		  ${htmlgen.table_text( [ 'Player', 'Harvest Score' ],
    							query.harvest_order(c), place_column=1, skip=True)}
 	  </div>
   </div>

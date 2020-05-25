@@ -3,7 +3,7 @@
 ## Run on template load (no render context)
 <%!
   import scoring_data
-  import html
+  import htmlgen
   import query
 
   active_menu_item = "Players"
@@ -31,7 +31,7 @@
     <div class="col">
       <h1>All Players</h1>
 
-      ${html.table_text(
+      ${htmlgen.table_text(
         [ 'Player', 'Clan', 'Overall Score' ] + [ ic.name for ic in scoring_data.INDIVIDUAL_CATEGORIES ],
         data=stats, place_column=2, skip=True )
       }

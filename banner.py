@@ -1,5 +1,3 @@
-#! /usr/bin/python
-
 from loaddb import query_first_def, query_first, query_do, query_rows, query_rows_with_ties
 import crawl
 import query
@@ -28,7 +26,7 @@ def award_banner(c, player, banner, prestige, temp=False):
              player, banner, prestige, temp)
 
 def pantheon(c, player):
-  distinct_gods = query.player_distinct_gods(c, player) 
+  distinct_gods = query.player_distinct_gods(c, player)
   if len(distinct_gods) >= 13:
     award_banner(c, player, 'elyvilon', 3)
   elif len(distinct_gods) >= 5:

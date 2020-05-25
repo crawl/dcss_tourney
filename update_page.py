@@ -1,4 +1,3 @@
-#!/usr/bin/python
 # coding=utf8
 
 import mako.template
@@ -45,11 +44,14 @@ def render(c, page, dest=None, pars=None, top_level_pars=False):
       template_data = t.render( attributes = pars )
   except:
     print("TEMPLATE ERROR")
-    print(mako.exceptions.text_error_template().render())
+    print((mako.exceptions.text_error_template().render()))
     raise
   f = open(target, 'w')
   try:
-    f.write(template_data)
+    if isinstance(template_data, bytes):
+      f.write(template_data.decode())
+    else:
+      f.write(template_data)
   finally:
     f.close()
 

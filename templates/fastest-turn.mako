@@ -1,9 +1,9 @@
 <%
-   import loaddb, query, html
+   import loaddb, query, htmlgen
    c = attributes['cursor']
 
    game_text = \
-      html.games_table( query.get_fastest_turn_player_games(c),
+      htmlgen.games_table( query.get_fastest_turn_player_games(c),
                         first = 'turn' )
 %>
 

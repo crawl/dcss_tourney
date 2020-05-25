@@ -2,7 +2,7 @@
 
 <%!
   import scoring_data
-  import html
+  import htmlgen
   import query
 
   active_menu_item = None
@@ -24,7 +24,7 @@
 		   collected and 1 point each for distinct branch or branch end entered.
       </p>
 
-		  ${html.table_text( [ 'Player', 'Exploration Score' ],
+		  ${htmlgen.table_text( [ 'Player', 'Exploration Score' ],
           query.exploration_order(c), place_column=1, skip=True)}
 	  </div>
   </div>

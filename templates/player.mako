@@ -2,7 +2,7 @@
 
 ## Run on template load (no render context)
 <%!
-  import html
+  import htmlgen
   import scoring_data
   import query
 
@@ -72,7 +72,7 @@
       </h1>
       % if clan_name is not None:
       <p>
-        Clan: <a href="clans/${html.slugify(clan_name)}.html">${clan_name}</a>. Members: ${html.english_join(clan_members)}.
+        Clan: <a href="clans/${htmlgen.slugify(clan_name)}.html">${clan_name}</a>. Members: ${htmlgen.english_join(clan_members)}.
       </p>
       % endif
     </div>
@@ -83,7 +83,7 @@
   <div class="row">
     <div class="col">
       <h2>Recent Games</h2>
-      ${html.full_games_table(
+      ${htmlgen.full_games_table(
           query.find_games(cursor, player = player, sort_max = 'end_time', limit = 10),
           count=False, win=False,
           excluding=("race", "class", "title"), including=[[1, ('charabbrev', 'Character')]])}

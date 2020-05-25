@@ -1,5 +1,5 @@
 <%
-   import loaddb, query, crawl_utils, html, re
+   import loaddb, query, crawl_utils, htmlgen, re
    c = attributes['cursor']
 
    gkills = query.get_gkills(c)
@@ -12,7 +12,7 @@
    for g in gkills:
      g[2] = ", ".join( [ ntimes(x[1], x[0]) for x in g[2] ] )
 
-   table = html.table_text([ 'Ghost', 'Kills', 'Victims' ],
+   table = htmlgen.table_text([ 'Ghost', 'Kills', 'Victims' ],
                            gkills, width='100', place_column=1, skip=True)
 
 %>
@@ -38,6 +38,6 @@
       </div>
     </div>
 
-    ${html.update_time()}
+    ${htmlgen.update_time()}
   </body>
 </html>

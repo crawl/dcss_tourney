@@ -1,5 +1,5 @@
 <%
-   import loaddb, query, html
+   import loaddb, query, htmlgen
    c = attributes['cursor']
 
    YOUNG_COLUMNS = \
@@ -13,7 +13,7 @@
      ]
 
    game_text = \
-      html.games_table(query.get_youngest_wins(c), columns=YOUNG_COLUMNS)
+      htmlgen.games_table(query.get_youngest_wins(c), columns=YOUNG_COLUMNS)
 %>
 
 ${game_text}

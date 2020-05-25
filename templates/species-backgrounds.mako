@@ -1,6 +1,6 @@
 <%
 
-   import loaddb, query, crawl_utils, html, combos, crawl
+   import loaddb, query, crawl_utils, htmlgen, combos, crawl
    c = attributes['cursor']
 
    all_species = set([ comb[:2] for comb in combos.VALID_COMBOS])
@@ -65,19 +65,19 @@
        point_value = query.god_formula(num_wins, last_count)
    condensed_god_data = condensed_god_data + [[last_count, god_list, point_value],]
 
-   species_text = html.table_text( [ 'Wins', 'Species', 'Current Value'],
+   species_text = htmlgen.table_text( [ 'Wins', 'Species', 'Current Value'],
                            condensed_species_data, count=False)
-   class_text = html.table_text( [ 'Wins', 'Background', 'Current Value'],
+   class_text = htmlgen.table_text( [ 'Wins', 'Background', 'Current Value'],
                            condensed_class_data, count=False)
-   god_text = html.table_text( [ 'Wins', 'God', 'Current Value'],
+   god_text = htmlgen.table_text( [ 'Wins', 'God', 'Current Value'],
                            condensed_god_data, count=False)
 
    all_species_scores = query.get_species_scores(c)
    all_class_scores = query.get_class_scores(c)
-   species_scores_text = html.ext_games_table(all_species_scores,
+   species_scores_text = htmlgen.ext_games_table(all_species_scores,
                                               excluding=['class'],
                                               including=[(2, ('charabbrev', 'Combo'))])
-   class_scores_text = html.ext_games_table(all_class_scores,
+   class_scores_text = htmlgen.ext_games_table(all_class_scores,
                                             excluding=['race'],
                                             including=[(2, ('charabbrev', 'Combo'))])
 
@@ -132,6 +132,6 @@
       </div>
     </div>
 
-    ${html.update_time()}
+    ${htmlgen.update_time()}
   </body>
 </html>

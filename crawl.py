@@ -1,5 +1,3 @@
-#! /usr/bin/python
-
 NRUNES = 17
 
 GODS = ['No God', 'Zin', 'the Shining One', 'Kikubaaqudgha',

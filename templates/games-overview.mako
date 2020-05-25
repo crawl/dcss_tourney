@@ -1,6 +1,6 @@
 <%
 
-   import loaddb, query, crawl_utils, html
+   import loaddb, query, crawl_utils, htmlgen
    c = attributes['cursor']
 
    all = query.get_all_game_stats(c)

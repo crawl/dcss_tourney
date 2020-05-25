@@ -1,5 +1,5 @@
 <%
-   import loaddb, query, crawl_utils, html
+   import loaddb, query, crawl_utils, htmlgen
 
    c = attributes['cursor']
 
@@ -27,7 +27,7 @@
         <hr>
 
         <div class="content">
-          ${html.table_text( [ 'Player', 'Clan', 'Overall Score',
+          ${htmlgen.table_text( [ 'Player', 'Clan', 'Overall Score',
                                'Games Won', 'Games Played',
                                'Win %' ],
                              stats,
@@ -35,6 +35,6 @@
         </div>
       </div>
     </div>
-    ${html.update_time()}
+    ${htmlgen.update_time()}
   </body>
 </html>

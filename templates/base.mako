@@ -1,7 +1,7 @@
 ## Base template for all pages. Use this template by inheriting it, and define
 ## all the blocks required below.
 <%!
-  from html import update_time
+  from htmlgen import update_time
   from crawl_utils import XXX_TOURNEY_BASE
   from loaddb import T_VERSION
 

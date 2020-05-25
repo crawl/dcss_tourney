@@ -1,5 +1,5 @@
 <%
-   import loaddb, query, crawl_utils, html
+   import loaddb, query, crawl_utils, htmlgen
    from outline import compute_stepdown
 
    c = attributes['cursor']
@@ -16,8 +16,8 @@
    recent_games = query.find_clan_games(c, captain,
                                         sort_max = 'end_time', limit = 20)
 
-   won_html = html.ext_games_table(won_games)
-   recent_html = html.ext_games_table(recent_games, win=False)
+   won_html = htmlgen.ext_games_table(won_games)
+   recent_html = htmlgen.ext_games_table(recent_games, win=False)
 
    clan_player_points = query.audit_adjusted_clan_player_points(c, captain)
    clan_points = query.audit_clan_points(c, captain)
@@ -25,7 +25,7 @@
    clan_stepdown_points = query.audit_clan_stepdown_points(c, captain)
 
    clan_players = cinfo[1]
-   clan_whereis = html.whereis(c, *clan_players)
+   clan_whereis = htmlgen.whereis(c, *clan_players)
 
    won_gods = [x[0] for x in query.clan_god_wins(c, captain)]
    won_gods.sort()
@@ -33,7 +33,7 @@
    uniq_slain = query.clan_uniques_killed(c, captain)
    uniq_unslain = query.uniques_unkilled(uniq_slain)
 
-   combo_highscores = html.clan_combo_scores(c, captain)
+   combo_highscores = htmlgen.clan_combo_scores(c, captain)
    asterisk = """<p class='fineprint'>* Winning Game</p>"""
 
    def player_point_breakdown():
@@ -73,7 +73,7 @@
    grand_total = sum( [ x[1] for x in clan_player_points ] +
                       [ x[1] for x in clan_points ] )
 
-   banners = html.banner_images(query.get_clan_banners(c, captain))
+   banners = htmlgen.banner_images(query.get_clan_banners(c, captain))
  %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
           "http://www.w3.org/TR/html4/strict.dtd">
@@ -90,7 +90,7 @@
       <%include file="toplink.mako"/>
 
       <div id="player-banners">
-        ${html.banner_div(banners)}
+        ${htmlgen.banner_div(banners)}
       </div>
 
       <div class="page_content content-bannered">
@@ -103,7 +103,7 @@
         <div class="content">
           <div class="player_clan">
             <span class="inline_heading">Clan: </span>
-            ${html.clan_affiliation(c, captain)}
+            ${htmlgen.clan_affiliation(c, captain)}
           </div>
 
           <div class="player_status">
@@ -192,7 +192,7 @@
           % if combo_highscores:
             <hr>
             <div>
-              ${html.player_scores_block(c, combo_highscores,
+              ${htmlgen.player_scores_block(c, combo_highscores,
                                          'Combo Highscores')}
             </div>
           % endif
@@ -249,6 +249,6 @@
       </div>
     </div> <!-- page -->
 
-    ${html.update_time()}
+    ${htmlgen.update_time()}
   </body>
 </html>

@@ -1,5 +1,5 @@
 <%
-   import loaddb, query, html
+   import loaddb, query, htmlgen
    c = attributes['cursor']
 
    DIESEL_COLUMNS = \
@@ -14,7 +14,7 @@
      ]
 
    game_text = \
-      html.games_table(query.get_dieselest_games(c), columns=DIESEL_COLUMNS)
+      htmlgen.games_table(query.get_dieselest_games(c), columns=DIESEL_COLUMNS)
 %>
 
 ${game_text}

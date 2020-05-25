@@ -1,7 +1,7 @@
 <%inherit file="base.mako"/>
 
 <%!
-  import html
+  import htmlgen
   import query
 
   active_menu_item = None
@@ -19,7 +19,7 @@
     <div class="col">
       <h2>Ziggurat Dive Ranking</h2>
 
-		  ${html.table_text( [ 'Player', 'Ziggurats Completed', 'Deepest Floor in last Ziggurat'],
+		  ${htmlgen.table_text( [ 'Player', 'Ziggurats Completed', 'Deepest Floor in last Ziggurat'],
    							query.zig_dive_order(c), place_column=3, skip=True)}
 	  </div>
   </div>

@@ -245,7 +245,7 @@ def pretty_dur(dur):
   try:
     secs = dur % 60
   except:
-    print("FAIL on %s" % dur)
+    print(("FAIL on %s" % dur))
     raise
   dur /= 60
   mins = dur % 60
@@ -259,7 +259,7 @@ def pretty_date(date):
   if not date:
     return ''
 
-  if type(date) in [str, unicode]:
+  if type(date) in [str, str]:
     m = R_STR_DATE.search(date)
     if not m:
       return date
@@ -475,7 +475,7 @@ def games_table(games, first=None, excluding=None, columns=None,
 
 def full_games_table(games, **pars):
   if not pars.get('columns'):
-    if pars.has_key('win'):
+    if 'win' in pars:
       win = pars['win']
     else:
       win = True
@@ -679,6 +679,7 @@ def banner_image(banner, prestige, full_name=False):
   p = prestige
   while p > 3:
     p = p/10
+  p = int(p)
   i_string = ''
   for i in range(p):
     i_string = i_string + 'I'
