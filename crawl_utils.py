@@ -60,6 +60,8 @@ TAILDB_STOP_REQUEST_FILE = os.path.join(BASEDIR, 'taildb.stop')
 
 MKDIRS = [ SCORE_FILE_DIR, PLAYER_FILE_DIR, CLAN_FILE_DIR, IMAGE_FILE_DIR ]
 
+LOGFORMAT = "%(asctime)s [%(levelname)s] %(message)s"
+
 def setup_scoring_dirs():
   for d in MKDIRS:
     if not os.path.exists(d):

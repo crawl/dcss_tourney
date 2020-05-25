@@ -24,6 +24,8 @@ except:
 import imp
 import sys
 
+import update_page
+
 from test_data import USE_TEST, TEST_YEAR, TEST_VERSION, TEST_START_TIME, TEST_END_TIME, TEST_HARE_START_TIME, TEST_LOGS, TEST_MILESTONES, TEST_CLAN_DEADLINE
 
 T_YEAR = TEST_YEAR or '2019'
@@ -553,7 +555,7 @@ def xlog_str(xlog):
 # The mappings in order so that we can generate our db queries with all the
 # fields in order and generally debug things more easily.
 try:
-  # type for LOG_DB_MAPPINGS, relies on `typing`
+  # relies on `typing`
   LogDbMapping = NamedTuple(
     'LogDbMapping',
     (
@@ -1296,7 +1298,7 @@ def validate_db(cursor):
       info("Created database structure")
 
 if __name__ == '__main__':
-  logging.basicConfig(level=logging.INFO)
+  logging.basicConfig(level=logging.INFO, format=crawl_utils.LOGFORMAT)
 
   crawl_utils.lock_or_die()
 
@@ -1329,6 +1331,8 @@ if __name__ == '__main__':
   try:
     master = create_master_reader()
     master.tail_all(cursor)
+    info("Updating index page")
+    update_page.index_page(cursor)
   finally:
     set_active_cursor(None)
     cursor.close()
