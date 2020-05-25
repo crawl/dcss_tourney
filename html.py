@@ -309,7 +309,8 @@ def is_clan_header(header):
 
 
 def table_text(headers, data, count=True,
-               place_column=-1, stub_text='No data', skip=False, bold=False):
+               place_column=-1, stub_text='No data', skip=False, bold=False,
+               extra_wide_support=False):
   """Create a HTML table of players.
 
   :param List[str] headers: Column headers
@@ -319,6 +320,7 @@ def table_text(headers, data, count=True,
   :param str stub_text: Text to show if the table has no data.
   :param bool skip: Use sparse rank numbers (eg two people at rank n means next rank is n+2)
   :param bool bold: Mark winning rows
+  :param bool extra_wide_support: Support tables that get super wide. Adds horizontal scrolling and a sticky player column. Screws up visuals so isn't the default :(
   """
   out = '''<table class="table table-sm table-hover table-striped table-responsive">\n'''
 
@@ -329,7 +331,10 @@ def table_text(headers, data, count=True,
   if count:
     out += '''<th scope="col"></th>'''
   for head in headers:
-    out += '''<th scope="col">%s</th>''' % head[0]
+    cell_class=''
+    if extra_wide_support and is_player_header(head[0]):
+      cell_class = 'sticky-column'
+    out += '''<th class="%s" scope="col">%s</th>''' % (cell_class, head[0])
   out += "</tr>\n</thead>\n"
 
   if not data:
@@ -362,10 +367,13 @@ def table_text(headers, data, count=True,
     for c in range(len(headers)):
       val = row[c]
       header = headers[c]
+      cell_class=''
+      if extra_wide_support and is_player_header(header[0]):
+        cell_class = 'sticky-column'
       if c == place_column:
-        out += '''<th scope="row">'''
+        out += '''<th class="%s" scope="row">''' % cell_class
       else:
-        out += '''<td>'''
+        out += '''<td class="%s">''' % cell_class
       val = str(val)
       if is_player_header(header[0]):
         val = linked_text(val, player_link)

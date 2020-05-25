@@ -25,3 +25,13 @@ body {
 .pixel-art {
   image-rendering: crisp-edges;
 }
+
+.sticky-column {
+  position: sticky;
+  left: 0;
+  /*
+    This background colour is  hardcoded copy of the body background.
+    There must be a better way...
+  */
+  background: #ddd;
+}
