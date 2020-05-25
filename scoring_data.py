@@ -2,6 +2,9 @@
 import collections
 import datetime
 
+import crawl_utils
+from crawl_utils import base_link
+
 TOURNAMENT_VERSION = "0.25"
 YEAR = "2020"
 START_TIME = datetime.datetime(2020, 6, 5, 20, 0)
@@ -45,7 +48,7 @@ INDIVIDUAL_CATEGORIES = (
         "player_win_perc",
         "win_perc",
         True,
-        "/win-percentage-order.html",
+        base_link("win-percentage-order.html"),
     ),
     IndividualCategory(
         "Streak Length",
@@ -54,7 +57,7 @@ INDIVIDUAL_CATEGORIES = (
         "player_best_streak",
         "length",
         True,
-        "/streak-order-active-streaks.html",
+        base_link("streak-order-active-streaks.html"),
     ),
     IndividualCategory(
         "Nemelex' Choice",
@@ -63,7 +66,7 @@ INDIVIDUAL_CATEGORIES = (
         "player_nemelex_score",
         "score",
         True,
-        "/nemelex-order.html",
+        base_link("nemelex-order.html"),
     ),
     IndividualCategory(
         "Combo High Scores",
@@ -72,7 +75,7 @@ INDIVIDUAL_CATEGORIES = (
         "player_combo_score",
         "total",
         True,
-        "/combo-leaders.html",
+        base_link("combo-leaders.html"),
     ),
     IndividualCategory(
         "Best High Score",
@@ -81,7 +84,7 @@ INDIVIDUAL_CATEGORIES = (
         "highest_scores",
         "score",
         True,
-        "/high-score-order.html",
+        base_link("high-score-order.html"),
     ),
     IndividualCategory(
         "Lowest Turncount Win",
@@ -90,7 +93,7 @@ INDIVIDUAL_CATEGORIES = (
         "lowest_turncount_wins",
         "turn",
         False,
-        "/low-tc-win-order.html",
+        base_link("low-tc-win-order.html"),
     ),
     IndividualCategory(
         "Fastest Real Time Win",
@@ -99,7 +102,7 @@ INDIVIDUAL_CATEGORIES = (
         "fastest_wins",
         "duration",
         False,
-        "/fastest-realtime-win-order.html",
+        base_link("fastest-realtime-win-order.html"),
     ),
     IndividualCategory(
         "Lowest XL Win",
@@ -108,7 +111,7 @@ INDIVIDUAL_CATEGORIES = (
         "low_xl_nonhep_wins",
         "xl",
         False,
-        "/low-xl-win-order.html",
+        base_link("low-xl-win-order.html"),
     ),
     IndividualCategory(
         "Tournament Win Order",
@@ -117,7 +120,7 @@ INDIVIDUAL_CATEGORIES = (
         "first_wins",
         "end_time",
         False,
-        "/first-win-order.html",
+        base_link("first-win-order.html"),
     ),
     IndividualCategory(
         "Tournament All Rune Win Order",
@@ -126,7 +129,7 @@ INDIVIDUAL_CATEGORIES = (
         "first_allrune_wins",
         "end_time",
         False,
-        "/first-allrune-win-order.html",
+        base_link("first-allrune-win-order.html"),
     ),
     IndividualCategory(
         "Exploration",
@@ -135,7 +138,7 @@ INDIVIDUAL_CATEGORIES = (
         "player_exploration_score",
         "score",
         True,
-        "/exploration-order.html",
+        base_link("exploration-order.html"),
     ),
     IndividualCategory(
         "Piety",
@@ -144,7 +147,7 @@ INDIVIDUAL_CATEGORIES = (
         "player_piety_score",
         "piety",
         True,
-        "/piety-order.html",
+        base_link("piety-order.html"),
     ),
     IndividualCategory(
         "Unique Harvesting",
@@ -153,7 +156,7 @@ INDIVIDUAL_CATEGORIES = (
         "player_harvest_score",
         "score",
         True,
-        "/harvest-order.html",
+        base_link("harvest-order.html"),
     ),
     IndividualCategory(
         "Ziggurat Diving",
@@ -162,7 +165,7 @@ INDIVIDUAL_CATEGORIES = (
         "ziggurats",
         "27 * completed + deepest",
         True,
-        "/zig-dive-order.html",
+        base_link("zig-dive-order.html"),
     ),
     IndividualCategory(
         "Banner Score",
@@ -171,7 +174,7 @@ INDIVIDUAL_CATEGORIES = (
         "player_banner_score",
         "bscore",
         True,
-        "/banner-order.html",
+        base_link("banner-order.html"),
     ),
 )
 

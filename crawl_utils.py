@@ -178,6 +178,9 @@ def clan_link(clan):
 def banner_link(banner):
   return XXX_IMAGE_BASE + '/' + banner
 
+def base_link(s):
+  return XXX_TOURNEY_BASE + "/" + s
+
 def morgue_link(xdict):
   """Returns a hyperlink to the morgue file for a dictionary that contains
   all fields in the games table."""
