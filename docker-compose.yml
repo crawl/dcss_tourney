@@ -38,6 +38,8 @@ services:
       - ./logfiles:/usr/src/app/logfiles
       - ./milestones:/usr/src/app/milestones
       - ./html.tourney0.24:/usr/src/app/html.tourney0.24
+    depends_on:
+      - mysql
   web:
     image: nginx
     ports:
