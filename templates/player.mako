@@ -86,7 +86,9 @@
       ${html.full_games_table(
           query.find_games(cursor, player = player, sort_max = 'end_time', limit = 10),
           count=False, win=False,
-          excluding=("race", "class", "title"), including=[[1, ('charabbrev', 'Character')]])}
+          excluding=("race", "class", "title", "turns", "duration", "runes"),
+          including=[[1, ('charabbrev', 'Character')]]
+        )}
     </div>
   </div>
 
