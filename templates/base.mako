@@ -31,9 +31,10 @@
   </head>
 
   <body class="text-light">
-    <nav class="navbar navbar-dark navbar-expand-lg" style="background-color: black;">
+    <nav class="navbar navbar-dark navbar-expand-lg" style="background-color: #1a1a1a;">
       <a class="navbar-brand overflow-hidden" href="${XXX_TOURNEY_BASE}">Dungeon Crawl Stone Soup ${T_VERSION} Tournament</a>
     </nav>
+    ## The background of this bar is deliberately different
     <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: black;">
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -58,7 +59,6 @@
 
     <div class="container">
       <%block name="main"/>
-      <hr>
       ${update_time()}
     </div>
 
