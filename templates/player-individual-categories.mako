@@ -1,6 +1,7 @@
 <%page args="rank_description"/>
 
 <%
+  from crawl_utils import XXX_IMAGE_BASE
   import html
   import scoring_data
 %>
@@ -12,7 +13,7 @@
 %>
 <div class="row">
   <div class="col">
-    <div class="jumbotron category-image text-light bg-dark p-3" style="background-image: url('/images/individual/${html.slugify(category.name)}.png');">
+    <div class="jumbotron category-image text-light bg-dark p-3" style="background-image: url('${XXX_IMAGE_BASE}/individual/${html.slugify(category.name)}.png');">
       <h2 class="text-outline-black-1">${category.name}</h2>
       <div class="row">
         <div class="col col-sm-4">

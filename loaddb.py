@@ -8,7 +8,10 @@ import os.path
 import crawl_utils
 import time
 import argparse
-from typing import Type, Union, NamedTuple
+try:
+  from typing import Type, Union, NamedTuple
+except ImportError:
+  pass
 
 import logging
 from logging import debug, info, warn, error
@@ -549,14 +552,20 @@ def xlog_str(xlog):
 
 # The mappings in order so that we can generate our db queries with all the
 # fields in order and generally debug things more easily.
-LogDbMapping = NamedTuple(
-  'LogDbMapping',
-  (
-    ('field', str),
-    ('column', str),
-    ('type', Union[Type[str], Type[int]]),
+try:
+  # relies on `typing`
+  LogDbMapping = NamedTuple(
+    'LogDbMapping',
+    (
+      ('field', str),
+      ('column', str),
+      ('type', Union[Type[str], Type[int]]),
+    )
   )
-)
+except NameError:
+  from collections import namedtuple
+  LogDbMapping = namedtuple('LogDbMapping', ['field', 'column', 'type'])
+
 LOG_DB_MAPPINGS = [
     LogDbMapping('v', 'version', str),
     LogDbMapping('lv', 'lv', str),
@@ -1287,7 +1296,7 @@ def validate_db(cursor):
       info("Created database structure")
 
 if __name__ == '__main__':
-  logging.basicConfig(level=logging.INFO)
+  logging.basicConfig(level=logging.INFO, format=crawl_utils.LOGFORMAT)
 
   crawl_utils.lock_or_die()
 
@@ -1318,6 +1327,8 @@ if __name__ == '__main__':
   if args.validate_database:
     validate_db(cursor)
   try:
+    import update_page
+    update_page.index_page(cursor)
     master = create_master_reader()
     master.tail_all(cursor)
   finally:

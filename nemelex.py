@@ -11,7 +11,7 @@ import time
 import query
 import combos
 from banner import count_recipients
-from loaddb import START_TIME, LOG_DB_MAPPINGS, make_xlog_db_query
+from loaddb import START_TIME, LOG_DB_MAPPINGS, make_xlog_db_query, query_first
 
 import logging
 from logging import debug, info, warn, error
@@ -154,3 +154,12 @@ def award_nemelex_win(c, xdict, filename):
       error("Error inserting %s into %s (query: %s [%s]): %s"
             % (xdict, 'player_nemelex_wins', iq.query, iq.values, e))
       raise
+
+def player_has_nemelex_win(c, player, char):
+    return (query_first(c, '''SELECT COUNT(*) FROM player_nemelex_wins
+                              WHERE player = %s AND charabbrev = %s''',
+                              player, char) > 0)
+    
+def count_nemelex_wins(c, char):
+    return query_first(c, '''SELECT COUNT(*) FROM player_nemelex_wins
+                             WHERE charabbrev = %s''', char)

@@ -51,6 +51,7 @@ if __name__ == '__main__':
     print ("""If you're sure it is not, please remove the file and restart taildb.py""")
     sys.exit(1)
   logging.basicConfig(level=logging.DEBUG,
+                      format=crawl_utils.LOGFORMAT,
                       filename = (crawl_utils.BASEDIR + '/taildb.log'))
   loaddb.load_extensions()
   crawl_utils.daemonize()

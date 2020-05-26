@@ -60,6 +60,8 @@ TAILDB_STOP_REQUEST_FILE = os.path.join(BASEDIR, 'taildb.stop')
 
 MKDIRS = [ SCORE_FILE_DIR, PLAYER_FILE_DIR, CLAN_FILE_DIR, IMAGE_FILE_DIR ]
 
+LOGFORMAT = "%(asctime)s [%(levelname)s] %(message)s"
+
 def setup_scoring_dirs():
   for d in MKDIRS:
     if not os.path.exists(d):
@@ -177,6 +179,9 @@ def clan_link(clan):
 
 def banner_link(banner):
   return XXX_IMAGE_BASE + '/' + banner
+
+def base_link(s):
+  return XXX_TOURNEY_BASE + "/" + s
 
 def morgue_link(xdict):
   """Returns a hyperlink to the morgue file for a dictionary that contains
