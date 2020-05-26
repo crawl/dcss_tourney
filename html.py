@@ -322,7 +322,7 @@ def table_text(headers, data, count=True,
   :param bool bold: Mark winning rows
   :param bool extra_wide_support: Support tables that get super wide. Adds horizontal scrolling and a sticky player column. Screws up visuals so isn't the default :(
   """
-  out = '''<table class="table table-sm table-hover table-striped %s table-dark">\n''' % "table-responsive" if extra_wide_support else ""
+  out = '''<table class="table table-sm table-hover table-striped %s table-dark">\n''' % ("table-responsive" if extra_wide_support else "")
 
   out += '''<thead>\n<tr>'''
 
