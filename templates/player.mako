@@ -23,21 +23,24 @@
       suffix = 'rd'
     if (num % 100) in (11, 12, 13):
       suffix = 'th'
-    return '%s%s' % (num, suffix)
+    return '%s<sup>%s</sup>' % (num, suffix)
 
   def points_for_rank(rank_num):
     if not rank_num:
       return "-"
     return str(int(round(scoring_data.MAX_CATEGORY_SCORE / rank_num, 0)))
 
+  def pretty_points(points):
+    return '{:,}'.format(int(points))
+
   def rank_description(rank_num):
     if rank_num is None:
-      return u"0 points<br><small>(rank: ∞)</small>"
+      return u"0 points <small>(rank: ∞)</small>"
     else:
       points = points_for_rank(rank_num)
       ordinal = rank_ordinal(rank_num)
-      return u"{points} point{s}<br><small>(rank: {ordinal})</small>".format(
-        points=points,
+      return u"{points} point{s} <small>(rank: {ordinal})</small>".format(
+        points=pretty_points(points),
         s="s" if points != '1' else "",
         ordinal=ordinal,
       )
