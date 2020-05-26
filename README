@@ -70,14 +70,19 @@ Running in Docker
 You can use the included docker-compose.yml file to run loaddb.py locally. Here
 are basic usage steps:
 
+* Run `docker-compose up mysql web' in one terminal to leave these services
+  running.
+
 * Edit the code and run 'docker-compose build loaddb && docker-compose up loaddb'
-  to test it.
-  Press ctrl-c to stop.
+  to test your changes.
+
+  (docker-compose doesn't intelligently rebuild the image whenever the source
+  directory is modified, which is why you have to explicitly build the image
+  every time.)
+
+  Press ctrl-c to stop this container only.
 
 * Access the website at http://localhost:8080/overview.html
 
 * The MySQL database is persisted to a Docker colume. Run
   `docker-compose down -v` to delete it.
-
-To test index page generation:
-'docker-compose build index && docker-compose up index'
