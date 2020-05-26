@@ -5,7 +5,7 @@
 
 <h2>Banners</h2>
 
-<div class="row row-cols-sm-1 row-cols-xl-2">
+<div class="row row-cols-sm-1 row-cols-md-2 row-cols-xl-3">
   % for banner in scoring_data.BANNERS:
   <%
     results = banner_results[banner.name]
