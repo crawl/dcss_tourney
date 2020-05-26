@@ -303,7 +303,8 @@ class Xlogfile:
       # I'm too tired to write a better check right now,
       # this should be replaced with something more specific
       if not line.startswith("v"):
-        info(line)
+        info("Bad log line in %s at offset %s: %r", self.filename, line_offset,
+          line)
         continue
 
       try:
@@ -317,6 +318,7 @@ class Xlogfile:
       xdict['src'] = self.src
 
       if xdict['char'][:2] in ['Dj','LO','SE'] or xdict['char'][2:] in ['Pr']:
+        info("Obsolete species in %s at offset %s", self.filename, line_offset)
         continue
 
       xline = Xlogline( owner=self, filename=self.filename,
