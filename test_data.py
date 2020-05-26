@@ -1,3 +1,4 @@
+import collections
 import datetime
 
 CAO = 'http://crawl.akrasiac.org/'
@@ -19,26 +20,32 @@ TEST_END_TIME   = USE_TEST and (TEST_YEAR + '11012000')
 TEST_CLAN_DEADLINE = (USE_TEST and
                      datetime.datetime(2019, 10, 26, 20))
 TEST_HARE_START_TIME = USE_TEST and (TEST_YEAR + '01012000')
+
+# src: str: Name of server this file comes from
+# local_path: str: Path this file is stored at
+# url: Optional[str]: If set, 'wget -c' the file from this URL
+LogSpec = collections.namedtuple('LogSpec', ('src', 'local_path', 'url'))
+
 TEST_LOGS = USE_TEST and [
-#           'cao-logfile-0.24',# CAO + 'logfile24'),
-#           'cbro-logfile-0.24',# CBRO + 'meta/0.24/logfile'),
-#           'cdo-logfile-0.24',# CDO + 'allgames-0.24.txt'),
-#           'cko-logfile-0.24',# CKO + 'meta/0.24/logfile'),
-           'cpo-logfile-0.24',# CPO + 'dcss-logfiles-0.24'),
-#           'cue-logfile-0.24',# CUE + 'meta/0.24/logfile'),
-#           'cwz-logfile-0.24',# CWZ + '0.24/logfile'),
-#           'cxc-logfile-0.24',# CXC + 'meta/0.24/logfile'),
-#           'lld-logfile-0.24',# LLD + 'mirror/meta/0.24/logfile'),
+#           LogSpec('cao', 'logfiles/cao-logfile-0.24', None),  # CAO + 'logfile24'),
+#           LogSpec('cbro', 'logfiles/cbro-logfile-0.24', None),  # CBRO + 'meta/0.24/logfile'),
+#           LogSpec('cdo', 'logfiles/cdo-logfile-0.24', None),  # CDO + 'allgames-0.24.txt'),
+#           LogSpec('cko', 'logfiles/cko-logfile-0.24', None),  # CKO + 'meta/0.24/logfile'),
+           LogSpec('cpo', 'logfiles/cpo-logfile-0.24', None),  # CPO + 'dcss-logfiles-0.24'),
+#           LogSpec('cue', 'logfiles/cue-logfile-0.24', None),  # CUE + 'meta/0.24/logfile'),
+#           LogSpec('cwz', 'logfiles/cwz-logfile-0.24', None),  # CWZ + '0.24/logfile'),
+#           LogSpec('cxc', 'logfiles/cxc-logfile-0.24', None),  # CXC + 'meta/0.24/logfile'),
+#           LogSpec('lld', 'logfiles/lld-logfile-0.24', None),  # LLD + 'mirror/meta/0.24/logfile'),
   ]
 
 TEST_MILESTONES = USE_TEST and [
-#           'cao-milestones-0.24',# CAO + 'milestones24'),
-#           'cbro-milestones-0.24',# CBRO + 'meta/0.24/milestones'),
-#           'cdo-milestones-0.24',# CDO + 'milestones-0.24.txt'),
-#           'cko-milestones-0.24',# CKO + 'meta/0.24/milestones'),
-           'cpo-milestones-0.24',# CPO + 'dcss-milestones-0.24'),
-#           'cue-milestones-0.24',# CUE + 'meta/0.24/milestones'),
-#           'cwz-milestones-0.24',# CWZ + '0.24/milestones'),
-#           'cxc-milestones-0.24',# CXC + 'meta/0.24/milestones'),
-#           'lld-milestones-0.24',# LLD + 'mirror/meta/0.24/milestones'),
+#           LogSpec('cao', 'milestones/cao-milestones-0.24', None),  # CAO + 'milestones24'),
+#           LogSpec('cbro', 'milestones/cbro-milestones-0.24', None),  # CBRO + 'meta/0.24/milestones'),
+#           LogSpec('cdo', 'milestones/cdo-milestones-0.24', None),  # CDO + 'milestones-0.24.txt'),
+#           LogSpec('cko', 'milestones/cko-milestones-0.24', None),  # CKO + 'meta/0.24/milestones'),
+           LogSpec('cpo', 'milestones/cpo-milestones-0.24', None),  # CPO + 'dcss-milestones-0.24'),
+#           LogSpec('cue', 'milestones/cue-milestones-0.24', None),  # CUE + 'meta/0.24/milestones'),
+#           LogSpec('cwz', 'milestones/cwz-milestones-0.24', None),  # CWZ + '0.24/milestones'),
+#           LogSpec('cxc', 'milestones/cxc-milestones-0.24', None),  # CXC + 'meta/0.24/milestones'),
+#           LogSpec('lld', 'milestones/lld-milestones-0.24', None),  # LLD + 'mirror/meta/0.24/milestones'),
   ]

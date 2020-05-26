@@ -90,6 +90,8 @@ CREATE TABLE games (
   source_file VARCHAR(150),
   -- Offset in the source file.
   source_file_offset BIGINT,
+  -- Source server
+  src VARCHAR(10),
 
   player VARCHAR(20),
   start_time DATETIME,
@@ -194,6 +196,8 @@ CREATE TABLE milestones (
   id BIGINT AUTO_INCREMENT PRIMARY KEY,
   -- Source milestone file
   source_file VARCHAR(150),
+  -- Source server
+  src VARCHAR(10),
 
   -- The actual game that this milestone is linked with.
   game_id BIGINT,

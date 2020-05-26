@@ -24,7 +24,7 @@ except:
 import imp
 import sys
 
-from test_data import USE_TEST, TEST_YEAR, TEST_VERSION, TEST_START_TIME, TEST_END_TIME, TEST_HARE_START_TIME, TEST_LOGS, TEST_MILESTONES, TEST_CLAN_DEADLINE
+from test_data import USE_TEST, TEST_YEAR, TEST_VERSION, TEST_START_TIME, TEST_END_TIME, TEST_HARE_START_TIME, TEST_LOGS, TEST_MILESTONES, TEST_CLAN_DEADLINE, LogSpec
 
 T_YEAR = TEST_YEAR or '2019'
 T_VERSION = TEST_VERSION or '0.24'
@@ -54,31 +54,29 @@ CWZ = 'https://webzook.net/soup/'
 CXC = 'http://crawl.xtahua.com/crawl/'
 LLD = 'http://lazy-life.ddo.jp/'
 
-# Log and milestone files. A tuple indicates a remote file with t[1]
-# being the URL to wget -c from.
-
+# Log and milestone files. The url is what we 'wget -c' from.
 LOGS = TEST_LOGS or [
-           ('cao-logfile-0.24', CAO + 'logfile24'),
-#           ('cbro-logfile-0.24', CBRO + 'meta/0.24/logfile'),
-#           ('cdo-logfile-0.24', CDO + 'allgames-0.24.txt'),
-#           ('cko-logfile-0.24', CKO + 'meta/0.24/logfile'),
-           ('cpo-logfile-0.24', CPO + 'dcss-logfiles-0.24'),
-#           ('cue-logfile-0.24', CUE + 'meta/0.24/logfile'),
-#           ('cwz-logfile-0.24', CWZ + '0.24/logfile'),
-           ('cxc-logfile-0.24', CXC + 'meta/0.24/logfile'),
-           ('lld-logfile-0.24', LLD + 'mirror/meta/0.24/logfile'),
+           LogSpec('cao', 'cao-logfile-0.24', CAO + 'logfile24'),
+#           LogSpec('cbro', 'cbro-logfile-0.24', CBRO + 'meta/0.24/logfile'),
+#           LogSpec('cdo', 'cdo-logfile-0.24', CDO + 'allgames-0.24.txt'),
+#           LogSpec('cko', 'cko-logfile-0.24', CKO + 'meta/0.24/logfile'),
+           LogSpec('cpo', 'cpo-logfile-0.24', CPO + 'dcss-logfiles-0.24'),
+#           LogSpec('cue', 'cue-logfile-0.24', CUE + 'meta/0.24/logfile'),
+#           LogSpec('cwz', 'cwz-logfile-0.24', CWZ + '0.24/logfile'),
+           LogSpec('cxc', 'cxc-logfile-0.24', CXC + 'meta/0.24/logfile'),
+           LogSpec('lld', 'lld-logfile-0.24', LLD + 'mirror/meta/0.24/logfile'),
   ]
 
 MILESTONES = TEST_MILESTONES or [
-           ('cao-milestones-0.24', CAO + 'milestones24'),
-#           ('cbro-milestones-0.24', CBRO + 'meta/0.24/milestones'),
-#           ('cdo-milestones-0.24', CDO + 'milestones-0.24.txt'),
-#           ('cko-milestones-0.24', CKO + 'meta/0.24/milestones'),
-           ('cpo-milestones-0.24', CPO + 'dcss-milestones-0.24'),
-#           ('cue-milestones-0.24', CUE + 'meta/0.24/milestones'),
-#           ('cwz-milestones-0.24', CWZ + '0.24/milestones'),
-           ('cxc-milestones-0.24', CXC + 'meta/0.24/milestones'),
-           ('lld-milestones-0.24', LLD + 'mirror/meta/0.24/milestones'),
+           LogSpec('cao', 'cao-milestones-0.24', CAO + 'milestones24'),
+#           LogSpec('cbro', 'cbro-milestones-0.24', CBRO + 'meta/0.24/milestones'),
+#           LogSpec('cdo', 'cdo-milestones-0.24', CDO + 'milestones-0.24.txt'),
+#           LogSpec('cko', 'cko-milestones-0.24', CKO + 'meta/0.24/milestones'),
+           LogSpec('cpo', 'cpo-milestones-0.24', CPO + 'dcss-milestones-0.24'),
+#           LogSpec('cue', 'cue-milestones-0.24', CUE + 'meta/0.24/milestones'),
+#           LogSpec('cwz', 'cwz-milestones-0.24', CWZ + '0.24/milestones'),
+           LogSpec('cxc', 'cxc-milestones-0.24', CXC + 'meta/0.24/milestones'),
+           LogSpec('lld', 'lld-milestones-0.24', LLD + 'mirror/meta/0.24/milestones'),
   ]
 
 GAME_BLACKLIST_FILE = 'game_blacklist.txt'
@@ -216,14 +214,11 @@ class Xlogline:
       raise
 
 class Xlogfile:
-  def __init__(self, filename, tell_op, proc_op, blacklist=None):
-    if isinstance(filename, tuple):
-      self.local = False
-      self.filename = filename[0]
-      self.url = filename[1]
-    else:
-      self.local = True
-      self.filename = filename
+  def __init__(self, filename, url, src, tell_op, proc_op, blacklist=None):
+    self.local = url is None
+    self.filename = filename
+    self.url = url
+    self.src = src
     self.handle = None
     self.offset = None
     self.tell_op = tell_op
@@ -319,21 +314,26 @@ class Xlogfile:
         sys.stderr.write("Error processing line: " + line + "\n")
         raise
 
+      xdict['src'] = self.src
+
       if xdict['char'][:2] in ['Dj','LO','SE'] or xdict['char'][2:] in ['Pr']:
         continue
 
-      xline = Xlogline( self, self.filename, line_offset,
-                        xdict.get('end') or xdict.get('time'),
-                        xdict, self.proc_op )
+      xline = Xlogline( owner=self, filename=self.filename,
+                        offset=line_offset,
+                        time=xdict.get('end') or xdict.get('time'),
+                        xdict=xdict, processor=self.proc_op )
       return xline
 
 class Logfile (Xlogfile):
-  def __init__(self, filename, blacklist):
-    Xlogfile.__init__(self, filename, logfile_offset, process_log, blacklist)
+  def __init__(self, filename, url, src, blacklist):
+    Xlogfile.__init__(self, filename=filename, url=url, src=src,
+      tell_op=logfile_offset, proc_op=process_log, blacklist=blacklist)
 
 class MilestoneFile (Xlogfile):
-  def __init__(self, filename):
-    Xlogfile.__init__(self, filename, milestone_offset, add_milestone_record)
+  def __init__(self, filename, url, src):
+    Xlogfile.__init__(self, filename=filename, url=url, src=src,
+      tell_op=milestone_offset, proc_op=add_milestone_record)
 
 class MasterXlogReader:
   """Given a list of Xlogfile objects, calls the process operation on the oldest
@@ -567,6 +567,7 @@ except NameError:
   LogDbMapping = namedtuple('LogDbMapping', ['field', 'column', 'type'])
 
 LOG_DB_MAPPINGS = [
+    LogDbMapping('src', 'src', str),
     LogDbMapping('v', 'version', str),
     LogDbMapping('lv', 'lv', str),
     LogDbMapping('name', 'player', str),
@@ -615,6 +616,7 @@ LOG_DB_MAPPINGS = [
 ]
 
 MILE_DB_MAPPINGS = [
+    [ 'src', 'src' ],
     [ 'v', 'version' ],
     [ 'lv', 'lv' ],
     [ 'name', 'player' ],
@@ -1260,8 +1262,11 @@ def cleanup_listeners(db):
 
 def create_master_reader():
   blacklist = GameBlacklist(GAME_BLACKLIST_FILE)
-  processors = ([ MilestoneFile(x) for x in MILESTONES ] +
-                [ Logfile(x, blacklist) for x in LOGS ])
+  processors = ([ MilestoneFile(filename=x.local_path, url=x.url, src=x.src)
+                  for x in MILESTONES ] +
+                [ Logfile(filename=x.local_path, url=x.url, src=x.src,
+                    blacklist=blacklist)
+                  for x in LOGS ])
   return MasterXlogReader(processors)
 
 def load_args():
