@@ -70,7 +70,7 @@
       <h3>Playing in a Clan</h3>
       <p>
         If you would like to create a clan, add the following as the first lines in your v${scoring_data.TOURNAMENT_VERSION} rc file:
-        <pre>
+        <pre class="text-light">
         # TEAMNAME nameofteam
         # TEAMMEMBERS player1 player2 player3 player4 player5
         </pre>
@@ -78,7 +78,7 @@
       </p>
       <p>
         If you'd like to play in an existing clan, add <code># TEAMCAPTAIN nameofcaptain</code> as the first line of your v${scoring_data.TOURNAMENT_VERSION} rc file.
-        <div class="alert alert-primary" role="alert">
+        <div class="alert alert-light text-dark" role="alert">
           The captain doesn't need a <code># TEAMCAPTAIN</code> line in their rc file!
         </div>
       </p>
@@ -100,10 +100,10 @@
       <h2 id="scoring">Scoring</h2>
       <p>
         Players are ranked across a number of categories (listed below). Your rank in a category determines how many point you win from it. The points received are: <code>${"{:,}".format(scoring_data.MAX_CATEGORY_SCORE)} / rank in category</code>. Your overall rank is based on the total number of points gained across all categories.
-        <div class="alert alert-primary" role="alert">
+        <div class="alert alert-light text-dark" role="alert">
           If you place last in a category, you will always receive 0 points.
         </div>
-        <div class="alert alert-primary" role="alert">
+        <div class="alert alert-light text-dark" role="alert">
           Your ranking for each category may change as the tournament progresses. Therefore the points you receive for each category may change too!
         </div>
       </p>

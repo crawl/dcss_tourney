@@ -322,7 +322,7 @@ def table_text(headers, data, count=True,
   :param bool bold: Mark winning rows
   :param bool extra_wide_support: Support tables that get super wide. Adds horizontal scrolling and a sticky player column. Screws up visuals so isn't the default :(
   """
-  out = '''<table class="table table-sm table-hover table-striped table-responsive">\n'''
+  out = '''<table class="table table-sm table-hover table-striped %s table-dark">\n''' % "table-responsive" if extra_wide_support else ""
 
   out += '''<thead>\n<tr>'''
 
@@ -348,7 +348,8 @@ def table_text(headers, data, count=True,
 
   for row in data:
     if bold and row[-1]:
-      out += '''<tr class="table-success">'''
+      # Invert colours
+      out += '''<tr class="table-secondary text-dark">'''
     else:
       out += '''<tr class="">'''
 
@@ -421,7 +422,7 @@ def games_table(games, first=None, excluding=None, columns=None,
     columns = [ c for c in columns if c[0] != first[0] ]
     columns.insert( first[1], firstc[0] )
 
-  out = '''<table class="table table-sm table-hover table-striped table-responsive">\n<thead>\n<tr>'''
+  out = '''<table class="table table-sm table-hover table-striped table-dark">\n<thead>\n<tr>'''
   if count:
     out += '''<th scope="col"></th>'''
   for col in columns:
@@ -438,7 +439,7 @@ def games_table(games, first=None, excluding=None, columns=None,
   last_value = None
 
   for game in games:
-    row_class = "table-success" if game.get('killertype') == 'winning' else ""
+    row_class = "table-secondary text-dark" if game.get('killertype') == 'winning' else ""
 
     out += '''<tr class="%s">''' % row_class
 

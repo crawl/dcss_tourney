@@ -1,8 +1,4 @@
 body {
-  background-color: #ddd;
-}
-
-.category {
   background-color: black;
 }
 
@@ -14,10 +10,6 @@ body {
 
 .text-outline-black-1 {
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
-}
-
-.banner {
-  background-color: black;
 }
 
 .pixel-art {

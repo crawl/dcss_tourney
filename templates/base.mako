@@ -30,7 +30,7 @@
     <link rel="stylesheet" href="/style.css">
   </head>
 
-  <body>
+  <body class="text-light">
     <nav class="navbar navbar-dark navbar-expand-lg" style="background-color: black;">
       <a class="navbar-brand overflow-hidden" href="${XXX_TOURNEY_BASE}">Dungeon Crawl Stone Soup ${T_VERSION} Tournament</a>
     </nav>
