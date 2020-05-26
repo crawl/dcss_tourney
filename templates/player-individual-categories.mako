@@ -7,37 +7,41 @@
 %>
 
 <h2>Individual Categories</h2>
-% for category in scoring_data.INDIVIDUAL_CATEGORIES:
-<%
-  results = individual_category_results[category.name]
-%>
-<div class="row">
-  <div class="col">
-    <div class="jumbotron category-image text-light bg-dark p-3" style="background-image: url('${XXX_IMAGE_BASE}/individual/${html.slugify(category.name)}.png');">
-      <h2 class="text-outline-black-1">${category.name}</h2>
-      <div class="row">
-        <div class="col col-sm-4">
-          <h3 class="text-outline-black-1">${rank_description(results.rank)}</h3>
-        </div>
-        <div class="col-sm">
-          <p class="d-none d-sm-block">
-            <i>${category.desc}</i>
-          </p>
-          % if results.details is not None:
-          <p class="lead">
-            ${results.details}
-          </p>
-          % endif
+<div class="row row-cols-md-2">
+  % for category in scoring_data.INDIVIDUAL_CATEGORIES:
+  <%
+    results = individual_category_results[category.name]
+  %>
+  <div class="col mb-4">
+    <div class="card h-100 bg-dark text-light">
+      <img
+        src="${XXX_IMAGE_BASE}/individual/${html.slugify(category.name)}.png"
+        class="card-img"
+        style="filter: brightness(40%);">
+      <div class="card-img-overlay">
+        <h2 class="card-title">${category.name}</h2>
+        <p class="card-text lead">
+          ${rank_description(results.rank)}
+        </p>
+        <p class="card-text">
+          <i>${category.desc}</i>
+        </p>
+        % if results.details is not None:
+        <p class="card-text lead">
+          ${results.details}
+        </p>
+        % endif
+        <p class="card-text small">
           % if category.url:
-          <p class="small">
-            <a href="${category.url}">
-              View full ranking.
-            </a>
-          </p>
+          <a href="${category.url}">
+            View full ranking.
+          </a>
+          % else:
+          Full ranking not available for this category.
           % endif
-        </div>
+        </p>
       </div>
     </div>
   </div>
+  % endfor
 </div>
-% endfor
