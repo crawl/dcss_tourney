@@ -60,7 +60,7 @@
       </div>
     </nav>
 
-    <div class="container">
+    <div class="container my-3">
       <%block name="main"/>
       ${update_time()}
     </div>
