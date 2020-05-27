@@ -1,6 +1,7 @@
 -- Use InnoDB for transaction support?
 -- SET storage_engine=InnoDB;
 
+DROP TABLE IF EXISTS team_ranks;
 DROP TABLE IF EXISTS player_ranks;
 DROP TABLE IF EXISTS player_maxed_skills;
 DROP TABLE IF EXISTS player_fifteen_skills;
@@ -34,13 +35,17 @@ DROP VIEW IF EXISTS fivefives_rune;
 DROP VIEW IF EXISTS fivefives_win;
 DROP VIEW IF EXISTS orbrun_tomb;
 
+DROP VIEW IF EXISTS clan_games;
 DROP VIEW IF EXISTS wins;
 DROP VIEW IF EXISTS first_wins;
 DROP VIEW IF EXISTS allrune_wins;
 DROP VIEW IF EXISTS first_allrune_wins;
 DROP VIEW IF EXISTS highest_scores;
+DROP VIEW IF EXISTS clan_highest_scores;
 DROP VIEW IF EXISTS lowest_turncount_wins;
+DROP VIEW IF EXISTS clan_lowest_turncount_wins;
 DROP VIEW IF EXISTS fastest_wins;
+DROP VIEW IF EXISTS clan_fastest_wins;
 DROP VIEW IF EXISTS nonhep_wins;
 DROP VIEW IF EXISTS low_xl_nonhep_wins;
 DROP VIEW IF EXISTS player_piety_score;
@@ -56,7 +61,10 @@ DROP VIEW IF EXISTS harvest_union;
 DROP VIEW IF EXISTS player_harvest_score;
 DROP VIEW IF EXISTS player_nemelex_score;
 DROP VIEW IF EXISTS player_combo_score;
+DROP VIEW IF EXISTS clan_combo_score;
+DROP VIEW IF EXISTS clan_streaks;
 DROP VIEW IF EXISTS player_best_streak;
+DROP VIEW IF EXISTS clan_best_streak;
 DROP VIEW IF EXISTS player_win_perc;
 
 CREATE TABLE IF NOT EXISTS players (
@@ -65,11 +73,11 @@ CREATE TABLE IF NOT EXISTS players (
   -- This is the computed score! We will overwrite it each time we
   -- recalculate it, and it may be null at any point.
   score_full DECIMAL(5,0),
-  
+
   FOREIGN KEY (team_captain) REFERENCES players (name)
   ON DELETE SET NULL
   );
-  
+
 CREATE INDEX pscore ON players (score_full);
 
 CREATE TABLE teams (
@@ -85,7 +93,7 @@ CREATE TABLE teams (
 -- For mappings of logfile fields to columns, see loaddb.py
 CREATE TABLE games (
   id BIGINT AUTO_INCREMENT,
-  
+
   -- Source logfile
   source_file VARCHAR(150),
   -- Offset in the source file.
@@ -204,7 +212,7 @@ CREATE TABLE milestones (
 
   version VARCHAR(10),
   lv VARCHAR(8),
-  
+
   cv VARCHAR(10),
   player VARCHAR(20),
   race VARCHAR(20),
@@ -389,6 +397,25 @@ CREATE TABLE player_ranks (
   FOREIGN KEY (player) REFERENCES players (name) ON DELETE CASCADE
 );
 
+CREATE TABLE team_ranks (
+  team_captain VARCHAR(20) NOT NULL,
+  nonrep_wins INT,
+  streak INT,
+  highest_score INT,
+  lowest_turncount_win INT,
+  fastest_win INT,
+  piety INT,
+  harvest INT,
+  exploration INT,
+  combo_score INT,
+  nemelex_score INT,
+  ziggurat_dive INT,
+  banner_score INT,
+  PRIMARY KEY (team_captain),
+  FOREIGN KEY (team_captain) REFERENCES teams (owner) ON DELETE CASCADE
+);
+
+
 CREATE TABLE player_maxed_skills (
   player VARCHAR(20),
   skill VARCHAR(25),
@@ -439,7 +466,7 @@ CREATE VIEW all_hellpan_kills AS
 SELECT player, COUNT(DISTINCT monster) AS hellpan_kills
   FROM kills_of_uniques
  WHERE monster = 'Antaeus' OR monster = 'Asmodeus' OR monster = 'Cerebov' OR
-       monster = 'Dispater' OR monster = 'Ereshkigal' OR 
+       monster = 'Dispater' OR monster = 'Ereshkigal' OR
        monster = 'Gloorx Vloq' OR monster = 'Lom Lobon' OR
        monster = 'Mnoleg' OR monster = 'the Serpent of Hell'
 GROUP BY player
@@ -482,15 +509,28 @@ ORDER BY orbrun_tomb_count DESC;
 CREATE VIEW have_hellpan_kills AS
 SELECT h.player, COUNT(*) AS hellpan_kills
   FROM kills_of_uniques h INNER JOIN kills_of_uniques p ON h.player = p.player
- WHERE (h.monster = 'Antaeus' OR h.monster = 'Asmodeus' OR 
+ WHERE (h.monster = 'Antaeus' OR h.monster = 'Asmodeus' OR
         h.monster = 'Dispater' OR h.monster = 'Ereshkigal')
-   AND (p.monster = 'Cerebov' OR p.monster = 'Gloorx Vloq' OR 
+   AND (p.monster = 'Cerebov' OR p.monster = 'Gloorx Vloq' OR
         p.monster = 'Lom Lobon' OR p.monster = 'Mnoleg')
 GROUP BY h.player
   HAVING hellpan_kills >= 1;
 
+-- These views inner join on clan info for clan rankings. Sadly mysql's query
+-- optimizer will not skip a specified join, even in the case of an eq_ref
+-- inner join where the joined on columns aren't used in the outer select.
+
+-- If we run into performance issues in generating player ranks we'll need to
+-- split out clan and player queries, however the clan join is still needed
+-- for clan ranking so the savings won't be much.
+CREATE VIEW clan_games AS
+SELECT g.*, p.team_captain
+  FROM games AS g INNER JOIN players AS p ON g.player = p.name;
+
 CREATE VIEW wins AS
-SELECT * FROM games WHERE killertype = 'winning';
+SELECT *
+  FROM clan_games
+  WHERE killertype = 'winning';
 
 CREATE VIEW first_wins AS
 SELECT g.* FROM wins AS g
@@ -499,7 +539,7 @@ SELECT g.* FROM wins AS g
   WHERE g2.end_time IS NULL;
 
 CREATE VIEW allrune_wins AS
-SELECT * FROM games WHERE killertype = 'winning' AND runes = 15;
+SELECT * FROM wins WHERE killertype = 'winning' AND runes = 15;
 
 CREATE VIEW first_allrune_wins AS
 SELECT g.* FROM
@@ -513,16 +553,34 @@ SELECT g.* FROM games AS g
   LEFT OUTER JOIN games AS g2 ON g.player = g2.player AND g.score < g2.score
   WHERE g2.score IS NULL AND g.score > 0;
 
+CREATE VIEW clan_highest_scores AS
+SELECT g.* FROM clan_games AS g
+  LEFT OUTER JOIN clan_games AS g2
+    ON g.team_captain = g2.team_captain AND g.score < g2.score
+  WHERE g2.score IS NULL AND g.score > 0;
+
 CREATE VIEW lowest_turncount_wins AS
 SELECT g.* FROM wins AS g
   LEFT OUTER JOIN wins AS g2
   ON g.player = g2.player AND g.turn > g2.turn
   WHERE g2.turn IS NULL;
 
+CREATE VIEW clan_lowest_turncount_wins AS
+SELECT g.* FROM wins AS g
+  LEFT OUTER JOIN wins AS g2
+  ON g.team_captain = g2.team_captain AND g.turn > g2.turn
+  WHERE g2.turn IS NULL;
+
 CREATE VIEW fastest_wins AS
 SELECT g.* FROM wins AS g
   LEFT OUTER JOIN wins AS g2
   ON g.player = g2.player AND g.duration > g2.duration
+  WHERE g2.duration IS NULL;
+
+CREATE VIEW clan_fastest_wins AS
+SELECT g.* FROM wins AS g
+  LEFT OUTER JOIN wins AS g2
+  ON g.team_captain = g2.team_captain AND g.duration > g2.duration
   WHERE g2.duration IS NULL;
 
 CREATE VIEW nonhep_wins AS
@@ -568,7 +626,7 @@ SELECT player, 3*COUNT(DISTINCT rune) AS score FROM rune_finds GROUP BY player;
 
 CREATE VIEW exploration_union AS
 SELECT player, score AS score
-  FROM branch_enter_count 
+  FROM branch_enter_count
   UNION ALL SELECT player, score FROM branch_end_count
   UNION ALL SELECT player, score FROM scaled_rune_find_count;
 
@@ -610,6 +668,22 @@ SELECT c.player AS player,
     ON c.player = cl.player AND c.charabbrev = cl.charabbrev
   GROUP BY c.player;
 
+CREATE VIEW clan_combo_score AS
+SELECT p.team_captain,
+       COUNT(*) + COUNT(c.killertype='winning')
+                 + 3 * COUNT(sp.raceabbr) + 3 * COUNT(cl.class) AS total,
+       COUNT(*) AS combos,
+       COUNT(c.killertype='winning') AS won_combos,
+       COUNT(sp.raceabbr) AS sp_hs, COUNT(cl.class) AS cls_hs
+  FROM combo_highscores AS c
+  LEFT OUTER JOIN species_highscores AS sp
+    ON c.player = sp.player AND c.charabbrev = sp.charabbrev
+  LEFT OUTER JOIN class_highscores AS cl
+    ON c.player = cl.player AND c.charabbrev = cl.charabbrev
+  INNER JOIN players AS p
+    ON c.player = p.name
+  WHERE p.team_captain IS NOT NULL GROUP BY p.team_captain;
+
 CREATE VIEW player_nemelex_score AS
 SELECT player, COUNT(DISTINCT charabbrev) AS score FROM player_nemelex_wins
 GROUP BY player;
@@ -619,3 +693,14 @@ SELECT s.player, s.length FROM streaks AS s
   LEFT OUTER JOIN streaks AS s2
     ON s.player = s2.player AND s.length < s2.length
   WHERE s2.length IS NULL;
+
+CREATE VIEW clan_streaks AS
+SELECT p.team_captain, s.player, s.length
+FROM streaks AS s INNER JOIN players AS p ON s.player = p.name;
+
+CREATE VIEW clan_best_streak AS
+SELECT s.team_captain, s.player, s.length
+FROM clan_streaks AS s
+  LEFT OUTER JOIN clan_streaks AS s2
+    ON s.team_captain = s2.team_captain AND s.length < s2.length
+  WHERE s2.length IS NULL AND s.team_captain IS NOT NULL;
