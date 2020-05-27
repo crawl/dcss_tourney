@@ -110,7 +110,7 @@ def player_page(c, player):
     'total_number_of_players': stats['rank2'],
     'overall_rank': stats['rank1'],
     'individual_category_results': player_individual_category_results(c, player),
-    'clan_category_results': player_clan_category_results(c, player),
+    #'clan_category_results': player_clan_category_results(c, player),
     'banner_results': player_banner_results(c, player),
   }
   _clan_info = query.get_clan_info(c, player)
