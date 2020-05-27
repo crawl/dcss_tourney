@@ -13,7 +13,7 @@ from loaddb import query_rows_with_ties
 from loaddb import query_first_col, query_first_def
 
 import scoring_data
-from scoring_data import INDIVIDUAL_CATEGORIES, MAX_CATEGORY_SCORE
+from scoring_data import INDIVIDUAL_CATEGORIES, MAX_CATEGORY_SCORE, CLAN_CATEGORIES
 
 import combos
 import crawl
@@ -885,7 +885,8 @@ def game_hs_classes(c, player):
 # Super experimental team stuff. None of this is set in stone.
 
 def drop_teams(c):
-  query_do(c, 'TRUNCATE TABLE teams')
+  info("Drop teams")
+  query_do(c, 'DELETE FROM teams')
 
 def team_exists(cursor, owner):
   """Returns the name of the team owned by 'owner', or None if there is no
@@ -1524,10 +1525,10 @@ def combo_score_order(c, limit = None):
 
 def get_nemelex_wins(c, how_many=None, player=None):
   query = Query("SELECT " + ",".join(LOG_FIELDS) +
-                (""" FROM player_nemelex_wins
-                       %s
+                (""" FROM player_nem_scored_wins
+                     WHERE nem_counts = 1 %s
                      ORDER BY end_time""" %
-                 (player and 'WHERE player = %s' or '')))
+                 (player and 'AND player = %s' or '')))
   if player is not None:
     query.vappend(player)
   if how_many:
@@ -1535,8 +1536,8 @@ def get_nemelex_wins(c, how_many=None, player=None):
   return [ row_to_xdict(x) for x in query.rows(c) ]
 
 def nemelex_order(c, limit=None):
-  query = Query('''SELECT player, COUNT(DISTINCT charabbrev) AS sc
-                   FROM player_nemelex_wins GROUP BY player ORDER BY sc DESC''')
+  query = Query('''SELECT player, score
+                   FROM player_nemelex_score GROUP BY player ORDER BY score DESC''')
   if limit:
     query.append(' LIMIT %d' % limit)
   return query.rows(c)
@@ -1557,19 +1558,29 @@ def streak_order(c, limit=None):
     query.append(' LIMIT %d' % limit)
   return query.rows(c)
 
-def update_player_rank(c, rank_column, source_table, source_column, desc):
-    query_do(c, '''INSERT INTO player_ranks (player, %s)
+def update_rank(c, rank_table, rank_table_key, rank_column, source_table, source_column, desc):
+    query_do(c, '''INSERT INTO %s (%s, %s)
                    SELECT * FROM
-                     (SELECT player, RANK() OVER(ORDER BY %s %s) AS rk FROM %s) AS dt
+                     (SELECT %s, RANK() OVER(ORDER BY %s %s) AS rk
+                        FROM %s WHERE %s IS NOT NULL) AS dt
                    ON DUPLICATE KEY UPDATE %s = rk'''
-                   % (rank_column, source_column, desc and "DESC" or "", source_table, rank_column))
+                   % (rank_table, rank_table_key, rank_column, rank_table_key,
+                      source_column, desc and "DESC" or "", source_table,
+                      rank_table_key, rank_column))
     return
 
 def update_all_player_ranks(c):
     for ic in INDIVIDUAL_CATEGORIES:
         if ic.source_table is not None:
-            update_player_rank(c, ic.db_column, ic.source_table,
-            ic.source_column, ic.desc_order)
+            update_rank(c, 'player_ranks', 'player',
+              ic.db_column, ic.source_table, ic.source_column, ic.desc_order)
+    return
+
+def update_all_clan_ranks(c):
+    for cc in CLAN_CATEGORIES:
+        if cc.source_table is not None:
+            update_rank(c, 'team_ranks', 'team_captain',
+              cc.db_column, cc.source_table, cc.source_column, cc.desc_order)
     return
 
 def update_player_scores(c):
@@ -1609,3 +1620,13 @@ def get_all_player_ranks(c):
     r = [ render_rank(n) for n in r ]
     clean_rows.append(r)
   return clean_rows
+
+def get_all_clan_ranks(c):
+  q = Query('''SELECT t.name, t.owner, t.total_score, '''
+               + ",".join([ 'r.' + cc.db_column for cc in CLAN_CATEGORIES]) +
+            ''' FROM teams t LEFT JOIN team_ranks r
+               ON t.owner = r.team_captain
+               ORDER BY t.total_score DESC, t.name''')
+
+  rows = [ [render_rank(rk) for rk in r ] for r in q.rows(c) ]
+  return rows

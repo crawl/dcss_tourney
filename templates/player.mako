@@ -89,7 +89,7 @@
       <h2>Recent Games</h2>
       ${html.full_games_table(
           query.find_games(cursor, player = player, sort_max = 'end_time', limit = 10),
-          count=False, win=False, caption="Recent games for ${player}"
+          count=False, win=False, caption="Recent games for ${player}",
           excluding=("race", "class", "title", "turns", "duration", "runes", "turns"),
           including=[[1, ('charabbrev', 'Char')], [8, ('src', 'Server')]]
         )}
@@ -104,11 +104,6 @@
         <li class="nav-item" role="presentation">
           <a class="nav-link active" id="individual-categories-tab" data-toggle="tab" href="#individual-categories" role="tab" aria-controls="individual-categories" aria-selected="true">Individual Categories</a>
         </li>
-        % if clan_name is not None:
-        <li class="nav-item" role="presentation">
-          <a class="nav-link" id="clan-categories-tab" data-toggle="tab" href="#clan-categories" role="tab" aria-controls="clan-categories" aria-selected="false">Clan Categories</a>
-        </li>
-        % endif
         <li class="nav-item" role="presentation">
           <a class="nav-link" id="banners-tab" data-toggle="tab" href="#banners" role="tab" aria-controls="banners" aria-selected="false">Banners</a>
         </li>
@@ -117,11 +112,6 @@
         <div class="tab-pane show active" id="individual-categories" role="tabpanel" aria-labelledby="individual-categories-tab">
           <%include file="player-individual-categories.mako" args="rank_description=rank_description"/>
         </div>
-        % if clan_name is not None:
-        <div class="tab-pane" id="clan-categories" role="tabpanel" aria-labelledby="clan-categories-tab">
-          <%include file="player-clan-categories.mako" args="rank_description=rank_description"/>
-        </div>
-        % endif
         <div class="tab-pane" id="banners" role="tabpanel" aria-labelledby="banners-tab">
           <%include file="player-banners.mako"/>
         </div>

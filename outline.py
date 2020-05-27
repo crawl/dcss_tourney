@@ -377,11 +377,10 @@ def crunch_winner(c, game, filename):
 
   debug("%s win (%s), runes: %d" % (player, charabbrev, game.get('urune') or 0))
 
-  if nemelex.is_nemelex_choice(charabbrev, game_end):
-    if not nemelex.player_has_nemelex_win(c, player, charabbrev):
-      if nemelex.count_nemelex_wins(c, charabbrev) < 8:
-        nemelex.award_nemelex_win(c, game, filename)
-      banner.award_banner(c, player, 'nemelex', 3)
+  if nemelex.is_nemelex_choice(charabbrev, game_end) \
+       and not nemelex.player_has_nemelex_win(c, player, charabbrev):
+    nemelex.award_nemelex_win(c, game, filename)
+    banner.award_banner(c, player, 'nemelex', 3)
 
   if query.is_unbeliever(c, game):
     banner.award_banner(c, player, 'trog', 3)

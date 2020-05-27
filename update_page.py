@@ -94,8 +94,7 @@ def index_page(c):
 
 def team_page(c, captain):
   info("Updating team page for captain %s" % captain)
-  render(c, 'clan', dest = ('%s/%s' % (crawl_utils.CLAN_BASE, captain.lower())),
-         pars = { 'captain' : captain })
+  #render(c, 'clan', dest = ('%s/%s' % (crawl_utils.CLAN_BASE, captain.lower())), pars = { 'captain' : captain })
 
 def team_pages(c):
   info("Updating teams page")
@@ -111,7 +110,7 @@ def player_page(c, player):
     'total_number_of_players': stats['rank2'],
     'overall_rank': stats['rank1'],
     'individual_category_results': player_individual_category_results(c, player),
-    'clan_category_results': player_clan_category_results(c, player),
+    #'clan_category_results': player_clan_category_results(c, player),
     'banner_results': player_banner_results(c, player),
   }
   _clan_info = query.get_clan_info(c, player)
@@ -155,12 +154,12 @@ def player_banner_results(c, player):
 # Update tourney overview every 5 mins.
 INTERVAL = crawl_utils.UPDATE_INTERVAL
 TIMER = [ #loaddb.define_timer( INTERVAL, tourney_overview ),
-          #loaddb.define_timer( INTERVAL, team_pages ),
+          loaddb.define_timer( INTERVAL, team_pages ),
           loaddb.define_timer( INTERVAL, player_pages ),
           loaddb.define_timer( INTERVAL, individual_category_pages )
           ]
 LISTENER = [ #loaddb.define_cleanup(tourney_overview),
-             #loaddb.define_cleanup(team_pages),
+             loaddb.define_cleanup(team_pages),
              loaddb.define_cleanup(player_pages),
              loaddb.define_cleanup(individual_category_pages)
            ]
