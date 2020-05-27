@@ -129,6 +129,11 @@
   <div class="row">
     <div class="col">
       <h2 id="individual-banners">Individual Banners</h2>
+      <p>
+        Banners give points in the individual & clan banner categories described
+        above. Banner tiers are worth 1, 2, and 4 points for tiers one, two, and
+        three respectively.
+      </p>
       % for banner in scoring_data.BANNERS:
       <div class="row">
         <div class="col">

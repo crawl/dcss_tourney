@@ -310,7 +310,7 @@ def is_clan_header(header):
 
 def table_text(headers, data, count=True,
                place_column=-1, stub_text='No data', skip=False, bold=False,
-               extra_wide_support=False):
+               extra_wide_support=False, caption=None):
   """Create a HTML table of players.
 
   :param List[str] headers: Column headers
@@ -320,16 +320,26 @@ def table_text(headers, data, count=True,
   :param str stub_text: Text to show if the table has no data.
   :param bool skip: Use sparse rank numbers (eg two people at rank n means next rank is n+2)
   :param bool bold: Mark winning rows
-  :param bool extra_wide_support: Support tables that get super wide. Adds horizontal scrolling and a sticky player column. Screws up visuals so isn't the default :(
+  :param Optional[str] caption: Table description (for screen readers).
+
   """
-  out = '''<table class="table table-sm table-hover table-striped %s table-dark">\n''' % ("table-responsive" if extra_wide_support else "")
+  table_classes = set(("table",
+    "table-sm",
+    "table-hover",
+    "table-striped",
+    "table-dark",
+  ))
+  out = '''<div class="table-responsive">\n<table class="%s">\n''' % " ".join(table_classes)
+
+  if caption is not None:
+    out += '''<caption>%s</caption>\n''' % caption
 
   out += '''<thead>\n<tr>'''
 
   headers = [ wrap_tuple(x) for x in headers ]
 
   if count:
-    out += '''<th scope="col"></th>'''
+    out += '''<th scope="col">#</th>'''
   for head in headers:
     cell_class=''
     if extra_wide_support and is_player_header(head[0]):
@@ -384,13 +394,14 @@ def table_text(headers, data, count=True,
       else:
         out += '</td>'
     out += "</tr>\n"
-  out += '</table>\n'
+  out += '</table>\n</div>'
   return out
 
 def games_table(games, first=None, excluding=None, columns=None,
                 including=None,
                 count=True, win=True,
-                place_column=-1, skip=False):
+                place_column=-1, skip=False,
+                caption=None):
   """Create a HTML table of games.
 
   :param List[List[str]] games: Games to list
@@ -400,6 +411,7 @@ def games_table(games, first=None, excluding=None, columns=None,
   :param Optional[List[Tuple[int,Union[Tuple[str,str],Tuple[str,str,bool]]]]] including: If set, a list of (pos, name) tuples of columns to include. pos is the position to insert at.
   :param bool count: Add a count column at the start.
   :param bool win: Select default columns if `columns` is None. See `columns` param for more info.
+  :param Optional[str] caption: Table description (for screen readers).
   """
   if columns is None:
     columns = STOCK_WIN_COLUMNS if win else STOCK_COLUMNS
@@ -422,9 +434,20 @@ def games_table(games, first=None, excluding=None, columns=None,
     columns = [ c for c in columns if c[0] != first[0] ]
     columns.insert( first[1], firstc[0] )
 
-  out = '''<table class="table table-sm table-hover table-striped table-dark">\n<thead>\n<tr>'''
+  table_classes = set(("table",
+    "table-sm",
+    "table-hover",
+    "table-striped",
+    "table-dark",
+    ))
+
+  out = '''<div class="table-responsive">\n<table class="%s">\n''' % " ".join(table_classes)
+
+  if caption is not None:
+    out += '''<caption>%s</caption>\n''' % caption
+  out += '''<thead>\n<tr>'''
   if count:
-    out += '''<th scope="col"></th>'''
+    out += '''<th scope="col">#</th>'''
   for col in columns:
     out += '''<th scope="col">%s</th>''' % col[1]
   out += "</tr>\n</thead>\n"
@@ -480,7 +503,7 @@ def games_table(games, first=None, excluding=None, columns=None,
       else:
         out += '</td>'
     out += "</tr>\n"
-  out += "</table>\n"
+  out += "</table>\n</div>\n"
   return out
 
 def full_games_table(games, **pars):

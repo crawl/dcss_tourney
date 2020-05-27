@@ -7,7 +7,7 @@
 %>
 
 <h2>Individual Categories</h2>
-<div class="row row-cols-md-2">
+<div class="row row-cols-1 row-cols-md-2 row-cols-xl-3">
   % for category in scoring_data.INDIVIDUAL_CATEGORIES:
   <%
     results = individual_category_results[category.name]
@@ -16,6 +16,7 @@
     <div class="card h-100 bg-dark text-light">
       <img
         src="${XXX_IMAGE_BASE}/individual/${html.slugify(category.name)}.png"
+        alt=""
         class="card-img"
         style="filter: brightness(40%);">
       <div class="card-img-overlay">

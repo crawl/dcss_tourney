@@ -1,3 +1,5 @@
+# coding=utf8
+
 # Library to query the database and update scoring information. Raw data entry
 # from logfile and milestones is done in loaddb.py, this is for queries and
 # post-processing.
@@ -1594,7 +1596,8 @@ def update_player_scores(c):
 
 def render_rank(n):
     if n is None:
-        return "&#x221E;"
+        # return "&#x221E;" # ∞
+        return "-"
     return n
 
 def get_all_player_ranks(c):
