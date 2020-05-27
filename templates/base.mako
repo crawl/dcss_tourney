@@ -8,7 +8,7 @@
   menu_items = (
     (XXX_TOURNEY_BASE + "/overview.html", "Overview"),
     (XXX_TOURNEY_BASE + "/banners.html", "Banners"),
-    (XXX_TOURNEY_BASE + "/all-players.html", "Players"),
+    (XXX_TOURNEY_BASE + "/all-players-ranks.html", "Players"),
     (XXX_TOURNEY_BASE + "/teams.html", "Clans"),
     (XXX_TOURNEY_BASE + "/combo-leaders.html", "Combo Standings"),
     (XXX_TOURNEY_BASE + "/combo-scoreboard.html", "Combo Scoreboard"),
