@@ -249,9 +249,9 @@ CLAN_CATEGORIES = (
         "Clan Piety Score",
         "Clans are awarded points and subsequently ranked in the same way as the individual Piety category using all of the members' games.",
         "piety",
-        None,
-        None,
-        None,
+        "clan_piety_score",
+        "piety",
+        True,
     ),
     ClanCategory(
         "Clan Unique Harvesting",

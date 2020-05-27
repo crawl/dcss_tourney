@@ -48,7 +48,9 @@ DROP VIEW IF EXISTS fastest_wins;
 DROP VIEW IF EXISTS clan_fastest_wins;
 DROP VIEW IF EXISTS nonhep_wins;
 DROP VIEW IF EXISTS low_xl_nonhep_wins;
+DROP VIEW IF EXISTS player_god_usage;
 DROP VIEW IF EXISTS player_piety_score;
+DROP VIEW IF EXISTS clan_piety_score;
 DROP VIEW IF EXISTS player_banner_score;
 DROP VIEW IF EXISTS branch_enter_count;
 DROP VIEW IF EXISTS branch_end_count;
@@ -610,14 +612,32 @@ SELECT player,
   CAST( (SUM(killertype='winning') / (COUNT(*) + 1.0)) * 100.0 AS DECIMAL(5,2))
   AS win_perc FROM games GROUP BY player;
 
-CREATE VIEW player_piety_score AS
-SELECT mp.player, COUNT(DISTINCT mp.god) AS champion,
-	  COUNT(DISTINCT wg.god) AS won,
-	  COUNT(DISTINCT mp.god) + COUNT(DISTINCT wg.god) AS piety
+-- My kingdom for a full join. Correct handling for Gozag, Xom, and No God
+CREATE VIEW player_god_usage AS
+SELECT mp.player, mp.god AS max_piety, wg.god AS won
   FROM player_max_piety AS mp
   LEFT OUTER JOIN player_won_gods AS wg
-  ON mp.player = wg.player AND mp.god = wg.god
+    ON mp.player = wg.player AND mp.god = wg.god 
+UNION ALL
+SELECT wg.player, mp.god AS max_piety, wg.god AS won
+  FROM player_max_piety AS mp
+  RIGHT OUTER JOIN player_won_gods AS wg
+    ON mp.player = wg.player AND mp.god = wg.god
+  WHERE mp.god IS NULL;
+
+CREATE VIEW player_piety_score AS
+SELECT player, COUNT(DISTINCT max_piety) AS champion,
+	  COUNT(DISTINCT won) AS won,
+	  COUNT(DISTINCT max_piety) + COUNT(DISTINCT won) AS piety
+  FROM player_god_usage
   GROUP BY player;
+
+CREATE VIEW clan_piety_score AS
+SELECT p.team_captain, COUNT(DISTINCT g.max_piety) AS champion,
+	  COUNT(DISTINCT g.won) AS won,
+	  COUNT(DISTINCT g.max_piety) + COUNT(DISTINCT g.won) AS piety
+  FROM player_god_usage AS g INNER JOIN players AS p ON g.player = p.name
+  GROUP BY p.team_captain;
 
 CREATE VIEW player_banner_score AS
 SELECT player, SUM(IF(prestige = 3, 4, prestige)) AS bscore,
