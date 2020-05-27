@@ -257,9 +257,9 @@ CLAN_CATEGORIES = (
         "Clan Unique Harvesting",
         "Clans are awarded points and subsequently ranked in the same way as the individual Unique Harvesting category using all of the members' games.",
         "harvest",
-        None,
-        None,
-        None,
+        "clan_harvest_score",
+        "score",
+        True,
     ),
     ClanCategory(
         "Ziggurat Diving",

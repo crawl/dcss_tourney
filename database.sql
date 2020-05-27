@@ -64,6 +64,10 @@ DROP VIEW IF EXISTS unique_kill_count;
 DROP VIEW IF EXISTS ghost_kill_count;
 DROP VIEW IF EXISTS harvest_union;
 DROP VIEW IF EXISTS player_harvest_score;
+DROP VIEW IF EXISTS clan_unique_kill_count;
+DROP VIEW IF EXISTS clan_ghost_kill_count;
+DROP VIEW IF EXISTS clan_harvest_union;
+DROP VIEW IF EXISTS clan_harvest_score;
 DROP VIEW IF EXISTS player_nemelex_score;
 DROP VIEW IF EXISTS player_combo_score;
 DROP VIEW IF EXISTS clan_combo_score;
@@ -607,9 +611,9 @@ SELECT player,
   AS win_perc FROM games GROUP BY player;
 
 CREATE VIEW player_piety_score AS
-SELECT mp.player, COUNT(mp.god) AS champion,
-	  COUNT(wg.god) AS won,
-	  COUNT(mp.god) + COUNT(wg.god) AS piety
+SELECT mp.player, COUNT(DISTINCT mp.god) AS champion,
+	  COUNT(DISTINCT wg.god) AS won,
+	  COUNT(DISTINCT mp.god) + COUNT(DISTINCT wg.god) AS piety
   FROM player_max_piety AS mp
   LEFT OUTER JOIN player_won_gods AS wg
   ON mp.player = wg.player AND mp.god = wg.god
@@ -671,12 +675,28 @@ CREATE VIEW unique_kill_count AS
 SELECT player, COUNT(DISTINCT monster) AS score
   FROM kills_of_uniques GROUP BY player;
 
+CREATE VIEW clan_unique_kill_count AS
+SELECT p.team_captain, COUNT(DISTINCT u.monster) AS score
+  FROM kills_of_uniques AS u INNER JOIN players AS p
+    ON u.player = p.name
+  GROUP BY p.team_captain;
+
 CREATE VIEW ghost_kill_count AS
 SELECT player, COUNT(*) AS score FROM kills_of_ghosts GROUP BY player;
+
+CREATE VIEW clan_ghost_kill_count AS
+SELECT p.team_captain, COUNT(*) AS score
+  FROM kills_of_ghosts AS u INNER JOIN players AS p
+    ON u.player = p.name
+  GROUP BY p.team_captain;
 
 CREATE VIEW harvest_union AS
 SELECT player, score FROM unique_kill_count
 UNION ALL SELECT player, score FROM ghost_kill_count;
+
+CREATE VIEW clan_harvest_union AS
+SELECT team_captain, score FROM clan_unique_kill_count
+UNION ALL SELECT team_captain, score FROM clan_ghost_kill_count;
 
 -- Can't use a join because a player could have one but not the other
 -- and there's no full outer join
@@ -684,6 +704,11 @@ CREATE VIEW player_harvest_score AS
 SELECT player, SUM(score) AS score
   FROM harvest_union
   GROUP BY player;
+
+CREATE VIEW clan_harvest_score AS
+SELECT team_captain, SUM(score) AS score
+  FROM clan_harvest_union
+  GROUP BY team_captain;
 
 CREATE VIEW player_combo_score AS
 SELECT c.player AS player,
