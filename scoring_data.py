@@ -193,9 +193,9 @@ CLAN_CATEGORIES = (
         "Clan Nemelex' Choices",
         "The clan is awarded points in this category in the same way as the indvidual Nemelex' Choice using all of the members' games: one point to each of the first eight clans to win a Nemelex combo. Note: multiple clan members may win a Nemelex combo to deny other individuals Nemelex points, but this will not affect clan Nemelex scoring.",
         "nemelex_score",
-        None,
-        None,
-        None,
+        "clan_nemelex_score",
+        "score",
+        True,
     ),
     ClanCategory(
         "Clan Combo High Scores",

@@ -70,6 +70,7 @@ DROP VIEW IF EXISTS clan_unique_kill_count;
 DROP VIEW IF EXISTS clan_ghost_kill_count;
 DROP VIEW IF EXISTS clan_harvest_union;
 DROP VIEW IF EXISTS clan_harvest_score;
+DROP VIEW IF EXISTS player_nem_scored_wins;
 DROP VIEW IF EXISTS player_nemelex_score;
 DROP VIEW IF EXISTS player_combo_score;
 DROP VIEW IF EXISTS clan_combo_score;
@@ -760,9 +761,33 @@ SELECT p.team_captain,
     ON c.player = p.name
   WHERE p.team_captain IS NOT NULL GROUP BY p.team_captain;
 
+CREATE VIEW player_nem_scored_wins AS
+SELECT IF(ROW_NUMBER() OVER (PARTITION BY charabbrev ORDER BY end_time) < 3,
+	  1, 0) AS nem_counts, n.*
+  FROM player_nemelex_wins AS n;
+
 CREATE VIEW player_nemelex_score AS
-SELECT player, COUNT(DISTINCT charabbrev) AS score FROM player_nemelex_wins
+SELECT player, COUNT(DISTINCT charabbrev) AS score FROM player_nem_scored_wins
+WHERE nem_counts = 1
 GROUP BY player;
+
+-- This is a view because clan affiliation can change and we don't want
+-- to re-insert the table after time goes by
+CREATE VIEW clan_nemelex_wins AS
+SELECT p.team_captain, 
+       ROW_NUMBER() OVER (PARTITION BY p.team_captain, n.charabbrev
+	                  ORDER BY end_time) AS clan_finish, n.*
+  FROM player_nemelex_wins AS n INNER JOIN players AS p ON n.player = p.name
+  WHERE p.team_captain IS NOT NULL;
+
+CREATE VIEW clan_nem_scored_wins AS
+SELECT IF(ROW_NUMBER() OVER (PARTITION BY charabbrev ORDER BY end_time) < 9,
+	  1, 0) AS nem_counts, n.*
+  FROM clan_nemelex_wins AS n WHERE n.clan_finish = 1;
+
+CREATE VIEW clan_nemelex_score AS
+SELECT team_captain, COUNT(DISTINCT charabbrev) AS score FROM clan_nem_scored_wins
+WHERE nem_counts = 1 GROUP BY team_captain;
 
 CREATE VIEW player_best_streak AS
 SELECT s.player, s.length FROM streaks AS s
