@@ -772,7 +772,8 @@ SELECT s.player, s.length FROM streaks AS s
 
 CREATE VIEW clan_streaks AS
 SELECT p.team_captain, s.player, s.length
-FROM streaks AS s INNER JOIN players AS p ON s.player = p.name;
+FROM streaks AS s INNER JOIN players AS p ON s.player = p.name
+WHERE p.team_captain IS NOT NULL;
 
 CREATE VIEW clan_best_streak AS
 SELECT s.team_captain, s.player, s.length
