@@ -39,6 +39,7 @@ class TeamListener (loaddb.CrawlEventListener):
         try:
             insert_teams(cursor, get_teams(loaddb.CRAWLRC_DIRECTORY_LIST))
             update_clan_scores(cursor)
+            db.commit()
         finally:
             cursor.close()
 
@@ -183,65 +184,9 @@ def insert_teams(cursor, teams):
 # Team scoring. Putting it here because this we know the teams have
 # been created in the db at this point.
 
-def clan_additional_score(c, owner):
-  additional = 0
-  query.audit_flush_clan(c, owner)
-
-  combo_pos = query.clan_combo_pos(c, owner)
-  additional += log_temp_clan_points( c, owner,
-                                      'clan_combo_scores_Nth:%d' % (combo_pos + 1),
-                                      get_points(
-                                              combo_pos,
-                                              200, 100, 50 ) )
-
-  uscore_pos = query.clan_unique_pos(c, owner)
-  additional += log_temp_clan_points( c, owner,
-                                      'clan_top_unique_killer:%d' % (uscore_pos + 1),
-                                      get_points(
-                                              uscore_pos,
-                                              100, 50, 20 ) )
-
-  zig_depth = int((query.clan_zig_depth(c, owner) + 1)/2)
-  additional += log_temp_clan_points( c, owner,
-                                      'zig_dive:%d' % zig_depth,
-                                      5 * zig_depth)
-
-# Now we give race/class points to clans.
-  pre_stepdown_total = 0
-  query.audit_stepdown_flush_clan(c, owner)
-  for g in query.clan_race_wins(c, owner):
-    key = 'species_win:' + g[0]
-    points = query.clan_max_stepdown_points(c, owner, key)
-    query.assign_stepdown_clan_points(c, key, owner, points)
-    pre_stepdown_total += points
-  for g in query.clan_class_wins(c, owner):
-    key = 'background_win:' + g[0]
-    points = query.clan_max_stepdown_points(c, owner, key)
-    query.assign_stepdown_clan_points(c, key, owner, points)
-    pre_stepdown_total += points
-  for g in query.clan_god_wins(c, owner):
-    banner_god = g[0].lower().replace(' ', '_')
-    key = 'god_win:' + banner_god
-    points = query.clan_max_stepdown_points(c, owner, key)
-    query.assign_stepdown_clan_points(c, key, owner, points)
-    pre_stepdown_total += points
-  for row in query.clan_nemelex_points(c, owner):
-    query.assign_stepdown_clan_points(c, row[0], owner, row[1])
-    pre_stepdown_total += row[1]
-
-  stepdown_points = outline.compute_stepdown(pre_stepdown_total)
-  additional += log_temp_clan_points(c, owner, 'combo_god_win', stepdown_points)
-
-  query.set_clan_points(c, owner, additional)
-  # A clan-based banner.
-  #for player in query.get_saints(c, owner):
-  #  banner.award_banner(c, player, 'beogh', 1, temp=True)
-
 def update_clan_scores(c):
   banner.flush_clan_banners(c)
-  for clan in query.get_clans(c):
-      info("Updating full score for clan %s" % clan)
-      clan_additional_score(c, clan)
+  query.update_all_clan_ranks(c)
   banner.assign_top_clan_banners(c)
 
   top_clan_player_banners = query.clan_player_banners(c)
