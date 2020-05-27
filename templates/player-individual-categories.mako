@@ -16,6 +16,7 @@
     <div class="card h-100 bg-dark text-light">
       <img
         src="${XXX_IMAGE_BASE}/individual/${html.slugify(category.name)}.png"
+        alt=""
         class="card-img"
         style="filter: brightness(40%);">
       <div class="card-img-overlay">

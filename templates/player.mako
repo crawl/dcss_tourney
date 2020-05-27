@@ -89,7 +89,7 @@
       <h2>Recent Games</h2>
       ${html.full_games_table(
           query.find_games(cursor, player = player, sort_max = 'end_time', limit = 10),
-          count=False, win=False,
+          count=False, win=False, caption="Recent games for ${player}"
           excluding=("race", "class", "title", "turns", "duration", "runes", "turns"),
           including=[[1, ('charabbrev', 'Char')], [8, ('src', 'Server')]]
         )}
