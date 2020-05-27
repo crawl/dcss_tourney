@@ -7,7 +7,7 @@
 %>
 
 <h2>Individual Categories</h2>
-<div class="row row-cols-md-2">
+<div class="row row-cols-1 row-cols-md-2 row-cols-xl-3">
   % for category in scoring_data.INDIVIDUAL_CATEGORIES:
   <%
     results = individual_category_results[category.name]
