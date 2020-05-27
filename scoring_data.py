@@ -241,9 +241,9 @@ CLAN_CATEGORIES = (
         "Clan Exploration Score",
         "Clans are awarded points and subsequently ranked in the same way as the individual Exploration category using all of the members' games.",
         "exploration",
-        None,
-        None,
-        None,
+        "clan_exploration_score",
+        "score",
+        True,
     ),
     ClanCategory(
         "Clan Piety Score",

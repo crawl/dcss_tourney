@@ -55,6 +55,11 @@ DROP VIEW IF EXISTS branch_end_count;
 DROP VIEW IF EXISTS scaled_rune_find_count;
 DROP VIEW IF EXISTS exploration_union;
 DROP VIEW IF EXISTS player_exploration_score;
+DROP VIEW IF EXISTS clan_branch_enter_count;
+DROP VIEW IF EXISTS clan_branch_end_count;
+DROP VIEW IF EXISTS clan_scaled_rune_find_count;
+DROP VIEW IF EXISTS clan_exploration_union;
+DROP VIEW IF EXISTS clan_exploration_score;
 DROP VIEW IF EXISTS unique_kill_count;
 DROP VIEW IF EXISTS ghost_kill_count;
 DROP VIEW IF EXISTS harvest_union;
@@ -618,11 +623,26 @@ SELECT player, SUM(IF(prestige = 3, 4, prestige)) AS bscore,
 CREATE VIEW branch_enter_count AS
 SELECT player, COUNT(DISTINCT br) AS score FROM branch_enters GROUP BY player;
 
+CREATE VIEW clan_branch_enter_count AS
+SELECT p.team_captain, COUNT(DISTINCT br) AS score
+  FROM branch_enters AS b INNER JOIN players AS p ON b.player = p.name
+  GROUP BY p.team_captain;
+
 CREATE VIEW branch_end_count AS
 SELECT player, COUNT(DISTINCT br) AS score FROM branch_ends GROUP BY player;
 
+CREATE VIEW clan_branch_end_count AS
+SELECT p.team_captain, COUNT(DISTINCT br) AS score
+  FROM branch_ends AS b INNER JOIN players AS p ON b.player = p.name
+  GROUP BY p.team_captain;
+
 CREATE VIEW scaled_rune_find_count AS
 SELECT player, 3*COUNT(DISTINCT rune) AS score FROM rune_finds GROUP BY player;
+
+CREATE VIEW clan_scaled_rune_find_count AS
+SELECT p.team_captain, 3*COUNT(DISTINCT r.rune) AS score
+  FROM rune_finds AS r INNER JOIN players AS p ON r.player = p.name
+  GROUP BY player;
 
 CREATE VIEW exploration_union AS
 SELECT player, score AS score
@@ -630,11 +650,22 @@ SELECT player, score AS score
   UNION ALL SELECT player, score FROM branch_end_count
   UNION ALL SELECT player, score FROM scaled_rune_find_count;
 
+CREATE VIEW clan_exploration_union AS
+SELECT team_captain, score
+  FROM clan_branch_enter_count
+  UNION ALL SELECT team_captain, score FROM clan_branch_end_count
+  UNION ALL SELECT team_captain, score FROM clan_scaled_rune_find_count;
+
 -- Can't use a join here because of (starting) abyss shenanigains
 -- and there's no full outer join
 CREATE VIEW player_exploration_score AS
 SELECT player, SUM(score) AS score
   FROM exploration_union GROUP BY player;
+
+CREATE VIEW clan_exploration_score AS
+SELECT team_captain, SUM(score) AS score
+  FROM clan_exploration_union WHERE team_captain IS NOT NULL
+  GROUP BY team_captain;
 
 CREATE VIEW unique_kill_count AS
 SELECT player, COUNT(DISTINCT monster) AS score
