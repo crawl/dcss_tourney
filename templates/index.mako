@@ -124,9 +124,12 @@
   <div class="col mb-4">
     <div class="card h-100 bg-dark text-light">
       <img
+      ## A couple of these images are actually JPEGs. Shhh!
         src="${XXX_IMAGE_BASE}/individual/${html.slugify(category.name)}.png"
         alt=""
         class="card-img-top"
+        ## for transparent images
+        style="background: black;"
       >
       <div class="card-body">
         <h3 class="card-title">${category.name}</h3>
