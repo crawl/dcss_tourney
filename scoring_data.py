@@ -179,7 +179,7 @@ INDIVIDUAL_CATEGORIES = (
 )
 
 ClanCategory = collections.namedtuple("ClanCategory", ("name", "desc",
-     "db_column", "source_table", "source_column", "desc_order"))
+     "db_column", "source_table", "source_column", "desc_order", "url"))
 CLAN_CATEGORIES = (
     ClanCategory(
         "Wins",
@@ -188,22 +188,25 @@ CLAN_CATEGORIES = (
         None,
         None,
         None,
+        None,
     ),
     ClanCategory(
-        "Clan Nemelex' Choices",
+        "Nemelex' Choice",
         "The clan is awarded points in this category in the same way as the indvidual Nemelex' Choice using all of the members' games: one point to each of the first eight clans to win a Nemelex combo. Note: multiple clan members may win a Nemelex combo to deny other individuals Nemelex points, but this will not affect clan Nemelex scoring.",
         "nemelex_score",
         "clan_nemelex_score",
         "score",
         True,
+        None,
     ),
     ClanCategory(
-        "Clan Combo High Scores",
+        "Combo High Scores",
         "The clan is awarded points in this category in the same way as the individual Combo High scores category using all of the members' games. (A combo high score gives 1 point in this category; a winning high score 2 points; and a species or background high score 5 points.)",
         "combo_score",
         "clan_combo_score",
         "total",
         True,
+        None,
     ),
     ClanCategory(
         "Streak Length",
@@ -212,6 +215,7 @@ CLAN_CATEGORIES = (
         "clan_streaks",
         "length",
         True,
+        None,
     ),
     ClanCategory(
         "Best High Score",
@@ -220,6 +224,7 @@ CLAN_CATEGORIES = (
         "clan_highest_scores",
         "score",
         True,
+        None,
     ),
     ClanCategory(
         "Low Turncount Win",
@@ -228,6 +233,7 @@ CLAN_CATEGORIES = (
         "clan_lowest_turncount_wins",
         "turn",
         False,
+        None,
     ),
     ClanCategory(
         "Fastest Real Time Win",
@@ -236,30 +242,34 @@ CLAN_CATEGORIES = (
         "clan_fastest_wins",
         "duration",
         False,
+        None,
     ),
     ClanCategory(
-        "Clan Exploration Score",
+        "Exploration",
         "Clans are awarded points and subsequently ranked in the same way as the individual Exploration category using all of the members' games.",
         "exploration",
         "clan_exploration_score",
         "score",
         True,
+        None,
     ),
     ClanCategory(
-        "Clan Piety Score",
+        "Piety",
         "Clans are awarded points and subsequently ranked in the same way as the individual Piety category using all of the members' games.",
         "piety",
         "clan_piety_score",
         "piety",
         True,
+        None,
     ),
     ClanCategory(
-        "Clan Unique Harvesting",
+        "Unique Harvesting",
         "Clans are awarded points and subsequently ranked in the same way as the individual Unique Harvesting category using all of the members' games.",
         "harvest",
         "clan_harvest_score",
         "score",
         True,
+        None,
     ),
     ClanCategory(
         "Ziggurat Diving",
@@ -268,11 +278,13 @@ CLAN_CATEGORIES = (
         None,
         None,
         None,
+        None,
     ),
     ClanCategory(
-        "Clan Banner Score",
+        "Banner Score",
         "The clan is awarded banners and banner points based on all of the members' games. Banner points are awarded in the same way as the individual banner points with one exception: the clan award for Cheibriados' banner is based on an indvidual member's streak.",
         "banner_score",
+        None,
         None,
         None,
         None,
