@@ -130,6 +130,7 @@
         class="card-img-top"
         ## for transparent images
         style="background: black;"
+        loading="lazy"
       >
       <div class="card-body">
         <h3 class="card-title">${category.name}</h3>
@@ -167,6 +168,7 @@
           class="card-img-top"
           ## for transparent images
           style="background: black;"
+          loading="lazy"
         >
         <div class="card-body">
           <h3 class="card-title">${category.name}</h3>
