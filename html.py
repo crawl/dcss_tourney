@@ -824,7 +824,18 @@ def player_scores_block(c, scores, title):
   return text
 
 def slugify(name):
-  return name.lower().replace(' ', '-')
+  """Replace non-alphanum with -, max one in a row."""
+  safe = ''.join((c if c.isalnum() else '-') for c in name.lower())
+  final = ''
+  # Could probably replace this loop with a call to reduce()
+  for c in name:
+    if c.isalnum():
+      final += c.lower()
+    else:
+      if final and final[-1] == '-':
+        continue
+      final += '-'
+  return final
 
 def english_join(items, final="and"):
   """Join a list of items with an oxford comma and joining word.
