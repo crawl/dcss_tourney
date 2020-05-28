@@ -114,7 +114,7 @@
     </div>
   </div>
 
-<div class="row">
+<div class="row my-2">
   <div class="col">
     <h2 id="individual-categories">Individual Categories</h2>
   </div>
@@ -151,7 +151,7 @@
   % endfor
 </div>
 
-  <div class="row">
+  <div class="row my-2">
     <div class="col">
       <h2 id="clan-categories">Clan Categories</h2>
     </div>
