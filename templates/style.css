@@ -25,3 +25,8 @@ body {
   */
   background: #ddd;
 }
+
+.text-light a {
+  /* Increase link contrast with our background */
+  color: #72a6f8;
+}
