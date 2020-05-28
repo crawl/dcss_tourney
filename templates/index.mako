@@ -51,8 +51,8 @@
         <li><a href="#scoring">Scoring</a>
           <ol>
             <li><a href="#individual-categories">Individual Categories</a></li>
-            <li><a href="#individual-banners">Individual Banners</a></li>
             <li><a href="#clan-categories">Clan Categories</a></li>
+            <li><a href="#banners">Banners</a></li>
           </ol>
         </li>
       </ol>
@@ -153,7 +153,44 @@
 
   <div class="row">
     <div class="col">
-      <h2 id="individual-banners">Individual Banners</h2>
+      <h2 id="clan-categories">Clan Categories</h2>
+    </div>
+  </div>
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4">
+    % for category in scoring_data.CLAN_CATEGORIES:
+    <div class="col mb-4">
+      <div class="card h-100 bg-dark text-light">
+        <img
+        ## A couple of these images are actually JPEGs. Shhh!
+          src="${XXX_IMAGE_BASE}/clan/${html.slugify(category.name)}.png"
+          alt=""
+          class="card-img-top"
+          ## for transparent images
+          style="background: black;"
+        >
+        <div class="card-body">
+          <h3 class="card-title">${category.name}</h3>
+          <p class="card-text small">
+            ${category.desc}
+          </p>
+        </div>
+        <div class="card-footer">
+          % if category.url:
+          <a href="${category.url}">
+            View full ranking.
+          </a>
+          % else:
+          Full ranking not available.
+          % endif
+        </div>
+      </div>
+    </div>
+    % endfor
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <h2 id="banners">Banners</h2>
       <p>
         Banners give points in the individual & clan banner categories described
         above. Banner tiers are worth 1, 2, and 4 points for tiers one, two, and
@@ -175,21 +212,6 @@
       % if banner.notes:
       <p><i>${banner.notes}</i></p>
       % endif
-      % endfor
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col">
-      <h2 id="clan-categories">Clan Categories</h2>
-      % for category in scoring_data.CLAN_CATEGORIES:
-      <div class="row">
-        <div class="col">
-          <p>
-            <b>${category.name}:</b> ${category.desc}
-          </p>
-        </div>
-      </div>
       % endfor
     </div>
   </div>
