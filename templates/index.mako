@@ -4,6 +4,7 @@
 <%!
   import scoring_data
   import html
+  from crawl_utils import XXX_IMAGE_BASE
 
   active_menu_item = "Rules"
 %>
@@ -113,18 +114,39 @@
     </div>
   </div>
 
-  <div class="row">
-    <div class="col">
-      <h2 id="individual-categories">Individual Categories</h2>
-      <ul>
-        % for category in scoring_data.INDIVIDUAL_CATEGORIES:
-        <li>
-          <b>${category.name}:</b> ${category.desc}
-        </li>
-        % endfor
-      </ul>
+<div class="row">
+  <div class="col">
+    <h2 id="individual-categories">Individual Categories</h2>
+  </div>
+</div>
+<div class="row row-cols-1 row-cols-md-2 row-cols-xl-3">
+  % for category in scoring_data.INDIVIDUAL_CATEGORIES:
+  <div class="col mb-4">
+    <div class="card h-100 bg-dark text-light">
+      <img
+        src="${XXX_IMAGE_BASE}/individual/${html.slugify(category.name)}.png"
+        alt=""
+        class="card-img-top"
+      >
+      <div class="card-body">
+        <h3 class="card-title">${category.name}</h3>
+        <p class="card-text small">
+          ${category.desc}
+        </p>
+      </div>
+      <div class="card-footer">
+        % if category.url:
+        <a href="${category.url}">
+          View full ranking.
+        </a>
+        % else:
+        Full ranking not available.
+        % endif
+      </div>
     </div>
   </div>
+  % endfor
+</div>
 
   <div class="row">
     <div class="col">
