@@ -127,9 +127,10 @@
       ## A couple of these images are actually JPEGs. Shhh!
         src="${XXX_IMAGE_BASE}/individual/${html.slugify(category.name)}.png"
         alt=""
-        class="card-img-top"
+        ## mx-auto class + max-width = prevent crazy big images on xs display
+        class="card-img-top mx-auto"
         ## for transparent images
-        style="background: black;"
+        style="background: black; max-width: 300px;"
         loading="lazy"
       >
       <div class="card-body">
@@ -165,9 +166,10 @@
         ## A couple of these images are actually JPEGs. Shhh!
           src="${XXX_IMAGE_BASE}/clan/${html.slugify(category.name)}.png"
           alt=""
-          class="card-img-top"
+          ## mx-auto class + max-width = prevent crazy big images on xs display
+          class="card-img-top mx-auto"
           ## for transparent images
-          style="background: black;"
+          style="background: black; max-width: 300px;"
           loading="lazy"
         >
         <div class="card-body">
