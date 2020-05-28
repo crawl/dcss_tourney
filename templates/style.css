@@ -2,6 +2,16 @@ body {
   background-color: #1a1a1a;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  /*
+    When scrolling to a header (eg by clicking an #anchor link), scroll 4rem
+    above to account for the nav bar.
+    Too bad we can't just say "the height of x". But 3.5rem matches the height
+    of the nav bar.
+  */
+  scroll-margin-top: 3.5rem;
+}
+
 .category-image {
   background-repeat: no-repeat;
   background-position: left center;
