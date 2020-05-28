@@ -119,7 +119,7 @@
     <h2 id="individual-categories">Individual Categories</h2>
   </div>
 </div>
-<div class="row row-cols-1 row-cols-md-2 row-cols-xl-3">
+<div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4">
   % for category in scoring_data.INDIVIDUAL_CATEGORIES:
   <div class="col mb-4">
     <div class="card h-100 bg-dark text-light">
