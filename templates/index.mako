@@ -30,7 +30,7 @@
       </h1>
       <p class="lead">
         Welcome! The tournament starts
-        ## These get updated by momentjs
+        ## TODO: These get updated by momentjs
         <span class="font-weight-bold" id="tournament-start-time">
           ${scoring_data.START_TIME.strftime("at %I:%M%p %A %d %B %Z UTC")}
         </span>
@@ -85,7 +85,7 @@
       </p>
       <p>
         You can create, join, and leave clans for the first seven days of the tournament, until
-        ## This gets updated by momentjs
+        ## TODO: This gets updated by momentjs
         <span class="font-weight-bold" id="clan-end-time">
           ${scoring_data.CLAN_CUTOFF_TIME.strftime("%h:%M%p %A %d %B %Z UTC")}
         </span>
