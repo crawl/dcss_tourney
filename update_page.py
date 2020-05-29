@@ -55,7 +55,7 @@ def render(c, page, dest=None, pars=None, top_level_pars=False):
 
 def tourney_overview(c):
   info("Updating overview page")
-  render(c, 'overview')
+  render(c, 'overview', top_level_pars=True)
 
 def individual_category_pages(c):
   info("Updating individual category pages")
@@ -153,12 +153,14 @@ def player_banner_results(c, player):
 
 # Update tourney overview every 5 mins.
 INTERVAL = crawl_utils.UPDATE_INTERVAL
-TIMER = [ #loaddb.define_timer( INTERVAL, tourney_overview ),
+TIMER = [
+          loaddb.define_timer( INTERVAL, tourney_overview ),
           loaddb.define_timer( INTERVAL, team_pages ),
           loaddb.define_timer( INTERVAL, player_pages ),
           loaddb.define_timer( INTERVAL, individual_category_pages )
           ]
-LISTENER = [ #loaddb.define_cleanup(tourney_overview),
+LISTENER = [
+             loaddb.define_cleanup(tourney_overview),
              loaddb.define_cleanup(team_pages),
              loaddb.define_cleanup(player_pages),
              loaddb.define_cleanup(individual_category_pages)
