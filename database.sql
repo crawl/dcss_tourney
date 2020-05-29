@@ -37,6 +37,7 @@ DROP VIEW IF EXISTS orbrun_tomb;
 
 DROP VIEW IF EXISTS clan_games;
 DROP VIEW IF EXISTS wins;
+DROP VIEW IF EXISTS clan_combo_first_wins;
 DROP VIEW IF EXISTS first_wins;
 DROP VIEW IF EXISTS allrune_wins;
 DROP VIEW IF EXISTS first_allrune_wins;
@@ -822,5 +823,15 @@ SELECT z.team_captain, z.player, z.completed, z.deepest
   FROM clan_ziggurats AS z 
   LEFT OUTER JOIN clan_ziggurats AS z2
     ON z.team_captain = z2.team_captain
-       AND (z.completed, z.deepest) < (z2.completed < z2.deepest)
-  WHERE z2.total IS NULL;
+       AND (z.completed, z.deepest) < (z2.completed, z2.deepest)
+  WHERE z2.deepest IS NULL;
+
+CREATE VIEW clan_combo_first_wins AS
+SELECT g.*,
+  IF(ROW_NUMBER() OVER (PARTITION BY g.player ORDER BY g.end_time) <= 4, 1, 0)
+    AS first_four
+  FROM wins AS g
+  LEFT OUTER JOIN wins AS g2
+    ON g.team_captain = g2.team_captain AND g.charabbrev = g2.charabbrev
+       AND g.end_time > g2.end_time
+  WHERE g2.end_time IS NULL AND g.team_captain IS NOT NULL;

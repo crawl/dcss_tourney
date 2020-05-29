@@ -187,7 +187,13 @@ ClanCategory = collections.namedtuple("ClanCategory", ("name", "desc",
 CLAN_CATEGORIES = (
     ClanCategory(
         "Wins",
-        "Clans are ranked by the number of distinct combo wins Wins in this category are capped at twelve, with at most <code>12 / (clan size)</code> (rounded up) wins per member counted.",
+        "Clans are awarded <code> 10,000 / (13 - wins) </code> points for
+        distinct first combo wins by clan members. The total number of wins in
+        this category is capped at 12, and the total number of wins from any
+        member is capped at 4. For a win to count in this category it must be
+        the first win of the combo by the clan. For example, if Player A's 5th
+        win is a DgWn and they win before Player B's win of DgWn then Player
+        B's win will not count in this category.",
         "nonrep_wins",
         None,
         None,

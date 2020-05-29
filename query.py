@@ -1576,7 +1576,16 @@ def update_all_player_ranks(c):
               ic.db_column, ic.source_table, ic.source_column, ic.desc_order)
     return
 
+def update_clan_wins(c):
+    query_do(c, '''INSERT INTO team_ranks (team_captain, nonrep_wins)
+                   SELECT * FROM
+                     (SELECT team_captain, 13 - LEAST(SUM(first_four),12) AS rk
+                        FROM clan_combo_first_wins GROUP BY team_captain) AS dt
+                   ON DUPLICATE KEY UPDATE nonrep_wins = rk''')
+    return
+
 def update_all_clan_ranks(c):
+    update_clan_wins(c)
     for cc in CLAN_CATEGORIES:
         if cc.source_table is not None:
             update_rank(c, 'team_ranks', 'team_captain',
