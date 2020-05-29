@@ -187,13 +187,13 @@ ClanCategory = collections.namedtuple("ClanCategory", ("name", "desc",
 CLAN_CATEGORIES = (
     ClanCategory(
         "Wins",
-        "Clans are awarded <code> 10,000 / (13 - wins) </code> points for
+        """Clans are awarded <code> 10,000 / (13 - wins) </code> points for
         distinct first combo wins by clan members. The total number of wins in
         this category is capped at 12, and the total number of wins from any
         member is capped at 4. For a win to count in this category it must be
         the first win of the combo by the clan. For example, if Player A's 5th
         win is a DgWn and they win before Player B's win of DgWn then Player
-        B's win will not count in this category.",
+        B's win will not count in this category.""",
         "nonrep_wins",
         None,
         None,
@@ -292,11 +292,14 @@ CLAN_CATEGORIES = (
     ),
     ClanCategory(
         "Banner Score",
-        "The clan is awarded banners and banner points based on all of the members' games. Banner points are awarded in the same way as the individual banner points with one exception: the clan award for Cheibriados' banner is based on an indvidual member's streak.",
+        """Clans are awarded banner points based on all of the members'
+        banners. Banner points are awarded in the same way as the individual
+        banner points based on the highest banner tier earned by the clan's
+        members for each banner.""",
         "banner_score",
-        None,
-        None,
-        None,
+        "clan_banner_score",
+        "bscore",
+        True,
         None,
     ),
 )

@@ -55,6 +55,8 @@ DROP VIEW IF EXISTS clan_piety_score;
 DROP VIEW IF EXISTS clan_ziggurats;
 DROP VIEW IF EXISTS clan_best_ziggurat;
 DROP VIEW IF EXISTS player_banner_score;
+DROP VIEW IF EXISTS clan_player_banners;
+DROP VIEW IF EXISTS clan_banner_score;
 DROP VIEW IF EXISTS branch_enter_count;
 DROP VIEW IF EXISTS branch_end_count;
 DROP VIEW IF EXISTS scaled_rune_find_count;
@@ -650,6 +652,17 @@ CREATE VIEW player_banner_score AS
 SELECT player, SUM(IF(prestige = 3, 4, prestige)) AS bscore,
        GROUP_CONCAT(CONCAT(banner, ' ', prestige) SEPARATOR ',') AS banners
   FROM player_banners WHERE temp = false GROUP BY player;
+
+CREATE VIEW clan_player_banners AS
+SELECT p.team_captain, b.banner, MAX(b.prestige) As prestige
+  FROM player_banners AS b INNER JOIN players AS p ON b.player = p.name
+ WHERE p.team_captain IS NOT NULL AND b.temp = false
+ GROUP BY p.team_captain, b.banner;
+
+CREATE VIEW clan_banner_score AS
+SELECT team_captain, SUM(IF(prestige = 3, 4, prestige)) AS bscore,
+       GROUP_CONCAT(CONCAT(banner, ' ', prestige) SEPARATOR ',') AS banners 
+  FROM clan_player_banners GROUP BY team_captain;
 
 CREATE VIEW branch_enter_count AS
 SELECT player, COUNT(DISTINCT br) AS score FROM branch_enters GROUP BY player;
