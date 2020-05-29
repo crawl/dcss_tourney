@@ -1592,9 +1592,10 @@ def update_all_clan_ranks(c):
               cc.db_column, cc.source_table, cc.source_column, cc.desc_order)
     return
 
+def score_term(col):
+    return "COALESCE( %5.1f / %s, 0.0 )" % (MAX_CATEGORY_SCORE, col)
+
 def update_player_scores(c):
-    def score_term(col):
-        return "COALESCE( %5.1f / %s, 0.0 )" % (MAX_CATEGORY_SCORE, col)
     SCOREFUNC = "CAST( (" + "+".join([ score_term('r.' + ic.db_column) for
         ic in INDIVIDUAL_CATEGORIES]) \
         + ") / %d AS DECIMAL(5,0))" % len(INDIVIDUAL_CATEGORIES);
@@ -1602,6 +1603,15 @@ def update_player_scores(c):
     query_do(c, '''UPDATE players AS p LEFT OUTER JOIN player_ranks AS r
                    ON p.name = r.player
                    SET p.score_full = ''' + SCOREFUNC)
+
+def update_clan_scores(c):
+    SCOREFUNC = "CAST( (" + "+".join([ score_term('r.' + cc.db_column) for
+        cc in CLAN_CATEGORIES]) \
+        + ") / %d AS DECIMAL(5,0))" % len(CLAN_CATEGORIES);
+
+    query_do(c, '''UPDATE teams AS t LEFT OUTER JOIN team_ranks AS r
+                   ON t.owner = r.team_captain
+                   SET t.total_score = ''' + SCOREFUNC)
 
 def render_rank(n):
     if n is None:

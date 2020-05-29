@@ -187,6 +187,7 @@ def insert_teams(cursor, teams):
 def update_clan_scores(c):
   banner.flush_clan_banners(c)
   query.update_all_clan_ranks(c)
+  query.update_clan_scores(c)
   banner.assign_top_clan_banners(c)
 
   top_clan_player_banners = query.clan_player_banners(c)
