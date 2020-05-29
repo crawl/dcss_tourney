@@ -332,7 +332,7 @@ def table_text(headers, data, count=True,
   out = '''<div class="table-responsive">\n<table class="%s">\n''' % " ".join(table_classes)
 
   if caption is not None:
-    out += '''<caption>%s</caption>\n''' % caption
+    out += '''<caption class="sr-only">%s</caption>\n''' % caption
 
   out += '''<thead>\n<tr>'''
 
@@ -444,7 +444,7 @@ def games_table(games, first=None, excluding=None, columns=None,
   out = '''<div class="table-responsive">\n<table class="%s">\n''' % " ".join(table_classes)
 
   if caption is not None:
-    out += '''<caption>%s</caption>\n''' % caption
+    out += '''<caption class="sr-only">%s</caption>\n''' % caption
   out += '''<thead>\n<tr>'''
   if count:
     out += '''<th scope="col">#</th>'''
