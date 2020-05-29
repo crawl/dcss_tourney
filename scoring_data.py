@@ -160,11 +160,15 @@ INDIVIDUAL_CATEGORIES = (
     ),
     IndividualCategory(
         "Ziggurat Diving",
-        """Xom is entertained by a player's descent into madness, and will rank players by the number of Ziggurat floors they reach in a single game. Exiting a Ziggurat from the lowest floor counts as "reaching a floor" for scoring in this category, and an unlimited number of Ziggurats in a single game count. For example: completing two Ziggurats counts as 56 floors.""",
+        """Xom is entertained by a player's descent into madness, and will rank
+        players by the number of consecutive Ziggurat floors they reach in a
+        single game. Exiting a Ziggurat from the lowest floor counts as
+        "reaching a floor" for scoring in this category, and an unlimited
+        number of Ziggurats in a single game count.""",
         "ziggurat_dive",
         "ziggurats",
-        "27 * completed + deepest",
-        True,
+        "completed DESC, deepest DESC",
+        None,
         base_link("zig-dive-order.html"),
     ),
     IndividualCategory(
@@ -276,8 +280,8 @@ CLAN_CATEGORIES = (
         "Clans are ranked in this category based on the Ziggurat Dive of their best player.",
         "ziggurat_dive",
         "clan_best_ziggurat",
-        "total",
-        True,
+        "completed DESC, deepest DESC",
+        None,
         None,
     ),
     ClanCategory(

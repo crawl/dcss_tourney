@@ -813,13 +813,14 @@ FROM clan_streaks AS s
   WHERE s2.length IS NULL AND s.team_captain IS NOT NULL;
 
 CREATE VIEW clan_ziggurats AS
-SELECT p.team_captain, z.player, z.completed, z.deepest, 27 * z.completed + z.deepest AS total
+SELECT p.team_captain, z.player, z.completed, z.deepest
   FROM ziggurats AS z INNER JOIN players AS p ON p.name = z.player
   WHERE p.team_captain IS NOT NULL;
 
 CREATE VIEW clan_best_ziggurat AS
-SELECT z.team_captain, z.player, z.completed, z.deepest, z.total
+SELECT z.team_captain, z.player, z.completed, z.deepest
   FROM clan_ziggurats AS z 
   LEFT OUTER JOIN clan_ziggurats AS z2
-    ON z.team_captain = z2.team_captain AND z.total < z2.total
+    ON z.team_captain = z2.team_captain
+       AND (z.completed, z.deepest) < (z2.completed < z2.deepest)
   WHERE z2.total IS NULL;
