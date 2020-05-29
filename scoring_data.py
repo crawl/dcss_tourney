@@ -275,9 +275,9 @@ CLAN_CATEGORIES = (
         "Ziggurat Diving",
         "Clans are ranked in this category based on the Ziggurat Dive of their best player.",
         "ziggurat_dive",
-        None,
-        None,
-        None,
+        "clan_best_ziggurat",
+        "total",
+        True,
         None,
     ),
     ClanCategory(

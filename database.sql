@@ -51,6 +51,8 @@ DROP VIEW IF EXISTS low_xl_nonhep_wins;
 DROP VIEW IF EXISTS player_god_usage;
 DROP VIEW IF EXISTS player_piety_score;
 DROP VIEW IF EXISTS clan_piety_score;
+DROP VIEW IF EXISTS clan_ziggurats;
+DROP VIEW IF EXISTS clan_best_ziggurat;
 DROP VIEW IF EXISTS player_banner_score;
 DROP VIEW IF EXISTS branch_enter_count;
 DROP VIEW IF EXISTS branch_end_count;
@@ -72,6 +74,9 @@ DROP VIEW IF EXISTS clan_harvest_union;
 DROP VIEW IF EXISTS clan_harvest_score;
 DROP VIEW IF EXISTS player_nem_scored_wins;
 DROP VIEW IF EXISTS player_nemelex_score;
+DROP VIEW IF EXISTS clan_nemelex_wins;
+DROP VIEW IF EXISTS clan_nem_scored_wins;
+DROP VIEW IF EXISTS clan_nemelex_score;
 DROP VIEW IF EXISTS player_combo_score;
 DROP VIEW IF EXISTS clan_combo_score;
 DROP VIEW IF EXISTS clan_streaks;
@@ -806,3 +811,15 @@ FROM clan_streaks AS s
   LEFT OUTER JOIN clan_streaks AS s2
     ON s.team_captain = s2.team_captain AND s.length < s2.length
   WHERE s2.length IS NULL AND s.team_captain IS NOT NULL;
+
+CREATE VIEW clan_ziggurats AS
+SELECT p.team_captain, z.player, z.completed, z.deepest, 27 * z.completed + z.deepest AS total
+  FROM ziggurats AS z INNER JOIN players AS p ON p.name = z.player
+  WHERE p.team_captain IS NOT NULL;
+
+CREATE VIEW clan_best_ziggurat AS
+SELECT z.team_captain, z.player, z.completed, z.deepest, z.total
+  FROM clan_ziggurats AS z 
+  LEFT OUTER JOIN clan_ziggurats AS z2
+    ON z.team_captain = z2.team_captain AND z.total < z2.total
+  WHERE z2.total IS NULL;
