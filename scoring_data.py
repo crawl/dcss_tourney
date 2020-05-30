@@ -27,6 +27,7 @@ SERVERS = {
     "LLD": "http://lazy-life.ddo.jp/",
 }
 
+
 IndividualCategory = collections.namedtuple(
     "IndividualCategory",
     (
@@ -255,8 +256,10 @@ INDIVIDUAL_CATEGORIES = (
     ),
 )
 
-ClanCategory = collections.namedtuple("ClanCategory", ("name", "desc",
-     "db_column", "source_table", "source_column", "desc_order", "url"))
+ClanCategory = collections.namedtuple(
+    "ClanCategory",
+    ("name", "desc", "db_column", "source_table", "source_column", "desc_order", "url"),
+)
 CLAN_CATEGORIES = (
     ClanCategory(
         "Wins",
