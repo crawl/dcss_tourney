@@ -8,9 +8,11 @@ import logging
 from logging import debug, info, warn, error
 
 import loaddb
-from loaddb import Query, query_do, query_first, query_row, query_rows
+from loaddb import query_do, query_first, query_row, query_rows
 from loaddb import query_rows_with_ties
 from loaddb import query_first_col, query_first_def
+
+from query_class import Query
 
 import scoring_data
 from scoring_data import INDIVIDUAL_CATEGORIES, MAX_CATEGORY_SCORE, CLAN_CATEGORIES
