@@ -61,7 +61,7 @@
               ## XXX: Ziggurat Diving doesn't work here
               % if category.url and category.name != 'Ziggurat Diving':
               ${html.table_text(
-                  [ 'Player', category.source_column ],
+                  [ 'Player', category.source_column_name ],
                   scoring_data.category_leaders(category, cursor, limit=5),
                   place_column=1,
                   skip=True)

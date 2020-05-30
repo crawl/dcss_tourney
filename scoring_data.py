@@ -33,23 +33,38 @@ IndividualCategory = collections.namedtuple(
         "name",
         "desc",
         "db_column",
+        # Defines the table that contains the ranking for this category
         "source_table",
         "source_column",
+        # Pretty name when displaying the column
+        "source_column_name",
+        # Function to apply to the source column when displaying
+        "source_column_display_transformation",
         "desc_order",
-        # URL for page listing the rank (and score) of every player
+        # URL for page listing the rank (and score) of every player. Or None, if there isn't one.
         "url",
     ),
 )
 
 
 def category_leaders(category, c, limit=None):
-    query_text = """SELECT player, {col} FROM {table}
+    # type: (IndividualCategory, Any, int) -> Sequence[Any]
+    # c = database cursor
+    # response is a list of database rows
+    transformed_col = (
+        "{fn}({col}) AS {col}".format(
+            fn=category.source_column_display_transformation, col=category.source_column
+        )
+        if category.source_column_display_transformation
+        else category.source_column
+    )
+    query_text = """SELECT player, {transformed_col} FROM {table}
                    ORDER BY {col} {direction}""".format(
+        transformed_col=transformed_col,
         col=category.source_column,
         table=category.source_table,
         direction="DESC" if category.desc_order else "",
     )
-    print("Query text: %r" % query_text)
     query = Query(query_text)
     if limit:
         query.append(" LIMIT %d" % limit)
@@ -66,6 +81,8 @@ INDIVIDUAL_CATEGORIES = (
         None,
         None,
         None,
+        None,
+        None,
     ),
     IndividualCategory(
         "Win Rate",
@@ -73,6 +90,8 @@ INDIVIDUAL_CATEGORIES = (
         "win_perc",
         "player_win_perc",
         "win_perc",
+        "Win Percentage",
+        None,
         True,
         base_link("win-percentage-order.html"),
     ),
@@ -82,6 +101,8 @@ INDIVIDUAL_CATEGORIES = (
         "streak",
         "player_best_streak",
         "length",
+        "Best Streak Length",
+        None,
         True,
         base_link("streak-order-active-streaks.html"),
     ),
@@ -91,6 +112,8 @@ INDIVIDUAL_CATEGORIES = (
         "nemelex_score",
         "player_nemelex_score",
         "score",
+        "Score",
+        None,
         True,
         base_link("nemelex-order.html"),
     ),
@@ -100,6 +123,8 @@ INDIVIDUAL_CATEGORIES = (
         "combo_score",
         "player_combo_score",
         "total",
+        "Score",
+        None,
         True,
         base_link("combo-leaders.html"),
     ),
@@ -109,6 +134,8 @@ INDIVIDUAL_CATEGORIES = (
         "highest_score",
         "highest_scores",
         "score",
+        "Best Score",
+        None,
         True,
         base_link("high-score-order.html"),
     ),
@@ -118,6 +145,8 @@ INDIVIDUAL_CATEGORIES = (
         "lowest_turncount_win",
         "lowest_turncount_wins",
         "turn",
+        "Turns",
+        None,
         False,
         base_link("low-tc-win-order.html"),
     ),
@@ -127,6 +156,8 @@ INDIVIDUAL_CATEGORIES = (
         "fastest_win",
         "fastest_wins",
         "duration",
+        "Duration",
+        "sec_to_time",
         False,
         base_link("fastest-realtime-win-order.html"),
     ),
@@ -136,6 +167,8 @@ INDIVIDUAL_CATEGORIES = (
         "low_xl_win",
         "low_xl_nonhep_wins",
         "xl",
+        "XL",
+        None,
         False,
         base_link("low-xl-win-order.html"),
     ),
@@ -145,6 +178,8 @@ INDIVIDUAL_CATEGORIES = (
         "first_win",
         "first_wins",
         "end_time",
+        "Time",
+        None,
         False,
         base_link("first-win-order.html"),
     ),
@@ -154,6 +189,8 @@ INDIVIDUAL_CATEGORIES = (
         "first_allrune_win",
         "first_allrune_wins",
         "end_time",
+        "Time",
+        None,
         False,
         base_link("first-allrune-win-order.html"),
     ),
@@ -163,6 +200,8 @@ INDIVIDUAL_CATEGORIES = (
         "exploration",
         "player_exploration_score",
         "score",
+        "Score",
+        None,
         True,
         base_link("exploration-order.html"),
     ),
@@ -172,6 +211,8 @@ INDIVIDUAL_CATEGORIES = (
         "piety",
         "player_piety_score",
         "piety",
+        "Score",
+        None,
         True,
         base_link("piety-order.html"),
     ),
@@ -181,6 +222,8 @@ INDIVIDUAL_CATEGORIES = (
         "harvest",
         "player_harvest_score",
         "score",
+        "Score",
+        None,
         True,
         base_link("harvest-order.html"),
     ),
@@ -194,6 +237,8 @@ INDIVIDUAL_CATEGORIES = (
         "ziggurat_dive",
         "ziggurats",
         "completed DESC, deepest DESC",
+        "Floors",
+        None,
         None,
         base_link("zig-dive-order.html"),
     ),
@@ -203,9 +248,10 @@ INDIVIDUAL_CATEGORIES = (
         "banner_score",
         "player_banner_score",
         "bscore",
+        "Score",
+        None,
         True,
         base_link("banner-order.html"),
-        None,
     ),
 )
 
