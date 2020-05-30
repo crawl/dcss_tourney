@@ -751,10 +751,10 @@ SELECT team_captain, SUM(score) AS score
 
 CREATE VIEW player_combo_score AS
 SELECT c.player AS player,
-       COUNT(*) + COUNT(c.killertype='winning')
+       COUNT(*) + SUM(c.killertype='winning')
                  + 3 * COUNT(sp.raceabbr) + 3 * COUNT(cl.class) AS total,
        COUNT(*) AS combos,
-       COUNT(c.killertype='winning') AS won_combos,
+       SUM(c.killertype='winning') AS won_combos,
        COUNT(sp.raceabbr) AS sp_hs, COUNT(cl.class) AS cls_hs
   FROM combo_highscores AS c
   LEFT OUTER JOIN species_highscores AS sp
