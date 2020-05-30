@@ -1,4 +1,4 @@
-<%page args="rank_description"/>
+<%page args="points_for_rank"/>
 
 <%
   from crawl_utils import XXX_IMAGE_BASE, base_link
@@ -7,42 +7,42 @@
 %>
 
 <h2>Individual Categories</h2>
-<div class="row row-cols-1 row-cols-md-2 row-cols-xl-3">
+<table class="table table-borderless table-dark table-striped table-hover w-auto">
+  <thead>
+    <tr>
+      <th scope="col">Category</th>
+      <th scope="col">Rank</th>
+      <th scope="col">Points</th>
+      <th scope="col">Notes</th>
+    <tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">
+        <a href="${base_link('all-players-ranks.html')}">
+          Total
+        </a>
+      </th>
+      <th scope="row" class="text-monospace text-right">${overall_rank}</th>
+      <th scope="row" class="text-monospace text-right">
+        ${'{:,}'.format(sum(int(points_for_rank(result.rank)) for result in individual_category_results.values() if result.rank is not None))}
+      </th>
+      <th scope="row"></th>
+    </tr>
   % for category in scoring_data.INDIVIDUAL_CATEGORIES:
   <%
     results = individual_category_results[category.name]
   %>
-  <div class="col mb-4">
-    <div class="card h-100 bg-dark text-light">
-      <img
-        src="${XXX_IMAGE_BASE}/individual/${html.slugify(category.name)}.png"
-        alt=""
-        class="card-img"
-        style="filter: brightness(40%);">
-      <div class="card-img-overlay">
-        <h2 class="card-title">${category.name}</h2>
-        <p class="card-text lead">
-          ${rank_description(results.rank)}
-        </p>
-        <p class="card-text">
-          <i>${category.desc}</i>
-        </p>
-        % if results.details is not None:
-        <p class="card-text lead">
-          ${results.details}
-        </p>
-        % endif
-        <p class="card-text small">
-          % if category.source_table:
-          <a href="${base_link(html.slugify(category.name))}.html">
-            View full ranking.
-          </a>
-          % else:
-          Full ranking not available for this category.
-          % endif
-        </p>
-      </div>
-    </div>
-  </div>
+    <tr>
+      <td>
+        <a href="${base_link(html.slugify(category.name))}.html">
+          ${category.name}
+        </a>
+      </td>
+      <td class="text-monospace text-right">${results.rank if results.rank else '-'}</td>
+      <td class="text-monospace text-right">${'{:,}'.format(int(points_for_rank(results.rank))) if results.rank else '-'}</td>
+      <td>${results.details if results.details else ''}</td>
+    </tr>
   % endfor
-</div>
+  </tbody>
+</table>

@@ -110,7 +110,7 @@
       </ul>
       <div class="tab-content">
         <div class="tab-pane show active" id="individual-categories" role="tabpanel" aria-labelledby="individual-categories-tab">
-          <%include file="player-individual-categories.mako" args="rank_description=rank_description"/>
+          <%include file="player-individual-categories.mako" args="points_for_rank=points_for_rank"/>
         </div>
         <div class="tab-pane" id="banners" role="tabpanel" aria-labelledby="banners-tab">
           <%include file="player-banners.mako"/>
