@@ -781,7 +781,7 @@ SELECT p.team_captain,
   WHERE p.team_captain IS NOT NULL GROUP BY p.team_captain;
 
 CREATE VIEW player_nem_scored_wins AS
-SELECT IF(ROW_NUMBER() OVER (PARTITION BY charabbrev ORDER BY end_time) < 3,
+SELECT IF(ROW_NUMBER() OVER (PARTITION BY charabbrev ORDER BY end_time) < 9,
 	  1, 0) AS nem_counts, n.*
   FROM player_nemelex_wins AS n;
 
@@ -809,7 +809,7 @@ SELECT team_captain, COUNT(DISTINCT charabbrev) AS score FROM clan_nem_scored_wi
 WHERE nem_counts = 1 GROUP BY team_captain;
 
 CREATE VIEW player_best_streak AS
-SELECT s.player, s.length FROM streaks AS s
+SELECT DISTINCT s.player, s.length FROM streaks AS s
   LEFT OUTER JOIN streaks AS s2
     ON s.player = s2.player AND s.length < s2.length
   WHERE s2.length IS NULL;
@@ -820,11 +820,12 @@ FROM streaks AS s INNER JOIN players AS p ON s.player = p.name
 WHERE p.team_captain IS NOT NULL;
 
 CREATE VIEW clan_best_streak AS
-SELECT s.team_captain, s.player, s.length
+SELECT s.team_captain, GROUP_CONCAT(DISTINCT s.player) AS players, s.length
 FROM clan_streaks AS s
   LEFT OUTER JOIN clan_streaks AS s2
     ON s.team_captain = s2.team_captain AND s.length < s2.length
-  WHERE s2.length IS NULL AND s.team_captain IS NOT NULL;
+  WHERE s2.length IS NULL AND s.team_captain IS NOT NULL
+GROUP BY s.team_captain, s.length;
 
 CREATE VIEW clan_ziggurats AS
 SELECT p.team_captain, z.player, z.completed, z.deepest

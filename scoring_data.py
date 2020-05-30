@@ -222,7 +222,7 @@ CLAN_CATEGORIES = (
         "Streak Length",
         "Clans are ranked in this category based on the streak of their best player, calculated according to the individual Streak Length category.",
         "streak",
-        "clan_streaks",
+        "clan_best_streak",
         "length",
         True,
         None,
