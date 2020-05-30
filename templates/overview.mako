@@ -27,6 +27,15 @@
             [8, ('src', 'Server')]
           ]
         )}
+        <h2>Current Top Players</h2>
+        ${html.table_text(
+          [ 'Player', 'Overall Score' ],
+          data=query.get_top_players(cursor, how_many=5),
+          place_column=1, skip=True,
+        )}
+        <a href="${base_link('all-players-ranks.html')}">
+          See full ranking.
+        </a>
     </div>
   </div>
 
