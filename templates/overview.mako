@@ -32,7 +32,17 @@
 
   <div class="row">
     <div class="col">
-      <h2>Individual Category Leaderboards</h2>
+      <h2>Contents</h2>
+      <ol>
+        <li><a href="#individual-categories">Individual Categories</a></li>
+        <li><a href="#clan-categories">Clan Categories</a></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <h2 id="individual-categories">Individual Categories</h2>
 
       % for category in scoring_data.INDIVIDUAL_CATEGORIES:
       <div class="card bg-dark text-light mb-3">
@@ -47,12 +57,44 @@
             <div class="card-body">
               <h3 class="card-title">${category.name}</h3>
               % if category.url:
-              (Table showing top 5 goes here)
+              <table>(Table showing top 5 goes here)</table>
               <a href="${category.url}">
                 View full ranking.
               </a>
               % else:
-              Ranking not available.
+              Full ranking not available.
+              % endif
+            </div>
+          </div>
+        </div>
+      </div>
+      % endfor
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <h2 id="clan-categories">Clan Categories</h2>
+
+      % for category in scoring_data.CLAN_CATEGORIES:
+      <div class="card bg-dark text-light mb-3">
+        <div class="row no-gutters">
+          <div class="col-md-auto">
+            <img
+              src="${XXX_IMAGE_BASE}/clan/${html.slugify(category.name)}.png"
+              alt=""
+              style="background: black; width: 200px;">
+          </div>
+          <div class="col-md">
+            <div class="card-body">
+              <h3 class="card-title">${category.name}</h3>
+              % if category.url:
+              <table>(Table showing top 5 goes here)</table>
+              <a href="${category.url}">
+                View full ranking.
+              </a>
+              % else:
+              Full ranking not available.
               % endif
             </div>
           </div>
