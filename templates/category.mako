@@ -41,8 +41,13 @@
       </p>
       ## Hack to disable Ziggurat Diving as it breaks
       % if category.source_table and category.name != 'Ziggurat Diving':
+      <%
+        columns = ['Player', category.source_column_name]
+        for col in category.full_ranking_extra_columns:
+          columns.append(col.display_name)
+      %>
       ${html.table_text(
-          [ 'Player', category.source_column_name ],
+          columns,
           scoring_data.category_leaders(category, cursor),
           place_column=1,
           skip=True)

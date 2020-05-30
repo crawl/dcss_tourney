@@ -26,7 +26,7 @@ SERVERS = {
     "LLD": "http://lazy-life.ddo.jp/",
 }
 
-
+ColumnSpec = collections.namedtuple("ColumnSpec", ("column_name", "display_name"))
 IndividualCategory = collections.namedtuple(
     "IndividualCategory",
     (
@@ -40,7 +40,10 @@ IndividualCategory = collections.namedtuple(
         "source_column_name",
         # Function to apply to the source column when displaying
         "source_column_display_transformation",
+        # If True, the table displays are sorted descending (rather than ascending)
         "desc_order",
+        # Extra columns in the source_table to show for the full ranking. A list of ColumnSpec's
+        "full_ranking_extra_columns",
     ),
 )
 
@@ -56,9 +59,16 @@ def category_leaders(category, c, limit=None):
         if category.source_column_display_transformation
         else category.source_column
     )
-    query_text = """SELECT player, {transformed_col} FROM {table}
+    if category.full_ranking_extra_columns:
+        extra_cols = "," + ",".join(
+            col.column_name for col in category.full_ranking_extra_columns
+        )
+    else:
+        extra_cols = ""
+    query_text = """SELECT player, {transformed_col} {extra_cols} FROM {table}
                    ORDER BY {col} {direction}""".format(
         transformed_col=transformed_col,
+        extra_cols=extra_cols,
         col=category.source_column,
         table=category.source_table,
         direction="DESC" if category.desc_order else "",
@@ -80,6 +90,7 @@ INDIVIDUAL_CATEGORIES = (
         None,
         None,
         None,
+        [],
     ),
     IndividualCategory(
         "Win Rate",
@@ -90,6 +101,7 @@ INDIVIDUAL_CATEGORIES = (
         "Win Percentage",
         None,
         True,
+        [],
     ),
     IndividualCategory(
         "Streak Length",
@@ -100,6 +112,7 @@ INDIVIDUAL_CATEGORIES = (
         "Best Streak Length",
         None,
         True,
+        [],
     ),
     IndividualCategory(
         "Nemelex' Choice",
@@ -110,6 +123,7 @@ INDIVIDUAL_CATEGORIES = (
         "Score",
         None,
         True,
+        [],
     ),
     IndividualCategory(
         "Combo High Scores",
@@ -120,6 +134,12 @@ INDIVIDUAL_CATEGORIES = (
         "Score",
         None,
         True,
+        [
+            ColumnSpec("combos", "Top Scoring Combos"),
+            ColumnSpec("won_combos", "Won Combos"),
+            ColumnSpec("sp_hs", "Species High Scores"),
+            ColumnSpec("cls_hs", "Background High Scores"),
+        ],
     ),
     IndividualCategory(
         "Best High Score",
@@ -130,6 +150,12 @@ INDIVIDUAL_CATEGORIES = (
         "Best Score",
         None,
         True,
+        [
+            ColumnSpec("race", "Species"),
+            ColumnSpec("class", "Background"),
+            ColumnSpec("turn", "Turns"),
+            ColumnSpec("nrune", "Runes"),
+        ],
     ),
     IndividualCategory(
         "Lowest Turncount Win",
@@ -140,6 +166,12 @@ INDIVIDUAL_CATEGORIES = (
         "Turns",
         None,
         False,
+        [
+            ColumnSpec("race", "Species"),
+            ColumnSpec("class", "Background"),
+            ColumnSpec("turn", "Turns"),
+            ColumnSpec("nrune", "Runes"),
+        ],
     ),
     IndividualCategory(
         "Fastest Real Time Win",
@@ -150,6 +182,12 @@ INDIVIDUAL_CATEGORIES = (
         "Duration",
         "sec_to_time",
         False,
+        [
+            ColumnSpec("race", "Species"),
+            ColumnSpec("class", "Background"),
+            ColumnSpec("turn", "Turns"),
+            ColumnSpec("nrune", "Runes"),
+        ],
     ),
     IndividualCategory(
         "Lowest XL Win",
@@ -160,6 +198,12 @@ INDIVIDUAL_CATEGORIES = (
         "XL",
         None,
         False,
+        [
+            ColumnSpec("race", "Species"),
+            ColumnSpec("class", "Background"),
+            ColumnSpec("turn", "Turns"),
+            ColumnSpec("nrune", "Runes"),
+        ],
     ),
     IndividualCategory(
         "Tournament Win Order",
@@ -170,6 +214,13 @@ INDIVIDUAL_CATEGORIES = (
         "Time",
         None,
         False,
+        [
+            ColumnSpec("race", "Species"),
+            ColumnSpec("class", "Background"),
+            ColumnSpec("turn", "Turns"),
+            ColumnSpec("nrune", "Runes"),
+            ColumnSpec("sec_to_time(duration) AS duration", "Duration"),
+        ],
     ),
     IndividualCategory(
         "Tournament All Rune Win Order",
@@ -180,6 +231,13 @@ INDIVIDUAL_CATEGORIES = (
         "Time",
         None,
         False,
+        [
+            ColumnSpec("race", "Species"),
+            ColumnSpec("class", "Background"),
+            ColumnSpec("turn", "Turns"),
+            ColumnSpec("nrune", "Runes"),
+            ColumnSpec("sec_to_time(duration) AS duration", "Duration"),
+        ],
     ),
     IndividualCategory(
         "Exploration",
@@ -190,6 +248,7 @@ INDIVIDUAL_CATEGORIES = (
         "Score",
         None,
         True,
+        [],
     ),
     IndividualCategory(
         "Piety",
@@ -200,6 +259,10 @@ INDIVIDUAL_CATEGORIES = (
         "Score",
         None,
         True,
+        [
+            ColumnSpec("champion", "Gods Championed..."),
+            ColumnSpec("won", "...and won"),
+        ],
     ),
     IndividualCategory(
         "Unique Harvesting",
@@ -210,6 +273,7 @@ INDIVIDUAL_CATEGORIES = (
         "Score",
         None,
         True,
+        [],
     ),
     IndividualCategory(
         "Ziggurat Diving",
@@ -224,6 +288,7 @@ INDIVIDUAL_CATEGORIES = (
         "Floors",
         None,
         None,
+        [],
     ),
     IndividualCategory(
         "Banner Score",
@@ -234,6 +299,7 @@ INDIVIDUAL_CATEGORIES = (
         "Score",
         None,
         True,
+        [ColumnSpec("banners", "Banners Completed")],
     ),
 )
 
