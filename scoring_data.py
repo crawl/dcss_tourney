@@ -26,7 +26,7 @@ SERVERS = {
     "LLD": "http://lazy-life.ddo.jp/",
 }
 
-ColumnSpec = collections.namedtuple("ColumnSpec", ("column_name", "display_name"))
+ColumnDisplaySpec = collections.namedtuple("ColumnDisplaySpec", ("column_name", "display_name"))
 IndividualCategory = collections.namedtuple(
     "IndividualCategory",
     (
@@ -42,7 +42,7 @@ IndividualCategory = collections.namedtuple(
         "source_column_display_transformation",
         # If True, the table displays are sorted descending (rather than ascending)
         "desc_order",
-        # Extra columns in the source_table to show for the full ranking. A list of ColumnSpec's
+        # Extra columns in the source_table to show for the full ranking. A list of ColumnDisplaySpec's
         "full_ranking_extra_columns",
     ),
 )
@@ -101,7 +101,7 @@ INDIVIDUAL_CATEGORIES = (
         "Win Percentage",
         None,
         True,
-        [ColumnSpec("n_wins", "Wins"), ColumnSpec("n_games", "Games Played")],
+        [ColumnDisplaySpec("n_wins", "Wins"), ColumnDisplaySpec("n_games", "Games Played")],
     ),
     IndividualCategory(
         "Streak Length",
@@ -135,10 +135,10 @@ INDIVIDUAL_CATEGORIES = (
         None,
         True,
         [
-            ColumnSpec("combos", "Top Scoring Combos"),
-            ColumnSpec("won_combos", "Won Combos"),
-            ColumnSpec("sp_hs", "Species High Scores"),
-            ColumnSpec("cls_hs", "Background High Scores"),
+            ColumnDisplaySpec("combos", "Top Scoring Combos"),
+            ColumnDisplaySpec("won_combos", "Won Combos"),
+            ColumnDisplaySpec("sp_hs", "Species High Scores"),
+            ColumnDisplaySpec("cls_hs", "Background High Scores"),
         ],
     ),
     IndividualCategory(
@@ -151,10 +151,10 @@ INDIVIDUAL_CATEGORIES = (
         None,
         True,
         [
-            ColumnSpec("race", "Species"),
-            ColumnSpec("class", "Background"),
-            ColumnSpec("turn", "Turns"),
-            ColumnSpec("nrune", "Runes"),
+            ColumnDisplaySpec("race", "Species"),
+            ColumnDisplaySpec("class", "Background"),
+            ColumnDisplaySpec("turn", "Turns"),
+            ColumnDisplaySpec("nrune", "Runes"),
         ],
     ),
     IndividualCategory(
@@ -167,10 +167,10 @@ INDIVIDUAL_CATEGORIES = (
         None,
         False,
         [
-            ColumnSpec("race", "Species"),
-            ColumnSpec("class", "Background"),
-            ColumnSpec("turn", "Turns"),
-            ColumnSpec("nrune", "Runes"),
+            ColumnDisplaySpec("race", "Species"),
+            ColumnDisplaySpec("class", "Background"),
+            ColumnDisplaySpec("turn", "Turns"),
+            ColumnDisplaySpec("nrune", "Runes"),
         ],
     ),
     IndividualCategory(
@@ -183,10 +183,10 @@ INDIVIDUAL_CATEGORIES = (
         "sec_to_time",
         False,
         [
-            ColumnSpec("race", "Species"),
-            ColumnSpec("class", "Background"),
-            ColumnSpec("turn", "Turns"),
-            ColumnSpec("nrune", "Runes"),
+            ColumnDisplaySpec("race", "Species"),
+            ColumnDisplaySpec("class", "Background"),
+            ColumnDisplaySpec("turn", "Turns"),
+            ColumnDisplaySpec("nrune", "Runes"),
         ],
     ),
     IndividualCategory(
@@ -199,10 +199,10 @@ INDIVIDUAL_CATEGORIES = (
         None,
         False,
         [
-            ColumnSpec("race", "Species"),
-            ColumnSpec("class", "Background"),
-            ColumnSpec("turn", "Turns"),
-            ColumnSpec("nrune", "Runes"),
+            ColumnDisplaySpec("race", "Species"),
+            ColumnDisplaySpec("class", "Background"),
+            ColumnDisplaySpec("turn", "Turns"),
+            ColumnDisplaySpec("nrune", "Runes"),
         ],
     ),
     IndividualCategory(
@@ -215,11 +215,11 @@ INDIVIDUAL_CATEGORIES = (
         None,
         False,
         [
-            ColumnSpec("race", "Species"),
-            ColumnSpec("class", "Background"),
-            ColumnSpec("turn", "Turns"),
-            ColumnSpec("nrune", "Runes"),
-            ColumnSpec("sec_to_time(duration) AS duration", "Duration"),
+            ColumnDisplaySpec("race", "Species"),
+            ColumnDisplaySpec("class", "Background"),
+            ColumnDisplaySpec("turn", "Turns"),
+            ColumnDisplaySpec("nrune", "Runes"),
+            ColumnDisplaySpec("sec_to_time(duration) AS duration", "Duration"),
         ],
     ),
     IndividualCategory(
@@ -232,11 +232,11 @@ INDIVIDUAL_CATEGORIES = (
         None,
         False,
         [
-            ColumnSpec("race", "Species"),
-            ColumnSpec("class", "Background"),
-            ColumnSpec("turn", "Turns"),
-            ColumnSpec("nrune", "Runes"),
-            ColumnSpec("sec_to_time(duration) AS duration", "Duration"),
+            ColumnDisplaySpec("race", "Species"),
+            ColumnDisplaySpec("class", "Background"),
+            ColumnDisplaySpec("turn", "Turns"),
+            ColumnDisplaySpec("nrune", "Runes"),
+            ColumnDisplaySpec("sec_to_time(duration) AS duration", "Duration"),
         ],
     ),
     IndividualCategory(
@@ -260,8 +260,8 @@ INDIVIDUAL_CATEGORIES = (
         None,
         True,
         [
-            ColumnSpec("champion", "Gods Championed..."),
-            ColumnSpec("won", "...and won"),
+            ColumnDisplaySpec("champion", "Gods Championed..."),
+            ColumnDisplaySpec("won", "...and won"),
         ],
     ),
     IndividualCategory(
@@ -299,7 +299,7 @@ INDIVIDUAL_CATEGORIES = (
         "Score",
         None,
         True,
-        [ColumnSpec("banners", "Banners Completed")],
+        [ColumnDisplaySpec("banners", "Banners Completed")],
     ),
 )
 
@@ -469,7 +469,7 @@ BANNERS = [
     ),
     Banner(
         "Elyvilon",
-        "Politician",
+        "Pious",
         BannerTiers("Champion a god.", "Champion 5 gods.", "Champion 13 gods."),
         None,
     ),
