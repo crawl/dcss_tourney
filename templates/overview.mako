@@ -1,7 +1,7 @@
 <%inherit file="base.mako"/>
 
 <%!
-  from crawl_utils import XXX_TOURNEY_BASE, XXX_IMAGE_BASE
+  from crawl_utils import XXX_IMAGE_BASE, base_link
   import html
   import query
   import scoring_data
@@ -59,7 +59,7 @@
             <div class="card-body">
               <h3 class="card-title">${category.name}</h3>
               ## XXX: Ziggurat Diving doesn't work here
-              % if category.url and category.name != 'Ziggurat Diving':
+              % if category.source_table and category.name != 'Ziggurat Diving':
               ${html.table_text(
                   [ 'Player', category.source_column_name ],
                   scoring_data.category_leaders(category, cursor, limit=5),
@@ -67,8 +67,8 @@
                   skip=True)
               }
               % endif
-              % if category.url:
-              <a href="${category.url}">
+              % if category.source_table:
+              <a href="${base_link(html.slugify(category.name))}.html">
                 View full ranking.
               </a>
               % else:

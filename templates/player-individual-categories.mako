@@ -1,7 +1,7 @@
 <%page args="rank_description"/>
 
 <%
-  from crawl_utils import XXX_IMAGE_BASE
+  from crawl_utils import XXX_IMAGE_BASE, base_link
   import html
   import scoring_data
 %>
@@ -33,8 +33,8 @@
         </p>
         % endif
         <p class="card-text small">
-          % if category.url:
-          <a href="${category.url}">
+          % if category.source_table:
+          <a href="${base_link(html.slugify(category.name))}.html">
             View full ranking.
           </a>
           % else:

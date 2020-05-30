@@ -11,6 +11,7 @@ import crawl_utils
 import collections
 from logging import debug, info, warn, error
 
+import html
 import scoring_data
 
 CategoryResult = collections.namedtuple('CategoryResult', ('rank', 'details'))
@@ -59,20 +60,18 @@ def tourney_overview(c):
 
 def individual_category_pages(c):
   info("Updating individual category pages")
-  render(c, 'first-win-order')
-  render(c, 'first-allrune-win-order')
-  render(c, 'win-percentage-order')
-  render(c, 'high-score-order')
-  render(c, 'low-tc-win-order')
-  render(c, 'fastest-realtime-win-order')
-  render(c, 'low-xl-win-order')
-  render(c, 'piety-order')
-  render(c, 'banner-order')
-  render(c, 'exploration-order')
-  render(c, 'harvest-order')
-  render(c, 'zig-dive-order')
-  render(c, 'nemelex-order')
-  render(c, 'streak-order-active-streaks')
+  for category in scoring_data.INDIVIDUAL_CATEGORIES:
+    info("Updating individual category page %s" % category.name)
+    render(
+      c,
+      page='category',
+      dest=html.slugify(category.name),
+      pars={
+        'category_type': 'individual',
+        'category': category
+      },
+      top_level_pars=True,
+    )
 
 def player_pages(c):
   info("Updating all player pages")

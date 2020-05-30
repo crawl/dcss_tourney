@@ -4,7 +4,7 @@
 <%!
   import scoring_data
   import html
-  from crawl_utils import XXX_IMAGE_BASE
+  from crawl_utils import XXX_IMAGE_BASE, base_link
 
   active_menu_item = "Rules"
 %>
@@ -140,8 +140,8 @@
         </p>
       </div>
       <div class="card-footer">
-        % if category.url:
-        <a href="${category.url}">
+        % if category.source_table:
+        <a href="${base_link(html.slugify(category.name))}.html">
           View full ranking.
         </a>
         % else:
