@@ -1,3 +1,4 @@
+import decimal
 import query, crawl_utils, time, datetime
 import loaddb
 import sys
@@ -376,15 +377,22 @@ def table_text(headers, data, count=True,
       out += '''<th scope="row">%s</th>''' % nplace
 
     for c in range(len(headers)):
+      call_classes = set()
       val = row[c]
       header = headers[c]
-      cell_class=''
+
+      numeric_col = isinstance(val, (int, float, decimal.Decimal))
+      if numeric_col:
+        val = '{:,}'.format(val)
+        call_classes.add("text-right")
+        call_classes.add("text-monospace")
       if extra_wide_support and is_player_header(header[0]):
-        cell_class = 'sticky-column'
+        call_classes.add('sticky-column')
+
       if c == place_column:
-        out += '''<th class="%s" scope="row">''' % cell_class
+        out += '''<th class="%s" scope="row">''' % " ".join(call_classes)
       else:
-        out += '''<td class="%s">''' % cell_class
+        out += '''<td class="%s">''' % " ".join(call_classes)
       val = str(val)
       if is_player_header(header[0]):
         val = linked_text(val, player_link)
@@ -480,12 +488,16 @@ def games_table(games, first=None, excluding=None, columns=None,
 
     for i, c in enumerate(columns):
       val = fixup_column(c[0], game.get(c[0]) or '', game)
-      td_class = "text-right" if isinstance(val, (int, float)) else ""
+      numeric_col = isinstance(val, (int, float, decimal.Decimal))
+      if numeric_col:
+        val = '{:,}'.format(val)
+      td_class = "text-right text-monospace" if numeric_col else ""
       if i == place_column:
         out += '''<th class="%s" scope="row">''' % td_class
       else:
         out += '''<td class="%s">''' % td_class
 
+      # XXX: this should change
       need_link = len(c) >= 3 and c[2]
       if need_link:
         try:
