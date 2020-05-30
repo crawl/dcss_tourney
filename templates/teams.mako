@@ -19,7 +19,7 @@
   %>
   <div class="row">
     <div class="col">
-      <h1>All Players</h1>
+      <h1>Clans</h1>
 
       ${html.table_text(
         [ 'Clan', 'Members', 'Overall Score' ] + [ cc.name for cc in
