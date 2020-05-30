@@ -4,7 +4,7 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   /*
-    When scrolling to a header (eg by clicking an #anchor link), scroll 4rem
+    When scrolling to a header (eg by clicking an #anchor link), scroll 3.5rem
     above to account for the nav bar.
     Too bad we can't just say "the height of x". But 3.5rem matches the height
     of the nav bar.

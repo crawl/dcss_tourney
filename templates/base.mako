@@ -28,8 +28,12 @@
   </head>
 
   <body class="text-light">
+    <a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
     <nav class="navbar navbar-dark navbar-expand-lg" style="background-color: #1a1a1a;">
-      <a class="navbar-brand overflow-hidden" href="${XXX_TOURNEY_BASE}">Dungeon Crawl Stone Soup ${T_VERSION} Tournament</a>
+      <a class="navbar-brand overflow-hidden" href="${XXX_TOURNEY_BASE}">
+        <img src="/images/stone_soup_icon-32x32.png" class="pixel-art mr-1 align-top" width="32" height="32" alt="">
+        Dungeon Crawl Stone Soup ${T_VERSION} Tournament
+      </a>
     </nav>
     ## The background of this bar is deliberately different
     <nav class="navbar navbar-expand-lg navbar-dark sticky-top" style="background-color: black;">
@@ -54,7 +58,7 @@
       </div>
     </nav>
 
-    <div class="container my-3">
+    <div class="container my-3" id="content">
       <%block name="main"/>
       ${update_time()}
     </div>

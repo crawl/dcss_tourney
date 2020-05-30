@@ -11,6 +11,7 @@ import crawl_utils
 import collections
 from logging import debug, info, warn, error
 
+import html
 import scoring_data
 
 CategoryResult = collections.namedtuple('CategoryResult', ('rank', 'details'))
@@ -55,29 +56,26 @@ def render(c, page, dest=None, pars=None, top_level_pars=False):
 
 def tourney_overview(c):
   info("Updating overview page")
-  render(c, 'overview')
+  render(c, 'overview', top_level_pars=True)
 
 def individual_category_pages(c):
   info("Updating individual category pages")
-  render(c, 'first-win-order')
-  render(c, 'first-allrune-win-order')
-  render(c, 'win-percentage-order')
-  render(c, 'high-score-order')
-  render(c, 'low-tc-win-order')
-  render(c, 'fastest-realtime-win-order')
-  render(c, 'low-xl-win-order')
-  render(c, 'piety-order')
-  render(c, 'banner-order')
-  render(c, 'exploration-order')
-  render(c, 'harvest-order')
-  render(c, 'zig-dive-order')
-  render(c, 'nemelex-order')
-  render(c, 'streak-order-active-streaks')
+  for category in scoring_data.INDIVIDUAL_CATEGORIES:
+    info("Updating individual category page %s" % category.name)
+    render(
+      c,
+      page='category',
+      dest=html.slugify(category.name),
+      pars={
+        'category_type': 'individual',
+        'category': category
+      },
+      top_level_pars=True,
+    )
 
 def player_pages(c):
   info("Updating all player pages")
   render(c, 'banners')
-  render(c, 'all-players')
   render(c, 'all-players-ranks')
 #  render(c, 'wins-and-kills')
   render(c, 'current-games')
@@ -153,12 +151,14 @@ def player_banner_results(c, player):
 
 # Update tourney overview every 5 mins.
 INTERVAL = crawl_utils.UPDATE_INTERVAL
-TIMER = [ #loaddb.define_timer( INTERVAL, tourney_overview ),
+TIMER = [
+          loaddb.define_timer( INTERVAL, tourney_overview ),
           loaddb.define_timer( INTERVAL, team_pages ),
           loaddb.define_timer( INTERVAL, player_pages ),
           loaddb.define_timer( INTERVAL, individual_category_pages )
           ]
-LISTENER = [ #loaddb.define_cleanup(tourney_overview),
+LISTENER = [
+             loaddb.define_cleanup(tourney_overview),
              loaddb.define_cleanup(team_pages),
              loaddb.define_cleanup(player_pages),
              loaddb.define_cleanup(individual_category_pages)

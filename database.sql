@@ -615,8 +615,10 @@ SELECT g.* FROM nonhep_wins AS g
 
 CREATE VIEW player_win_perc AS
 SELECT player,
-  CAST( (SUM(killertype='winning') / (COUNT(*) + 1.0)) * 100.0 AS DECIMAL(5,2))
-  AS win_perc FROM games GROUP BY player;
+  CAST( (SUM(killertype='winning') / (COUNT(*) + 1.0)) * 100.0 AS DECIMAL(5,2)) AS win_perc,
+  SUM(killertype = 'winning') as n_wins,
+  COUNT(*) as n_games
+FROM games GROUP BY player;
 
 -- My kingdom for a full join. Correct handling for Gozag, Xom, and No God
 CREATE VIEW player_god_usage AS

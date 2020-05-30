@@ -4,7 +4,7 @@
 <%!
   import scoring_data
   import html
-  from crawl_utils import XXX_IMAGE_BASE
+  from crawl_utils import XXX_IMAGE_BASE, base_link
 
   active_menu_item = "Rules"
 %>
@@ -127,9 +127,11 @@
       ## A couple of these images are actually JPEGs. Shhh!
         src="${XXX_IMAGE_BASE}/individual/${html.slugify(category.name)}.png"
         alt=""
-        class="card-img-top"
+        ## mx-auto class + max-width = prevent crazy big images on xs display
+        class="card-img-top mx-auto"
         ## for transparent images
-        style="background: black;"
+        style="background: black; max-width: 300px;"
+        loading="lazy"
       >
       <div class="card-body">
         <h3 class="card-title">${category.name}</h3>
@@ -138,8 +140,8 @@
         </p>
       </div>
       <div class="card-footer">
-        % if category.url:
-        <a href="${category.url}">
+        % if category.source_table:
+        <a href="${base_link(html.slugify(category.name))}.html">
           View full ranking.
         </a>
         % else:
@@ -164,9 +166,11 @@
         ## A couple of these images are actually JPEGs. Shhh!
           src="${XXX_IMAGE_BASE}/clan/${html.slugify(category.name)}.png"
           alt=""
-          class="card-img-top"
+          ## mx-auto class + max-width = prevent crazy big images on xs display
+          class="card-img-top mx-auto"
           ## for transparent images
-          style="background: black;"
+          style="background: black; max-width: 300px;"
+          loading="lazy"
         >
         <div class="card-body">
           <h3 class="card-title">${category.name}</h3>

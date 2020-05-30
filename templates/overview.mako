@@ -1,242 +1,127 @@
-<%
-   import query, loaddb, html, time, nemelex
-   from test_data import USE_TEST
-   c = attributes['cursor']
+<%inherit file="base.mako"/>
 
-   version = loaddb.T_VERSION
-   year = loaddb.T_YEAR
-   title = "Crawl %s Tournament Leaderboard" % version
-   top_scores = query.find_games(c, sort_max='score', limit=3)
+<%!
+  from crawl_utils import XXX_IMAGE_BASE, base_link
+  import html
+  import query
+  import scoring_data
 
-   nem_list = nemelex.list_nemelex_choices(c)
-
-   if nem_list:
-     pnem_list = []
-     for x in nem_list[:-1]:
-       if x[2] >= 8:
-         pnem_list.append('<s>' + x[0] + ('(%d won)' % x[2]) + '</s>')
-       else:
-         pnem_list.append(x[0] + ('(%d won)' % x[2]))
-
-   recent_wins = query.get_winning_games(c, limit = 10)
+  active_menu_item = 'Overview'
 %>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
-          "http://www.w3.org/TR/html4/strict.dtd">
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-    <title>${title}</title>
-    <link rel="stylesheet" type="text/css" href="tourney-score.css">
-  </head>
-  <body class="page_back">
-    <div class="page">
-      <%include file="toplink.mako"/>
-      <div class="page_content">
-        <div class="heading">
-          <h1>${title}</h1>
-          <p class="fineprint">
-            Tournament starts on <a href="https://www.timeanddate.com/worldclock/fixedtime.html?iso=20191025T20">Oct 25, ${year} at 20:00 UTC</a>, and ends on
-            <a href="https://www.timeanddate.com/worldclock/fixedtime.html?iso=20191110T20">Nov 10, ${year} at 20:00 UTC</a>.
-          </p>
-          % if USE_TEST:
-          <div class="inset">
-          <p>The tournament scripts are currently being tested for bugs! All data on these pages will be blanked before tournament start.</p>
-          </div>
-          % endif
-        </div>
-        <hr>
+<%block name="title">
+  Overview
+</%block>
 
-        <div class="content">
-
-          % if nem_list:
-          <div class="row nemelex">
-            <table class="grouping" cellpadding="0" cellspacing="0">
-              <tr>
-                <td>
-                  <h3>Nemelex' Choice: </h3>
-                  <span>${nem_list[-1][0]}</span>, chosen on ${nem_list[-1][1]} UTC (${html.how_old(nem_list[-1][1])[0]} ago)
-                  <p class="fineprint">
-                    75 bonus points for the first eight players to win ${nem_list[-1][0]}
-                    during the tournament!
-                  </p>
-
-                  % if pnem_list:
-                  <h3>Nemelex' Previous Choices: </h3>
-                  ${", ".join(['<span>' + x + '</span>' for x in pnem_list])}
-                  <p class="fineprint">
-                    All previous Nemelex' Choices also remain valid during the
-                    tournament until won by eight players.
-                  </p>
-                  % endif
-                </td>
-
-                <td>
-                  ${html.banner_named('nemelex', 3)}
-                </td>
-              </tr>
-            </table>
-          </div>
-
-          <hr>
-          % endif
-
-          <div class="row">
-	        <table class="grouping" cellpadding="0" cellspacing="0">
-	          <tr>
-                <!-- Column one -->
-                <td>
-                  <div>
-                    <h3>Leading Players</h3>
-	                <%include file="overall-scores.mako"/>
-                  </div>
-	            </td>
-
-                <!-- Column two -->
-	            <td>
-                  <div>
-	                <h3>Leading Clans</h3>
-                    ${html.best_clans(c)}
-                  </div>
-	            </td>
-       	      </tr>
-	        </table>
-          </div>
-
-          <hr>
-
-          <div class="row">
-            <div>
-              <h3>Fastest Win (Turn Count)</h3>
-              <%include file="fastest-turn.mako"/>
-            </div>
-            <div>
-              <h3>Fastest Win (Real Time)</h3>
-              <%include file="fastest-time.mako"/>
-            </div>
-
-            <div>
-              <h3>Top Scores</h3>
-              ${html.games_table(top_scores)}
-            </div>
-          </div>
-
-          <hr>
-
-          <div class="row">
-            <div>
-              <h3>First Victory</h3>
-              <%include file="first-victory.mako"/>
-            </div>
-            <div>
-	      <h3>First All-Rune Wins</h3>
-	      <%include file="first-allrune.mako"/>
-            </div>
-
-          </div>
-
-          <hr>
-
-          <div class="row">
-            <div>
-	      <h3>Longest Streak</h3>
-              ${html.best_streaks(c)}
-            </div>
-
-            <div>
-              <h3>Active Streaks</h3>
-              ${html.best_active_streaks(c)}
-            </div>
-          </div>
-
-          <hr>
-
-          % if recent_wins:
-          <div class="row">
-          <div>
-            <h3>Recent Wins</h3>
-            ${html.games_table(recent_wins)}
-          </div>
-
-          </div>
-          <hr>
-          % endif
-
-          <div class="row">
-            <table class="grouping" cellspacing="0" cellpadding="0">
-              <tr>
-                <td>
-                  <div>
-                    <h3>Most High Scores</h3>
-                    ${html.combo_highscorers(c)}
-                  </div>
-                </td>
-                <td>
-                  <div>
-	                <h3>Most Uniques Killed</h3>
-                    <%include file="most-uniques-killed.mako"/>
-                  </div>
-                </td>
-              </tr>
-            </table>
-          </div>
-
-          <hr>
-
-          <div class="row">
-            <div>
-              <h3>Ziggurat Raiders</h3>
-              ${html.best_ziggurats(c)}
-            </div>
-
-            <div>
-              <h3>Wins at Lowest XL</h3>
-              <%include file="youngest.mako"/>
-            </div>
-
-            <div>
-              <h3>Runes Fetched at Lowest XL</h3>
-              ${html.youngest_rune_finds(c)}
-              <p class="fineprint">
-                Note: the abyssal and slimy runes are not eligible.
-              </p>
-            </div>
-
-            <div>
-              <h3>Highest AC+EV Games</h3>
-              <%include file="dieselest.mako"/>
-            </div>
-
-            <div>
-              <h3>Most Deaths to Uniques</h3>
-              ${html.most_deaths_to_uniques(c)}
-            </div>
-          </div>
-
-          <hr>
-
-          <div class="row">
-	    <table class="grouping" cellpadding="0" cellspacing="0">
-              <tr>
-	        <td>
-                  <div>
-	            <h3>Most Uniques Killed: Clan</h3>
-                    ${html.clan_unique_kills(c)}
-                  </div>
-          </td>
-
-                <td>
-                  <div>
-	            <h3>Most High Scores: Clan</h3>
-                    ${html.clan_combo_highscores(c)}
-                  </div>
-	        </td>
-              </tr>
-            </table>
-          </div>
-        </div> <!-- Content -->
-      </div>
+<%block name="main">
+  <div class="row">
+    <div class="col">
+      <h2>Recent Games</h2>
+      ${html.full_games_table(
+          query.find_games(cursor, sort_max = 'end_time', limit = 5),
+          count=False, win=False, caption="Recent games",
+          excluding=("race", "class", "turn", "duration", "runes", "turns"),
+          including=[
+            [0, ('player', 'Player')],
+            [1, ('charabbrev', 'Char')],
+            [8, ('src', 'Server')]
+          ]
+        )}
+        <h2>Current Top Players</h2>
+        ${html.table_text(
+          [ 'Player', 'Overall Score' ],
+          data=query.get_top_players(cursor, how_many=5),
+          place_column=1, skip=True,
+        )}
+        <a href="${base_link('all-players-ranks.html')}">
+          See full ranking.
+        </a>
     </div>
-    ${html.update_time()}
-  </body>
-</html>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <h2>Contents</h2>
+      <ol>
+        <li><a href="#individual-categories">Individual Categories</a></li>
+        <li><a href="#clan-categories">Clan Categories</a></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <h2 id="individual-categories">Individual Categories</h2>
+
+      % for category in scoring_data.INDIVIDUAL_CATEGORIES:
+      <div class="card bg-dark text-light mb-3">
+        <div class="row no-gutters">
+          <div class="col-md-auto">
+            <img
+              src="${XXX_IMAGE_BASE}/individual/${html.slugify(category.name)}.png"
+              alt=""
+              style="background: black; width: 200px;"
+              loading="lazy"
+            >
+          </div>
+          <div class="col-md">
+            <div class="card-body">
+              <h3 class="card-title">${category.name}</h3>
+              ## XXX: Ziggurat Diving doesn't work here
+              % if category.source_table and category.name != 'Ziggurat Diving':
+              ${html.table_text(
+                  [ 'Player', category.source_column_name ],
+                  scoring_data.category_leaders(category, cursor, limit=5),
+                  place_column=1,
+                  skip=True)
+              }
+              % endif
+              % if category.source_table:
+              <a href="${base_link(html.slugify(category.name))}.html">
+                View full ranking.
+              </a>
+              % else:
+              <i>Full ranking not available.</i>
+              % endif
+            </div>
+          </div>
+        </div>
+      </div>
+      % endfor
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <h2 id="clan-categories">Clan Categories</h2>
+
+      % for category in scoring_data.CLAN_CATEGORIES:
+      <div class="card bg-dark text-light mb-3">
+        <div class="row no-gutters">
+          <div class="col-md-auto">
+            <img
+              src="${XXX_IMAGE_BASE}/clan/${html.slugify(category.name)}.png"
+              alt=""
+              style="background: black; width: 200px;"
+              loading="lazy"
+            >
+          </div>
+          <div class="col-md">
+            <div class="card-body">
+              <h3 class="card-title">${category.name}</h3>
+              % if category.url:
+              <table>(Table showing top 5 goes here)</table>
+              <a href="${category.url}">
+                View full ranking.
+              </a>
+              % else:
+              Full ranking not available.
+              % endif
+            </div>
+          </div>
+        </div>
+      </div>
+      % endfor
+    </div>
+  </div>
+</%block>
