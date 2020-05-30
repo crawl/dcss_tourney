@@ -4,6 +4,7 @@ import datetime
 
 import crawl_utils
 from crawl_utils import base_link
+from query_class import Query
 
 TOURNAMENT_VERSION = "0.25"
 YEAR = "2020"
@@ -28,8 +29,33 @@ SERVERS = {
 
 IndividualCategory = collections.namedtuple(
     "IndividualCategory",
-    ("name", "desc", "db_column", "source_table", "source_column", "desc_order", "url"),
+    (
+        "name",
+        "desc",
+        "db_column",
+        "source_table",
+        "source_column",
+        "desc_order",
+        # URL for page listing the rank (and score) of every player
+        "url",
+    ),
 )
+
+
+def category_leaders(category, c, limit=None):
+    query_text = """SELECT player, {col} FROM {table}
+                   ORDER BY {col} {direction}""".format(
+        col=category.source_column,
+        table=category.source_table,
+        direction="DESC" if category.desc_order else "",
+    )
+    print("Query text: %r" % query_text)
+    query = Query(query_text)
+    if limit:
+        query.append(" LIMIT %d" % limit)
+    return query.rows(c)
+
+
 # This list (and the clan categories & banner lists) are in display order
 INDIVIDUAL_CATEGORIES = (
     IndividualCategory(
@@ -179,6 +205,7 @@ INDIVIDUAL_CATEGORIES = (
         "bscore",
         True,
         base_link("banner-order.html"),
+        None,
     ),
 )
 

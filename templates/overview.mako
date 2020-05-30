@@ -58,8 +58,16 @@
           <div class="col-md">
             <div class="card-body">
               <h3 class="card-title">${category.name}</h3>
+              ## XXX: Ziggurat Diving doesn't work here
+              % if category.url and category.name != 'Ziggurat Diving':
+              ${html.table_text(
+                  [ 'Player', category.source_column ],
+                  scoring_data.category_leaders(category, cursor, limit=5),
+                  place_column=1,
+                  skip=True)
+              }
+              % endif
               % if category.url:
-              <table>(Table showing top 5 goes here)</table>
               <a href="${category.url}">
                 View full ranking.
               </a>
