@@ -51,7 +51,9 @@
             <img
               src="${XXX_IMAGE_BASE}/individual/${html.slugify(category.name)}.png"
               alt=""
-              style="background: black; width: 200px;">
+              style="background: black; width: 200px;"
+              loading="lazy"
+            >
           </div>
           <div class="col-md">
             <div class="card-body">
@@ -83,7 +85,9 @@
             <img
               src="${XXX_IMAGE_BASE}/clan/${html.slugify(category.name)}.png"
               alt=""
-              style="background: black; width: 200px;">
+              style="background: black; width: 200px;"
+              loading="lazy"
+            >
           </div>
           <div class="col-md">
             <div class="card-body">
