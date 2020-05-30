@@ -76,7 +76,6 @@ def individual_category_pages(c):
 def player_pages(c):
   info("Updating all player pages")
   render(c, 'banners')
-  render(c, 'all-players')
   render(c, 'all-players-ranks')
 #  render(c, 'wins-and-kills')
   render(c, 'current-games')
