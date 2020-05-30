@@ -329,6 +329,7 @@ def table_text(headers, data, count=True,
     "table-hover",
     "table-striped",
     "table-dark",
+    "w-auto",
   ))
   out = '''<div class="table-responsive">\n<table class="%s">\n''' % " ".join(table_classes)
 
@@ -447,6 +448,7 @@ def games_table(games, first=None, excluding=None, columns=None,
     "table-hover",
     "table-striped",
     "table-dark",
+    "w-auto",
     ))
 
   out = '''<div class="table-responsive">\n<table class="%s">\n''' % " ".join(table_classes)
