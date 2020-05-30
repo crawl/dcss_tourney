@@ -35,6 +35,12 @@ h1, h2, h3, h4, h5, h6 {
   */
   background: #ddd;
 }
+/*
+  A little ugly, but hits WCAG contrast guidelines.
+*/
+td.sticky-column a {
+	color: #406098;
+}
 
 .text-light a {
   /* Increase link contrast with our background */

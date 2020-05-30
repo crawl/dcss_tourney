@@ -388,7 +388,7 @@ def table_text(headers, data, count=True,
         call_classes.add("text-right")
         call_classes.add("text-monospace")
       if extra_wide_support and is_player_header(header[0]):
-        call_classes.add('sticky-column')
+        call_classes.add('sticky-column text-dark')
 
       if c == place_column:
         out += '''<th class="%s" scope="row">''' % " ".join(call_classes)

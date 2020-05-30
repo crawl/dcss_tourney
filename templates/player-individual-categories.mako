@@ -17,7 +17,7 @@
     <tr>
   </thead>
   <tbody>
-    <tr>
+    <tr class="table-secondary text-dark">
       <th scope="row">
         <a href="${base_link('all-players-ranks.html')}">
           Total
