@@ -1,8 +1,6 @@
 -- Use InnoDB for transaction support?
 -- SET storage_engine=InnoDB;
 
-DROP TABLE IF EXISTS team_ranks;
-DROP TABLE IF EXISTS player_ranks;
 DROP TABLE IF EXISTS player_maxed_skills;
 DROP TABLE IF EXISTS player_fifteen_skills;
 DROP TABLE IF EXISTS clan_banners;
@@ -87,28 +85,59 @@ DROP VIEW IF EXISTS player_best_streak;
 DROP VIEW IF EXISTS clan_best_streak;
 DROP VIEW IF EXISTS player_win_perc;
 
+
+-- Player ranking in various categories; in principle this can
+-- all be achieved from the extant database, but requires the RANK() window
+-- function on a large join, so we cache it here.
 CREATE TABLE IF NOT EXISTS players (
   name VARCHAR(20) PRIMARY KEY,
   team_captain VARCHAR(20),
-  -- This is the computed score! We will overwrite it each time we
+  -- These aare the computed scores! We will overwrite it each time we
   -- recalculate it, and it may be null at any point.
   score_full DECIMAL(5,0),
-
+  nonrep_wins INT,
+  first_win INT,
+  first_allrune_win INT,
+  streak INT,
+  highest_score INT,
+  lowest_turncount_win INT,
+  fastest_win INT,
+  low_xl_win INT,
+  win_perc INT,
+  piety INT,
+  banner_score INT,
+  exploration INT,
+  harvest INT,
+  combo_score INT,
+  nemelex_score INT,
+  ziggurat_dive INT,
   FOREIGN KEY (team_captain) REFERENCES players (name)
   ON DELETE SET NULL
-  );
+);
 
 CREATE INDEX pscore ON players (score_full);
 
 CREATE TABLE teams (
   owner VARCHAR(20) UNIQUE NOT NULL,
   name VARCHAR(255) NOT NULL,
-  -- Clan total score, will be recomputed at intervals.
-  total_score BIGINT DEFAULT 0 NOT NULL,
+  -- Clan scores, will be recomputed at intervals.
+  total_score DECIMAL(5,0),
+  nonrep_wins INT,
+  streak INT,
+  highest_score INT,
+  lowest_turncount_win INT,
+  fastest_win INT,
+  piety INT,
+  harvest INT,
+  exploration INT,
+  combo_score INT,
+  nemelex_score INT,
+  ziggurat_dive INT,
+  banner_score INT,
   PRIMARY KEY (owner),
   FOREIGN KEY (owner) REFERENCES players (name)
   ON DELETE CASCADE
-  );
+);
 
 -- For mappings of logfile fields to columns, see loaddb.py
 CREATE TABLE games (
@@ -392,49 +421,6 @@ CREATE TABLE streaks (
   FOREIGN KEY (player) REFERENCES players (name) ON DELETE CASCADE
 );
 
--- Player ranking in various categories; in principle this can
--- all be achieved from the extant database, but requires the RANK() window
--- function on a large join, so we cache it here.
-CREATE TABLE player_ranks (
-  player VARCHAR(20),
-  nonrep_wins INT,
-  first_win INT,
-  first_allrune_win INT,
-  streak INT,
-  highest_score INT,
-  lowest_turncount_win INT,
-  fastest_win INT,
-  low_xl_win INT,
-  win_perc INT,
-  piety INT,
-  banner_score INT,
-  exploration INT,
-  harvest INT,
-  combo_score INT,
-  nemelex_score INT,
-  ziggurat_dive INT,
-  PRIMARY KEY (player),
-  FOREIGN KEY (player) REFERENCES players (name) ON DELETE CASCADE
-);
-
-CREATE TABLE team_ranks (
-  team_captain VARCHAR(20) NOT NULL,
-  nonrep_wins INT,
-  streak INT,
-  highest_score INT,
-  lowest_turncount_win INT,
-  fastest_win INT,
-  piety INT,
-  harvest INT,
-  exploration INT,
-  combo_score INT,
-  nemelex_score INT,
-  ziggurat_dive INT,
-  banner_score INT,
-  PRIMARY KEY (team_captain),
-  FOREIGN KEY (team_captain) REFERENCES teams (owner) ON DELETE CASCADE
-);
-
 
 CREATE TABLE player_maxed_skills (
   player VARCHAR(20),
@@ -573,11 +559,22 @@ SELECT g.* FROM games AS g
   LEFT OUTER JOIN games AS g2 ON g.player = g2.player AND g.score < g2.score
   WHERE g2.score IS NULL AND g.score > 0;
 
+-- This is semantically the "clear description" of the clan_highest_scores
+-- view. Best practice says not to replace it with the optimized transformation
+-- below because the query optimizer can do that. Unfortunately the query
+-- optimizer only does this transformation in SELECT contexts and not UPDATE
+-- contexts (despite the manual claiming otherwise).
+-- CREATE VIEW clan_highest_scores AS
+-- SELECT g.* FROM clan_games AS g
+--   LEFT OUTER JOIN clan_games AS g2
+--     ON g.team_captain = g2.team_captain AND g.score < g2.score
+--   WHERE g2.score IS NULL AND g.score > 0;
 CREATE VIEW clan_highest_scores AS
-SELECT g.* FROM clan_games AS g
-  LEFT OUTER JOIN clan_games AS g2
-    ON g.team_captain = g2.team_captain AND g.score < g2.score
-  WHERE g2.score IS NULL AND g.score > 0;
+SELECT p.team_captain, g.* FROM games AS g
+  INNER JOIN players AS p ON g.player = p.name
+  LEFT OUTER JOIN (players AS p2 INNER JOIN games AS g2 ON g2.player = p2.name)
+    ON p.team_captain = p2.team_captain AND g.score < g2.score
+  WHERE g2.score IS NULL AND g.score > 0 AND p.team_captain IS NOT NULL;
 
 CREATE VIEW lowest_turncount_wins AS
 SELECT g.* FROM wins AS g

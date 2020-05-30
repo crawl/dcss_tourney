@@ -668,7 +668,7 @@ def get_player_ranks(c, name):
     ranks = query_row(c, '''SELECT '''
                           + ",".join([ ic.db_column for ic in
                               INDIVIDUAL_CATEGORIES ])
-                          + ''' FROM player_ranks WHERE player = %s''', name)
+                          + ''' FROM players WHERE name = %s''', name)
     if ranks is None:
         return None
     return dict(zip( [ ic.name for ic in INDIVIDUAL_CATEGORIES ], ranks))
@@ -1417,7 +1417,7 @@ def check_ru_abandonment_game(c, name, start):
 ###############################
 
 def assign_nonrep_win(c, player, number):
-  query_do(c, '''INSERT INTO player_ranks (player, nonrep_wins) VALUES (%s, %s)
+  query_do(c, '''INSERT INTO players (name, nonrep_wins) VALUES (%s, %s)
                  ON DUPLICATE KEY UPDATE nonrep_wins = %s''',
                  player, 3 - number, 3 - number)
 
@@ -1558,60 +1558,56 @@ def streak_order(c, limit=None):
     query.append(' LIMIT %d' % limit)
   return query.rows(c)
 
-def update_rank(c, rank_table, rank_table_key, rank_column, source_table, source_column, desc):
-    query_do(c, '''INSERT INTO %s (%s, %s)
-                   SELECT * FROM
+def update_rank(c, rank_table, rank_table_key, rank_column, source_foreign_key, source_table, source_column, desc):
+    query_do(c, '''UPDATE %s AS t INNER JOIN
                      (SELECT %s, RANK() OVER(ORDER BY %s %s) AS rk
-                        FROM %s WHERE %s IS NOT NULL) AS dt
-                   ON DUPLICATE KEY UPDATE %s = rk'''
-                   % (rank_table, rank_table_key, rank_column, rank_table_key,
+                        FROM %s WHERE %s IS NOT NULL) AS r
+                    ON t.%s = r.%s SET t.%s = r.rk'''
+                   % (rank_table,source_foreign_key,
                       source_column, desc and "DESC" or "", source_table,
-                      rank_table_key, rank_column))
+                      source_foreign_key, rank_table_key, source_foreign_key,
+                      rank_column))
     return
 
 def update_all_player_ranks(c):
     for ic in INDIVIDUAL_CATEGORIES:
         if ic.source_table is not None:
-            update_rank(c, 'player_ranks', 'player',
-              ic.db_column, ic.source_table, ic.source_column, ic.desc_order)
+            update_rank(c, 'players', 'name', ic.db_column,
+                    'player', ic.source_table, ic.source_column, ic.desc_order)
     return
 
 def update_clan_wins(c):
-    query_do(c, '''INSERT INTO team_ranks (team_captain, nonrep_wins)
-                   SELECT * FROM
+    query_do(c, '''UPDATE teams AS t INNER JOIN
                      (SELECT team_captain, 13 - LEAST(SUM(first_four),12) AS rk
-                        FROM clan_combo_first_wins GROUP BY team_captain) AS dt
-                   ON DUPLICATE KEY UPDATE nonrep_wins = rk''')
+                        FROM clan_combo_first_wins GROUP BY team_captain) AS r
+                   ON t.owner = r.team_captain SET t.nonrep_wins = r.rk''')
     return
 
 def update_all_clan_ranks(c):
     update_clan_wins(c)
     for cc in CLAN_CATEGORIES:
         if cc.source_table is not None:
-            update_rank(c, 'team_ranks', 'team_captain',
-              cc.db_column, cc.source_table, cc.source_column, cc.desc_order)
+            update_rank(c, 'teams', 'owner', cc.db_column,
+               'team_captain', cc.source_table, cc.source_column, cc.desc_order)
     return
 
 def score_term(col):
     return "COALESCE( %5.1f / %s, 0.0 )" % (MAX_CATEGORY_SCORE, col)
 
 def update_player_scores(c):
-    SCOREFUNC = "CAST( (" + "+".join([ score_term('r.' + ic.db_column) for
+    SCOREFUNC = "CAST( (" + "+".join([ score_term(ic.db_column) for
         ic in INDIVIDUAL_CATEGORIES]) \
         + ") / %d AS DECIMAL(5,0))" % len(INDIVIDUAL_CATEGORIES);
 
-    query_do(c, '''UPDATE players AS p LEFT OUTER JOIN player_ranks AS r
-                   ON p.name = r.player
-                   SET p.score_full = ''' + SCOREFUNC)
+    query_do(c, '''UPDATE players 
+                   SET score_full = ''' + SCOREFUNC)
 
 def update_clan_scores(c):
-    SCOREFUNC = "CAST( (" + "+".join([ score_term('r.' + cc.db_column) for
+    SCOREFUNC = "CAST( (" + "+".join([ score_term(cc.db_column) for
         cc in CLAN_CATEGORIES]) \
         + ") / %d AS DECIMAL(5,0))" % len(CLAN_CATEGORIES);
 
-    query_do(c, '''UPDATE teams AS t LEFT OUTER JOIN team_ranks AS r
-                   ON t.owner = r.team_captain
-                   SET t.total_score = ''' + SCOREFUNC)
+    query_do(c, '''UPDATE teams SET total_score = ''' + SCOREFUNC)
 
 def render_rank(n):
     if n is None:
@@ -1621,9 +1617,8 @@ def render_rank(n):
 
 def get_all_player_ranks(c):
   q = Query('''SELECT p.name, p.team_captain, t.name, p.score_full, '''
-               + ",".join([ 'r.' + ic.db_column for ic in INDIVIDUAL_CATEGORIES ]) +
-               ''' FROM players p LEFT JOIN player_ranks r
-               ON p.name = r.player
+               + ",".join([ 'p.' + ic.db_column for ic in INDIVIDUAL_CATEGORIES ]) +
+               ''' FROM players p
                LEFT JOIN teams t
                ON p.team_captain = t.owner
                ORDER BY p.score_full DESC, p.name''')
@@ -1641,11 +1636,10 @@ def get_all_player_ranks(c):
   return clean_rows
 
 def get_all_clan_ranks(c):
-  q = Query('''SELECT t.name, t.owner, t.total_score, '''
-               + ",".join([ 'r.' + cc.db_column for cc in CLAN_CATEGORIES]) +
-            ''' FROM teams t LEFT JOIN team_ranks r
-               ON t.owner = r.team_captain
-               ORDER BY t.total_score DESC, t.name''')
+  q = Query('''SELECT name, owner, total_score, '''
+               + ",".join([ cc.db_column for cc in CLAN_CATEGORIES]) +
+            ''' FROM teams
+               ORDER BY total_score DESC, name''')
 
   rows = [ [render_rank(rk) for rk in r ] for r in q.rows(c) ]
   return rows
