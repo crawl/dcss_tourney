@@ -1643,5 +1643,12 @@ def get_all_clan_ranks(c):
             ''' FROM teams
                ORDER BY total_score DESC, name''')
 
-  rows = [ [render_rank(rk) for rk in r ] for r in q.rows(c) ]
-  return rows
+  rows = [ list(r) for r in q.rows(c) ]
+  clean_rows = [ ]
+  for r in rows:
+      captain = r[1]
+      r[0] = crawl_utils.linked_text(captain, crawl_utils.clan_link, r[0])
+      r[1] = crawl_utils.clan_affiliation(captain, get_clan_info(c, captain),
+              False)
+      clean_rows.append( [render_rank(n) for n in r] )
+  return clean_rows

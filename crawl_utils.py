@@ -215,3 +215,21 @@ def morgue_link(xdict):
 def linked_text(key, link_fn, text=None):
   link = link_fn(key)
   return '<a href="%s">%s</a>' % (link, (text or key).replace('_', ' '))
+
+def clan_affiliation(player, clan_info, include_clan=True):
+  # Clan affiliation info is clan name, followed by a list of players,
+  # captain first, or None if the player is not in a clan.
+  clan_name, players = clan_info
+  if include_clan:
+    clan_html = linked_text(players[0], clan_link, clan_name) + " - "
+  else:
+    clan_html = ''
+
+  plinks = [ linked_text(players[0], player_link) + " (captain)" ]
+
+  other_players = sorted(players[1:])
+  for p in other_players:
+    plinks.append( linked_text(p, player_link) )
+
+  clan_html += ", ".join(plinks)
+  return clan_html

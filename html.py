@@ -623,28 +623,6 @@ def clan_combo_highscores(c):
                      fixup_clan_rows(query.get_top_clan_combos(c)),
                      place_column=2, skip=True )
 
-def clan_affiliation(c, player, include_clan=True):
-  # Clan affiliation info is clan name, followed by a list of players,
-  # captain first, or None if the player is not in a clan.
-  clan_info = query.get_clan_info(c, player)
-  if clan_info is None:
-    return "None"
-
-  clan_name, players = clan_info
-  if include_clan:
-    clan_html = linked_text(players[0], clan_link, clan_name) + " - "
-  else:
-    clan_html = ''
-
-  plinks = [ linked_text(players[0], player_link) + " (captain)" ]
-
-  other_players = sorted(players[1:])
-  for p in other_players:
-    plinks.append( linked_text(p, player_link) )
-
-  clan_html += ", ".join(plinks)
-  return clan_html
-
 def make_milestone_string(w, src, make_links=False):
   if src == 'csz':
     pretty_src = 'cszo'
