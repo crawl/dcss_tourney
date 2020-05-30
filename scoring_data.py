@@ -101,7 +101,7 @@ INDIVIDUAL_CATEGORIES = (
         "Win Percentage",
         None,
         True,
-        [],
+        [ColumnSpec("n_wins", "Wins"), ColumnSpec("n_games", "Games Played")],
     ),
     IndividualCategory(
         "Streak Length",
