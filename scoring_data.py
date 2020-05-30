@@ -4,6 +4,7 @@ import datetime
 
 import crawl_utils
 from crawl_utils import base_link
+from query_class import Query
 
 TOURNAMENT_VERSION = "0.25"
 YEAR = "2020"
@@ -28,14 +29,34 @@ SERVERS = {
 
 IndividualCategory = collections.namedtuple(
     "IndividualCategory",
-    ("name", "desc", "db_column", "source_table", "source_column", "desc_order", "url"),
+    (
+        "name",
+        "desc",
+        "db_column",
+        "source_table",
+        "source_column",
+        "desc_order",
+        # URL for page listing the rank (and score) of every player
+        "url",
+        # Function that returns players in ranked order
+        "query_func",
+    ),
 )
+
+def _win_perc_order(c, limit = None):
+  query = Query('''SELECT player, win_perc FROM player_win_perc
+                   ORDER BY win_perc DESC''')
+  if limit:
+    query.append(' LIMIT %d' % limit)
+  return query.rows(c)
+
 # This list (and the clan categories & banner lists) are in display order
 INDIVIDUAL_CATEGORIES = (
     IndividualCategory(
         "Winning",
         "The Shining One values perserverence and courage in the face of adversity. In this category, TSO will award players 10,000 points if they win two distinct character combos, 5,000 points for winning their first combo, and 0 otherwise.",
         "nonrep_wins",
+        None,
         None,
         None,
         None,
@@ -49,6 +70,7 @@ INDIVIDUAL_CATEGORIES = (
         "win_perc",
         True,
         base_link("win-percentage-order.html"),
+        _win_perc_order,
     ),
     IndividualCategory(
         "Streak Length",
@@ -58,6 +80,7 @@ INDIVIDUAL_CATEGORIES = (
         "length",
         True,
         base_link("streak-order-active-streaks.html"),
+        None,
     ),
     IndividualCategory(
         "Nemelex' Choice",
@@ -67,6 +90,7 @@ INDIVIDUAL_CATEGORIES = (
         "score",
         True,
         base_link("nemelex-order.html"),
+        None,
     ),
     IndividualCategory(
         "Combo High Scores",
@@ -76,6 +100,7 @@ INDIVIDUAL_CATEGORIES = (
         "total",
         True,
         base_link("combo-leaders.html"),
+        None,
     ),
     IndividualCategory(
         "Best High Score",
@@ -85,6 +110,7 @@ INDIVIDUAL_CATEGORIES = (
         "score",
         True,
         base_link("high-score-order.html"),
+        None,
     ),
     IndividualCategory(
         "Lowest Turncount Win",
@@ -94,6 +120,7 @@ INDIVIDUAL_CATEGORIES = (
         "turn",
         False,
         base_link("low-tc-win-order.html"),
+        None,
     ),
     IndividualCategory(
         "Fastest Real Time Win",
@@ -103,6 +130,7 @@ INDIVIDUAL_CATEGORIES = (
         "duration",
         False,
         base_link("fastest-realtime-win-order.html"),
+        None,
     ),
     IndividualCategory(
         "Lowest XL Win",
@@ -112,6 +140,7 @@ INDIVIDUAL_CATEGORIES = (
         "xl",
         False,
         base_link("low-xl-win-order.html"),
+        None,
     ),
     IndividualCategory(
         "Tournament Win Order",
@@ -121,6 +150,7 @@ INDIVIDUAL_CATEGORIES = (
         "end_time",
         False,
         base_link("first-win-order.html"),
+        None,
     ),
     IndividualCategory(
         "Tournament All Rune Win Order",
@@ -130,6 +160,7 @@ INDIVIDUAL_CATEGORIES = (
         "end_time",
         False,
         base_link("first-allrune-win-order.html"),
+        None,
     ),
     IndividualCategory(
         "Exploration",
@@ -139,6 +170,7 @@ INDIVIDUAL_CATEGORIES = (
         "score",
         True,
         base_link("exploration-order.html"),
+        None,
     ),
     IndividualCategory(
         "Piety",
@@ -148,6 +180,7 @@ INDIVIDUAL_CATEGORIES = (
         "piety",
         True,
         base_link("piety-order.html"),
+        None,
     ),
     IndividualCategory(
         "Unique Harvesting",
@@ -157,6 +190,7 @@ INDIVIDUAL_CATEGORIES = (
         "score",
         True,
         base_link("harvest-order.html"),
+        None,
     ),
     IndividualCategory(
         "Ziggurat Diving",
@@ -170,6 +204,7 @@ INDIVIDUAL_CATEGORIES = (
         "completed DESC, deepest DESC",
         None,
         base_link("zig-dive-order.html"),
+        None,
     ),
     IndividualCategory(
         "Banner Score",
@@ -179,6 +214,7 @@ INDIVIDUAL_CATEGORIES = (
         "bscore",
         True,
         base_link("banner-order.html"),
+        None,
     ),
 )
 

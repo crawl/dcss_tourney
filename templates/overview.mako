@@ -56,8 +56,13 @@
           <div class="col-md">
             <div class="card-body">
               <h3 class="card-title">${category.name}</h3>
+              % if category.query_func:
+              ## XXX: to finish this refactor, we'll need to move all the other
+              ##      table_text args to scoring_data as well.
+              ${html.table_text( [ 'Player', 'Win Percentage' ],
+                category.query_func(cursor, limit=5), place_column=1, skip=True)}
+              % endif
               % if category.url:
-              <table>(Table showing top 5 goes here)</table>
               <a href="${category.url}">
                 View full ranking.
               </a>
