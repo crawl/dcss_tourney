@@ -20,7 +20,7 @@
       ${html.full_games_table(
           query.find_games(cursor, sort_max = 'end_time', limit = 5),
           count=False, win=False, caption="Recent games",
-          excluding=("race", "class", "title", "turn", "duration", "runes", "turns"),
+          excluding=("race", "class", "turn", "duration", "runes", "turns"),
           including=[
             [0, ('player', 'Player')],
             [1, ('charabbrev', 'Char')],
@@ -72,7 +72,7 @@
                 View full ranking.
               </a>
               % else:
-              Full ranking not available.
+              <i>Full ranking not available.</i>
               % endif
             </div>
           </div>
