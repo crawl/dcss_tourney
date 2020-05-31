@@ -385,8 +385,10 @@ def table_text(headers, data, count=True,
       header = headers[c]
 
       numeric_col = isinstance(val, (int, float, decimal.Decimal))
+      pseudo_numeric_col = val == '-'
       if numeric_col:
         val = '{:,}'.format(val)
+      if numeric_col or pseudo_numeric_col:
         call_classes.add("text-right")
         call_classes.add("text-monospace")
       if extra_wide_support and is_player_header(header[0]):
@@ -493,9 +495,10 @@ def games_table(games, first=None, excluding=None, columns=None,
     for i, c in enumerate(columns):
       val = fixup_column(c[0], game.get(c[0]) or '', game)
       numeric_col = isinstance(val, (int, float, decimal.Decimal))
+      pseudo_numeric_col = val == '-'
       if numeric_col:
         val = '{:,}'.format(val)
-      td_class = "text-right text-monospace" if numeric_col else ""
+      td_class = "text-right text-monospace" if (numeric_col or pseudo_numeric_col) else ""
       if i == place_column:
         out += '''<th class="%s" scope="row">''' % td_class
       else:
