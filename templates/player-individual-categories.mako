@@ -25,7 +25,18 @@
       </th>
       <th scope="row" class="text-monospace text-right">${overall_rank}</th>
       <th scope="row" class="text-monospace text-right">
-        ${'{:,}'.format(sum(int(points_for_rank(result.rank)) for result in individual_category_results.values() if result.rank is not None))}
+        <%
+        points = int(
+          round(
+            sum(
+              float(points_for_rank(result.rank))
+              for result in individual_category_results.values()
+              if result.rank is not None
+            ) / len(individual_category_results)
+          , 0)
+        )
+        %>
+        ${'{:,}'.format(points)}
       </th>
       <th scope="row"></th>
     </tr>
