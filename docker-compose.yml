@@ -31,7 +31,6 @@ services:
       - --db-retry-connect
       - --validate-database
     environment:
-      LOCAL_TEST: "false"
       BASEDIR: /root
       WEB_BASE: "http://localhost:8080"
     volumes:
