@@ -38,7 +38,7 @@ h1, h2, h3, h4, h5, h6 {
 /*
   A little ugly, but hits WCAG contrast guidelines.
 */
-td.sticky-column a {
+td.sticky-column a, tr.table-secondary td a, tr.table-secondary th a {
 	color: #406098;
 }
 

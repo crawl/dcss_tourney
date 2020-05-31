@@ -331,6 +331,8 @@ def table_text(headers, data, count=True,
     "table-dark",
     "w-auto",
   ))
+  if extra_wide_support:
+    table_classes.add("table-bordered")
   out = '''<div class="table-responsive">\n<table class="%s">\n''' % " ".join(table_classes)
 
   if caption is not None:
