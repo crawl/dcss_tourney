@@ -7,24 +7,35 @@ import sys
 # Update every so often (seconds)
 UPDATE_INTERVAL = 7 * 60
 
-# Are we testing locally, or do we want output suitable for a website?
+# Are we testing locally? If so, use file:/// urls. The urls will be have the
+# script working directory and then the SCORE_FILE_DIR added.
 #
-# If True, BASEDIR below is assumed to be $HOME and all page links use file://
-# urls. The urls will be have the script working directory and then the
-# SCORE_FILE_DIR added.
-#
-# If False, don't assume $HOME for BASEDIR and use WEB_BASE to make page link
-# urls.
-#
-# Set LOCAL_TEST="false" in env to disable.
-LOCAL_TEST = True if "LOCAL_TEST" not in os.environ else bool(os.environ["LOCAL_TEST"] == "true")
+# If we're not testing locally and hence want output suitable for a web server,
+# use urls made from WEB_BASE below. Set LOCAL_TEST="true" in env to enable.
+if "LOCAL_TEST" in os.environ and os.environ["LOCAL_TEST"] == "true":
+    LOCAL_TEST = True
+else:
+    LOCAL_TEST = False
 
-# Base URL of tournament pages, omitting any trailing slash.
-WEB_BASE = os.environ.get("WEB_BASE") or 'https://crawl.develz.org/tournament/0.24'
+# Base URL of tournament pages, omitting any trailing slash. This is not used
+# if LOCAL_TEST is true.
+if "WEB_BASE" in os.environ:
+    WEB_BASE = os.environ["WEB_BASE"]
+else:
+    WEB_BASE = 'https://crawl.develz.org/tournament/0.24'
 
 LOCK = None
-# Where data needed for tournament calculations are stored.
-BASEDIR = os.environ.get("BASEDIR") or LOCAL_TEST and os.environ['HOME'] or '/home/tourney/dcss_tourney'
+
+# Where data needed for tournament calculations are stored. If BASEDIR env
+# variable is defined, use that as the base directory.  Otherwise, use $HOME if
+# we are LOCAL_TEST and a default if not.
+if "BASEDIR" in os.environ:
+    BASEDIR = os.environ["BASEDIR"]
+elif LOCAL_TEST:
+    BASEDIR = os.environ['HOME']
+else:
+    BASEDIR = '/home/tourney/dcss_tourney'
+
 LOCKFILE = BASEDIR + '/tourney-py.lock'
 
 # Where to generate the tournament pages. Can be a directory relative to
@@ -50,8 +61,11 @@ CWZ_MORGUE_BASE = 'https://webzook.net/soup/morgue/0.24'
 CXC_MORGUE_BASE = 'http://crawl.xtahua.com/crawl/morgue'
 LLD_MORGUE_BASE = 'http://lazy-life.ddo.jp:8080/morgue-0.24'
 
-XXX_TOURNEY_BASE = ((LOCAL_TEST and ('file:///' + os.getcwd() + '/' + SCORE_FILE_DIR))
-                   or WEB_BASE)
+if LOCAL_TEST:
+    XXX_TOURNEY_BASE = 'file:///' + os.getcwd() + '/' + SCORE_FILE_DIR
+else:
+    XXX_TOURNEY_BASE = WEB_BASE
+
 XXX_IMAGE_BASE = XXX_TOURNEY_BASE + '/images'
 XXX_PLAYER_BASE = '%s/players' % XXX_TOURNEY_BASE
 XXX_CLAN_BASE = '%s/clans' % XXX_TOURNEY_BASE

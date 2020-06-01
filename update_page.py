@@ -16,7 +16,7 @@ import html
 import scoring_data
 
 CategoryResult = collections.namedtuple('CategoryResult', ('rank', 'details'))
-BannerResult = collections.namedtuple('BannerResult', ('tier', 'details'))
+BannerResult = collections.namedtuple('BannerResult', ('tier',))
 
 TEMPLATE_DIR = os.path.abspath('templates')
 MAKO_LOOKUP = mako.lookup.TemplateLookup(directories = [ TEMPLATE_DIR ],
@@ -146,7 +146,7 @@ def player_banner_results(c, player):
   data = {}
   for banentry in scoring_data.BANNERS:
     data[banentry.name] = BannerResult(banner.player_banner_tier(c, player,
-        banentry.dbname), ("Tier 1 notes", "Tier 2 notes", "Tier 3 notes"))
+        banentry.dbname))
   return data
 
 # Update tourney overview every 5 mins.
