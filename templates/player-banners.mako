@@ -17,7 +17,7 @@
       <div class="card-body">
         <h2 class="card-title">${banner.name}</h2>
         <ul class="list-group list-group-flush">
-          % for tier in (0, 1, 2):
+          % for tier in (1, 2, 3):
           <%
             achieved = results.tier >= tier
           %>
@@ -26,10 +26,10 @@
             <img src="${XXX_IMAGE_BASE}/gui/prompt_yes.png" class="float-left mr-1" alt="Tier achieved">
             % endif
             <p class="lead mb-0">${'<s>' if achieved else ''}
-              Tier ${tier + 1}: <small><i>${banner.tiers[tier]}</i></small>
+              Tier ${tier}: <small><i>${banner.tiers[tier - 1]}</i></small>
             ${'</s>' if achieved else ''}</p>
             <p class="mb-0">
-              ${results.details[tier]}
+              ${results.details[tier - 1]}
             </p>
           </li>
           % endfor

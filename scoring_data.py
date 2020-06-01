@@ -426,7 +426,8 @@ CLAN_CATEGORIES = (
         None,
     ),
 )
-Banner = collections.namedtuple("Banner", ("god", "name", "tiers", "notes"))
+Banner = collections.namedtuple("Banner", ("god", "name", "tiers", "notes",
+    "dbname"))
 BannerTiers = collections.namedtuple("BannerTiers", ("one", "two", "three"))
 BANNERS = [
     Banner(
@@ -436,6 +437,7 @@ BANNERS = [
             "Enter a rune branch", "Collect 5 distinct runes", "Collect all 17 runes",
         ),
         None,
+        "ashenzari",
     ),
     Banner(
         "Beogh",
@@ -446,6 +448,7 @@ BANNERS = [
             "Abandon and mollify 9 gods in 9 different games",
         ),
         None,
+        "beogh",
     ),
     Banner(
         "Cheibriados",
@@ -456,6 +459,7 @@ BANNERS = [
             "Achieve a two-win streak.",
         ),
         None,
+        "cheibriados",
     ),
     Banner(
         "Dithmenos",
@@ -466,12 +470,14 @@ BANNERS = [
             "Steal a species or background high score that was previously of at least 10,000,000 points.",
         ),
         None,
+        "dithmenos",
     ),
     Banner(
         "Elyvilon",
         "Pious",
         BannerTiers("Champion a god.", "Champion 5 gods.", "Champion 13 gods."),
         None,
+        "elyvilon",
     ),
     Banner(
         "Fedhas",
@@ -482,6 +488,7 @@ BANNERS = [
             "Enter Tomb for the first time after picking up the Orb of Zot, and then get the golden rune.",
         ),
         None,
+        "fedhas",
     ),
     Banner(
         "Gozag",
@@ -492,6 +499,7 @@ BANNERS = [
             "Find the iron rune before entering Pandemonium or any branch of the dungeon containing any other rune. This means that only Temple, Lair, Orc, Elf, Depths, Abyss, Hell, and Dis can be entered.",
         ),
         None,
+        "gozag",
     ),
     Banner(
         "Hepliaklqana",
@@ -502,6 +510,7 @@ BANNERS = [
             "Win a game while worshipping a god from a faded altar.",
         ),
         "To achieve these banner tiers, you cannot have worshipped any other gods in the game.",
+        "hepliaklqana",
     ),
     Banner(
         "Jiyva",
@@ -512,6 +521,7 @@ BANNERS = [
             "Win with at least 5 distinct species and at least 5 distinct backgrounds.",
         ),
         None,
+        "jiyva",
     ),
     Banner(
         "Kikubaaqudgha",
@@ -522,6 +532,7 @@ BANNERS = [
             "Win a game without having entered the Lair, the Orcish Mines, or the Vaults.",
         ),
         None,
+        "kikubaaqudgha",
     ),
     Banner(
         "Lugonu",
@@ -532,6 +543,7 @@ BANNERS = [
             "After becoming the champion of Ru and abandoning Ru, become the champion of Ru again.",
         ),
         None,
+        "lugonu",
     ),
     Banner(
         "Makhleb",
@@ -542,9 +554,10 @@ BANNERS = [
             "Win the game in 3 hours.",
         ),
         None,
+        "makhleb",
     ),
     Banner(
-        "Nemelex",
+        "Nemelex Xobeh",
         "Nemelex' Choice",
         BannerTiers(
             "Reach experience level 9 with a Nemelex' choice combo.",
@@ -552,6 +565,7 @@ BANNERS = [
             "Win a given Nemelex' choice combo. (Awarded even if you're not in the first 8.)",
         ),
         None,
+        "nemelex",
     ),
     Banner(
         "Okawaru",
@@ -562,6 +576,7 @@ BANNERS = [
             "Achieve a personal high score of 27,000,000.",
         ),
         None,
+        "okawaru",
     ),
     Banner(
         "Qazlal",
@@ -572,6 +587,7 @@ BANNERS = [
             "Over the course of the tournament, win with three different different gods and Invocations as your highest skill.",
         ),
         None,
+        "qazlal",
     ),
     Banner(
         "Ru",
@@ -582,6 +598,7 @@ BANNERS = [
             "Collect a rune without using any potions or scrolls. This rune cannot be the slimy or abyssal rune: Ru requires you to undergo this sacrifice for longer.",
         ),
         None,
+        "ru",
     ),
     Banner(
         "Sif Muna",
@@ -592,6 +609,7 @@ BANNERS = [
             "Win without raising any skill to 13.",
         ),
         "Gnolls and worshippers of Ashenzari are not eligible for this banner.",
+        "sif",
     ),
     Banner(
         "The Shining One",
@@ -602,6 +620,7 @@ BANNERS = [
             "In a single game, get six runes before entering the Depths.",
         ),
         None,
+        "the_shining_one",
     ),
     Banner(
         "Trog",
@@ -612,6 +631,7 @@ BANNERS = [
             "Win a game as a non-demigod without worshipping a god.",
         ),
         None,
+        "trog"
     ),
     Banner(
         "Uskayaw",
@@ -622,6 +642,7 @@ BANNERS = [
             "Enter the final floor of Gehenna in under 27,000 turns.",
         ),
         None,
+        "uskayaw"
     ),
     Banner(
         "Vehumet",
@@ -632,12 +653,14 @@ BANNERS = [
             "Win the game before reaching experience level 19.",
         ),
         "Waiting around for an ancestor to return from memory is inefficient, so games where Hepliaklqana is worshipped do not count for this banner.",
+        "vehumet",
     ),
     Banner(
         "Wu Jian Council",
         "TBC (Wu Jian)",
         BannerTiers("TBC Wu Jian Tier 1", "TBC Wu Jian Tier 2", "TBC Wu Jian Tier 3",),
         None,
+        "wu_jian",
     ),
     Banner(
         "Xom",
@@ -648,6 +671,7 @@ BANNERS = [
             "Exit a Ziggurat from its lowest floor.",
         ),
         None,
+        "xom",
     ),
     Banner(
         "Yredelemnul",
@@ -658,6 +682,7 @@ BANNERS = [
             "Kill 73 distinct uniques over the course of the tournament.",
         ),
         "There are XX uniques in DCSS.",
+        "yredelemnul",
     ),
     Banner(
         "Zin",
@@ -668,6 +693,7 @@ BANNERS = [
             "Kill all four unique pan lords, all four unique hell lords, and the Serpent of Hell (at least once) over the course of the tournament.",
         ),
         None,
+        "zin",
     ),
 ]
 

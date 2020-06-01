@@ -9,6 +9,7 @@ import loaddb
 import query
 import crawl_utils
 import collections
+import banner
 from logging import debug, info, warn, error
 
 import html
@@ -142,11 +143,10 @@ def player_clan_category_results(c, player):
   return data
 
 def player_banner_results(c, player):
-  # TODO
-  import random
   data = {}
-  for banner in scoring_data.BANNERS:
-    data[banner.name] = BannerResult(random.randrange(0, 3), ("Tier 1 notes", "Tier 2 notes", "Tier 3 notes"))
+  for banentry in scoring_data.BANNERS:
+    data[banentry.name] = BannerResult(banner.player_banner_tier(c, player,
+        banentry.dbname), ("Tier 1 notes", "Tier 2 notes", "Tier 3 notes"))
   return data
 
 # Update tourney overview every 5 mins.

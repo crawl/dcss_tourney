@@ -10,6 +10,12 @@ def player_has_banner(c, player, banner, prestige):
                              WHERE player = %s AND banner = %s AND prestige >= %s''',
                          player, banner, prestige)
 
+def player_banner_tier(c, player, banner):
+  return query_first_def(c, 0,
+                         '''SELECT prestige FROM player_banners
+                             WHERE player = %s AND banner = %s''',
+                         player, banner)
+
 def count_recipients(c, banner, prestige):
   return query_first(c, '''SELECT COUNT(*) FROM player_banners
                          WHERE banner = %s AND prestige >= %s''', banner, prestige)
