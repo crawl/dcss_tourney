@@ -200,24 +200,34 @@
         above. Banner tiers are worth 1, 2, and 4 points for tiers one, two, and
         three respectively.
       </p>
-      % for banner in scoring_data.BANNERS:
-      <div class="row">
-        <div class="col">
-          <p>
-            <b>${banner.name} (${banner.god})</b>
-          </p>
-          <ol>
-            % for num, desc in enumerate(banner.tiers):
-              <li><b>Tier ${num + 1}:</b> ${desc}</li>
-            % endfor
-          </ol>
-        </div>
-      </div>
-      % if banner.notes:
-      <p><i>${banner.notes}</i></p>
-      % endif
-      % endfor
     </div>
   </div>
+  <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3">
+  % for banner in scoring_data.BANNERS:
+  <div class="col mb-4">
+    <div class="card h-100 banner bg-dark text-light">
+      <img
+        src="${XXX_IMAGE_BASE}/altar/${html.slugify(banner.god)}.png"
+        alt="${banner.god}"
+        class="card-img-top pixel-art px-5 mt-3 mx-auto"
+        style="max-width: 180px;"
+        loading="lazy"
+      >
+      <div class="card-body">
+        <h2 class="card-title">${banner.name}</h2>
+        <ul class="list-group list-group-flush">
+          % for tier in (0, 1, 2):
+          <li class="list-group-item bg-dark py-1">
+            <p class="mb-0">
+              Tier ${tier + 1}: ${banner.tiers[tier]}
+            </p>
+          </li>
+          % endfor
+        </ul>
+      </div>
+    </div>
+  </div>
+  % endfor
+</div>
 
 </%block>
