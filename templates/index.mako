@@ -34,11 +34,10 @@
         <span class="font-weight-bold" id="tournament-start-time">
           ${scoring_data.START_TIME.strftime("at %I:%M%p %A %d %B %Z UTC")}
         </span>
-        and runs for 16 days (
+        and runs for 16 days until
         <span class="font-weight-bold" id="tournament-end-time">
-          ${scoring_data.END_TIME.strftime("until %I:%M%p %A %d %B %Z UTC")}
-        </span>
-        ).
+          ${scoring_data.END_TIME.strftime("%I:%M%p %A %d %B %Z UTC")}
+        </span>.
     </div>
   </div>
 
