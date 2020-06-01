@@ -202,7 +202,7 @@
       </p>
     </div>
   </div>
-  <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3">
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4">
   % for banner in scoring_data.BANNERS:
   <div class="col mb-4">
     <div class="card h-100 banner bg-dark text-light">
@@ -218,7 +218,7 @@
         <ul class="list-group list-group-flush">
           % for tier in (0, 1, 2):
           <li class="list-group-item bg-dark py-1">
-            <p class="mb-0">
+            <p class="mb-0 small">
               Tier ${tier + 1}: ${banner.tiers[tier]}
             </p>
           </li>
