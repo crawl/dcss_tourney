@@ -2,7 +2,7 @@
 ## all the blocks required below.
 <%!
   from html import update_time
-  from crawl_utils import XXX_TOURNEY_BASE
+  from crawl_utils import XXX_TOURNEY_BASE, XXX_IMAGE_BASE
   from loaddb import T_VERSION
 
   menu_items = (
@@ -31,7 +31,7 @@
     <a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
     <nav class="navbar navbar-dark navbar-expand-lg" style="background-color: #1a1a1a;">
       <a class="navbar-brand overflow-hidden" href="${XXX_TOURNEY_BASE}">
-        <img src="/images/stone_soup_icon-32x32.png" class="pixel-art mr-1 align-top" width="32" height="32" alt="">
+        <img src="${XXX_IMAGE_BASE}/stone_soup_icon-32x32.png" class="pixel-art mr-1 align-top" width="32" height="32" alt="">
         Dungeon Crawl Stone Soup ${T_VERSION} Tournament
       </a>
     </nav>
