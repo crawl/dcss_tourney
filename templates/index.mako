@@ -217,9 +217,12 @@
         <h2 class="card-title">${banner.name}</h2>
         <ul class="list-group list-group-flush">
           % for tier in (0, 1, 2):
-          <li class="list-group-item bg-dark py-1">
-            <p class="mb-0 small">
-              Tier ${tier + 1}: ${banner.tiers[tier]}
+          <li class="list-group-item bg-dark px-0 py-1">
+            <p class="small mb-0">
+              <b>
+                Tier ${tier + 1}:
+              </b>
+              ${banner.tiers[tier]}
             </p>
           </li>
           % endfor

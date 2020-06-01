@@ -17,17 +17,22 @@
       <div class="card-body">
         <h2 class="card-title">${banner.name}</h2>
         <ul class="list-group list-group-flush">
-          % for tier in (1, 2, 3):
+          % for tier in range(3):
           <%
-            achieved = results.tier >= tier
+            achieved = results.tier > tier
           %>
-          <li class="list-group-item bg-dark py-1">
+          <li class="list-group-item bg-dark px-0">
             % if achieved:
             <img src="${XXX_IMAGE_BASE}/gui/prompt_yes.png" class="float-left mr-1" alt="Tier achieved">
             % endif
-            <p class="lead mb-0">${'<s>' if achieved else ''}
-              Tier ${tier}: <small><i>${banner.tiers[tier - 1]}</i></small>
-            ${'</s>' if achieved else ''}</p>
+            <p class="small mb-0">
+              ${'<s>' if achieved else ''}
+              <b>
+                Tier ${tier + 1}:
+              </b>
+              ${banner.tiers[tier]}
+              ${'</s>' if achieved else ''}
+            </p>
           </li>
           % endfor
         </ul>
