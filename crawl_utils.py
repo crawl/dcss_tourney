@@ -84,6 +84,10 @@ def setup_scoring_dirs():
     cwd=os.getcwd(),
     dest=SCORE_FILE_DIR + "/style.css",
   ))
+  os.system("cp {cwd}/templates/script.js {dest}".format(
+    cwd=os.getcwd(),
+    dest=SCORE_FILE_DIR + "/script.js",
+  ))
   # Legacy CSS
   if not os.path.exists(SCORE_CSS_PATH):
     os.system("cp %s/templates/%s %s" % (os.getcwd(), SCORE_CSS,

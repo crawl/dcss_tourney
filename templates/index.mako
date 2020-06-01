@@ -29,15 +29,23 @@
         Dungeon Crawl Stone Soup v${scoring_data.TOURNAMENT_VERSION} Tournament
       </h1>
       <p class="lead">
-        Welcome! The tournament starts
-        ## TODO: These get updated by momentjs
-        <span class="font-weight-bold" id="tournament-start-time">
-          ${scoring_data.START_TIME.strftime("at %I:%M%p %A %d %B %Z UTC")}
+        Welcome! The tournament starts at
+        <span class="font-weight-bold">
+          ${scoring_data.START_TIME.strftime("%I:%M%p %A %d %B %Z UTC")}
         </span>
+        <span
+          class="font-weight-bold moment-js-relative-time"
+          data-timestamp="${scoring_data.START_TIME.strftime('%Y-%m-%dT%H:%M:%SZ')}"
+        ></span>
         and runs for 16 days until
-        <span class="font-weight-bold" id="tournament-end-time">
+        <span class="font-weight-bold">
           ${scoring_data.END_TIME.strftime("%I:%M%p %A %d %B %Z UTC")}
-        </span>.
+        </span>
+        <span
+          class="font-weight-bold moment-js-relative-time"
+          data-timestamp="${scoring_data.END_TIME.strftime('%Y-%m-%dT%H:%M:%SZ')}"
+        ></span>
+        .
     </div>
   </div>
 
@@ -86,10 +94,13 @@
       </p>
       <p>
         You can create, join, and leave clans for the first seven days of the tournament, until
-        ## TODO: This gets updated by momentjs
-        <span class="font-weight-bold" id="clan-end-time">
+        <span class="font-weight-bold">
           ${scoring_data.CLAN_CUTOFF_TIME.strftime("%h:%M%p %A %d %B %Z UTC")}
         </span>
+        <span
+          class="font-weight-bold moment-js-relative-time"
+          data-timestamp="${scoring_data.CLAN_CUTOFF_TIME.strftime('%Y-%m-%dT%H:%M:%SZ')}"
+        ></span>
         .
       </p>
       <p>
