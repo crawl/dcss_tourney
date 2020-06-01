@@ -42,6 +42,7 @@
     </div>
   </div>
 
+  <!-- Contents -->
   <div class="row">
     <div class="col">
       <h2>Contents</h2>
@@ -59,6 +60,7 @@
     </div>
   </div>
 
+  <!-- How To Play -->
   <div class="row">
     <div class="col">
       <h2 id="how-to-play">How To Play</h2>
@@ -96,6 +98,7 @@
     </div>
   </div>
 
+  <!-- Scoring -->
   <div class="row">
     <div class="col">
       <h2 id="scoring">Scoring</h2>
@@ -114,45 +117,47 @@
     </div>
   </div>
 
-<div class="row my-2">
-  <div class="col">
-    <h2 id="individual-categories">Individual Categories</h2>
-  </div>
-</div>
-<div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4">
-  % for category in scoring_data.INDIVIDUAL_CATEGORIES:
-  <div class="col mb-4">
-    <div class="card h-100 bg-dark text-light">
-      <img
-      ## A couple of these images are actually JPEGs. Shhh!
-        src="${XXX_IMAGE_BASE}/individual/${html.slugify(category.name)}.png"
-        alt=""
-        ## mx-auto class + max-width = prevent crazy big images on xs display
-        class="card-img-top mx-auto"
-        ## for transparent images
-        style="background: black; max-width: 300px;"
-        loading="lazy"
-      >
-      <div class="card-body">
-        <h3 class="card-title">${category.name}</h3>
-        <p class="card-text small">
-          ${category.desc}
-        </p>
-      </div>
-      <div class="card-footer">
-        % if category.source_table:
-        <a href="${base_link(html.slugify(category.name))}.html">
-          View full ranking.
-        </a>
-        % else:
-        Full ranking not available.
-        % endif
-      </div>
+  <!-- Individual Categories -->
+  <div class="row my-2">
+    <div class="col">
+      <h2 id="individual-categories">Individual Categories</h2>
     </div>
   </div>
-  % endfor
-</div>
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4">
+    % for category in scoring_data.INDIVIDUAL_CATEGORIES:
+    <div class="col mb-4">
+      <div class="card h-100 bg-dark text-light">
+        <img
+        ## A couple of these images are actually JPEGs. Shhh!
+          src="${XXX_IMAGE_BASE}/individual/${html.slugify(category.name)}.png"
+          alt=""
+          ## mx-auto class + max-width = prevent crazy big images on xs display
+          class="card-img-top mx-auto"
+          ## for transparent images
+          style="background: black; max-width: 300px;"
+          loading="lazy"
+        >
+        <div class="card-body">
+          <h3 class="card-title">${category.name}</h3>
+          <p class="card-text small">
+            ${category.desc}
+          </p>
+        </div>
+        <div class="card-footer">
+          % if category.source_table:
+          <a href="${base_link(html.slugify(category.name))}.html">
+            View full ranking.
+          </a>
+          % else:
+          Full ranking not available.
+          % endif
+        </div>
+      </div>
+    </div>
+    % endfor
+  </div>
 
+  <!-- Clan Categories -->
   <div class="row my-2">
     <div class="col">
       <h2 id="clan-categories">Clan Categories</h2>
@@ -192,6 +197,7 @@
     % endfor
   </div>
 
+  <!-- Banners -->
   <div class="row">
     <div class="col">
       <h2 id="banners">Banners</h2>
@@ -231,6 +237,5 @@
     </div>
   </div>
   % endfor
-</div>
 
 </%block>
