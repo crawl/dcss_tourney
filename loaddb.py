@@ -916,7 +916,7 @@ def insert_xlog_db(cursor, xdict, filename, offset):
 
 def update_whereis(c, xdict, filename):
   player = xdict['name']
-  src = filename[:3]
+  src = xdict['src']
   # CDO tiles and console are separate. But CDO no longer has tiles.
   #if src == 'cdo' and xdict['tiles'] == '1':
   #  src = 'cdt'
@@ -929,7 +929,7 @@ def update_whereis(c, xdict, filename):
 
 def update_last_game(c, xdict, filename):
   player = xdict['name']
-  src = filename[:3]
+  src = xdict['src']
   # CDO tiles and console are separate. But CDO no longer has tiles.
   #if src == 'cdo' and xdict['tiles'] == '1':
   #  src = 'cdt'

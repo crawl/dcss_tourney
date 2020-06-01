@@ -84,32 +84,43 @@
 
   <hr>
 
+  <%
+    whereis = html.whereis(cursor, player)
+  %>
+  % if len(whereis) > 0:
   <div class="row">
     <div class="col">
-      <h2>Recent Games</h2>
-      ${html.full_games_table(
-          query.find_games(cursor, player = player, sort_max = 'end_time', limit = 10),
-          count=False, win=False, caption="Recent games for %s" % player,
-          excluding=("race", "class", "title", "turns", "duration", "runes", "turns"),
-          including=[[1, ('charabbrev', 'Char')], [8, ('src', 'Server')]]
-        )}
+      <h2>Ongoing Games</h2>
+      <p>${whereis}</p>
     </div>
-  </div>
-
+  </div> 
   <hr>
+  % endif
 
   <div class="row">
     <div class="col">
       <ul class="nav nav-tabs mb-2" role="tablist">
         <li class="nav-item" role="presentation">
-          <a class="nav-link active" id="individual-categories-tab" data-toggle="tab" href="#individual-categories" role="tab" aria-controls="individual-categories" aria-selected="true">Individual Categories</a>
+	  <a class="nav-link active" id="games-tab" data-toggle="tab"
+	  href="#games" role="tab" aria-controls="games"
+	  aria-selected="true">Games</a>
+	</li>
+        <li class="nav-item" role="presentation">
+          <a class="nav-link" id="individual-categories-tab"
+	  data-toggle="tab" href="#individual-categories" role="tab"
+	  aria-controls="individual-categories" aria-selected="false">Individual Categories</a>
         </li>
         <li class="nav-item" role="presentation">
           <a class="nav-link" id="banners-tab" data-toggle="tab" href="#banners" role="tab" aria-controls="banners" aria-selected="false">Banners</a>
         </li>
       </ul>
       <div class="tab-content">
-        <div class="tab-pane show active" id="individual-categories" role="tabpanel" aria-labelledby="individual-categories-tab">
+        <div class="tab-pane show active" id="games" role="tabpanel"
+	aria-labelledby="games-tab">
+	  <%include file="player-games.mako" args="cursor=cursor,
+	  player=player"/>
+	</div>
+        <div class="tab-pane" id="individual-categories" role="tabpanel" aria-labelledby="individual-categories-tab">
           <%include file="player-individual-categories.mako" args="points_for_rank=points_for_rank"/>
         </div>
         <div class="tab-pane" id="banners" role="tabpanel" aria-labelledby="banners-tab">

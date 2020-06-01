@@ -629,12 +629,6 @@ def clan_combo_highscores(c):
                      place_column=2, skip=True )
 
 def make_milestone_string(w, src, make_links=False):
-  if src == 'csz':
-    pretty_src = 'cszo'
-  elif src == 'cbr':
-    pretty_src = 'cbro'
-  else:
-    pretty_src = src
   ago,new = how_old(w[0])
   if ago == None:
     return None
@@ -646,13 +640,13 @@ def make_milestone_string(w, src, make_links=False):
     god_phrase = ''
   else:
     god_phrase = ' of %s' % w[5]
-  where_nice = (ago, plink) + w[2:5] + (god_phrase, ) + w[6:9] + (pretty_dur(w[9]),pretty_src)
+  where_nice = (ago, plink) + w[2:5] + (god_phrase, ) + w[6:9] + (pretty_dur(w[9]),src)
   return ("%s ago: %s the %s (L%d %s%s) %s (%s, turn %d, dur %s, %s)<br />" % where_nice)
 
 def whereis(c, *players):
   where_data = []
   for p in players:
-    for src in ['cao','cbr','cdo', 'cko', 'cpo','csz','cue','cwz','cxc','lld']:
+    for src in ['cao','cbro','cdo', 'cko', 'cpo', 'cue','cwz','cxc','lld']:
       where = query.whereis_player(c, p, src)
       if not where:
         continue
