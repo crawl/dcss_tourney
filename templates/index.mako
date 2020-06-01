@@ -237,5 +237,24 @@
     </div>
   </div>
   % endfor
+  </div>
+
+  <!-- Credits -->
+  <div class="row">
+    <div class="col">
+      <h2>Credits</h2>
+      <p>
+        This tournament exists thanks to the work of
+        <a href="https://github.com/crawl/dcss_tourney/graphs/contributors">
+          many people
+        </a>
+        , but one person was especially pivotal. <b>ebering</b> designed a new
+        scoring system for this tournament, based on broad consultation with
+        players and other devs over several months. Then he coded it up (which
+        required rewriting almost all of the scoring code) in a matter of weeks.
+        Thank you, ebering!
+      </p>
+    </div>
+  </div>
 
 </%block>
