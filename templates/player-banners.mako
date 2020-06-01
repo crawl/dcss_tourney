@@ -28,9 +28,6 @@
             <p class="lead mb-0">${'<s>' if achieved else ''}
               Tier ${tier}: <small><i>${banner.tiers[tier - 1]}</i></small>
             ${'</s>' if achieved else ''}</p>
-            <p class="mb-0">
-              ${results.details[tier - 1]}
-            </p>
           </li>
           % endfor
         </ul>
