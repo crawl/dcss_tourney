@@ -13,7 +13,12 @@
   %>
   <div class="col mb-4">
     <div class="card h-100 banner bg-dark text-light">
-      <img src="${XXX_IMAGE_BASE}/altar/${html.slugify(banner.god)}.png" class="card-img-top pixel-art px-5 mt-3 mx-auto" style="max-width: 180px;" alt="${banner.god}">
+      <img
+        src="${XXX_IMAGE_BASE}/altar/${html.slugify(banner.god)}.png"
+        alt="${banner.god}"
+        class="card-img-top pixel-art px-5 mt-3 mx-auto"
+        loading="lazy"
+      >
       <div class="card-body">
         <h2 class="card-title">${banner.name}</h2>
         <ul class="list-group list-group-flush">
