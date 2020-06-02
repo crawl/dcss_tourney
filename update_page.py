@@ -113,11 +113,11 @@ def team_page(c, captain):
   )
 
 def clan_category_results(c, clan_name):
-  # TODO
-  import random
+  all_ranks = query.get_all_clan_ranks(c, pretty=False)
+  clan_results = [result for result in all_ranks if result[0] == clan_name][0]
   data = {}
-  for category in scoring_data.CLAN_CATEGORIES:
-    data[category.name] = CategoryResult(random.randrange(0, 10), 'Details about clan challenge %s' % category.name)
+  for category, rank in zip(scoring_data.CLAN_CATEGORIES, clan_results[3:]):
+    data[category.name] = CategoryResult(rank, None)
   return data
 
 def team_pages(c):

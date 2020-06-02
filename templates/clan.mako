@@ -72,6 +72,31 @@
           <tr>
         </thead>
         <tbody>
+          ## First row shows total score
+          <tr class="table-secondary text-dark">
+            <th scope="row">
+              <a href="${base_link('teams.html')}">
+                Total
+              </a>
+            </th>
+            <th scope="row" class="text-monospace text-right">${overall_rank}</th>
+            <th scope="row" class="text-monospace text-right">
+              <%
+              points = int(
+                round(
+                  sum(
+                    float(points_for_rank(result.rank))
+                    for result in clan_category_results.values()
+                    if result.rank is not None
+                  ) / len(clan_category_results)
+                , 0)
+              )
+              %>
+              ${'{:,}'.format(points)}
+            </th>
+            <th scope="row"></th>
+          </tr>
+
           % for category in scoring_data.CLAN_CATEGORIES:
           <%
             results = clan_category_results[category.name]
