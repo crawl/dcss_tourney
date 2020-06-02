@@ -139,7 +139,7 @@ INDIVIDUAL_CATEGORIES = (
         True,
         [],
     ),
-        IndividualCategory(
+    IndividualCategory(
         "Winning",
         "The Shining One values perserverence and courage in the face of adversity. In this category, TSO will award players 10,000 points if they win two distinct character combos, 5,000 points for winning their first combo, and 0 otherwise.",
         "nonrep_wins",
@@ -159,7 +159,10 @@ INDIVIDUAL_CATEGORIES = (
         "Win Percentage",
         None,
         True,
-        [ColumnDisplaySpec("n_wins", "Wins"), ColumnDisplaySpec("n_games", "Games Played")],
+        [
+            ColumnDisplaySpec("n_wins", "Wins"),
+            ColumnDisplaySpec("n_games", "Games Played"),
+        ],
     ),
     IndividualCategory(
         "Streak Length",
@@ -327,7 +330,18 @@ INDIVIDUAL_CATEGORIES = (
 
 ClanCategory = collections.namedtuple(
     "ClanCategory",
-    ("name", "desc", "db_column", "source_table", "source_column", "desc_order", "url"),
+    (
+        "name",
+        "desc",
+        "db_column",
+        "source_table",
+        "source_column",
+        "source_column_name",
+        "source_column_display_transformation",
+        "desc_order",
+        "url",
+        "full_ranking_extra_columns",
+    ),
 )
 CLAN_CATEGORIES = (
     ClanCategory(
@@ -336,8 +350,11 @@ CLAN_CATEGORIES = (
         "exploration",
         "clan_exploration_score",
         "score",
+        "Score",
+        None,
         True,
         None,
+        [],
     ),
     ClanCategory(
         "Piety",
@@ -345,8 +362,11 @@ CLAN_CATEGORIES = (
         "piety",
         "clan_piety_score",
         "piety",
+        "Score",
+        None,
         True,
         None,
+        [],
     ),
     ClanCategory(
         "Unique Harvesting",
@@ -354,8 +374,11 @@ CLAN_CATEGORIES = (
         "harvest",
         "clan_harvest_score",
         "score",
+        "Score",
+        None,
         True,
         None,
+        [],
     ),
     ClanCategory(
         "Wins",
@@ -371,6 +394,9 @@ CLAN_CATEGORIES = (
         None,
         None,
         None,
+        None,
+        None,
+        [],
     ),
     ClanCategory(
         "Nemelex' Choice",
@@ -378,8 +404,11 @@ CLAN_CATEGORIES = (
         "nemelex_score",
         "clan_nemelex_score",
         "score",
+        "Score",
+        None,
         True,
         None,
+        [],
     ),
     ClanCategory(
         "Combo High Scores",
@@ -387,8 +416,11 @@ CLAN_CATEGORIES = (
         "combo_score",
         "clan_combo_score",
         "total",
+        "Score",
+        None,
         True,
         None,
+        [],
     ),
     ClanCategory(
         "Streak Length",
@@ -396,8 +428,11 @@ CLAN_CATEGORIES = (
         "streak",
         "clan_best_streak",
         "length",
+        "Best Streak Length",
+        None,
         True,
         None,
+        [],
     ),
     ClanCategory(
         "Best High Score",
@@ -405,8 +440,11 @@ CLAN_CATEGORIES = (
         "highest_score",
         "clan_highest_scores",
         "score",
+        "Score",
+        None,
         True,
         None,
+        [],
     ),
     ClanCategory(
         "Low Turncount Win",
@@ -414,8 +452,11 @@ CLAN_CATEGORIES = (
         "lowest_turncount_win",
         "clan_lowest_turncount_wins",
         "turn",
+        "Turns",
+        None,
         False,
         None,
+        [],
     ),
     ClanCategory(
         "Fastest Real Time Win",
@@ -423,8 +464,11 @@ CLAN_CATEGORIES = (
         "fastest_win",
         "clan_fastest_wins",
         "duration",
+        "Duration",
+        "sec_to_time",
         False,
         None,
+        [],
     ),
     ClanCategory(
         "Ziggurat Diving",
@@ -432,8 +476,11 @@ CLAN_CATEGORIES = (
         "ziggurat_dive",
         "clan_best_ziggurat",
         "completed DESC, deepest DESC",
+        "Floors",
         None,
         None,
+        None,
+        [],
     ),
     ClanCategory(
         "Banner Score",
@@ -444,12 +491,14 @@ CLAN_CATEGORIES = (
         "banner_score",
         "clan_banner_score",
         "bscore",
+        "Score",
+        None,
         True,
         None,
+        [],
     ),
 )
-Banner = collections.namedtuple("Banner", ("god", "name", "tiers", "notes",
-    "dbname"))
+Banner = collections.namedtuple("Banner", ("god", "name", "tiers", "notes", "dbname"))
 BannerTiers = collections.namedtuple("BannerTiers", ("one", "two", "three"))
 BANNERS = [
     Banner(
@@ -653,7 +702,7 @@ BANNERS = [
             "Win a game as a non-demigod without worshipping a god.",
         ),
         None,
-        "trog"
+        "trog",
     ),
     Banner(
         "Uskayaw",
@@ -664,7 +713,7 @@ BANNERS = [
             "Enter the final floor of Gehenna in under 27,000 turns.",
         ),
         None,
-        "uskayaw"
+        "uskayaw",
     ),
     Banner(
         "Vehumet",
