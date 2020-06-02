@@ -30,7 +30,7 @@
     <div class="col">
       <h2>${page_title}</h2>
       <img
-        src="${crawl_utils.XXX_IMAGE_BASE}/individual/${html.slugify(category.name)}.png"
+        src="${crawl_utils.XXX_IMAGE_BASE}/${category_type}/${html.slugify(category.name)}.png"
         alt=""
         class="rounded img-thumbnail"
         ## Smallest image is 250x250
@@ -42,13 +42,13 @@
       ## Hack to disable Ziggurat Diving as it breaks
       % if category.source_table and category.name != 'Ziggurat Diving':
       <%
-        columns = ['Player', category.source_column_name]
+        columns = ['Player' if category_type == 'individual' else 'Clan', category.source_column_name]
         for col in category.full_ranking_extra_columns:
           columns.append(col.display_name)
       %>
       ${html.table_text(
           columns,
-          scoring_data.category_leaders(category, cursor),
+          scoring_data.category_leaders(category, cursor, category_type),
           place_column=1,
           skip=True)
       }
