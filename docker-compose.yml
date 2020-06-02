@@ -36,6 +36,7 @@ services:
     volumes:
       - ./logfiles:/usr/src/app/logfiles
       - ./milestones:/usr/src/app/milestones
+      - ./rcfiles:/usr/src/app/rcfiles
       - ./html.tourney0.24:/usr/src/app/html.tourney0.24
     depends_on:
       - mysql

@@ -94,7 +94,7 @@ EXTENSION_FILE = 'modules.ext'
 TOURNAMENT_DB = 'tournament'
 COMMIT_INTERVAL = 3000
 # These rcfiles need to be updated from the servers every few hours.
-CRAWLRC_DIRECTORY_LIST = ['rcfiles-cao/','rcfiles-cbro/','rcfiles-cdo/', 'rcfiles-cko/', 'rcfiles-cpo/','rcfiles-cue/','rcfiles-cwz/','rcfiles-cxc/','rcfiles-lld/']
+CRAWLRC_DIRECTORY_LIST = ['rcfiles/cao/','rcfiles/cbro/','rcfiles/cdo/', 'rcfiles/cko/', 'rcfiles/cpo/','rcfiles/cue/','rcfiles/cwz/','rcfiles/cxc/','rcfiles/lld/']
 
 LISTENERS = [ ]
 TIMERS = [ ]
