@@ -309,6 +309,19 @@ def is_clan_header(header):
   return header in ['Clan', 'Team', 'Teamname']
 
 
+def _is_numeric_table_value(value):
+  if isinstance(value, (int, float, decimal.Decimal)):
+    return True
+  if isinstance(value, (str, unicode)):
+    if value.isdigit():
+      return True
+    try:
+      float(value)
+    except ValueError:
+      return False
+    return True
+  return False
+
 def table_text(headers, data, count=True,
                place_column=-1, stub_text='No data', skip=False, bold=False,
                extra_wide_support=False, caption=None):
@@ -384,7 +397,7 @@ def table_text(headers, data, count=True,
       val = row[c]
       header = headers[c]
 
-      numeric_col = isinstance(val, (int, float, decimal.Decimal))
+      numeric_col = _is_numeric_table_value(val)
       pseudo_numeric_col = val == '-'
       if numeric_col:
         val = '{:,}'.format(val)
@@ -494,7 +507,7 @@ def games_table(games, first=None, excluding=None, columns=None,
 
     for i, c in enumerate(columns):
       val = fixup_column(c[0], game.get(c[0]) or '', game)
-      numeric_col = isinstance(val, (int, float, decimal.Decimal))
+      numeric_col = _is_numeric_table_value(val)
       pseudo_numeric_col = val == '-'
       if numeric_col:
         val = '{:,}'.format(val)
