@@ -237,9 +237,9 @@ def linked_text(key, link_fn, text=None):
 def clan_affiliation(player, clan_info, include_clan=True):
   # Clan affiliation info is clan name, followed by a list of players,
   # captain first, or None if the player is not in a clan.
-  clan_name, players = clan_info
+  clan_name, players, page_name = clan_info
   if include_clan:
-    clan_html = linked_text(players[0], clan_link, clan_name) + " - "
+    clan_html = linked_text(page_name, clan_link, clan_name) + " - "
   else:
     clan_html = ''
 

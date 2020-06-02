@@ -959,9 +959,12 @@ def players_in_team(cursor, team_owner):
   return players
 
 def get_clan_info(c, player):
-  """Given a player name, returns a tuple of clan name and a list of
-  players in the clan, with clan captain first, or None if the player is
-  not in a clan."""
+  """Given a player name, returns a tuple of:
+  1. clan name
+  2. list of players in the clan (with clan captain first)
+  3. clan page name
+  or None if the player is not in a clan.
+  """
   captain = query_row(c, '''SELECT team_captain FROM players
                             WHERE name = %s''',
                       player)
@@ -976,7 +979,11 @@ def get_clan_info(c, player):
     return None
 
   team_name = team_name[0]
-  return (team_name, players_in_team(c, captain))
+  return (
+    team_name,
+    players_in_team(c, captain),
+    '%s-%s' % (team_name.lower(), captain.lower()),
+  )
 
 def find_remaining_gods(used_gods):
   used_god_set = set([x or 'No God' for x in used_gods])
@@ -1647,7 +1654,7 @@ def get_all_clan_ranks(c):
   clean_rows = [ ]
   for r in rows:
       captain = r[1]
-      r[0] = crawl_utils.linked_text('%s-%s' % (r[0], captain), crawl_utils.clan_link, r[0])
+      r[0] = crawl_utils.linked_text('%s-%s' % (r[0].lower(), captain.lower()), crawl_utils.clan_link, r[0])
       r[1] = crawl_utils.clan_affiliation(captain, get_clan_info(c, captain),
               False)
       clean_rows.append( [render_rank(n) for n in r] )

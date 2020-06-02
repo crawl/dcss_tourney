@@ -92,13 +92,19 @@ def index_page(c):
   #render(c, 'unique-list')
 
 def team_page(c, captain):
-  info("Updating team page for captain %s" % captain)
   clan_info = query.get_clan_info(c, captain)
   assert clan_info is not None
+  clan_name = clan_info[0]
+  info("Updating team page for %s" % clan_name)
+
+  stats = query.get_clan_stats(c, captain)
+
   pars = {
     'captain': captain,
-    'clan_name': clan_info[0],
+    'clan_name': clan_name,
     'clan_members': clan_info[1],
+    'overall_rank': stats['rank1'],
+    'total_number_of_clans': stats['rank2'],
   }
   render(c, 'clan',
     dest = '%s/%s-%s' % (crawl_utils.CLAN_BASE, clan_info[0], captain.lower()),
@@ -124,9 +130,10 @@ def player_page(c, player):
   }
   _clan_info = query.get_clan_info(c, player)
   if _clan_info is None:
-    _clan_info = (None, [])
+    _clan_info = (None, [], None)
   player_params['clan_name'] = _clan_info[0]
   player_params['clan_members'] = _clan_info[1]
+  player_params['clan_page'] = _clan_info[2]
   render(c, 'player',
          dest = ('%s/%s' % (crawl_utils.PLAYER_BASE, player.lower())),
          pars = player_params,

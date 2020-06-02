@@ -82,7 +82,7 @@
       </p>
       % if clan_name is not None:
       <p class="lead">
-        Clan: <a href="clans/${html.slugify(clan_name)}.html">${pretty_clan_name(clan_name)}</a>
+        Clan: <a href="${XXX_TOURNEY_BASE}/clans/${clan_page}.html">${pretty_clan_name(clan_name)}</a>
       </p>
       % endif
     </div>

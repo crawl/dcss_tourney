@@ -3,6 +3,7 @@
 <%!
   import scoring_data
   import html
+  import query
   from crawl_utils import XXX_TOURNEY_BASE
 
   active_menu_item = "Clans"
