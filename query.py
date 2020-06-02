@@ -1646,7 +1646,7 @@ def get_all_player_ranks(c):
     clean_rows.append(r)
   return clean_rows
 
-def get_all_clan_ranks(c):
+def get_all_clan_ranks(c, limit=None):
   q = Query('''SELECT name, owner, total_score, '''
                + ",".join([ cc.db_column for cc in CLAN_CATEGORIES]) +
             ''' FROM teams
@@ -1660,4 +1660,6 @@ def get_all_clan_ranks(c):
       r[1] = crawl_utils.clan_affiliation(captain, get_clan_info(c, captain),
               False)
       clean_rows.append( [render_rank(n) for n in r] )
+  if limit is not None:
+    clean_rows = clean_rows[:limit]
   return clean_rows

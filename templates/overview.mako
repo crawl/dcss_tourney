@@ -27,15 +27,30 @@
             [8, ('src', 'Server')]
           ]
         )}
-        <h2>Current Top Players</h2>
-        ${html.table_text(
-          [ 'Player', 'Overall Score' ],
-          data=query.get_top_players(cursor, how_many=5),
-          place_column=1, skip=True,
-        )}
-        <a href="${base_link('all-players-ranks.html')}">
-          See full ranking.
-        </a>
+        <div class="row">
+          <div class="col-sm-12 col-md-6">
+            <h2>Current Top Players</h2>
+            ${html.table_text(
+              [ 'Player', 'Overall Score' ],
+              data=query.get_top_players(cursor, how_many=5),
+              place_column=1, skip=True,
+            )}
+            <a href="${base_link('all-players-ranks.html')}">
+              See full ranking.
+            </a>
+          </div>
+          <div class="col-sm-12 col-md-6">
+            <h2>Current Top Clans</h2>
+            ${html.table_text(
+              [ 'Clan', 'Overall Score' ],
+              data=query.get_all_clan_ranks(cursor, limit=5),
+              place_column=2, skip=True )
+            }
+            <a href="${base_link('teams.html')}">
+              See full ranking.
+            </a>
+          </div>
+        </div>
     </div>
   </div>
 
