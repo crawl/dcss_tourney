@@ -43,7 +43,7 @@
             <h2>Current Top Clans</h2>
             ${html.table_text(
               [ 'Clan', 'Overall Score' ],
-              data=query.get_all_clan_ranks(cursor, limit=5),
+              data=[([row[0]] + row[2:]) for row in query.get_all_clan_ranks(cursor, limit=5)],
               place_column=2, skip=True )
             }
             <a href="${base_link('teams.html')}">
@@ -86,7 +86,7 @@
               % if category.source_table and category.name != 'Ziggurat Diving':
               ${html.table_text(
                   [ 'Player', category.source_column_name ],
-                  scoring_data.category_leaders(category, cursor, limit=5),
+                  scoring_data.category_leaders(category, cursor, 'individual', limit=5),
                   place_column=1,
                   skip=True)
               }
@@ -124,13 +124,21 @@
           <div class="col-md">
             <div class="card-body">
               <h3 class="card-title">${category.name}</h3>
-              % if category.url:
-              <table>(Table showing top 5 goes here)</table>
-              <a href="${category.url}">
+              ## XXX: Ziggurat Diving doesn't work here
+              % if category.source_table and category.name != 'Ziggurat Diving':
+              ${html.table_text(
+                  [ 'Clan', category.source_column_name ],
+                  scoring_data.category_leaders(category, cursor, 'clan', limit=5),
+                  place_column=1,
+                  skip=True)
+              }
+              % endif
+              % if category.source_table:
+              <a href="${base_link('clan-' + html.slugify(category.name))}.html">
                 View full ranking.
               </a>
               % else:
-              Full ranking not available.
+              <i>Full ranking not available.</i>
               % endif
             </div>
           </div>
@@ -139,4 +147,5 @@
       % endfor
     </div>
   </div>
+
 </%block>
