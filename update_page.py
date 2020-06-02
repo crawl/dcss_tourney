@@ -74,6 +74,20 @@ def individual_category_pages(c):
       top_level_pars=True,
     )
 
+def clan_category_pages(c):
+  for category in scoring_data.CLAN_CATEGORIES:
+    info("Updating clan category page %s" % category.name)
+    render(
+      c,
+      page='category',
+      dest='clan-' + html.slugify(category.name),
+      pars={
+        'category_type': 'clan',
+        'category': category,
+      },
+      top_level_pars=True,
+    )
+
 def player_pages(c):
   info("Updating all player pages")
   render(c, 'banners')
@@ -181,13 +195,15 @@ TIMER = [
           loaddb.define_timer( INTERVAL, tourney_overview ),
           loaddb.define_timer( INTERVAL, team_pages ),
           loaddb.define_timer( INTERVAL, player_pages ),
-          loaddb.define_timer( INTERVAL, individual_category_pages )
+          loaddb.define_timer( INTERVAL, individual_category_pages ),
+          loaddb.define_timer( INTERVAL, clan_category_pages ),
           ]
 LISTENER = [
              loaddb.define_cleanup(tourney_overview),
              loaddb.define_cleanup(team_pages),
              loaddb.define_cleanup(player_pages),
-             loaddb.define_cleanup(individual_category_pages)
+             loaddb.define_cleanup(individual_category_pages),
+             loaddb.define_cleanup(clan_category_pages),
            ]
 
 if __name__ == '__main__':
