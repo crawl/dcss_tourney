@@ -383,11 +383,11 @@ def connect_db(host, password, retry):
   if host is not None:
     conn_args["host"] = host
   if password is not None:
-    conn_args["password"] = password
+    conn_args["passwd"] = password
   while connection is None:
     try:
       connection = MySQLdb.connect(**conn_args)
-    except MySQLdb._exceptions.OperationalError as e:
+    except MySQLdb.OperationalError as e:
       if retry:
         info("Couldn't connect to MySQL (%s). Retrying in 5 seconds..." % e)
         time.sleep(5)
@@ -1249,7 +1249,7 @@ def validate_db(cursor):
   """Check the database structure exists and create it if not."""
   try:
     query_do(cursor, 'SELECT * from players LIMIT 1')
-  except MySQLdb._exceptions.ProgrammingError as e:
+  except MySQLdb.ProgrammingError as e:
     if e.args[0] == 1146:
       info("Database structure doesn't exist. Creating now.")
       with open('database.sql') as f:
