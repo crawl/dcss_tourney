@@ -86,7 +86,7 @@
               % if category.source_table and category.name != 'Ziggurat Diving':
               ${html.table_text(
                   [ 'Player', category.source_column_name ],
-                  scoring_data.category_leaders(category, cursor, 'individual', limit=5),
+                  scoring_data.category_leaders(category, cursor, limit=5),
                   place_column=1,
                   skip=True)
               }
@@ -128,7 +128,7 @@
               % if category.source_table and category.name != 'Ziggurat Diving':
               ${html.table_text(
                   [ 'Clan', category.source_column_name ],
-                  scoring_data.category_leaders(category, cursor, 'clan', limit=5),
+                  scoring_data.category_leaders(category, cursor, limit=5),
                   place_column=1,
                   skip=True)
               }

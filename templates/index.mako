@@ -138,7 +138,7 @@
     <div class="col mb-4">
       <div class="card h-100 bg-dark text-light">
         <img
-        ## A couple of these images are actually JPEGs. Shhh!
+          ## A couple of these images are actually JPEGs. Shhh!
           src="${XXX_IMAGE_BASE}/individual/${html.slugify(category.name)}.png"
           alt=""
           ## mx-auto class + max-width = prevent crazy big images on xs display
@@ -178,7 +178,7 @@
     <div class="col mb-4">
       <div class="card h-100 bg-dark text-light">
         <img
-        ## A couple of these images are actually JPEGs. Shhh!
+          ## A couple of these images are actually JPEGs. Shhh!
           src="${XXX_IMAGE_BASE}/clan/${html.slugify(category.name)}.png"
           alt=""
           ## mx-auto class + max-width = prevent crazy big images on xs display
@@ -194,8 +194,8 @@
           </p>
         </div>
         <div class="card-footer">
-          % if category.url:
-          <a href="${category.url}">
+          % if category.source_table:
+          <a href="${base_link('clan-' + html.slugify(category.name))}.html">
             View full ranking.
           </a>
           % else:

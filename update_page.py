@@ -68,7 +68,6 @@ def individual_category_pages(c):
       page='category',
       dest=html.slugify(category.name),
       pars={
-        'category_type': 'individual',
         'category': category
       },
       top_level_pars=True,
@@ -82,7 +81,6 @@ def clan_category_pages(c):
       page='category',
       dest='clan-' + html.slugify(category.name),
       pars={
-        'category_type': 'clan',
         'category': category,
       },
       top_level_pars=True,

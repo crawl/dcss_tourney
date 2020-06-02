@@ -29,9 +29,11 @@ SERVERS = {
 ColumnDisplaySpec = collections.namedtuple(
     "ColumnDisplaySpec", ("column_name", "display_name")
 )
-IndividualCategory = collections.namedtuple(
-    "IndividualCategory",
+Category = collections.namedtuple(
+    "Category",
     (
+        # "clan" or "individual"
+        "type",
         "name",
         "desc",
         "db_column",
@@ -50,8 +52,8 @@ IndividualCategory = collections.namedtuple(
 )
 
 
-def category_leaders(category, c, category_type, limit=None):
-    # type: (Union[IndividualCategory,ClanCategory], Any, Union['individual', 'clan'], int) -> Sequence[Any]
+def category_leaders(category, c, limit=None):
+    # type: (Union[Category,Category], Any, Union['individual', 'clan'], int) -> Sequence[Any]
     # c = database cursor
     # response is a list of database rows
     transformed_col = (
@@ -69,7 +71,7 @@ def category_leaders(category, c, category_type, limit=None):
         extra_cols = ""
     query_text = """SELECT {first_col}, {transformed_col} {extra_cols} FROM {table}
                    ORDER BY {col} {direction}""".format(
-        first_col='player' if category_type == 'individual' else 'team_captain',
+        first_col='player' if category.type == 'individual' else 'team_captain',
         transformed_col=transformed_col,
         extra_cols=extra_cols,
         col=category.source_column,
@@ -77,10 +79,10 @@ def category_leaders(category, c, category_type, limit=None):
         direction="DESC" if category.desc_order else "",
     )
     q = Query(query_text)
-    if category_type == 'individual' and limit:
+    if category.type == 'individual' and limit:
         q.append(" LIMIT %d" % limit)
 
-    if category_type == 'individual':
+    if category.type == 'individual':
         return q.rows(c)
     else:
         # We rewrite from team_captain to clan name
@@ -103,7 +105,8 @@ def category_leaders(category, c, category_type, limit=None):
 
 # This list (and the clan categories & banner lists) are in display order
 INDIVIDUAL_CATEGORIES = (
-    IndividualCategory(
+    Category(
+        "individual",
         "Exploration",
         "Ashenzari wants players to explore the dungeon and seek out runes of Zot. In this category, players earn 3 points per distinct rune of Zot collected and 1 point each for distinct branch entry and end floor reached.",
         "exploration",
@@ -114,7 +117,8 @@ INDIVIDUAL_CATEGORIES = (
         True,
         [],
     ),
-    IndividualCategory(
+    Category(
+        "individual",
         "Piety",
         "Elyvilon thinks it's important to evaluate what all the gods have to offer. Elyvilon will award 1 point per god championed (****** piety) and an additional point for a win after championing that god. Two gods (Gozag and Xom) do not have the usual ****** piety system; to get the points for these gods, you must never worship another god during the game.",
         "piety",
@@ -128,7 +132,8 @@ INDIVIDUAL_CATEGORIES = (
             ColumnDisplaySpec("won", "...and won"),
         ],
     ),
-    IndividualCategory(
+    Category(
+        "individual",
         "Unique Harvesting",
         "Yredelemnul demands that players kill as many distinct uniques and player ghosts as possible, and will rank players based on the number of such kills.",
         "harvest",
@@ -139,7 +144,8 @@ INDIVIDUAL_CATEGORIES = (
         True,
         [],
     ),
-    IndividualCategory(
+    Category(
+        "individual",
         "Winning",
         "The Shining One values perserverence and courage in the face of adversity. In this category, TSO will award players 10,000 points if they win two distinct character combos, 5,000 points for winning their first combo, and 0 otherwise.",
         "nonrep_wins",
@@ -150,7 +156,8 @@ INDIVIDUAL_CATEGORIES = (
         None,
         [],
     ),
-    IndividualCategory(
+    Category(
+        "individual",
         "Win Rate",
         "Cheibriados believes in being slow and steady, and will recognize players who are careful enough to excel consistently. This category ranks players by their adjusted win percentage, calculated as the number of wins divided by the number of games played plus 1.",
         "win_perc",
@@ -164,7 +171,8 @@ INDIVIDUAL_CATEGORIES = (
             ColumnDisplaySpec("n_games", "Games Played"),
         ],
     ),
-    IndividualCategory(
+    Category(
+        "individual",
         "Streak Length",
         u"Jiyva is ranking players by their streak length. Jiyva favours the flexibility of a gelatinous body—the length of a streak is defined as the number of distinct species or backgrounds won consecutively (whichever is smaller). Every game in a streak must be the first game you start after winning the previous game in the streak. This will always be the case if you play all your games on one server.",
         "streak",
@@ -175,7 +183,8 @@ INDIVIDUAL_CATEGORIES = (
         True,
         [],
     ),
-    IndividualCategory(
+    Category(
+        "individual",
         "Nemelex' Choice",
         u"Nemelex Xobeh wants to see players struggle against randomness and will rank players who perservere with one of several combos randomly chosen and announced throughout the tournament. The first 8 players to win a given Nemelex' choice combo earn a point in this category and Nemelex will rank players by their score in this category.",
         "nemelex_score",
@@ -186,7 +195,8 @@ INDIVIDUAL_CATEGORIES = (
         True,
         [],
     ),
-    IndividualCategory(
+    Category(
+        "individual",
         "Combo High Scores",
         "Dithmenos is ranking players by the combo high scores they can acquire and defend from rivals. A combo high score gives 1 point in this category; a winning high score 2 points; and a species or background high score 5 points.",
         "combo_score",
@@ -202,7 +212,8 @@ INDIVIDUAL_CATEGORIES = (
             ColumnDisplaySpec("cls_hs", "Background High Scores"),
         ],
     ),
-    IndividualCategory(
+    Category(
+        "individual",
         "Best High Score",
         "Okawaru is all about getting as many points as possible, and will rank players based on their best high score.",
         "highest_score",
@@ -218,7 +229,8 @@ INDIVIDUAL_CATEGORIES = (
             ColumnDisplaySpec("nrune", "Runes"),
         ],
     ),
-    IndividualCategory(
+    Category(
+        "individual",
         "Lowest Turncount Win",
         "The Wu Jian Council favours the unquestioned excellence and efficient combat of the Sifu. The Council will rank players based on their lowest turn count win.",
         "lowest_turncount_win",
@@ -234,7 +246,8 @@ INDIVIDUAL_CATEGORIES = (
             ColumnDisplaySpec("nrune", "Runes"),
         ],
     ),
-    IndividualCategory(
+    Category(
+        "individual",
         "Fastest Real Time Win",
         "Makhleb wants to see bloodshed as quickly as possible and will rank players according to their fastest win.",
         "fastest_win",
@@ -250,7 +263,8 @@ INDIVIDUAL_CATEGORIES = (
             ColumnDisplaySpec("nrune", "Runes"),
         ],
     ),
-    IndividualCategory(
+    Category(
+        "individual",
         "Lowest XL Win",
         "Vehumet values ruthless efficiency, and will recognize the players who win at the lowest XL. Waiting around for an ancestor to return from memory is inefficient, so games where Hepliaklqana is worshipped do not count in this category. For the purposes of this category, players who have not won and players who have won only at XL 27 are both ranked ∞.",
         "low_xl_win",
@@ -266,7 +280,8 @@ INDIVIDUAL_CATEGORIES = (
             ColumnDisplaySpec("nrune", "Runes"),
         ],
     ),
-    IndividualCategory(
+    Category(
+        "individual",
         "Tournament Win Order",
         "Qazlal wants destruction and they want it as soon as possible! This category ranks players in order of their first win in the tournament.",
         "first_win",
@@ -283,7 +298,8 @@ INDIVIDUAL_CATEGORIES = (
             ColumnDisplaySpec("sec_to_time(duration) AS duration", "Duration"),
         ],
     ),
-    IndividualCategory(
+    Category(
+        "individual",
         "Tournament All Rune Win Order",
         "Lugonu appreciates all planes of reality, and wants players tour as many of them as soon as possible. They will rank players in order of their first 15-rune win in the tournament.",
         "first_allrune_win",
@@ -300,7 +316,8 @@ INDIVIDUAL_CATEGORIES = (
             ColumnDisplaySpec("sec_to_time(duration) AS duration", "Duration"),
         ],
     ),
-    IndividualCategory(
+    Category(
+        "individual",
         "Ziggurat Diving",
         """Xom is entertained by a player's descent into madness, and will rank
         players by the number of consecutive Ziggurat floors they reach in a
@@ -315,7 +332,8 @@ INDIVIDUAL_CATEGORIES = (
         None,
         [],
     ),
-    IndividualCategory(
+    Category(
+        "individual",
         "Banner Score",
         """The other DCSS gods are too busy with divine affairs to rank an entire category, but every DCSS god will reward players for certain achievements with tiered bannners. Players will be ranked on their total banner score, with tier one banners worth 1 point, tier 2 worth 2 points, and tier 3 worth 4 points.""",
         "banner_score",
@@ -328,23 +346,9 @@ INDIVIDUAL_CATEGORIES = (
     ),
 )
 
-ClanCategory = collections.namedtuple(
-    "ClanCategory",
-    (
-        "name",
-        "desc",
-        "db_column",
-        "source_table",
-        "source_column",
-        "source_column_name",
-        "source_column_display_transformation",
-        "desc_order",
-        "url",
-        "full_ranking_extra_columns",
-    ),
-)
 CLAN_CATEGORIES = (
-    ClanCategory(
+    Category(
+        "clan",
         "Exploration",
         "Clans are awarded points and subsequently ranked in the same way as the individual Exploration category using all of the members' games.",
         "exploration",
@@ -353,10 +357,10 @@ CLAN_CATEGORIES = (
         "Score",
         None,
         True,
-        None,
         [],
     ),
-    ClanCategory(
+    Category(
+        "clan",
         "Piety",
         "Clans are awarded points and subsequently ranked in the same way as the individual Piety category using all of the members' games.",
         "piety",
@@ -365,10 +369,10 @@ CLAN_CATEGORIES = (
         "Score",
         None,
         True,
-        None,
         [],
     ),
-    ClanCategory(
+    Category(
+        "clan",
         "Unique Harvesting",
         "Clans are awarded points and subsequently ranked in the same way as the individual Unique Harvesting category using all of the members' games.",
         "harvest",
@@ -377,10 +381,10 @@ CLAN_CATEGORIES = (
         "Score",
         None,
         True,
-        None,
         [],
     ),
-    ClanCategory(
+    Category(
+        "clan",
         "Wins",
         """Clans are awarded <code> 10,000 / (13 - wins) </code> points for
         distinct first combo wins by clan members. The total number of wins in
@@ -395,10 +399,10 @@ CLAN_CATEGORIES = (
         None,
         None,
         None,
-        None,
         [],
     ),
-    ClanCategory(
+    Category(
+        "clan",
         "Nemelex' Choice",
         "The clan is awarded points in this category in the same way as the indvidual Nemelex' Choice using all of the members' games: one point to each of the first eight clans to win a Nemelex combo. Note: multiple clan members may win a Nemelex combo to deny other individuals Nemelex points, but this will not affect clan Nemelex scoring.",
         "nemelex_score",
@@ -407,10 +411,10 @@ CLAN_CATEGORIES = (
         "Score",
         None,
         True,
-        None,
         [],
     ),
-    ClanCategory(
+    Category(
+        "clan",
         "Combo High Scores",
         "The clan is awarded points in this category in the same way as the individual Combo High scores category using all of the members' games. (A combo high score gives 1 point in this category; a winning high score 2 points; and a species or background high score 5 points.)",
         "combo_score",
@@ -419,10 +423,10 @@ CLAN_CATEGORIES = (
         "Score",
         None,
         True,
-        None,
         [],
     ),
-    ClanCategory(
+    Category(
+        "clan",
         "Streak Length",
         "Clans are ranked in this category based on the streak of their best player, calculated according to the individual Streak Length category.",
         "streak",
@@ -431,10 +435,10 @@ CLAN_CATEGORIES = (
         "Best Streak Length",
         None,
         True,
-        None,
         [],
     ),
-    ClanCategory(
+    Category(
+        "clan",
         "Best High Score",
         "Clans are ranked by the highest scoring game by any of their members.",
         "highest_score",
@@ -443,10 +447,10 @@ CLAN_CATEGORIES = (
         "Score",
         None,
         True,
-        None,
         [],
     ),
-    ClanCategory(
+    Category(
+        "clan",
         "Low Turncount Win",
         "Clans are ranked by the lowest turncount win of any of their members.",
         "lowest_turncount_win",
@@ -455,10 +459,10 @@ CLAN_CATEGORIES = (
         "Turns",
         None,
         False,
-        None,
         [],
     ),
-    ClanCategory(
+    Category(
+        "clan",
         "Fastest Real Time Win",
         "Clans are ranked by the fastest realtime win of any of their members.",
         "fastest_win",
@@ -467,10 +471,10 @@ CLAN_CATEGORIES = (
         "Duration",
         "sec_to_time",
         False,
-        None,
         [],
     ),
-    ClanCategory(
+    Category(
+        "clan",
         "Ziggurat Diving",
         "Clans are ranked in this category based on the Ziggurat Dive of their best player.",
         "ziggurat_dive",
@@ -479,10 +483,10 @@ CLAN_CATEGORIES = (
         "Floors",
         None,
         None,
-        None,
         [],
     ),
-    ClanCategory(
+    Category(
+        "clan",
         "Banner Score",
         """Clans are awarded banner points based on all of the members'
         banners. Banner points are awarded in the same way as the individual
@@ -494,7 +498,6 @@ CLAN_CATEGORIES = (
         "Score",
         None,
         True,
-        None,
         [],
     ),
 )
@@ -770,7 +773,7 @@ BANNERS = [
 
 
 def individual_category_by_name(name):
-    # type: (str) -> Optional[IndividualCategory]
+    # type: (str) -> Optional[Category]
     for cat in INDIVIDUAL_CATEGORIES:
         if cat.name == name:
             return cat
