@@ -846,8 +846,13 @@ def english_join(items, final="and"):
 
   eg [1,2,3] => "1, 2, and 3".
   """
-  # type: (List[str], str) -> str
+  # type: (Sequence[str], str) -> str
   if not items:
     return ""
-  items[-1] = "%s %s" % (final, items[-1])
-  return ", ".join(str(item) for item in items)
+  if len(items) == 1:
+    return items[0]
+  elif len(items) == 2:
+    return "%s %s %s" % (items[0], final, items[1])
+  else:
+    items[-1] = "%s %s" % (final, items[-1])
+    return ", ".join(str(item) for item in items)
