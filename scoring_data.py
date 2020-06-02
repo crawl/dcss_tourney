@@ -26,7 +26,9 @@ SERVERS = {
     "LLD": "http://lazy-life.ddo.jp/",
 }
 
-ColumnDisplaySpec = collections.namedtuple("ColumnDisplaySpec", ("column_name", "display_name"))
+ColumnDisplaySpec = collections.namedtuple(
+    "ColumnDisplaySpec", ("column_name", "display_name")
+)
 IndividualCategory = collections.namedtuple(
     "IndividualCategory",
     (
@@ -48,8 +50,8 @@ IndividualCategory = collections.namedtuple(
 )
 
 
-def category_leaders(category, c, limit=None):
-    # type: (IndividualCategory, Any, int) -> Sequence[Any]
+def category_leaders(category, c, category_type, limit=None):
+    # type: (Union[IndividualCategory,ClanCategory], Any, Union['individual', 'clan'], int) -> Sequence[Any]
     # c = database cursor
     # response is a list of database rows
     transformed_col = (
@@ -65,18 +67,38 @@ def category_leaders(category, c, limit=None):
         )
     else:
         extra_cols = ""
-    query_text = """SELECT player, {transformed_col} {extra_cols} FROM {table}
+    query_text = """SELECT {first_col}, {transformed_col} {extra_cols} FROM {table}
                    ORDER BY {col} {direction}""".format(
+        first_col='player' if category_type == 'individual' else 'team_captain',
         transformed_col=transformed_col,
         extra_cols=extra_cols,
         col=category.source_column,
         table=category.source_table,
         direction="DESC" if category.desc_order else "",
     )
-    query = Query(query_text)
-    if limit:
-        query.append(" LIMIT %d" % limit)
-    return query.rows(c)
+    q = Query(query_text)
+    if category_type == 'individual' and limit:
+        q.append(" LIMIT %d" % limit)
+
+    if category_type == 'individual':
+        return q.rows(c)
+    else:
+        # We rewrite from team_captain to clan name
+        result = q.rows(c)
+        new_result = []
+        for row in result:
+            captain = row[0]
+            if captain is None:
+                continue
+            # We can't use query.get_clan_info as query imports this file
+            c.execute('''SELECT name FROM teams WHERE owner = %s''', (captain,))
+            clan_name = c.fetchone()[0]
+            new_row = [clan_name]
+            new_row.extend(row[1:])
+            new_result.append(new_row)
+        if limit:
+            new_result = new_result[:limit]
+        return new_result
 
 
 # This list (and the clan categories & banner lists) are in display order
