@@ -44,6 +44,9 @@
         s="s" if points != '1' else "",
         ordinal=ordinal,
       )
+
+  def pretty_clan_name(name):
+    return name.replace('_', ' ')
 %>
 
 ## Runs on render. Variables set in here are not accessible to <%blocks>. To
@@ -62,27 +65,28 @@
 <%block name="main">
   <div class="row">
     <div class="col">
-      <h1>
-        ${player}<br>
-        <small class="text-muted">
-            Overall rank:
-            <a href="${XXX_TOURNEY_BASE}/all-players-ranks.html">
-              ${overall_rank}
-              <small>
-                of ${total_number_of_players}
-              </small>
-            </a>
-        </small>
+      <h1 class="display-1">
+        ${player}
       </h1>
+      <p class="lead">
+        <b>
+          Overall rank:
+        </b>
+        <a href="${XXX_TOURNEY_BASE}/all-players-ranks.html">
+          ${overall_rank}
+          <small>
+            of ${total_number_of_players}
+          </small>
+        </a>
+        </small>
+      </p>
       % if clan_name is not None:
-      <p>
-        Clan: <a href="clans/${html.slugify(clan_name)}.html">${clan_name}</a>. Members: ${html.english_join(clan_members)}.
+      <p class="lead">
+        Clan: <a href="clans/${html.slugify(clan_name)}.html">${pretty_clan_name(clan_name)}</a>
       </p>
       % endif
     </div>
   </div>
-
-  <hr>
 
   <%
     whereis = html.whereis(cursor, player)
@@ -93,7 +97,7 @@
       <h2>Ongoing Games</h2>
       <p>${whereis}</p>
     </div>
-  </div> 
+  </div>
   <hr>
   % endif
 
