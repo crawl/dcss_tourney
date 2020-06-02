@@ -36,9 +36,25 @@
         <b>
           Clan Members:
         </b>
-        ${html.english_join([linkify_player(member) for member in clan_members])}
+        ${html.english_join([linkify_player(member) for member in clan_members if member != captain])}
       </p>
-
+      <p class="lead">
+        <b>
+          Overall rank:
+        </b>
+        <a href="${XXX_TOURNEY_BASE}/teams.html">
+          ${overall_rank}
+          <small>
+          of ${total_number_of_clans}
+          </small>
+        </a>
+      </p>
+      ${html.full_games_table(
+          query.find_games(cursor, player = clan_members, sort_max = 'end_time', limit = 10),
+          count=False, win=False, caption="Recent games for %s" % pretty_clan_name(clan_name),
+          excluding=("race", "class", "title", "turns", "duration", "runes", "turns"),
+          including=[[0, ('player', 'Player')], [2, ('charabbrev', 'Char')], [9, ('src', 'Server')]]
+      )}
     </div>
   </div>
 </%block>

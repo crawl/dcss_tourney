@@ -533,6 +533,8 @@ def find_games(c, sort_min=None, sort_max=None, limit=1, **dictionary):
   for key, value in dictionary.items():
     if key == 'before':
       append_where(where, "end_time < %s", value)
+    elif isinstance(value, (list, tuple)):
+      append_where(where, key + " IN %s", value)
     else:
       append_where(where, key + " = %s", value)
 
