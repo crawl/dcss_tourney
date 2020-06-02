@@ -105,11 +105,20 @@ def team_page(c, captain):
     'clan_members': clan_info[1],
     'overall_rank': stats['rank1'],
     'total_number_of_clans': stats['rank2'],
+    'clan_category_results': clan_category_results(c, clan_name),
   }
   render(c, 'clan',
     dest = '%s/%s-%s' % (crawl_utils.CLAN_BASE, clan_info[0], captain.lower()),
     pars = pars, top_level_pars=True,
   )
+
+def clan_category_results(c, clan_name):
+  # TODO
+  import random
+  data = {}
+  for category in scoring_data.CLAN_CATEGORIES:
+    data[category.name] = CategoryResult(random.randrange(0, 10), 'Details about clan challenge %s' % category.name)
+  return data
 
 def team_pages(c):
   info("Updating teams page")
