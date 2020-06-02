@@ -1647,7 +1647,7 @@ def get_all_clan_ranks(c):
   clean_rows = [ ]
   for r in rows:
       captain = r[1]
-      r[0] = crawl_utils.linked_text(captain, crawl_utils.clan_link, r[0])
+      r[0] = crawl_utils.linked_text('%s-%s' % (r[0], captain), crawl_utils.clan_link, r[0])
       r[1] = crawl_utils.clan_affiliation(captain, get_clan_info(c, captain),
               False)
       clean_rows.append( [render_rank(n) for n in r] )

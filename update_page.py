@@ -93,7 +93,17 @@ def index_page(c):
 
 def team_page(c, captain):
   info("Updating team page for captain %s" % captain)
-  #render(c, 'clan', dest = ('%s/%s' % (crawl_utils.CLAN_BASE, captain.lower())), pars = { 'captain' : captain })
+  clan_info = query.get_clan_info(c, captain)
+  assert clan_info is not None
+  pars = {
+    'captain': captain,
+    'clan_name': clan_info[0],
+    'clan_members': clan_info[1],
+  }
+  render(c, 'clan',
+    dest = '%s/%s-%s' % (crawl_utils.CLAN_BASE, clan_info[0], captain.lower()),
+    pars = pars, top_level_pars=True,
+  )
 
 def team_pages(c):
   info("Updating teams page")
