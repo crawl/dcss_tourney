@@ -55,3 +55,8 @@ div.banner img {
   /* Required in Chrome to preserve aspect ratio, but not in Firefox. */
   object-fit: contain;
 }
+
+hr {
+  /* Slightly lighter <hr>s, to suit our dark background. */
+  border-top: 1px solid rgba(64, 64, 64, 0.5);
+}

@@ -5,6 +5,7 @@
   import html
   import query
   import scoring_data
+  import nemelex
 
   active_menu_item = 'Overview'
 %>
@@ -16,7 +17,22 @@
 <%block name="main">
   <div class="row">
     <div class="col">
-      <h2>Recent Games</h2>
+      <h2>Contents</h2>
+      <ol>
+        <li><a href="#general">General</a></li>
+        <li><a href="#nemelex-choice">Nemelex Choice</a></li>
+        <li><a href="#individual-categories">Individual Categories</a></li>
+        <li><a href="#clan-categories">Clan Categories</a></li>
+      </ol>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="row">
+    <div class="col">
+      <h2 id="general">General</h2>
+      <h3>Recent Games</h3>
       ${html.full_games_table(
           query.find_games(cursor, sort_max = 'end_time', limit = 5),
           count=False, win=False, caption="Recent games",
@@ -29,7 +45,7 @@
         )}
         <div class="row">
           <div class="col-sm-12 col-md-6">
-            <h2>Current Top Players</h2>
+            <h3>Current Top Players</h3>
             ${html.table_text(
               [ 'Player', 'Overall Score' ],
               data=query.get_top_players(cursor, how_many=5),
@@ -40,7 +56,7 @@
             </a>
           </div>
           <div class="col-sm-12 col-md-6">
-            <h2>Current Top Clans</h2>
+            <h3>Current Top Clans</h3>
             ${html.table_text(
               [ 'Clan', 'Overall Score' ],
               data=[([row[0]] + row[2:]) for row in query.get_all_clan_ranks(cursor, limit=5)],
@@ -54,15 +70,39 @@
     </div>
   </div>
 
+  <hr>
+
+  <!-- Nemelex Choice -->
   <div class="row">
+    <%
+      nem_list = nemelex.list_nemelex_choices(cursor)
+      if nem_list:
+        pnem_list = []
+        for x in nem_list[:-1]:
+          if x[2] >= 8:
+            pnem_list.append('<s>' + x[0] + ('(%d won)' % x[2]) + '</s>')
+          else:
+            pnem_list.append(x[0] + ('(%d won)' % x[2]))
+    %>
     <div class="col">
-      <h2>Contents</h2>
-      <ol>
-        <li><a href="#individual-categories">Individual Categories</a></li>
-        <li><a href="#clan-categories">Clan Categories</a></li>
-      </ol>
+      <h2 id="nemelex-choice">Nemelex Choice</h2>
+      <p class="lead">
+        Current combo:
+        <b>
+          ${nem_list[-1][0]}
+        </b>
+        , chosen on ${nem_list[-1][1]} UTC.
+      </p>
+      % if pnem_list:
+      <p>
+        Previous combos:
+        ${html.english_join(pnem_list)}
+      </p>
+      % endif
     </div>
   </div>
+
+  <hr>
 
   <div class="row">
     <div class="col">
@@ -105,6 +145,8 @@
       % endfor
     </div>
   </div>
+
+  <hr>
 
   <div class="row">
     <div class="col">
