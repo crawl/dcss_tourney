@@ -16,14 +16,14 @@ MAX_CATEGORY_SCORE = 10000
 
 SERVERS = {
     "CPO": "https://crawl.project357.org/",
-    "CAO": "http://crawl.akrasiac.org/",
+    "CAO": "http://crawl.akrasiac.org:8080/",
     "CBRO": "http://crawl.berotato.org/",
-    "CDO": "http://crawl.develz.org/",
-    "CKO": "https://crawl.kelbi.org/crawl/",
-    "CUE": "https://underhound.eu/crawl/",
-    "CWZ": "https://webzook.net/soup/",
-    "CXC": "http://crawl.xtahua.com/crawl/",
-    "LLD": "http://lazy-life.ddo.jp/",
+    "CDO": None,
+    "CKO": "https://crawl.kelbi.org/",
+    "CUE": "https://underhound.eu:8080/",
+    "CWZ": "http://webzook.net:8080/",
+    "CXC": "http://crawl.xtahua.com/",
+    "LLD": "http://lazy-life.ddo.jp:8080/",
 }
 
 ColumnDisplaySpec = collections.namedtuple(

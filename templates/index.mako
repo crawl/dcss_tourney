@@ -73,7 +73,14 @@
       <h2 id="how-to-play">How To Play</h2>
       <p>
         <%
-          server_list = html.english_join(['<a href="%s">%s</a>' % (server[1], server[0]) for server in sorted(scoring_data.SERVERS.items())])
+          linked_servers = []
+          for server, url in scoring_data.SERVERS.items():
+            if url is not None:
+              linked_server = '<a href="{url}">{server}</a>'.format(server=server, url=url)
+            else:
+              linked_server = server
+            linked_servers.append(linked_server)
+          server_list = html.english_join(linked_servers)
         %>
         All games of DCSS v${scoring_data.TOURNAMENT_VERSION} played on official servers (${server_list}) will count for the tournament!
       </p>
