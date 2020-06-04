@@ -7,7 +7,7 @@ from query_class import Query
 
 TOURNAMENT_VERSION = "0.25"
 YEAR = "2020"
-START_TIME = datetime.datetime(2020, 6, 5, 20, 0)
+START_TIME = datetime.datetime(2020, 6, 12, 20, 0)
 END_TIME = START_TIME + datetime.timedelta(days=16)
 CLAN_CUTOFF_TIME = START_TIME + datetime.timedelta(days=7)
 
