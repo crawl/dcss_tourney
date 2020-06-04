@@ -4,7 +4,7 @@
   import scoring_data
   import html
   import query
-  from crawl_utils import XXX_TOURNEY_BASE, base_link
+  from crawl_utils import XXX_TOURNEY_BASE, base_link, player_link
 
   active_menu_item = "Clans"
 
@@ -12,8 +12,8 @@
     return name.replace('_', ' ')
 
   def linkify_player(name):
-    return """<a href="{XXX_TOURNEY_BASE}/players/{name}.html">{name}</a>""".format(
-      XXX_TOURNEY_BASE=XXX_TOURNEY_BASE,
+    return """<a href="{link}">{name}</a>""".format(
+      link=player_link(name),
       name=name,
     )
 
