@@ -1641,7 +1641,8 @@ def get_all_player_ranks(c):
     if captain is None:
       r[1] = ''
     else:
-      r[1] = crawl_utils.linked_text(captain, crawl_utils.clan_link, r[1])
+      clan_page = get_clan_info(c, captain)[2]
+      r[1] = crawl_utils.linked_text(clan_page, crawl_utils.clan_link, r[1])
     r = [ render_rank(n) for n in r ]
     clean_rows.append(r)
   return clean_rows
