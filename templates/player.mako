@@ -12,7 +12,7 @@
 
   def rank_ordinal(num):
     if num == 0:
-      return u'∞'
+      return u'last'
     remainder = num % 10
     suffix = 'th'
     if remainder == 1:
@@ -35,7 +35,7 @@
 
   def rank_description(rank_num):
     if rank_num is None:
-      return u"0 points <small>(rank: ∞)</small>"
+      return u"0 points <small>(rank: last)</small>"
     else:
       points = points_for_rank(rank_num)
       ordinal = rank_ordinal(rank_num)
