@@ -109,6 +109,7 @@
       <h2 id="individual-categories">Individual Categories</h2>
 
       % for category in scoring_data.INDIVIDUAL_CATEGORIES:
+      %   if category.source_table is not None:
       <div class="card bg-dark text-light mb-3">
         <div class="row no-gutters">
           <div class="col-md-auto">
@@ -131,17 +132,14 @@
                   skip=True)
               }
               % endif
-              % if category.source_table:
               <a href="${base_link(html.slugify(category.name))}.html">
                 View full ranking.
               </a>
-              % else:
-              <i>Full ranking not available.</i>
-              % endif
             </div>
           </div>
         </div>
       </div>
+      % endif
       % endfor
     </div>
   </div>
@@ -153,6 +151,7 @@
       <h2 id="clan-categories">Clan Categories</h2>
 
       % for category in scoring_data.CLAN_CATEGORIES:
+      %  if category.source_table is not None:
       <div class="card bg-dark text-light mb-3">
         <div class="row no-gutters">
           <div class="col-md-auto">
@@ -175,17 +174,14 @@
                   skip=True)
               }
               % endif
-              % if category.source_table:
               <a href="${base_link('clan-' + html.slugify(category.name))}.html">
                 View full ranking.
               </a>
-              % else:
-              <i>Full ranking not available.</i>
-              % endif
             </div>
           </div>
         </div>
       </div>
+      % endif
       % endfor
     </div>
   </div>
