@@ -60,3 +60,51 @@ hr {
   /* Slightly lighter <hr>s, to suit our dark background. */
   border-top: 1px solid rgba(64, 64, 64, 0.5);
 }
+
+.lr-flex {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.lr-flex > div {
+  width: 48%;
+}
+
+#player-search-div {
+  width:100%;
+}
+
+#player-search {
+  width: 100%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+
+#clan-search {
+  width: 100%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+
+.search-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.search-list li a {
+  border: 1px solid #ddd;
+  margin-top: -1px;
+  padding: 12px;
+  text-decoration: none;
+  display: block;
+}
+
+.search-list li a:hover {
+  background-color: #343434;
+}

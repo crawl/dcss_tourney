@@ -961,6 +961,9 @@ def players_in_team(cursor, team_owner):
   players.insert(0, team_owner)
   return players
 
+def clan_page_name(team_name, captain):
+  return '%s-%s' % (team_name.lower(), captain.lower())
+
 def get_clan_info(c, player):
   """Given a player name, returns a tuple of:
   1. clan name
@@ -985,7 +988,7 @@ def get_clan_info(c, player):
   return (
     team_name,
     players_in_team(c, captain),
-    '%s-%s' % (team_name.lower(), captain.lower()),
+    clan_page_name(team_name, captain),
   )
 
 def find_remaining_gods(used_gods):
@@ -1626,6 +1629,33 @@ def render_rank(n):
         # return "&#x221E;" # ∞
         return "-"
     return n
+
+def get_all_players(c):
+  q = Query('''SELECT p.name, p.team_captain, t.name
+                    FROM players p LEFT JOIN teams t
+                      ON p.team_captain = t.owner
+                    ORDER BY p.name''')
+  rows = [ list(r) for r in q.rows(c) ]
+  clean_rows = [ ]
+  for r in rows:
+    captain = r[1]
+    clan_link = "" if captain is None else (
+          crawl_utils.linked_text(clan_page_name(r[2], r[1]),
+                                  crawl_utils.clan_link, r[2]))
+    player_link = crawl_utils.linked_text(r[0], crawl_utils.player_link)
+    clean_rows.append([r[0], player_link, clan_link])
+
+  return clean_rows
+
+def get_all_clans(c):
+  q = Query('''SELECT t.name, t.owner FROM teams t ORDER BY t.name''')
+  rows = [ list(r) for r in q.rows(c) ]
+  clean_rows = []
+  for r in rows:
+    clan_link = crawl_utils.linked_text(clan_page_name(r[0], r[1]),
+                                        crawl_utils.clan_link, r[0])
+    clean_rows.append([r[0], r[1], clan_link])
+  return clean_rows
 
 def get_all_player_ranks(c):
   q = Query('''SELECT p.name, p.team_captain, t.name, p.score_full, '''

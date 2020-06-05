@@ -10,6 +10,7 @@
     (XXX_TOURNEY_BASE + "", "Rules"),
     (XXX_TOURNEY_BASE + "/all-players-ranks.html", "Players"),
     (XXX_TOURNEY_BASE + "/teams.html", "Clans"),
+    (XXX_TOURNEY_BASE + "/search.html", "Search"),
   )
 %>
 <!DOCTYPE html>
