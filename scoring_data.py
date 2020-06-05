@@ -120,7 +120,7 @@ INDIVIDUAL_CATEGORIES = (
     Category(
         "individual",
         "Piety",
-        "Elyvilon thinks it's important to evaluate what all the gods have to offer. Elyvilon will award 1 point per god championed (****** piety) and an additional point for a win after championing that god. Two gods (Gozag and Xom) do not have the usual ****** piety system; to get the points for these gods, you must never worship another god during the game.",
+        "Elyvilon thinks it's important to evaluate what all the gods have to offer. Elyvilon awards 1 point per god championed (****** piety) and an additional point for a win after championing that god. Two gods (Gozag and Xom) do not have the usual ****** piety system; to get the points for these gods, you must never worship another god during the game.",
         "piety",
         "player_piety_score",
         "piety",
@@ -135,7 +135,7 @@ INDIVIDUAL_CATEGORIES = (
     Category(
         "individual",
         "Unique Harvesting",
-        "Yredelemnul demands that players kill as many distinct uniques and player ghosts as possible, and will rank players based on the number of such kills.",
+        "Yredelemnul demands that players kill as many distinct uniques and player ghosts as possible, and ranks players based on the number of such kills.",
         "harvest",
         "player_harvest_score",
         "score",
@@ -147,7 +147,7 @@ INDIVIDUAL_CATEGORIES = (
     Category(
         "individual",
         "Winning",
-        "The Shining One values perserverence and courage in the face of adversity. In this category, TSO will award players 10,000 points if they win two distinct character combos, 5,000 points for winning their first combo, and 0 otherwise.",
+        "The Shining One values perseverance and courage in the face of adversity. In this category, TSO awards players 10,000 points if they win two distinct character combos, 5,000 points for winning their first combo, and 0 otherwise.",
         "nonrep_wins",
         None,
         None,
@@ -159,7 +159,7 @@ INDIVIDUAL_CATEGORIES = (
     Category(
         "individual",
         "Win Rate",
-        "Cheibriados believes in being slow and steady, and will recognize players who are careful enough to excel consistently. This category ranks players by their adjusted win percentage, calculated as the number of wins divided by the number of games played plus 1.",
+        "Cheibriados believes in being slow and steady, and recognises players who are careful enough to excel consistently. This category ranks players by their adjusted win percentage, calculated as the number of wins divided by the number of games played plus 1.",
         "win_perc",
         "player_win_perc",
         "win_perc",
@@ -174,7 +174,7 @@ INDIVIDUAL_CATEGORIES = (
     Category(
         "individual",
         "Streak Length",
-        u"Jiyva is ranking players by their streak length. Jiyva favours the flexibility of a gelatinous body—the length of a streak is defined as the number of distinct species or backgrounds won consecutively (whichever is smaller). Every game in a streak must be the first game you start after winning the previous game in the streak. This will always be the case if you play all your games on one server.",
+        u"Jiyva ranks players by their streak length. Jiyva favours the flexibility of a gelatinous body—the length of a streak is defined as the number of distinct species or backgrounds won consecutively (whichever is smaller). Every game in a streak must be the first game you start after winning the previous game in the streak. This will always be the case if you play all your games on one server.",
         "streak",
         "player_best_streak",
         "length",
@@ -186,7 +186,7 @@ INDIVIDUAL_CATEGORIES = (
     Category(
         "individual",
         "Nemelex' Choice",
-        u"Nemelex Xobeh wants to see players struggle against randomness and will rank players who perservere with one of several combos randomly chosen and announced throughout the tournament. The first 8 players to win a given Nemelex' choice combo earn a point in this category and Nemelex will rank players by their score in this category.",
+        u"Nemelex Xobeh wants to see players struggle against randomness and ranks players who persevere with one of several combos randomly chosen and announced throughout the tournament. The first 8 players to win a given Nemelex' choice combo earn a point in this category and Nemelex ranks players by their score in this category.",
         "nemelex_score",
         "player_nemelex_score",
         "score",
@@ -198,7 +198,7 @@ INDIVIDUAL_CATEGORIES = (
     Category(
         "individual",
         "Combo High Scores",
-        "Dithmenos is ranking players by the combo high scores they can acquire and defend from rivals. A combo high score gives 1 point in this category; a winning high score 2 points; and a species or background high score 5 points.",
+        "Dithmenos ranks players by the combo high scores they can acquire and defend from rivals. A combo high score gives 1 point in this category; a winning high score 2 points; and a species or background high score 5 points.",
         "combo_score",
         "player_combo_score",
         "total",
@@ -215,7 +215,7 @@ INDIVIDUAL_CATEGORIES = (
     Category(
         "individual",
         "Best High Score",
-        "Okawaru is all about getting as many points as possible, and will rank players based on their best high score.",
+        "Okawaru is all about getting as many points as possible, and ranks players based on their best high score.",
         "highest_score",
         "highest_scores",
         "score",
@@ -232,7 +232,7 @@ INDIVIDUAL_CATEGORIES = (
     Category(
         "individual",
         "Lowest Turncount Win",
-        "The Wu Jian Council favours the unquestioned excellence and efficient combat of the Sifu. The Council will rank players based on their lowest turn count win.",
+        "The Wu Jian Council favours the unquestioned excellence and efficient combat of the Sifu. The Council ranks players based on their lowest turn count win.",
         "lowest_turncount_win",
         "lowest_turncount_wins",
         "turn",
@@ -249,7 +249,7 @@ INDIVIDUAL_CATEGORIES = (
     Category(
         "individual",
         "Fastest Real Time Win",
-        "Makhleb wants to see bloodshed as quickly as possible and will rank players according to their fastest win.",
+        "Makhleb wants to see bloodshed as quickly as possible and ranks players according to their fastest win.",
         "fastest_win",
         "fastest_wins",
         "duration",
@@ -266,7 +266,7 @@ INDIVIDUAL_CATEGORIES = (
     Category(
         "individual",
         "Lowest XL Win",
-        "Vehumet values ruthless efficiency, and will recognize the players who win at the lowest XL. Waiting around for an ancestor to return from memory is inefficient, so games where Hepliaklqana is worshipped do not count in this category. For the purposes of this category, players who have not won and players who have won only at XL 27 are both ranked last.",
+        "Vehumet values ruthless efficiency, and recognises the players who win at the lowest XL. Waiting around for an ancestor to return from memory is inefficient, so games where Hepliaklqana is worshipped do not count in this category. For the purposes of this category, players who have not won and players who have won only at XL 27 are both ranked last.",
         "low_xl_win",
         "low_xl_nonhep_wins",
         "xl",
@@ -283,7 +283,7 @@ INDIVIDUAL_CATEGORIES = (
     Category(
         "individual",
         "Tournament Win Order",
-        "Qazlal wants destruction and they want it as soon as possible! This category ranks players in order of their first win in the tournament.",
+        "Qazlal wants destruction and wants it as soon as possible! This category ranks players in order of their first win in the tournament.",
         "first_win",
         "first_wins",
         "end_time",
@@ -301,7 +301,7 @@ INDIVIDUAL_CATEGORIES = (
     Category(
         "individual",
         "Tournament All Rune Win Order",
-        "Lugonu appreciates all planes of reality, and wants players tour as many of them as soon as possible. They will rank players in order of their first 15-rune win in the tournament.",
+        "Lugonu appreciates all planes of reality, and wants players to tour as many of them as soon as possible. Lugonu ranks players in order of their first 15-rune win in the tournament.",
         "first_allrune_win",
         "first_allrune_wins",
         "end_time",
@@ -319,7 +319,7 @@ INDIVIDUAL_CATEGORIES = (
     Category(
         "individual",
         "Ziggurat Diving",
-        """Xom is entertained by a player's descent into madness, and will rank
+        """Xom is entertained by a player's descent into madness, and ranks
         players by the number of consecutive Ziggurat floors they reach in a
         single game. Exiting a Ziggurat from the lowest floor counts as
         "reaching a floor" for scoring in this category, and an unlimited
@@ -335,7 +335,7 @@ INDIVIDUAL_CATEGORIES = (
     Category(
         "individual",
         "Banner Score",
-        """The other DCSS gods are too busy with divine affairs to rank an entire category, but every DCSS god will reward players for certain achievements with tiered bannners. Players will be ranked on their total banner score, with tier one banners worth 1 point, tier 2 worth 2 points, and tier 3 worth 4 points.""",
+        """The other DCSS gods are too busy with divine affairs to rank an entire category, but every DCSS god rewards players for certain achievements with tiered bannners. Players are ranked on their total banner score, with tier one banners worth 1 point, tier 2 worth 2 points, and tier 3 worth 4 points.""",
         "banner_score",
         "player_banner_score",
         "bscore",
