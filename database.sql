@@ -380,7 +380,7 @@ CREATE INDEX ziggurat_depths ON ziggurats (completed, deepest);
 -- Generated table to keep track of the last milestone for each player/server.
 CREATE TABLE whereis_table (
   player VARCHAR(20),
-  src CHAR(3),
+  src VARCHAR(10),
   start_time DATETIME NOT NULL,
   mile_time DATETIME NOT NULL,
   PRIMARY KEY (player, src),
@@ -390,7 +390,7 @@ CREATE TABLE whereis_table (
 -- Generated table to keep track of the last game finished for each player/server.
 CREATE TABLE last_game_table (
   player VARCHAR(20),
-  src CHAR(3),
+  src VARCHAR(10),
   start_time DATETIME NOT NULL,
   PRIMARY KEY (player, src),
   FOREIGN KEY (player) REFERENCES players (name) ON DELETE CASCADE
@@ -414,7 +414,7 @@ CREATE INDEX player_max_piety_pg ON player_max_piety (player, god);
 -- purposes; full streak info is not cached.
 CREATE TABLE streaks (
   player VARCHAR(20),
-  src CHAR(3),
+  src VARCHAR(10),
   start_time DATETIME NOT NULL,
   length INT,
   PRIMARY KEY (player, src, start_time),
