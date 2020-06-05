@@ -15,7 +15,6 @@ window.addEventListener("load", function() {
 
 function player_search_update(hide_empty)
 {
-    console.log("hi");
     search_box = $("#player-search");
     query = search_box.val().toUpperCase();
     if (hide_empty)
