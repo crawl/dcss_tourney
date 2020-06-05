@@ -1242,6 +1242,8 @@ def load_args():
   parser.add_argument("--db-pass", help="Database password")
   parser.add_argument("--validate-database", action='store_true',
     help="Check the database exists and load 'database.sql' if not.")
+  parser.add_argument("--no-load", action='store_true',
+    help="Don't fetch or update db.")
 
   return parser.parse_args()
 
@@ -1297,8 +1299,11 @@ if __name__ == '__main__':
   try:
     import update_page
     update_page.index_page(cursor)
-    master = create_master_reader()
-    master.tail_all(cursor)
+    if args.no_load:
+      update_page.player_pages(cursor)
+    else:
+      master = create_master_reader()
+      master.tail_all(cursor)
   finally:
     set_active_cursor(None)
     cursor.close()
