@@ -385,7 +385,7 @@ CLAN_CATEGORIES = (
     ),
     Category(
         "clan",
-        "Wins",
+        "Winning",
         """Clans are awarded <code> 10,000 / (13 - wins) </code> points for
         distinct first combo wins by clan members. The total number of wins in
         this category is capped at 12, and the total number of wins from any
