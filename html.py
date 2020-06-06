@@ -349,6 +349,7 @@ def table_text(headers, data, count=True,
   table_id = ""
   if datatables:
     table_id = "datatables-enable"
+    table_classes.add("compact") # DataTables compact styling
   out = '''<div class="table-responsive">\n<table id="%s" class="%s">\n''' % (
           table_id, " ".join(table_classes))
 

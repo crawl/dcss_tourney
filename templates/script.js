@@ -18,7 +18,10 @@ window.addEventListener("load", function() {
 $(document).ready(function() {
     $('#datatables-enable').DataTable(
         {
-            "paging": false // TODO: revisit? I found it a bit hard to use on default settings
+            "paging": false, // TODO: revisit? I found it a bit hard to use on default settings
+            "scrollY": "60vh", // TODO: how reliable is this across browsers?
+            "scrollX": true, // enable header scrolling
+            "scrollCollapse": true // TODO: not sure this is working right
         });
 } );
 
