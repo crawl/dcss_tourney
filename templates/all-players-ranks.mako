@@ -23,6 +23,7 @@
 </%block>
 
 <%block name="main">
+
   <%
     c = attributes['cursor']
     stats = query.get_all_player_ranks(c)
@@ -33,7 +34,8 @@
 
       ${html.table_text(
         [ 'Player', 'Clan', 'Overall Score' ] + [ ic.name for ic in scoring_data.INDIVIDUAL_CATEGORIES ],
-        data=stats, place_column=2, skip=True, extra_wide_support=True )
+        data=stats, place_column=2, skip=True, extra_wide_support=True,
+        datatables=True )
       }
     </div>
   </div>

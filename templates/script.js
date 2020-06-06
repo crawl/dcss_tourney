@@ -13,6 +13,15 @@ window.addEventListener("load", function() {
     }
 });
 
+// kind of hacky: just name a table this in any given template and you'll get
+// datatables on it. May be necessary to customize this by page.
+$(document).ready(function() {
+    $('#datatables-enable').DataTable(
+        {
+            "paging": false // TODO: revisit? I found it a bit hard to use on default settings
+        });
+} );
+
 function player_search_update(hide_empty)
 {
     search_box = $("#player-search");

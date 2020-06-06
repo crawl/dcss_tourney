@@ -61,6 +61,12 @@ hr {
   border-top: 1px solid rgba(64, 64, 64, 0.5);
 }
 
+/* XX hack workaround, restore the bootstrap styling (otherwise table-dark
+   doesn't render right with datatables) */
+table.dataTable tbody tr {
+  background-color: #343a40;
+}
+
 .lr-flex {
   display: flex;
   flex-direction: row;

@@ -1670,7 +1670,7 @@ def get_all_player_ranks(c):
     captain = r[1]
     r = r[0:1] + r[2:]
     if captain is None:
-      r[1] = ''
+      r[1] = '-'
     else:
       clan_page = get_clan_info(c, captain)[2]
       r[1] = crawl_utils.linked_text(clan_page, crawl_utils.clan_link, r[1])

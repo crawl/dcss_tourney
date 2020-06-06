@@ -324,7 +324,7 @@ def _is_numeric_table_value(value):
 
 def table_text(headers, data, count=True,
                place_column=-1, stub_text='No data', skip=False, bold=False,
-               extra_wide_support=False, caption=None):
+               extra_wide_support=False, caption=None, datatables=False):
   """Create a HTML table of players.
 
   :param List[str] headers: Column headers
@@ -346,7 +346,11 @@ def table_text(headers, data, count=True,
   ))
   if extra_wide_support:
     table_classes.add("table-bordered")
-  out = '''<div class="table-responsive">\n<table class="%s">\n''' % " ".join(table_classes)
+  table_id = ""
+  if datatables:
+    table_id = "datatables-enable"
+  out = '''<div class="table-responsive">\n<table id="%s" class="%s">\n''' % (
+          table_id, " ".join(table_classes))
 
   if caption is not None:
     out += '''<caption class="sr-only">%s</caption>\n''' % caption
@@ -374,6 +378,7 @@ def table_text(headers, data, count=True,
   last_value = None
 
   for row in data:
+    # TODO: not sure this is necessary with DataTables?
     if bold and row[-1]:
       # Invert colours
       out += '''<tr class="table-secondary text-dark">'''

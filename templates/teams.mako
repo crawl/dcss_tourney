@@ -24,7 +24,8 @@
       ${html.table_text(
         [ 'Clan', 'Members', 'Overall Score' ] + [ cc.name for cc in
 	scoring_data.CLAN_CATEGORIES ],
-        data=stats, place_column=2, skip=True, extra_wide_support=True )
+        data=stats, place_column=2, skip=True, extra_wide_support=True,
+        datatables=True )
       }
     </div>
   </div>
