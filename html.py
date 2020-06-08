@@ -325,6 +325,7 @@ def _is_numeric_table_value(value):
     return True
   return False
 
+# DEPRECATED: Build a wrapper function around _table to replace this
 def table_text(headers, data, count=True,
                place_column=-1, stub_text='No data', skip=False, bold=False,
                extra_wide_support=False, caption=None, datatables=False):
@@ -432,6 +433,7 @@ def table_text(headers, data, count=True,
   out += '</table>\n</div>'
   return out
 
+# DEPRECATED: Build a wrapper function around _table to replace this
 def games_table(games, first=None, excluding=None, columns=None,
                 including=None,
                 count=True, win=True,
@@ -547,7 +549,7 @@ def games_table(games, first=None, excluding=None, columns=None,
   out += "</table>\n</div>\n"
   return out
 
-def table(columns, rows, row_classes_fn=None):
+def _table(columns, rows, row_classes_fn=None, brief=False):
   # type: (Sequence[ColumnDisplaySpec], Sequence[Sequence[Any]], Optional[Callable[[Any], str]]) -> str
   '''
   Display a HTML table.
@@ -645,7 +647,7 @@ def category_table(category, rows, row_classes_fn=None, brief=False):
     ))
   cols.insert(0, PseudoCol("#", True, None))
 
-  return table(
+  return _table(
     columns=cols,
     rows=rows,
     row_classes_fn=row_classes_fn,
