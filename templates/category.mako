@@ -1,4 +1,4 @@
-<%page args="category"/>
+<%page args="category,data"/>
 <%inherit file="base.mako"/>
 
 <%!
@@ -35,18 +35,30 @@
       <p>
         ${category.desc}
       </p>
-      ## Hack to disable Ziggurat Diving as it breaks
-      % if category.source_table and category.name != 'Ziggurat Diving':
+      % if category.source_table:
       <%
-        columns = ['Player' if category.type == 'individual' else 'Clan', category.source_column_name]
-        for col in category.full_ranking_extra_columns:
-          columns.append(col.display_name)
+        base_cols = [
+          scoring_data.ColumnDisplaySpec(
+            None,
+            'Player' if category.type == 'individual' else 'Clan',
+            False,
+            None,
+          ),
+          scoring_data.ColumnDisplaySpec(
+            None,
+            category.source_column_name,
+            True,
+            None, # TODO
+          ),
+        ]
       %>
-      ${html.table_text(
-          columns,
-          scoring_data.category_leaders(category, cursor),
-          place_column=1,
-          skip=True)
+      ${
+        html.table(
+          base_cols + category.full_ranking_extra_columns,
+          rows,
+          rank_column=1,
+          row_classes_fn=lambda row: '',
+        )
       }
       % endif
     </div>

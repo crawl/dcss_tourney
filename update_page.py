@@ -62,13 +62,18 @@ def tourney_overview(c):
 def individual_category_pages(c):
   info("Updating individual category pages")
   for category in scoring_data.INDIVIDUAL_CATEGORIES:
+    if not category.source_table or category.name == 'Ziggurat Diving':
+      info("Not generating any page for individual category %s" % category.name)
+      continue
     info("Updating individual category page %s" % category.name)
+    rows = scoring_data.new_category_leaders(category, c)
     render(
       c,
       page='category',
       dest=html.slugify(category.name),
       pars={
-        'category': category
+        'category': category,
+        'rows': rows,
       },
       top_level_pars=True,
     )
