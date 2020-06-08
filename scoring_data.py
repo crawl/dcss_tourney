@@ -89,15 +89,15 @@ def new_category_leaders(category, cursor, limit=None):
         return q.rows(cursor)
     else:
         # We rewrite from team_captain to clan name
-        result = q.rows(c)
+        result = q.rows(cursor)
         new_result = []
         for row in result:
             captain = row[0]
             if captain is None:
                 continue
             # We can't use query.get_clan_info as query imports this file
-            c.execute("""SELECT name FROM teams WHERE owner = %s""", (captain,))
-            clan_name = c.fetchone()[0]
+            cursor.execute("""SELECT name FROM teams WHERE owner = %s""", (captain,))
+            clan_name = cursor.fetchone()[0]
             new_row = [clan_name]
             new_row.extend(row[1:])
             new_result.append(new_row)
