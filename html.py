@@ -601,7 +601,9 @@ def _table(columns, rows, row_classes_fn=None, brief=False):
 
     for column, base_value in zip(columns, row):
       cell_classes = set([
-        "py-1", # compact rows
+        # compact rows
+        "py-1",
+        "px-2",
       ])
       if column.numeric_data:
         cell_classes.update(['text-right', 'text-monospace'])
