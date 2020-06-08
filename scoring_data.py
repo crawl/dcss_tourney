@@ -239,6 +239,7 @@ INDIVIDUAL_CATEGORIES = (
             ColumnDisplaySpec("xl", "XL", False, True, None),
             ColumnDisplaySpec("nrune", "Runes", False, True, None),
             ColumnDisplaySpec("turn", "Turns", False, True, None),
+            ColumnDisplaySpec("morgue_json", "Morgue", False, False, _json_to_morgue_link),
         ],
     ),
     Category(
@@ -252,6 +253,7 @@ INDIVIDUAL_CATEGORIES = (
             ColumnDisplaySpec("turn", "Turns", True, True, None),
             ColumnDisplaySpec("race", "Species", False, False, None),
             ColumnDisplaySpec("class", "Background", False, False, None),
+            ColumnDisplaySpec("morgue_json", "Morgue", False, False, _json_to_morgue_link),
         ],
     ),
     Category(
@@ -265,6 +267,7 @@ INDIVIDUAL_CATEGORIES = (
             ColumnDisplaySpec("duration", "Duration", True, True, _pretty_duration),
             ColumnDisplaySpec("race", "Species", False, False, None),
             ColumnDisplaySpec("class", "Background", False, False, None),
+            ColumnDisplaySpec("morgue_json", "Morgue", False, False, _json_to_morgue_link),
         ],
     ),
     Category(
@@ -278,6 +281,7 @@ INDIVIDUAL_CATEGORIES = (
             ColumnDisplaySpec("xl", "XL", True, True, None),
             ColumnDisplaySpec("race", "Species", False, False, None),
             ColumnDisplaySpec("class", "Background", False, False, None),
+            ColumnDisplaySpec("morgue_json", "Morgue", False, False, _json_to_morgue_link),
         ],
     ),
     Category(
@@ -291,6 +295,7 @@ INDIVIDUAL_CATEGORIES = (
             ColumnDisplaySpec("end_time", "Game End Time", True, True, None),
             ColumnDisplaySpec("race", "Species", False, False, None),
             ColumnDisplaySpec("class", "Background", False, False, None),
+            ColumnDisplaySpec("morgue_json", "Morgue", False, False, _json_to_morgue_link),
         ],
     ),
     Category(
@@ -305,6 +310,7 @@ INDIVIDUAL_CATEGORIES = (
             ColumnDisplaySpec("race", "Species", False, False, None),
             ColumnDisplaySpec("class", "Background", False, False, None),
             ColumnDisplaySpec("duration", "Duration", False, True, _pretty_duration),
+            ColumnDisplaySpec("morgue_json", "Morgue", False, False, _json_to_morgue_link),
         ],
     ),
     Category(
@@ -441,6 +447,7 @@ CLAN_CATEGORIES = (
             ColumnDisplaySpec("xl", "XL", False, True, None),
             ColumnDisplaySpec("nrune", "Runes", False, True, None),
             ColumnDisplaySpec("turn", "Turns", False, True, None),
+            ColumnDisplaySpec("morgue_json", "Morgue", False, False, _json_to_morgue_link),
         ],
     ),
     Category(
@@ -455,6 +462,7 @@ CLAN_CATEGORIES = (
             ColumnDisplaySpec("player", "Player Responsible", False, False, None),
             ColumnDisplaySpec("race", "Species", False, False, None),
             ColumnDisplaySpec("class", "Background", False, False, None),
+            ColumnDisplaySpec("morgue_json", "Morgue", False, False, _json_to_morgue_link),
         ],
     ),
     Category(
@@ -469,6 +477,7 @@ CLAN_CATEGORIES = (
             ColumnDisplaySpec("player", "Player", False, False, None),
             ColumnDisplaySpec("race", "Species", False, False, None),
             ColumnDisplaySpec("class", "Background", False, False, None),
+            ColumnDisplaySpec("morgue_json", "Morgue", False, False, _json_to_morgue_link),
         ],
     ),
     Category(

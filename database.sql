@@ -539,7 +539,10 @@ SELECT *
   WHERE killertype = 'winning';
 
 CREATE VIEW first_wins AS
-SELECT g.* FROM wins AS g
+SELECT g.*, JSON_OBJECT('source_file', g.source_file,
+                    'player', g.player,
+		    'end_time', g.end_time,
+		    'charabbrev', g.charabbrev) AS morgue_json  FROM wins AS g
   LEFT OUTER JOIN wins AS g2
   ON g.player = g2.player AND g.end_time > g2.end_time
   WHERE g2.end_time IS NULL;
@@ -548,14 +551,20 @@ CREATE VIEW allrune_wins AS
 SELECT * FROM wins WHERE killertype = 'winning' AND runes = 15;
 
 CREATE VIEW first_allrune_wins AS
-SELECT g.* FROM
+SELECT g.*, JSON_OBJECT('source_file', g.source_file,
+                    'player', g.player,
+		    'end_time', g.end_time,
+		    'charabbrev', g.charabbrev) AS morgue_json  FROM
   allrune_wins AS g
   LEFT OUTER JOIN allrune_wins AS g2
   ON g.player = g2.player AND g.end_time > g2.end_time
   WHERE g2.end_time IS NULL;
 
 CREATE VIEW highest_scores AS
-SELECT g.* FROM games AS g
+SELECT g.*, JSON_OBJECT('source_file', g.source_file,
+                    'player', g.player,
+		    'end_time', g.end_time,
+		    'charabbrev', g.charabbrev) AS morgue_json FROM games AS g
   LEFT OUTER JOIN games AS g2 ON g.player = g2.player AND g.score < g2.score
   WHERE g2.score IS NULL AND g.score > 0;
 
@@ -570,32 +579,47 @@ SELECT g.* FROM games AS g
 --     ON g.team_captain = g2.team_captain AND g.score < g2.score
 --   WHERE g2.score IS NULL AND g.score > 0;
 CREATE VIEW clan_highest_scores AS
-SELECT p.team_captain, g.* FROM games AS g
+SELECT p.team_captain, g.*, JSON_OBJECT('source_file', g.source_file,
+                    'player', g.player,
+		    'end_time', g.end_time,
+		    'charabbrev', g.charabbrev) AS morgue_json FROM games AS g
   INNER JOIN players AS p ON g.player = p.name
   LEFT OUTER JOIN (players AS p2 INNER JOIN games AS g2 ON g2.player = p2.name)
     ON p.team_captain = p2.team_captain AND g.score < g2.score
   WHERE g2.score IS NULL AND g.score > 0 AND p.team_captain IS NOT NULL;
 
 CREATE VIEW lowest_turncount_wins AS
-SELECT g.* FROM wins AS g
+SELECT g.*, JSON_OBJECT('source_file', g.source_file,
+                    'player', g.player,
+		    'end_time', g.end_time,
+		    'charabbrev', g.charabbrev) AS morgue_json FROM wins AS g
   LEFT OUTER JOIN wins AS g2
   ON g.player = g2.player AND g.turn > g2.turn
   WHERE g2.turn IS NULL;
 
 CREATE VIEW clan_lowest_turncount_wins AS
-SELECT g.* FROM wins AS g
+SELECT g.*, JSON_OBJECT('source_file', g.source_file,
+                    'player', g.player,
+		    'end_time', g.end_time,
+		    'charabbrev', g.charabbrev) AS morgue_json FROM wins AS g
   LEFT OUTER JOIN wins AS g2
   ON g.team_captain = g2.team_captain AND g.turn > g2.turn
   WHERE g2.turn IS NULL;
 
 CREATE VIEW fastest_wins AS
-SELECT g.* FROM wins AS g
+SELECT g.*, JSON_OBJECT('source_file', g.source_file,
+                    'player', g.player,
+		    'end_time', g.end_time,
+		    'charabbrev', g.charabbrev) AS morgue_json  FROM wins AS g
   LEFT OUTER JOIN wins AS g2
   ON g.player = g2.player AND g.duration > g2.duration
   WHERE g2.duration IS NULL;
 
 CREATE VIEW clan_fastest_wins AS
-SELECT g.* FROM wins AS g
+SELECT g.*, JSON_OBJECT('source_file', g.source_file,
+                    'player', g.player,
+		    'end_time', g.end_time,
+		    'charabbrev', g.charabbrev) AS morgue_json  FROM wins AS g
   LEFT OUTER JOIN wins AS g2
   ON g.team_captain = g2.team_captain AND g.duration > g2.duration
   WHERE g2.duration IS NULL;
@@ -608,7 +632,10 @@ SELECT * FROM wins AS g
                         AND NOUN = 'Hepliaklqana');
 
 CREATE VIEW low_xl_nonhep_wins AS
-SELECT g.* FROM nonhep_wins AS g
+SELECT g.*, JSON_OBJECT('source_file', g.source_file,
+                    'player', g.player,
+		    'end_time', g.end_time,
+		    'charabbrev', g.charabbrev) AS morgue_json  FROM nonhep_wins AS g
   LEFT OUTER JOIN nonhep_wins AS g2
   ON g.player = g2.player AND g.xl > g2.xl
   WHERE g2.xl IS NULL AND g.xl < 27;
