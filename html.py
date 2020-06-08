@@ -544,6 +544,96 @@ def games_table(games, first=None, excluding=None, columns=None,
   out += "</table>\n</div>\n"
   return out
 
+def table(columns, rows, rank_column=None, row_classes_fn=None):
+  # type: (Sequence[ColumnDisplaySpec], Sequence[Sequence[Any]], Optional[int], Optional[Callable[[Any], str]]) -> str
+  '''
+  Display a HTML table.
+
+  @param columns: Details about columns in display order.
+  @param rows: Rows of data in display order.
+  @param rank_column: If set, a column will be added to the start of the table
+                      for ranking rows, using this column (from columns) to
+                      determine rank.
+  @param row_classes_fn: If set, a function which gets passed each row to
+                         determine classes for its <tr>.
+  '''
+
+  n_columns_base = len(columns)
+  n_columns = n_columns_base + (1 if rank_column is not None else 0)
+
+  out = ''
+
+  table_classes = set(("table",
+    "table-hover",
+    "table-striped",
+    "table-dark",
+    "table-bordered",
+    "dcss-datatable",
+    ))
+
+  out += '<div class="table-responsive">\n'
+  out += '<table class="{classes}">\n'.format(classes=" ".join(table_classes))
+
+  # Table column headers
+  out += '<thead>\n'
+  out += '<tr>'
+  if rank_column is not None:
+    out += '<th>#</th>'
+  for column in columns:
+    out += '<th>{name}</th>'.format(name=column.display_name)
+  out += '</tr>\n'
+  out += '</thead>\n'
+
+  # Current rank displayed in "#" column
+  current_rank = 0
+  # Number of rows displayed. Might be different from current_rank due to ties.
+  items_ranked = 0
+  # Previous row's rank value. Used to determine ties.
+  last_rank_val = None
+
+  if not rows:
+    out += '<tr><td colspan="{n_columns}>No data</td></tr>\n'.format(
+      n_columns=n_columns
+    )
+  for row in rows:
+    if len(row) != n_columns_base:
+      raise ValueError("Row length {n_row} != columns length {n_cols}. Row data: {row} Col data: {cols}".format(
+        n_row=len(row),
+        n_cols=n_columns_base,
+        row=repr(row),
+        cols=columns,
+      ))
+    # Determine rank
+    items_ranked += 1
+    current_rank_val = row[rank_column]
+    if current_rank_val != last_rank_val:
+      current_rank = items_ranked
+      last_rank_val = current_rank_val
+
+    out += '<tr class="{row_classes}">'.format(
+      row_classes="" if row_classes_fn is None else row_classes_fn(row)
+    )
+    if rank_column is not None:
+      out += '<th class="text-right text-monospace">{current_rank}</th>'.format(
+        current_rank=current_rank,
+      )
+    for column, base_value in zip(columns, row):
+      cell_classes = set()
+      if column.numeric_data:
+        cell_classes.update(['text-right', 'text-monospace'])
+      if callable(column.transform_fn):
+        display_value = column.transform_fn(base_value)
+      else:
+        display_value = unicode(base_value)
+      out += '<td class="{cell_classes}">{value}</td>'.format(
+        cell_classes=" ".join(cell_classes),
+        value = display_value,
+      )
+    out += '</tr>\n'
+  out += '</table>\n'
+  out += '</div>\n'
+  return out
+
 def full_games_table(games, **pars):
   if not pars.get('columns'):
     if pars.has_key('win'):
