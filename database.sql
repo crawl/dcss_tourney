@@ -832,12 +832,13 @@ SELECT p.team_captain, z.player, z.completed, z.deepest
   WHERE p.team_captain IS NOT NULL;
 
 CREATE VIEW clan_best_ziggurat AS
-SELECT z.team_captain, z.player, z.completed, z.deepest
+SELECT z.team_captain, GROUP_CONCAT(DISTINCT z.player), z.completed, z.deepest
   FROM clan_ziggurats AS z 
   LEFT OUTER JOIN clan_ziggurats AS z2
     ON z.team_captain = z2.team_captain
        AND (z.completed, z.deepest) < (z2.completed, z2.deepest)
-  WHERE z2.deepest IS NULL;
+  WHERE z2.deepest IS NULL
+GROUP BY z.team_captain, z.completed, z.deepest;
 
 CREATE VIEW clan_combo_first_wins AS
 SELECT g.*,
