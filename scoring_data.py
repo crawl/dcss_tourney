@@ -3,6 +3,7 @@ import collections
 import datetime
 
 import crawl_utils
+import json
 from query_class import Query
 
 TOURNAMENT_VERSION = "0.25"
@@ -115,6 +116,17 @@ def _pretty_banners(banner_str):
     # type: (str) -> str
     return ", ".join(i.title().replace("_", " ") for i in banner_str.split(","))
 
+def _pretty_nemelex(games_json_str, clan=False):
+    games = json.loads(games_json_str)
+    for g in games:
+        g['end_time'] = datetime.datetime.strptime(g['end_time'], "%Y-%m-%d %H:%M:%S.000000")
+
+    return ", ".join([ crawl_utils.linked_text(g, crawl_utils.morgue_link,
+    g['charabbrev']) + (clan and (" (" + g['player'] + ")") or "") for g in
+    games])
+
+def _pretty_clan_nemelex(games_json_str):
+    return _pretty_nemelex(games_json_str, clan=True)
 
 # This list (and the clan categories & banner lists) are in display order
 INDIVIDUAL_CATEGORIES = (
@@ -188,7 +200,8 @@ INDIVIDUAL_CATEGORIES = (
         "nemelex_score",
         "player_nemelex_score",
         "score DESC",
-        [ColumnDisplaySpec("score", "Score", True, True, None),],
+        [ColumnDisplaySpec("score", "Score", True, True, None),
+         ColumnDisplaySpec("games", "Games", False, False, _pretty_nemelex)],
     ),
     Category(
         "individual",
@@ -376,7 +389,8 @@ CLAN_CATEGORIES = (
         "nemelex_score",
         "clan_nemelex_score",
         "score DESC",
-        [ColumnDisplaySpec("score", "Score", True, True, None),],
+        [ColumnDisplaySpec("score", "Score", True, True, None),
+         ColumnDisplaySpec("games", "Games", False, False, _pretty_clan_nemelex), ],
     ),
     Category(
         "clan",
@@ -462,7 +476,7 @@ CLAN_CATEGORIES = (
             ColumnDisplaySpec(
                 "deepest", "Incomplete Ziggurat Levels", True, True, None
             ),
-            ColumnDisplaySpec("player", "Player", False, False, None),
+            ColumnDisplaySpec("players", "Player(s)", False, False, None),
         ],
     ),
     Category(

@@ -781,11 +781,17 @@ SELECT p.team_captain,
 
 CREATE VIEW player_nem_scored_wins AS
 SELECT IF(ROW_NUMBER() OVER (PARTITION BY charabbrev ORDER BY end_time) < 9,
-	  1, 0) AS nem_counts, n.*
+	1, 0) AS nem_counts, n.player, n.charabbrev,
+	JSON_OBJECT('source_file', n.source_file,
+                    'player', n.player,
+		    'end_time', n.end_time,
+		    'charabbrev', n.charabbrev) AS xdict
   FROM player_nemelex_wins AS n;
 
 CREATE VIEW player_nemelex_score AS
-SELECT player, COUNT(DISTINCT charabbrev) AS score FROM player_nem_scored_wins
+SELECT player, COUNT(DISTINCT charabbrev) AS score,
+       JSON_ARRAYAGG(xdict) AS games
+FROM player_nem_scored_wins
 WHERE nem_counts = 1
 GROUP BY player;
 
@@ -800,11 +806,17 @@ SELECT p.team_captain,
 
 CREATE VIEW clan_nem_scored_wins AS
 SELECT IF(ROW_NUMBER() OVER (PARTITION BY charabbrev ORDER BY end_time) < 9,
-	  1, 0) AS nem_counts, n.*
+	  1, 0) AS nem_counts, n.team_captain, n.charabbrev,
+	JSON_OBJECT('source_file', source_file,
+                    'player', player,
+		    'end_time', end_time,
+		    'charabbrev', charabbrev) AS xdict
   FROM clan_nemelex_wins AS n WHERE n.clan_finish = 1;
 
 CREATE VIEW clan_nemelex_score AS
-SELECT team_captain, COUNT(DISTINCT charabbrev) AS score FROM clan_nem_scored_wins
+SELECT team_captain, COUNT(DISTINCT charabbrev) AS score,
+       JSON_ARRAYAGG(xdict) AS games
+FROM clan_nem_scored_wins
 WHERE nem_counts = 1 GROUP BY team_captain;
 
 CREATE VIEW player_best_streak AS
@@ -832,7 +844,8 @@ SELECT p.team_captain, z.player, z.completed, z.deepest
   WHERE p.team_captain IS NOT NULL;
 
 CREATE VIEW clan_best_ziggurat AS
-SELECT z.team_captain, GROUP_CONCAT(DISTINCT z.player), z.completed, z.deepest
+SELECT z.team_captain, GROUP_CONCAT(DISTINCT z.player) AS players,
+       z.completed, z.deepest
   FROM clan_ziggurats AS z 
   LEFT OUTER JOIN clan_ziggurats AS z2
     ON z.team_captain = z2.team_captain
