@@ -30,6 +30,13 @@ window.addEventListener("load", function() {
             // global DataTable settings go here
         }
     );
+    $('.dcss-datatable-compact').DataTable(
+        {
+            "paging": false,
+            "searching": false,
+            "info": false,
+        }
+    );
 });
 
 function player_search_update(hide_empty)

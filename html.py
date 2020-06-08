@@ -568,9 +568,12 @@ def _table(columns, rows, row_classes_fn=None, brief=False):
     "table-hover",
     "table-striped",
     "table-dark",
-    "table-bordered",
-    "dcss-datatable",
     ))
+  if brief:
+    table_classes.add("dcss-datatable-compact")
+  else:
+    table_classes.add("dcss-datatable")
+    table_classes.add("table-bordered")
 
   out += '<div class="table-responsive">\n'
   out += '<table class="{classes}">\n'.format(classes=" ".join(table_classes))
@@ -583,10 +586,6 @@ def _table(columns, rows, row_classes_fn=None, brief=False):
   out += '</tr>\n'
   out += '</thead>\n'
 
-  if not rows:
-    out += '<tr><td colspan="{n_columns}">No data</td></tr>\n'.format(
-      n_columns=n_columns
-    )
   for row in rows:
     if len(row) != n_columns:
       raise ValueError("Row length {n_row} != columns length {n_cols}. Row data: {row} Col data: {cols}".format(
@@ -601,7 +600,9 @@ def _table(columns, rows, row_classes_fn=None, brief=False):
     )
 
     for column, base_value in zip(columns, row):
-      cell_classes = set()
+      cell_classes = set([
+        "py-1", # compact rows
+      ])
       if column.numeric_data:
         cell_classes.update(['text-right', 'text-monospace'])
 
@@ -651,6 +652,7 @@ def category_table(category, rows, row_classes_fn=None, brief=False):
     columns=cols,
     rows=rows,
     row_classes_fn=row_classes_fn,
+    brief=brief,
   )
 
 def full_games_table(games, **pars):
