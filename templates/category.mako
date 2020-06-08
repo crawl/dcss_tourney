@@ -35,6 +35,9 @@
       <p>
         ${category.desc}
       </p>
+      % if category.name == "Nemelex' Choice":
+        <%include file="nemelex-choice-overview.mako"/>
+      % endif
       % if category.source_table:
       <%
       %>

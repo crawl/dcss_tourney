@@ -10,7 +10,6 @@ from datetime import datetime
 import time
 import query
 import combos
-from banner import count_recipients
 from loaddb import START_TIME, LOG_DB_MAPPINGS, make_xlog_db_query, query_first
 
 import logging
@@ -81,8 +80,8 @@ def list_nemelex_choices(c):
   combos = _fixup_nominee_validity(find_previous_nominees())
   nem_list = []
   for x in combos:
-    ban = 'nemelex:' + x[0]
-    nem_list.append([x[0], x[1], count_recipients(c, ban, 3)])
+    nem_list.append([x[0], x[1], min(count_nemelex_wins(c,x[0]), 8),
+        min(count_clan_nemelex_wins(c,x[0]), 8)])
   return nem_list
 
 def is_nemelex_choice(combo, when):
@@ -142,8 +141,7 @@ def need_new_combo(c):
   if not NEMELEX_COMBOS:
     nowtime = datetime.utcnow().strftime('%Y%m%d%H%M')
     return (nowtime >= START_TIME)
-  ban = 'nemelex:' + current_nemelex_choice()[0]
-  return (count_recipients(c, ban, 3) > 0)
+  return (count_nemelex_wins(c, current_nemelex_choice()[0]) > 0)
 
 def award_nemelex_win(c, xdict, filename):
     iq = make_xlog_db_query(LOG_DB_MAPPINGS, xdict, filename, None,
@@ -159,7 +157,12 @@ def player_has_nemelex_win(c, player, char):
     return (query_first(c, '''SELECT COUNT(*) FROM player_nemelex_wins
                               WHERE player = %s AND charabbrev = %s''',
                               player, char) > 0)
-    
+ 
+def count_clan_nemelex_wins(c, char):
+    return query_first(c, '''SELECT COUNT(*) FROM clan_nemelex_wins
+                             WHERE clan_finish = 1 AND charabbrev = %s''',
+                             char)
+
 def count_nemelex_wins(c, char):
     return query_first(c, '''SELECT COUNT(*) FROM player_nemelex_wins
                              WHERE charabbrev = %s''', char)

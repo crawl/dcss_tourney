@@ -20,7 +20,7 @@
       <h2>Contents</h2>
       <ol>
         <li><a href="#general">General</a></li>
-        <li><a href="#nemelex-choice">Nemelex Choice</a></li>
+        <li><a href="#nemelex-choice">Nemelex&apos; Choice</a></li>
         <li><a href="#individual-categories">Individual Categories</a></li>
         <li><a href="#clan-categories">Clan Categories</a></li>
       </ol>
@@ -75,31 +75,9 @@
 
   <!-- Nemelex Choice -->
   <div class="row">
-    <%
-      nem_list = nemelex.list_nemelex_choices(cursor)
-      if nem_list:
-        pnem_list = []
-        for x in nem_list[:-1]:
-          if x[2] >= 8:
-            pnem_list.append('<s>' + x[0] + ('(%d won)' % x[2]) + '</s>')
-          else:
-            pnem_list.append(x[0] + ('(%d won)' % x[2]))
-    %>
     <div class="col">
-      <h2 id="nemelex-choice">Nemelex Choice</h2>
-      <p class="lead">
-        Current combo:
-        <b>
-          ${nem_list[-1][0]}
-        </b>
-        , chosen on ${nem_list[-1][1]} UTC.
-      </p>
-      % if pnem_list:
-      <p>
-        Previous combos:
-        ${html.english_join(pnem_list)}
-      </p>
-      % endif
+      <h2 id="nemelex-choice">Nemelex&apos; Choice</h2>
+      <%include file="nemelex-choice-overview.mako"/>
     </div>
   </div>
 
