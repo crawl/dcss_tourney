@@ -63,6 +63,7 @@
             <li><a href="#banners">Banners</a></li>
           </ol>
         </li>
+	<li><a href="#conduct">Conduct</a></li>
       </ol>
     </div>
   </div>
@@ -255,6 +256,35 @@
   % endfor
   </div>
 
+  <!-- Conduct -->
+  <div class="row">
+    <div class="col">
+      <h2 id="scoring">Scoring</h2>
+      <p>All contestants acknowledge an obligation not to commit misconduct in
+      relation to their participation. Misconduct is any act that is a breach
+      of good manners, a breach of good sportsmanship, or unethical behavior.
+      Participating servers may have their own codes of conduct; breach of
+      server-specific codes of conduct is also considered misconduct for
+      tournament purposes. Misconduct will result in disqualification without
+      recourse, with any relevant games being deleted from the scoring
+      database. Severe misconduct will lead to exclusion from future crawl
+      tournaments.</p>
+
+      <p>Please do not do anything that would give you an unfair competitive
+      advantage over other players or clans. This includes things like scumming
+      crash-on-demand bugs or using bots or input macros on your account to
+      gain an advantage for speedrun points – just remember that the objective
+      here is to have fun. We generally do not monitor games or RC files and
+      hold players to the honor system. In extreme cases that come to our
+      attention, we may, at our discretion, disqualify users and remove their
+      games from the scoring database. Ignorance and negligence are not excuses
+      for poor behavior.</p>
+
+      <p>Don't use account names, clan names, or chat messages to send spam or
+      advertisements for unrelated content.</p>
+    </div>
+  </div>
+
   <!-- Credits -->
   <div class="row">
     <div class="col">
@@ -262,13 +292,16 @@
       <p>
         This tournament exists thanks to the work of
         <a href="https://github.com/crawl/dcss_tourney/graphs/contributors">
-          many people
-        </a>
-        , but one person was especially pivotal. <b>ebering</b> designed a new
+          many people</a>, 
+	but two people were especially pivotal. <b>ebering</b> designed a new
         scoring system for this tournament, based on broad consultation with
-        players and other devs over several months. Then he coded it up (which
+        players and other devs over several months. Then he coded up the back
+	end (which
         required rewriting almost all of the scoring code) in a matter of weeks.
-        Thank you, ebering!
+        Thank you, ebering! <b>chequers</b> matched ebering's dedicated
+	back-end work with an overhaul annd modern re-design of the front-end
+	display pages. The tournament would still be using its old display
+	format without his work. Thank you, chequers!
       </p>
       <p>
         Thank you to all the artists whose work is used on this tournament
