@@ -24,6 +24,13 @@ $(document).ready(function() {
             "scrollCollapse": true // TODO: not sure this is working right
         });
 } );
+window.addEventListener("load", function() {
+    $('.dcss-datatable').DataTable(
+        {
+            // global DataTable settings go here
+        }
+    );
+});
 
 function player_search_update(hide_empty)
 {

@@ -270,6 +270,21 @@
         required rewriting almost all of the scoring code) in a matter of weeks.
         Thank you, ebering!
       </p>
+      <p>
+        Thank you to all the artists whose work is used on this tournament
+        website! All artwork used is released under
+        <a href="https://creativecommons.org/share-your-work/public-domain/cc0/">
+          CC0
+        </a>
+        or with explicit permission from the artist.
+      </p>
+      <p class="small">
+        If you are interested in contributing artwork to DCSS, please release
+        your work under CC0 and submit to the
+        <a href="https://github.com/crawl/crawl#community">
+          DCSS dev team!
+        </a>
+      </p>
     </div>
   </div>
 

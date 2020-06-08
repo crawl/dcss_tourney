@@ -1,9 +1,12 @@
+import collections
 import decimal
 import query, crawl_utils, time, datetime
 import loaddb
 import sys
+import logging
 
 from crawl_utils import clan_link, player_link, linked_text
+import crawl_utils
 import re
 
 BANNER_IMAGES = \
@@ -543,6 +546,110 @@ def games_table(games, first=None, excluding=None, columns=None,
     out += "</tr>\n"
   out += "</table>\n</div>\n"
   return out
+
+def table(columns, rows, row_classes_fn=None):
+  # type: (Sequence[ColumnDisplaySpec], Sequence[Sequence[Any]], Optional[Callable[[Any], str]]) -> str
+  '''
+  Display a HTML table.
+
+  @param columns: Details about columns in display order.
+  @param rows: Rows of data in display order.
+  @param row_classes_fn: If set, a function which gets passed each row to
+                         determine classes for its <tr>.
+  '''
+
+  n_columns = len(columns)
+
+  out = ''
+
+  table_classes = set(("table",
+    "table-hover",
+    "table-striped",
+    "table-dark",
+    "table-bordered",
+    "dcss-datatable",
+    ))
+
+  out += '<div class="table-responsive">\n'
+  out += '<table class="{classes}">\n'.format(classes=" ".join(table_classes))
+
+  # Table column headers
+  out += '<thead>\n'
+  out += '<tr>'
+  for column in columns:
+    out += '<th>{name}</th>'.format(name=column.html_display_name)
+  out += '</tr>\n'
+  out += '</thead>\n'
+
+  if not rows:
+    out += '<tr><td colspan="{n_columns}">No data</td></tr>\n'.format(
+      n_columns=n_columns
+    )
+  for row in rows:
+    if len(row) != n_columns:
+      raise ValueError("Row length {n_row} != columns length {n_cols}. Row data: {row} Col data: {cols}".format(
+        n_row=len(row),
+        n_cols=n_columns,
+        row=repr(row),
+        cols=columns,
+      ))
+
+    out += '<tr class="{row_classes}">'.format(
+      row_classes="" if row_classes_fn is None else row_classes_fn(row)
+    )
+
+    for column, base_value in zip(columns, row):
+      cell_classes = set()
+      if column.numeric_data:
+        cell_classes.update(['text-right', 'text-monospace'])
+
+      if callable(column.transform_fn):
+        display_value = column.transform_fn(base_value)
+      elif column.numeric_data:
+        # Basic thousands separators for untransformed numeric data
+        display_value = '{:,}'.format(base_value)
+      else:
+        display_value = unicode(base_value)
+
+      out += '<td class="{cell_classes}">{value}</td>'.format(
+        cell_classes=" ".join(cell_classes),
+        value = display_value,
+      )
+    out += '</tr>\n'
+  out += '</table>\n'
+  out += '</div>\n'
+  return out
+
+def category_table(category, rows, row_classes_fn=None, brief=False):
+  """
+  Display a HTML table for a given category. We just need to add the
+  Rank & Player/Captain columns.
+  """
+  PseudoCol = collections.namedtuple("PseudoCol", ("html_display_name", "numeric_data", "transform_fn"))
+  cols = [col for col in category.columns if (not brief or col.include_in_compact_display)]
+  # logging.info(
+  #   "category_table %s %s brief:%s base_cols:%s row0:%s",
+  #   category.type, category.name, brief, len(cols),
+  #   rows[0] if len(rows) else "<empty>")
+  if category.type == 'individual':
+    cols.insert(0, PseudoCol(
+      "Player",
+      False,
+      lambda player: crawl_utils.linked_text(key=player, link_fn=crawl_utils.player_link),
+    ))
+  else:
+    cols.insert(0, PseudoCol(
+      "Team Captain",
+      False,
+      lambda captain: crawl_utils.linked_text(key=captain, link_fn=crawl_utils.clan_link),
+    ))
+  cols.insert(0, PseudoCol("#", True, None))
+
+  return table(
+    columns=cols,
+    rows=rows,
+    row_classes_fn=row_classes_fn,
+  )
 
 def full_games_table(games, **pars):
   if not pars.get('columns'):

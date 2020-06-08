@@ -59,19 +59,25 @@ def tourney_overview(c):
   info("Updating overview page")
   render(c, 'overview', top_level_pars=True)
 
-def individual_category_pages(c):
-  info("Updating individual category pages")
-  for category in scoring_data.INDIVIDUAL_CATEGORIES:
-    info("Updating individual category page %s" % category.name)
-    render(
-      c,
-      page='category',
-      dest=html.slugify(category.name),
-      pars={
-        'category': category
-      },
-      top_level_pars=True,
-    )
+def category_pages(c):
+  for category_type, categories in (('individual', scoring_data.INDIVIDUAL_CATEGORIES), ('clan', scoring_data.CLAN_CATEGORIES)):
+    prefix = "" if category_type == 'individual' else 'clan-'
+    for category in categories:
+      if not category.source_table:
+        info("Not generating any page for %s category %s", category_type, category.name)
+        continue
+      info("Updating %s category page %s", category_type, category.name)
+      rows = scoring_data.category_leaders(category, c)
+      render(
+        c,
+        page='category',
+        dest=prefix + html.slugify(category.name),
+        pars={
+          'category': category,
+          'rows': rows,
+        },
+        top_level_pars=True,
+      )
 
 def clan_category_pages(c):
   for category in scoring_data.CLAN_CATEGORIES:
@@ -194,15 +200,13 @@ TIMER = [
           loaddb.define_timer( INTERVAL, tourney_overview ),
           loaddb.define_timer( INTERVAL, team_pages ),
           loaddb.define_timer( INTERVAL, player_pages ),
-          loaddb.define_timer( INTERVAL, individual_category_pages ),
-          loaddb.define_timer( INTERVAL, clan_category_pages ),
+          loaddb.define_timer( INTERVAL, category_pages ),
           ]
 LISTENER = [
              loaddb.define_cleanup(tourney_overview),
              loaddb.define_cleanup(team_pages),
              loaddb.define_cleanup(player_pages),
-             loaddb.define_cleanup(individual_category_pages),
-             loaddb.define_cleanup(clan_category_pages),
+             loaddb.define_cleanup(category_pages),
            ]
 
 if __name__ == '__main__':
