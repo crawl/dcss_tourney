@@ -116,14 +116,21 @@ def _pretty_banners(banner_str):
     # type: (str) -> str
     return ", ".join(i.title().replace("_", " ") for i in banner_str.split(","))
 
+# The relevant info is consolidated into a single json object in the database
+# since that's easier than dealing with column spanning in the transformation
+# function specifications, but it still is a bit of a hack and needs this fixup
+# to behave enough like an xdict to work
+def _json_to_morgue_link(obj, link_text="Morgue"):
+    if isinstance(obj, str):
+        obj = json.loads(obj)
+    obj['end_time'] = datetime.datetime.strptime(obj['end_time'], "%Y-%m-%d %H:%M:%S.000000")
+    return crawl_utils.linked_text(obj, crawl_utils.morgue_link, link_text)
+
 def _pretty_nemelex(games_json_str, clan=False):
     games = json.loads(games_json_str)
-    for g in games:
-        g['end_time'] = datetime.datetime.strptime(g['end_time'], "%Y-%m-%d %H:%M:%S.000000")
-
-    return ", ".join([ crawl_utils.linked_text(g, crawl_utils.morgue_link,
-    g['charabbrev']) + (clan and (" (" + g['player'] + ")") or "") for g in
-    games])
+    return ", ".join([ _json_to_morgue_link(g,g['charabbrev']) + 
+                       (clan and (" (" + g['player'] + ")") or "")
+                       for g in games])
 
 def _pretty_clan_nemelex(games_json_str):
     return _pretty_nemelex(games_json_str, clan=True)
