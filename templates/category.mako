@@ -37,27 +37,11 @@
       </p>
       % if category.source_table:
       <%
-        base_cols = [
-          scoring_data.ColumnDisplaySpec(
-            None,
-            'Player' if category.type == 'individual' else 'Clan',
-            False,
-            None,
-          ),
-          scoring_data.ColumnDisplaySpec(
-            None,
-            category.source_column_name,
-            True,
-            None, # TODO
-          ),
-        ]
       %>
       ${
-        html.table(
-          base_cols + category.full_ranking_extra_columns,
+        html.category_table(
+          category,
           rows,
-          rank_column=1,
-          row_classes_fn=lambda row: '',
         )
       }
       % endif

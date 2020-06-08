@@ -61,16 +61,17 @@ def tourney_overview(c):
 
 def category_pages(c):
   for category_type, categories in (('individual', scoring_data.INDIVIDUAL_CATEGORIES), ('clan', scoring_data.CLAN_CATEGORIES)):
+    prefix = "" if category_type == 'individual' else 'clan-'
     for category in categories:
-      if not category.source_table or category.name == 'Ziggurat Diving':
+      if not category.source_table:
         info("Not generating any page for %s category %s", category_type, category.name)
         continue
       info("Updating %s category page %s", category_type, category.name)
-      rows = scoring_data.new_category_leaders(category, c)
+      rows = scoring_data.category_leaders(category, c)
       render(
         c,
         page='category',
-        dest=html.slugify(category.name),
+        dest=prefix + html.slugify(category.name),
         pars={
           'category': category,
           'rows': rows,

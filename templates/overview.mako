@@ -109,7 +109,6 @@
       <h2 id="individual-categories">Individual Categories</h2>
 
       % for category in scoring_data.INDIVIDUAL_CATEGORIES:
-      %   if category.source_table is not None:
       <div class="card bg-dark text-light mb-3">
         <div class="row no-gutters">
           <div class="col-md-auto">
@@ -123,23 +122,25 @@
           <div class="col-md">
             <div class="card-body">
               <h3 class="card-title">${category.name}</h3>
-              ## XXX: Ziggurat Diving doesn't work here
-              % if category.source_table and category.name != 'Ziggurat Diving':
-              ${html.table_text(
-                  [ 'Player', category.source_column_name ],
-                  scoring_data.category_leaders(category, cursor, limit=5),
-                  place_column=1,
-                  skip=True)
+              % if category.source_table is not None:
+              ${html.category_table(
+                  category,
+                  scoring_data.category_leaders(category, cursor, brief=True, limit=5),
+                  brief=True,
+                )
               }
-              % endif
               <a href="${base_link(html.slugify(category.name))}.html">
                 View full ranking.
               </a>
+              % else:
+              <p>
+                (Full ranking not available for this category.)
+              </p>
+              % endif
             </div>
           </div>
         </div>
       </div>
-      % endif
       % endfor
     </div>
   </div>
@@ -151,7 +152,6 @@
       <h2 id="clan-categories">Clan Categories</h2>
 
       % for category in scoring_data.CLAN_CATEGORIES:
-      %  if category.source_table is not None:
       <div class="card bg-dark text-light mb-3">
         <div class="row no-gutters">
           <div class="col-md-auto">
@@ -165,23 +165,25 @@
           <div class="col-md">
             <div class="card-body">
               <h3 class="card-title">${category.name}</h3>
-              ## XXX: Ziggurat Diving doesn't work here
-              % if category.source_table and category.name != 'Ziggurat Diving':
-              ${html.table_text(
-                  [ 'Clan', category.source_column_name ],
-                  scoring_data.category_leaders(category, cursor, limit=5),
-                  place_column=1,
-                  skip=True)
+              % if category.source_table is not None:
+              ${html.category_table(
+                  category,
+                  scoring_data.category_leaders(category, cursor, brief=True, limit=5),
+                  brief=True
+                )
               }
-              % endif
               <a href="${base_link('clan-' + html.slugify(category.name))}.html">
                 View full ranking.
               </a>
+              % else:
+              <p>
+                (Full ranking not available for this category.)
+              </p>
+              % endif
             </div>
           </div>
         </div>
       </div>
-      % endif
       % endfor
     </div>
   </div>
