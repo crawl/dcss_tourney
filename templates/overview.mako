@@ -48,7 +48,7 @@
             <h3>Current Top Players</h3>
             ${html.table_text(
               [ 'Player', 'Overall Score' ],
-              data=query.get_top_players(cursor, how_many=5),
+              data=query.get_top_players(cursor, how_many=10),
               place_column=1, skip=True,
             )}
             <a href="${base_link('all-players-ranks.html')}">
@@ -59,7 +59,8 @@
             <h3>Current Top Clans</h3>
             ${html.table_text(
               [ 'Clan', 'Overall Score' ],
-              data=[([row[0]] + row[2:]) for row in query.get_all_clan_ranks(cursor, limit=5)],
+              data=[([row[0]] + row[2:]) for row in
+	      query.get_all_clan_ranks(cursor, limit=10)],
               place_column=2, skip=True )
             }
             <a href="${base_link('teams.html')}">
