@@ -406,7 +406,7 @@ def table_text(headers, data, count=True,
       numeric_col = _is_numeric_table_value(val)
       pseudo_numeric_col = val == '-'
       if numeric_col:
-        val = '{:,}'.format(val)
+        val = '{:,}'.format(isinstance(val, str) and int(val) or val)
       if numeric_col or pseudo_numeric_col:
         call_classes.add("text-right")
         call_classes.add("text-monospace")
