@@ -27,7 +27,8 @@ SERVERS = {
 }
 
 ColumnDisplaySpec = collections.namedtuple(
-    "ColumnDisplaySpec", (
+    "ColumnDisplaySpec",
+    (
         # Name in xdict
         "column_name",
         # Name to show the user
@@ -38,7 +39,7 @@ ColumnDisplaySpec = collections.namedtuple(
         # Python function to apply to data before displaying it.
         # Function type signature: (Any) -> str
         "transform_fn",
-    )
+    ),
 )
 Category = collections.namedtuple(
     "Category",
@@ -48,19 +49,61 @@ Category = collections.namedtuple(
         "name",
         "desc",
         "db_column",
-        # Defines the table that contains the ranking for this category
+        # Defines the table and column that contains the ranking for this category
         "source_table",
         "source_column",
         # Pretty name when displaying the column
         "source_column_name",
         # Function to apply to the source column when displaying
         "source_column_display_transformation",
-        # If True, the table displays are sorted descending (rather than ascending)
+        # If True, the table displays are sorted descending
         "desc_order",
         # Extra columns in the source_table to show for the full ranking. A list of ColumnDisplaySpec's
         "full_ranking_extra_columns",
     ),
 )
+
+
+def new_category_leaders(category, cursor, limit=None):
+    # type: (Category, Any, int) -> Sequence[Sequence[Any]]
+    columns = []
+    columns.append("player" if category.type == "individual" else "team_captain")
+    columns.append(category.source_column)
+    for column_spec in category.full_ranking_extra_columns:
+        columns.append(column_spec.column_name)
+    query_text = "SELECT {columns} FROM {table} ORDER BY {order_column} {order_direction}".format(
+        columns=",".join(columns),
+        table=category.source_table,
+        order_column=category.source_column,
+        order_direction="DESC" if category.desc_order else "",
+    )
+    # print("query: %s" % query_text) # XXX debug
+    q = Query(query_text)
+
+    # Different behaviour here. Clan tables may contain entries where
+    # team_captain is None, which we need to strip before applying the limit.
+    # Additionally, we convert from team_captain to clan_name.
+    if category.type == "individual":
+        if limit is not None:
+            q.append(" LIMIT {limit}".format(limit=limit))
+        return q.rows(cursor)
+    else:
+        # We rewrite from team_captain to clan name
+        result = q.rows(c)
+        new_result = []
+        for row in result:
+            captain = row[0]
+            if captain is None:
+                continue
+            # We can't use query.get_clan_info as query imports this file
+            c.execute("""SELECT name FROM teams WHERE owner = %s""", (captain,))
+            clan_name = c.fetchone()[0]
+            new_row = [clan_name]
+            new_row.extend(row[1:])
+            new_result.append(new_row)
+        if limit is not None:
+            new_result = new_result[:limit]
+        return new_result
 
 
 def category_leaders(category, c, limit=None):
@@ -82,7 +125,7 @@ def category_leaders(category, c, limit=None):
         extra_cols = ""
     query_text = """SELECT {first_col}, {transformed_col} {extra_cols} FROM {table}
                    ORDER BY {col} {direction}""".format(
-        first_col='player' if category.type == 'individual' else 'team_captain',
+        first_col="player" if category.type == "individual" else "team_captain",
         transformed_col=transformed_col,
         extra_cols=extra_cols,
         col=category.source_column,
@@ -90,10 +133,10 @@ def category_leaders(category, c, limit=None):
         direction="DESC" if category.desc_order else "",
     )
     q = Query(query_text)
-    if category.type == 'individual' and limit:
+    if category.type == "individual" and limit:
         q.append(" LIMIT %d" % limit)
 
-    if category.type == 'individual':
+    if category.type == "individual":
         return q.rows(c)
     else:
         # We rewrite from team_captain to clan name
@@ -104,7 +147,7 @@ def category_leaders(category, c, limit=None):
             if captain is None:
                 continue
             # We can't use query.get_clan_info as query imports this file
-            c.execute('''SELECT name FROM teams WHERE owner = %s''', (captain,))
+            c.execute("""SELECT name FROM teams WHERE owner = %s""", (captain,))
             clan_name = c.fetchone()[0]
             new_row = [clan_name]
             new_row.extend(row[1:])
@@ -306,7 +349,9 @@ INDIVIDUAL_CATEGORIES = (
             ColumnDisplaySpec("class", "Background", False, None),
             ColumnDisplaySpec("turn", "Turns", True, None),
             ColumnDisplaySpec("nrune", "Runes", True, None),
-            ColumnDisplaySpec("sec_to_time(duration) AS duration", "Duration", True, None),
+            ColumnDisplaySpec(
+                "sec_to_time(duration) AS duration", "Duration", True, None
+            ),
         ],
     ),
     Category(
@@ -324,7 +369,9 @@ INDIVIDUAL_CATEGORIES = (
             ColumnDisplaySpec("class", "Background", False, None),
             ColumnDisplaySpec("turn", "Turns", True, None),
             ColumnDisplaySpec("nrune", "Runes", True, None),
-            ColumnDisplaySpec("sec_to_time(duration) AS duration", "Duration", True, None),
+            ColumnDisplaySpec(
+                "sec_to_time(duration) AS duration", "Duration", True, None
+            ),
         ],
     ),
     Category(
