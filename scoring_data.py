@@ -135,6 +135,26 @@ def _pretty_nemelex(games_json_str, clan=False):
 def _pretty_clan_nemelex(games_json_str):
     return _pretty_nemelex(games_json_str, clan=True)
 
+def _pretty_combo_scores(games_json_str, clan=False):
+    games = json.loads(games_json_str)
+    def _format_single_hs(obj):
+        link = _json_to_morgue_link(obj, obj['charabbrev'])
+        if obj['sp_hs'] and obj['cls_hs']:
+            link += " (%s, %s high score)" % (obj['sp_hs'] , obj['cls_hs'])
+        elif obj['sp_hs']:
+            link += " (%s high score)" % obj['sp_hs']
+        elif obj['cls_hs']:
+            link += " (%s high score)" % obj['cls_hs']
+        if obj['won']:
+            link = "<b>%s</b>" % link
+        if clan:
+            link += " (%s)" % obj['player']
+        return link
+    return ", ".join([ _format_single_hs(g) for g in games])
+
+def _pretty_clan_combo_scores(games_json_str):
+    return _pretty_combo_scores(games_json_str, clan=True)
+
 # This list (and the clan categories & banner lists) are in display order
 INDIVIDUAL_CATEGORIES = (
     Category(
@@ -223,6 +243,8 @@ INDIVIDUAL_CATEGORIES = (
             ColumnDisplaySpec("won_combos", "Won Combos", False, True, None),
             ColumnDisplaySpec("sp_hs", "Species High Scores", False, True, None),
             ColumnDisplaySpec("cls_hs", "Background High Scores", False, True, None),
+            ColumnDisplaySpec("games_json", "Combos (Won Combos in Bold)", False,
+                False, _pretty_combo_scores),
         ],
     ),
     Category(
@@ -418,6 +440,8 @@ CLAN_CATEGORIES = (
             ColumnDisplaySpec("won_combos", "Won Combos", False, True, None),
             ColumnDisplaySpec("sp_hs", "Species High Scores", False, True, None),
             ColumnDisplaySpec("cls_hs", "Background High Scores", False, True, None),
+            ColumnDisplaySpec("games_json", "Combos (Won Combos in Bold)", False,
+                False, _pretty_clan_combo_scores),
         ],
     ),
     Category(

@@ -782,7 +782,14 @@ SELECT c.player AS player,
                  + 3 * COUNT(sp.raceabbr) + 3 * COUNT(cl.class) AS total,
        COUNT(*) AS combos,
        SUM(c.killertype='winning') AS won_combos,
-       COUNT(sp.raceabbr) AS sp_hs, COUNT(cl.class) AS cls_hs
+       COUNT(sp.raceabbr) AS sp_hs, COUNT(cl.class) AS cls_hs,
+       JSON_ARRAYAGG(JSON_OBJECT('source_file', c.source_file,
+                    'player', c.player,
+		    'end_time', c.end_time,
+		    'charabbrev', c.charabbrev,
+	            'won', c.killertype='winning',
+	            'sp_hs', sp.raceabbr,
+	            'cls_hs', MID(cl.charabbrev,3,2))) AS games_json
   FROM combo_highscores AS c
   LEFT OUTER JOIN species_highscores AS sp
     ON c.player = sp.player AND c.charabbrev = sp.charabbrev
@@ -796,7 +803,14 @@ SELECT p.team_captain,
                  + 3 * COUNT(sp.raceabbr) + 3 * COUNT(cl.class) AS total,
        COUNT(*) AS combos,
        COUNT(c.killertype='winning') AS won_combos,
-       COUNT(sp.raceabbr) AS sp_hs, COUNT(cl.class) AS cls_hs
+       COUNT(sp.raceabbr) AS sp_hs, COUNT(cl.class) AS cls_hs,
+       JSON_ARRAYAGG(JSON_OBJECT('source_file', c.source_file,
+                    'player', c.player,
+		    'end_time', c.end_time,
+		    'charabbrev', c.charabbrev,
+	            'won', c.killertype='winning',
+	            'sp_hs', sp.raceabbr,
+	            'cls_hs', MID(cl.charabbrev,3,2))) AS games_json
   FROM combo_highscores AS c
   LEFT OUTER JOIN species_highscores AS sp
     ON c.player = sp.player AND c.charabbrev = sp.charabbrev
