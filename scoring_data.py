@@ -27,7 +27,18 @@ SERVERS = {
 }
 
 ColumnDisplaySpec = collections.namedtuple(
-    "ColumnDisplaySpec", ("column_name", "display_name")
+    "ColumnDisplaySpec", (
+        # Name in xdict
+        "column_name",
+        # Name to show the user
+        "display_name",
+        # If True, the data will be right-aligned and monospace.
+        # Otherwise, it's the default (left aligned and sans)
+        "numeric_data",
+        # Python function to apply to data before displaying it.
+        # Function type signature: (Any) -> str
+        "transform_fn",
+    )
 )
 Category = collections.namedtuple(
     "Category",
@@ -128,8 +139,8 @@ INDIVIDUAL_CATEGORIES = (
         None,
         True,
         [
-            ColumnDisplaySpec("champion", "Gods Championed..."),
-            ColumnDisplaySpec("won", "...and won"),
+            ColumnDisplaySpec("champion", "Gods Championed...", True, None),
+            ColumnDisplaySpec("won", "...and won", True, None),
         ],
     ),
     Category(
@@ -167,8 +178,8 @@ INDIVIDUAL_CATEGORIES = (
         None,
         True,
         [
-            ColumnDisplaySpec("n_wins", "Wins"),
-            ColumnDisplaySpec("n_games", "Games Played"),
+            ColumnDisplaySpec("n_wins", "Wins", True, None),
+            ColumnDisplaySpec("n_games", "Games Played", True, None),
         ],
     ),
     Category(
@@ -206,10 +217,10 @@ INDIVIDUAL_CATEGORIES = (
         None,
         True,
         [
-            ColumnDisplaySpec("combos", "Top Scoring Combos"),
-            ColumnDisplaySpec("won_combos", "Won Combos"),
-            ColumnDisplaySpec("sp_hs", "Species High Scores"),
-            ColumnDisplaySpec("cls_hs", "Background High Scores"),
+            ColumnDisplaySpec("combos", "Top Scoring Combos", True, None),
+            ColumnDisplaySpec("won_combos", "Won Combos", True, None),
+            ColumnDisplaySpec("sp_hs", "Species High Scores", True, None),
+            ColumnDisplaySpec("cls_hs", "Background High Scores", True, None),
         ],
     ),
     Category(
@@ -223,10 +234,10 @@ INDIVIDUAL_CATEGORIES = (
         None,
         True,
         [
-            ColumnDisplaySpec("race", "Species"),
-            ColumnDisplaySpec("class", "Background"),
-            ColumnDisplaySpec("turn", "Turns"),
-            ColumnDisplaySpec("nrune", "Runes"),
+            ColumnDisplaySpec("race", "Species", False, None),
+            ColumnDisplaySpec("class", "Background", False, None),
+            ColumnDisplaySpec("turn", "Turns", True, None),
+            ColumnDisplaySpec("nrune", "Runes", True, None),
         ],
     ),
     Category(
@@ -240,10 +251,10 @@ INDIVIDUAL_CATEGORIES = (
         None,
         False,
         [
-            ColumnDisplaySpec("race", "Species"),
-            ColumnDisplaySpec("class", "Background"),
-            ColumnDisplaySpec("turn", "Turns"),
-            ColumnDisplaySpec("nrune", "Runes"),
+            ColumnDisplaySpec("race", "Species", False, None),
+            ColumnDisplaySpec("class", "Background", False, None),
+            ColumnDisplaySpec("turn", "Turns", True, None),
+            ColumnDisplaySpec("nrune", "Runes", True, None),
         ],
     ),
     Category(
@@ -257,10 +268,10 @@ INDIVIDUAL_CATEGORIES = (
         "sec_to_time",
         False,
         [
-            ColumnDisplaySpec("race", "Species"),
-            ColumnDisplaySpec("class", "Background"),
-            ColumnDisplaySpec("turn", "Turns"),
-            ColumnDisplaySpec("nrune", "Runes"),
+            ColumnDisplaySpec("race", "Species", False, None),
+            ColumnDisplaySpec("class", "Background", False, None),
+            ColumnDisplaySpec("turn", "Turns", True, None),
+            ColumnDisplaySpec("nrune", "Runes", True, None),
         ],
     ),
     Category(
@@ -274,10 +285,10 @@ INDIVIDUAL_CATEGORIES = (
         None,
         False,
         [
-            ColumnDisplaySpec("race", "Species"),
-            ColumnDisplaySpec("class", "Background"),
-            ColumnDisplaySpec("turn", "Turns"),
-            ColumnDisplaySpec("nrune", "Runes"),
+            ColumnDisplaySpec("race", "Species", False, None),
+            ColumnDisplaySpec("class", "Background", False, None),
+            ColumnDisplaySpec("turn", "Turns", True, None),
+            ColumnDisplaySpec("nrune", "Runes", True, None),
         ],
     ),
     Category(
@@ -291,11 +302,11 @@ INDIVIDUAL_CATEGORIES = (
         None,
         False,
         [
-            ColumnDisplaySpec("race", "Species"),
-            ColumnDisplaySpec("class", "Background"),
-            ColumnDisplaySpec("turn", "Turns"),
-            ColumnDisplaySpec("nrune", "Runes"),
-            ColumnDisplaySpec("sec_to_time(duration) AS duration", "Duration"),
+            ColumnDisplaySpec("race", "Species", False, None),
+            ColumnDisplaySpec("class", "Background", False, None),
+            ColumnDisplaySpec("turn", "Turns", True, None),
+            ColumnDisplaySpec("nrune", "Runes", True, None),
+            ColumnDisplaySpec("sec_to_time(duration) AS duration", "Duration", True, None),
         ],
     ),
     Category(
@@ -309,11 +320,11 @@ INDIVIDUAL_CATEGORIES = (
         None,
         False,
         [
-            ColumnDisplaySpec("race", "Species"),
-            ColumnDisplaySpec("class", "Background"),
-            ColumnDisplaySpec("turn", "Turns"),
-            ColumnDisplaySpec("nrune", "Runes"),
-            ColumnDisplaySpec("sec_to_time(duration) AS duration", "Duration"),
+            ColumnDisplaySpec("race", "Species", False, None),
+            ColumnDisplaySpec("class", "Background", False, None),
+            ColumnDisplaySpec("turn", "Turns", True, None),
+            ColumnDisplaySpec("nrune", "Runes", True, None),
+            ColumnDisplaySpec("sec_to_time(duration) AS duration", "Duration", True, None),
         ],
     ),
     Category(
@@ -342,7 +353,7 @@ INDIVIDUAL_CATEGORIES = (
         "Score",
         None,
         True,
-        [ColumnDisplaySpec("banners", "Banners Completed")],
+        [ColumnDisplaySpec("banners", "Banners Completed", True, None)],
     ),
 )
 
