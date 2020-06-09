@@ -859,7 +859,7 @@ BANNERS = [
             "Kill 54 distinct uniques over the course of the tournament.",
             "Kill 73 distinct uniques over the course of the tournament.",
         ),
-        "There are XX uniques in DCSS.",
+        "There are 73 uniques in DCSS.",
         "yredelemnul",
     ),
     Banner(
