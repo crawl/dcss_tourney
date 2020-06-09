@@ -39,8 +39,6 @@
         <%include file="nemelex-choice-overview.mako"/>
       % endif
       % if category.source_table:
-      <%
-      %>
       ${
         html.category_table(
           category,
