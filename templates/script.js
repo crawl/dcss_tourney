@@ -13,21 +13,14 @@ window.addEventListener("load", function() {
     }
 });
 
-// kind of hacky: just name a table this in any given template and you'll get
-// datatables on it. May be necessary to customize this by page.
-$(document).ready(function() {
-    $('#datatables-enable').DataTable(
-        {
-            "paging": false, // TODO: revisit? I found it a bit hard to use on default settings
-            "scrollY": "60vh", // TODO: how reliable is this across browsers?
-            "scrollX": true, // enable header scrolling
-            "scrollCollapse": true // TODO: not sure this is working right
-        });
-} );
 window.addEventListener("load", function() {
     $('.dcss-datatable').DataTable(
         {
-            // global DataTable settings go here
+            scrollX: true,
+            // Keep the left two columns visible when scrolling sideways
+            fixedColumns: {
+                leftColumns: 2,
+            },
         }
     );
     $('.dcss-datatable-compact').DataTable(
