@@ -824,7 +824,7 @@ def whereis_table(c):
       god_phrase = ''
     else:
       god_phrase = ' of %s' % where[5]
-    mile_data = [where[1], where[7], where[3], '%s%s' % (where[4], god_phrase), where[2], where[6], '%s ago' % ago, pretty_src.upper(), new]
+    mile_data = [where[1], where[7], where[3], '%s%s' % (where[4], god_phrase), where[2], where[6], '%s ago' % ago, pretty_src.upper()]
     where_data.append([where[7], where[3], where[0], mile_data])
   where_data.sort(key=lambda e: (e[0],e[1],e[2]), reverse=True)
   if len(where_data) > 150:
@@ -834,7 +834,17 @@ def whereis_table(c):
     where_list.append(w[3])
     if where_list[-1][1] == 0:
       where_list[-1][1] = ''
-  return where_list
+  return _table([
+      PseudoCol("Player", False,
+      lambda player: crawl_utils.linked_text(key=player,
+          link_fn=crawl_utils.player_link)),
+      PseudoCol("Runes", False, None),
+      PseudoCol('Level', False, None),
+      PseudoCol('Character', False, None),
+      PseudoCol('Title', False, None),
+      PseudoCol('Location', False, None),
+      PseudoCol('Time', False, None),
+      PseudoCol('Server', False, None) ], where_list)
 
 def _strip_banner_suffix(banner):
   if ':' in banner:
