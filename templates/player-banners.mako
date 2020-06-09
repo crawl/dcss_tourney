@@ -1,4 +1,5 @@
 <%
+  import crawl_utils
   from crawl_utils import XXX_IMAGE_BASE
   import html
   import scoring_data
@@ -29,7 +30,7 @@
     <tr>
       <td>
         <img
-          src="${XXX_IMAGE_BASE}/altar/${html.slugify(banner.god)}.png"
+          src="${XXX_IMAGE_BASE}/altar/${crawl_utils.slugify(banner.god)}.png"
           alt="${banner.god}"
           class="pixel-art"
           loading="lazy"

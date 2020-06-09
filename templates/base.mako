@@ -24,8 +24,12 @@
       <%block name="title"/>
     </title>
 
+    ## Bootstrap
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    ## Datatables
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/fixedcolumns/3.3.1/css/fixedColumns.bootstrap4.min.css"/>
+    ## Our custom styles
     <link rel="stylesheet" href="${XXX_TOURNEY_BASE}/style.css">
   </head>
 
@@ -74,6 +78,7 @@
     ## DataTables
     <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/fixedcolumns/3.3.1/js/dataTables.fixedColumns.min.js"></script>
     ## Our custom code
     <script src="${XXX_TOURNEY_BASE}/script.js"></script>
   </body>

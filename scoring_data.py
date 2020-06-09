@@ -72,7 +72,11 @@ def category_leaders(category, cursor, brief=False, limit=None):
         for col in category.columns
         if (not brief or col.include_in_compact_display)
     )
-    row_owner = "player" if category.type == "individual" else "team_captain"
+    if category.type == "individual":
+        row_owner = final_sort_row = "player"
+    else:
+        row_owner = "team_info_json"
+        final_sort_row = "JSON_EXTRACT(team_info_json, '$.name')"
     limit_clause = "LIMIT {limit}".format(limit=limit) if limit is not None else ""
 
     query_text = """
@@ -82,8 +86,6 @@ def category_leaders(category, cursor, brief=False, limit=None):
             {columns}
         FROM
             {table}
-        WHERE
-            {row_owner} IS NOT NULL
         ORDER BY
             rk ASC, lower({row_owner}) ASC
         {limit_clause}
@@ -116,6 +118,7 @@ def _pretty_banners(banner_str):
     # type: (str) -> str
     return ", ".join(i.title().replace("_", " ") for i in banner_str.split(","))
 
+
 # The relevant info is consolidated into a single json object in the database
 # since that's easier than dealing with column spanning in the transformation
 # function specifications, but it still is a bit of a hack and needs this fixup
@@ -123,34 +126,52 @@ def _pretty_banners(banner_str):
 def _json_to_morgue_link(obj, link_text="Morgue"):
     if isinstance(obj, str):
         obj = json.loads(obj)
-    obj['end_time'] = datetime.datetime.strptime(obj['end_time'].replace('.000000',''), "%Y-%m-%d %H:%M:%S")
+    obj['end_time'] = datetime.datetime.strptime(
+        obj['end_time'].replace('.000000',''), "%Y-%m-%d %H:%M:%S"
+    )
     return crawl_utils.linked_text(obj, crawl_utils.morgue_link, link_text)
+
 
 def _pretty_nemelex(games_json_str, clan=False):
     games = json.loads(games_json_str)
-    return ", ".join([ _json_to_morgue_link(g,g['charabbrev']) + 
-                       (clan and (" (" + g['player'] + ")") or "")
-                       for g in games])
+    return ", ".join(
+        [
+            _json_to_morgue_link(g, g["charabbrev"])
+            + (clan and (" (" + g["player"] + ")") or "")
+            for g in games
+        ]
+    )
+
 
 def _pretty_clan_nemelex(games_json_str):
     return _pretty_nemelex(games_json_str, clan=True)
 
+
 def _pretty_combo_scores(games_json_str, clan=False):
     games = json.loads(games_json_str)
+
     def _format_single_hs(obj):
-        link = _json_to_morgue_link(obj, obj['charabbrev'])
-        if obj['sp_hs'] and obj['cls_hs']:
-            link += " (%s, %s high score)" % (obj['sp_hs'] , obj['cls_hs'])
-        elif obj['sp_hs']:
-            link += " (%s high score)" % obj['sp_hs']
-        elif obj['cls_hs']:
-            link += " (%s high score)" % obj['cls_hs']
-        if obj['won']:
+        link = _json_to_morgue_link(obj, obj["charabbrev"])
+        if obj["sp_hs"] and obj["cls_hs"]:
+            link += " (%s, %s high score)" % (obj["sp_hs"], obj["cls_hs"])
+        elif obj["sp_hs"]:
+            link += " (%s high score)" % obj["sp_hs"]
+        elif obj["cls_hs"]:
+            link += " (%s high score)" % obj["cls_hs"]
+        if obj["won"]:
             link = "<b>%s</b>" % link
         if clan:
-            link += " (%s)" % obj['player']
+            link += " (%s)" % obj["player"]
         return link
-    return ", ".join([ _format_single_hs(g) for g in games])
+
+    out = '<ul class="list-unstyled mb-0">'
+    for g in games:
+        out += "<li>"
+        out += _format_single_hs(g)
+        out += "</li>\n"
+    out += "</ul>"
+    return out
+
 
 def _pretty_clan_combo_scores(games_json_str):
     return _pretty_combo_scores(games_json_str, clan=True)
@@ -207,8 +228,9 @@ INDIVIDUAL_CATEGORIES = (
     Category(
         "individual",
         "Winning",
-        # XXX should use MAX_CATEGORY_SCORE
-        "The Shining One values perseverance and courage in the face of adversity. In this category, TSO awards players 10,000 points if they win two distinct character combos, 5,000 points for winning their first combo, and 0 otherwise.",
+        "The Shining One values perseverance and courage in the face of adversity. In this category, TSO awards players {first:,} points if they win two distinct character combos, {second:,} points for winning their first combo, and 0 otherwise.".format(
+            first=MAX_CATEGORY_SCORE, second=MAX_CATEGORY_SCORE / 2
+        ),
         "nonrep_wins",
         None,
         None,
@@ -245,24 +267,27 @@ INDIVIDUAL_CATEGORIES = (
         "nemelex_score",
         "player_nemelex_score",
         "score DESC",
-        [ColumnDisplaySpec("score", "Score", True, True, None),
-         ColumnDisplaySpec("games", "Games", False, False, _pretty_nemelex)],
+        [
+            ColumnDisplaySpec("score", "Score", True, True, None),
+            ColumnDisplaySpec("games", "Games", False, False, _pretty_nemelex),
+        ],
     ),
     Category(
         "individual",
         "Combo High Scores",
-        "Dithmenos ranks players by the combo high scores they can acquire and defend from rivals. A combo high score gives 1 point in this category; a winning high score 2 points; and a species or background high score 5 points.",
+        "Dithmenos ranks players by the combo high scores they can acquire and defend from rivals. Each combo high score gives 1 point, with bonus points for winning the game (+1) and being a species/background high score (+3 each). (Therefore, a single game can give a maximum of 8 points.)",
         "combo_score",
         "player_combo_score",
         "total DESC",
         [
             ColumnDisplaySpec("total", "Score", True, True, None),
-            ColumnDisplaySpec("combos", "Top Scoring Combos", False, True, None),
-            ColumnDisplaySpec("won_combos", "Won Combos", False, True, None),
-            ColumnDisplaySpec("sp_hs", "Species High Scores", False, True, None),
-            ColumnDisplaySpec("cls_hs", "Background High Scores", False, True, None),
-            ColumnDisplaySpec("games_json", "Combos (Won Combos in Bold)", False,
-                False, _pretty_combo_scores),
+            ColumnDisplaySpec(
+                "games_json",
+                "Combos (Won Combos in Bold)",
+                False,
+                False,
+                _pretty_combo_scores,
+            ),
         ],
     ),
     Category(
@@ -279,7 +304,9 @@ INDIVIDUAL_CATEGORIES = (
             ColumnDisplaySpec("xl", "XL", False, True, None),
             ColumnDisplaySpec("nrune", "Runes", False, True, None),
             ColumnDisplaySpec("turn", "Turns", False, True, None),
-            ColumnDisplaySpec("morgue_json", "Morgue", False, False, _json_to_morgue_link),
+            ColumnDisplaySpec(
+                "morgue_json", "Morgue", False, False, _json_to_morgue_link
+            ),
         ],
     ),
     Category(
@@ -293,7 +320,9 @@ INDIVIDUAL_CATEGORIES = (
             ColumnDisplaySpec("turn", "Turns", True, True, None),
             ColumnDisplaySpec("race", "Species", False, False, None),
             ColumnDisplaySpec("class", "Background", False, False, None),
-            ColumnDisplaySpec("morgue_json", "Morgue", False, False, _json_to_morgue_link),
+            ColumnDisplaySpec(
+                "morgue_json", "Morgue", False, False, _json_to_morgue_link
+            ),
         ],
     ),
     Category(
@@ -307,7 +336,9 @@ INDIVIDUAL_CATEGORIES = (
             ColumnDisplaySpec("duration", "Duration", True, True, _pretty_duration),
             ColumnDisplaySpec("race", "Species", False, False, None),
             ColumnDisplaySpec("class", "Background", False, False, None),
-            ColumnDisplaySpec("morgue_json", "Morgue", False, False, _json_to_morgue_link),
+            ColumnDisplaySpec(
+                "morgue_json", "Morgue", False, False, _json_to_morgue_link
+            ),
         ],
     ),
     Category(
@@ -321,7 +352,9 @@ INDIVIDUAL_CATEGORIES = (
             ColumnDisplaySpec("xl", "XL", True, True, None),
             ColumnDisplaySpec("race", "Species", False, False, None),
             ColumnDisplaySpec("class", "Background", False, False, None),
-            ColumnDisplaySpec("morgue_json", "Morgue", False, False, _json_to_morgue_link),
+            ColumnDisplaySpec(
+                "morgue_json", "Morgue", False, False, _json_to_morgue_link
+            ),
         ],
     ),
     Category(
@@ -335,7 +368,9 @@ INDIVIDUAL_CATEGORIES = (
             ColumnDisplaySpec("end_time", "Game End Time", True, True, None),
             ColumnDisplaySpec("race", "Species", False, False, None),
             ColumnDisplaySpec("class", "Background", False, False, None),
-            ColumnDisplaySpec("morgue_json", "Morgue", False, False, _json_to_morgue_link),
+            ColumnDisplaySpec(
+                "morgue_json", "Morgue", False, False, _json_to_morgue_link
+            ),
         ],
     ),
     Category(
@@ -350,7 +385,9 @@ INDIVIDUAL_CATEGORIES = (
             ColumnDisplaySpec("race", "Species", False, False, None),
             ColumnDisplaySpec("class", "Background", False, False, None),
             ColumnDisplaySpec("duration", "Duration", False, True, _pretty_duration),
-            ColumnDisplaySpec("morgue_json", "Morgue", False, False, _json_to_morgue_link),
+            ColumnDisplaySpec(
+                "morgue_json", "Morgue", False, False, _json_to_morgue_link
+            ),
         ],
     ),
     Category(
@@ -422,14 +459,15 @@ CLAN_CATEGORIES = (
     Category(
         "clan",
         "Winning",
-        # XXX should use MAX_CATEGORY_SCORE
-        """Clans are awarded <code> 10,000 / (13 - wins) </code> points for
+        """Clans are awarded <code> {MAX_CATEGORY_SCORE:,} / (13 - wins) </code> points for
         distinct first combo wins by clan members. The total number of wins in
         this category is capped at 12, and the total number of wins from any
         member is capped at 4. For a win to count in this category it must be
         the first win of the combo by the clan. For example, if Player A's 5th
         win is a DgWn and they win before Player B's win of DgWn then Player
-        B's win will not count in this category.""",
+        B's win will not count in this category.""".format(
+            MAX_CATEGORY_SCORE=MAX_CATEGORY_SCORE
+        ),
         "nonrep_wins",
         None,
         None,
@@ -442,24 +480,27 @@ CLAN_CATEGORIES = (
         "nemelex_score",
         "clan_nemelex_score",
         "score DESC",
-        [ColumnDisplaySpec("score", "Score", True, True, None),
-         ColumnDisplaySpec("games", "Games", False, False, _pretty_clan_nemelex), ],
+        [
+            ColumnDisplaySpec("score", "Score", True, True, None),
+            ColumnDisplaySpec("games", "Games", False, False, _pretty_clan_nemelex),
+        ],
     ),
     Category(
         "clan",
         "Combo High Scores",
-        "The clan is awarded points in this category in the same way as the individual Combo High scores category using all of the members' games. (A combo high score gives 1 point in this category; a winning high score 2 points; and a species or background high score 5 points.)",
+        "The clan is awarded points in this category in the same way as the individual Combo High scores category using all of the members' games. Each combo high score gives 1 point, with bonus points for winning the game (+1) and being a species/background high score (+3 each). (Therefore, a single game can give a maximum of 8 points.)",
         "combo_score",
         "clan_combo_score",
         "total DESC",
         [
             ColumnDisplaySpec("total", "Score", True, True, None),
-            ColumnDisplaySpec("combos", "Top Scoring Combos", False, True, None),
-            ColumnDisplaySpec("won_combos", "Won Combos", False, True, None),
-            ColumnDisplaySpec("sp_hs", "Species High Scores", False, True, None),
-            ColumnDisplaySpec("cls_hs", "Background High Scores", False, True, None),
-            ColumnDisplaySpec("games_json", "Combos (Won Combos in Bold)", False,
-                False, _pretty_clan_combo_scores),
+            ColumnDisplaySpec(
+                "games_json",
+                "Combos (Won Combos in Bold)",
+                False,
+                False,
+                _pretty_clan_combo_scores,
+            ),
         ],
     ),
     Category(
@@ -489,7 +530,9 @@ CLAN_CATEGORIES = (
             ColumnDisplaySpec("xl", "XL", False, True, None),
             ColumnDisplaySpec("nrune", "Runes", False, True, None),
             ColumnDisplaySpec("turn", "Turns", False, True, None),
-            ColumnDisplaySpec("morgue_json", "Morgue", False, False, _json_to_morgue_link),
+            ColumnDisplaySpec(
+                "morgue_json", "Morgue", False, False, _json_to_morgue_link
+            ),
         ],
     ),
     Category(
@@ -504,7 +547,9 @@ CLAN_CATEGORIES = (
             ColumnDisplaySpec("player", "Player Responsible", False, False, None),
             ColumnDisplaySpec("race", "Species", False, False, None),
             ColumnDisplaySpec("class", "Background", False, False, None),
-            ColumnDisplaySpec("morgue_json", "Morgue", False, False, _json_to_morgue_link),
+            ColumnDisplaySpec(
+                "morgue_json", "Morgue", False, False, _json_to_morgue_link
+            ),
         ],
     ),
     Category(
@@ -519,7 +564,9 @@ CLAN_CATEGORIES = (
             ColumnDisplaySpec("player", "Player", False, False, None),
             ColumnDisplaySpec("race", "Species", False, False, None),
             ColumnDisplaySpec("class", "Background", False, False, None),
-            ColumnDisplaySpec("morgue_json", "Morgue", False, False, _json_to_morgue_link),
+            ColumnDisplaySpec(
+                "morgue_json", "Morgue", False, False, _json_to_morgue_link
+            ),
         ],
     ),
     Category(

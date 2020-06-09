@@ -1,6 +1,7 @@
 <%page args="rank_description"/>
 
 <%
+  import crawl_utils
   import html
   import scoring_data
 %>
@@ -12,7 +13,7 @@
 %>
 <div class="row">
   <div class="col">
-    <div class="jumbotron cat-clan-${html.slugify(category.name)} text-light bg-dark p-3">
+    <div class="jumbotron cat-clan-${crawl_utils.slugify(category.name)} text-light bg-dark p-3">
       <h2 class="text-outline-black-1">${category.name}</h2>
       <div class="row">
         <div class="col col-sm-4">

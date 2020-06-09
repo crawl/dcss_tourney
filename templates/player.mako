@@ -44,9 +44,6 @@
         s="s" if points != '1' else "",
         ordinal=ordinal,
       )
-
-  def pretty_clan_name(name):
-    return name.replace('_', ' ')
 %>
 
 ## Runs on render. Variables set in here are not accessible to <%blocks>. To
@@ -82,7 +79,7 @@
       </p>
       % if clan_name is not None:
       <p class="lead">
-        Clan: <a href="${XXX_TOURNEY_BASE}/clans/${clan_page}.html">${pretty_clan_name(clan_name)}</a>
+        Clan: <a href="${clan_url}">${clan_name}</a>
       </p>
       % endif
     </div>

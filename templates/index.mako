@@ -4,6 +4,7 @@
 <%!
   import scoring_data
   import html
+  import crawl_utils
   from crawl_utils import XXX_IMAGE_BASE, base_link
 
   active_menu_item = "Rules"
@@ -147,7 +148,7 @@
       <div class="card h-100 bg-dark text-light">
         <img
           ## A couple of these images are actually JPEGs. Shhh!
-          src="${XXX_IMAGE_BASE}/individual/${html.slugify(category.name)}.png"
+          src="${XXX_IMAGE_BASE}/individual/${crawl_utils.slugify(category.name)}.png"
           alt=""
           ## mx-auto class + max-width = prevent crazy big images on xs display
           class="card-img-top mx-auto"
@@ -163,7 +164,7 @@
         </div>
         <div class="card-footer">
           % if category.source_table:
-          <a href="${base_link(html.slugify(category.name))}.html">
+          <a href="${base_link(crawl_utils.slugify(category.name))}.html">
             View full ranking.
           </a>
           % else:
@@ -187,7 +188,7 @@
       <div class="card h-100 bg-dark text-light">
         <img
           ## A couple of these images are actually JPEGs. Shhh!
-          src="${XXX_IMAGE_BASE}/clan/${html.slugify(category.name)}.png"
+          src="${XXX_IMAGE_BASE}/clan/${crawl_utils.slugify(category.name)}.png"
           alt=""
           ## mx-auto class + max-width = prevent crazy big images on xs display
           class="card-img-top mx-auto"
@@ -203,7 +204,7 @@
         </div>
         <div class="card-footer">
           % if category.source_table:
-          <a href="${base_link('clan-' + html.slugify(category.name))}.html">
+          <a href="${base_link('clan-' + crawl_utils.slugify(category.name))}.html">
             View full ranking.
           </a>
           % else:
@@ -231,7 +232,7 @@
   <div class="col mb-4">
     <div class="card h-100 banner bg-dark text-light">
       <img
-        src="${XXX_IMAGE_BASE}/altar/${html.slugify(banner.god)}.png"
+        src="${XXX_IMAGE_BASE}/altar/${crawl_utils.slugify(banner.god)}.png"
         alt="${banner.god}"
         class="card-img-top pixel-art px-5 mt-3 mx-auto"
         loading="lazy"

@@ -29,20 +29,9 @@ h1, h2, h3, h4, h5, h6 {
   image-rendering: pixelated;
 }
 
-.sticky-column {
-  position: sticky;
-  left: 0;
-  /*
-    This background colour is  hardcoded copy of the body background.
-    There must be a better way...
-  */
-  background: #ddd;
-}
-/*
-  A little ugly, but hits WCAG contrast guidelines.
-*/
-td.sticky-column a, tr.table-secondary td a, tr.table-secondary th a {
-	color: #406098;
+/* Make sticky column background dark. Without this, the columns assume Bootstrap light colour */
+table.DTFC_Cloned th, table.DTFC_Cloned td {
+  background-color: #343a40;
 }
 
 .text-light a {

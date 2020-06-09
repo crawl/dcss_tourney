@@ -962,14 +962,11 @@ def players_in_team(cursor, team_owner):
   players.insert(0, team_owner)
   return players
 
-def clan_page_name(team_name, captain):
-  return '%s-%s' % (team_name.lower(), captain.lower())
-
 def get_clan_info(c, player):
   """Given a player name, returns a tuple of:
   1. clan name
   2. list of players in the clan (with clan captain first)
-  3. clan page name
+  3. clan page URL
   or None if the player is not in a clan.
   """
   captain = query_row(c, '''SELECT team_captain FROM players
@@ -989,7 +986,7 @@ def get_clan_info(c, player):
   return (
     team_name,
     players_in_team(c, captain),
-    clan_page_name(team_name, captain),
+    crawl_utils.clan_link(team_name, captain),
   )
 
 def find_remaining_gods(used_gods):
@@ -1681,8 +1678,7 @@ def get_all_players(c):
   for r in rows:
     captain = r[1]
     clan_link = "" if captain is None else (
-          crawl_utils.linked_text(clan_page_name(r[2], r[1]),
-                                  crawl_utils.clan_link, r[2]))
+      crawl_utils.link_text(r[2], crawl_utils.clan_link(r[2], r[1])))
     player_link = crawl_utils.linked_text(r[0], crawl_utils.player_link)
     clean_rows.append([r[0], player_link, clan_link])
 
@@ -1693,8 +1689,7 @@ def get_all_clans(c):
   rows = [ list(r) for r in q.rows(c) ]
   clean_rows = []
   for r in rows:
-    clan_link = crawl_utils.linked_text(clan_page_name(r[0], r[1]),
-                                        crawl_utils.clan_link, r[0])
+    clan_link = crawl_utils.link_text(r[0], crawl_utils.clan_link(r[0], r[1]))
     clean_rows.append([r[0], r[1], clan_link])
   return clean_rows
 
@@ -1714,7 +1709,7 @@ def get_all_player_ranks(c):
       r[1] = '-'
     else:
       clan_page = get_clan_info(c, captain)[2]
-      r[1] = crawl_utils.linked_text(clan_page, crawl_utils.clan_link, r[1])
+      r[1] = crawl_utils.link_text(r[1], crawl_utils.clan_link(r[1], captain))
     r = [ render_rank(n) for n in r ]
     clean_rows.append(r)
   return clean_rows
@@ -1730,7 +1725,7 @@ def get_all_clan_ranks(c, pretty=True, limit=None):
   for r in rows:
       captain = r[1]
       if pretty:
-        r[0] = crawl_utils.linked_text('%s-%s' % (r[0].lower(), captain.lower()), crawl_utils.clan_link, r[0])
+        r[0] = crawl_utils.link_text(r[0], crawl_utils.clan_link(r[0], captain))
         r[1] = crawl_utils.clan_affiliation(captain, get_clan_info(c, captain),
                 False)
         clean_rows.append( [render_rank(n) for n in r] )

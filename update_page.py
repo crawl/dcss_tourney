@@ -71,7 +71,7 @@ def category_pages(c):
       render(
         c,
         page='category',
-        dest=prefix + html.slugify(category.name),
+        dest=prefix + crawl_utils.slugify(category.name),
         pars={
           'category': category,
           'rows': rows,
@@ -85,7 +85,7 @@ def clan_category_pages(c):
     render(
       c,
       page='category',
-      dest='clan-' + html.slugify(category.name),
+      dest='clan-' + crawl_utils.slugify(category.name),
       pars={
         'category': category,
       },
@@ -127,7 +127,9 @@ def team_page(c, captain):
     'clan_category_results': clan_category_results(c, clan_name),
   }
   render(c, 'clan',
-    dest = '%s/%s' % (crawl_utils.CLAN_BASE, clan_info[2]),
+    dest = '%s/%s' % (
+      crawl_utils.CLAN_BASE,
+      crawl_utils.clan_page_name(clan_name, captain)),
     pars = pars, top_level_pars=True,
   )
 
@@ -161,7 +163,7 @@ def player_page(c, player):
     _clan_info = (None, [], None)
   player_params['clan_name'] = _clan_info[0]
   player_params['clan_members'] = _clan_info[1]
-  player_params['clan_page'] = _clan_info[2]
+  player_params['clan_url'] = _clan_info[2]
   render(c, 'player',
          dest = ('%s/%s' % (crawl_utils.PLAYER_BASE, player.lower())),
          pars = player_params,

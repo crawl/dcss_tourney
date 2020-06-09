@@ -1,6 +1,7 @@
 <%page args="points_for_rank"/>
 
 <%
+  import crawl_utils
   from crawl_utils import XXX_IMAGE_BASE, base_link
   import html
   import scoring_data
@@ -47,7 +48,7 @@
   %>
     <tr>
       <td>
-        <a href="${base_link(html.slugify(category.name))}.html">
+        <a href="${base_link(crawl_utils.slugify(category.name))}.html">
           ${category.name}
         </a>
       </td>

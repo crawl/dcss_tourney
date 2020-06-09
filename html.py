@@ -4,6 +4,7 @@ import query, crawl_utils, time, datetime
 import loaddb
 import sys
 import logging
+import json
 
 from crawl_utils import clan_link, player_link, linked_text
 import crawl_utils
@@ -342,20 +343,19 @@ def table_text(headers, data, count=True,
 
   """
   table_classes = set(("table",
-    "table-sm",
     "table-hover",
     "table-striped",
     "table-dark",
-    "w-auto",
   ))
   if extra_wide_support:
     table_classes.add("table-bordered")
-  table_id = ""
   if datatables:
-    table_id = "datatables-enable"
-    table_classes.add("compact") # DataTables compact styling
-  out = '''<div class="table-responsive">\n<table id="%s" class="%s">\n''' % (
-          table_id, " ".join(table_classes))
+    table_classes.add("dcss-datatable-wide" if extra_wide_support else "dcss-datatable")
+    table_classes.add("nowrap") # keep table rows on one line
+  else:
+    table_classes.add("table-sm")
+    table_classes.add("w-auto")
+  out = '''<div class="table-responsive">\n<table class="%s">\n''' % (" ".join(table_classes))
 
   if caption is not None:
     out += '''<caption class="sr-only">%s</caption>\n''' % caption
@@ -367,10 +367,7 @@ def table_text(headers, data, count=True,
   if count:
     out += '''<th scope="col">#</th>'''
   for head in headers:
-    cell_class=''
-    if extra_wide_support and is_player_header(head[0]):
-      cell_class = 'sticky-column'
-    out += '''<th class="%s" scope="col">%s</th>''' % (cell_class, head[0])
+    out += '''<th scope="col">%s</th>''' % head[0]
   out += "</tr>\n</thead>\n"
 
   if not data:
@@ -400,10 +397,16 @@ def table_text(headers, data, count=True,
       last_value = row[place_column]
 
     if count:
-      out += '''<th scope="row">%s</th>''' % nplace
+      out += '''<th class="%s" scope="row">%s</th>''' % (
+        "py-1 px-2" if datatables else "",
+        nplace,
+      )
 
     for c in range(len(headers)):
       call_classes = set()
+      if datatables:
+        # More compact display
+        call_classes.update(["py-1", "px-2"])
       val = row[c]
       header = headers[c]
 
@@ -415,7 +418,7 @@ def table_text(headers, data, count=True,
         call_classes.add("text-right")
         call_classes.add("text-monospace")
       if extra_wide_support and is_player_header(header[0]):
-        call_classes.add('sticky-column text-dark')
+        call_classes.add('text-dark')
 
       if c == place_column:
         out += '''<th class="%s" scope="row">''' % " ".join(call_classes)
@@ -643,11 +646,13 @@ def category_table(category, rows, row_classes_fn=None, brief=False):
       lambda player: crawl_utils.linked_text(key=player, link_fn=crawl_utils.player_link),
     ))
   else:
-    cols.insert(0, PseudoCol(
-      "Team Captain",
-      False,
-      lambda captain: crawl_utils.linked_text(key=captain, link_fn=crawl_utils.clan_link),
-    ))
+    def _pretty_clan_name(data):
+      info = json.loads(data)
+      name = info["name"]
+      return '<a href="{url}">{name}</a>'.format(
+          url=crawl_utils.clan_link(name, info["captain"]), name=name,
+      )
+    cols.insert(0, PseudoCol("Team", False, _pretty_clan_name))
   cols.insert(0, PseudoCol("#", True, None))
 
   return _table(
@@ -945,20 +950,6 @@ def player_scores_block(c, scores, title):
   if asterisk:
     text += "<p class='fineprint'>* Winning Game</p>"
   return text
-
-def slugify(name):
-  """Replace non-alphanum with -, max one in a row."""
-  safe = ''.join((c if c.isalnum() else '-') for c in name.lower())
-  final = ''
-  # Could probably replace this loop with a call to reduce()
-  for c in name:
-    if c.isalnum():
-      final += c.lower()
-    else:
-      if final and final[-1] == '-':
-        continue
-      final += '-'
-  return final
 
 def english_join(items, final="and"):
   """Join a list of items with an oxford comma and joining word.

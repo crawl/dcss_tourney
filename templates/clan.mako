@@ -4,12 +4,10 @@
   import scoring_data
   import html
   import query
+  import crawl_utils
   from crawl_utils import XXX_TOURNEY_BASE, base_link, player_link
 
   active_menu_item = "Clans"
-
-  def pretty_clan_name(name):
-    return name.replace('_', ' ')
 
   def linkify_player(name):
     return """<a href="{link}">{name}</a>""".format(
@@ -24,13 +22,13 @@
 %>
 
 <%block name="title">
-  ${pretty_clan_name(clan_name)}
+  ${clan_name}
 </%block>
 
 <%block name="main">
   <div class="row">
     <div class="col">
-      <h1>${pretty_clan_name(clan_name)}</h1>
+      <h1>${clan_name}</h1>
       <p class="lead">
         <b>
           Captain:
@@ -56,7 +54,7 @@
       </p>
       ${html.full_games_table(
           query.find_games(cursor, player = clan_members, sort_max = 'end_time', limit = 10),
-          count=False, win=False, caption="Recent games for %s" % pretty_clan_name(clan_name),
+          count=False, win=False, caption="Recent games for %s" % clan_name,
           excluding=("race", "class", "title", "turns", "duration", "runes", "turns"),
           including=[[0, ('player', 'Player')], [2, ('charabbrev', 'Char')], [9, ('src', 'Server')]]
       )}
@@ -103,7 +101,7 @@
           %>
             <tr>
               <td>
-                <a href="${base_link('clan-' + html.slugify(category.name))}.html">
+                <a href="${base_link('clan-' + crawl_utils.slugify(category.name))}.html">
                   ${category.name}
                 </a>
               </td>

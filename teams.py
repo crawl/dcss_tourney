@@ -97,7 +97,7 @@ def get_teams(directory_list):
                     volunteers.setdefault(elements[1].lower(), []).append(player)
                 elif elements[0] == 'TEAMNAME':
                     players.append(player)
-                    teamname[player] = '_'.join(elements[1:]) or ('Team_' + player)
+                    teamname[player] = ' '.join(elements[1:]) or ('Team_' + player)
                     if player in BAD_NAMERS:
                         teamname[player] = 'Team_' + player
                     volunteers.setdefault(player, []).append(player)
@@ -137,7 +137,7 @@ def get_teams(directory_list):
                     volunteers.setdefault(elements[1].lower(), []).append(player)
                 elif elements[0] == 'TEAMNAME':
                     players.append(player)
-                    teamname[player] = '_'.join(elements[1:]) or ('Team_' + player)
+                    teamname[player] = ' '.join(elements[1:]) or ('Team_' + player)
                     if player in BAD_NAMERS:
                         teamname[player] = 'Team_' + player
                     volunteers.setdefault(player, []).append(player)

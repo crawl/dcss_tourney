@@ -580,13 +580,19 @@ SELECT g.*, JSON_OBJECT('source_file', g.source_file,
 --     ON g.team_captain = g2.team_captain AND g.score < g2.score
 --   WHERE g2.score IS NULL AND g.score > 0;
 CREATE VIEW clan_highest_scores AS
-SELECT p.team_captain, g.*, JSON_OBJECT('source_file', g.source_file,
-                    'player', g.player,
-		    'end_time', g.end_time,
-		    'charabbrev', g.charabbrev) AS morgue_json FROM games AS g
+SELECT p.team_captain,
+       JSON_OBJECT('name', teams.name, 'captain', p.team_captain) AS team_info_json,
+       g.*,
+       JSON_OBJECT('source_file', g.source_file,
+                   'player', g.player,
+                   'end_time', g.end_time,
+                   'charabbrev', g.charabbrev) AS morgue_json
+	FROM games AS g
   INNER JOIN players AS p ON g.player = p.name
   LEFT OUTER JOIN (players AS p2 INNER JOIN games AS g2 ON g2.player = p2.name)
     ON p.team_captain = p2.team_captain AND g.score < g2.score
+  LEFT JOIN teams
+    ON p.team_captain = teams.owner
   WHERE g2.score IS NULL AND g.score > 0 AND p.team_captain IS NOT NULL;
 
 CREATE VIEW lowest_turncount_wins AS
@@ -599,13 +605,19 @@ SELECT g.*, JSON_OBJECT('source_file', g.source_file,
   WHERE g2.turn IS NULL;
 
 CREATE VIEW clan_lowest_turncount_wins AS
-SELECT g.*, JSON_OBJECT('source_file', g.source_file,
-                    'player', g.player,
-		    'end_time', g.end_time,
-		    'charabbrev', g.charabbrev) AS morgue_json FROM wins AS g
+SELECT
+    JSON_OBJECT('name', teams.name, 'captain', g.team_captain) AS team_info_json,
+    g.*,
+    JSON_OBJECT('source_file', g.source_file,
+                'player', g.player,
+                'end_time', g.end_time,
+                'charabbrev', g.charabbrev) AS morgue_json
+  FROM wins AS g
   LEFT OUTER JOIN wins AS g2
-  ON g.team_captain = g2.team_captain AND g.turn > g2.turn
-  WHERE g2.turn IS NULL;
+    ON g.team_captain = g2.team_captain AND g.turn > g2.turn
+  LEFT JOIN teams
+    ON g.team_captain = teams.owner
+  WHERE g.team_captain IS NOT NULL AND g2.turn IS NULL;
 
 CREATE VIEW fastest_wins AS
 SELECT g.*, JSON_OBJECT('source_file', g.source_file,
@@ -617,13 +629,19 @@ SELECT g.*, JSON_OBJECT('source_file', g.source_file,
   WHERE g2.duration IS NULL;
 
 CREATE VIEW clan_fastest_wins AS
-SELECT g.*, JSON_OBJECT('source_file', g.source_file,
-                    'player', g.player,
-		    'end_time', g.end_time,
-		    'charabbrev', g.charabbrev) AS morgue_json  FROM wins AS g
+SELECT
+    JSON_OBJECT('name', teams.name, 'captain', g.team_captain) AS team_info_json,
+    g.*,
+    JSON_OBJECT('source_file', g.source_file,
+                'player', g.player,
+                'end_time', g.end_time,
+                'charabbrev', g.charabbrev) AS morgue_json
+  FROM wins AS g
   LEFT OUTER JOIN wins AS g2
-  ON g.team_captain = g2.team_captain AND g.duration > g2.duration
-  WHERE g2.duration IS NULL;
+    ON g.team_captain = g2.team_captain AND g.duration > g2.duration
+  LEFT JOIN teams
+    ON g.team_captain = teams.owner
+  WHERE g.team_captain IS NOT NULL AND  g2.duration IS NULL;
 
 CREATE VIEW nonhep_wins AS
 SELECT * FROM wins AS g
@@ -653,7 +671,7 @@ CREATE VIEW player_god_usage AS
 SELECT mp.player, mp.god AS max_piety, wg.god AS won
   FROM player_max_piety AS mp
   LEFT OUTER JOIN player_won_gods AS wg
-    ON mp.player = wg.player AND mp.god = wg.god 
+    ON mp.player = wg.player AND mp.god = wg.god
 UNION ALL
 SELECT wg.player, mp.god AS max_piety, wg.god AS won
   FROM player_max_piety AS mp
@@ -669,10 +687,15 @@ SELECT player, COUNT(DISTINCT max_piety) AS champion,
   GROUP BY player;
 
 CREATE VIEW clan_piety_score AS
-SELECT p.team_captain, COUNT(DISTINCT g.max_piety) AS champion,
+SELECT p.team_captain,
+    JSON_OBJECT('name', teams.name, 'captain', p.team_captain) AS team_info_json,
+    COUNT(DISTINCT g.max_piety) AS champion,
 	  COUNT(DISTINCT g.won) AS won,
 	  COUNT(DISTINCT g.max_piety) + COUNT(DISTINCT g.won) AS piety
-  FROM player_god_usage AS g INNER JOIN players AS p ON g.player = p.name
+  FROM player_god_usage AS g
+    INNER JOIN players AS p ON g.player = p.name
+    LEFT JOIN teams ON p.team_captain = teams.owner
+  WHERE team_captain IS NOT NULL
   GROUP BY p.team_captain;
 
 CREATE VIEW player_banner_score AS
@@ -687,9 +710,17 @@ SELECT p.team_captain, b.banner, MAX(b.prestige) As prestige
  GROUP BY p.team_captain, b.banner;
 
 CREATE VIEW clan_banner_score AS
-SELECT team_captain, SUM(IF(prestige = 3, 4, prestige)) AS bscore,
-       GROUP_CONCAT(CONCAT(banner, ' ', prestige) SEPARATOR ',') AS banners 
-  FROM clan_player_banners GROUP BY team_captain;
+SELECT
+    team_captain,
+    JSON_OBJECT('name', teams.name, 'captain', team_captain) AS team_info_json,
+    SUM( IF(prestige = 3, 4, prestige)) AS bscore,
+    GROUP_CONCAT(CONCAT(banner, ' ', prestige) SEPARATOR ',') AS banners
+  FROM
+    clan_player_banners
+    LEFT JOIN teams
+      ON team_captain = teams.owner
+  GROUP BY
+    team_captain;
 
 CREATE VIEW branch_enter_count AS
 SELECT player, COUNT(DISTINCT br) AS score FROM branch_enters GROUP BY player;
@@ -734,8 +765,12 @@ SELECT player, SUM(score) AS score
   FROM exploration_union GROUP BY player;
 
 CREATE VIEW clan_exploration_score AS
-SELECT team_captain, SUM(score) AS score
-  FROM clan_exploration_union WHERE team_captain IS NOT NULL
+SELECT team_captain,
+       JSON_OBJECT('name', teams.name, 'captain', team_captain) AS team_info_json,
+       SUM(score) AS score
+  FROM clan_exploration_union
+    LEFT JOIN teams ON teams.owner = team_captain
+  WHERE team_captain IS NOT NULL
   GROUP BY team_captain;
 
 CREATE VIEW unique_kill_count AS
@@ -773,8 +808,12 @@ SELECT player, SUM(score) AS score
   GROUP BY player;
 
 CREATE VIEW clan_harvest_score AS
-SELECT team_captain, SUM(score) AS score
+SELECT team_captain,
+       JSON_OBJECT('name', teams.name, 'captain', team_captain) AS team_info_json,
+       SUM(score) AS score
   FROM clan_harvest_union
+    LEFT JOIN teams ON team_captain = teams.owner
+  WHERE team_captain IS NOT NULL
   GROUP BY team_captain;
 
 CREATE VIEW player_combo_score AS
@@ -800,6 +839,7 @@ SELECT c.player AS player,
 
 CREATE VIEW clan_combo_score AS
 SELECT p.team_captain,
+       JSON_OBJECT('name', teams.name, 'captain', team_captain) AS team_info_json,
        COUNT(*) + COUNT(c.killertype='winning')
                  + 3 * COUNT(sp.raceabbr) + 3 * COUNT(cl.class) AS total,
        COUNT(*) AS combos,
@@ -819,7 +859,10 @@ SELECT p.team_captain,
     ON c.player = cl.player AND c.charabbrev = cl.charabbrev
   INNER JOIN players AS p
     ON c.player = p.name
-  WHERE p.team_captain IS NOT NULL GROUP BY p.team_captain;
+  LEFT JOIN teams
+    ON team_captain = teams.owner
+  WHERE p.team_captain IS NOT NULL
+  GROUP BY p.team_captain;
 
 CREATE VIEW player_nem_scored_wins AS
 SELECT IF(ROW_NUMBER() OVER (PARTITION BY charabbrev ORDER BY end_time) < 9,
@@ -840,7 +883,7 @@ GROUP BY player;
 -- This is a view because clan affiliation can change and we don't want
 -- to re-insert the table after time goes by
 CREATE VIEW clan_nemelex_wins AS
-SELECT p.team_captain, 
+SELECT p.team_captain,
        ROW_NUMBER() OVER (PARTITION BY p.team_captain, n.charabbrev
 	                  ORDER BY end_time) AS clan_finish, n.*
   FROM player_nemelex_wins AS n INNER JOIN players AS p ON n.player = p.name
@@ -856,10 +899,14 @@ SELECT IF(ROW_NUMBER() OVER (PARTITION BY charabbrev ORDER BY end_time) < 9,
   FROM clan_nemelex_wins AS n WHERE n.clan_finish = 1;
 
 CREATE VIEW clan_nemelex_score AS
-SELECT team_captain, COUNT(DISTINCT charabbrev) AS score,
-       JSON_ARRAYAGG(xdict) AS games
-FROM clan_nem_scored_wins
-WHERE nem_counts = 1 GROUP BY team_captain;
+  SELECT team_captain,
+         JSON_OBJECT('name', teams.name, 'captain', team_captain) AS team_info_json,
+         COUNT(DISTINCT charabbrev) AS score,
+         JSON_ARRAYAGG(xdict) AS games
+  FROM clan_nem_scored_wins
+    LEFT JOIN teams ON team_captain = teams.owner
+  WHERE nem_counts = 1 AND team_captain IS NOT NULL
+  GROUP BY team_captain;
 
 CREATE VIEW player_best_streak AS
 SELECT DISTINCT s.player, s.length, s.streak_data FROM streaks AS s
@@ -873,10 +920,16 @@ FROM streaks AS s INNER JOIN players AS p ON s.player = p.name
 WHERE p.team_captain IS NOT NULL;
 
 CREATE VIEW clan_best_streak AS
-SELECT s.team_captain, GROUP_CONCAT(DISTINCT s.player) AS players, s.length
+SELECT
+  s.team_captain,
+  JSON_OBJECT('name', teams.name, 'captain', s.team_captain) AS team_info_json,
+  GROUP_CONCAT(DISTINCT s.player) AS players,
+  s.length
 FROM clan_streaks AS s
   LEFT OUTER JOIN clan_streaks AS s2
     ON s.team_captain = s2.team_captain AND s.length < s2.length
+  LEFT JOIN teams
+    ON s.team_captain = teams.owner
   WHERE s2.length IS NULL AND s.team_captain IS NOT NULL
 GROUP BY s.team_captain, s.length;
 
@@ -886,12 +939,17 @@ SELECT p.team_captain, z.player, z.completed, z.deepest
   WHERE p.team_captain IS NOT NULL;
 
 CREATE VIEW clan_best_ziggurat AS
-SELECT z.team_captain, GROUP_CONCAT(DISTINCT z.player) AS players,
-       z.completed, z.deepest
-  FROM clan_ziggurats AS z 
+SELECT z.team_captain,
+       JSON_OBJECT('name', teams.name, 'captain', z.team_captain) AS team_info_json,
+       GROUP_CONCAT(DISTINCT z.player) AS players,
+       z.completed,
+       z.deepest
+  FROM clan_ziggurats AS z
   LEFT OUTER JOIN clan_ziggurats AS z2
     ON z.team_captain = z2.team_captain
        AND (z.completed, z.deepest) < (z2.completed, z2.deepest)
+  LEFT JOIN teams
+    ON z.team_captain = teams.owner
   WHERE z2.deepest IS NULL
 GROUP BY z.team_captain, z.completed, z.deepest;
 
