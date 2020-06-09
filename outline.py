@@ -72,9 +72,6 @@ def act_on_milestone(c, mile):
 
   player = game_player(mile)
 
-  if mile['xl'] >= 13:
-    banner.award_banner(c, player, 'okawaru', 1)
-
   if mile['goldfound'] >= 1000:
     banner.award_banner(c, player, 'gozag', 1)
 
@@ -276,7 +273,12 @@ def crunch_misc(c, g):
   player = g['name']
   ktyp = g['ktyp']
 
-  if g['xl'] >= 13:
+
+  if game['sc'] >= 27000000:
+    banner.award_banner(c, player, 'okawaru', 3)
+  elif game['sc'] >= 9000000:
+    banner.award_banner(c, player, 'okawaru', 2)
+  elif game['sc'] >= 1000000:
     banner.award_banner(c, player, 'okawaru', 1)
 
   if g['goldfound'] >= 1000:
@@ -325,11 +327,6 @@ def crunch_winner(c, game, filename):
   charabbrev = game_character(game)
   game_start = game_start_time(game)
   game_end = game_end_time(game)
-
-  # Award Okawaru banners for wins.
-  banner.award_banner(c, player, 'okawaru', 2)
-  if game['turn'] < 50000:
-    banner.award_banner(c, player, 'okawaru', 3)
 
   if game['dur'] <= 10800:
     banner.award_banner(c, player, 'makhleb', 3)
