@@ -17,6 +17,11 @@ window.addEventListener("load", function() {
     $('.dcss-datatable').DataTable(
         {
             scrollX: true,
+        }
+    );
+    $('.dcss-datatable-wide').DataTable(
+        {
+            scrollX: true,
             // Keep the left two columns visible when scrolling sideways
             fixedColumns: {
                 leftColumns: 2,

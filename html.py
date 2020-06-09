@@ -349,11 +349,8 @@ def table_text(headers, data, count=True,
   if extra_wide_support:
     table_classes.add("table-bordered")
   if datatables:
-    table_classes.update([
-      "dcss-datatable",
-      # keep all table data on one line
-      "nowrap",
-    ])
+    table_classes.add("dcss-datatable-wide" if extra_wide_support else "dcss-datatable")
+    table_classes.add("nowrap") # keep table rows on one line
   else:
     table_classes.add("table-sm")
     table_classes.add("w-auto")
