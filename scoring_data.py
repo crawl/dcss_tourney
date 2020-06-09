@@ -257,7 +257,7 @@ INDIVIDUAL_CATEGORIES = (
         "player_best_streak",
         "length DESC",
         [ColumnDisplaySpec("length", "Streak Length", True, True, None),
-         ColumnDisplaySpec("streak_data", "Combos", False, False,
+         ColumnDisplaySpec("streak_data", "Games", False, False,
              _pretty_streak),],
     ),
     Category(
