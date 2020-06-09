@@ -239,7 +239,7 @@ INDIVIDUAL_CATEGORIES = (
     Category(
         "individual",
         "Combo High Scores",
-        "Dithmenos ranks players by the combo high scores they can acquire and defend from rivals. A combo high score gives 1 point in this category; a winning high score 2 points; and a species or background high score 5 points.",
+        "Dithmenos ranks players by the combo high scores they can acquire and defend from rivals. Each combo high score gives 1 point, with bonus points for winning the game (+1) and being a species/background high score (+3 each). (Therefore, a single game can give a maximum of 8 points.)",
         "combo_score",
         "player_combo_score",
         "total DESC",
@@ -432,7 +432,7 @@ CLAN_CATEGORIES = (
     Category(
         "clan",
         "Combo High Scores",
-        "The clan is awarded points in this category in the same way as the individual Combo High scores category using all of the members' games. (A combo high score gives 1 point in this category; a winning high score 2 points; and a species or background high score 5 points.)",
+        "The clan is awarded points in this category in the same way as the individual Combo High scores category using all of the members' games. Each combo high score gives 1 point, with bonus points for winning the game (+1) and being a species/background high score (+3 each). (Therefore, a single game can give a maximum of 8 points.)",
         "combo_score",
         "clan_combo_score",
         "total DESC",
