@@ -72,7 +72,11 @@ def category_leaders(category, cursor, brief=False, limit=None):
         for col in category.columns
         if (not brief or col.include_in_compact_display)
     )
-    row_owner = "player" if category.type == "individual" else "team_captain"
+    if category.type == "individual":
+        row_owner = final_sort_row = "player"
+    else:
+        row_owner = "team_info_json"
+        final_sort_row = "JSON_EXTRACT(team_info_json, '$.name')"
     limit_clause = "LIMIT {limit}".format(limit=limit) if limit is not None else ""
 
     query_text = """

@@ -4,6 +4,7 @@ import query, crawl_utils, time, datetime
 import loaddb
 import sys
 import logging
+import json
 
 from crawl_utils import clan_link, player_link, linked_text
 import crawl_utils
@@ -645,12 +646,13 @@ def category_table(category, rows, row_classes_fn=None, brief=False):
       lambda player: crawl_utils.linked_text(key=player, link_fn=crawl_utils.player_link),
     ))
   else:
-    cols.insert(0, PseudoCol(
-      "Team Captain",
-      False,
-      # lambda captain: crawl_utils.linked_text(key=captain, link_fn=crawl_utils.clan_link),
-      None,
-    ))
+    def _pretty_clan_name(data):
+      info = json.loads(data)
+      name = info["name"]
+      return '<a href="{url}">{name}</a>'.format(
+          url=crawl_utils.clan_link(name, info["captain"]), name=name,
+      )
+    cols.insert(0, PseudoCol("Team", False, _pretty_clan_name))
   cols.insert(0, PseudoCol("#", True, None))
 
   return _table(
