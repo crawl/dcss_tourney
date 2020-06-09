@@ -211,8 +211,9 @@ INDIVIDUAL_CATEGORIES = (
     Category(
         "individual",
         "Winning",
-        # XXX should use MAX_CATEGORY_SCORE
-        "The Shining One values perseverance and courage in the face of adversity. In this category, TSO awards players 10,000 points if they win two distinct character combos, 5,000 points for winning their first combo, and 0 otherwise.",
+        "The Shining One values perseverance and courage in the face of adversity. In this category, TSO awards players {first:,} points if they win two distinct character combos, {second:,} points for winning their first combo, and 0 otherwise.".format(
+            first=MAX_CATEGORY_SCORE, second=MAX_CATEGORY_SCORE / 2
+        ),
         "nonrep_wins",
         None,
         None,
@@ -439,14 +440,15 @@ CLAN_CATEGORIES = (
     Category(
         "clan",
         "Winning",
-        # XXX should use MAX_CATEGORY_SCORE
-        """Clans are awarded <code> 10,000 / (13 - wins) </code> points for
+        """Clans are awarded <code> {MAX_CATEGORY_SCORE:,} / (13 - wins) </code> points for
         distinct first combo wins by clan members. The total number of wins in
         this category is capped at 12, and the total number of wins from any
         member is capped at 4. For a win to count in this category it must be
         the first win of the combo by the clan. For example, if Player A's 5th
         win is a DgWn and they win before Player B's win of DgWn then Player
-        B's win will not count in this category.""",
+        B's win will not count in this category.""".format(
+            MAX_CATEGORY_SCORE=MAX_CATEGORY_SCORE
+        ),
         "nonrep_wins",
         None,
         None,
