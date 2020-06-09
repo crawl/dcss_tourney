@@ -827,10 +827,7 @@ BANNERS = [
             "Find a rune before reaching experience level 14.",
             "Win the game before reaching experience level 19.",
         ),
-        "Waiting around for an ancestor to return from memory is inefficient,
-        so games where Hepliaklqana is worshipped do not count for this banner.
-        Games where experience is sacrificed to Ru also do not count for this
-        banner.",
+        "Waiting around for an ancestor to return from memory is inefficient, so games where Hepliaklqana is worshipped do not count for this banner. Games where experience is sacrificed to Ru also do not count for this banner.",
         "vehumet",
     ),
     Banner(
