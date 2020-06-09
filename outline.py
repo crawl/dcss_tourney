@@ -163,10 +163,10 @@ def do_milestone_rune(c, mile):
   #  banner.award_banner(c, mile['name'], 'oldbanner', 1)
   if query.is_unbeliever(c, mile):
     banner.award_banner(c, mile['name'], 'trog', 2)
+  if rune != 'slimy' and rune != 'abyssal':
+    if mile['potionsused'] == 0 and mile['scrollsused'] == 0:
+      banner.award_banner(c, mile['name'], 'ru', 3)
   if mile['urune'] == 1:
-    if rune != 'slimy' and rune != 'abyssal':
-      if mile['potionsused'] == 0 and mile['scrollsused'] == 0:
-        banner.award_banner(c, mile['name'], 'ru', 3)
     if mile['xl'] < 14:
       if not query.did_sacrifice(c, 'experience', mile['name'], mile['start'], mile['time']):
         banner.award_banner(c, mile['name'], 'vehumet', 2)
