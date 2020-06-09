@@ -187,6 +187,12 @@ def did_enter_branch(c, br, name, start, end):
                             AND milestone_time < %s ''',
                       name, start, br, end) > 0)
 
+def branch_end_turn(c, br, name, start):
+    return query_first(c, '''SELECT turn FROM milestones
+                              WHERE player = %s AND start_time = %
+                                AND verb = 'br.end'
+                                AND noun = %s''')
+
 def did_sacrifice(c, noun, name, start, end):
   return (query_first(c,
                       '''SELECT COUNT(*) FROM milestones

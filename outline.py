@@ -106,6 +106,8 @@ def act_on_milestone(c, mile):
     do_milestone_abyss_exit(c, mile)
   elif miletype == 'god.mollify':
     do_milestone_mollify(c, mile)
+  elif miletype == 'orb':
+    do_milestone_orb(c, mile)
 
 def do_milestone_unique(c, mile):
   """This function takes a parsed milestone known to commemorate the death of
@@ -172,6 +174,11 @@ def do_milestone_rune(c, mile):
                       mile['name'], mile['start'], mile['time']):
         banner.award_banner(c, mile['name'], 'vehumet', 2)
 
+  if mile['br'] in [ 'Shoals', 'Slime', 'Snake', 'Spider', 'Swamp'] and mile['turn'] - query.branch_end_turn(c, mile['br'], mile['name'], mile['start']) <= 810:
+      bannner.award_banner(c, mile['name'], 'uskayaw', 1)
+  if rune == 'silver' and mile['turn'] - query.branch_end_turn(c, 'Vaults', mile['name'], mile['start']) <= 540:
+      bannner.award_banner(c, mile['name'], 'uskayaw', 2)
+
 def do_milestone_ghost(c, mile):
   """Currently this isn't terribly remarkable. The DB already records the ghost
      kill and there are no banners associated."""
@@ -196,7 +203,7 @@ def do_milestone_br_enter(c, mile):
     if mile['potionsused'] == 0 and mile['scrollsused'] == 0:
       banner.award_banner(c, mile['name'], 'ru', 1)
     if mile['turn'] < 3000:
-      banner.award_banner(c, mile['name'], 'uskayaw', 1)
+      banner.award_banner(c, mile['name'], 'wu_jian', 1)
 
 def do_milestone_br_end(c, mile):
   if mile['noun'] == 'Orc':
@@ -222,9 +229,9 @@ def do_milestone_br_end(c, mile):
     if mile['potionsused'] == 0 and mile['scrollsused'] == 0:
       banner.award_banner(c, mile['name'], 'ru', 2)
   if mile['noun'] == 'Elf' and mile['turn'] < 9000:
-    banner.award_banner(c, mile['name'], 'uskayaw', 2)
+    banner.award_banner(c, mile['name'], 'wu_jian', 2)
   if mile['noun'] == 'Geh' and mile['turn'] < 27000:
-    banner.award_banner(c, mile['name'], 'uskayaw', 3)
+    banner.award_banner(c, mile['name'], 'wu_jian', 3)
 
 def do_milestone_max_piety(c, mile):
   query.record_max_piety(c, mile['name'], mile['start'], mile['noun'])
@@ -262,6 +269,11 @@ def do_milestone_mollify(c, mile):
   god = mile.get('god') or 'No God'
   #if god != mile['noun']:
   #  banner.award_banner(c, mile['name'], 'lugonu', 1)
+
+def do_milestonne_orb(c, mile):
+  if mile['turn'] - query.branch_end_turn(c, 'Zot', mile['name'],
+          mile['start']) <= 270:
+    banner.award_banner(c, mile['name'], 'uskayaw', 3)
 
 def act_on_logfile_line(c, this_game, filename):
   """Actually assign things and write to the db based on a logfile line

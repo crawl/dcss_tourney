@@ -812,9 +812,9 @@ BANNERS = [
         "Uskayaw",
         "Graceful",
         BannerTiers(
-            "Enter the Temple in under 3,000 turns.",
-            "Enter the third floor of the Elven Halls in under 9,000 turns.",
-            "Enter the final floor of Gehenna in under 27,000 turns.",
+            "Collect a rune from a Lair branch within 810 turns of entering the branch end.",
+            "Collect the silver rune within 540 turns of entering Vaults:5.",
+            "Collect the orb of Zot within 270 turns of entering Zot:5.",
         ),
         None,
         "uskayaw",
@@ -832,8 +832,12 @@ BANNERS = [
     ),
     Banner(
         "Wu Jian Council",
-        "TBC (Wu Jian)",
-        BannerTiers("TBC Wu Jian Tier 1", "TBC Wu Jian Tier 2", "TBC Wu Jian Tier 3",),
+        "Sifu",
+        BannerTiers(
+            "Enter the Temple in under 3,000 turns.",
+            "Enter the third floor of the Elven Halls in under 9,000 turns.",
+            "Enter the final floor of Gehenna in under 27,000 turns.",
+        ),
         None,
         "wu_jian",
     ),
