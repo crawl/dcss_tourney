@@ -198,7 +198,7 @@ def clan_link(clan_name, captain):
 
 def clan_page_name(clan_name, captain):
   # type: (str, str) -> str
-  return slugify("%s-%s" % (clan_name.lower(), captain.lower()))
+  return slugify("%s-%s" % (clan_name, captain))
 
 def banner_link(banner):
   return XXX_IMAGE_BASE + '/' + banner

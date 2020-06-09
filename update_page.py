@@ -163,7 +163,7 @@ def player_page(c, player):
     _clan_info = (None, [], None)
   player_params['clan_name'] = _clan_info[0]
   player_params['clan_members'] = _clan_info[1]
-  player_params['clan_page'] = _clan_info[2]
+  player_params['clan_url'] = _clan_info[2]
   render(c, 'player',
          dest = ('%s/%s' % (crawl_utils.PLAYER_BASE, player.lower())),
          pars = player_params,
