@@ -150,7 +150,13 @@ def _pretty_combo_scores(games_json_str, clan=False):
         if clan:
             link += " (%s)" % obj['player']
         return link
-    return ", ".join([ _format_single_hs(g) for g in games])
+    out = '<ul class="list-unstyled mb-0">'
+    for g in games:
+        out += '<li>'
+        out += _format_single_hs(g)
+        out += '</li>\n'
+    out += '</ul>'
+    return out
 
 def _pretty_clan_combo_scores(games_json_str):
     return _pretty_combo_scores(games_json_str, clan=True)
