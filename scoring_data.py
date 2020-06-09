@@ -245,10 +245,6 @@ INDIVIDUAL_CATEGORIES = (
         "total DESC",
         [
             ColumnDisplaySpec("total", "Score", True, True, None),
-            ColumnDisplaySpec("combos", "Top Scoring Combos", False, True, None),
-            ColumnDisplaySpec("won_combos", "Won Combos", False, True, None),
-            ColumnDisplaySpec("sp_hs", "Species High Scores", False, True, None),
-            ColumnDisplaySpec("cls_hs", "Background High Scores", False, True, None),
             ColumnDisplaySpec("games_json", "Combos (Won Combos in Bold)", False,
                 False, _pretty_combo_scores),
         ],
@@ -442,10 +438,6 @@ CLAN_CATEGORIES = (
         "total DESC",
         [
             ColumnDisplaySpec("total", "Score", True, True, None),
-            ColumnDisplaySpec("combos", "Top Scoring Combos", False, True, None),
-            ColumnDisplaySpec("won_combos", "Won Combos", False, True, None),
-            ColumnDisplaySpec("sp_hs", "Species High Scores", False, True, None),
-            ColumnDisplaySpec("cls_hs", "Background High Scores", False, True, None),
             ColumnDisplaySpec("games_json", "Combos (Won Combos in Bold)", False,
                 False, _pretty_clan_combo_scores),
         ],
