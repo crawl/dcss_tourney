@@ -4,6 +4,7 @@
   import scoring_data
   import html
   import query
+  import crawl_utils
   from crawl_utils import XXX_TOURNEY_BASE, base_link, player_link
 
   active_menu_item = "Clans"
@@ -103,7 +104,7 @@
           %>
             <tr>
               <td>
-                <a href="${base_link('clan-' + html.slugify(category.name))}.html">
+                <a href="${base_link('clan-' + crawl_utils.slugify(category.name))}.html">
                   ${category.name}
                 </a>
               </td>

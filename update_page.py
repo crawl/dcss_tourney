@@ -71,7 +71,7 @@ def category_pages(c):
       render(
         c,
         page='category',
-        dest=prefix + html.slugify(category.name),
+        dest=prefix + crawl_utils.slugify(category.name),
         pars={
           'category': category,
           'rows': rows,
@@ -85,7 +85,7 @@ def clan_category_pages(c):
     render(
       c,
       page='category',
-      dest='clan-' + html.slugify(category.name),
+      dest='clan-' + crawl_utils.slugify(category.name),
       pars={
         'category': category,
       },

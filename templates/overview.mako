@@ -1,6 +1,7 @@
 <%inherit file="base.mako"/>
 
 <%!
+  import crawl_utils
   from crawl_utils import XXX_IMAGE_BASE, base_link
   import html
   import query
@@ -92,7 +93,7 @@
         <div class="row no-gutters">
           <div class="col-md-auto">
             <img
-              src="${XXX_IMAGE_BASE}/individual/${html.slugify(category.name)}.png"
+              src="${XXX_IMAGE_BASE}/individual/${crawl_utils.slugify(category.name)}.png"
               alt=""
               style="background: black; width: 200px;"
               loading="lazy"
@@ -108,7 +109,7 @@
                   brief=True,
                 )
               }
-              <a href="${base_link(html.slugify(category.name))}.html">
+              <a href="${base_link(crawl_utils.slugify(category.name))}.html">
                 View full ranking.
               </a>
               % else:
@@ -135,7 +136,7 @@
         <div class="row no-gutters">
           <div class="col-md-auto">
             <img
-              src="${XXX_IMAGE_BASE}/clan/${html.slugify(category.name)}.png"
+              src="${XXX_IMAGE_BASE}/clan/${crawl_utils.slugify(category.name)}.png"
               alt=""
               style="background: black; width: 200px;"
               loading="lazy"
@@ -151,7 +152,7 @@
                   brief=True
                 )
               }
-              <a href="${base_link('clan-' + html.slugify(category.name))}.html">
+              <a href="${base_link('clan-' + crawl_utils.slugify(category.name))}.html">
                 View full ranking.
               </a>
               % else:

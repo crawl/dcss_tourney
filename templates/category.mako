@@ -26,7 +26,7 @@
     <div class="col">
       <h2>${page_title}</h2>
       <img
-        src="${crawl_utils.XXX_IMAGE_BASE}/${category.type}/${html.slugify(category.name)}.png"
+        src="${crawl_utils.XXX_IMAGE_BASE}/${category.type}/${crawl_utils.slugify(category.name)}.png"
         alt=""
         class="rounded img-thumbnail"
         ## Smallest image is 250x250

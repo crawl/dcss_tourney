@@ -251,3 +251,17 @@ def clan_affiliation(player, clan_info, include_clan=True):
 
   clan_html += ", ".join(plinks)
   return clan_html
+
+def slugify(name):
+  """Replace non-alphanum with -, max one in a row."""
+  safe = ''.join((c if c.isalnum() else '-') for c in name.lower())
+  final = ''
+  # Could probably replace this loop with a call to reduce()
+  for c in name:
+    if c.isalnum():
+      final += c.lower()
+    else:
+      if final and final[-1] == '-':
+        continue
+      final += '-'
+  return final
