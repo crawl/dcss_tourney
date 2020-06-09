@@ -168,7 +168,8 @@ def do_milestone_rune(c, mile):
       banner.award_banner(c, mile['name'], 'ru', 3)
   if mile['urune'] == 1:
     if mile['xl'] < 14:
-      if not query.did_sacrifice(c, 'experience', mile['name'], mile['start'], mile['time']):
+      if not query.did_sacrifice(c, 'experience', mile['name'], mile['start'], mile['time']) and not query.did_worship_god(c, 'Hepliaklqana',
+                      mile['name'], mile['start'], mile['time']):
         banner.award_banner(c, mile['name'], 'vehumet', 2)
 
 def do_milestone_ghost(c, mile):
@@ -212,7 +213,9 @@ def do_milestone_br_end(c, mile):
       if not query.did_worship_god(c, 'Ashenzari', mile['name'], mile['start'], mile['time']):
         banner.award_banner(c, mile['name'], 'sif', 1)
     if mile['xl'] < 12 and mile['race'] != 'Formicid':
-      if not query.did_sacrifice(c, 'experience', mile['name'], mile['start'], mile['time']):
+      if not query.did_sacrifice(c, 'experience', mile['name'], mile['start'],
+              mile['time']) and not query.did_worship_god(c, 'Hepliaklqana',
+                      mile['name'], mile['start'], mile['time']):
         banner.award_banner(c, mile['name'], 'vehumet', 1)
     if query.is_unbeliever(c, mile):
       banner.award_banner(c, mile['name'], 'trog', 1)
@@ -351,7 +354,8 @@ def crunch_winner(c, game, filename):
         banner.award_banner(c, player, 'sif', 2)
 
   if game['xl'] < 19:
-    if not query.did_sacrifice(c, 'experience', player, game['start'], game['end']):
+    if not query.did_sacrifice(c, 'experience', player, game['start'], game['end']) and not query.did_worship_god(c, 'Hepliaklqana',
+                      mile['name'], mile['start'], mile['time']):
       banner.award_banner(c, player, 'vehumet', 3)
 
   #cutoff = query.time_from_str(game['end']) - datetime.timedelta(hours=27)
