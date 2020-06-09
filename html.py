@@ -10,6 +10,8 @@ from crawl_utils import clan_link, player_link, linked_text
 import crawl_utils
 import re
 
+PseudoCol = collections.namedtuple("PseudoCol", ("html_display_name", "numeric_data", "transform_fn"))
+
 BANNER_IMAGES = \
     { 'ashenzari': [ 'banner_ashenzari.png', 'The Explorer' ],
       'beogh': [ 'banner_beogh.png', 'The Heretic' ],
@@ -633,7 +635,6 @@ def category_table(category, rows, row_classes_fn=None, brief=False):
   Display a HTML table for a given category. We just need to add the
   Rank & Player/Captain columns.
   """
-  PseudoCol = collections.namedtuple("PseudoCol", ("html_display_name", "numeric_data", "transform_fn"))
   cols = [col for col in category.columns if (not brief or col.include_in_compact_display)]
   # logging.info(
   #   "category_table %s %s brief:%s base_cols:%s row0:%s",
@@ -724,18 +725,27 @@ def most_deaths_to_uniques(c):
 def streak_table(streaks, active=False, place=False):
   # Replace the list of streak games with hyperlinks.
   result = []
+  
+  nplace = 0
+  rplace = 0
+  last_value = None
   for s in streaks:
-    games = s[3]
+    games = s['games']
     game_text = hyperlink_games(games, 'charabbrev')
-    if active:
-      game_text += ", " + s[4]
-    row = [s[0], s[1], pretty_date(games[0]['start_time']),
-           pretty_date(s[2]), game_text]
+    if active and s['is_active']:
+      game_text += ", " + (s['next_char'] or "?")
+    rplace += 1
+    if last_value != s['length']:
+      nplace = rplace
+      last_value = s['length']
+    row = [nplace, s['player'], s['length'], game_text]
     result.append(row)
 
-  return table_text( [ 'Player', 'Streak', 'Start',
-                       active and 'Last Win' or 'End', 'Games' ],
-                     result, place_column = place and 1 or -1, skip=True )
+  return _table([ PseudoCol('#', True, None),
+                  PseudoCol('Player', False, lambda player: crawl_utils.linked_text(key=player, link_fn=crawl_utils.player_link)),
+                  PseudoCol('Streak Length', True, None),
+                  PseudoCol('Games', False, None), ],
+                  result, brief=True)
 
 def best_active_streaks(c):
   return streak_table(query.get_top_active_streaks(c), active=True)

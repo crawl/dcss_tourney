@@ -48,4 +48,17 @@
       % endif
     </div>
   </div>
+  % if category.name == "Streak Length" and category.type == "individual":
+  <div class="row">
+    <div class="col">
+      <h2>Top Active Streaks</h2>
+      <p>
+      Currently active streaks. Note: a player's currently active streak may
+      not be their current best streak.
+      </p>
+      ${html.best_active_streaks(cursor)}
+    </div>
+  </div>
+  % endif
+
 </%block>
