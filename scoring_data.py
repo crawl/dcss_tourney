@@ -82,8 +82,6 @@ def category_leaders(category, cursor, brief=False, limit=None):
             {columns}
         FROM
             {table}
-        WHERE
-            {row_owner} IS NOT NULL
         ORDER BY
             rk ASC, lower({row_owner}) ASC
         {limit_clause}
