@@ -127,7 +127,9 @@ def team_page(c, captain):
     'clan_category_results': clan_category_results(c, clan_name),
   }
   render(c, 'clan',
-    dest = '%s/%s' % (crawl_utils.CLAN_BASE, clan_info[2]),
+    dest = '%s/%s' % (
+      crawl_utils.CLAN_BASE,
+      crawl_utils.clan_page_name(clan_name, captain)),
     pars = pars, top_level_pars=True,
   )
 

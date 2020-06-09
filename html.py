@@ -648,7 +648,8 @@ def category_table(category, rows, row_classes_fn=None, brief=False):
     cols.insert(0, PseudoCol(
       "Team Captain",
       False,
-      lambda captain: crawl_utils.linked_text(key=captain, link_fn=crawl_utils.clan_link),
+      # lambda captain: crawl_utils.linked_text(key=captain, link_fn=crawl_utils.clan_link),
+      None,
     ))
   cols.insert(0, PseudoCol("#", True, None))
 

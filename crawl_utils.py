@@ -192,8 +192,13 @@ def player_link(player):
 def linked_player_name(player):
   return linked_text(player, player_link)
 
-def clan_link(clan):
-  return "%s/%s.html" % (XXX_CLAN_BASE, clan.lower())
+def clan_link(clan_name, captain):
+  # type: (str, str) -> str
+  return "%s/%s.html" % (XXX_CLAN_BASE, clan_page_name(clan_name, captain))
+
+def clan_page_name(clan_name, captain):
+  # type: (str, str) -> str
+  return slugify("%s-%s" % (clan_name.lower(), captain.lower()))
 
 def banner_link(banner):
   return XXX_IMAGE_BASE + '/' + banner
@@ -233,6 +238,13 @@ def morgue_link(xdict):
 def linked_text(key, link_fn, text=None):
   link = link_fn(key)
   return '<a href="%s">%s</a>' % (link, (text or key).replace('_', ' '))
+
+def link_text(text, url):
+  # type: (str, str) -> str
+  """
+  Simple function to create a HTML link.
+  """
+  return '<a href="{url}">{text}</a>'.format(url=url,text=text)
 
 def clan_affiliation(player, clan_info, include_clan=True):
   # Clan affiliation info is clan name, followed by a list of players,
