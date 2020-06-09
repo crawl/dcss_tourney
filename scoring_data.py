@@ -609,7 +609,7 @@ BANNERS = [
         "Ashenzari",
         "Explorer",
         BannerTiers(
-            "Enter a rune branch", "Collect 5 distinct runes", "Collect all 17 runes",
+            "Enter a rune branch other than the Abyss", "Collect 5 distinct runes", "Collect all 17 runes",
         ),
         None,
         "ashenzari",
