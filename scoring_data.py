@@ -123,7 +123,7 @@ def _pretty_banners(banner_str):
 def _json_to_morgue_link(obj, link_text="Morgue"):
     if isinstance(obj, str):
         obj = json.loads(obj)
-    obj['end_time'] = datetime.datetime.strptime(obj['end_time'], "%Y-%m-%d %H:%M:%S.000000")
+    obj['end_time'] = datetime.datetime.strptime(obj['end_time'].replace('.000000',''), "%Y-%m-%d %H:%M:%S")
     return crawl_utils.linked_text(obj, crawl_utils.morgue_link, link_text)
 
 def _pretty_nemelex(games_json_str, clan=False):
@@ -154,6 +154,22 @@ def _pretty_combo_scores(games_json_str, clan=False):
 
 def _pretty_clan_combo_scores(games_json_str):
     return _pretty_combo_scores(games_json_str, clan=True)
+
+def _pretty_streak(streak_json_str):
+    streak = json.loads(streak_json_str)
+    combolinks = ", ".join([ _json_to_morgue_link(g, g['charabbrev']) for g in
+                            streak['games']])
+    if streak['is_active']:
+        combolinks += ", "
+        if streak['next_char']:
+            combolinks += streak['next_char']
+        else:
+            combolinks += "?"
+        combolinks += " (ongoing)"
+    else:
+        combolinks += " streak breaker: " + \
+          _json_to_morgue_link(streak['breaker'], streak['breaker']['charabbrev'])
+    return combolinks
 
 # This list (and the clan categories & banner lists) are in display order
 INDIVIDUAL_CATEGORIES = (
@@ -218,7 +234,9 @@ INDIVIDUAL_CATEGORIES = (
         "streak",
         "player_best_streak",
         "length DESC",
-        [ColumnDisplaySpec("length", "Streak Length", True, True, None),],
+        [ColumnDisplaySpec("length", "Streak Length", True, True, None),
+         ColumnDisplaySpec("streak_data", "Combos", False, False,
+             _pretty_streak),],
     ),
     Category(
         "individual",

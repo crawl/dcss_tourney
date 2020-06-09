@@ -495,14 +495,14 @@ def update_streaks(c):
   # give out streak points and handle Chei III here so we don't have to
   # recompute all streaks yet again
   for streak in all_streaks:
-    if streak[1] > 1:
+    if streak['length'] > 1:
       query.update_streak(c,streak)
-    if streak[1] < 4:
+    if streak['length'] < 4:
       continue
-    l = len(streak[3])
+    l = len(streak['games'])
     for i in range(l-3):
-      if query.compute_streak_length(streak[3][i:i+4]) == 4:
-        banner.award_banner(c, streak[0], 'cheibriados', 3)
+      if query.compute_streak_length(streak['games'][i:i+4]) == 4:
+        banner.award_banner(c, streak['player'], 'cheibriados', 3)
         break
 
 def safe_update_player_scores(c):

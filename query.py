@@ -25,6 +25,7 @@ import os.path
 import re
 from datetime import datetime
 import time
+import json
 
 MAX_RUNES = 15
 
@@ -1251,6 +1252,8 @@ def list_all_streaks(c, name=None, active=False):
     wins = get_winning_games(c)
   streak_list = []
   for game in wins:
+    next_char = None
+    breaker = None
     if not win_is_streak(c, game['player'], game['start_time']):
       new_streak = [game]
       while True:
@@ -1258,26 +1261,27 @@ def list_all_streaks(c, name=None, active=False):
         if next_game:
           if next_game['killertype'] == 'winning':
             new_streak.append(next_game)
+            is_active = True
           else:
             is_active = False
+            breaker = next_game
             break
         else:
           is_active = True
           break
-      if active:
-        if is_active:
-          next_char = next_start_char(c,game['player'],new_streak[-1]['end_time']) or "?"
-        else:
-          continue
+      if is_active:
+        next_char = next_start_char(c,game['player'],new_streak[-1]['end_time'])
       length = compute_streak_length(new_streak)
       if length < 2:
         continue
-      streak_list.append([game['player'],length,new_streak[-1]['end_time'],new_streak])
-      if active:
-        streak_list[-1].append(next_char)
-  streak_list.sort(key=lambda row: (-row[1],row[2]))
-  return streak_list
+      if not active or is_active:
+        streak_list.append({ 'player': game['player'], 'length': length,
+                           'end_time': new_streak[-1]['end_time'],
+                           'games': new_streak, 'next_char': next_char,
+                           'is_active': is_active, 'breaker': breaker})
 
+  streak_list.sort(key=lambda row: (-row['length'],row['end_time']))
+  return streak_list
 
 def win_is_streak(c, player, start):
   mile = query_row(c, '''SELECT start_time
@@ -1558,17 +1562,20 @@ def nemelex_order(c, limit=None):
   return query.rows(c)
 
 def update_streak(c, streak):
+  json_data = json.dumps(streak, default = lambda o : o.__str__())
   query_do(c, '''INSERT INTO streaks
-                      VALUES (%s, %s, %s, %s)
-                 ON DUPLICATE KEY UPDATE length = %s ''',
-           streak[0], streak[3][0]['source_file'][:3], streak[3][0]['start_time'],
-           streak[1], streak[1])
+                      VALUES (%s, %s, %s, %s, %s)
+                 ON DUPLICATE KEY UPDATE length = %s, streak_data = %s ''',
+           streak['player'], streak['games'][0]['src'],
+           streak['games'][0]['start_time'],
+           streak['length'], json_data, streak['length'], json_data)
 
 def streak_order(c, limit=None):
   query = Query('''SELECT s.player, s.src, s.start_time, s.length
                    FROM streaks AS s LEFT OUTER JOIN streaks AS s2
-                   ON s.player = s2.player AND s.length < s2.length
-                   WHERE s2.length IS NULL ORDER BY s.length DESC''')
+                   ON s.player = s2.player AND (s.length, s.start_time) < 
+                   (s2.length, s2.start_time)
+                   WHERE s2.start_time IS NULL ORDER BY s.length DESC''')
   if limit:
     query.append(' LIMIT %d' % limit)
   return query.rows(c)

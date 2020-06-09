@@ -410,13 +410,14 @@ CREATE TABLE player_max_piety (
 );
 CREATE INDEX player_max_piety_pg ON player_max_piety (player, god);
 
--- Track current streak lengths so they can be easily accessed for ranking
--- purposes; full streak info is not cached.
+-- Track current best streaks so they can be easily accessed for ranking
+-- and display purposes.
 CREATE TABLE streaks (
   player VARCHAR(20),
   src VARCHAR(10),
   start_time DATETIME NOT NULL,
   length INT,
+  streak_data JSON,
   PRIMARY KEY (player, src, start_time),
   FOREIGN KEY (player) REFERENCES players (name) ON DELETE CASCADE
 );
@@ -861,7 +862,7 @@ FROM clan_nem_scored_wins
 WHERE nem_counts = 1 GROUP BY team_captain;
 
 CREATE VIEW player_best_streak AS
-SELECT DISTINCT s.player, s.length FROM streaks AS s
+SELECT DISTINCT s.player, s.length, s.streak_data FROM streaks AS s
   LEFT OUTER JOIN streaks AS s2
     ON s.player = s2.player AND s.length < s2.length
   WHERE s2.length IS NULL;
