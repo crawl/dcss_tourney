@@ -233,10 +233,12 @@ def do_milestone_max_piety(c, mile):
   elif query.did_champion(c, 'Ru', mile['name'], mile['start'], mile['time']):
     banner.award_banner(c, mile['name'], 'lugonu', 2)
 
+# Nothinng for now
 def do_milestone_abyss_enter(c, mile):
-  banner.award_banner(c, mile['name'], 'xom', 1)
+  return
 
 def do_milestone_zig(c, mile):
+  banner.award_banner(c, mile['name'], 'xom', 1)
   if mile['place'] == 'Zig:10':
     banner.award_banner(c, mile['name'], 'xom', 2)
 
