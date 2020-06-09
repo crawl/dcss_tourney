@@ -1188,18 +1188,18 @@ def count_gods_abandoned(c, player, start_time):
   return count
 
 def count_gods_mollified(c, player):
-  mollify_table = query_rows(c, '''SELECT DISTINCT noun
+  return query_first(c, '''SELECT COUNT(DISTINCT t.noun) FROM
+                             (SELECT noun,
+                                     ROW_NUMBER() OVER (PARTITION BY src,
+                                     start_time ORDER BY milestone_time) AS ord
                                      FROM milestones
                                     WHERE player = %s
                                       AND verb = 'god.mollify'
-                                      AND (noun != god OR god IS NULL)''',
+                                      AND (noun != god OR god IS NULL)
+                                      AND noun NOT IN ('the Shining One',
+                                      'Zin', 'Elyvilon', 'Ru')) AS t
+                             WHERE t.ord=1''',
                              player)
-  count = 0
-  for row1 in mollify_table:
-    if row1[0] in ['the Shining One', 'The Shining One', 'Zin', 'Elyvilon', 'Ru', 'Beogh']:
-      continue
-    count += 1
-  return count
 
 def next_start_time(c, player, end_time):
   mile = query_row(c, '''SELECT start_time
