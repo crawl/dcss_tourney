@@ -715,7 +715,7 @@ BANNERS = [
         BannerTiers(
             "Become the champion of Ru (the first step towards betraying Ru).",
             "After becoming the champion of Ru, abandon Ru and become the champion of a different god.",
-            "After becoming the champion of Ru and abandoning Ru, become the champion of Ru again.",
+            "Win a game in which you become the champion of Ru and then abandon Ru before entering any branches other than the Temple and the Lair.",
         ),
         None,
         "lugonu",
