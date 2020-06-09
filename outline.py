@@ -175,9 +175,9 @@ def do_milestone_rune(c, mile):
         banner.award_banner(c, mile['name'], 'vehumet', 2)
 
   if mile['br'] in [ 'Shoals', 'Slime', 'Snake', 'Spider', 'Swamp'] and mile['turn'] - query.branch_end_turn(c, mile['br'], mile['name'], mile['start']) <= 810:
-      bannner.award_banner(c, mile['name'], 'uskayaw', 1)
+      banner.award_banner(c, mile['name'], 'uskayaw', 1)
   if rune == 'silver' and mile['turn'] - query.branch_end_turn(c, 'Vaults', mile['name'], mile['start']) <= 540:
-      bannner.award_banner(c, mile['name'], 'uskayaw', 2)
+      banner.award_banner(c, mile['name'], 'uskayaw', 2)
 
 def do_milestone_ghost(c, mile):
   """Currently this isn't terribly remarkable. The DB already records the ghost
@@ -270,7 +270,7 @@ def do_milestone_mollify(c, mile):
   #if god != mile['noun']:
   #  banner.award_banner(c, mile['name'], 'lugonu', 1)
 
-def do_milestonne_orb(c, mile):
+def do_milestone_orb(c, mile):
   if mile['turn'] - query.branch_end_turn(c, 'Zot', mile['name'],
           mile['start']) <= 270:
     banner.award_banner(c, mile['name'], 'uskayaw', 3)
@@ -291,11 +291,11 @@ def crunch_misc(c, g):
   ktyp = g['ktyp']
 
 
-  if game['sc'] >= 27000000:
+  if g['sc'] >= 27000000:
     banner.award_banner(c, player, 'okawaru', 3)
-  elif game['sc'] >= 9000000:
+  elif g['sc'] >= 9000000:
     banner.award_banner(c, player, 'okawaru', 2)
-  elif game['sc'] >= 1000000:
+  elif g['sc'] >= 1000000:
     banner.award_banner(c, player, 'okawaru', 1)
 
   if g['goldfound'] >= 1000:
@@ -369,7 +369,7 @@ def crunch_winner(c, game, filename):
 
   if game['xl'] < 19:
     if not query.did_sacrifice(c, 'experience', player, game['start'], game['end']) and not query.did_worship_god(c, 'Hepliaklqana',
-                      mile['name'], mile['start'], mile['time']):
+                      game['name'], game['start'], game['end']):
       banner.award_banner(c, player, 'vehumet', 3)
 
   #cutoff = query.time_from_str(game['end']) - datetime.timedelta(hours=27)

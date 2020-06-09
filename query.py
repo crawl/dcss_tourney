@@ -189,9 +189,9 @@ def did_enter_branch(c, br, name, start, end):
 
 def branch_end_turn(c, br, name, start):
     return query_first(c, '''SELECT turn FROM milestones
-                              WHERE player = %s AND start_time = %
+                              WHERE player = %s AND start_time = %s
                                 AND verb = 'br.end'
-                                AND noun = %s''')
+                                AND noun = %s ''', name, start, br)
 
 def did_sacrifice(c, noun, name, start, end):
   return (query_first(c,
