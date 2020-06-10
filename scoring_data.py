@@ -602,7 +602,7 @@ CLAN_CATEGORIES = (
         ],
     ),
 )
-Banner = collections.namedtuple("Banner", ("god", "name", "tiers", "notes", "dbname"))
+Banner = collections.namedtuple("Banner", ("god", "name", "tiers", "flavortext", "dbname"))
 BannerTiers = collections.namedtuple("BannerTiers", ("one", "two", "three"))
 BANNERS = [
     Banner(
@@ -611,7 +611,7 @@ BANNERS = [
         BannerTiers(
             "Enter a rune branch other than the Abyss", "Collect 5 distinct runes", "Collect all 17 runes",
         ),
-        None,
+        'Ashenzari thinks that an <code>EXPLORER</code> should be be busy looking for runes of Zot.',
         "ashenzari",
     ),
     Banner(
@@ -619,10 +619,10 @@ BANNERS = [
         "Heretic",
         BannerTiers(
             "Abandon and mollify one god",
-            "Abandon and mollify 3 gods in 3 different games",
-            "Abandon and mollify 9 gods in 9 different games",
+            "Abandon and mollify 3 different gods in 3 different games",
+            "Abandon and mollify 9 different gods in 9 different games",
         ),
-        None,
+        'Beogh hates all the other gods and admires <code>HERETICS</code> who go out of their way to incur their wrath. The good gods (Elyvilon, the Shining One, and Zin) and Ru are insufficiently wrathful, so abandoning them does not impress Beogh. Any god except the good gods, Ru, and Beogh are hence applicable for this banner. Only the first god abandoned in a game counts for this banner, Beogh wants the heresies spread around!',
         "beogh",
     ),
     Banner(
@@ -633,7 +633,7 @@ BANNERS = [
             "Collect a rune in two consecutive games.",
             "Achieve a two-win streak.",
         ),
-        None,
+        'Cheibriados believes in being <code>SLOW AND STEADY</code> and will so recognize players who are careful enough to excel in consecutive games. ',
         "cheibriados",
     ),
     Banner(
@@ -644,14 +644,14 @@ BANNERS = [
             "Steal a combo high score for a previously won combo.",
             "Steal a species or background high score that was previously of at least 10,000,000 points.",
         ),
-        None,
+        'Dithmenos appreciates the subtlety of a <code>POLITICIAN</code> and will thus reward any player who steals a high score from another player.',
         "dithmenos",
     ),
     Banner(
         "Elyvilon",
         "Pious",
         BannerTiers("Champion a god.", "Champion 5 gods.", "Champion 13 gods."),
-        None,
+        'Elyvilon thinks it&apos;s important to check out what all the gods have to offer and thus will recognize as <code>PIOUS</code> any player who becomes the Champion (******) of as many gods as possible.',
         "elyvilon",
     ),
     Banner(
@@ -662,7 +662,7 @@ BANNERS = [
             "Get the golden rune.",
             "Enter Tomb for the first time after picking up the Orb of Zot, and then get the golden rune.",
         ),
-        None,
+        'Fedhas thinks that the Crypt and the Tomb are abominations against nature and will bestow the title of <code>NATURE&apos;S ALLY</code> on a player who works towards destroying them.',
         "fedhas",
     ),
     Banner(
@@ -673,18 +673,18 @@ BANNERS = [
             "Find the silver rune.",
             "Find the iron rune before entering Pandemonium or any branch of the dungeon containing any other rune. This means that only Temple, Lair, Orc, Elf, Depths, Abyss, Hell, and Dis can be entered.",
         ),
-        None,
+        'Gozag wants players to demonstrate their <code>AVARICE</code> by collecting certain valuable metals.',
         "gozag",
     ),
     Banner(
         "Hepliaklqana",
         "Inheritor",
         BannerTiers(
-            "Enter the Lair of Beasts while worshipping a god from a faded altar.",
-            "Collect a rune while worshipping a god from a faded altar.",
-            "Win a game while worshipping a god from a faded altar.",
+            "Enter the Lair of Beasts while worshipping a god from a faded altar, having worshipped no other gods.",
+            "Collect a rune while worshipping a god from a faded altar, having worshipped no other gods.",
+            "Win a game while worshipping a god from a faded altar, having worshipped no other gods.",
         ),
-        "To achieve these banner tiers, you cannot have worshipped any other gods in the game.",
+        'Hepliaklqana bestows a geas upon you: recall the forgotten deities forth from the mists. Worship at a faded altar to become <code>THE INHERITOR</code> of memory!',
         "hepliaklqana",
     ),
     Banner(
@@ -695,7 +695,7 @@ BANNERS = [
             "Get a rune with at least 5 distinct species and at least 5 distinct backgrounds.",
             "Win with at least 5 distinct species and at least 5 distinct backgrounds.",
         ),
-        None,
+        'Jiyva thinks that it is important to be flexible and will gift players who excel with at least 5 distinct species and at least 5 distinct backgrounds with a <code>GELATINOUS BODY</code>.',
         "jiyva",
     ),
     Banner(
@@ -706,7 +706,7 @@ BANNERS = [
             "Reach the last level of the Depths without having entered the Lair.",
             "Win a game without having entered the Lair, the Orcish Mines, or the Vaults.",
         ),
-        None,
+        'Kikubaaqudgha wants players to demonstrate their mastery over the forces of darkness without delay, and will recognise a player who shows disdain for the Lair as a <code>LORD OF DARKNESS</code>.',
         "kikubaaqudgha",
     ),
     Banner(
@@ -717,7 +717,7 @@ BANNERS = [
             "After becoming the champion of Ru, abandon Ru and become the champion of a different god.",
             "Win a game in which you become the champion of Ru and then abandon Ru before entering any branches other than the Temple and the Lair.",
         ),
-        None,
+        'Lugonu hates all the other gods. At the moment, Lugonu is especially <code>SPITEFUL</code> towards Ru and admires those who make sacrifices to Ru and then abandon Ru&apos;s worship.',
         "lugonu",
     ),
     Banner(
@@ -728,7 +728,7 @@ BANNERS = [
             "Find a rune in 81 minutes.",
             "Win the game in 3 hours.",
         ),
-        None,
+        'Makhleb wants to see bloodshed as quickly as possible and will give players the bare minimum of time needed to prove themselves as <code>SPEED DEMONS</code>. Makhleb isn&apos;t interested in digging (and has cacodemons for that), so formicids are not eligible for the first tier of this banner.',
         "makhleb",
     ),
     Banner(
@@ -739,7 +739,7 @@ BANNERS = [
             "Get a rune with a Nemelex' choice combo.",
             "Win a given Nemelex' choice combo. (Awarded even if you're not in the first 8.)",
         ),
-        None,
+        'Nemelex Xobeh wants to see players struggle and loves randomness, and so will give the <code>NEMELEX&apos; CHOICE</code> award to players who persevere with one of several combos randomly chosen and announced throughout the tournament.',
         "nemelex",
     ),
     Banner(
@@ -750,7 +750,7 @@ BANNERS = [
             "Achieve a personal high score of 9,000,000.",
             "Achieve a personal high score of 27,000,000.",
         ),
-        None,
+        'Okawaru is all about winning, all the time, and thus will recognize as <code>THE CONQUEROR</code> any player who is honourably victorious.',
         "okawaru",
     ),
     Banner(
@@ -761,7 +761,7 @@ BANNERS = [
             "Win the game with Invocations as your highest skill.",
             "Over the course of the tournament, win with three different different gods and Invocations as your highest skill.",
         ),
-        None,
+        'Qazlal demands fervent worship! Accordingly, Qazlal will only recognize as <code>THE PROPHET</code> those who dedicate themselves to Invocations.',
         "qazlal",
     ),
     Banner(
@@ -772,7 +772,7 @@ BANNERS = [
             "Reach the last level of the Lair of Beasts without using any potions or scrolls.",
             "Collect a rune without using any potions or scrolls. This rune cannot be the slimy or abyssal rune: Ru requires you to undergo this sacrifice for longer.",
         ),
-        None,
+        'Ru will recognize as <code>THE ASCETIC</code> those who sacrifice all use of potions and scrolls for a time.',
         "ru",
     ),
     Banner(
@@ -783,7 +783,7 @@ BANNERS = [
             "Win without raising any skill to 20.",
             "Win without raising any skill to 13.",
         ),
-        "Gnolls and worshippers of Ashenzari are not eligible for this banner.",
+        'Sif Muna thinks that a <code>LOREKEEPER</code> doesn&apos;t need skill, just knowledge of spells. Ashenzari has a different viewpoint on this subject, so Sif Muna has banned Ashenzari worshippers from receiving this banner. Gnolls lack the necessary discipline to fully undertake this challenge, so Sif Muna has also banned Gnolls from receiving this banner.',
         "sif",
     ),
     Banner(
@@ -794,7 +794,7 @@ BANNERS = [
             "In a single game, get four runes before entering the Depths.",
             "In a single game, get six runes before entering the Depths.",
         ),
-        None,
+        'The Shining One thinks each player should take a <code>VOW OF COURAGE</code> and face great terrors before entering the Depths.',
         "the_shining_one",
     ),
     Banner(
@@ -805,7 +805,7 @@ BANNERS = [
             "Find a rune as a non-demigod without worshipping a god.",
             "Win a game as a non-demigod without worshipping a god.",
         ),
-        None,
+        'Trog thinks players should rely on <code>BRUTE FORCE</code> and persevere without worshipping any god at all. Demigods cannot win Trog&apos;s praise for this, since they do not have a choice in the matter.',
         "trog",
     ),
     Banner(
@@ -816,7 +816,7 @@ BANNERS = [
             "Collect the silver rune within 540 turns of entering Vaults:5.",
             "Collect the orb of Zot within 270 turns of entering Zot:5.",
         ),
-        None,
+        'Uskayaw requires all prospective students to prove themselves <code>GRACEFUL</code>. Step with precision and efficiency while on the deepest floors of the Dungeon!',
         "uskayaw",
     ),
     Banner(
@@ -827,7 +827,7 @@ BANNERS = [
             "Find a rune before reaching experience level 14.",
             "Win the game before reaching experience level 19.",
         ),
-        "Waiting around for an ancestor to return from memory is inefficient, so games where Hepliaklqana is worshipped do not count for this banner. Games where experience is sacrificed to Ru also do not count for this banner.",
+        'Vehumet values focus and dedication, and will reward those who demonstrate <code>RUTHLESS EFFICIENCY</code> by achieving their goals without stopping to gain unnecessary experience. Waiting around for an ancestor to return from memory is inefficient, so games where Hepliaklqana is worshipped do not count for this banner. Followers of Ru who sacrifice their experience are inefficient and will be disqualified from this banner.',
         "vehumet",
     ),
     Banner(
@@ -838,7 +838,7 @@ BANNERS = [
             "Enter the third floor of the Elven Halls in under 9,000 turns.",
             "Enter the final floor of Gehenna in under 27,000 turns.",
         ),
-        None,
+        'The Wu Jian Council admires the elegance of a <code>SIFU</code> and will recognize players who demonstrate their mastery with a deep dive.',
         "wu_jian",
     ),
     Banner(
@@ -849,7 +849,7 @@ BANNERS = [
             "Reach the 10th floor of a Ziggurat.",
             "Exit a Ziggurat from its lowest floor.",
         ),
-        None,
+        'Xom is always looking for entertainment and thinks it would be hilarious to watch a player&apos;s <code>DESCENT INTO MADNESS</code> through a ziggurat.',
         "xom",
     ),
     Banner(
@@ -860,7 +860,7 @@ BANNERS = [
             "Kill 54 distinct uniques over the course of the tournament.",
             "Kill 73 distinct uniques over the course of the tournament.",
         ),
-        "There are 73 uniques in DCSS.",
+        'Yredelemnul demands that you kill as many uniques as possible and will recognise success by awarding <code>THE HARVEST</code>. There are 73 uniques in DCSS.',
         "yredelemnul",
     ),
     Banner(
@@ -871,7 +871,7 @@ BANNERS = [
             "Kill at least one unique pan lord and at least one unique hell lord over the course of the tournament.",
             "Kill all four unique pan lords, all four unique hell lords, and the Serpent of Hell (at least once) over the course of the tournament.",
         ),
-        None,
+        'Zin will give the <code>ANGEL OF JUSTICE</code> award to any player who attempts to cleanse Hell and Pandemonium.',
         "zin",
     ),
 ]

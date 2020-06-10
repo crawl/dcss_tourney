@@ -237,6 +237,9 @@
       >
       <div class="card-body">
         <h2 class="card-title">${banner.name}</h2>
+	<p class="card-text small">
+	  ${banner.flavortext}
+	</p>
         <ul class="list-group list-group-flush">
           % for tier in (0, 1, 2):
           <li class="list-group-item bg-dark px-0 py-1">
