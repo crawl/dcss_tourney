@@ -66,7 +66,7 @@
             <th scope="col">Category</th>
             <th scope="col">Rank</th>
             <th scope="col">Points</th>
-            <th scope="col">Notes</th>
+            <!--<th scope="col">Notes</th>-->
           <tr>
         </thead>
         <tbody>
@@ -107,7 +107,7 @@
               </td>
               <td class="text-monospace text-right">${results.rank if results.rank else '-'}</td>
               <td class="text-monospace text-right">${'{:,}'.format(int(points_for_rank(results.rank))) if results.rank else '-'}</td>
-              <td>${results.details if results.details else ''}</td>
+              <!--<td>${results.details if results.details else ''}</td>-->
             </tr>
           % endfor
         </tbody>
