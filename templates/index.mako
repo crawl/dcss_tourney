@@ -45,8 +45,7 @@
         <span
           class="font-weight-bold moment-js-relative-time"
           data-timestamp="${scoring_data.END_TIME.strftime('%Y-%m-%dT%H:%M:%SZ')}"
-        ></span>
-        .
+        ></span>.
     </div>
   </div>
 
@@ -104,13 +103,12 @@
       <p>
         You can create, join, and leave clans for the first seven days of the tournament, until
         <span class="font-weight-bold">
-          ${scoring_data.CLAN_CUTOFF_TIME.strftime("%h:%M%p %A %d %B %Z UTC")}
+          ${scoring_data.CLAN_CUTOFF_TIME.strftime("%H:%M%p %A %d %B %Z UTC")}
         </span>
         <span
           class="font-weight-bold moment-js-relative-time"
           data-timestamp="${scoring_data.CLAN_CUTOFF_TIME.strftime('%Y-%m-%dT%H:%M:%SZ')}"
-        ></span>
-        .
+        ></span>.
       </p>
       <p>
         If you're looking for a clan (or players to fill out your clan), try <a href="https://www.reddit.com/r/DCSStourney/">Reddit's /r/dcsstourney</a>.
