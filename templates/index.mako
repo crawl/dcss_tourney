@@ -275,15 +275,16 @@
         </li>
 
         <li>
-          Please do not do anything that would give you an unfair competitive
-          advantage over other players or clans. This includes things like scumming
-          crash-on-demand bugs or using bots or input macros on your account to
-          gain an advantage for speedrun points – just remember that the objective
-          here is to have fun. We generally do not monitor games or RC files and
-          hold players to the honor system. In extreme cases that come to our
-          attention, we may, at our discretion, disqualify users and remove their
-          games from the scoring database. Ignorance and negligence are not excuses
-          for poor behavior.
+	  Please do not do anything that would give you an unfair competitive
+	  advantage over other players or clans. This includes things like
+	  scumming crash-on-demand bugs, using alt accounts to inflate the
+	  score of your main account, or using bots or input macros on your
+	  account to gain an advantage for speedrun points – just remember that
+	  the objective here is to have fun. We generally do not monitor games
+	  or RC files and hold players to the honor system. In extreme cases
+	  that come to our attention, we may, at our discretion, disqualify
+	  users and remove their games from the scoring database. Ignorance and
+	  negligence are not excuses for poor behavior.
         </li>
 
         <li>
@@ -308,7 +309,7 @@
 	end (which
         required rewriting almost all of the scoring code) in a matter of weeks.
         Thank you, ebering! <b>chequers</b> matched ebering's dedicated
-	back-end work with an overhaul annd modern re-design of the front-end
+	back-end work with an overhaul and modern re-design of the front-end
 	display pages. The tournament would still be using its old display
 	format without his work. Thank you, chequers!
       </p>
