@@ -365,7 +365,7 @@ INDIVIDUAL_CATEGORIES = (
         "first_wins",
         "end_time ASC",
         [
-            ColumnDisplaySpec("end_time", "Game End Time", True, True, None),
+            ColumnDisplaySpec("end_time", "Game End Time", True, True, lambda x: x),
             ColumnDisplaySpec("race", "Species", False, False, None),
             ColumnDisplaySpec("class", "Background", False, False, None),
             ColumnDisplaySpec(
@@ -381,7 +381,7 @@ INDIVIDUAL_CATEGORIES = (
         "first_allrune_wins",
         "end_time ASC",
         [
-            ColumnDisplaySpec("end_time", "Game End Time", True, True, None),
+            ColumnDisplaySpec("end_time", "Game End Time", True, True, lambda x: x),
             ColumnDisplaySpec("race", "Species", False, False, None),
             ColumnDisplaySpec("class", "Background", False, False, None),
             ColumnDisplaySpec("duration", "Duration", False, True, _pretty_duration),
