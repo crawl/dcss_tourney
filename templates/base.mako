@@ -11,6 +11,7 @@
     (XXX_TOURNEY_BASE + "/all-players-ranks.html", "Players"),
     (XXX_TOURNEY_BASE + "/teams.html", "Clans"),
     (XXX_TOURNEY_BASE + "/current-games.html", "Ongoing Games"),
+    (XXX_TOURNEY_BASE + "/combo-scoreboard.html", "Combo Scoreboard"),
     (XXX_TOURNEY_BASE + "/search.html", "Search"),
   )
 %>
