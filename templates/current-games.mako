@@ -12,9 +12,9 @@
 <%block name="main">
   <div class="row">
     <div class="col">
-      <h1 class="display-1">
+      <h2>
         Ongoing Games
-      </h1>
+      </h2>
     </div>
   </div>
 
