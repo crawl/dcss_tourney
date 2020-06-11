@@ -29,6 +29,24 @@ h1, h2, h3, h4, h5, h6 {
   image-rendering: pixelated;
 }
 
+.banner-tier-1 {
+  border-style: dashed;
+  padding: 1px;
+  margin: 2px;
+}
+
+.banner-tier-2 {
+  border-style: dotted;
+  padding: 1px;
+  margin: 2px;
+}
+
+.banner-tier-3 {
+  border-style: solid;
+  padding: 1px;
+  margin: 2px;
+}
+
 /* Make sticky column background dark. Without this, the columns assume Bootstrap light colour */
 table.DTFC_Cloned th, table.DTFC_Cloned td {
   background-color: #343a40;

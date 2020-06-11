@@ -700,7 +700,7 @@ SELECT p.team_captain,
 
 CREATE VIEW player_banner_score AS
 SELECT player, SUM(IF(prestige = 3, 4, prestige)) AS bscore,
-       GROUP_CONCAT(CONCAT(banner, ' ', prestige) SEPARATOR ',') AS banners
+       JSON_OBJECTAGG(banner, prestige) AS banners
   FROM player_banners WHERE temp = false GROUP BY player;
 
 CREATE VIEW clan_player_banners AS
@@ -714,7 +714,7 @@ SELECT
     team_captain,
     JSON_OBJECT('name', teams.name, 'captain', team_captain) AS team_info_json,
     SUM( IF(prestige = 3, 4, prestige)) AS bscore,
-    GROUP_CONCAT(CONCAT(banner, ' ', prestige) SEPARATOR ',') AS banners
+    JSON_OBJECTAGG(banner, prestige) AS banners
   FROM
     clan_player_banners
     LEFT JOIN teams

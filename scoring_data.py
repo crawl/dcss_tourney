@@ -4,6 +4,7 @@ import datetime
 
 import crawl_utils
 import json
+import random
 from query_class import Query
 
 TOURNAMENT_VERSION = "0.25"
@@ -116,7 +117,23 @@ def _pretty_duration(seconds):
 
 def _pretty_banners(banner_str):
     # type: (str) -> str
-    return ", ".join(i.title().replace("_", " ") for i in banner_str.split(","))
+    banners = json.loads(banner_str)
+    outstr = ''
+    for bandata in BANNERS:
+        prestige = banners.get(bandata.dbname, 0)
+        if bandata.god == "Xom":
+            color = random.choice(["#ff0000", "#00ff00", "#0000ff", "#ffff00", "#ff00ff", "#00ffff"])
+        else:
+            color = bandata.color
+        if prestige:
+            imglink = crawl_utils.XXX_IMAGE_BASE + "/altar/" + crawl_utils.slugify(bandata.god) + ".png"
+            outstr += '''<img src="{image_src}" alt="{god} {tier}"
+                              class="pixel-art banner-tier-{tier}"
+                              style="border-color:{color}" loading="lazy">'''.format(
+                                      image_src = imglink, god = bandata.god,
+                                      tier = prestige, color = color)
+
+    return outstr
 
 
 # The relevant info is consolidated into a single json object in the database
@@ -602,7 +619,7 @@ CLAN_CATEGORIES = (
         ],
     ),
 )
-Banner = collections.namedtuple("Banner", ("god", "name", "tiers", "flavortext", "dbname"))
+Banner = collections.namedtuple("Banner", ("god", "name", "tiers", "flavortext", "dbname", "color"))
 BannerTiers = collections.namedtuple("BannerTiers", ("one", "two", "three"))
 BANNERS = [
     Banner(
@@ -613,6 +630,7 @@ BANNERS = [
         ),
         'Ashenzari thinks that an <code>EXPLORER</code> should be be busy looking for runes of Zot.',
         "ashenzari",
+        "#ffbb99",
     ),
     Banner(
         "Beogh",
@@ -624,6 +642,7 @@ BANNERS = [
         ),
         'Beogh hates all the other gods and admires <code>HERETICS</code> who go out of their way to incur their wrath. The good gods (Elyvilon, the Shining One, and Zin) and Ru are insufficiently wrathful, so abandoning them does not impress Beogh. Any god except the good gods, Ru, and Beogh are hence applicable for this banner. Only the first god abandoned in a game counts for this banner, Beogh wants the heresies spread around!',
         "beogh",
+        "#e6b800",
     ),
     Banner(
         "Cheibriados",
@@ -635,6 +654,7 @@ BANNERS = [
         ),
         'Cheibriados believes in being <code>SLOW AND STEADY</code> and will so recognize players who are careful enough to excel in consecutive games. ',
         "cheibriados",
+        "#66ffff",
     ),
     Banner(
         "Dithmenos",
@@ -646,6 +666,7 @@ BANNERS = [
         ),
         'Dithmenos appreciates the subtlety of a <code>POLITICIAN</code> and will thus reward any player who steals a high score from another player.',
         "dithmenos",
+        "#330033",
     ),
     Banner(
         "Elyvilon",
@@ -653,6 +674,7 @@ BANNERS = [
         BannerTiers("Champion a god.", "Champion 5 gods.", "Champion 13 gods."),
         'Elyvilon thinks it&apos;s important to check out what all the gods have to offer and thus will recognize as <code>PIOUS</code> any player who becomes the Champion (******) of as many gods as possible.',
         "elyvilon",
+        "#ffffff",
     ),
     Banner(
         "Fedhas",
@@ -664,6 +686,7 @@ BANNERS = [
         ),
         'Fedhas thinks that the Crypt and the Tomb are abominations against nature and will bestow the title of <code>NATURE&apos;S ALLY</code> on a player who works towards destroying them.',
         "fedhas",
+        "#808000",
     ),
     Banner(
         "Gozag",
@@ -675,6 +698,7 @@ BANNERS = [
         ),
         'Gozag wants players to demonstrate their <code>AVARICE</code> by collecting certain valuable metals.',
         "gozag",
+        "#cc9900",
     ),
     Banner(
         "Hepliaklqana",
@@ -686,6 +710,7 @@ BANNERS = [
         ),
         'Hepliaklqana bestows a geas upon you: recall the forgotten deities forth from the mists. Worship at a faded altar to become <code>THE INHERITOR</code> of memory!',
         "hepliaklqana",
+        "#00b359",
     ),
     Banner(
         "Jiyva",
@@ -697,6 +722,7 @@ BANNERS = [
         ),
         'Jiyva thinks that it is important to be flexible and will gift players who excel with at least 5 distinct species and at least 5 distinct backgrounds with a <code>GELATINOUS BODY</code>.',
         "jiyva",
+        "#99ff66",
     ),
     Banner(
         "Kikubaaqudgha",
@@ -708,6 +734,7 @@ BANNERS = [
         ),
         'Kikubaaqudgha wants players to demonstrate their mastery over the forces of darkness without delay, and will recognise a player who shows disdain for the Lair as a <code>LORD OF DARKNESS</code>.',
         "kikubaaqudgha",
+        "#000000",
     ),
     Banner(
         "Lugonu",
@@ -719,6 +746,7 @@ BANNERS = [
         ),
         'Lugonu hates all the other gods. At the moment, Lugonu is especially <code>SPITEFUL</code> towards Ru and admires those who make sacrifices to Ru and then abandon Ru&apos;s worship.',
         "lugonu",
+        "#990073",
     ),
     Banner(
         "Makhleb",
@@ -730,6 +758,7 @@ BANNERS = [
         ),
         'Makhleb wants to see bloodshed as quickly as possible and will give players the bare minimum of time needed to prove themselves as <code>SPEED DEMONS</code>. Makhleb isn&apos;t interested in digging (and has cacodemons for that), so formicids are not eligible for the first tier of this banner.',
         "makhleb",
+        "#ff3300",
     ),
     Banner(
         "Nemelex Xobeh",
@@ -741,6 +770,7 @@ BANNERS = [
         ),
         'Nemelex Xobeh wants to see players struggle and loves randomness, and so will give the <code>NEMELEX&apos; CHOICE</code> award to players who persevere with one of several combos randomly chosen and announced throughout the tournament.',
         "nemelex",
+        "#ff66ff",
     ),
     Banner(
         "Okawaru",
@@ -752,6 +782,7 @@ BANNERS = [
         ),
         'Okawaru is all about winning, all the time, and thus will recognize as <code>THE CONQUEROR</code> any player who is honourably victorious.',
         "okawaru",
+        "#99b3e6",
     ),
     Banner(
         "Qazlal",
@@ -763,6 +794,7 @@ BANNERS = [
         ),
         'Qazlal demands fervent worship! Accordingly, Qazlal will only recognize as <code>THE PROPHET</code> those who dedicate themselves to Invocations.',
         "qazlal",
+        "#0088cc",
     ),
     Banner(
         "Ru",
@@ -774,6 +806,7 @@ BANNERS = [
         ),
         'Ru will recognize as <code>THE ASCETIC</code> those who sacrifice all use of potions and scrolls for a time.',
         "ru",
+        "#604020",
     ),
     Banner(
         "Sif Muna",
@@ -785,6 +818,7 @@ BANNERS = [
         ),
         'Sif Muna thinks that a <code>LOREKEEPER</code> doesn&apos;t need skill, just knowledge of spells. Ashenzari has a different viewpoint on this subject, so Sif Muna has banned Ashenzari worshippers from receiving this banner. Gnolls lack the necessary discipline to fully undertake this challenge, so Sif Muna has also banned Gnolls from receiving this banner.',
         "sif",
+        "#000099",
     ),
     Banner(
         "The Shining One",
@@ -796,6 +830,7 @@ BANNERS = [
         ),
         'The Shining One thinks each player should take a <code>VOW OF COURAGE</code> and face great terrors before entering the Depths.',
         "the_shining_one",
+        "#ffd633",
     ),
     Banner(
         "Trog",
@@ -807,6 +842,7 @@ BANNERS = [
         ),
         'Trog thinks players should rely on <code>BRUTE FORCE</code> and persevere without worshipping any god at all. Demigods cannot win Trog&apos;s praise for this, since they do not have a choice in the matter.',
         "trog",
+        "#990000",
     ),
     Banner(
         "Uskayaw",
@@ -818,6 +854,7 @@ BANNERS = [
         ),
         'Uskayaw requires all prospective students to prove themselves <code>GRACEFUL</code>. Step with precision and efficiency while on the deepest floors of the Dungeon!',
         "uskayaw",
+        "#4d0026",
     ),
     Banner(
         "Vehumet",
@@ -829,6 +866,7 @@ BANNERS = [
         ),
         'Vehumet values focus and dedication, and will reward those who demonstrate <code>RUTHLESS EFFICIENCY</code> by achieving their goals without stopping to gain unnecessary experience. Waiting around for an ancestor to return from memory is inefficient, so games where Hepliaklqana is worshipped do not count for this banner. Followers of Ru who sacrifice their experience are inefficient and will be disqualified from this banner.',
         "vehumet",
+        "#ffb3ff",
     ),
     Banner(
         "Wu Jian Council",
@@ -840,6 +878,7 @@ BANNERS = [
         ),
         'The Wu Jian Council admires the elegance of a <code>SIFU</code> and will recognize players who demonstrate their mastery with a deep dive.',
         "wu_jian",
+        "#ff3333",
     ),
     Banner(
         "Xom",
@@ -851,6 +890,7 @@ BANNERS = [
         ),
         'Xom is always looking for entertainment and thinks it would be hilarious to watch a player&apos;s <code>DESCENT INTO MADNESS</code> through a ziggurat.',
         "xom",
+        "#ffffff",
     ),
     Banner(
         "Yredelemnul",
@@ -862,6 +902,7 @@ BANNERS = [
         ),
         'Yredelemnul demands that you kill as many uniques as possible and will recognise success by awarding <code>THE HARVEST</code>. There are 73 uniques in DCSS.',
         "yredelemnul",
+        "#994d00",
     ),
     Banner(
         "Zin",
@@ -873,6 +914,7 @@ BANNERS = [
         ),
         'Zin will give the <code>ANGEL OF JUSTICE</code> award to any player who attempts to cleanse Hell and Pandemonium.',
         "zin",
+        "#e6e6e6",
     ),
 ]
 
