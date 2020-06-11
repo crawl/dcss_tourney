@@ -411,7 +411,7 @@ INDIVIDUAL_CATEGORIES = (
     Category(
         "individual",
         "Banner Score",
-        """The other DCSS gods are too busy with divine affairs to rank an entire category, but every DCSS god rewards players for certain achievements with tiered bannners. Players are ranked on their total banner score, with tier one banners worth 1 point, tier 2 worth 2 points, and tier 3 worth 4 points.""",
+        """The other DCSS gods are too busy with divine affairs to rank an entire category, but every DCSS god rewards players for certain achievements with tiered banners. Players are ranked on their total banner score, with tier one banners worth 1 point, tier 2 worth 2 points, and tier 3 worth 4 points.""",
         "banner_score",
         "player_banner_score",
         "bscore DESC",
