@@ -40,7 +40,7 @@
         %>
         ${'{:,}'.format(points)}
       </th>
-      <th scope="row"></th>
+      <!--<th scope="row"></th>-->
     </tr>
   % for category in scoring_data.INDIVIDUAL_CATEGORIES:
   <%
