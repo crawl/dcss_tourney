@@ -1,5 +1,23 @@
 body {
-  background-color: #1a1a1a;
+  background-color: #322;
+}
+
+nav:nth-of-type(2) {
+  background-color: #211;
+}
+
+.nav-tabs {
+  border-color: #444;
+}
+
+.nav-tabs .nav-link:hover {
+  border-color: #444;
+}
+
+.nav-tabs .nav-link.active {
+  background-color: #533;
+  border-color: #444;
+  color: #eee;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -49,12 +67,41 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Make sticky column background dark. Without this, the columns assume Bootstrap light colour */
 table.DTFC_Cloned th, table.DTFC_Cloned td {
-  background-color: #343a40;
+  background-color: #433;
+}
+
+.bg-dark {
+  background-color: #434 !important;;
+}
+
+.text-light {
+  color: #eee !important;;
+}
+
+.text-dark {
+  color: #322 !important;
 }
 
 .text-light a {
   /* Increase link contrast with our background */
-  color: #72a6f8;
+  color: #8ff;
+}
+
+.text-dark a {
+/*  color: #21a; */ /* in case link color is hard to read*/
+}
+
+code {
+  color: #afa;
+}
+
+.alert-dark {
+  background-color: #434;
+  border-color: #ff8;
+}
+
+.alert-dark.text-dark {
+  color: #eee !important;
 }
 
 div.banner img {
@@ -66,6 +113,38 @@ div.banner img {
 hr {
   /* Slightly lighter <hr>s, to suit our dark background. */
   border-top: 1px solid rgba(64, 64, 64, 0.5);
+}
+
+.table-dark thead tr, .table-dark tbody tr, .table-dark.table-striped tbody tr {
+  background-color: #533;
+}
+
+.table-dark.table-striped tbody tr:nth-of-type(2n+1) {
+  background-color: #433;
+}
+
+.table-dark.table-hover tbody tr:hover > td, .table-dark.table-hover tbody tr:hover > th {
+  background-color: #733;
+}
+
+.table-secondary > td {
+  background-color: #4b4;
+}
+
+.table-striped .table-secondary:nth-child(2n) > td {
+  background-color: #3a3;
+}
+
+.table-dark.table-hover .table-secondary:hover > td {
+  background-color: #5c5;
+}
+
+.table-secondary > th {
+  background-color: #434;
+}
+
+.table-hover .table-secondary:hover > th {
+  background-color: #435;
 }
 
 /* XX hack workaround, restore the bootstrap styling (otherwise table-dark
@@ -82,6 +161,48 @@ table.dataTable tbody tr {
 
 .lr-flex > div {
   width: 48%;
+}
+
+.form-control, .custom-select, .custom-select:focus {
+  background-color: #433;
+  color: #eee;
+  border-color: #888;
+}
+
+.form-control:focus {
+  background-color: #533;
+  color: #eee;
+}
+
+input {
+  background-color: #211;
+  color: #eee;
+}
+
+.page-link {
+  background-color: #533;
+  color: #eee;
+  border-color: #444;
+}
+
+.page-link:hover {
+  background-color: #833;
+  color: #eee;
+  border-color: #444;
+}
+
+.page-item.disabled .page-link {
+  background-color: #433;
+  border-color: #444;
+}
+
+.page-item.active .page-link {
+  background-color: #833;
+  border-color: #444;
+}
+
+.pagination {
+  border-color: #000;
 }
 
 #player-search-div {
