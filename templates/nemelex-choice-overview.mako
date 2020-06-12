@@ -5,8 +5,8 @@
 
 <%
   nem_list = nemelex.list_nemelex_choices(cursor)
+  pnem_list = []
   if nem_list:
-    pnem_list = []
     for x in nem_list[:-1]:
       combostr = x[0] + ' (won:'
       if x[2] >= 8:
@@ -20,6 +20,7 @@
       combostr += ')'
       pnem_list.append(combostr)
 %>
+% if nem_list:
 <p class="lead">
   Current combo:
   <b>
@@ -27,6 +28,7 @@
   </b>
   , chosen on ${nem_list[-1][1]} UTC.
 </p>
+% endif
 % if pnem_list:
 <p>
   Previous combos:
