@@ -44,7 +44,7 @@
     <div class="col">
     <h2>Background Scoreboard</h2>
       <p class="lead">
-        Highest scoring game for each backgroudn played in the tournament.
+        Highest scoring game for each background played in the tournament.
       </p>
       ${class_scores_text}
     </div>
