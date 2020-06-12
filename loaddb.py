@@ -36,7 +36,7 @@ END_TIME   = TEST_END_TIME or (T_YEAR + '06282000')
 
 # Deadline for forming teams.
 CLAN_DEADLINE = (TEST_CLAN_DEADLINE or
-                datetime.datetime(2019, 6, 19, 20))
+                datetime.datetime(2020, 6, 19, 20))
 
 DATE_FORMAT = '%Y%m%d%H%M'
 
