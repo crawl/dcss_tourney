@@ -1,22 +1,58 @@
 body {
-  background-color: #322;
+  background-color: #282020;
 }
 
-nav:nth-of-type(2) {
-  background-color: #211;
+body > nav:nth-of-type(2) {
+  background-color: #181010;
+}
+
+.bg-dark {
+  background-color: #434 !important;;
+}
+
+.text-light {
+  color: #eee !important;
+}
+
+.text-dark {
+  color: #322 !important;
+}
+
+.text-light a {
+  /* Increase link contrast with our background */
+  color: #8ee;
+}
+
+.text-dark a {
+/*  color: #21a; */ /* in case link color is hard to read*/
+}
+
+code {
+  color: #aea;
+  font-weight: 600;
+}
+
+.alert-dark {
+  background-color: #434;
+  border-color: #ff8;
+}
+
+.alert-dark.text-dark {
+  color: #eee !important;
 }
 
 .nav-tabs {
-  border-color: #444;
+  border-color: #7d623c;
+  border-bottom-width: 2px;
 }
 
 .nav-tabs .nav-link:hover {
-  border-color: #444;
+  border-color: #7d623c;
 }
 
 .nav-tabs .nav-link.active {
-  background-color: #533;
-  border-color: #444;
+  background-color: #383030;
+  border-color: #7d623c;
   color: #eee;
 }
 
@@ -67,41 +103,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Make sticky column background dark. Without this, the columns assume Bootstrap light colour */
 table.DTFC_Cloned th, table.DTFC_Cloned td {
-  background-color: #433;
-}
-
-.bg-dark {
-  background-color: #434 !important;;
-}
-
-.text-light {
-  color: #eee !important;;
-}
-
-.text-dark {
-  color: #322 !important;
-}
-
-.text-light a {
-  /* Increase link contrast with our background */
-  color: #8ff;
-}
-
-.text-dark a {
-/*  color: #21a; */ /* in case link color is hard to read*/
-}
-
-code {
-  color: #afa;
-}
-
-.alert-dark {
-  background-color: #434;
-  border-color: #ff8;
-}
-
-.alert-dark.text-dark {
-  color: #eee !important;
+  background-color: #303030;
 }
 
 div.banner img {
@@ -112,39 +114,43 @@ div.banner img {
 
 hr {
   /* Slightly lighter <hr>s, to suit our dark background. */
-  border-top: 1px solid rgba(64, 64, 64, 0.5);
+  border-top: 2px solid #7d623c;
 }
 
 .table-dark thead tr, .table-dark tbody tr, .table-dark.table-striped tbody tr {
-  background-color: #533;
+  background-color: #303030;
 }
 
 .table-dark.table-striped tbody tr:nth-of-type(2n+1) {
-  background-color: #433;
+  background-color: #404040;
 }
 
 .table-dark.table-hover tbody tr:hover > td, .table-dark.table-hover tbody tr:hover > th {
-  background-color: #733;
+  background-color: #505050;
 }
 
 .table-secondary > td {
-  background-color: #4b4;
+  background-color: #272;
 }
 
 .table-striped .table-secondary:nth-child(2n) > td {
-  background-color: #3a3;
+  background-color: #262;
 }
 
 .table-dark.table-hover .table-secondary:hover > td {
-  background-color: #5c5;
+  background-color: #383;
 }
 
 .table-secondary > th {
-  background-color: #434;
+  background-color: #7d623c;
 }
 
-.table-hover .table-secondary:hover > th {
-  background-color: #435;
+.table-dark.table-hover .table-secondary:hover > th {
+  background-color: #7d623c;
+}
+
+.table-dark td, .table-dark th, .table-dark thead th {
+  border-color: #7d623c;
 }
 
 /* XX hack workaround, restore the bootstrap styling (otherwise table-dark
@@ -164,41 +170,41 @@ table.dataTable tbody tr {
 }
 
 .form-control, .custom-select, .custom-select:focus {
-  background-color: #433;
+  background-color: #303030;
   color: #eee;
-  border-color: #888;
+  border-color: #7d623c;
 }
 
 .form-control:focus {
-  background-color: #533;
+  background-color: #202020;
   color: #eee;
 }
 
 input {
-  background-color: #211;
+  background-color: #101010;
   color: #eee;
 }
 
 .page-link {
-  background-color: #533;
+  background-color: #303030;
   color: #eee;
-  border-color: #444;
+  border-color: #7d623c;
 }
 
 .page-link:hover {
-  background-color: #833;
+  background-color: #434;
   color: #eee;
-  border-color: #444;
+  border-color: #7d623c;
 }
 
 .page-item.disabled .page-link {
-  background-color: #433;
-  border-color: #444;
+  background-color: #282020;
+  border-color: #7d623c;
 }
 
 .page-item.active .page-link {
-  background-color: #833;
-  border-color: #444;
+  background-color: #757;
+  border-color: #7d623c;
 }
 
 .pagination {
@@ -240,5 +246,5 @@ input {
 }
 
 .search-list li a:hover {
-  background-color: #343434;
+  background-color: #434;
 }
