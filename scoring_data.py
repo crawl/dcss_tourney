@@ -127,7 +127,7 @@ def _pretty_banners(banner_str):
             color = bandata.color
         if prestige:
             imglink = crawl_utils.XXX_IMAGE_BASE + "/altar/" + crawl_utils.slugify(bandata.god) + ".png"
-            outstr += '''<img src="{image_src}" alt="{god} {tier}"
+            outstr += '''<img src="{image_src}" alt="{god} {tier}" title="{god} {tier}"
                               class="pixel-art banner-tier-{tier}"
                               style="border-color:{color}" loading="lazy">'''.format(
                                       image_src = imglink, god = bandata.god,
