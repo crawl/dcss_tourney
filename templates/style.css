@@ -130,11 +130,11 @@ hr {
 }
 
 .table-secondary > td {
-  background-color: #242;
+  background-color: #252;
 }
 
 .table-striped .table-secondary:nth-child(2n) > td {
-  background-color: #252;
+  background-color: #242;
 }
 
 .table-dark.table-hover .table-secondary:hover > td {
