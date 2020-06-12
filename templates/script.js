@@ -32,6 +32,9 @@ window.addEventListener("load", function() {
             },
         }
     );
+    if ($('.dcss-datatable-wide').length)
+        $('.container').addClass('container-fluid').removeClass('container');
+
     $('.dcss-datatable-compact').DataTable(
         {
             "paging": false,
