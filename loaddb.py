@@ -27,23 +27,23 @@ import sys
 from query_class import Query
 from test_data import USE_TEST, TEST_YEAR, TEST_VERSION, TEST_START_TIME, TEST_END_TIME, TEST_HARE_START_TIME, TEST_LOGS, TEST_MILESTONES, TEST_CLAN_DEADLINE, LogSpec
 
-T_YEAR = TEST_YEAR or '2019'
-T_VERSION = TEST_VERSION or '0.24'
+T_YEAR = TEST_YEAR or '2020'
+T_VERSION = TEST_VERSION or '0.25'
 
 # Start and end of the tournament, UTC.
-START_TIME = TEST_START_TIME or (T_YEAR + '10252000')
-END_TIME   = TEST_END_TIME or (T_YEAR + '11102000')
+START_TIME = TEST_START_TIME or (T_YEAR + '06122000')
+END_TIME   = TEST_END_TIME or (T_YEAR + '06282000')
 
 # Deadline for forming teams.
 CLAN_DEADLINE = (TEST_CLAN_DEADLINE or
-                datetime.datetime(2019, 11, 1, 20))
+                datetime.datetime(2019, 6, 19, 20))
 
 DATE_FORMAT = '%Y%m%d%H%M'
 
 GAME_VERSION = T_VERSION
 
 # One day before tourney end
-HARE_START_TIME = TEST_HARE_START_TIME or (T_YEAR + '11092000')
+HARE_START_TIME = TEST_HARE_START_TIME or (T_YEAR + '06272000')
 
 CAO = 'http://crawl.akrasiac.org/'
 CBRO = 'http://crawl.berotato.org/crawl/'
@@ -57,27 +57,27 @@ LLD = 'http://lazy-life.ddo.jp/'
 
 # Log and milestone files. The url is what we 'wget -c' from.
 LOGS = TEST_LOGS or [
-           LogSpec('cao', 'cao-logfile-0.24', CAO + 'logfile24'),
-#           LogSpec('cbro', 'cbro-logfile-0.24', CBRO + 'meta/0.24/logfile'),
-#           LogSpec('cdo', 'cdo-logfile-0.24', CDO + 'allgames-0.24.txt'),
-#           LogSpec('cko', 'cko-logfile-0.24', CKO + 'meta/0.24/logfile'),
-           LogSpec('cpo', 'cpo-logfile-0.24', CPO + 'dcss-logfiles-0.24'),
-#           LogSpec('cue', 'cue-logfile-0.24', CUE + 'meta/0.24/logfile'),
-#           LogSpec('cwz', 'cwz-logfile-0.24', CWZ + '0.24/logfile'),
-           LogSpec('cxc', 'cxc-logfile-0.24', CXC + 'meta/0.24/logfile'),
-           LogSpec('lld', 'lld-logfile-0.24', LLD + 'mirror/meta/0.24/logfile'),
+           LogSpec('cao', 'cao-logfile-0.25', CAO + 'logfile24'),
+           LogSpec('cbro', 'cbro-logfile-0.25', CBRO + 'meta/0.25/logfile'),
+#           LogSpec('cdo', 'cdo-logfile-0.25', CDO + 'allgames-0.25.txt'),
+           LogSpec('cko', 'cko-logfile-0.25', CKO + 'meta/0.25/logfile'),
+           LogSpec('cpo', 'cpo-logfile-0.25', CPO + 'dcss-logfiles-0.25'),
+           LogSpec('cue', 'cue-logfile-0.25', CUE + 'meta/0.25/logfile'),
+           LogSpec('cwz', 'cwz-logfile-0.25', CWZ + '0.25/logfile'),
+           LogSpec('cxc', 'cxc-logfile-0.25', CXC + 'meta/0.25/logfile'),
+           LogSpec('lld', 'lld-logfile-0.25', LLD + 'mirror/meta/0.25/logfile'),
   ]
 
 MILESTONES = TEST_MILESTONES or [
-           LogSpec('cao', 'cao-milestones-0.24', CAO + 'milestones24'),
-#           LogSpec('cbro', 'cbro-milestones-0.24', CBRO + 'meta/0.24/milestones'),
-#           LogSpec('cdo', 'cdo-milestones-0.24', CDO + 'milestones-0.24.txt'),
-#           LogSpec('cko', 'cko-milestones-0.24', CKO + 'meta/0.24/milestones'),
-           LogSpec('cpo', 'cpo-milestones-0.24', CPO + 'dcss-milestones-0.24'),
-#           LogSpec('cue', 'cue-milestones-0.24', CUE + 'meta/0.24/milestones'),
-#           LogSpec('cwz', 'cwz-milestones-0.24', CWZ + '0.24/milestones'),
-           LogSpec('cxc', 'cxc-milestones-0.24', CXC + 'meta/0.24/milestones'),
-           LogSpec('lld', 'lld-milestones-0.24', LLD + 'mirror/meta/0.24/milestones'),
+           LogSpec('cao', 'cao-milestones-0.25', CAO + 'milestones24'),
+           LogSpec('cbro', 'cbro-milestones-0.25', CBRO + 'meta/0.25/milestones'),
+#           LogSpec('cdo', 'cdo-milestones-0.25', CDO + 'milestones-0.25.txt'),
+           LogSpec('cko', 'cko-milestones-0.25', CKO + 'meta/0.25/milestones'),
+           LogSpec('cpo', 'cpo-milestones-0.25', CPO + 'dcss-milestones-0.25'),
+           LogSpec('cue', 'cue-milestones-0.25', CUE + 'meta/0.25/milestones'),
+           LogSpec('cwz', 'cwz-milestones-0.25', CWZ + '0.25/milestones'),
+           LogSpec('cxc', 'cxc-milestones-0.25', CXC + 'meta/0.25/milestones'),
+           LogSpec('lld', 'lld-milestones-0.25', LLD + 'mirror/meta/0.25/milestones'),
   ]
 
 GAME_BLACKLIST_FILE = 'game_blacklist.txt'
