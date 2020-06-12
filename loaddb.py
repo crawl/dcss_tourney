@@ -59,7 +59,7 @@ LLD = 'http://lazy-life.ddo.jp/'
 LOGS = TEST_LOGS or [
            LogSpec('cao', 'logfiles/cao-logfile-0.25', CAO + 'logfile25'),
            LogSpec('cbro', 'logfiles/cbro-logfile-0.25', CBRO + 'meta/0.25/logfile'),
-#           LogSpec('cdo', 'logfiles/cdo-logfile-0.25', CDO + 'allgames-0.25.txt'),
+           LogSpec('cdo', 'logfiles/cdo-logfile-0.25', CDO + 'allgames-0.25.txt'),
            LogSpec('cko', 'logfiles/cko-logfile-0.25', CKO + 'meta/0.25/logfile'),
            LogSpec('cpo', 'logfiles/cpo-logfile-0.25', CPO + 'dcss-logfiles-0.25'),
            LogSpec('cue', 'logfiles/cue-logfile-0.25', CUE + 'meta/0.25/logfile'),
@@ -71,7 +71,7 @@ LOGS = TEST_LOGS or [
 MILESTONES = TEST_MILESTONES or [
            LogSpec('cao', 'milestones/cao-milestones-0.25', CAO + 'milestones25'),
            LogSpec('cbro', 'milestones/cbro-milestones-0.25', CBRO + 'meta/0.25/milestones'),
-#           LogSpec('cdo', 'milestones/cdo-milestones-0.25', CDO + 'milestones-0.25.txt'),
+           LogSpec('cdo', 'milestones/cdo-milestones-0.25', CDO + 'milestones-0.25.txt'),
            LogSpec('cko', 'milestones/cko-milestones-0.25', CKO + 'meta/0.25/milestones'),
            LogSpec('cpo', 'milestones/cpo-milestones-0.25', CPO + 'dcss-milestones-0.25'),
            LogSpec('cue', 'milestones/cue-milestones-0.25', CUE + 'meta/0.25/milestones'),
