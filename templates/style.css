@@ -7,7 +7,7 @@ body > nav:nth-of-type(2) {
 }
 
 .bg-dark {
-  background-color: #434 !important;;
+  background-color: #434 !important;
 }
 
 .text-light {
@@ -28,7 +28,7 @@ body > nav:nth-of-type(2) {
 }
 
 code {
-  color: #aea;
+  /*color: #aea;*/
   font-weight: 600;
 }
 
@@ -130,15 +130,15 @@ hr {
 }
 
 .table-secondary > td {
-  background-color: #252;
+  background-color: #606;
 }
 
 .table-striped .table-secondary:nth-child(2n) > td {
-  background-color: #242;
+  background-color: #4d004d;
 }
 
 .table-dark.table-hover .table-secondary:hover > td {
-  background-color: #363;
+  background-color: #909;
 }
 
 .table-secondary > th {

@@ -385,7 +385,7 @@ def table_text(headers, data, count=True,
     # TODO: not sure this is necessary with DataTables?
     if bold and row[-1]:
       # Invert colours
-      out += '''<tr class="table-secondary text-dark">'''
+      out += '''<tr class="table-secondary">'''
     else:
       out += '''<tr class="">'''
 
