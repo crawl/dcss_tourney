@@ -57,7 +57,7 @@ LLD = 'http://lazy-life.ddo.jp/'
 
 # Log and milestone files. The url is what we 'wget -c' from.
 LOGS = TEST_LOGS or [
-           LogSpec('cao', 'cao-logfile-0.25', CAO + 'logfile24'),
+           LogSpec('cao', 'cao-logfile-0.25', CAO + 'logfile25'),
            LogSpec('cbro', 'cbro-logfile-0.25', CBRO + 'meta/0.25/logfile'),
 #           LogSpec('cdo', 'cdo-logfile-0.25', CDO + 'allgames-0.25.txt'),
            LogSpec('cko', 'cko-logfile-0.25', CKO + 'meta/0.25/logfile'),
@@ -69,7 +69,7 @@ LOGS = TEST_LOGS or [
   ]
 
 MILESTONES = TEST_MILESTONES or [
-           LogSpec('cao', 'cao-milestones-0.25', CAO + 'milestones24'),
+           LogSpec('cao', 'cao-milestones-0.25', CAO + 'milestones25'),
            LogSpec('cbro', 'cbro-milestones-0.25', CBRO + 'meta/0.25/milestones'),
 #           LogSpec('cdo', 'cdo-milestones-0.25', CDO + 'milestones-0.25.txt'),
            LogSpec('cko', 'cko-milestones-0.25', CKO + 'meta/0.25/milestones'),
