@@ -71,7 +71,7 @@
         </thead>
         <tbody>
           ## First row shows total score
-          <tr class="table-secondary text-dark">
+          <tr class="table-secondary">
             <th scope="row">
               <a href="${base_link('teams.html')}">
                 Total
