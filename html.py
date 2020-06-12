@@ -505,7 +505,7 @@ def games_table(games, first=None, excluding=None, columns=None,
   last_value = None
 
   for game in games:
-    row_class = "table-secondary text-dark" if game.get('killertype') == 'winning' else ""
+    row_class = "table-secondary" if game.get('killertype') == 'winning' else ""
 
     out += '''<tr class="%s">''' % row_class
 
