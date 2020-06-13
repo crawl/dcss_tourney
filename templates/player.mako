@@ -91,7 +91,7 @@
   % if len(whereis) > 0:
   <div class="row">
     <div class="col">
-      <h2>Ongoing Games</h2>
+      <p class="lead"><b>Ongoing Games:</b></p>
       <p>${whereis}</p>
     </div>
   </div>
