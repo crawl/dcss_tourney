@@ -16,19 +16,20 @@ window.addEventListener("load", function() {
 window.addEventListener("load", function() {
     $('.dcss-datatable').DataTable(
         {
-            scrollX: true,
+            "scrollX": true,
             "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
-            iDisplayLength: 10,
+            "iDisplayLength": 10,
         }
     );
     $('.dcss-datatable-wide').DataTable(
         {
-            scrollX: true,
+            "scrollX": true,
             "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
-            iDisplayLength: 10,
+            "iDisplayLength": 10,
+            "ordering": true,
             // Keep the left two columns visible when scrolling sideways
-            fixedColumns: {
-                leftColumns: 2,
+            "fixedColumns": {
+                "leftColumns": 2,
             },
         }
     );

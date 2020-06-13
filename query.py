@@ -1712,11 +1712,11 @@ def get_all_player_ranks(c):
     captain = r[1]
     r = r[0:1] + r[2:]
     if captain is None:
-      r[1] = '-'
+      r[1] = ''
     else:
       clan_info = get_clan_info(c, captain)
       if clan_info is None:
-        r[1] = '-'
+        r[1] = ''
       else:
         clan_page = clan_info[2]
         r[1] = crawl_utils.link_text(r[1], crawl_utils.clan_link(r[1], captain))

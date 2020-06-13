@@ -412,6 +412,22 @@ def table_text(headers, data, count=True,
         # More compact display
         call_classes.update(["py-1", "px-2"])
       val = row[c]
+      if isinstance(val, str):
+        # TODO: is there a better sort value than something like this to use?
+        sort_val = "ZZZZZ" if val == "" or val == "-" else val
+        val_embedded_str = sort_val.find('"')
+        if val_embedded_str > -1:
+          # pretty hacky: if there is an embedded '"', we take the contents of
+          # that, in order to handle clan links. Better would be to construct the
+          # clan link in this function (like player), but doing so is annoyingly
+          # complicated. Could also extract the inner text.
+          try:
+            sort_val = sort_val[val_embedded_str:].split('"')[1]
+          except:
+            print(sort_val)
+            raise
+      else:
+        sort_val = str(val)
       header = headers[c]
 
       numeric_col = _is_numeric_table_value(val, header[0])
@@ -427,7 +443,9 @@ def table_text(headers, data, count=True,
       if c == place_column:
         out += '''<th class="%s" scope="row">''' % " ".join(call_classes)
       else:
-        out += '''<td class="%s">''' % " ".join(call_classes)
+        out += '''<td class="%s" data-sort="%s">''' % (
+                  " ".join(call_classes),
+                  sort_val)
       val = str(val)
       if is_player_header(header[0]):
         val = linked_text(val, player_link)
