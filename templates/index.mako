@@ -161,8 +161,9 @@
           </p>
         </div>
         <div class="card-footer">
-          % if category.source_table:
-          <a href="${base_link(crawl_utils.slugify(category.name))}.html">
+          <% category_link = scoring_data.individual_category_link(category) %>
+          % if category_link:
+          <a href="${category_link}">
             View full ranking.
           </a>
           % else:
@@ -201,8 +202,9 @@
           </p>
         </div>
         <div class="card-footer">
-          % if category.source_table:
-          <a href="${base_link('clan-' + crawl_utils.slugify(category.name))}.html">
+          <% category_link = scoring_data.clan_category_link(category) %>
+          % if category_link:
+          <a href="${category_link}">
             View full ranking.
           </a>
           % else:

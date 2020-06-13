@@ -925,3 +925,30 @@ def individual_category_by_name(name):
         if cat.name == name:
             return cat
     raise KeyError("Invalid individual category name '%s'" % name)
+
+def clan_category_by_name(name):
+    # type: (str) -> Optional[Category]
+    for cat in CLAN_CATEGORIES:
+        if cat.name == name:
+            return cat
+    raise KeyError("Invalid individual category name '%s'" % name)
+
+def individual_category_link(cat):
+    if isinstance(cat, str):
+        try:
+            cat = individual_category_by_name(cat)
+        except KeyError:
+            return None
+    if not cat.source_table:
+        return None
+    return crawl_utils.base_link(crawl_utils.slugify(cat.name)) + ".html"
+
+def clan_category_link(cat):
+    if isinstance(cat, str):
+        try:
+            cat = clan_category_by_name(cat)
+        except KeyError:
+            return None
+    if not cat.source_table:
+        return None
+    return crawl_utils.base_link(crawl_utils.slugify("clan-" + cat.name)) + ".html"
