@@ -10,6 +10,16 @@
   active_menu_item = None
 %>
 
+<%block name="preprocess">
+<%
+  # TODO: not sure if this is really the best way to accomplish this?
+  if category.type == "clan":
+    self.attr.active_menu_item = "Clan Categories"
+  else:
+    self.attr.active_menu_item = "Player Categories"
+%>
+</%block>
+
 <%block name="title">
   <%
     page_title = "%s%s Ranking" % ("Clan " if category.type == "clan" else "", category.name)

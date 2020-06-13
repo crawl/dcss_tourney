@@ -4,17 +4,33 @@
   from html import update_time
   from crawl_utils import XXX_TOURNEY_BASE, XXX_IMAGE_BASE
   from loaddb import T_VERSION
+  import scoring_data
+
+  individual_cat_menu = []
+  for c in scoring_data.INDIVIDUAL_CATEGORIES:
+    link = scoring_data.individual_category_link(c)
+    if link:
+      individual_cat_menu.append((link, c.name))
+
+  clan_cat_menu = []
+  for c in scoring_data.CLAN_CATEGORIES:
+    link = scoring_data.clan_category_link(c)
+    if link:
+      clan_cat_menu.append((link, c.name))
 
   menu_items = (
     (XXX_TOURNEY_BASE + "/overview.html", "Home"),
     (XXX_TOURNEY_BASE + "", "Rules"),
     (XXX_TOURNEY_BASE + "/all-players-ranks.html", "Players"),
     (XXX_TOURNEY_BASE + "/teams.html", "Clans"),
+    ("#", "Player Categories", individual_cat_menu),
+    ("#", "Clan Categories", clan_cat_menu),
     (XXX_TOURNEY_BASE + "/current-games.html", "Ongoing Games"),
     (XXX_TOURNEY_BASE + "/combo-scoreboard.html", "Combo Scoreboard"),
     (XXX_TOURNEY_BASE + "/search.html", "Search"),
   )
 %>
+<%block name="preprocess"/>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -58,9 +74,20 @@
             # the active nav item. If there's no applicable menu item, use None.
             active_class = "active" if self.attr.active_menu_item == menu_item[1] else ""
           %>
-          <li class="nav-item">
-            <a class="nav-link ${active_class}" href=${menu_item[0]}>${menu_item[1]}</a>
-          </li>
+            % if len(menu_item) == 2:
+              <li class="nav-item">
+                <a class="nav-link ${active_class}" href=${menu_item[0]}>${menu_item[1]}</a>
+              </li>
+            % else:
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle ${active_class}" data-toggle="dropdown" href="${menu_item[0]}" role="button">${menu_item[1]}</a>
+                <ul class="dropdown-menu bg-dark">
+                % for subitem in menu_item[2]:
+                  <li><a class="dropdown-item" href="${subitem[0]}">${subitem[1]}</a></li>
+                % endfor
+                </ul>
+              </li>
+            % endif
           % endfor
         </ul>
       </div>
