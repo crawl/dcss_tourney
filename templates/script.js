@@ -18,14 +18,14 @@ window.addEventListener("load", function() {
         {
             scrollX: true,
             "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
-            iDisplayLength: 25,
+            iDisplayLength: 10,
         }
     );
     $('.dcss-datatable-wide').DataTable(
         {
             scrollX: true,
             "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
-            iDisplayLength: 25,
+            iDisplayLength: 10,
             // Keep the left two columns visible when scrolling sideways
             fixedColumns: {
                 leftColumns: 2,
