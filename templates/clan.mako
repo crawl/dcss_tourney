@@ -28,7 +28,7 @@
 <%block name="main">
   <div class="row">
     <div class="col">
-      <h1>${clan_name}</h1>
+      <h1 class="display-4">${clan_name}</h1>
       <p class="lead">
         <b>
           Captain:
