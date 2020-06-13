@@ -309,13 +309,15 @@ def wrap_tuple(x):
     return (x,)
 
 def is_player_header(header):
-  return header in ['Player', 'Captain']
+  return header.lower() in ['player', 'captain']
 
 def is_clan_header(header):
-  return header in ['Clan', 'Team', 'Teamname']
+  return header.lower() in ['clan', 'team', 'teamname']
 
 
-def _is_numeric_table_value(value):
+def _is_numeric_table_value(value, header=""):
+  if is_player_header(header) or is_clan_header(header):
+    return False
   if isinstance(value, (int, float, decimal.Decimal)):
     return True
   if isinstance(value, (str, unicode)):
@@ -412,7 +414,7 @@ def table_text(headers, data, count=True,
       val = row[c]
       header = headers[c]
 
-      numeric_col = _is_numeric_table_value(val)
+      numeric_col = _is_numeric_table_value(val, header[0])
       pseudo_numeric_col = val == '-'
       if numeric_col:
         val = '{:,}'.format(isinstance(val, str) and int(val) or val)
@@ -523,10 +525,10 @@ def games_table(games, first=None, excluding=None, columns=None,
 
     for i, c in enumerate(columns):
       val = fixup_column(c[0], game.get(c[0]) or '', game)
-      numeric_col = _is_numeric_table_value(val)
+      numeric_col = _is_numeric_table_value(val, c[0])
       pseudo_numeric_col = val == '-'
       if numeric_col:
-        val = '{:,}'.format(val)
+        val = '{:,}'.format(isinstance(val, str) and int(val) or val)
       td_class = "text-right text-monospace" if (numeric_col or pseudo_numeric_col) else ""
       if i == place_column:
         out += '''<th class="%s" scope="row">''' % td_class
