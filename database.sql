@@ -744,7 +744,7 @@ SELECT player, 3*COUNT(DISTINCT rune) AS score FROM rune_finds GROUP BY player;
 CREATE VIEW clan_scaled_rune_find_count AS
 SELECT p.team_captain, 3*COUNT(DISTINCT r.rune) AS score
   FROM rune_finds AS r INNER JOIN players AS p ON r.player = p.name
-  GROUP BY player;
+  GROUP BY p.team_captain;
 
 CREATE VIEW exploration_union AS
 SELECT player, score AS score
