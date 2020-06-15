@@ -66,12 +66,32 @@
     <hr>
     % endif
 
+      <p class="lead">Recent games</p>
+
       ${html.full_games_table(
           query.find_games(cursor, player = clan_members, sort_max = 'end_time', limit = 10),
           count=False, win=False, caption="Recent games for %s" % clan_name,
           excluding=("race", "class", "title", "turns", "duration", "runes", "turns"),
           including=[[0, ('player', 'Player')], [2, ('charabbrev', 'Char')], [9, ('src', 'Server')]]
       )}
+
+      <%
+        clan_wins = query.find_games(cursor, player=clan_members, sort_max='score', killertype='winning', limit=None)
+        # always show 5 top games, up to 10 if there are no wins
+        top_game_count = max(5, 10 - len(clan_wins))
+        best_games = query.find_games(cursor, player=clan_members, sort_max='score', killertype=('not', 'winning'), limit=top_game_count)
+        top_game_header = "Top games" if len(clan_wins) == 0 else "Wins and top games"
+      %>
+
+      <p class="lead">${top_game_header}</p>
+
+      ${html.full_games_table(
+          clan_wins + best_games,
+          count=False, win=False, caption=top_game_header + " for %s" % clan_name,
+          excluding=("race", "class", "title", "turns", "duration", "runes", "turns"),
+          including=[[0, ('player', 'Player')], [2, ('charabbrev', 'Char')], [9, ('src', 'Server')]]
+      )}
+
 
       <h2>Categories</h2>
       <table class="table table-borderless table-dark table-striped table-hover w-auto">
