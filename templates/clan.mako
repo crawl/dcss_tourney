@@ -52,6 +52,20 @@
           </small>
         </a>
       </p>
+
+    <%
+    whereis = html.whereis(cursor, *clan_members)
+    %>
+    % if len(whereis) > 0:
+    <div class="row">
+      <div class="col">
+        <p class="lead"><b>Ongoing Games:</b></p>
+        <p>${whereis}</p>
+      </div>
+    </div>
+    <hr>
+    % endif
+
       ${html.full_games_table(
           query.find_games(cursor, player = clan_members, sort_max = 'end_time', limit = 10),
           count=False, win=False, caption="Recent games for %s" % clan_name,
