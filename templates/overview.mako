@@ -58,11 +58,13 @@
           </div>
           <div class="col-sm-12 col-md-6">
             <h3>Current Top Clans</h3>
-            ${html.table_text(
-              [ 'Clan', 'Overall Score' ],
-              data=[([row[0]] + row[2:]) for row in
-	      query.get_all_clan_ranks(cursor, limit=10)],
-              place_column=2, skip=True )
+            <%
+              clan_data = query.get_all_clan_ranks(cursor, limit=10)
+              clan_summary_table = [([row[0]] + [row[2]]) for row in clan_data]
+            %>
+            ${html.table_text([ 'Clan', 'Overall Score' ],
+                              data=clan_summary_table,
+                              place_column=1, skip=True )
             }
             <a href="${base_link('teams.html')}">
               See full ranking.
