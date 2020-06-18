@@ -223,7 +223,7 @@ INDIVIDUAL_CATEGORIES = (
     Category(
         "individual",
         "Piety",
-        "Elyvilon thinks it's important to evaluate what all the gods have to offer. Elyvilon awards 1 point per god championed (****** piety) and an additional point for a win after championing that god. Two gods (Gozag and Xom) do not have the usual ****** piety system; to get the points for these gods, you must never worship another god during the game.",
+        "Elyvilon thinks it's important to evaluate what all the gods have to offer. Elyvilon awards 1 point for becoming the  champion (****** piety) of the first god worshipped in a game and an additional point for a win after championing that god. Two gods (Gozag and Xom) do not have the usual ****** piety system; to get the points for these gods, you must never worship another god during the game.",
         "piety",
         "player_piety_score",
         "piety DESC",
