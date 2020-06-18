@@ -650,8 +650,7 @@ BANNERS = [
         BannerTiers(
             "Reach experience level 9 in two consecutive games.",
             "Achieve a two-win streak.",
-            "Achieve four-win streak with four distinct species and four
-            distinct backgrounds.",
+            "Achieve four-win streak with four distinct species and four distinct backgrounds.",
         ),
         'Cheibriados believes in being <code>SLOW AND STEADY</code> and will so recognize players who are careful enough to excel in consecutive games. ',
         "cheibriados",
