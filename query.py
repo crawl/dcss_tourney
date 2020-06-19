@@ -594,12 +594,21 @@ def get_all_game_stats(c):
                           WHERE killertype='winning'""")
   distinct_winners = query_first(c, """SELECT COUNT(DISTINCT player) FROM games
                                        WHERE killertype='winning'""")
+  allrune_won = query_first(c, """SELECT COUNT(*) FROM games
+                          WHERE killertype='winning' AND nrune=15""")
+  allrune_distinct_winners = query_first(c, """SELECT COUNT(DISTINCT player) FROM games
+                                       WHERE killertype='winning' and nrune=15""")
+
   win_perc = "%.2f%%" % calc_perc(won, played)
+  allrune_win_perc = "%.2f%%" % calc_perc(allrune_won, played)
   played_text = "%d (%d players)" % (played, distinct_players)
   won_text = "%d (%d players)" % (won, distinct_winners)
+  allrune_won_text = "%d (%d players)" % (allrune_won, allrune_distinct_winners)
   return { 'played' : played_text,
            'won' : won_text,
-           'win_perc' : win_perc }
+           'allrune_won': allrune_won_text,
+           'win_perc' : win_perc,
+           'allrune_win_perc': allrune_win_perc }
 
 def get_all_player_stats(c):
   q = Query('''SELECT p.name, p.team_captain, t.name, p.score_full,

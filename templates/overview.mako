@@ -33,6 +33,10 @@
   <div class="row">
     <div class="col">
       <h2 id="general">General</h2>
+      <%
+        global_stats = query.get_all_game_stats(cursor)
+      %>
+      <p><b>Games played</b>: ${global_stats["played"]}<br /><b>Games won</b>: ${global_stats["won"]}, winrate: ${global_stats["win_perc"]}<br /><b>15-rune wins</b>: ${global_stats["allrune_won"]}, winrate: ${global_stats["allrune_win_perc"]}</p>
       <h3>Recent Games</h3>
       ${html.full_games_table(
           query.find_games(cursor, sort_max = 'end_time', limit = 5),
