@@ -43,6 +43,7 @@ def tail_logfiles(logs, milestones, interval=60):
     cursor.close()
     loaddb.cleanup_listeners(db)
     db.close()
+    info("Bye!")
 
 if __name__ == '__main__':
   if crawl_utils.taildb_stop_requested():
