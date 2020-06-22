@@ -161,8 +161,8 @@ SELECT g.*, JSON_OBJECT('source_file', g.source_file,
 		    'end_time', g.end_time,
 		    'charabbrev', g.charabbrev) AS morgue_json  FROM wins AS g
   LEFT OUTER JOIN wins AS g2
-  ON g.player = g2.player AND g.duration > g2.duration
-  WHERE g2.duration IS NULL;
+  ON g.player = g2.player AND (g.duration, g.start_time) > (g2.duration, g2.start_time)
+  WHERE g2.start_time IS NULL;
 
 CREATE OR REPLACE VIEW clan_fastest_wins AS
 SELECT
