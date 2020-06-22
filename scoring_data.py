@@ -135,6 +135,22 @@ def _pretty_banners(banner_str):
 
     return outstr
 
+def _pretty_exploration(explore_data):
+    if isinstance(explore_data, str):
+        explore_data = json.loads(explore_data)
+
+    outstr = ''
+    if explore_data.get("enters", None):
+        explore_data["enters"] = list(set(explore_data["enters"]))
+        outstr += '<b>Branches Entered:</b> ' + ", ".join(explore_data["enters"]) + ' '
+    if explore_data.get("ends", None):
+        explore_data["ends"] = list(set(explore_data["ends"]))
+        outstr += '<b>Branch Ends Reached:</b> ' + ", ".join(explore_data["ends"]) + ' '
+    if explore_data.get("runes", None):
+        explore_data["runes"] = list(set(explore_data["runes"]))
+        outstr += '<b>Runes Collected:</b> ' + ", ".join(explore_data["runes"]) + ' '
+
+    return outstr
 
 # The relevant info is consolidated into a single json object in the database
 # since that's easier than dealing with column spanning in the transformation
@@ -218,7 +234,9 @@ INDIVIDUAL_CATEGORIES = (
         "exploration",
         "player_exploration_score",
         "score DESC",
-        [ColumnDisplaySpec("score", "Score", True, True, None),],
+        [ColumnDisplaySpec("score", "Score", True, True, None),
+         ColumnDisplaySpec("data", "Oh! The Places You've Gone", False, False,
+             _pretty_exploration),],
     ),
     Category(
         "individual",
@@ -449,7 +467,9 @@ CLAN_CATEGORIES = (
         "exploration",
         "clan_exploration_score",
         "score DESC",
-        [ColumnDisplaySpec("score", "Score", True, True, None),],
+        [ColumnDisplaySpec("score", "Score", True, True, None),
+         ColumnDisplaySpec("data", "Oh! The Places You've Gone", False, False,
+             _pretty_exploration),],
     ),
     Category(
         "clan",
