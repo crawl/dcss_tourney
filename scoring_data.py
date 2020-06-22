@@ -152,6 +152,24 @@ def _pretty_exploration(explore_data):
 
     return outstr
 
+def _pretty_harvest(data):
+    if isinstance(data, str):
+        data = json.loads(data)
+
+    outstr = ""
+    if data.get("uniques", None):
+        # weird data normalization from the union
+        data["uniques"] = json.loads(data["uniques"])
+        data["uniques"] = list(set(data["uniques"]))
+        data["uniques"].sort()
+        outstr += ", ".join(data["uniques"])
+        if data.get("ghosts", None):
+            outstr += ", and "
+    if data.get("ghosts", None):
+        outstr += "{count} ghost{plural}".format(count = int(data["ghosts"]),
+                plural = int(data["ghosts"]) > 1 and "s" or "")
+    return outstr
+
 def _pretty_godlist(gods):
     if isinstance(gods, str):
         gods = json.loads(gods)
@@ -270,7 +288,9 @@ INDIVIDUAL_CATEGORIES = (
         "harvest",
         "player_harvest_score",
         "score DESC",
-        [ColumnDisplaySpec("score", "Score", True, True, None),],
+        [ColumnDisplaySpec("score", "Score", True, True, None),
+         ColumnDisplaySpec("data", "Uniques Slain", False, False,
+             _pretty_harvest),],
     ),
     Category(
         "individual",
@@ -505,7 +525,9 @@ CLAN_CATEGORIES = (
         "harvest",
         "clan_harvest_score",
         "score DESC",
-        [ColumnDisplaySpec("score", "Score", True, True, None),],
+        [ColumnDisplaySpec("score", "Score", True, True, None),
+         ColumnDisplaySpec("data", "Uniques Slain", False, False,
+             _pretty_harvest),],
     ),
     Category(
         "clan",

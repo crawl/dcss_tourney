@@ -320,11 +320,13 @@ SELECT team_captain,
   GROUP BY team_captain;
 
 CREATE OR REPLACE VIEW unique_kill_count AS
-SELECT player, COUNT(DISTINCT monster) AS score
+SELECT player, COUNT(DISTINCT monster) AS score,
+       JSON_ARRAYAGG(monster) AS data
   FROM kills_of_uniques GROUP BY player;
 
 CREATE OR REPLACE VIEW clan_unique_kill_count AS
-SELECT p.team_captain, COUNT(DISTINCT u.monster) AS score
+SELECT p.team_captain, COUNT(DISTINCT u.monster) AS score,
+       JSON_ARRAYAGG(monster) AS data
   FROM kills_of_uniques AS u INNER JOIN players AS p
     ON u.player = p.name
   GROUP BY p.team_captain;
@@ -339,24 +341,24 @@ SELECT p.team_captain, COUNT(*) AS score
   GROUP BY p.team_captain;
 
 CREATE OR REPLACE VIEW harvest_union AS
-SELECT player, score FROM unique_kill_count
-UNION ALL SELECT player, score FROM ghost_kill_count;
+SELECT player, score, "uniques" AS mt, data FROM unique_kill_count
+UNION ALL SELECT player, score, "ghosts", score FROM ghost_kill_count;
 
 CREATE OR REPLACE VIEW clan_harvest_union AS
-SELECT team_captain, score FROM clan_unique_kill_count
-UNION ALL SELECT team_captain, score FROM clan_ghost_kill_count;
+SELECT team_captain, score, "uniqes" AS mt, data FROM clan_unique_kill_count
+UNION ALL SELECT team_captain, score, "ghosts", score FROM clan_ghost_kill_count;
 
 -- Can't use a join because a player could have one but not the other
 -- and there's no full outer join
 CREATE OR REPLACE VIEW player_harvest_score AS
-SELECT player, SUM(score) AS score
+SELECT player, SUM(score) AS score, JSON_OBJECTAGG(mt, data) AS data
   FROM harvest_union
   GROUP BY player;
 
 CREATE OR REPLACE VIEW clan_harvest_score AS
 SELECT team_captain,
        JSON_OBJECT('name', teams.name, 'captain', team_captain) AS team_info_json,
-       SUM(score) AS score
+       SUM(score) AS score, JSON_OBJECTAGG(mt, data) AS data
   FROM clan_harvest_union
     LEFT JOIN teams ON team_captain = teams.owner
   WHERE team_captain IS NOT NULL
