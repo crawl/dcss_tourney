@@ -176,6 +176,7 @@ def _pretty_godlist(gods):
     if gods is None:
         return ''
     gods = filter(lambda x: x is not None, gods)
+    gods = list(set(gods))
     gods.sort()
     # TODO: Altar icons?!
     return ", ".join(gods)
