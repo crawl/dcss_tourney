@@ -638,10 +638,10 @@ SELECT
                 'charabbrev', g.charabbrev) AS morgue_json
   FROM wins AS g
   LEFT OUTER JOIN wins AS g2
-    ON g.team_captain = g2.team_captain AND g.duration > g2.duration
+    ON g.team_captain = g2.team_captain AND (g.duration, g.start_time) > (g2.duration, g2.start_time)
   LEFT JOIN teams
     ON g.team_captain = teams.owner
-  WHERE g.team_captain IS NOT NULL AND  g2.duration IS NULL;
+  WHERE g.team_captain IS NOT NULL AND g2.start_time IS NULL;
 
 CREATE VIEW nonhep_wins AS
 SELECT * FROM wins AS g
@@ -656,8 +656,8 @@ SELECT g.*, JSON_OBJECT('source_file', g.source_file,
 		    'end_time', g.end_time,
 		    'charabbrev', g.charabbrev) AS morgue_json  FROM nonhep_wins AS g
   LEFT OUTER JOIN nonhep_wins AS g2
-  ON g.player = g2.player AND g.xl > g2.xl
-  WHERE g2.xl IS NULL AND g.xl < 27;
+  ON g.player = g2.player AND (g.xl, g.start_time) > (g2.xl, g2.start_time)
+  WHERE g2.start_time IS NULL AND g.xl < 27;
 
 CREATE VIEW player_win_perc AS
 SELECT player,
@@ -911,8 +911,8 @@ CREATE VIEW clan_nemelex_score AS
 CREATE VIEW player_best_streak AS
 SELECT DISTINCT s.player, s.length, s.streak_data FROM streaks AS s
   LEFT OUTER JOIN streaks AS s2
-    ON s.player = s2.player AND s.length < s2.length
-  WHERE s2.length IS NULL;
+    ON s.player = s2.player AND (s.length, s.start_time) < (s2.length, s2.start_time)
+  WHERE s2.start_time IS NULL;
 
 CREATE VIEW clan_streaks AS
 SELECT p.team_captain, s.player, s.length
