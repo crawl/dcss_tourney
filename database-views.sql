@@ -216,8 +216,8 @@ SELECT wg.player, mp.god AS max_piety, wg.god AS won
   WHERE mp.god IS NULL;
 
 CREATE OR REPLACE VIEW player_piety_score AS
-SELECT player, COUNT(DISTINCT max_piety) AS champion,
-	  COUNT(DISTINCT won) AS won,
+SELECT player, JSON_ARRAYAGG(max_piety) AS champion,
+	  JSON_ARRAYAGG(won) AS won,
 	  COUNT(DISTINCT max_piety) + COUNT(DISTINCT won) AS piety
   FROM player_god_usage
   GROUP BY player;
@@ -225,8 +225,8 @@ SELECT player, COUNT(DISTINCT max_piety) AS champion,
 CREATE OR REPLACE VIEW clan_piety_score AS
 SELECT p.team_captain,
     JSON_OBJECT('name', teams.name, 'captain', p.team_captain) AS team_info_json,
-    COUNT(DISTINCT g.max_piety) AS champion,
-	  COUNT(DISTINCT g.won) AS won,
+    JSON_ARRAYAGG(g.max_piety) AS champion,
+    JSON_ARRAYAGG(g.won) AS won,
 	  COUNT(DISTINCT g.max_piety) + COUNT(DISTINCT g.won) AS piety
   FROM player_god_usage AS g
     INNER JOIN players AS p ON g.player = p.name

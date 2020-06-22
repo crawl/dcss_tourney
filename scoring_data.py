@@ -152,6 +152,16 @@ def _pretty_exploration(explore_data):
 
     return outstr
 
+def _pretty_godlist(gods):
+    if isinstance(gods, str):
+        gods = json.loads(gods)
+    if gods is None:
+        return ''
+    gods = filter(lambda x: x is not None, gods)
+    gods.sort()
+    # TODO: Altar icons?!
+    return ", ".join(gods)
+
 # The relevant info is consolidated into a single json object in the database
 # since that's easier than dealing with column spanning in the transformation
 # function specifications, but it still is a bit of a hack and needs this fixup
@@ -247,8 +257,10 @@ INDIVIDUAL_CATEGORIES = (
         "piety DESC",
         [
             ColumnDisplaySpec("piety", "Score", True, True, None),
-            ColumnDisplaySpec("champion", "Gods Championed...", False, True, None),
-            ColumnDisplaySpec("won", "...and won", False, True, None),
+            ColumnDisplaySpec("champion", "Gods Championed...", False,
+                False, _pretty_godlist),
+            ColumnDisplaySpec("won", "...and won", False, False,
+                _pretty_godlist),
         ],
     ),
     Category(
@@ -480,8 +492,10 @@ CLAN_CATEGORIES = (
         "piety DESC",
         [
             ColumnDisplaySpec("piety", "Score", True, True, None),
-            ColumnDisplaySpec("champion", "Gods Championed...", False, True, None),
-            ColumnDisplaySpec("won", "...and won", False, True, None),
+            ColumnDisplaySpec("champion", "Gods Championed...", False, False,
+                _pretty_godlist),
+            ColumnDisplaySpec("won", "...and won", False, False,
+                _pretty_godlist),
         ],
     ),
     Category(
