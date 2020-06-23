@@ -588,8 +588,8 @@ def calc_perc(num, den):
     return num * 100.0 / den
 
 def get_all_game_stats(c):
-  played = query_first(c, '''SELECT COUNT(*) FROM games''')
-  distinct_players = query_first(c, '''SELECT COUNT(DISTINCT player) FROM games''')
+  played = query_first(c, '''SELECT COUNT(*) FROM games WHERE killertype NOT IN ('quitting', 'leaving', 'wizmode')''')
+  distinct_players = query_first(c, '''SELECT COUNT(DISTINCT player) FROM games WHERE killertype NOT IN ('quitting', 'leaving', 'wizmode')''')
   won = query_first(c, """SELECT COUNT(*) FROM games
                           WHERE killertype='winning'""")
   distinct_winners = query_first(c, """SELECT COUNT(DISTINCT player) FROM games
