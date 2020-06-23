@@ -1247,6 +1247,17 @@ def load_args():
 
   return parser.parse_args()
 
+def run_sql_file(cursor, file):
+  with open(file) as f:
+    lines = [(line.rstrip() + ' ') for line in f.readlines() if (line.strip() and not line.lstrip().startswith('--'))]
+    lines = ''.join(lines)
+    lines = lines.split(';')
+    for line in lines:
+      if not line.strip():
+        continue
+      # info("Running %r" % line)
+      cursor.execute(line)
+
 def validate_db(cursor):
   """Check the database structure exists and create it if not."""
   try:
@@ -1254,15 +1265,8 @@ def validate_db(cursor):
   except MySQLdb.ProgrammingError as e:
     if e.args[0] == 1146:
       info("Database structure doesn't exist. Creating now.")
-      with open('database.sql') as f:
-        lines = [(line.rstrip() + ' ') for line in f.readlines() if (line.strip() and not line.lstrip().startswith('--'))]
-      lines = ''.join(lines)
-      lines = lines.split(';')
-      for line in lines:
-        if not line.strip():
-          continue
-        # info("Running %r" % line)
-        cursor.execute(line)
+      run_sql_file(cursor, 'database-tables.sql')
+      run_sql_file(cursor, 'database-views.sql')
       info("Created database structure")
 
 if __name__ == '__main__':
