@@ -11,6 +11,6 @@ fi
 
 set -e
 player=$1
-sql=$(cat blacklist_player.sql)
+sql=$(cat blocklist_player.sql)
 printf "%s\n" "${sql//\#NAME\#/$player}" | mysql -ucrawl tournament
 echo "Removed entries for player $player from the database."

@@ -80,13 +80,13 @@ MILESTONES = TEST_MILESTONES or [
            LogSpec('lld', 'milestones/lld-milestones-0.25', LLD + 'mirror/meta/0.25/milestones'),
   ]
 
-GAME_BLACKLIST_FILE = 'game_blacklist.txt'
+GAME_BLOCKLIST_FILE = 'game_blocklist.txt'
 
-PLAYER_BLACKLIST_FILE = 'player_blacklist.txt'
-player_blacklist = []
-if os.path.isfile(PLAYER_BLACKLIST_FILE):
-    fh = open(PLAYER_BLACKLIST_FILE)
-    player_blacklist += [l.strip().lower() for l in fh.readlines()]
+PLAYER_BLOCKLIST_FILE = 'player_blocklist.txt'
+player_blocklist = []
+if os.path.isfile(PLAYER_BLOCKLIST_FILE):
+    fh = open(PLAYER_BLOCKLIST_FILE)
+    player_blocklist += [l.strip().lower() for l in fh.readlines()]
     fh.close()
 
 
@@ -107,22 +107,22 @@ def support_mysql57(c):
         modes = [m for m in modes if m != 'ONLY_FULL_GROUP_BY']
         c.execute("SET SESSION sql_mode = '%s'" % ','.join(modes))
 
-class GameBlacklist(object):
+class GameBlocklist(object):
   def __init__(self, filename):
     self.filename = filename
     if os.path.exists(filename):
-      info("Loading game blacklist from " + filename)
-      self.load_blacklist()
+      info("Loading game blocklist from " + filename)
+      self.load_blocklist()
 
-  def load_blacklist(self):
+  def load_blocklist(self):
     fh = open(self.filename)
     lines = fh.readlines()
     fh.close()
-    self.blacklist = [apply_dbtypes(parse_logline(x.strip()))
+    self.blocklist = [apply_dbtypes(parse_logline(x.strip()))
                       for x in lines if x.strip()]
 
-  def is_blacklisted(self, game):
-    for b in self.blacklist:
+  def is_blocklisted(self, game):
+    for b in self.blocklist:
       if xlog_match(b, game):
         return True
     return False
@@ -215,7 +215,7 @@ class Xlogline:
       raise
 
 class Xlogfile:
-  def __init__(self, filename, url, src, tell_op, proc_op, blacklist=None):
+  def __init__(self, filename, url, src, tell_op, proc_op, blocklist=None):
     self.local = url is None
     self.filename = filename
     self.url = url
@@ -225,7 +225,7 @@ class Xlogfile:
     self.tell_op = tell_op
     self.proc_op = proc_op
     self.size  = None
-    self.blacklist = blacklist
+    self.blocklist = blocklist
 
   def reinit(self):
     """Reinitialize for a further read from this file."""
@@ -259,14 +259,14 @@ class Xlogfile:
     self._open()
     return self.handle
 
-  def apply_blacklist(self, xdict):
-    # Blacklisted games are mauled here:
-    xdict['ktyp'] = 'blacklist'
+  def apply_blocklist(self, xdict):
+    # Blocked games are mauled here:
+    xdict['ktyp'] = 'blocked'
     xdict['place'] = 'D:1'
     xdict['xl'] = 1
     xdict['lvl'] = 1
-    xdict['tmsg'] = 'was blacklisted.'
-    xdict['vmsg'] = 'was blacklisted.'
+    xdict['tmsg'] = 'was blocked.'
+    xdict['vmsg'] = 'was blocked.'
 
   def line(self, cursor):
     if not self.have_handle():
@@ -310,8 +310,8 @@ class Xlogfile:
 
       try:
         xdict = apply_dbtypes( xlog_dict(line) )
-        if self.blacklist and self.blacklist.is_blacklisted(xdict):
-          self.apply_blacklist(xdict)
+        if self.blocklist and self.blocklist.is_blocklisted(xdict):
+          self.apply_blocklist(xdict)
       except:
         sys.stderr.write("Error processing line: " + line + "\n")
         raise
@@ -329,9 +329,9 @@ class Xlogfile:
       return xline
 
 class Logfile (Xlogfile):
-  def __init__(self, filename, url, src, blacklist):
+  def __init__(self, filename, url, src, blocklist):
     Xlogfile.__init__(self, filename=filename, url=url, src=src,
-      tell_op=logfile_offset, proc_op=process_log, blacklist=blacklist)
+      tell_op=logfile_offset, proc_op=process_log, blocklist=blocklist)
 
 class MilestoneFile (Xlogfile):
   def __init__(self, filename, url, src):
@@ -759,7 +759,7 @@ def is_not_tourney(game):
   """A game started before the tourney start or played after the end
   doesn't count."""
 
-  if game.get('name').lower() in player_blacklist:
+  if game.get('name').lower() in player_blocklist:
     return True
 
   start = game.get('start')
@@ -1224,11 +1224,11 @@ def cleanup_listeners(db):
     e.cleanup(db)
 
 def create_master_reader():
-  blacklist = GameBlacklist(GAME_BLACKLIST_FILE)
+  blocklist = GameBlocklist(GAME_BLOCKLIST_FILE)
   processors = ([ MilestoneFile(filename=x.local_path, url=x.url, src=x.src)
                   for x in MILESTONES ] +
                 [ Logfile(filename=x.local_path, url=x.url, src=x.src,
-                    blacklist=blacklist)
+                    blocklist=blocklist)
                   for x in LOGS ])
   return MasterXlogReader(processors)
 

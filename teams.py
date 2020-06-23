@@ -27,7 +27,7 @@ import banner
 import outline
 
 import logging
-from loaddb import query_first_col, player_blacklist
+from loaddb import query_first_col, player_blocklist
 from logging import debug, info, warn, error
 
 # Register listener and timer.
@@ -78,7 +78,7 @@ def get_teams(directory_list):
           while (count < max_count):
             line = linelist[count]
             player = line.split('.')[0].lower()
-            if player in player_blacklist or player in players:
+            if player in player_blocklist or player in players:
                 count += 1
                 continue
             linenum = line.split(':')[1]
@@ -112,7 +112,7 @@ def get_teams(directory_list):
                         elements = re.sub('[^\w -]', '', line[offset:]).split(' ')
                         if elements[0] == 'TEAMMEMBERS':
                             draftedones = [name.lower() for name in elements[1:7]
-                                           if name.lower() not in player_blacklist]
+                                           if name.lower() not in player_blocklist]
                             if player in draftedones:
                                 draftees[player] = draftedones
                             else:
@@ -122,7 +122,7 @@ def get_teams(directory_list):
 
         if fnmatch.fnmatch(filename, '*.rc'):
             player = filename[:-3].lower()
-            if player in player_blacklist or player in players:
+            if player in player_blocklist or player in players:
                 continue
             rcfile = open(os.path.join(directory, filename))
             line = rcfile.readline()
@@ -146,7 +146,7 @@ def get_teams(directory_list):
                     elements = re.sub('[^\w -]', '', line[offset:]).split(' ')
                     if elements[0] == 'TEAMMEMBERS':
                         draftedones = [name.lower() for name in elements[1:7]
-                                       if name.lower() not in player_blacklist]
+                                       if name.lower() not in player_blocklist]
                         if player in draftedones:
                             draftees[player] = draftedones
                         else:
