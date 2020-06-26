@@ -414,7 +414,7 @@ def table_text(headers, data, count=True,
       val = row[c]
       if isinstance(val, str):
         # TODO: is there a better sort value than something like this to use?
-        sort_val = "ZZZZZ" if val == "" or val == "-" else val
+        sort_val = "9999999999" if val == "" or val == "-" else val
         val_embedded_str = sort_val.find('"')
         if val_embedded_str > -1:
           # pretty hacky: if there is an embedded '"', we take the contents of
