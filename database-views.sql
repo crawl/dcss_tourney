@@ -388,7 +388,7 @@ SELECT c.player AS player,
 CREATE OR REPLACE VIEW clan_combo_score AS
 SELECT p.team_captain,
        JSON_OBJECT('name', teams.name, 'captain', team_captain) AS team_info_json,
-       COUNT(*) + COUNT(c.killertype='winning')
+       COUNT(*) + SUM(c.killertype='winning')
                  + 3 * COUNT(sp.raceabbr) + 3 * COUNT(cl.class) AS total,
        COUNT(*) AS combos,
        COUNT(c.killertype='winning') AS won_combos,
