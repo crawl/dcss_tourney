@@ -1216,7 +1216,7 @@ def count_gods_mollified(c, player):
                                       AND verb = 'god.mollify'
                                       AND (noun != god OR god IS NULL)
                                       AND noun NOT IN ('the Shining One',
-                                      'Zin', 'Elyvilon', 'Ru')) AS t
+                                      'Zin', 'Elyvilon', 'Ru', 'Beogh')) AS t
                              WHERE t.ord=1''',
                              player)
 
