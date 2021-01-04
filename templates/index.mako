@@ -120,21 +120,24 @@
     <div class="col">
       <h2 id="scoring">Scoring</h2>
       <p>
-	Players earn points across a number of categories (listed below), which
-	either award points <span
-	class="font-weight-bold">proportionally</span> or
-	<span class="font-weight-bold">by rank</span>. 
-	In a <span class="font-weight-bold">proportionally scored
-	category</span> you receive points
-	based on your progress towards a maximum score. The points recieved
-	are: <code> ( progress / maximum )
-	*${"{:,}".format(scoring_data.MAX_CATEGORY_SCORE)}</code>. In a <span
-	class="font-weight-bold">ranked category</span> your
-	rank in that category determines how many point you win from it. The
-	points received are:
-	<code>${"{:,}".format(scoring_data.MAX_CATEGORY_SCORE)} / rank in
-	category</code>. Your overall rank is the sum of points gained across
-	all <code>${len(scoring_data.INDIVIDUAL_CATEGORIES)}</code> categories.
+        Players earn points across a number of categories (listed below), which
+        either award points <span
+        class="font-weight-bold">proportionally</span> or
+        <span class="font-weight-bold">by rank</span>. Your overall rank is the sum of points gained across
+        all <code>${len(scoring_data.INDIVIDUAL_CATEGORIES)}</code> categories.
+      </p>
+      <p>
+        In a <span class="font-weight-bold">proportionally scored
+        category</span> you receive points based on your progress towards a
+        maximum score in the category. The points recieved are: 
+        <code>(progress / category maximum) * ${"{:,}".format(scoring_data.MAX_CATEGORY_SCORE)}</code>. 
+      </p>
+      <p>
+        In a <span class="font-weight-bold">ranked category</span> your
+        rank in that category determines how many point you win from it. The
+        points received are:
+        <code>${"{:,}".format(scoring_data.MAX_CATEGORY_SCORE)} / rank in
+        category</code>.
         <div class="alert alert-dark text-dark" role="alert">
           If you place last in a category, you will always receive 0 points.
         </div>

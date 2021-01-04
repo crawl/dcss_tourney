@@ -54,7 +54,7 @@
             ${html.table_text(
               [ 'Player', 'Overall Score' ],
               data=query.get_top_players(cursor, how_many=10),
-              place_column=1, skip=True,
+              place_column=1, skip=False,
             )}
             <a href="${base_link('all-players-ranks.html')}">
               See full ranking.
@@ -68,7 +68,7 @@
             %>
             ${html.table_text([ 'Clan', 'Overall Score' ],
                               data=clan_summary_table,
-                              place_column=1, skip=True )
+                              place_column=1, skip=False )
             }
             <a href="${base_link('teams.html')}">
               See full ranking.
