@@ -7,9 +7,9 @@ import json
 import random
 from query_class import Query
 
-TOURNAMENT_VERSION = "0.25"
-YEAR = "2020"
-START_TIME = datetime.datetime(2020, 6, 12, 20, 0)
+TOURNAMENT_VERSION = "0.26"
+YEAR = "2021"
+START_TIME = datetime.datetime(2021, 1, 8, 20, 0)
 END_TIME = START_TIME + datetime.timedelta(days=16)
 CLAN_CUTOFF_TIME = START_TIME + datetime.timedelta(days=7)
 
@@ -19,7 +19,7 @@ MAX_CATEGORY_SCORE = 10000
 SERVERS = {
     "CPO": "https://crawl.project357.org/",
     "CAO": "http://crawl.akrasiac.org:8080/",
-    "CBRO": "http://crawl.berotato.org/",
+    "CBR2": "https://cbro.berotato.org:8443/",
     "CDO": None,
     "CKO": "https://crawl.kelbi.org/",
     "CUE": "https://underhound.eu:8080/",
