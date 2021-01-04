@@ -1609,12 +1609,43 @@ def update_rank(c, rank_table, source_foreign_key, source_rank_order_clause,
     query_do(c, query_text)
     return
 
+def update_score(c, rank_table, source_foreign_key, source_rank_order_clause,
+    source_table, rank_table_key, rank_column):
+    query_text = '''
+    UPDATE
+      {rank_table} AS t
+      INNER JOIN {source_table} AS r
+      ON
+        t.{rank_table_key} = r.{source_foreign_key}
+      SET
+        t.{rank_column} = r.{source_rank_order_clause}
+    '''.format(
+        rank_table = rank_table,
+        source_foreign_key = source_foreign_key,
+        source_rank_order_clause=source_rank_order_clause,
+        source_table=source_table,
+        rank_table_key=rank_table_key,
+        rank_column=rank_column,
+    )
+    query_do(c, query_text)
+    return
+
 def update_all_player_ranks(c):
     for ic in INDIVIDUAL_CATEGORIES:
-        if ic.source_table is not None:
+        if ic.source_table is not None and not ic.proportional:
             info("Updating player rank for %s", ic.name)
             update_rank(
                 c,
+                rank_table='players',
+                source_foreign_key='player',
+                source_rank_order_clause=ic.rank_order_clause,
+                source_table=ic.source_table,
+                rank_table_key='name',
+                rank_column=ic.rank_column,
+            )
+        elif ic.source_table is not None:
+            info("Updating player score for %s", ic.name)
+            update_score(c,
                 rank_table='players',
                 source_foreign_key='player',
                 source_rank_order_clause=ic.rank_order_clause,
@@ -1634,7 +1665,7 @@ def update_clan_wins(c):
 def update_all_clan_ranks(c):
     update_clan_wins(c)
     for cc in CLAN_CATEGORIES:
-        if cc.source_table is not None:
+        if cc.source_table is not None and not cc.proportional:
             info("Updating clan rank for %s", cc.name)
             update_rank(
                 c,
@@ -1645,13 +1676,28 @@ def update_all_clan_ranks(c):
                 rank_table_key='owner',
                 rank_column=cc.rank_column,
             )
+        elif cc.source_table is not None:
+            info("Updating clan score for %s", cc.name)
+            update_score(c,
+                rank_table='teams',
+                source_foreign_key='team_captain',
+                source_rank_order_clause=cc.rank_order_clause,
+                source_table=cc.source_table,
+                rank_table_key='owner',
+                rank_column=cc.rank_column,
+            )
     return
 
-def score_term(col):
-    return "COALESCE( %5.1f / %s, 0.0 )" % (MAX_CATEGORY_SCORE, col)
+def score_term(cat):
+    if cat.proportional:
+        return "COALESCE( %5.1f * ( %s / %5.1f ), 0.0 )" % (MAX_CATEGORY_SCORE,
+                cat.rank_column, cat.max)
+    else:
+        return "COALESCE( %5.1f / %s, 0.0 )" % (MAX_CATEGORY_SCORE,
+                cat.rank_column)
 
 def update_player_scores(c):
-    SCOREFUNC = "CAST( (" + "+".join([ score_term(ic.rank_column) for
+    SCOREFUNC = "CAST( (" + "+".join([ score_term(ic) for
         ic in INDIVIDUAL_CATEGORIES]) \
         + ") AS DECIMAL(7,0))";
 
@@ -1659,7 +1705,7 @@ def update_player_scores(c):
                    SET score_full = ''' + SCOREFUNC)
 
 def update_clan_scores(c):
-    SCOREFUNC = "CAST( (" + "+".join([ score_term(cc.rank_column) for
+    SCOREFUNC = "CAST( (" + "+".join([ score_term(cc) for
         cc in CLAN_CATEGORIES]) \
         + ") AS DECIMAL(7,0))";
 
