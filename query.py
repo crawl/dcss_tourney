@@ -1177,34 +1177,18 @@ def game_did_visit_branch(c, player, start_time):
                                   OR (noun = 'Vaults')) ''',
                      player, start_time)
 
-def count_gods_abandoned(c, player, start_time):
-  abandon_table = query_rows(c, '''SELECT noun, MAX(turn)
-                                     FROM milestones
-                                    WHERE player = %s
-                                      AND start_time = %s
-                                      AND verb = 'god.renounce'
-                                      AND xl < 14
-                                 GROUP BY noun
-                                 ORDER BY noun''', player, start_time)
-  worship_table = query_rows(c, '''SELECT noun, MAX(turn)
-                                     FROM milestones
-                                    WHERE player = %s
-                                      AND start_time = %s
-                                      AND verb = 'god.worship'
-                                      AND xl < 14
-                                 GROUP BY noun
-                                 ORDER BY noun''', player, start_time)
-  count = 0
-  for row1 in abandon_table:
-    if row1[0] in ['the Shining One', 'The Shining One', 'Zin', 'Elyvilon']:
-      continue
-    good = True
-    for row2 in worship_table:
-      if row1[0] == row2[0] and row1[1] < row2[1]:
-        good = False
-    if good:
-      count += 1
-  return count
+def count_gods_abandoned_no_rejoin(c, player):
+  return query_first(c,
+      '''SELECT COUNT(DISTINCT m.noun)
+           FROM milestones AS m
+LEFT OUTER JOIN milestones AS m2
+             ON m.player = m2.player AND m.game_id = m2.game_id
+                AND m.turn < m2.turn
+          WHERE m.player = %s
+            AND m.verb = 'god.renounce'
+            AND NOT (m2.verb = 'god.worship' AND m2.noun = m.noun)
+            AND m.noun NOT IN ('the Shining One', 'Zin', 'Elyvilon',
+                             'Ru', 'Beogh')''', player)
 
 def count_gods_mollified(c, player):
   return query_first(c, '''SELECT COUNT(DISTINCT t.noun) FROM

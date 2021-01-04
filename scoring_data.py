@@ -693,9 +693,9 @@ BANNERS = [
         "Beogh",
         "Heretic",
         BannerTiers(
+            "Abandon a god and do not rejoin them during the game",
             "Abandon and mollify one god",
             "Abandon and mollify 3 different gods in 3 different games",
-            "Abandon and mollify 9 different gods in 9 different games",
         ),
         'Beogh hates all the other gods and admires <code>HERETICS</code> who go out of their way to incur their wrath. The good gods (Elyvilon, the Shining One, and Zin) and Ru are insufficiently wrathful, so abandoning them does not impress Beogh. Any god except the good gods, Ru, and Beogh are hence applicable for this banner. Only the first god abandoned in a game counts for this banner, Beogh wants the heresies spread around!',
         "beogh",
