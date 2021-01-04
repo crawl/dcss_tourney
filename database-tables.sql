@@ -26,9 +26,9 @@ DROP TABLE IF EXISTS games;
 DROP TABLE IF EXISTS teams;
 DROP TABLE IF EXISTS players;
 
--- Player ranking in various categories; in principle this can
--- all be achieved from the extant database, but requires the RANK() window
--- function on a large join, so we cache it here.
+-- Player ranking in various categories; in principle this can all be achieved
+-- from the extant database, but requires the DENSE_RANK() window function on a
+-- large join, so we cache it here.
 CREATE TABLE IF NOT EXISTS players (
   name VARCHAR(20) PRIMARY KEY,
   team_captain VARCHAR(20),
