@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS players (
   team_captain VARCHAR(20),
   -- These aare the computed scores! We will overwrite it each time we
   -- recalculate it, and it may be null at any point.
-  score_full DECIMAL(5,0),
+  score_full DECIMAL(7,0),
   nonrep_wins INT,
   first_win INT,
   first_allrune_win INT,
@@ -61,7 +61,7 @@ CREATE TABLE teams (
   owner VARCHAR(20) UNIQUE NOT NULL,
   name VARCHAR(255) NOT NULL,
   -- Clan scores, will be recomputed at intervals.
-  total_score DECIMAL(5,0),
+  total_score DECIMAL(7,0),
   nonrep_wins INT,
   streak INT,
   highest_score INT,

@@ -1653,7 +1653,7 @@ def score_term(col):
 def update_player_scores(c):
     SCOREFUNC = "CAST( (" + "+".join([ score_term(ic.rank_column) for
         ic in INDIVIDUAL_CATEGORIES]) \
-        + ") / %d AS DECIMAL(5,0))" % len(INDIVIDUAL_CATEGORIES);
+        + ") AS DECIMAL(7,0))";
 
     query_do(c, '''UPDATE players
                    SET score_full = ''' + SCOREFUNC)
@@ -1661,7 +1661,7 @@ def update_player_scores(c):
 def update_clan_scores(c):
     SCOREFUNC = "CAST( (" + "+".join([ score_term(cc.rank_column) for
         cc in CLAN_CATEGORIES]) \
-        + ") / %d AS DECIMAL(5,0))" % len(CLAN_CATEGORIES);
+        + ") AS DECIMAL(7,0))";
 
     query_do(c, '''UPDATE teams SET total_score = ''' + SCOREFUNC)
 
