@@ -120,7 +120,12 @@
     <div class="col">
       <h2 id="scoring">Scoring</h2>
       <p>
-        Players are ranked across a number of categories (listed below). Your rank in a category determines how many point you win from it. The points received are: <code>${"{:,}".format(scoring_data.MAX_CATEGORY_SCORE)} / rank in category</code>. Your overall rank is the average of points gained across all <code>${len(scoring_data.INDIVIDUAL_CATEGORIES)}</code> categories.
+	Players are ranked across a number of categories (listed below). Your
+	rank in a category determines how many point you win from it. The
+	points received are:
+	<code>${"{:,}".format(scoring_data.MAX_CATEGORY_SCORE)} / rank in
+	category</code>. Your overall rank is the sum of points gained across
+	all <code>${len(scoring_data.INDIVIDUAL_CATEGORIES)}</code> categories.
         <div class="alert alert-dark text-dark" role="alert">
           If you place last in a category, you will always receive 0 points.
         </div>
