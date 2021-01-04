@@ -82,7 +82,7 @@ def category_leaders(category, cursor, brief=False, limit=None):
 
     query_text = """
         SELECT
-            RANK() OVER (ORDER BY {rank_order_clause}) AS rk,
+            DENSE_RANK() OVER (ORDER BY {rank_order_clause}) AS rk,
             {row_owner},
             {columns}
         FROM

@@ -1588,7 +1588,7 @@ def update_rank(c, rank_table, source_foreign_key, source_rank_order_clause,
       INNER JOIN (
         SELECT
           {source_foreign_key},
-          RANK() OVER(ORDER BY {source_rank_order_clause}) AS rk
+          DENSE_RANK() OVER(ORDER BY {source_rank_order_clause}) AS rk
         FROM
           {source_table}
         WHERE
