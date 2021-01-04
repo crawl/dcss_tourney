@@ -366,9 +366,9 @@ SELECT team_captain,
 
 CREATE OR REPLACE VIEW player_combo_score AS
 SELECT c.player AS player,
-       COUNT(*) + SUM(c.killertype='winning')
-                 + 3 * COUNT(sp.raceabbr) + 3 * COUNT(cl.class) AS total,
-       COUNT(*) AS combos,
+       SUM(c.xl >= 9) + 9 * SUM(c.killertype='winning')
+                 + 27 * COUNT(sp.raceabbr) + 27 * COUNT(cl.class) AS total,
+       SUM(c.xl >= 9) AS combos,
        SUM(c.killertype='winning') AS won_combos,
        COUNT(sp.raceabbr) AS sp_hs, COUNT(cl.class) AS cls_hs,
        JSON_ARRAYAGG(JSON_OBJECT('source_file', c.source_file,
@@ -388,9 +388,9 @@ SELECT c.player AS player,
 CREATE OR REPLACE VIEW clan_combo_score AS
 SELECT p.team_captain,
        JSON_OBJECT('name', teams.name, 'captain', team_captain) AS team_info_json,
-       COUNT(*) + SUM(c.killertype='winning')
-                 + 3 * COUNT(sp.raceabbr) + 3 * COUNT(cl.class) AS total,
-       COUNT(*) AS combos,
+       SUM(c.xl >= 9) + 9 * SUM(c.killertype='winning')
+                 + 27 * COUNT(sp.raceabbr) + 27 * COUNT(cl.class) AS total,
+       SUM(c.xl >= 9) AS combos,
        COUNT(c.killertype='winning') AS won_combos,
        COUNT(sp.raceabbr) AS sp_hs, COUNT(cl.class) AS cls_hs,
        JSON_ARRAYAGG(JSON_OBJECT('source_file', c.source_file,
