@@ -15,10 +15,20 @@
       name=name,
     )
 
-  def points_for_rank(rank_num):
-    if not rank_num:
-      return "-"
-    return str(int(round(scoring_data.MAX_CATEGORY_SCORE / rank_num, 0)))
+  def points_for_result(result, category):
+    if not result.rank:
+      return 0
+    if category.proportional:
+      return int(round((result.rank * scoring_data.MAX_CATEGORY_SCORE) /
+                        category.max, 0)) 
+    else:
+      return int(round(scoring_data.MAX_CATEGORY_SCORE / result.rank, 0))
+
+  def rank_for_result(result, category):
+    if category.proportional:
+      return str("%d/%d" % (result.rank, category.max))
+    else:
+      return "{:,}".format(result.rank)
 %>
 
 <%block name="title">
@@ -114,14 +124,15 @@
             <th scope="row" class="text-monospace text-right">${overall_rank}</th>
             <th scope="row" class="text-monospace text-right">
               <%
-              points = int(
-                round(
-                  sum(
-                    float(points_for_rank(result.rank))
-                    for result in clan_category_results.values()
-                    if result.rank is not None
-                  ) / len(clan_category_results)
-                , 0)
+                points = int(
+                  round(
+                    sum(
+                      float(points_for_result(clan_category_results[c.name], c)
+                            or 0.0)
+                      for c in scoring_data.CLAN_CATEGORIES
+                    )
+                  , 0)
+                )
               )
               %>
               ${'{:,}'.format(points)}
@@ -139,8 +150,10 @@
                   ${category.name}
                 </a>
               </td>
-              <td class="text-monospace text-right">${results.rank if results.rank else '-'}</td>
-              <td class="text-monospace text-right">${'{:,}'.format(int(points_for_rank(results.rank))) if results.rank else '-'}</td>
+              <td class="text-monospace text-right">${rank_for_result(results,
+              category) if results.rank else '-'}</td>
+              <td class="text-monospace
+              text-right">${'{:,}'.format(points_for_result(results, category)) if results.rank else '-'}</td>
               <!--<td>${results.details if results.details else ''}</td>-->
             </tr>
           % endfor

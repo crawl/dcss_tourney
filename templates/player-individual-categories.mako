@@ -1,10 +1,16 @@
-<%page args="points_for_rank"/>
+<%page args="points_for_result"/>
 
 <%
   import crawl_utils
   from crawl_utils import XXX_IMAGE_BASE, base_link
   import html
   import scoring_data
+
+  def rank_for_result(result, category):
+    if category.proportional:
+      return str("%d/%d" % (result.rank, category.max))
+    else:
+      return "{:,}".format(result.rank)
 %>
 
 <h2>Individual Categories</h2>
@@ -31,10 +37,10 @@
         points = int(
           round(
             sum(
-              float(points_for_rank(result.rank))
-              for result in individual_category_results.values()
-              if result.rank is not None
-            ) / len(individual_category_results)
+              float(points_for_result(individual_category_results[c.name], c)
+	            or 0.0)
+              for c in scoring_data.INDIVIDUAL_CATEGORIES
+            )
           , 0)
         )
         %>
@@ -52,8 +58,10 @@
           ${category.name}
         </a>
       </td>
-      <td class="text-monospace text-right">${results.rank if results.rank else '-'}</td>
-      <td class="text-monospace text-right">${'{:,}'.format(int(points_for_rank(results.rank))) if results.rank else '-'}</td>
+      <td class="text-monospace text-right">${rank_for_result(results,
+      category) if results.rank else '-'}</td>
+      <td class="text-monospace
+      text-right">${'{:,}'.format(points_for_result(results, category)) if results.rank else '-'}</td>
       <!--<td>${results.details if results.details else ''}</td>-->
     </tr>
   % endfor

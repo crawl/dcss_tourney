@@ -275,7 +275,7 @@ INDIVIDUAL_CATEGORIES = (
         100,
         "player_exploration_score",
         "score",
-        [ColumnDisplaySpec("score", "Score", True, True, None),
+        [ColumnDisplaySpec("score", "Progress / 100", True, True, None),
          ColumnDisplaySpec("data", "Oh! The Places You've Gone", False, False,
              _pretty_exploration),],
     ),
@@ -289,7 +289,7 @@ INDIVIDUAL_CATEGORIES = (
         "player_piety_score",
         "piety",
         [
-            ColumnDisplaySpec("piety", "Score", True, True, None),
+            ColumnDisplaySpec("piety", "Progress / 49", True, True, None),
             ColumnDisplaySpec("champion", "Gods Championed...", False,
                 False, _pretty_godlist),
             ColumnDisplaySpec("won", "...and won", False, False,
@@ -305,7 +305,7 @@ INDIVIDUAL_CATEGORIES = (
         81,
         "player_harvest_score",
         "score",
-        [ColumnDisplaySpec("score", "Score", True, True, None),
+        [ColumnDisplaySpec("score", "Progress / 81", True, True, None),
          ColumnDisplaySpec("data", "Uniques Slain", False, False,
              _pretty_harvest),],
     ),
@@ -526,7 +526,7 @@ INDIVIDUAL_CATEGORIES = (
         "player_banner_score",
         "bscore",
         [
-            ColumnDisplaySpec("bscore", "Banner Points", True, True, None),
+            ColumnDisplaySpec("bscore", "Banner Completion / 100", True, True, None),
             ColumnDisplaySpec(
                 "banners", "Banners Completed", False, False, _pretty_banners
             ),
@@ -544,7 +544,7 @@ CLAN_CATEGORIES = (
         100,
         "clan_exploration_score",
         "score",
-        [ColumnDisplaySpec("score", "Score", True, True, None),
+        [ColumnDisplaySpec("score", "Progress / 100", True, True, None),
          ColumnDisplaySpec("data", "Oh! The Places You've Gone", False, False,
              _pretty_exploration),],
     ),
@@ -558,7 +558,7 @@ CLAN_CATEGORIES = (
         "clan_piety_score",
         "piety",
         [
-            ColumnDisplaySpec("piety", "Score", True, True, None),
+            ColumnDisplaySpec("piety", "Progress / 49", True, True, None),
             ColumnDisplaySpec("champion", "Gods Championed...", False, False,
                 _pretty_godlist),
             ColumnDisplaySpec("won", "...and won", False, False,
@@ -574,7 +574,7 @@ CLAN_CATEGORIES = (
         81,
         "clan_harvest_score",
         "score",
-        [ColumnDisplaySpec("score", "Score", True, True, None),
+        [ColumnDisplaySpec("score", "Progress / 81", True, True, None),
          ColumnDisplaySpec("data", "Uniques Slain", False, False,
              _pretty_harvest),],
     ),
@@ -735,7 +735,7 @@ CLAN_CATEGORIES = (
         "clan_banner_score",
         "bscore",
         [
-            ColumnDisplaySpec("bscore", "Banner Points", True, True, None),
+            ColumnDisplaySpec("bscore", "Banner Progress / 100", True, True, None),
             ColumnDisplaySpec(
                 "banners", "Banners Completed", False, False, _pretty_banners
             ),
