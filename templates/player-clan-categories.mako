@@ -10,6 +10,8 @@
 % for category in scoring_data.CLAN_CATEGORIES:
 <%
   results = clan_category_results[category.name]
+  if category.proportional:
+    continue
 %>
 <div class="row">
   <div class="col">

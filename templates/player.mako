@@ -25,10 +25,14 @@
       suffix = 'th'
     return '%s<sup>%s</sup>' % (num, suffix)
 
-  def points_for_rank(rank_num):
-    if not rank_num:
-      return "-"
-    return str(int(round(scoring_data.MAX_CATEGORY_SCORE / rank_num, 0)))
+  def points_for_result(result, category):
+    if not result.rank:
+      return 0
+    if category.proportional:
+      return int(round((result.rank * scoring_data.MAX_CATEGORY_SCORE) /
+                        category.max, 0)) 
+    else:
+      return int(round(scoring_data.MAX_CATEGORY_SCORE / result.rank, 0))
 
   def pretty_points(points):
     return '{:,}'.format(int(points))
@@ -37,7 +41,7 @@
     if rank_num is None:
       return u"0 points <small>(rank: last)</small>"
     else:
-      points = points_for_rank(rank_num)
+      points = int(round(scoring_data.MAX_CATEGORY_SCORE / result.rank, 0)) 
       ordinal = rank_ordinal(rank_num)
       return u"{points} point{s} <small>(rank: {ordinal})</small>".format(
         points=pretty_points(points),
@@ -122,7 +126,8 @@
 	  player=player"/>
 	</div>
         <div class="tab-pane" id="individual-categories" role="tabpanel" aria-labelledby="individual-categories-tab">
-          <%include file="player-individual-categories.mako" args="points_for_rank=points_for_rank"/>
+          <%include file="player-individual-categories.mako"
+	  args="points_for_result=points_for_result"/>
         </div>
         <div class="tab-pane" id="banners" role="tabpanel" aria-labelledby="banners-tab">
           <%include file="player-banners.mako"/>
