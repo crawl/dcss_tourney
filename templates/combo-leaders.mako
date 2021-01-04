@@ -46,7 +46,7 @@
       </p>
 
       ${html.table_text( [ 'Player', 'Combo High Scores Points', 'Combos' ],
-                            data, place_column=1, skip=True )}
+                            data, place_column=1, skip=False )}
     </div>
   </div>
 </%block>
