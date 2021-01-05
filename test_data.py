@@ -16,10 +16,10 @@ USE_TEST = False
 TEST_YEAR = USE_TEST and '2021'
 TEST_VERSION = USE_TEST and '0.26'
 TEST_START_TIME = USE_TEST and (TEST_YEAR + '01042000')
-TEST_END_TIME   = USE_TEST and (TEST_YEAR + '01072000')
+TEST_END_TIME   = USE_TEST and (TEST_YEAR + '01082000')
 TEST_CLAN_DEADLINE = (USE_TEST and
-                     datetime.datetime(2021, 1, 5, 20))
-TEST_HARE_START_TIME = USE_TEST and (TEST_YEAR + '01062000')
+                     datetime.datetime(2021, 1, 6, 20))
+TEST_HARE_START_TIME = USE_TEST and (TEST_YEAR + '01072000')
 
 # src: str: Name of server this file comes from
 # local_path: str: Path this file is stored at
