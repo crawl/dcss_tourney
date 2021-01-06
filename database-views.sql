@@ -182,9 +182,9 @@ SELECT
 CREATE OR REPLACE VIEW nonhep_wins AS
 SELECT * FROM wins AS g
   WHERE NOT EXISTS (SELECT m.id FROM milestones AS m
-                        WHERE m.game_id = g.id
-                        AND (verb = 'god.renounce' OR verb='god.worship')
-                        AND NOUN = 'Hepliaklqana');
+                        WHERE m.src = g.src AND m.start_time = g.start_time
+                        AND (m.verb = 'god.renounce' OR m.verb='god.worship')
+                        AND m.noun = 'Hepliaklqana');
 
 CREATE OR REPLACE VIEW low_xl_nonhep_wins AS
 SELECT g.*, JSON_OBJECT('source_file', g.source_file,
