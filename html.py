@@ -1005,3 +1005,9 @@ def english_join(items, final="and"):
   else:
     items[-1] = "%s %s" % (final, items[-1])
     return ", ".join(str(item) for item in items)
+
+def category_column_title(cat):
+    if cat.proportional:
+        return "%s (max %d)" % (cat.name, cat.max)
+    else:
+        return cat.name
