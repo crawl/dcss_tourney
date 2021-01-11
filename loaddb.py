@@ -242,9 +242,9 @@ class Xlogfile:
 
   def fetch_remote(self):
     info("Fetching remote %s to %s with wget -c" % (self.url, self.filename))
-    res = os.system("wget -q -c --no-check-certificate --timeout=60 %s -O %s" % (self.url, self.filename))
+    res = os.system("wget -q -c --no-check-certificate --timeout=30 --tries=3 %s -O %s" % (self.url, self.filename))
     if res != 0:
-      raise IOError("Failed to fetch %s with wget" % self.url)
+      error("Failed to fetch %s with wget" % self.url)
 
   def _open(self):
     try:
