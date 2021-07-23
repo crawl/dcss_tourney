@@ -347,62 +347,62 @@
     </div>
   </div>
 
-  <!-- Changes -->
-  <div class="row">
-    <div class="col">
-      <h2>Changes from the 0.25 tournament</h2>
-      <p>
-      <ul>
-        <li>Score is now computed as a sum over categories, instead of an
-        average.</li>
-        <li>Categories are divided into proportional and ranked categories,
-        described in the scoring section.</li>
-        <li>In every ranked category, rank ties do not skip rank numbers based
-        on the number of ties.</li>
-        <li>In the <b>Combo High Scores category</b> a win awards 9 bonus
-        points, and spiecies and background high scores award 27 bonus
-        points.</li>
-        <li>The <b>Harvest category</b> caps player ghosts at 4.</li>
-        <li>The <b>Heretic banner</b> tiers are now: 1: abandon a god and do
-        not rejoin them, 2: abandon a god and mollify them, 3: abandon and
-        mollify 3 distinct gods in 3 different games. </li>
-      </p>
-    </div>
-  </div>
-
-
   <!-- Credits -->
   <div class="row">
     <div class="col">
-      <h2>Credits</h2>
-      <p>
-        This tournament exists thanks to the work of
-        <a href="https://github.com/crawl/dcss_tourney/graphs/contributors">
-          many people</a>,
-	but two people were especially pivotal. <b>ebering</b> designed a new
-        scoring system for this tournament, based on broad consultation with
-        players and other devs over several months. Then he coded up the back
-	end (which
-        required rewriting almost all of the scoring code) in a matter of weeks.
-        Thank you, ebering! <b>chequers</b> matched ebering's dedicated
-	back-end work with an overhaul and modern re-design of the front-end
-	display pages. The tournament would still be using its old display
-	format without his work. Thank you, chequers!
-      </p>
-      <p>
-        Thank you to all the artists whose work is used on this tournament
-        website! All artwork used is released under
-        <a href="https://creativecommons.org/share-your-work/public-domain/cc0/">
-          CC0
-        </a>
-        or with explicit permission from the artist.
-      </p>
+      <h2 id="credits">Credits</h2>
+      We'd like to thank:
+      <ol>
+        <li>
+          Tournament script authors:
+          <ol>
+            <li>
+              Thanks to <b>ebering</b> for designing and implementing the
+              current scoring system.
+           </li>
+           <li>
+             Thanks to <b>chequers</b> for overhauling and re-designing the
+             front-end display pages.
+            </li>
+            <li>
+              Thanks to many others, including <b>advil</b>, <b>|amethyst</b>,
+	      <b>elliptic</b>, and <b>gammafunk</b>, for contributing fixes and
+              enhancements.
+            </li>
+            <li>
+              Thanks to <b>greensnark</b> for writing the original tournament
+              scripts that have been adapted for use in this tournament.
+            </li>
+          </ol>
+        </li>
+        <li>
+          Thanks to <b>Napkin</b> for hosting the tournament scripts as well as
+          <b>|amethyst</b> and <b>rax</b> for hosting past tournaments.
+        </li>
+        <li>
+          Thanks to <b>gammafunk</b> for running tournaments from version 0.18
+          through present, and thanks to <b>elliptic</b> for running the
+          tournaments from versions 0.8 through 0.17.
+        </li>
+	<li>
+	  Thanks to <b>Wensley</b>, <b>ChrisOelmueller</b>, <b>Grunt</b>, and
+          <b>CanOfWorms</b> for creating the banner images.
+        </li>
+        <li>
+	  Thanks to all <a href="https://github.com/crawl/dcss_tourney/graphs/contributors">contributers</a>
+          who help make DCSS possible!
+        </li>
+        <li>
+	  Thank you to all the artists whose work is used on this tournament
+          website! All artwork used is released under
+          <a href="https://creativecommons.org/share-your-work/public-domain/cc0/"> CC0</a>
+          or with explicit permission from the artist.
+        </li>
+      </ol>
       <p class="small">
         If you are interested in contributing artwork to DCSS, please release
         your work under CC0 and submit to the
-        <a href="https://github.com/crawl/crawl#community">
-          DCSS dev team!
-        </a>
+        <a href="https://github.com/crawl/crawl#community">DCSS dev team!</a>
       </p>
     </div>
   </div>
