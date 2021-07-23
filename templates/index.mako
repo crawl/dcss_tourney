@@ -289,23 +289,16 @@
   <!-- Changes -->
   <div class="row">
     <div class="col">
-      <h2 id="changes">Changes from the 0.25 tournament</h2>
+      <h2 id="changes">Changes from the 0.26 tournament</h2>
+      <!-- Example
       <p>
       <ul>
-        <li>Score is now computed as a sum over categories, instead of an
-        average.</li>
-        <li>Categories are divided into proportional and ranked categories,
-        described in the scoring section.</li>
-        <li>In every ranked category, rank ties do not skip rank numbers based
-        on the number of ties.</li>
         <li>In the <b>Combo High Scores category</b> a win awards 9 bonus
         points, and spiecies and background high scores award 27 bonus
         points.</li>
-        <li>The <b>Harvest category</b> caps player ghosts at 4.</li>
-        <li>The <b>Heretic banner</b> tiers are now: 1: abandon a god and do
-        not rejoin them, 2: abandon a god and mollify them, 3: abandon and
-        mollify 3 distinct gods in 3 different games. </li>
+      </ul>
       </p>
+      -->
     </div>
   </div>
 
