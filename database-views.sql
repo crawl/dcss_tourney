@@ -182,9 +182,9 @@ SELECT
 CREATE OR REPLACE VIEW nonhep_wins AS
 SELECT * FROM wins AS g
   WHERE NOT EXISTS (SELECT m.id FROM milestones AS m
-                        WHERE m.game_id = g.id
-                        AND (verb = 'god.renounce' OR verb='god.worship')
-                        AND NOUN = 'Hepliaklqana');
+                        WHERE m.src = g.src AND m.start_time = g.start_time
+                        AND (m.verb = 'god.renounce' OR m.verb='god.worship')
+                        AND m.noun = 'Hepliaklqana');
 
 CREATE OR REPLACE VIEW low_xl_nonhep_wins AS
 SELECT g.*, JSON_OBJECT('source_file', g.source_file,
@@ -335,7 +335,7 @@ CREATE OR REPLACE VIEW ghost_kill_count AS
 SELECT player, IF(COUNT(*) <= 4, COUNT(*), 4) AS score FROM kills_of_ghosts GROUP BY player;
 
 CREATE OR REPLACE VIEW clan_ghost_kill_count AS
-SELECT p.team_captain, COUNT(*) AS score
+SELECT p.team_captain,  IF(COUNT(*) <= 4, COUNT(*), 4) AS score
   FROM kills_of_ghosts AS u INNER JOIN players AS p
     ON u.player = p.name
   GROUP BY p.team_captain;

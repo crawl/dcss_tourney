@@ -22,7 +22,7 @@ else:
 if "WEB_BASE" in os.environ:
     WEB_BASE = os.environ["WEB_BASE"]
 else:
-    WEB_BASE = 'https://crawl.develz.org/tournament/0.25'
+    WEB_BASE = 'https://crawl.develz.org/tournament/0.26'
 
 LOCK = None
 
@@ -41,7 +41,7 @@ LOCKFILE = BASEDIR + '/tourney-py.lock'
 # Where to generate the tournament pages. Can be a directory relative to
 # current working directory of the script or a full path. Will be created if it
 # doesn't exist.
-SCORE_FILE_DIR = 'html.tourney0.25'
+SCORE_FILE_DIR = 'html.tourney0.26'
 
 SCORE_CSS = 'tourney-score.css'
 SCORE_CSS_PATH = SCORE_FILE_DIR + "/" + SCORE_CSS
@@ -52,14 +52,14 @@ CLAN_FILE_DIR = SCORE_FILE_DIR + '/' + CLAN_BASE
 IMAGE_FILE_DIR = SCORE_FILE_DIR + '/images'
 
 CAO_MORGUE_BASE = 'http://crawl.akrasiac.org/rawdata'
-CDO_MORGUE_BASE = 'http://crawl.develz.org/morgues/0.25'
+CDO_MORGUE_BASE = 'http://crawl.develz.org/morgues/0.26'
 CUE_MORGUE_BASE = 'https://underhound.eu/crawl/morgue'
 CKO_MORGUE_BASE = 'https://crawl.kelbi.org/crawl/morgue'
-CBRO_MORGUE_BASE = 'http://crawl.berotato.org/crawl/morgue'
+CBR2_MORGUE_BASE = 'https://cbro.berotato.org/morgue'
 CPO_MORGUE_BASE = 'http://crawl.project357.org/morgue'
-CWZ_MORGUE_BASE = 'https://webzook.net/soup/morgue/0.25'
+CWZ_MORGUE_BASE = 'https://webzook.net/soup/morgue/0.26'
 CXC_MORGUE_BASE = 'http://crawl.xtahua.com/crawl/morgue'
-LLD_MORGUE_BASE = 'http://lazy-life.ddo.jp:8080/morgue-0.25'
+LLD_MORGUE_BASE = 'http://lazy-life.ddo.jp:8080/morgue-0.26'
 
 if LOCAL_TEST:
     XXX_TOURNEY_BASE = 'file:///' + os.getcwd() + '/' + SCORE_FILE_DIR
@@ -220,7 +220,7 @@ def morgue_link(xdict):
   elif src.find('cue') >= 0:
     base = CUE_MORGUE_BASE
   elif src.find('cbr') >= 0:
-    base = CBRO_MORGUE_BASE
+    base = CBR2_MORGUE_BASE
   elif src.find('cpo') >= 0:
     base = CPO_MORGUE_BASE
   elif src.find('cwz') >= 0:

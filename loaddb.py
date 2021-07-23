@@ -27,26 +27,26 @@ import sys
 from query_class import Query
 from test_data import USE_TEST, TEST_YEAR, TEST_VERSION, TEST_START_TIME, TEST_END_TIME, TEST_HARE_START_TIME, TEST_LOGS, TEST_MILESTONES, TEST_CLAN_DEADLINE, LogSpec
 
-T_YEAR = TEST_YEAR or '2020'
-T_VERSION = TEST_VERSION or '0.25'
+T_YEAR = TEST_YEAR or '2021'
+T_VERSION = TEST_VERSION or '0.26'
 
 # Start and end of the tournament, UTC.
-START_TIME = TEST_START_TIME or (T_YEAR + '06122000')
-END_TIME   = TEST_END_TIME or (T_YEAR + '06282000')
+START_TIME = TEST_START_TIME or (T_YEAR + '01082000')
+END_TIME   = TEST_END_TIME or (T_YEAR + '01242000')
 
 # Deadline for forming teams.
 CLAN_DEADLINE = (TEST_CLAN_DEADLINE or
-                datetime.datetime(2020, 6, 19, 20))
+                datetime.datetime(2021, 1, 15, 20))
 
 DATE_FORMAT = '%Y%m%d%H%M'
 
 GAME_VERSION = T_VERSION
 
 # One day before tourney end
-HARE_START_TIME = TEST_HARE_START_TIME or (T_YEAR + '06272000')
+HARE_START_TIME = TEST_HARE_START_TIME or (T_YEAR + '01232000')
 
 CAO = 'http://crawl.akrasiac.org/'
-CBRO = 'http://crawl.berotato.org/crawl/'
+CBR2 = 'https://cbro.berotato.org/'
 CDO = 'http://crawl.develz.org/'
 CKO = 'https://crawl.kelbi.org/crawl/'
 CPO = 'https://crawl.project357.org/'
@@ -57,27 +57,27 @@ LLD = 'http://lazy-life.ddo.jp/'
 
 # Log and milestone files. The url is what we 'wget -c' from.
 LOGS = TEST_LOGS or [
-           LogSpec('cao', 'logfiles/cao-logfile-0.25', CAO + 'logfile25'),
-           LogSpec('cbro', 'logfiles/cbro-logfile-0.25', CBRO + 'meta/0.25/logfile'),
-           LogSpec('cdo', 'logfiles/cdo-logfile-0.25', CDO + 'allgames-0.25.txt'),
-           LogSpec('cko', 'logfiles/cko-logfile-0.25', CKO + 'meta/0.25/logfile'),
-           LogSpec('cpo', 'logfiles/cpo-logfile-0.25', CPO + 'dcss-logfiles-0.25'),
-           LogSpec('cue', 'logfiles/cue-logfile-0.25', CUE + 'meta/0.25/logfile'),
-           LogSpec('cwz', 'logfiles/cwz-logfile-0.25', CWZ + '0.25/logfile'),
-           LogSpec('cxc', 'logfiles/cxc-logfile-0.25', CXC + 'meta/0.25/logfile'),
-           LogSpec('lld', 'logfiles/lld-logfile-0.25', LLD + 'mirror/meta/0.25/logfile'),
+           LogSpec('cao', 'logfiles/cao-logfile-0.26', CAO + 'logfile26'),
+           LogSpec('cbr2', 'logfiles/cbr2-logfile-0.26', CBR2 + 'meta/0.26/logfile'),
+           LogSpec('cdo', 'logfiles/cdo-logfile-0.26', CDO + 'allgames-0.26.txt'),
+           LogSpec('cko', 'logfiles/cko-logfile-0.26', CKO + 'meta/0.26/logfile'),
+           LogSpec('cpo', 'logfiles/cpo-logfile-0.26', CPO + 'dcss-logfiles-0.26'),
+           LogSpec('cue', 'logfiles/cue-logfile-0.26', CUE + 'meta/0.26/logfile'),
+           LogSpec('cwz', 'logfiles/cwz-logfile-0.26', CWZ + '0.26/logfile'),
+           LogSpec('cxc', 'logfiles/cxc-logfile-0.26', CXC + 'meta/0.26/logfile'),
+           LogSpec('lld', 'logfiles/lld-logfile-0.26', LLD + 'mirror/meta/0.26/logfile'),
   ]
 
 MILESTONES = TEST_MILESTONES or [
-           LogSpec('cao', 'milestones/cao-milestones-0.25', CAO + 'milestones25'),
-           LogSpec('cbro', 'milestones/cbro-milestones-0.25', CBRO + 'meta/0.25/milestones'),
-           LogSpec('cdo', 'milestones/cdo-milestones-0.25', CDO + 'milestones-0.25.txt'),
-           LogSpec('cko', 'milestones/cko-milestones-0.25', CKO + 'meta/0.25/milestones'),
-           LogSpec('cpo', 'milestones/cpo-milestones-0.25', CPO + 'dcss-milestones-0.25'),
-           LogSpec('cue', 'milestones/cue-milestones-0.25', CUE + 'meta/0.25/milestones'),
-           LogSpec('cwz', 'milestones/cwz-milestones-0.25', CWZ + '0.25/milestones'),
-           LogSpec('cxc', 'milestones/cxc-milestones-0.25', CXC + 'meta/0.25/milestones'),
-           LogSpec('lld', 'milestones/lld-milestones-0.25', LLD + 'mirror/meta/0.25/milestones'),
+           LogSpec('cao', 'milestones/cao-milestones-0.26', CAO + 'milestones26'),
+           LogSpec('cbr2', 'milestones/cbr2-milestones-0.26', CBR2 + 'meta/0.26/milestones'),
+           LogSpec('cdo', 'milestones/cdo-milestones-0.26', CDO + 'milestones-0.26.txt'),
+           LogSpec('cko', 'milestones/cko-milestones-0.26', CKO + 'meta/0.26/milestones'),
+           LogSpec('cpo', 'milestones/cpo-milestones-0.26', CPO + 'dcss-milestones-0.26'),
+           LogSpec('cue', 'milestones/cue-milestones-0.26', CUE + 'meta/0.26/milestones'),
+           LogSpec('cwz', 'milestones/cwz-milestones-0.26', CWZ + '0.26/milestones'),
+           LogSpec('cxc', 'milestones/cxc-milestones-0.26', CXC + 'meta/0.26/milestones'),
+           LogSpec('lld', 'milestones/lld-milestones-0.26', LLD + 'mirror/meta/0.26/milestones'),
   ]
 
 GAME_BLOCKLIST_FILE = 'game_blocklist.txt'
@@ -94,7 +94,7 @@ EXTENSION_FILE = 'modules.ext'
 TOURNAMENT_DB = 'tournament'
 COMMIT_INTERVAL = 3000
 # These rcfiles need to be updated from the servers every few hours.
-CRAWLRC_DIRECTORY_LIST = ['rcfiles/cao/','rcfiles/cbro/','rcfiles/cdo/', 'rcfiles/cko/', 'rcfiles/cpo/','rcfiles/cue/','rcfiles/cwz/','rcfiles/cxc/','rcfiles/lld/']
+CRAWLRC_DIRECTORY_LIST = ['rcfiles/cao/','rcfiles/cbr2/','rcfiles/cdo/', 'rcfiles/cko/', 'rcfiles/cpo/','rcfiles/cue/','rcfiles/cwz/','rcfiles/cxc/','rcfiles/lld/']
 
 LISTENERS = [ ]
 TIMERS = [ ]
@@ -242,9 +242,9 @@ class Xlogfile:
 
   def fetch_remote(self):
     info("Fetching remote %s to %s with wget -c" % (self.url, self.filename))
-    res = os.system("wget -q -c --no-check-certificate --timeout=60 %s -O %s" % (self.url, self.filename))
+    res = os.system("wget -q -c --no-check-certificate --timeout=30 --tries=3 %s -O %s" % (self.url, self.filename))
     if res != 0:
-      raise IOError("Failed to fetch %s with wget" % self.url)
+      error("Failed to fetch %s with wget" % self.url)
 
   def _open(self):
     try:

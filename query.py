@@ -1438,7 +1438,7 @@ def check_ru_abandonment_game(c, name, start):
 def assign_nonrep_win(c, player, number):
   query_do(c, '''INSERT INTO players (name, nonrep_wins) VALUES (%s, %s)
                  ON DUPLICATE KEY UPDATE nonrep_wins = %s''',
-                 player, 3 - number, 3 - number)
+                 player, number, number)
 
 def first_win_order_query(limit = None):
   fields = logfile_fields('g.')
@@ -1657,7 +1657,7 @@ def update_all_player_ranks(c):
 
 def update_clan_wins(c):
     query_do(c, '''UPDATE teams AS t INNER JOIN
-                     (SELECT team_captain, 13 - LEAST(SUM(first_four),12) AS rk
+                     (SELECT team_captain, LEAST(SUM(first_four),12) AS rk
                         FROM clan_combo_first_wins GROUP BY team_captain) AS r
                    ON t.owner = r.team_captain SET t.nonrep_wins = r.rk''')
     return
