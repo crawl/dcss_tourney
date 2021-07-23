@@ -11,7 +11,7 @@ CWZ = 'https://webzook.net/soup/'
 CXC = 'http://crawl.xtahua.com/crawl/'
 LLD = 'http://lazy-life.ddo.jp/'
 
-USE_TEST = Test
+USE_TEST = True
 
 TEST_YEAR = USE_TEST and '2021'
 TEST_VERSION = USE_TEST and '0.26'
