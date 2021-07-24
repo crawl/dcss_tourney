@@ -345,10 +345,10 @@
     <div class="col">
       <h2 id="credits">Credits</h2>
       We'd like to thank:
-      <ol>
+      <ul>
         <li>
           Tournament script authors:
-          <ol>
+          <ul>
             <li>
               Thanks to <b>ebering</b> for designing and implementing the
               current scoring system.
@@ -366,7 +366,7 @@
               Thanks to <b>greensnark</b> for writing the original tournament
               scripts that have been adapted for use in this tournament.
             </li>
-          </ol>
+          </ul>
         </li>
         <li>
           Thanks to <b>Napkin</b> for hosting the tournament scripts as well as
@@ -391,7 +391,7 @@
           <a href="https://creativecommons.org/share-your-work/public-domain/cc0/"> CC0</a>
           or with explicit permission from the artist.
         </li>
-      </ol>
+      </ul>
       <p class="small">
         If you are interested in contributing artwork to DCSS, please release
         your work under CC0 and submit to the
