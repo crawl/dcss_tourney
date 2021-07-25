@@ -444,11 +444,10 @@ INDIVIDUAL_CATEGORIES = (
     Category(
         "individual",
         "Lowest XL Win",
-        "Vehumet values ruthless efficiency, and recognises the players who win at the lowest XL. Waiting around for an ancestor to return from memory is inefficient, so games where Hepliaklqana is worshipped do not count in this category. For the purposes of this category, players who have not won and players who have won only at XL 27 are both ranked last.",
-        "low_xl_win",
+        "Vehumet values ruthless efficiency, and recognises the players who win at the lowest XL. Waiting around for an ancestor to return from memory is inefficient, as is dying repeatedly, so Felid games and games where Hepliaklqana is worshipped do not count in this category. For the purposes of this category, players who have not won and players who have won only at XL 27 are both ranked last.", "low_xl_win",
         False,
         None,
-        "low_xl_nonhep_wins",
+        "low_xl_nonhep_nonfe_wins",
         "xl ASC",
         [
             ColumnDisplaySpec("xl", "XL", True, True, None),
@@ -987,7 +986,7 @@ BANNERS = [
             "Find a rune before reaching experience level 14.",
             "Win the game before reaching experience level 19.",
         ),
-        'Vehumet values focus and dedication, and will reward those who demonstrate <code>RUTHLESS EFFICIENCY</code> by achieving their goals without stopping to gain unnecessary experience. Waiting around for an ancestor to return from memory is inefficient, so games where Hepliaklqana is worshipped do not count for this banner. Followers of Ru who sacrifice their experience are inefficient and will be disqualified from this banner.',
+        'Vehumet values focus and dedication, and will reward those who demonstrate <code>RUTHLESS EFFICIENCY</code> by achieving their goals without stopping to gain unnecessary experience. Waiting around for an ancestor to return from memory is inefficient, so games where Hepliaklqana is worshipped do not count for this banner. Followers of Ru who sacrifice their experience are inefficient and will be disqualified from this banner. With the exception of Zeor, Vehumet detests cats and will not award any banner to Felids',
         "vehumet",
         "#ffb3ff",
     ),

@@ -290,15 +290,12 @@
   <div class="row">
     <div class="col">
       <h2 id="changes">Changes from the 0.26 tournament</h2>
-      <!-- Example
       <p>
       <ul>
-        <li>In the <b>Combo High Scores category</b> a win awards 9 bonus
-        points, and spiecies and background high scores award 27 bonus
-        points.</li>
+        <li>Felid games are no longer eligible for the <b>Low XL win
+	category</b> and banner.</li>
       </ul>
       </p>
-      -->
     </div>
   </div>
 
