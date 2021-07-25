@@ -318,10 +318,6 @@ class Xlogfile:
 
       xdict['src'] = self.src
 
-      if xdict['char'][:2] in ['Dj','LO','SE'] or xdict['char'][2:] in ['Pr']:
-        info("Obsolete species in %s at offset %s", self.filename, line_offset)
-        continue
-
       xline = Xlogline( owner=self, filename=self.filename,
                         offset=line_offset,
                         time=xdict.get('end') or xdict.get('time'),
