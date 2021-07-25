@@ -353,7 +353,7 @@ INDIVIDUAL_CATEGORIES = (
     Category(
         "individual",
         "Nemelex' Choice",
-        u"Nemelex Xobeh wants to see players struggle against randomness and ranks players who persevere with one of several combos randomly chosen and announced throughout the tournament. The first 8 players to win a given Nemelex' choice combo earn a point in this category and Nemelex ranks players by their score in this category.",
+        u"Nemelex Xobeh wants to see players struggle against randomness and ranks players who persevere with one of several combos randomly chosen and announced throughout the tournament. The first nine players to win a given Nemelex' choice combo earn a point in this category and Nemelex ranks players by their score in this category.",
         "nemelex_score",
         False,
         None,
@@ -599,7 +599,7 @@ CLAN_CATEGORIES = (
     Category(
         "clan",
         "Nemelex' Choice",
-        "The clan is awarded points in this category in the same way as the indvidual Nemelex' Choice using all of the members' games: one point to each of the first eight clans to win a Nemelex combo. Note: multiple clan members may win a Nemelex combo to deny other individuals Nemelex points, but this will not affect clan Nemelex scoring.",
+        "The clan is awarded points in this category in the same way as the indvidual Nemelex' Choice using all of the members' games: one point to each of the first nine clans to win a Nemelex combo. Note: multiple clan members may win a Nemelex combo to deny other individuals Nemelex points, but this will not affect clan Nemelex scoring.",
         "nemelex_score",
         False,
         None,

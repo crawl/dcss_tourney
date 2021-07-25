@@ -296,6 +296,8 @@
 	category</b> and banner.</li>
 	<li>The <b>Win Rate</b> category is now scored proportional to the win
 	rate achieved, not as a ranked category.</li>
+	<li>The number of scoring <b>Nemelex' Choice</b> combos is increased to
+	9 from 8.</li>
       </ul>
       </p>
     </div>

@@ -414,7 +414,7 @@ SELECT p.team_captain,
   GROUP BY p.team_captain;
 
 CREATE OR REPLACE VIEW player_nem_scored_wins AS
-SELECT IF(ROW_NUMBER() OVER (PARTITION BY charabbrev ORDER BY end_time) < 9,
+SELECT IF(ROW_NUMBER() OVER (PARTITION BY charabbrev ORDER BY end_time) < 10,
 	1, 0) AS nem_counts, n.player, n.charabbrev,
 	JSON_OBJECT('source_file', n.source_file,
                     'player', n.player,
@@ -439,7 +439,7 @@ SELECT p.team_captain,
   WHERE p.team_captain IS NOT NULL;
 
 CREATE OR REPLACE VIEW clan_nem_scored_wins AS
-SELECT IF(ROW_NUMBER() OVER (PARTITION BY charabbrev ORDER BY end_time) < 9,
+SELECT IF(ROW_NUMBER() OVER (PARTITION BY charabbrev ORDER BY end_time) < 10,
 	  1, 0) AS nem_counts, n.team_captain, n.charabbrev,
 	JSON_OBJECT('source_file', source_file,
                     'player', player,

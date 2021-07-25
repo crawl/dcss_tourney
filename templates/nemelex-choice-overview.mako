@@ -9,11 +9,11 @@
   if nem_list:
     for x in nem_list[:-1]:
       combostr = x[0] + ' (won:'
-      if x[2] >= 8:
+      if x[2] >= 9:
         combostr += ' <s>%d individual</s>,' % x[2]
       else:
         combostr += ' %d individual,' % x[2]
-      if x[3] >= 8:
+      if x[3] >= 9:
         combostr += ' <s>%d clan</s>' % x[3]
       else:
         combostr += ' %d clan' % x[3]
