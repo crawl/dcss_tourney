@@ -294,6 +294,8 @@
       <ul>
         <li>Felid games are no longer eligible for the <b>Low XL win
 	category</b> and banner.</li>
+	<li>The <b>Win Rate</b> category is now scored proportional to the win
+	rate achieved, not as a ranked category.</li>
       </ul>
       </p>
     </div>

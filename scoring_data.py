@@ -325,12 +325,12 @@ INDIVIDUAL_CATEGORIES = (
     Category(
         "individual",
         "Win Rate",
-        "Cheibriados believes in being slow and steady, and recognises players who are careful enough to excel consistently. This category ranks players by their adjusted win percentage, calculated as the number of wins divided by the number of games played plus 1.",
+        "Cheibriados believes in being slow and steady, and recognises players who are careful enough to excel consistently. This category scores players by their adjusted win percentage, calculated as the number of wins divided by the number of games played plus 1.",
         "win_perc",
-        False,
-        None,
+        True,
+        100,
         "player_win_perc",
-        "win_perc DESC",
+        "win_perc",
         [
             ColumnDisplaySpec("win_perc", "Win Percentage", True, True, None),
             ColumnDisplaySpec("n_wins", "Wins", False, True, None),
