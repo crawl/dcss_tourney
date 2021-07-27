@@ -890,7 +890,7 @@ BANNERS = [
             "Get a rune with a Nemelex' choice combo.",
             "Win a given Nemelex' choice combo. (Awarded even if you're not in the first 9.)",
         ),
-        'Nemelex Xobeh wants to see players struggle and loves randomness, and so will give the <code>NEMELEX&apos; CHOICE</code> award to players who persevere with one of several combos randomly chosen and announced throughout the tournament.',
+        'Nemelex Xobeh wants to see players struggle and loves randomness, and so will give the <code>NEMELEX&apos; CHOICE</code> award to players who persevere with one of several combos randomly chosen and announced throughout the tournament. The possible combos are those with no more than 52 online wins that were also not chosen in the last tournament.',
         "nemelex",
         "#ff66ff",
     ),
