@@ -8,7 +8,7 @@
   pnem_list = []
   if nem_list:
     for x in nem_list[:-1]:
-      combostr = '<b>' + x[0] + '</b> (won:'
+      combostr = '<span class="font-weight-bold">' + x[0] + '</span> (won:'
       if x[2] >= 9:
         combostr += ' <s>%d individual</s>,' % x[2]
       else:
@@ -23,7 +23,8 @@
 % if nem_list:
 <p class="lead">
   Current combo:
-  <code>${nem_list[-1][0]}</code>. Chosen on ${nem_list[-1][1]} UTC.
+  <span class="font-weight-bold">${nem_list[-1][0]}</span>.
+  Chosen on ${nem_list[-1][1]} UTC.
 </p>
 % endif
 % if pnem_list:
