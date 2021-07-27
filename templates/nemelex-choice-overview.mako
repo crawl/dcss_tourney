@@ -8,7 +8,7 @@
   pnem_list = []
   if nem_list:
     for x in nem_list[:-1]:
-      combostr = '<b>' + x[0] '</b> (won:'
+      combostr = '<b>' + x[0] + '</b> (won:'
       if x[2] >= 9:
         combostr += ' <s>%d individual</s>,' % x[2]
       else:
