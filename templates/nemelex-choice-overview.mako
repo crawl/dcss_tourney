@@ -23,10 +23,7 @@
 % if nem_list:
 <p class="lead">
   Current combo:
-  <b>
-    ${nem_list[-1][0]}
-  </b>
-  , chosen on ${nem_list[-1][1]} UTC.
+  <b>${nem_list[-1][0]}</b>. Chosen on ${nem_list[-1][1]} UTC.
 </p>
 % endif
 % if pnem_list:
