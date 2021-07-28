@@ -60,12 +60,12 @@ LOGS = TEST_LOGS or [
             LogSpec('cao', 'logfiles/cao-logfile-0.27', CAO + 'logfile27'),
             LogSpec('cbr2', 'logfiles/cbr2-logfile-0.27', CBR2 + 'meta/0.27/logfile'),
 #           LogSpec('cdo', 'logfiles/cdo-logfile-0.27', CDO + 'allgames-0.27.txt'),
-#           LogSpec('cko', 'logfiles/cko-logfile-0.27', CKO + 'meta/0.27/logfile'),
-#           LogSpec('cpo', 'logfiles/cpo-logfile-0.27', CPO + 'dcss-logfiles-0.27'),
+            LogSpec('cko', 'logfiles/cko-logfile-0.27', CKO + 'meta/0.27/logfile'),
+            LogSpec('cpo', 'logfiles/cpo-logfile-0.27', CPO + 'dcss-logfiles-0.27'),
 #           LogSpec('cue', 'logfiles/cue-logfile-0.27', CUE + 'meta/0.27/logfile'),
 #           LogSpec('cwz', 'logfiles/cwz-logfile-0.27', CWZ + '0.27/logfile'),
-#           LogSpec('cxc', 'logfiles/cxc-logfile-0.27', CXC + 'meta/0.27/logfile'),
-#           LogSpec('lld', 'logfiles/lld-logfile-0.27', LLD + 'mirror/meta/0.27/logfile'),
+            LogSpec('cxc', 'logfiles/cxc-logfile-0.27', CXC + 'meta/0.27/logfile'),
+            LogSpec('lld', 'logfiles/lld-logfile-0.27', LLD + 'mirror/meta/0.27/logfile'),
   ]
 
 MILESTONES = TEST_MILESTONES or [
