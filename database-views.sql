@@ -191,8 +191,8 @@ CREATE OR REPLACE VIEW low_xl_nonhep_nonfe_wins AS
 SELECT g.*, JSON_OBJECT('source_file', g.source_file,
                     'player', g.player,
 		    'end_time', g.end_time,
-		    'charabbrev', g.charabbrev) AS morgue_json  FROM nonhep_wins AS g
-  LEFT OUTER JOIN nonhep_wins AS g2
+		    'charabbrev', g.charabbrev) AS morgue_json  FROM nonhep_nonfe_wins AS g
+  LEFT OUTER JOIN nonhep_nonfe_wins AS g2
   ON g.player = g2.player AND (g.xl, g.start_time) > (g2.xl, g2.start_time)
   WHERE g2.start_time IS NULL AND g.xl < 27;
 
