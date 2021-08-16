@@ -179,19 +179,20 @@ SELECT
     ON g.team_captain = teams.owner
   WHERE g.team_captain IS NOT NULL AND g2.start_time IS NULL;
 
-CREATE OR REPLACE VIEW nonhep_wins AS
+CREATE OR REPLACE VIEW nonhep_nonfe_wins AS
 SELECT * FROM wins AS g
   WHERE NOT EXISTS (SELECT m.id FROM milestones AS m
                         WHERE m.src = g.src AND m.start_time = g.start_time
                         AND (m.verb = 'god.renounce' OR m.verb='god.worship')
-                        AND m.noun = 'Hepliaklqana');
+                        AND m.noun = 'Hepliaklqana')
+	AND NOT g.raceabbr = 'Fe';
 
-CREATE OR REPLACE VIEW low_xl_nonhep_wins AS
+CREATE OR REPLACE VIEW low_xl_nonhep_nonfe_wins AS
 SELECT g.*, JSON_OBJECT('source_file', g.source_file,
                     'player', g.player,
 		    'end_time', g.end_time,
-		    'charabbrev', g.charabbrev) AS morgue_json  FROM nonhep_wins AS g
-  LEFT OUTER JOIN nonhep_wins AS g2
+		    'charabbrev', g.charabbrev) AS morgue_json  FROM nonhep_nonfe_wins AS g
+  LEFT OUTER JOIN nonhep_nonfe_wins AS g2
   ON g.player = g2.player AND (g.xl, g.start_time) > (g2.xl, g2.start_time)
   WHERE g2.start_time IS NULL AND g.xl < 27;
 
@@ -413,7 +414,7 @@ SELECT p.team_captain,
   GROUP BY p.team_captain;
 
 CREATE OR REPLACE VIEW player_nem_scored_wins AS
-SELECT IF(ROW_NUMBER() OVER (PARTITION BY charabbrev ORDER BY end_time) < 9,
+SELECT IF(ROW_NUMBER() OVER (PARTITION BY charabbrev ORDER BY end_time) < 10,
 	1, 0) AS nem_counts, n.player, n.charabbrev,
 	JSON_OBJECT('source_file', n.source_file,
                     'player', n.player,
@@ -438,7 +439,7 @@ SELECT p.team_captain,
   WHERE p.team_captain IS NOT NULL;
 
 CREATE OR REPLACE VIEW clan_nem_scored_wins AS
-SELECT IF(ROW_NUMBER() OVER (PARTITION BY charabbrev ORDER BY end_time) < 9,
+SELECT IF(ROW_NUMBER() OVER (PARTITION BY charabbrev ORDER BY end_time) < 10,
 	  1, 0) AS nem_counts, n.team_captain, n.charabbrev,
 	JSON_OBJECT('source_file', source_file,
                     'player', player,

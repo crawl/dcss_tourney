@@ -80,8 +80,8 @@ def list_nemelex_choices(c):
   combos = _fixup_nominee_validity(find_previous_nominees())
   nem_list = []
   for x in combos:
-    nem_list.append([x[0], x[1], min(count_nemelex_wins(c,x[0]), 8),
-        min(count_clan_nemelex_wins(c,x[0]), 8)])
+    nem_list.append([x[0], x[1], min(count_nemelex_wins(c,x[0]), 9),
+        min(count_clan_nemelex_wins(c,x[0]), 9)])
   return nem_list
 
 def is_nemelex_choice(combo, when):

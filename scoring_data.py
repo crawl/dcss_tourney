@@ -7,9 +7,9 @@ import json
 import random
 from query_class import Query
 
-TOURNAMENT_VERSION = "0.26"
+TOURNAMENT_VERSION = "0.27"
 YEAR = "2021"
-START_TIME = datetime.datetime(2021, 1, 8, 20, 0)
+START_TIME = datetime.datetime(2021, 7, 30, 20, 0)
 END_TIME = START_TIME + datetime.timedelta(days=16)
 CLAN_CUTOFF_TIME = START_TIME + datetime.timedelta(days=7)
 
@@ -325,12 +325,12 @@ INDIVIDUAL_CATEGORIES = (
     Category(
         "individual",
         "Win Rate",
-        "Cheibriados believes in being slow and steady, and recognises players who are careful enough to excel consistently. This category ranks players by their adjusted win percentage, calculated as the number of wins divided by the number of games played plus 1.",
+        "Cheibriados believes in being slow and steady, and recognises players who are careful enough to excel consistently. This category scores players by their adjusted win percentage, calculated as the number of wins divided by the number of games played plus 1.",
         "win_perc",
-        False,
-        None,
+        True,
+        100,
         "player_win_perc",
-        "win_perc DESC",
+        "win_perc",
         [
             ColumnDisplaySpec("win_perc", "Win Percentage", True, True, None),
             ColumnDisplaySpec("n_wins", "Wins", False, True, None),
@@ -342,10 +342,10 @@ INDIVIDUAL_CATEGORIES = (
         "Streak Length",
         u"Jiyva ranks players by their streak length. Jiyva favours the flexibility of a gelatinous body—the length of a streak is defined as the number of distinct species or backgrounds won consecutively (whichever is smaller). Every game in a streak must be the first game you start after winning the previous game in the streak. This will always be the case if you play all your games on one server.",
         "streak",
-        False,
-        None,
+        True,
+        24,
         "player_best_streak",
-        "length DESC",
+        "length",
         [ColumnDisplaySpec("length", "Streak Length", True, True, None),
          ColumnDisplaySpec("streak_data", "Games", False, False,
              _pretty_streak),],
@@ -353,7 +353,7 @@ INDIVIDUAL_CATEGORIES = (
     Category(
         "individual",
         "Nemelex' Choice",
-        u"Nemelex Xobeh wants to see players struggle against randomness and ranks players who persevere with one of several combos randomly chosen and announced throughout the tournament. The first 8 players to win a given Nemelex' choice combo earn a point in this category and Nemelex ranks players by their score in this category.",
+        u"Nemelex Xobeh wants to see players struggle against randomness and ranks players who persevere with combos randomly chosen and announced throughout the tournament. The first nine players to win a given Nemelex' choice combo earn a point in this category and Nemelex ranks players by their score in this category. The possible combos are those with no more than 52 online wins that were also not chosen in the last tournament.",
         "nemelex_score",
         False,
         None,
@@ -444,11 +444,10 @@ INDIVIDUAL_CATEGORIES = (
     Category(
         "individual",
         "Lowest XL Win",
-        "Vehumet values ruthless efficiency, and recognises the players who win at the lowest XL. Waiting around for an ancestor to return from memory is inefficient, so games where Hepliaklqana is worshipped do not count in this category. For the purposes of this category, players who have not won and players who have won only at XL 27 are both ranked last.",
-        "low_xl_win",
+        "Vehumet values ruthless efficiency, and recognises the players who win at the lowest XL. Waiting around for an ancestor to return from memory is inefficient, as is dying repeatedly, so Felid games and games where Hepliaklqana is worshipped do not count in this category. For the purposes of this category, players who have not won and players who have won only at XL 27 are both ranked last.", "low_xl_win",
         False,
         None,
-        "low_xl_nonhep_wins",
+        "low_xl_nonhep_nonfe_wins",
         "xl ASC",
         [
             ColumnDisplaySpec("xl", "XL", True, True, None),
@@ -600,7 +599,7 @@ CLAN_CATEGORIES = (
     Category(
         "clan",
         "Nemelex' Choice",
-        "The clan is awarded points in this category in the same way as the indvidual Nemelex' Choice using all of the members' games: one point to each of the first eight clans to win a Nemelex combo. Note: multiple clan members may win a Nemelex combo to deny other individuals Nemelex points, but this will not affect clan Nemelex scoring.",
+        "The clan is awarded points in this category in the same way as the indvidual Nemelex' Choice using all of the members' games: one point to each of the first nine clans to win a Nemelex combo. Note: multiple clan members may win a Nemelex combo to deny other individuals Nemelex points, but this will not affect clan Nemelex scoring.",
         "nemelex_score",
         False,
         None,
@@ -636,10 +635,10 @@ CLAN_CATEGORIES = (
         "Streak Length",
         "Clans are ranked in this category based on the streak of their best player, calculated according to the individual Streak Length category.",
         "streak",
-        False,
-        None,
+        True,
+        24,
         "clan_best_streak",
-        "length DESC",
+        "length",
         [
             ColumnDisplaySpec("length", "Streak Length", True, True, None),
             ColumnDisplaySpec("players", "Player responsible", False, False, None),
@@ -889,9 +888,9 @@ BANNERS = [
         BannerTiers(
             "Reach experience level 9 with a Nemelex' choice combo.",
             "Get a rune with a Nemelex' choice combo.",
-            "Win a given Nemelex' choice combo. (Awarded even if you're not in the first 8.)",
+            "Win a given Nemelex' choice combo. (Awarded even if you're not in the first 9.)",
         ),
-        'Nemelex Xobeh wants to see players struggle and loves randomness, and so will give the <code>NEMELEX&apos; CHOICE</code> award to players who persevere with one of several combos randomly chosen and announced throughout the tournament.',
+        'Nemelex Xobeh wants to see players struggle and loves randomness, and so will give the <code>NEMELEX&apos; CHOICE</code> award to players who persevere with one of several combos randomly chosen and announced throughout the tournament. The possible combos are those with no more than 52 online wins that were also not chosen in the last tournament.',
         "nemelex",
         "#ff66ff",
     ),
@@ -987,7 +986,7 @@ BANNERS = [
             "Find a rune before reaching experience level 14.",
             "Win the game before reaching experience level 19.",
         ),
-        'Vehumet values focus and dedication, and will reward those who demonstrate <code>RUTHLESS EFFICIENCY</code> by achieving their goals without stopping to gain unnecessary experience. Waiting around for an ancestor to return from memory is inefficient, so games where Hepliaklqana is worshipped do not count for this banner. Followers of Ru who sacrifice their experience are inefficient and will be disqualified from this banner.',
+        'Vehumet values focus and dedication, and will reward those who demonstrate <code>RUTHLESS EFFICIENCY</code> by achieving their goals without stopping to gain unnecessary experience. Waiting around for an ancestor to return from memory is inefficient, so games where Hepliaklqana is worshipped do not count for this banner. Followers of Ru who sacrifice their experience are inefficient and will be disqualified from this banner. With the exception of Zeor, Vehumet detests cats and will not award any banner to Felids',
         "vehumet",
         "#ffb3ff",
     ),

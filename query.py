@@ -640,10 +640,10 @@ def get_clan_stats(c, captain):
                      captain)
   if points is not None:
     stats['points'] = points[0]
-    stats['rank1'] = query_first(c, '''SELECT COUNT(*) FROM teams
+    stats['rank1'] = query_first(c, '''SELECT COUNT(DISTINCT total_score) FROM teams
                                       WHERE total_score > %s''',
                                 stats['points']) + 1
-    stats['rank2'] = query_first(c, '''SELECT COUNT(*) FROM teams''')
+    stats['rank2'] = query_first(c, '''SELECT COUNT(DISTINCT total_score) FROM teams''')
 
 
   stats['won'] = query_first(c, '''SELECT COUNT(*) FROM games g, players p
@@ -668,10 +668,10 @@ def get_player_stats(c, name):
 
   stats = { }
   stats['points'] = points[0]
-  stats['rank1'] = query_first(c, '''SELECT COUNT(*) FROM players
+  stats['rank1'] = query_first(c, '''SELECT COUNT(DISTINCT score_full) FROM players
                                     WHERE score_full > %s''',
                               stats['points']) + 1
-  stats['rank2'] = query_first(c, '''SELECT COUNT(*) FROM players''')
+  stats['rank2'] = query_first(c, '''SELECT COUNT(DISTINCT score_full) FROM players''')
 
   # Get win/played stats.
   stats['won'] = \

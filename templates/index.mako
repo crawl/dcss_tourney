@@ -289,22 +289,19 @@
   <!-- Changes -->
   <div class="row">
     <div class="col">
-      <h2 id="changes">Changes from the 0.25 tournament</h2>
+      <h2 id="changes">Changes from the 0.26 tournament</h2>
       <p>
       <ul>
-        <li>Score is now computed as a sum over categories, instead of an
-        average.</li>
-        <li>Categories are divided into proportional and ranked categories,
-        described in the scoring section.</li>
-        <li>In every ranked category, rank ties do not skip rank numbers based
-        on the number of ties.</li>
-        <li>In the <b>Combo High Scores category</b> a win awards 9 bonus
-        points, and spiecies and background high scores award 27 bonus
-        points.</li>
-        <li>The <b>Harvest category</b> caps player ghosts at 4.</li>
-        <li>The <b>Heretic banner</b> tiers are now: 1: abandon a god and do
-        not rejoin them, 2: abandon a god and mollify them, 3: abandon and
-        mollify 3 distinct gods in 3 different games. </li>
+        <li>Felid games are no longer eligible for the <b>Low XL win
+	category</b> and banner.</li>
+	<li>The <b>Win Rate</b> category is now scored proportional to the win
+	rate achieved, not as a ranked category.</li>
+	<li>The <b>Streak Length</b> category is now scored proportional to the
+	longest possible tournament rules streak, not as a ranked
+	category.</li>
+	<li>The number of scoring <b>Nemelex' Choice</b> combos is increased to
+	9 from 8.</li>
+      </ul>
       </p>
     </div>
   </div>
@@ -352,10 +349,10 @@
     <div class="col">
       <h2 id="credits">Credits</h2>
       We'd like to thank:
-      <ol>
+      <ul>
         <li>
           Tournament script authors:
-          <ol>
+          <ul>
             <li>
               Thanks to <b>ebering</b> for designing and implementing the
               current scoring system.
@@ -373,7 +370,7 @@
               Thanks to <b>greensnark</b> for writing the original tournament
               scripts that have been adapted for use in this tournament.
             </li>
-          </ol>
+          </ul>
         </li>
         <li>
           Thanks to <b>Napkin</b> for hosting the tournament scripts as well as
@@ -398,7 +395,7 @@
           <a href="https://creativecommons.org/share-your-work/public-domain/cc0/"> CC0</a>
           or with explicit permission from the artist.
         </li>
-      </ol>
+      </ul>
       <p class="small">
         If you are interested in contributing artwork to DCSS, please release
         your work under CC0 and submit to the
