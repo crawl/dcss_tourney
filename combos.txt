@@ -22,6 +22,7 @@ HuAr
 HuAM
 HuAK
 HuDe
+HuCA
 DEFi
 DEWz
 DEGl
@@ -46,6 +47,7 @@ DEAr
 DEAM
 DEAK
 DEDe
+DECA
 HOFi
 HOWz
 HOGl
@@ -70,6 +72,7 @@ HOAr
 HOAM
 HOAK
 HODe
+HOCA
 KoFi
 KoWz
 KoGl
@@ -94,6 +97,7 @@ KoAr
 KoAM
 KoAK
 KoDe
+KoCA
 MuFi
 MuWz
 MuGl
@@ -117,6 +121,7 @@ MuAr
 MuAM
 MuAK
 MuDe
+MuCA
 NaFi
 NaWz
 NaGl
@@ -141,6 +146,7 @@ NaAr
 NaAM
 NaAK
 NaDe
+NaCA
 OgFi
 OgWz
 OgGl
@@ -165,6 +171,7 @@ OgAr
 OgAM
 OgAK
 OgDe
+OgCA
 TrFi
 TrWz
 TrGl
@@ -189,6 +196,7 @@ TrAr
 TrAM
 TrAK
 TrDe
+TrCA
 DrFi
 DrWz
 DrGl
@@ -213,6 +221,7 @@ DrAr
 DrAM
 DrAK
 DrDe
+DrCA
 DgFi
 DgWz
 DgGl
@@ -257,6 +266,7 @@ SpAr
 SpAM
 SpAK
 SpDe
+SpCA
 MiFi
 MiWz
 MiGl
@@ -281,6 +291,7 @@ MiAr
 MiAM
 MiAK
 MiDe
+MiCA
 DsFi
 DsWz
 DsGl
@@ -305,6 +316,7 @@ DsAr
 DsAM
 DsAK
 DsDe
+DsCA
 GhFi
 GhWz
 GhGl
@@ -328,6 +340,7 @@ GhAr
 GhAM
 GhAK
 GhDe
+GhCA
 TeFi
 TeWz
 TeGl
@@ -352,6 +365,7 @@ TeAr
 TeAM
 TeAK
 TeDe
+TeCA
 MfFi
 MfWz
 MfGl
@@ -376,6 +390,7 @@ MfAr
 MfAM
 MfAK
 MfDe
+MfCA
 VpFi
 VpWz
 VpGl
@@ -400,6 +415,7 @@ VpAr
 VpAM
 VpAK
 VpDe
+VpCA
 DDFi
 DDWz
 DDGl
@@ -424,6 +440,7 @@ DDAr
 DDAM
 DDAK
 DDDe
+DDCA
 FeFi
 FeWz
 FeNe
@@ -444,6 +461,7 @@ FeWn
 FeAr
 FeAK
 FeDe
+FeCA
 OpFi
 OpWz
 OpGl
@@ -468,6 +486,7 @@ OpAr
 OpAM
 OpAK
 OpDe
+OpCA
 DjFi
 DjWz
 DjGl
@@ -492,6 +511,7 @@ DjAr
 DjAM
 DjAK
 DjDe
+DjCA
 GrFi
 GrWz
 GrGl
@@ -516,6 +536,7 @@ GrAr
 GrAM
 GrAK
 GrDe
+GrCA
 FoFi
 FoWz
 FoGl
@@ -540,6 +561,7 @@ FoAr
 FoAM
 FoAK
 FoDe
+FoCA
 VSFi
 VSWz
 VSGl
@@ -564,6 +586,7 @@ VSAr
 VSAM
 VSAK
 VSDe
+VSCA
 BaFi
 BaWz
 BaGl
@@ -588,6 +611,7 @@ BaAr
 BaAM
 BaAK
 BaDe
+BaCA
 GnFi
 GnWz
 GnGl
@@ -612,6 +636,7 @@ GnAr
 GnAM
 GnAK
 GnDe
+GnCA
 PaFi
 PaWz
 PaGl
@@ -636,3 +661,4 @@ PaAr
 PaAM
 PaAK
 PaDe
+PaCA
