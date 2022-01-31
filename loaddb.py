@@ -57,27 +57,27 @@ LLD = 'http://lazy-life.ddo.jp/'
 
 # Log and milestone files. The url is what we 'wget -c' from.
 LOGS = TEST_LOGS or [
-            LogSpec('cao', 'logfiles/cao-logfile-0.28', CAO + 'logfile28'),
+#           LogSpec('cao', 'logfiles/cao-logfile-0.28', CAO + 'logfile28'),
             LogSpec('cbr2', 'logfiles/cbr2-logfile-0.28', CBR2 + 'meta/0.28/logfile'),
 #           LogSpec('cdo', 'logfiles/cdo-logfile-0.28', CDO + 'allgames-0.28.txt'),
             LogSpec('cko', 'logfiles/cko-logfile-0.28', CKO + 'meta/0.28/logfile'),
             LogSpec('cpo', 'logfiles/cpo-logfile-0.28', CPO + 'dcss-logfiles-0.28'),
             LogSpec('cue', 'logfiles/cue-logfile-0.28', CUE + 'meta/0.28/logfile'),
-            LogSpec('cwz', 'logfiles/cwz-logfile-0.28', CWZ + '0.28/logfile'),
+#           LogSpec('cwz', 'logfiles/cwz-logfile-0.28', CWZ + '0.28/logfile'),
             LogSpec('cxc', 'logfiles/cxc-logfile-0.28', CXC + 'meta/0.28/logfile'),
-            LogSpec('lld', 'logfiles/lld-logfile-0.28', LLD + 'mirror/meta/0.28/logfile'),
+#           LogSpec('lld', 'logfiles/lld-logfile-0.28', LLD + 'mirror/meta/0.28/logfile'),
   ]
 
 MILESTONES = TEST_MILESTONES or [
-            LogSpec('cao', 'milestones/cao-milestones-0.28', CAO + 'milestones28'),
+#           LogSpec('cao', 'milestones/cao-milestones-0.28', CAO + 'milestones28'),
             LogSpec('cbr2', 'milestones/cbr2-milestones-0.28', CBR2 + 'meta/0.28/milestones'),
 #           LogSpec('cdo', 'milestones/cdo-milestones-0.28', CDO + 'milestones-0.28.txt'),
             LogSpec('cko', 'milestones/cko-milestones-0.28', CKO + 'meta/0.28/milestones'),
             LogSpec('cpo', 'milestones/cpo-milestones-0.28', CPO + 'dcss-milestones-0.28'),
             LogSpec('cue', 'milestones/cue-milestones-0.28', CUE + 'meta/0.28/milestones'),
-            LogSpec('cwz', 'milestones/cwz-milestones-0.28', CWZ + '0.28/milestones'),
+#           LogSpec('cwz', 'milestones/cwz-milestones-0.28', CWZ + '0.28/milestones'),
             LogSpec('cxc', 'milestones/cxc-milestones-0.28', CXC + 'meta/0.28/milestones'),
-            LogSpec('lld', 'milestones/lld-milestones-0.28', LLD + 'mirror/meta/0.28/milestones'),
+#           LogSpec('lld', 'milestones/lld-milestones-0.28', LLD + 'mirror/meta/0.28/milestones'),
   ]
 
 GAME_BLOCKLIST_FILE = 'game_blocklist.txt'
