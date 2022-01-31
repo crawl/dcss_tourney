@@ -37,7 +37,7 @@ services:
       - ./logfiles:/usr/src/app/logfiles
       - ./milestones:/usr/src/app/milestones
       - ./rcfiles:/usr/src/app/rcfiles
-      - ./html.tourney0.24:/usr/src/app/html.tourney0.24
+      - ./html.tourney0.28:/usr/src/app/html.tourney0.28
     depends_on:
       - mysql
   web:
@@ -45,7 +45,7 @@ services:
     ports:
       - 8080:80
     volumes:
-      - ./html.tourney0.24:/usr/share/nginx/html:ro
+      - ./html.tourney0.28:/usr/share/nginx/html:ro
 
 networks:
   tourney:
