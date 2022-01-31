@@ -1690,8 +1690,8 @@ def update_all_clan_ranks(c):
 
 def score_term(cat):
     if cat.proportional:
-        return "COALESCE( %5.1f * ( %s / %5.1f ), 0.0 )" % (MAX_CATEGORY_SCORE,
-                cat.rank_column, cat.max)
+        return "COALESCE( %5.1f * ( LEAST( %s, %5.1f ) / %5.1f ), 0.0 )" % (MAX_CATEGORY_SCORE,
+                cat.rank_column, cat.max, cat.max)
     else:
         return "COALESCE( %5.1f / %s, 0.0 )" % (MAX_CATEGORY_SCORE,
                 cat.rank_column)
