@@ -289,8 +289,10 @@
   <!-- Changes -->
   <div class="row">
     <div class="col">
-      <h2 id="changes">Changes from the 0.26 tournament</h2>
+      <h2 id="changes">Changes from the 0.27 tournament</h2>
       <p>
+        There are currently no changes from the 0.27 tournament.
+      <!--
       <ul>
         <li>Felid games are no longer eligible for the <b>Low XL win
 	category</b> and banner.</li>
@@ -302,6 +304,7 @@
 	<li>The number of scoring <b>Nemelex' Choice</b> combos is increased to
 	9 from 8.</li>
       </ul>
+      -->
       </p>
     </div>
   </div>
