@@ -1093,6 +1093,8 @@ def add_rune_milestone(cursor, game):
            extract_rune(game['milestone']), game['xl'])
 
 def add_br_enter_milestone(cursor, game):
+  if game['noun'] == 'Arena':
+      return
   query_do(cursor,
            '''INSERT INTO branch_enters (player, start_time, mile_time, br)
               VALUES (%s, %s, %s, %s);''',

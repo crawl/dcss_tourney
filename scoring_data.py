@@ -269,7 +269,7 @@ INDIVIDUAL_CATEGORIES = (
     Category(
         "individual",
         "Exploration",
-        "Ashenzari wants players to explore the dungeon and seek out runes of Zot. In this category, players earn 3 points per distinct rune of Zot collected and 1 point each for distinct branch entry and end floor reached.",
+        "Ashenzari wants players to explore the dungeon and seek out runes of Zot. In this category, players earn 3 points per distinct rune of Zot collected and 1 point each for distinct branch entry and end floor reached. Okawaru's divine Arena does not interest Ashenzari.",
         "exploration",
         True,
         100,
