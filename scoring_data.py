@@ -353,7 +353,7 @@ INDIVIDUAL_CATEGORIES = (
     Category(
         "individual",
         "Nemelex' Choice",
-        u"Nemelex Xobeh wants to see players struggle against randomness and ranks players who persevere with combos randomly chosen and announced throughout the tournament. The first nine players to win a given Nemelex' choice combo earn a point in this category and Nemelex ranks players by their score in this category. The possible combos are those with no more than 52 online wins that were also not chosen in the last tournament.",
+        u"Nemelex Xobeh wants to see players struggle against randomness and ranks players who persevere with combos randomly chosen and announced throughout the tournament. The first nine players to win a given Nemelex' choice combo earn a point in this category and Nemelex ranks players by their score in this category. The possible combos are those with no more than 49 online wins that were also not chosen in the last tournament.",
         "nemelex_score",
         False,
         None,
