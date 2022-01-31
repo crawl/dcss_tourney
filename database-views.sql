@@ -482,8 +482,13 @@ FROM clan_streaks AS s
   WHERE s2.length IS NULL AND s.team_captain IS NOT NULL
 GROUP BY s.team_captain, s.length;
 
+CREATE OR REPLACE VIEW player_ziggurats AS
+SELECT z.player, 28 * z.completed + z.deepest AS floors, z.completed, z.deepest
+  FROM ziggurats AS z;
+
 CREATE OR REPLACE VIEW clan_ziggurats AS
-SELECT p.team_captain, z.player, z.completed, z.deepest
+SELECT p.team_captain, z.player, 28 * z.completed + z.deepest AS floors,
+       z.completed, z.deepest
   FROM ziggurats AS z INNER JOIN players AS p ON p.name = z.player
   WHERE p.team_captain IS NOT NULL;
 
@@ -491,6 +496,7 @@ CREATE OR REPLACE VIEW clan_best_ziggurat AS
 SELECT z.team_captain,
        JSON_OBJECT('name', teams.name, 'captain', z.team_captain) AS team_info_json,
        GROUP_CONCAT(DISTINCT z.player) AS players,
+       z.floors,
        z.completed,
        z.deepest
   FROM clan_ziggurats AS z

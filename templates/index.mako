@@ -291,20 +291,11 @@
     <div class="col">
       <h2 id="changes">Changes from the 0.27 tournament</h2>
       <p>
-        There are currently no changes from the 0.27 tournament.
-      <!--
       <ul>
-        <li>Felid games are no longer eligible for the <b>Low XL win
-	category</b> and banner.</li>
-	<li>The <b>Win Rate</b> category is now scored proportional to the win
-	rate achieved, not as a ranked category.</li>
-	<li>The <b>Streak Length</b> category is now scored proportional to the
-	longest possible tournament rules streak, not as a ranked
-	category.</li>
-	<li>The number of scoring <b>Nemelex' Choice</b> combos is increased to
-	9 from 8.</li>
+	<li>The <b>Ziggurat Dive</b> category is now scored proportional to the
+	number of Ziggurat floors reached, capped at a maximum of 27 complete
+	Ziggurats.</li>
       </ul>
-      -->
       </p>
     </div>
   </div>

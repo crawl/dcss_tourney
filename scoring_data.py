@@ -501,17 +501,22 @@ INDIVIDUAL_CATEGORIES = (
         """Xom is entertained by a player's descent into madness, and ranks
         players by the number of consecutive Ziggurat floors they reach in a
         single game. Exiting a Ziggurat from the lowest floor counts as
-        "reaching a floor" for scoring in this category, and an unlimited
-        number of Ziggurats in a single game count.""",
+        "reaching a floor" for scoring in this category, and at most 27
+        Ziggurats count for scoring in this category. Ziggurats past the 27th
+        are displayed for bragging rights.""",
         "ziggurat_dive",
-        False,
-        None,
-        "ziggurats",
-        "completed DESC, deepest DESC",
+        True,
+        28 * 27,
+        "player_ziggurats",
+        "floors",
         [
             ColumnDisplaySpec("completed", "Ziggurats Completed", True, True, None),
             ColumnDisplaySpec(
                 "deepest", "Incomplete Ziggurat Levels", True, True, None
+            ),
+            ColumnDisplaySpec(
+                "LEAST(floors, 28 * 27)",
+                "Scored Ziggurat Floors / 756", True, True, None
             ),
         ],
     ),
@@ -709,14 +714,14 @@ CLAN_CATEGORIES = (
         "Ziggurat Diving",
         "Clans are ranked in this category based on the Ziggurat Dive of their best player.",
         "ziggurat_dive",
-        False,
-        None,
+        True,
+        28 * 27,
         "clan_best_ziggurat",
-        "completed DESC, deepest DESC",
+        "floors",
         [
-            ColumnDisplaySpec("completed", "Ziggurats Completed", True, True, None),
             ColumnDisplaySpec(
-                "deepest", "Incomplete Ziggurat Levels", True, True, None
+                "LEAST(floors, 28 * 27)",
+                "Scored Ziggurat Floors / 756", True, True, None
             ),
             ColumnDisplaySpec("players", "Player(s)", False, False, None),
         ],
