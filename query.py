@@ -99,7 +99,8 @@ def whereis_all_players(c):
 
 def get_game_god(c, game):
   game_god = game.get('god') or 'No God'
-  if (game_god == 'Xom' or game_god == 'Gozag' or game_god == 'No God') \
+  if (game_god == 'Xom' or game_god == 'Gozag' or game_god == 'No God' \
+    or game_god =='Ignis') \
 	and not did_renounce_god(c, game['name'], game['start'], game['end']):
     return game_god
   return get_first_max_piety(c, game['name'], game['start'])
