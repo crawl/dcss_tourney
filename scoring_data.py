@@ -479,6 +479,7 @@ INDIVIDUAL_CATEGORIES = (
         True,
         "low_xl_nonhep_nonfe_wins",
         "xl",
+        None,
         [
             ColumnDisplaySpec("xl", "XL", True, True, None),
             ColumnDisplaySpec("race", "Species", False, False, None),
@@ -488,43 +489,43 @@ INDIVIDUAL_CATEGORIES = (
             ),
         ],
     ),
-    Category(
-        "individual",
-        "Tournament Win Order",
-        "Qazlal wants destruction and wants it as soon as possible! This category ranks players in order of their first win in the tournament.",
-        "first_win",
-        False,
-        None,
-        "first_wins",
-        "end_time ASC",
-        [
-            ColumnDisplaySpec("end_time", "Game End Time", True, True, lambda x: x),
-            ColumnDisplaySpec("race", "Species", False, False, None),
-            ColumnDisplaySpec("class", "Background", False, False, None),
-            ColumnDisplaySpec(
-                "morgue_json", "Morgue", False, False, _json_to_morgue_link
-            ),
-        ],
-    ),
-    Category(
-        "individual",
-        "Tournament All Rune Win Order",
-        "Lugonu appreciates all planes of reality, and wants players to tour as many of them as soon as possible. Lugonu ranks players in order of their first 15-rune win in the tournament.",
-        "first_allrune_win",
-        False,
-        None,
-        "first_allrune_wins",
-        "end_time ASC",
-        [
-            ColumnDisplaySpec("end_time", "Game End Time", True, True, lambda x: x),
-            ColumnDisplaySpec("race", "Species", False, False, None),
-            ColumnDisplaySpec("class", "Background", False, False, None),
-            ColumnDisplaySpec("duration", "Duration", False, True, _pretty_duration),
-            ColumnDisplaySpec(
-                "morgue_json", "Morgue", False, False, _json_to_morgue_link
-            ),
-        ],
-    ),
+    #Category(
+    #    "individual",
+    #    "Tournament Win Order",
+    #    "Qazlal wants destruction and wants it as soon as possible! This category ranks players in order of their first win in the tournament.",
+    #    "first_win",
+    #    False,
+    #    None,
+    #    "first_wins",
+    #    "end_time ASC",
+    #    [
+    #        ColumnDisplaySpec("end_time", "Game End Time", True, True, lambda x: x),
+    #        ColumnDisplaySpec("race", "Species", False, False, None),
+    #        ColumnDisplaySpec("class", "Background", False, False, None),
+    #        ColumnDisplaySpec(
+    #            "morgue_json", "Morgue", False, False, _json_to_morgue_link
+    #        ),
+    #    ],
+    #),
+    #Category(
+    #    "individual",
+    #    "Tournament All Rune Win Order",
+    #    "Lugonu appreciates all planes of reality, and wants players to tour as many of them as soon as possible. Lugonu ranks players in order of their first 15-rune win in the tournament.",
+    #    "first_allrune_win",
+    #    False,
+    #    None,
+    #    "first_allrune_wins",
+    #    "end_time ASC",
+    #    [
+    #        ColumnDisplaySpec("end_time", "Game End Time", True, True, lambda x: x),
+    #        ColumnDisplaySpec("race", "Species", False, False, None),
+    #        ColumnDisplaySpec("class", "Background", False, False, None),
+    #        ColumnDisplaySpec("duration", "Duration", False, True, _pretty_duration),
+    #        ColumnDisplaySpec(
+    #            "morgue_json", "Morgue", False, False, _json_to_morgue_link
+    #        ),
+    #    ],
+    #),
     Category(
         "individual",
         "Ziggurat Diving",

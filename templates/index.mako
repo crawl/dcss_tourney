@@ -300,6 +300,7 @@
         <li>All <b>ranked categories</b> have been replaced with <b>relative
 	categories</b> where points are awarded relative to the best
 	performance in that category.</li>
+	<li>The <b>tournament win order</b> categories are removed.</li>
 	<li>The <b>Ziggurat Dive</b> category is now scored proportional to the
 	number of Ziggurat floors reached, capped at a maximum of 27 complete
 	Ziggurats.</li>
