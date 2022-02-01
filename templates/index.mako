@@ -124,7 +124,7 @@
         Players earn points across a number of categories (listed below), which
         either award points <span
         class="font-weight-bold">proportionally</span> or
-        <span class="font-weight-bold">by rank</span>. Your overall rank is the sum of points gained across
+        <span class="font-weight-bold">relative to the category leader</span>. Your overall rank is the sum of points gained across
         all <code>${len(scoring_data.INDIVIDUAL_CATEGORIES)}</code> categories.
       </p>
       <p>
@@ -134,16 +134,21 @@
         <code>(progress / category maximum) * ${"{:,}".format(scoring_data.MAX_CATEGORY_SCORE)}</code>. 
       </p>
       <p>
-        In a <span class="font-weight-bold">ranked category</span> your
-        rank in that category determines how many point you win from it. The
-        points received are:
-        <code>${"{:,}".format(scoring_data.MAX_CATEGORY_SCORE)} / rank in
-        category</code>.
+        In a <span class="font-weight-bold">relative category</span> your
+	performance in that category determines how many point you win from it.
+	The points received are either:
+        <code>(your result / category best) *
+	${"{:,}".format(scoring_data.MAX_CATEGORY_SCORE)}</code> or
+	<code>(category best / your reuslt) *
+	${"{:,}".format(scoring_data.MAX_CATEGORY_SCORE)}</code>, depending on
+	whether the category asks to maximize or minimize its result (for
+	example, high score uses the first formula, low turn count the second).
         <div class="alert alert-dark text-dark" role="alert">
           If you place last in a category, you will always receive 0 points.
         </div>
         <div class="alert alert-dark text-dark" role="alert">
-          Your ranking for each ranked category may change as the tournament progresses. Therefore the points you receive for each category may change too!
+          The points you receive in each relative category will change as the
+	  tournament progresses and the leader changes.
         </div>
       </p>
       <p>
@@ -292,6 +297,9 @@
       <h2 id="changes">Changes from the 0.27 tournament</h2>
       <p>
       <ul>
+        <li>All <b>ranked categories</b> have been replaced with <b>relative
+	categories</b> where points are awarded relative to the best
+	performance in that category.</li>
 	<li>The <b>Ziggurat Dive</b> category is now scored proportional to the
 	number of Ziggurat floors reached, capped at a maximum of 27 complete
 	Ziggurats.</li>

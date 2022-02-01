@@ -57,13 +57,20 @@ Category = collections.namedtuple(
         "desc",
         # Column storing the player/clan's score in the players/teams table
         "rank_column",
-        # Whether to score this category proportionally
+        # Whether to score this category proportionally or relatively
         "proportional",
         # Maximum value in a proportional column
         "max",
+        # Order to use in a relative column
+        "order_asc",
         # The following properties define how to pull out detailed scoring info.
         "source_table",
+        # A legacy name: previously a clause for an ORDER BY, now just the
+        # column from source table to use.
         "rank_order_clause",
+        # Python function to apply to the category score before displaying it.
+        # Function type signature: (Any) -> str
+        "transform_fn",
         # A list of ColumnDisplaySpec's
         "columns",
     ),
@@ -83,10 +90,10 @@ def category_leaders(category, cursor, brief=False, limit=None):
         row_owner = "team_info_json"
         final_sort_row = "JSON_EXTRACT(team_info_json, '$.name')"
 
-    if category.proportional:
-        rank_order_clause = category.rank_order_clause + " DESC"
+    if category.order_asc:
+        rank_order_clause = category.rank_order_clause + " ASC"
     else:
-        rank_order_clause = category.rank_order_clause
+        rank_order_clause = category.rank_order_clause + " DESC"
 
     limit_clause = "LIMIT {limit}".format(limit=limit) if limit is not None else ""
 
@@ -273,8 +280,10 @@ INDIVIDUAL_CATEGORIES = (
         "exploration",
         True,
         100,
+        None,
         "player_exploration_score",
         "score",
+        None,
         [ColumnDisplaySpec("score", "Progress / 100", True, True, None),
          ColumnDisplaySpec("data", "Oh! The Places You've Gone", False, False,
              _pretty_exploration),],
@@ -286,8 +295,10 @@ INDIVIDUAL_CATEGORIES = (
         "piety",
         True,
         50,
+        None,
         "player_piety_score",
         "piety",
+        None,
         [
             ColumnDisplaySpec("piety", "Progress / 50", True, True, None),
             ColumnDisplaySpec("champion", "Gods Championed...", False,
@@ -303,8 +314,10 @@ INDIVIDUAL_CATEGORIES = (
         "harvest",
         True,
         81,
+        None,
         "player_harvest_score",
         "score",
+        None,
         [ColumnDisplaySpec("score", "Progress / 81", True, True, None),
          ColumnDisplaySpec("data", "Uniques Slain", False, False,
              _pretty_harvest),],
@@ -320,6 +333,8 @@ INDIVIDUAL_CATEGORIES = (
         2,
         None,
         None,
+        None,
+        None,
         [],
     ),
     Category(
@@ -329,8 +344,10 @@ INDIVIDUAL_CATEGORIES = (
         "win_perc",
         True,
         100,
+        None,
         "player_win_perc",
         "win_perc",
+        None,
         [
             ColumnDisplaySpec("win_perc", "Win Percentage", True, True, None),
             ColumnDisplaySpec("n_wins", "Wins", False, True, None),
@@ -344,8 +361,10 @@ INDIVIDUAL_CATEGORIES = (
         "streak",
         True,
         25,
+        None,
         "player_best_streak",
         "length",
+        None,
         [ColumnDisplaySpec("length", "Streak Length", True, True, None),
          ColumnDisplaySpec("streak_data", "Games", False, False,
              _pretty_streak),],
@@ -357,8 +376,10 @@ INDIVIDUAL_CATEGORIES = (
         "nemelex_score",
         False,
         None,
+        False,
         "player_nemelex_score",
-        "score DESC",
+        "score",
+        None,
         [
             ColumnDisplaySpec("score", "Score", True, True, None),
             ColumnDisplaySpec("games", "Games", False, False, _pretty_nemelex),
@@ -371,8 +392,10 @@ INDIVIDUAL_CATEGORIES = (
         "combo_score",
         False,
         None,
+        False,
         "player_combo_score",
-        "total DESC",
+        "total",
+        None,
         [
             ColumnDisplaySpec("total", "Score", True, True, None),
             ColumnDisplaySpec(
@@ -391,8 +414,10 @@ INDIVIDUAL_CATEGORIES = (
         "highest_score",
         False,
         None,
+        False,
         "highest_scores",
-        "score DESC",
+        "score",
+        None,
         [
             ColumnDisplaySpec("score", "Score", True, True, None),
             ColumnDisplaySpec("race", "Species", False, False, None),
@@ -412,8 +437,10 @@ INDIVIDUAL_CATEGORIES = (
         "lowest_turncount_win",
         False,
         None,
+        True,
         "lowest_turncount_wins",
-        "turn ASC",
+        "turn",
+        None,
         [
             ColumnDisplaySpec("turn", "Turns", True, True, None),
             ColumnDisplaySpec("race", "Species", False, False, None),
@@ -430,8 +457,10 @@ INDIVIDUAL_CATEGORIES = (
         "fastest_win",
         False,
         None,
+        True,
         "fastest_wins",
-        "duration ASC",
+        "duration",
+        _pretty_duration,
         [
             ColumnDisplaySpec("duration", "Duration", True, True, _pretty_duration),
             ColumnDisplaySpec("race", "Species", False, False, None),
@@ -447,8 +476,9 @@ INDIVIDUAL_CATEGORIES = (
         "Vehumet values ruthless efficiency, and recognises the players who win at the lowest XL. Waiting around for an ancestor to return from memory is inefficient, as is dying repeatedly, so Felid games and games where Hepliaklqana is worshipped do not count in this category. For the purposes of this category, players who have not won and players who have won only at XL 27 are both ranked last.", "low_xl_win",
         False,
         None,
+        True,
         "low_xl_nonhep_nonfe_wins",
-        "xl ASC",
+        "xl",
         [
             ColumnDisplaySpec("xl", "XL", True, True, None),
             ColumnDisplaySpec("race", "Species", False, False, None),
@@ -507,8 +537,10 @@ INDIVIDUAL_CATEGORIES = (
         "ziggurat_dive",
         True,
         28 * 27,
+        None,
         "player_ziggurats",
         "floors",
+        None,
         [
             ColumnDisplaySpec("completed", "Ziggurats Completed", True, True, None),
             ColumnDisplaySpec(
@@ -527,8 +559,10 @@ INDIVIDUAL_CATEGORIES = (
         "banner_score",
         True,
         100,
+        None,
         "player_banner_score",
         "bscore",
+        None,
         [
             ColumnDisplaySpec("bscore", "Banner Completion / 100", True, True, None),
             ColumnDisplaySpec(
@@ -546,8 +580,10 @@ CLAN_CATEGORIES = (
         "exploration",
         True,
         100,
+        None,
         "clan_exploration_score",
         "score",
+        None,
         [ColumnDisplaySpec("score", "Progress / 100", True, True, None),
          ColumnDisplaySpec("data", "Oh! The Places You've Gone", False, False,
              _pretty_exploration),],
@@ -559,8 +595,10 @@ CLAN_CATEGORIES = (
         "piety",
         True,
         50,
+        None,
         "clan_piety_score",
         "piety",
+        None,
         [
             ColumnDisplaySpec("piety", "Progress / 50", True, True, None),
             ColumnDisplaySpec("champion", "Gods Championed...", False, False,
@@ -576,8 +614,10 @@ CLAN_CATEGORIES = (
         "harvest",
         True,
         81,
+        None,
         "clan_harvest_score",
         "score",
+        None,
         [ColumnDisplaySpec("score", "Progress / 81", True, True, None),
          ColumnDisplaySpec("data", "Uniques Slain", False, False,
              _pretty_harvest),],
@@ -599,6 +639,8 @@ CLAN_CATEGORIES = (
         12,
         None,
         None,
+        None,
+        None,
         [],
     ),
     Category(
@@ -608,8 +650,10 @@ CLAN_CATEGORIES = (
         "nemelex_score",
         False,
         None,
+        False,
         "clan_nemelex_score",
-        "score DESC",
+        "score",
+        None,
         [
             ColumnDisplaySpec("score", "Score", True, True, None),
             ColumnDisplaySpec("games", "Games", False, False, _pretty_clan_nemelex),
@@ -622,8 +666,10 @@ CLAN_CATEGORIES = (
         "combo_score",
         False,
         None,
+        False,
         "clan_combo_score",
-        "total DESC",
+        "total",
+        None,
         [
             ColumnDisplaySpec("total", "Score", True, True, None),
             ColumnDisplaySpec(
@@ -642,8 +688,10 @@ CLAN_CATEGORIES = (
         "streak",
         True,
         25,
+        None,
         "clan_best_streak",
         "length",
+        None,
         [
             ColumnDisplaySpec("length", "Streak Length", True, True, None),
             ColumnDisplaySpec("players", "Player responsible", False, False, None),
@@ -656,8 +704,10 @@ CLAN_CATEGORIES = (
         "highest_score",
         False,
         None,
+        False,
         "clan_highest_scores",
-        "score DESC",
+        "score",
+        None,
         [
             ColumnDisplaySpec("score", "Score", True, True, None),
             ColumnDisplaySpec("player", "Player Responsible", False, False, None),
@@ -678,8 +728,10 @@ CLAN_CATEGORIES = (
         "lowest_turncount_win",
         False,
         None,
+        True,
         "clan_lowest_turncount_wins",
-        "turn ASC",
+        "turn",
+        None,
         [
             ColumnDisplaySpec("turn", "Turns", True, True, None),
             ColumnDisplaySpec("player", "Player Responsible", False, False, None),
@@ -697,8 +749,10 @@ CLAN_CATEGORIES = (
         "fastest_win",
         False,
         None,
+        True,
         "clan_fastest_wins",
-        "duration ASC",
+        "duration",
+        _pretty_duration,
         [
             ColumnDisplaySpec("duration", "Duration", True, True, _pretty_duration),
             ColumnDisplaySpec("player", "Player", False, False, None),
@@ -716,8 +770,10 @@ CLAN_CATEGORIES = (
         "ziggurat_dive",
         True,
         28 * 27,
+        None,
         "clan_best_ziggurat",
         "floors",
+        None,
         [
             ColumnDisplaySpec(
                 "LEAST(floors, 28 * 27)",
@@ -736,8 +792,10 @@ CLAN_CATEGORIES = (
         "banner_score",
         True,
         100,
+        None,
         "clan_banner_score",
         "bscore",
+        None,
         [
             ColumnDisplaySpec("bscore", "Banner Progress / 100", True, True, None),
             ColumnDisplaySpec(

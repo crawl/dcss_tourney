@@ -9,6 +9,8 @@
   def rank_for_result(result, category):
     if category.proportional:
       return str("%d/%d" % (result.rank, category.max))
+    elif category.transform_fn is not None:
+      return category.transform_fn(result.rank)
     else:
       return "{:,}".format(result.rank)
 %>
@@ -18,7 +20,7 @@
   <thead>
     <tr>
       <th scope="col">Category</th>
-      <th scope="col">Rank</th>
+      <th scope="col">Outcome</th>
       <th scope="col">Points</th>
       <!--<th scope="col">Notes</th>-->
     <tr>

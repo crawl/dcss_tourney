@@ -15,7 +15,7 @@ from logging import debug, info, warn, error
 import html
 import scoring_data
 
-CategoryResult = collections.namedtuple('CategoryResult', ('rank', 'details'))
+CategoryResult = collections.namedtuple('CategoryResult', ('rank', 'best', 'details'))
 BannerResult = collections.namedtuple('BannerResult', ('tier',))
 
 TEMPLATE_DIR = os.path.abspath('templates')
@@ -138,7 +138,12 @@ def clan_category_results(c, clan_name):
   clan_results = [result for result in all_ranks if result[0] == clan_name][0]
   data = {}
   for category, rank in zip(scoring_data.CLAN_CATEGORIES, clan_results[3:]):
-    data[category.name] = CategoryResult(rank, None)
+    best = 0
+    if category.proportional:
+        best = category.max
+    else:
+        best = query.leader_score(c, category)
+    data[category.name] = CategoryResult(rank, best, None)
   return data
 
 def team_pages(c):
@@ -174,10 +179,15 @@ def player_individual_category_results(c, player):
   ranks = query.get_player_ranks(c, player)
   for category in scoring_data.INDIVIDUAL_CATEGORIES:
     description = None
-    if ranks is None:
-      data[category.name] = CategoryResult(None, description)
+    best = 0
+    if category.proportional:
+        best = category.max
     else:
-      data[category.name] = CategoryResult(ranks[category.name], description)
+        best = query.leader_score(c, category)
+    if ranks is None:
+      data[category.name] = CategoryResult(None, best, description)
+    else:
+      data[category.name] = CategoryResult(ranks[category.name], best, description)
 
   return data
 
@@ -186,7 +196,7 @@ def player_clan_category_results(c, player):
   import random
   data = {}
   for category in scoring_data.CLAN_CATEGORIES:
-    data[category.name] = CategoryResult(random.randrange(0, 10), 'Details about clan challenge %s' % category.name)
+    data[category.name] = CategoryResult(random.randrange(0, 10), 27, 'Details about clan challenge %s' % category.name)
   return data
 
 def player_banner_results(c, player):

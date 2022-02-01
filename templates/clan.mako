@@ -18,15 +18,18 @@
   def points_for_result(result, category):
     if not result.rank:
       return 0
-    if category.proportional:
-      return int(round((result.rank * scoring_data.MAX_CATEGORY_SCORE) /
-                        category.max, 0)) 
+    if category.order_asc:
+      return int(round((scoring_data.MAX_CATEGORY_SCORE * result.best) /
+                       result.rank, 0))
     else:
-      return int(round(scoring_data.MAX_CATEGORY_SCORE / result.rank, 0))
+      return int(round((scoring_data.MAX_CATEGORY_SCORE * result.rank) /
+                       result.best, 0))
 
   def rank_for_result(result, category):
     if category.proportional:
       return str("%d/%d" % (result.rank, category.max))
+    elif category.transform_fn is not None:
+      return category.transform_fn(result.rank)
     else:
       return "{:,}".format(result.rank)
 %>

@@ -28,11 +28,12 @@
   def points_for_result(result, category):
     if not result.rank:
       return 0
-    if category.proportional:
-      return int(round((result.rank * scoring_data.MAX_CATEGORY_SCORE) /
-                        category.max, 0)) 
+    if category.order_asc:
+      return int(round((scoring_data.MAX_CATEGORY_SCORE * result.best) /
+                       result.rank, 0))
     else:
-      return int(round(scoring_data.MAX_CATEGORY_SCORE / result.rank, 0))
+      return int(round((scoring_data.MAX_CATEGORY_SCORE * result.rank) /
+                       result.best, 0))
 
   def pretty_points(points):
     return '{:,}'.format(int(points))
