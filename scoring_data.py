@@ -343,7 +343,7 @@ INDIVIDUAL_CATEGORIES = (
         u"Jiyva ranks players by their streak length. Jiyva favours the flexibility of a gelatinous body—the length of a streak is defined as the number of distinct species or backgrounds won consecutively (whichever is smaller). Every game in a streak must be the first game you start after winning the previous game in the streak. This will always be the case if you play all your games on one server.",
         "streak",
         True,
-        24,
+        25,
         "player_best_streak",
         "length",
         [ColumnDisplaySpec("length", "Streak Length", True, True, None),
@@ -641,7 +641,7 @@ CLAN_CATEGORIES = (
         "Clans are ranked in this category based on the streak of their best player, calculated according to the individual Streak Length category.",
         "streak",
         True,
-        24,
+        25,
         "clan_best_streak",
         "length",
         [
