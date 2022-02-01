@@ -299,7 +299,7 @@ INDIVIDUAL_CATEGORIES = (
     Category(
         "individual",
         "Unique Harvesting",
-        "Yredelemnul demands that players kill as many distinct uniques as possible as well as four player ghosts, and scores the number of such kills.",
+        "Yredelemnul demands that players kill as many distinct uniques as possible as well as five player ghosts, and scores the number of such kills.",
         "harvest",
         True,
         81,
@@ -1025,9 +1025,9 @@ BANNERS = [
         BannerTiers(
             "Kill 27 distinct uniques over the course of the tournament.",
             "Kill 54 distinct uniques over the course of the tournament.",
-            "Kill 73 distinct uniques over the course of the tournament.",
+            "Kill 78 distinct uniques over the course of the tournament.",
         ),
-        'Yredelemnul demands that you kill as many uniques as possible and will recognise success by awarding <code>THE HARVEST</code>. There are 73 uniques in DCSS.',
+        'Yredelemnul demands that you kill as many uniques as possible and will recognise success by awarding <code>THE HARVEST</code>. There are 78 uniques in DCSS.',
         "yredelemnul",
         "#994d00",
     ),

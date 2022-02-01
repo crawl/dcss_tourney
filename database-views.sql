@@ -333,10 +333,10 @@ SELECT p.team_captain, COUNT(DISTINCT u.monster) AS score,
   GROUP BY p.team_captain;
 
 CREATE OR REPLACE VIEW ghost_kill_count AS
-SELECT player, IF(COUNT(*) <= 4, COUNT(*), 4) AS score FROM kills_of_ghosts GROUP BY player;
+SELECT player, IF(COUNT(*) <= 3, COUNT(*), 3) AS score FROM kills_of_ghosts GROUP BY player;
 
 CREATE OR REPLACE VIEW clan_ghost_kill_count AS
-SELECT p.team_captain,  IF(COUNT(*) <= 4, COUNT(*), 4) AS score
+SELECT p.team_captain,  IF(COUNT(*) <= 3, COUNT(*), 3) AS score
   FROM kills_of_ghosts AS u INNER JOIN players AS p
     ON u.player = p.name
   GROUP BY p.team_captain;

@@ -10,11 +10,11 @@ UNIQUES = [ "Ijyb", "Blork", "Urug", "Erolcha", "Snorg",
             "Nergalle", "Saint Roka", "Roxanne", "Eustachio",
             "the Lernaean hydra", "Dowan", "Duvessa",
             "Grum", "Crazy Yiuf", "Gastronok", "Pikel", "Menkaure",
-            "Khufu", "Ilsuiw", "Aizul", "Mara", "Purgy", "Grinder",
+            "Khufu", "Ilsuiw", "Aizul", "Mara", "Pargi", "Grinder",
             "Kirke", "Nikola", "Maurice", "Mennas", "Jory",
             "the Serpent of Hell", "the Enchantress", "Ignacio", "Arachne",
             "Fannar", "Jorgrun", "Sojobo", "Asterion", "Natasha", "Vashnia",
-            "Robin", "Bai Suzhen" ]
+            "Robin", "Bai Suzhen", "Mlioglotl", "Maggie" ]
 
 HARD_UNIQUES = [ "Antaeus", "Asmodeus", "Boris", "Cerebov", "Dispater",
                  "Dissolution", "Ereshkigal", "Frederick", "Geryon", "Gloorx Vloq",
