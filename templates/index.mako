@@ -389,7 +389,7 @@
           <b>CanOfWorms</b> for creating the banner images.
         </li>
         <li>
-	  Thanks to all <a href="https://github.com/crawl/dcss_tourney/graphs/contributors">contributers</a>
+	  Thanks to all <a href="https://github.com/crawl/crawl/blob/master/crawl-ref/CREDITS.txt">contributors</a>
           who help make DCSS possible!
         </li>
         <li>
