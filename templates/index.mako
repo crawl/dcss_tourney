@@ -139,7 +139,7 @@
 	The points received are either:
         <code>(your result / category best) *
 	${"{:,}".format(scoring_data.MAX_CATEGORY_SCORE)}</code> or
-	<code>(category best / your reuslt) *
+	<code>(category best / your result) *
 	${"{:,}".format(scoring_data.MAX_CATEGORY_SCORE)}</code>, depending on
 	whether the category asks to maximize or minimize its result (for
 	example, high score uses the first formula, low turn count the second).
