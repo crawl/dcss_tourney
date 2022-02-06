@@ -157,6 +157,7 @@ def player_page(c, player):
   stats = query.get_player_stats(c, player)
   player_params = {
     'player' : player,
+    'score_full': stats['score_full'],
     'total_number_of_players': stats['rank2'],
     'overall_rank': stats['rank1'],
     'individual_category_results': player_individual_category_results(c, player),

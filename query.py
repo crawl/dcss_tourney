@@ -661,17 +661,17 @@ def get_clan_stats(c, captain):
 
 def get_player_stats(c, name):
   """Returns a dictionary of miscellaneous stats for the player."""
-  points = query_row(c, '''SELECT score_full
+  score_full = query_row(c, '''SELECT score_full
                            FROM players WHERE name = %s''',
                      name)
-  if points is None:
+  if score_full is None:
     return { }
 
   stats = { }
-  stats['points'] = points[0]
+  stats['score_full'] = score_full[0]
   stats['rank1'] = query_first(c, '''SELECT COUNT(DISTINCT score_full) FROM players
                                     WHERE score_full > %s''',
-                              stats['points']) + 1
+                              stats['score_full']) + 1
   stats['rank2'] = query_first(c, '''SELECT COUNT(DISTINCT score_full) FROM players''')
 
   # Get win/played stats.

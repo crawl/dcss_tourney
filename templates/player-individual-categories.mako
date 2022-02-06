@@ -35,18 +35,7 @@
       </th>
       <th scope="row" class="text-monospace text-right">${overall_rank}</th>
       <th scope="row" class="text-monospace text-right">
-        <%
-        points = int(
-          round(
-            sum(
-              float(points_for_result(individual_category_results[c.name], c)
-	            or 0.0)
-              for c in scoring_data.INDIVIDUAL_CATEGORIES
-            )
-          , 0)
-        )
-        %>
-        ${'{:,}'.format(points)}
+        ${'{:,}'.format(score_full)}
       </th>
       <!--<th scope="row"></th>-->
     </tr>
