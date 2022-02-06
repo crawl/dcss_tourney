@@ -1695,7 +1695,7 @@ def score_term(cat, catmax):
         return "0.0"
 
     if cat.order_asc:
-        return "COALESCE ( %5.1f * ( %5.1f / GREATEST( %5.1f, %s ) )" % (MAX_CATEGORY_SCORE, catmax, catmax, cat.rank_column)
+        return "COALESCE( %5.1f * ( %5.1f / GREATEST( %5.1f, %s ) ), 0.0 )" % (MAX_CATEGORY_SCORE, catmax, catmax, cat.rank_column)
 
     return "COALESCE( %5.1f * ( LEAST( %s, %5.1f ) / %5.1f ), 0.0 )" % (MAX_CATEGORY_SCORE, cat.rank_column, catmax, catmax)
 
