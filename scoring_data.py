@@ -310,7 +310,7 @@ INDIVIDUAL_CATEGORIES = (
     Category(
         "individual",
         "Unique Harvesting",
-        "Yredelemnul demands that players kill as many distinct uniques as possible as well as five player ghosts, and scores the number of such kills.",
+        "Yredelemnul demands that players kill as many distinct uniques as possible as well as three player ghosts, and scores the number of such kills.",
         "harvest",
         True,
         81,

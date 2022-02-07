@@ -304,6 +304,8 @@
 	<li>The <b>Ziggurat Dive</b> category is now scored proportional to the
 	number of Ziggurat floors reached, capped at a maximum of 27 complete
 	Ziggurats.</li>
+	<li>The <b>Unique Harvest</b> category now only counts three player
+ghosts as unique kills instead of five.</li>
       </ul>
       </p>
     </div>
