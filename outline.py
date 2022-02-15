@@ -96,7 +96,7 @@ def act_on_milestone(c, mile):
     do_milestone_br_end(c, mile)
   elif miletype == 'god.maxpiety':
     do_milestone_max_piety(c, mile)
-  elif miletype == 'zig':
+  elif miletype == 'zig' or miletype == 'zig.enter':
     do_milestone_zig(c, mile)
   elif miletype == 'zig.exit':
     do_milestone_zig_exit(c, mile)
@@ -244,6 +244,7 @@ def do_milestone_max_piety(c, mile):
 def do_milestone_abyss_enter(c, mile):
   return
 
+# on entry or descent
 def do_milestone_zig(c, mile):
   banner.award_banner(c, mile['name'], 'xom', 1)
   if mile['place'] == 'Zig:10':
