@@ -28,22 +28,22 @@ from query_class import Query
 from test_data import USE_TEST, TEST_YEAR, TEST_VERSION, TEST_START_TIME, TEST_END_TIME, TEST_HARE_START_TIME, TEST_LOGS, TEST_MILESTONES, TEST_CLAN_DEADLINE, LogSpec
 
 T_YEAR = TEST_YEAR or '2022'
-T_VERSION = TEST_VERSION or '0.28'
+T_VERSION = TEST_VERSION or '0.29'
 
 # Start and end of the tournament, UTC.
-START_TIME = TEST_START_TIME or (T_YEAR + '02042000')
-END_TIME   = TEST_END_TIME or (T_YEAR + '02202000')
+START_TIME = TEST_START_TIME or (T_YEAR + '08262000')
+END_TIME   = TEST_END_TIME or (T_YEAR + '09112000')
 
 # Deadline for forming teams.
 CLAN_DEADLINE = (TEST_CLAN_DEADLINE or
-                datetime.datetime(2022, 2, 11, 20))
+                datetime.datetime(2022, 9, 2, 20))
 
 DATE_FORMAT = '%Y%m%d%H%M'
 
 GAME_VERSION = T_VERSION
 
 # One day before tourney end
-HARE_START_TIME = TEST_HARE_START_TIME or (T_YEAR + '02192000')
+HARE_START_TIME = TEST_HARE_START_TIME or (T_YEAR + '09102000')
 
 CAO = 'http://crawl.akrasiac.org/'
 CBR2 = 'https://cbro.berotato.org/'
@@ -57,27 +57,27 @@ LLD = 'http://lazy-life.ddo.jp/'
 
 # Log and milestone files. The url is what we 'wget -c' from.
 LOGS = TEST_LOGS or [
-            LogSpec('cao', 'logfiles/cao-logfile-0.28', CAO + 'logfile28'),
-            LogSpec('cbr2', 'logfiles/cbr2-logfile-0.28', CBR2 + 'meta/0.28/logfile'),
-#           LogSpec('cdo', 'logfiles/cdo-logfile-0.28', CDO + 'allgames-0.28.txt'),
-            LogSpec('cko', 'logfiles/cko-logfile-0.28', CKO + 'meta/0.28/logfile'),
-            LogSpec('cpo', 'logfiles/cpo-logfile-0.28', CPO + 'dcss-logfiles-0.28'),
-            LogSpec('cue', 'logfiles/cue-logfile-0.28', CUE + 'meta/0.28/logfile'),
-            LogSpec('cwz', 'logfiles/cwz-logfile-0.28', CWZ + '0.28/logfile'),
-            LogSpec('cxc', 'logfiles/cxc-logfile-0.28', CXC + 'meta/0.28/logfile'),
-            LogSpec('lld', 'logfiles/lld-logfile-0.28', LLD + 'mirror/meta/0.28/logfile'),
+            LogSpec('cao', 'logfiles/cao-logfile-0.29', CAO + 'logfile29'),
+#            LogSpec('cbr2', 'logfiles/cbr2-logfile-0.29', CBR2 + 'meta/0.29/logfile'),
+#           LogSpec('cdo', 'logfiles/cdo-logfile-0.29', CDO + 'allgames-0.29.txt'),
+#            LogSpec('cko', 'logfiles/cko-logfile-0.29', CKO + 'meta/0.29/logfile'),
+            LogSpec('cpo', 'logfiles/cpo-logfile-0.29', CPO + 'dcss-logfiles-0.29'),
+#           LogSpec('cue', 'logfiles/cue-logfile-0.29', CUE + 'meta/0.29/logfile'),
+#           LogSpec('cwz', 'logfiles/cwz-logfile-0.29', CWZ + '0.29/logfile'),
+#           LogSpec('cxc', 'logfiles/cxc-logfile-0.29', CXC + 'meta/0.29/logfile'),
+#           LogSpec('lld', 'logfiles/lld-logfile-0.29', LLD + 'mirror/meta/0.29/logfile'),
   ]
 
 MILESTONES = TEST_MILESTONES or [
-            LogSpec('cao', 'milestones/cao-milestones-0.28', CAO + 'milestones28'),
-            LogSpec('cbr2', 'milestones/cbr2-milestones-0.28', CBR2 + 'meta/0.28/milestones'),
-#           LogSpec('cdo', 'milestones/cdo-milestones-0.28', CDO + 'milestones-0.28.txt'),
-            LogSpec('cko', 'milestones/cko-milestones-0.28', CKO + 'meta/0.28/milestones'),
-            LogSpec('cpo', 'milestones/cpo-milestones-0.28', CPO + 'dcss-milestones-0.28'),
-            LogSpec('cue', 'milestones/cue-milestones-0.28', CUE + 'meta/0.28/milestones'),
-            LogSpec('cwz', 'milestones/cwz-milestones-0.28', CWZ + '0.28/milestones'),
-            LogSpec('cxc', 'milestones/cxc-milestones-0.28', CXC + 'meta/0.28/milestones'),
-            LogSpec('lld', 'milestones/lld-milestones-0.28', LLD + 'mirror/meta/0.28/milestones'),
+            LogSpec('cao', 'milestones/cao-milestones-0.29', CAO + 'milestones29'),
+#           LogSpec('cbr2', 'milestones/cbr2-milestones-0.29', CBR2 + 'meta/0.29/milestones'),
+#           LogSpec('cdo', 'milestones/cdo-milestones-0.29', CDO + 'milestones-0.29.txt'),
+#           LogSpec('cko', 'milestones/cko-milestones-0.29', CKO + 'meta/0.29/milestones'),
+            LogSpec('cpo', 'milestones/cpo-milestones-0.29', CPO + 'dcss-milestones-0.29'),
+#           LogSpec('cue', 'milestones/cue-milestones-0.29', CUE + 'meta/0.29/milestones'),
+#           LogSpec('cwz', 'milestones/cwz-milestones-0.29', CWZ + '0.29/milestones'),
+#           LogSpec('cxc', 'milestones/cxc-milestones-0.29', CXC + 'meta/0.29/milestones'),
+#           LogSpec('lld', 'milestones/lld-milestones-0.29', LLD + 'mirror/meta/0.29/milestones'),
   ]
 
 GAME_BLOCKLIST_FILE = 'game_blocklist.txt'

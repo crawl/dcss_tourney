@@ -294,18 +294,10 @@
   <!-- Changes -->
   <div class="row">
     <div class="col">
-      <h2 id="changes">Changes from the 0.27 tournament</h2>
+      <h2 id="changes">Changes from the 0.28 tournament</h2>
       <p>
       <ul>
-        <li>All <b>ranked categories</b> have been replaced with <b>relative
-	categories</b> where points are awarded relative to the best
-	performance in that category.</li>
-	<li>The <b>tournament win order</b> categories are removed.</li>
-	<li>The <b>Ziggurat Dive</b> category is now scored proportional to the
-	number of Ziggurat floors reached, capped at a maximum of 27 complete
-	Ziggurats.</li>
-	<li>The <b>Unique Harvest</b> category now only counts three player
-ghosts as unique kills instead of five.</li>
+        <li>There are currently no changes from the 0.28 tournament.</li>
       </ul>
       </p>
     </div>
