@@ -1,37 +1,39 @@
-UNIQUES = [ "Ijyb", "Blork", "Urug", "Erolcha", "Snorg",
-            "Antaeus", "Xtahua", "Tiamat", "Boris", "Murray", "Terence",
-            "Jessica", "Sigmund", "Edmund", "Psyche", "Donald",
-            "Joseph", "Erica", "Josephine", "Harold",
-            "Agnes", "Louise", "Frances", "Rupert",
-            "Frederick", "Margery", "Mnoleg", "Lom Lobon",
-            "Cerebov", "Gloorx Vloq", "Geryon", "Dispater", "Asmodeus",
-            "Ereshkigal", "Nessos", "Azrael", "Polyphemus",
-            "Prince Ribbit", "the royal jelly", "Dissolution", "Sonja",
-            "Nergalle", "Saint Roka", "Roxanne", "Eustachio",
-            "the Lernaean hydra", "Dowan", "Duvessa",
-            "Grum", "Crazy Yiuf", "Gastronok", "Pikel", "Menkaure",
-            "Khufu", "Ilsuiw", "Aizul", "Mara", "Pargi", "Grinder",
-            "Kirke", "Nikola", "Maurice", "Mennas", "Jory",
-            "the Serpent of Hell", "the Enchantress", "Ignacio", "Arachne",
-            "Fannar", "Jorgrun", "Sojobo", "Asterion", "Natasha", "Vashnia",
-            "Robin", "Bai Suzhen", "Mlioglotl", "Maggie" ]
+UNIQUES = [ "Agnes", "Aizul", "Amaemon", "Antaeus", "Arachne", "Asmodeus",
+            "Asterion", "Azrael", "Bai Suzhen", "Blork", "Boris", "Cerebov",
+            "Crazy Yiuf", "Dispater", "Dissolution", "Donald", "Dowan",
+            "Duvessa", "Edmund", "the Enchantress", "Ereshkigal", "Erica",
+            "Erolcha", "Eustachio", "Fannar", "Frances", "Frederick",
+            "Gastronok", "Geryon", "Gloorx Vloq", "Grinder", "Grum", "Grunn",
+            "Harold", "Ignacio", "Ijyb", "Ilsuiw", "Jessica", "Jorgrun",
+            "Jory", "Joseph", "Josephine", "Josephina", "Khufu", "Kirke",
+            "the Lernaean hydra", "Lodul", "Lom Lobon", "Louise", "Maggie",
+            "Mara", "Margery", "Maurice", "Menkaure", "Mennas", "Mlioglotl",
+            "Mnoleg", "Murray", "Natasha", "Nergalle", "Nessos", "Nikola",
+            "Parghit", "Pargi", "Pikel", "Polyphemus", "Prince Ribbit",
+            "Psyche", "Robin", "Roxanne", "the Royal Jelly", "Rupert",
+            "Saint Roka", "the Serpent of Hell", "Sigmund", "Snorg", "Sojobo",
+            "Sonja", "Terence", "Tiamat", "Urug", "Vashnia", "Vv", "Xtahua",
+            "Zenata" ]
 
 HARD_UNIQUES = [ "Antaeus", "Asmodeus", "Boris", "Cerebov", "Dispater",
-                 "Dissolution", "Ereshkigal", "Frederick", "Geryon", "Gloorx Vloq",
-                 "Ignacio", "Khufu", "Lom Lobon", "Mara", "Margery", "Mennas",
-                 "Mnoleg", "Murray", "Sojobo", "the Enchantress", "the Serpent of Hell",
-                 "the royal jelly", "Tiamat", "Xtahua" ]
+                 "Dissolution", "the Enchantress", "Ereshkigal", "Frederick",
+                 "Geryon", "Gloorx Vloq", "Grunn", "Ignacio", "Josephina",
+                 "Khufu", "Lom Lobon", "Mara", "Margery", "Mennas", "Mnoleg",
+                 "Murray", "Parghit" "the Royal Jelly", "the Serpent of Hell",
+                 "Sojobo", "Tiamat", "Xtahua", "Zenata" ]
 
-MEDIUM_UNIQUES = [ "Agnes", "Aizul", "Arachne", "Asterion", "Azrael", "Bai Suzhen",
-                   "Donald", "Frances", "Gastronok", "Ilsuiw", "Jory", "Jorgrun",
-                   "Josephine", "Kirke", "Louise", "Nergalle", "Nessos", "Nikola",
-                   "Polyphemus", "Roxanne", "Rupert", "Saint Roka", "Sonja", "Snorg",
-                   "the Lernaean hydra", "Urug", "Vashnia" ]
+MEDIUM_UNIQUES = [ "Agnes", "Aizul", "Amaemon", "Arachne", "Asterion",
+                   "Azrael", "Bai Suzhen", "Donald", "Frances", "Gastronok",
+                   "Ilsuiw", "Jory", "Jorgrun", "Josephine", "Kirke", "Lodul",
+                   "Louise", "the Lernaean hydra", "Mlioglotl", "Nergalle",
+                   "Nessos", "Nikola", "Polyphemus", "Roxanne", "Rupert",
+                   "Saint Roka", "Sonja", "Snorg", "Urug", "Vashnia" ]
 
 EASY_UNIQUES = [ "Blork", "Crazy Yiuf", "Dowan", "Duvessa", "Edmund", "Erica",
-                 "Erolcha", "Eustachio", "Fannar", "Grum", "Grinder", "Harold",
-                 "Ijyb", "Jessica", "Joseph", "Maurice", "Menkaure", "Natasha", "Pikel",
-                 "Prince Ribbit", "Psyche", "Purgy", "Robin", "Sigmund", "Terence"]
+                 "Erolcha", "Eustachio", "Fannar", "Grinder", "Grum", "Harold",
+                 "Ijyb", "Jessica", "Joseph", "Maggie", "Maurice", "Menkaure",
+                 "Natasha", "Pikel", "Prince Ribbit", "Psyche", "Purgy",
+                 "Robin", "Sigmund", "Terence" ]
 
 UNIQ_SET = set(UNIQUES)
 
