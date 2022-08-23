@@ -297,7 +297,7 @@
       <h2 id="changes">Changes from the 0.28 tournament</h2>
       <p>
       <ul>
-        <li>There are currently no changes from the 0.28 tournament.</li>
+        <li>Meteorans are newly added in 0.29, but unlike other species, they are not permitted to set <i>class</i> high scores. They are allowed to set their combo high scores and the meteoran species high score normally. This aspect may be re-assessed in the 0.30 tournament, especially if high score becomes based on action duration (arbitrary units of time) instead of turns.</li>
       </ul>
       </p>
     </div>

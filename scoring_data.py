@@ -388,7 +388,7 @@ INDIVIDUAL_CATEGORIES = (
     Category(
         "individual",
         "Combo High Scores",
-        "Dithmenos ranks players by the combo high scores they can acquire and defend from rivals. Each combo high score at XL &ge; 9  gives 1 point, with bonus points for winning the game (+9) and being a species/background high score (+27 each). (Therefore, a single game can give a maximum of 64 points.)",
+        "Dithmenos ranks players by the combo high scores they can acquire and defend from rivals. Each combo high score at XL &ge; 9  gives 1 point, with bonus points for winning the game (+9) and being a species/background high score (+27 each). Therefore, a single game can give a maximum of 64 points. Dithmenos detests the glow of Meteorans and will not award them background high scores.",
         "combo_score",
         False,
         None,
@@ -663,7 +663,7 @@ CLAN_CATEGORIES = (
     Category(
         "clan",
         "Combo High Scores",
-        "The clan is awarded points in this category in the same way as the individual Combo High scores category using all of the members' games.  Each combo high score at XL &ge; 9 gives 1 point, with bonus points for winning the game (+9) and being a species/background high score (+27 each). (Therefore, a single game can give a maximum of 64 points.)",
+        "The clan is awarded points in this category in the same way as the individual Combo High scores category using all of the members' games.  Each combo high score at XL &ge; 9 gives 1 point, with bonus points for winning the game (+9) and being a species/background high score (+27 each). Therefore, a single game can give a maximum of 64 points. As in the individual category, Meteorans can't set background high scores.",
         "combo_score",
         False,
         None,

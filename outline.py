@@ -388,7 +388,7 @@ def crunch_winner(c, game, filename):
     if ogame and ogame[1] >= 10000000 and ogame[1] < game['sc'] and ogame[0] != player:
       banner.award_banner(c, player, 'dithmenos', 3)
     ogame = query.previous_class_highscore(c, game)
-    if ogame and ogame[1] >= 10000000 and ogame[1] < game['sc'] and ogame[0] != player:
+    if game['race'] != "Meteoran" and ogame and ogame[1] >= 10000000 and ogame[1] < game['sc'] and ogame[0] != player:
       banner.award_banner(c, player, 'dithmenos', 3)
 
   debug("%s win (%s), runes: %d" % (player, charabbrev, game.get('urune') or 0))
