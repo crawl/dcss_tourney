@@ -28,24 +28,24 @@ LogSpec = collections.namedtuple('LogSpec', ('src', 'local_path', 'url'))
 
 TEST_LOGS = USE_TEST and [
              LogSpec('cao', 'logfiles/cao-logfile-0.29', CAO + 'logfile29'),
-#            LogSpec('cbr2', 'logfiles/cbr2-logfile-0.29', CBR2 + 'meta/0.29/logfile'),
+             LogSpec('cbr2', 'logfiles/cbr2-logfile-0.29', CBR2 + 'meta/0.29/logfile'),
 #            LogSpec('cdo', 'logfiles/cdo-logfile-0.29', CDO + 'allgames-0.29.txt'),
-#            LogSpec('cko', 'logfiles/cko-logfile-0.29', CKO + 'meta/0.29/logfile'),
+             LogSpec('cko', 'logfiles/cko-logfile-0.29', CKO + 'meta/0.29/logfile'),
              LogSpec('cpo', 'logfiles/cpo-logfile-0.29', CPO + 'dcss-logfiles-0.29'),
 #            LogSpec('cue', 'logfiles/cue-logfile-0.29', CUE + 'meta/0.29/logfile'),
-#            LogSpec('cwz', 'logfiles/cwz-logfile-0.29', CWZ + '0.29/logfile'),
-#            LogSpec('cxc', 'logfiles/cxc-logfile-0.29', CXC + 'meta/0.29/logfile'),
+             LogSpec('cwz', 'logfiles/cwz-logfile-0.29', CWZ + '0.29/logfile'),
+             LogSpec('cxc', 'logfiles/cxc-logfile-0.29', CXC + 'meta/0.29/logfile'),
 #            LogSpec('lld', 'logfiles/lld-logfile-0.29', LLD + 'mirror/meta/0.29/logfile'),
   ]
 
 TEST_MILESTONES = USE_TEST and [
              LogSpec('cao', 'milestones/cao-milestones-0.29', CAO + 'milestones29'),
-#            LogSpec('cbr2', 'milestones/cbr2-milestones-0.29', CBR2 + 'meta/0.29/milestones'),
+             LogSpec('cbr2', 'milestones/cbr2-milestones-0.29', CBR2 + 'meta/0.29/milestones'),
 #            LogSpec('cdo', 'milestones/cdo-milestones-0.29', CDO + 'milestones-0.29.txt'),
-#            LogSpec('cko', 'milestones/cko-milestones-0.29', CKO + 'meta/0.29/milestones'),
+             LogSpec('cko', 'milestones/cko-milestones-0.29', CKO + 'meta/0.29/milestones'),
              LogSpec('cpo', 'milestones/cpo-milestones-0.29', CPO + 'dcss-milestones-0.29'),
 #            LogSpec('cue', 'milestones/cue-milestones-0.29', CUE + 'meta/0.29/milestones'),
-#            LogSpec('cwz', 'milestones/cwz-milestones-0.29', CWZ + '0.29/milestones'),
-#            LogSpec('cxc', 'milestones/cxc-milestones-0.29', CXC + 'meta/0.29/milestones'),
+             LogSpec('cwz', 'milestones/cwz-milestones-0.29', CWZ + '0.29/milestones'),
+             LogSpec('cxc', 'milestones/cxc-milestones-0.29', CXC + 'meta/0.29/milestones'),
 #            LogSpec('lld', 'milestones/lld-milestones-0.29', LLD + 'mirror/meta/0.29/milestones'),
   ]
