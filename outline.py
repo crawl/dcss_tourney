@@ -492,7 +492,7 @@ HAVING race_count >= 5 AND class_count >= 5'''),
   award_player_banners(c, 'yredelemnul',
                        query_first_col(c,
                                        '''SELECT player FROM unique_kill_count
-                                          WHERE score >= 78'''),
+                                          WHERE score >= 85'''),
                        3)
   award_player_banners(c, 'yredelemnul',
                        query_first_col(c,
