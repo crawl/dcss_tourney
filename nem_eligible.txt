@@ -111,6 +111,4 @@ VpAE
 VpAK
 VpCA
 VpDe
-VpHW
-VSAE
 VSCA
