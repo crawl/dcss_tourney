@@ -8,7 +8,7 @@ import logging
 from logging import debug, info, warn, error
 
 import loaddb
-from loaddb import query_do, query_first, query_row, query_rows
+from loaddb import query_do, query_first, query_row, query_rows, BOT_USERS
 from loaddb import query_rows_with_ties
 from loaddb import query_first_col, query_first_def
 
@@ -589,16 +589,31 @@ def calc_perc(num, den):
     return num * 100.0 / den
 
 def get_all_game_stats(c):
-  played = query_first(c, '''SELECT COUNT(*) FROM games WHERE killertype NOT IN ('quitting', 'leaving', 'wizmode')''')
-  distinct_players = query_first(c, '''SELECT COUNT(DISTINCT player) FROM games WHERE killertype NOT IN ('quitting', 'leaving', 'wizmode')''')
+  played = query_first(c, '''SELECT COUNT(*) FROM games
+          WHERE killertype NOT IN ('quitting', 'leaving', 'wizmode')''' +
+          ' AND player NOT IN (' +
+          ",".join(['%s'] * len(BOT_USERS)) + ")", *BOT_USERS)
+  distinct_players = query_first(c, '''SELECT COUNT(DISTINCT player) FROM games
+          WHERE killertype NOT IN ('quitting', 'leaving', 'wizmode')''' +
+          ' AND player NOT IN (' +
+          ",".join(['%s'] * len(BOT_USERS)) + ")", *BOT_USERS)
   won = query_first(c, """SELECT COUNT(*) FROM games
-                          WHERE killertype='winning'""")
+          WHERE killertype='winning'""" +
+          ' AND player NOT IN (' +
+          ",".join(['%s'] * len(BOT_USERS)) + ")", *BOT_USERS)
   distinct_winners = query_first(c, """SELECT COUNT(DISTINCT player) FROM games
-                                       WHERE killertype='winning'""")
+          WHERE killertype='winning'""" +
+          ' AND player NOT IN (' +
+          ",".join(['%s'] * len(BOT_USERS)) + ")", *BOT_USERS)
   allrune_won = query_first(c, """SELECT COUNT(*) FROM games
-                          WHERE killertype='winning' AND nrune=15""")
-  allrune_distinct_winners = query_first(c, """SELECT COUNT(DISTINCT player) FROM games
-                                       WHERE killertype='winning' and nrune=15""")
+          WHERE killertype='winning' AND nrune=15""" +
+          ' AND player NOT IN (' +
+          ",".join(['%s'] * len(BOT_USERS)) + ")", *BOT_USERS)
+  allrune_distinct_winners = query_first(c,
+    """SELECT COUNT(DISTINCT player) FROM games
+          WHERE killertype='winning' and nrune=15""" +
+          ' AND player NOT IN (' +
+          ",".join(['%s'] * len(BOT_USERS)) + ")", *BOT_USERS)
 
   win_perc = "%.2f%%" % calc_perc(won, played)
   allrune_win_perc = "%.2f%%" % calc_perc(allrune_won, played)

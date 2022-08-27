@@ -162,7 +162,7 @@ SELECT g.*, JSON_OBJECT('source_file', g.source_file,
 		    'charabbrev', g.charabbrev) AS morgue_json  FROM wins AS g
   LEFT OUTER JOIN wins AS g2
   ON g.player = g2.player AND (g.duration, g.start_time) > (g2.duration, g2.start_time)
-  WHERE g2.start_time IS NULL;
+  WHERE g.player NOT IN ('qw','tstbtto') AND g2.start_time IS NULL;
 
 CREATE OR REPLACE VIEW clan_fastest_wins AS
 SELECT
@@ -177,7 +177,9 @@ SELECT
     ON g.team_captain = g2.team_captain AND (g.duration, g.start_time) > (g2.duration, g2.start_time)
   LEFT JOIN teams
     ON g.team_captain = teams.owner
-  WHERE g.team_captain IS NOT NULL AND g2.start_time IS NULL;
+  WHERE g.player NOT IN ('qw','tstbtto')
+    AND g.team_captain IS NOT NULL
+    AND g2.start_time IS NULL;
 
 CREATE OR REPLACE VIEW nonhep_nonfe_wins AS
 SELECT * FROM wins AS g
