@@ -52,6 +52,7 @@ CLAN_FILE_DIR = SCORE_FILE_DIR + '/' + CLAN_BASE
 IMAGE_FILE_DIR = SCORE_FILE_DIR + '/images'
 
 CAO_MORGUE_BASE = 'http://crawl.akrasiac.org/rawdata'
+CDI_MORGUE_BASE = 'https://crawl.dcss.io/crawl/morgue'
 CDO_MORGUE_BASE = 'http://crawl.develz.org/morgues/0.29'
 CUE_MORGUE_BASE = 'https://underhound.eu/crawl/morgue'
 CKO_MORGUE_BASE = 'https://crawl.kelbi.org/crawl/morgue'
