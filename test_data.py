@@ -3,6 +3,7 @@ import datetime
 
 CAO = 'http://crawl.akrasiac.org/'
 CBR2 = 'https://cbro.berotato.org/'
+CDI = 'https://crawl.dcss.io/crawl/'
 CDO = 'http://crawl.develz.org/'
 CKO = 'https://crawl.kelbi.org/crawl/'
 CPO = 'https://crawl.project357.org/'
@@ -29,6 +30,7 @@ LogSpec = collections.namedtuple('LogSpec', ('src', 'local_path', 'url'))
 TEST_LOGS = USE_TEST and [
              LogSpec('cao', 'logfiles/cao-logfile-0.29', CAO + 'logfile29'),
              LogSpec('cbr2', 'logfiles/cbr2-logfile-0.29', CBR2 + 'meta/0.29/logfile'),
+             LogSpec('cdi', 'logfiles/cdi-logfile-0.29', CDI + 'meta/crawl-bot-0.29/logfile'),
 #            LogSpec('cdo', 'logfiles/cdo-logfile-0.29', CDO + 'allgames-0.29.txt'),
              LogSpec('cko', 'logfiles/cko-logfile-0.29', CKO + 'meta/0.29/logfile'),
              LogSpec('cpo', 'logfiles/cpo-logfile-0.29', CPO + 'dcss-logfiles-0.29'),
@@ -41,6 +43,7 @@ TEST_LOGS = USE_TEST and [
 TEST_MILESTONES = USE_TEST and [
              LogSpec('cao', 'milestones/cao-milestones-0.29', CAO + 'milestones29'),
              LogSpec('cbr2', 'milestones/cbr2-milestones-0.29', CBR2 + 'meta/0.29/milestones'),
+             LogSpec('cdi', 'milestones/cdi-logfile-0.29', CDI + 'meta/crawl-bot-0.29/milestones'),
 #            LogSpec('cdo', 'milestones/cdo-milestones-0.29', CDO + 'milestones-0.29.txt'),
              LogSpec('cko', 'milestones/cko-milestones-0.29', CKO + 'meta/0.29/milestones'),
              LogSpec('cpo', 'milestones/cpo-milestones-0.29', CPO + 'dcss-milestones-0.29'),

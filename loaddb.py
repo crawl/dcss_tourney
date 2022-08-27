@@ -47,6 +47,7 @@ HARE_START_TIME = TEST_HARE_START_TIME or (T_YEAR + '09102000')
 
 CAO = 'http://crawl.akrasiac.org/'
 CBR2 = 'https://cbro.berotato.org/'
+CDI = 'https://crawl.dcss.io/crawl/'
 CDO = 'http://crawl.develz.org/'
 CKO = 'https://crawl.kelbi.org/crawl/'
 CPO = 'https://crawl.project357.org/'
@@ -59,6 +60,7 @@ LLD = 'http://lazy-life.ddo.jp/'
 LOGS = TEST_LOGS or [
             LogSpec('cao', 'logfiles/cao-logfile-0.29', CAO + 'logfile29'),
             LogSpec('cbr2', 'logfiles/cbr2-logfile-0.29', CBR2 + 'meta/0.29/logfile'),
+            LogSpec('cdi', 'logfiles/cdi-logfile-0.29', CDI + 'meta/crawl-bot-0.29/logfile'),
 #           LogSpec('cdo', 'logfiles/cdo-logfile-0.29', CDO + 'allgames-0.29.txt'),
             LogSpec('cko', 'logfiles/cko-logfile-0.29', CKO + 'meta/0.29/logfile'),
             LogSpec('cpo', 'logfiles/cpo-logfile-0.29', CPO + 'dcss-logfiles-0.29'),
@@ -71,6 +73,7 @@ LOGS = TEST_LOGS or [
 MILESTONES = TEST_MILESTONES or [
             LogSpec('cao', 'milestones/cao-milestones-0.29', CAO + 'milestones29'),
             LogSpec('cbr2', 'milestones/cbr2-milestones-0.29', CBR2 + 'meta/0.29/milestones'),
+            LogSpec('cdi', 'milestones/cdi-logfile-0.29', CDI + 'meta/crawl-bot-0.29/milestones'),
 #           LogSpec('cdo', 'milestones/cdo-milestones-0.29', CDO + 'milestones-0.29.txt'),
             LogSpec('cko', 'milestones/cko-milestones-0.29', CKO + 'meta/0.29/milestones'),
             LogSpec('cpo', 'milestones/cpo-milestones-0.29', CPO + 'dcss-milestones-0.29'),
@@ -94,7 +97,7 @@ EXTENSION_FILE = 'modules.ext'
 TOURNAMENT_DB = 'tournament'
 COMMIT_INTERVAL = 3000
 # These rcfiles need to be updated from the servers every few hours.
-CRAWLRC_DIRECTORY_LIST = ['rcfiles/cao/','rcfiles/cbr2/','rcfiles/cdo/', 'rcfiles/cko/', 'rcfiles/cpo/','rcfiles/cue/','rcfiles/cwz/','rcfiles/cxc/','rcfiles/lld/']
+CRAWLRC_DIRECTORY_LIST = ['rcfiles/cao/', 'rcfiles/cbr2/', 'rcfiles/cdi/', 'rcfiles/cdo/', 'rcfiles/cko/', 'rcfiles/cpo/','rcfiles/cue/','rcfiles/cwz/','rcfiles/cxc/','rcfiles/lld/']
 
 LISTENERS = [ ]
 TIMERS = [ ]
