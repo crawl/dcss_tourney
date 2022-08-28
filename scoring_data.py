@@ -20,6 +20,7 @@ SERVERS = {
     "CPO": "https://crawl.project357.org/",
     "CAO": "http://crawl.akrasiac.org:8080/",
     "CBR2": "https://cbro.berotato.org:8443/",
+#   "CDI": "https://crawl.dcss.io/",
     "CDO": None,
     "CKO": "https://crawl.kelbi.org/",
     "CUE": "https://underhound.eu:8080/",
