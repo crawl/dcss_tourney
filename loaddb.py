@@ -45,6 +45,11 @@ GAME_VERSION = T_VERSION
 # One day before tourney end
 HARE_START_TIME = TEST_HARE_START_TIME or (T_YEAR + '09102000')
 
+# Bot users to be excluded from the overall tournament stats and the realtime
+# categories. Note that the database views must also be updated with this user
+# list.
+BOT_USERS = ['qw', 'tstbtto']
+
 CAO = 'http://crawl.akrasiac.org/'
 CBR2 = 'https://cbro.berotato.org/'
 CDI = 'https://crawl.dcss.io/crawl/'

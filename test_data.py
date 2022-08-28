@@ -22,6 +22,8 @@ TEST_CLAN_DEADLINE = (USE_TEST and
                      datetime.datetime(2022, 8, 24, 20))
 TEST_HARE_START_TIME = USE_TEST and (TEST_YEAR + '08242000')
 
+BOT_USERS = ['qw', 'tstbtto']
+
 # src: str: Name of server this file comes from
 # local_path: str: Path this file is stored at
 # url: Optional[str]: If set, 'wget -c' the file from this URL
