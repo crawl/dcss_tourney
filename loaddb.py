@@ -398,6 +398,10 @@ def connect_db(host=None, password=None, retry=False):
   while connection is None:
     try:
       connection = MySQLdb.connect(**conn_args)
+      cursor = connection.cursor()
+      cursor.execute('SET NAMES utf8mb4')
+      cursor.execute("SET CHARACTER SET utf8mb4")
+      cursor.execute("SET character_set_connection=utf8mb4")
     except MySQLdb.OperationalError as e:
       if retry:
         info("Couldn't connect to MySQL (%s). Retrying in 5 seconds..." % e)
