@@ -2,7 +2,7 @@
 import collections
 import datetime
 
-import crawl_utils
+import crawl_utils, tourney_html
 import json
 import random
 from query_class import Query
@@ -124,7 +124,7 @@ def category_leaders(category, cursor, brief=False, limit=None):
 def _pretty_duration(seconds):
     # type: (int) -> str
     """Convert seconds to HH:MM:SS."""
-    if isinstance(seconds, (str, unicode)):
+    if tourney_html.is_stringlike(seconds):
         seconds = float(seconds)
     hours = seconds // (60 * 60)
     seconds %= 60 * 60

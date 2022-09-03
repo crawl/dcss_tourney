@@ -1,7 +1,7 @@
 <%inherit file="base.mako"/>
 
 <%!
-  import html
+  import tourney_html as html
   active_menu_item = "Ongoing Games"
 %>
 

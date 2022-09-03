@@ -2,7 +2,7 @@
 
 <%!
   import scoring_data
-  import html
+  import tourney_html as html
   import query
 
   active_menu_item = "Clans"

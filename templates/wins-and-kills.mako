@@ -1,6 +1,7 @@
 <%
 
-   import loaddb, query, crawl_utils, html
+   import loaddb, query, crawl_utils
+   import tourney_html as html
    c = attributes['cursor']
 
    won, unwon = query.won_unwon_combos(c)

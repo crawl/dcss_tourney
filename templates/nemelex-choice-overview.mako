@@ -1,6 +1,6 @@
 <%!
   import nemelex
-  import html
+  import tourney_html as html
 %>
 
 <%

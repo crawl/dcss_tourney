@@ -1,7 +1,7 @@
 ## Base template for all pages. Use this template by inheriting it, and define
 ## all the blocks required below.
 <%!
-  from html import update_time
+  import tourney_html as html
   from crawl_utils import XXX_TOURNEY_BASE, XXX_IMAGE_BASE
   from loaddb import T_VERSION
   import scoring_data
@@ -95,7 +95,7 @@
 
     <div class="container my-3" id="content">
       <%block name="main"/>
-      ${update_time()}
+      ${html.update_time()}
     </div>
 
     ## Bootstrap

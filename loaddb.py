@@ -163,7 +163,7 @@ class CrawlCleanupListener (CrawlEventListener):
     finally:
       c.close()
 
-class CrawlTimerListener:
+class CrawlTimerListener(object):
   def __init__(self, fn=None):
     self.fn = fn
 
@@ -171,7 +171,7 @@ class CrawlTimerListener:
     if self.fn:
       self.fn(cursor)
 
-class CrawlTimerState:
+class CrawlTimerState(object):
   def __init__(self, interval, listener):
     self.listener = listener
     self.interval = interval
@@ -191,7 +191,7 @@ class CrawlTimerState:
 
 # These classes merely read lines from the logfile, and do not parse them.
 
-class Xlogline:
+class Xlogline(object):
   """A dictionary from an Xlogfile, along with information about where and
   when it came from."""
   def __init__(self, owner, filename, offset, time, xdict, processor):
@@ -203,6 +203,12 @@ class Xlogline:
       raise Exception("Xlogline time missing from %s:%d: %s" % (filename, offset, xdict))
     self.xdict = xdict
     self.processor = processor
+
+  def __eq__(self, other):
+    return self.__cmp__(other) == 0
+
+  def __lt__(self, other):
+    return self.__cmp__(other) < 0
 
   def __cmp__(self, other):
     ltime = self.time
@@ -222,7 +228,7 @@ class Xlogline:
       sys.stderr.write("Error processing: " + xlog_str(self.xdict) + "\n")
       raise
 
-class Xlogfile:
+class Xlogfile(object):
   def __init__(self, filename, url, src, tell_op, proc_op, blocklist=None):
     self.local = url is None
     self.filename = filename
@@ -342,7 +348,7 @@ class MilestoneFile (Xlogfile):
     Xlogfile.__init__(self, filename=filename, url=url, src=src,
       tell_op=milestone_offset, proc_op=add_milestone_record)
 
-class MasterXlogReader:
+class MasterXlogReader(object):
   """Given a list of Xlogfile objects, calls the process operation on the oldest
   line from all the logfiles, and keeps doing this until all lines have been
   processed in chronological order."""
@@ -376,13 +382,14 @@ class MasterXlogReader:
     if proc > 0:
       info("Done processing %d lines." % proc)
 
-def connect_db(host, password, retry):
+def connect_db(host=None, password=None, retry=False):
   # type: (Optional[str], Optional[str], bool) -> MySQLdb.Connection
   connection = None
   conn_args = {
     "host": "localhost",
     "user": "crawl",
     "db": TOURNAMENT_DB,
+    # "unix_socket": "/opt/local/var/run/mysql8/mysqld.sock", # macports mysql
   }
   if host is not None:
     conn_args["host"] = host
@@ -458,7 +465,7 @@ def strip_unique_qualifier(x):
   return x
 
 def xlog_milestone_fixup(d):
-  for field in [x for x in ['uid'] if d.has_key(x)]:
+  for field in [x for x in ['uid'] if x in d]:
     del d[field]
   if not d.get('milestone'):
     d['milestone'] = ' '
@@ -757,7 +764,7 @@ dbfield_to_sqltype = {
 	}
 
 def record_is_milestone(rec):
-  return rec.has_key('milestone') or rec.has_key('type')
+  return 'milestone' in rec or 'type' in rec
 
 def is_not_tourney(game):
   """A game started before the tourney start or played after the end
@@ -881,8 +888,8 @@ def apply_dbtypes(game):
   (i.e. not in dbfield_to_sqltype) are ignored."""
   new_hash = { }
   for key, value in game.items():
-    if (COMBINED_LOG_TO_DB.has_key(key) and
-        dbfield_to_sqltype.has_key(COMBINED_LOG_TO_DB[key])):
+    if (key in COMBINED_LOG_TO_DB and
+        COMBINED_LOG_TO_DB[key] in dbfield_to_sqltype):
       new_hash[key] = dbfield_to_sqltype[COMBINED_LOG_TO_DB[key]].to_sql(value)
     else:
       new_hash[key] = value
@@ -896,7 +903,7 @@ def make_xlog_db_query(db_mappings, xdict, filename, offset, table):
     values.append(offset)
   for mapping in db_mappings:
     logkey, sqlkey = mapping[0:2]
-    if xdict.has_key(logkey):
+    if logkey in xdict:
       fields.append(sqlkey)
       values.append(xdict[logkey])
   return Query('INSERT INTO %s (%s) VALUES (%s);' %

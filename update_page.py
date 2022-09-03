@@ -12,7 +12,7 @@ import collections
 import banner
 from logging import debug, info, warn, error
 
-import html
+import tourney_html as html ## XX fully rename
 import scoring_data
 
 CategoryResult = collections.namedtuple('CategoryResult', ('rank', 'best', 'details'))
@@ -51,7 +51,7 @@ def render(c, page, dest=None, pars=None, top_level_pars=False):
     raise
   f = open(target, 'w')
   try:
-    f.write(template_data)
+    f.write(template_data.decode("utf-8"))
   finally:
     f.close()
 

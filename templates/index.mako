@@ -3,7 +3,7 @@
 ## Run on template load (no render context)
 <%!
   import scoring_data
-  import html
+  import tourney_html as html
   import crawl_utils
   from crawl_utils import XXX_IMAGE_BASE, base_link
 

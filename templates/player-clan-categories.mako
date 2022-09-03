@@ -2,7 +2,7 @@
 
 <%
   import crawl_utils
-  import html
+  import tourney_html as html
   import scoring_data
 %>
 

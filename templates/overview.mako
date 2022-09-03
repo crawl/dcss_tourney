@@ -3,7 +3,7 @@
 <%!
   import crawl_utils
   from crawl_utils import XXX_IMAGE_BASE, base_link
-  import html
+  import tourney_html as html
   import query
   import scoring_data
   import nemelex

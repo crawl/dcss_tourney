@@ -397,7 +397,7 @@ def get_death_causes(c):
       clean_rows.append( [ killer, r[2], r[3] ] )
     last = r
 
-  clean_rows.sort(lambda a,b: int(b[1] - a[1]))
+  clean_rows.sort(key=lambda a: int(a[1]))
 
   r_art = re.compile(r'^an? ')
 
@@ -482,7 +482,7 @@ def get_winning_games(c, **selectors):
   """Returns the games for wins matching the provided criteria, ordered
   with earlier wins first. Exactly the same as get_wins, but returns
   the xlog dictionaries instead of the charabbrev"""
-  if not selectors.has_key('limit'):
+  if not 'limit' in selectors:
     selectors['limit'] = None
   return find_games(c, sort_max='end_time',
                     killertype='winning', **selectors)

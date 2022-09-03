@@ -155,7 +155,7 @@ def get_teams(directory_list):
                     else:
                         draftees[player] = [player]
             rcfile.close()
-    for captain in teamname.iterkeys():
+    for captain in teamname:
         vset = set(volunteers.get(captain, []))
         dset = set(draftees.get(captain, []))
         members = vset.intersection(dset)
@@ -171,7 +171,7 @@ def insert_teams(cursor, teams):
     if (now < DEADLINE):
         info("Updating team information.")
         query.drop_teams(cursor)
-        for captain in teams.iterkeys():
+        for captain in teams:
             loaddb.check_add_player(cursor, captain)
             canon_cap = query.canonicalize_player_name(cursor, captain)
             if canon_cap:

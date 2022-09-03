@@ -1,5 +1,6 @@
 <%
-   import loaddb, query, crawl_utils, html, re
+   import loaddb, query, crawl_utils, re
+   import tourney_html as html
    c = attributes['cursor']
 
    death_causes = query.get_death_causes(c)

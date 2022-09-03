@@ -3,7 +3,7 @@
 <%
   import crawl_utils
   from crawl_utils import XXX_IMAGE_BASE, base_link
-  import html
+  import tourney_html as html
   import scoring_data
 
   def rank_for_result(result, category):

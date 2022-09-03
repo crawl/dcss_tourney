@@ -3,7 +3,7 @@
 ## Run on template load (no render context)
 <%!
   from crawl_utils import XXX_TOURNEY_BASE
-  import html
+  import tourney_html as html
   import scoring_data
   import query
 

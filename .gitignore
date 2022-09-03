@@ -17,3 +17,4 @@ venv/
 /logfiles
 /milestones
 /rcfiles
+.DS_Store

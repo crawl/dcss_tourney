@@ -2,7 +2,7 @@
 
 <%!
   import scoring_data
-  import html
+  import tourney_html as html
   import query
   import crawl_utils
 

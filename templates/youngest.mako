@@ -1,5 +1,6 @@
 <%
-   import loaddb, query, html
+   import loaddb, query
+   import tourney_html as html
    c = attributes['cursor']
 
    YOUNG_COLUMNS = \

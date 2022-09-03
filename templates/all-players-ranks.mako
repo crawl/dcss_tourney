@@ -3,7 +3,7 @@
 ## Run on template load (no render context)
 <%!
   import scoring_data
-  import html
+  import tourney_html as html
   import query
 
   active_menu_item = "Players"

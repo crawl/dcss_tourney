@@ -1,7 +1,8 @@
 <%inherit file="base.mako"/>
 
 <%!
-   import loaddb, query, crawl_utils, html, combos
+   import loaddb, query, crawl_utils, combos
+   import tourney_html as html
    active_menu_item = "Combo Scoreboard"
 %>
 

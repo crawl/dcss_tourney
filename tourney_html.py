@@ -262,11 +262,17 @@ def pretty_dur(dur):
 
   return stime
 
+def is_stringlike(s):
+  try:
+    return isinstance(s, (str, unicode)) #py2
+  except:
+    return isinstance(s, (str, bytes)) #py3
+
 def pretty_date(date):
   if not date:
     return ''
 
-  if type(date) in [str, unicode]:
+  if is_stringlike(date):
     m = R_STR_DATE.search(date)
     if not m:
       return date
@@ -320,7 +326,7 @@ def _is_numeric_table_value(value, header=""):
     return False
   if isinstance(value, (int, float, decimal.Decimal)):
     return True
-  if isinstance(value, (str, unicode)):
+  if is_stringlike(value):
     if value.isdigit():
       return True
     try:
@@ -639,7 +645,10 @@ def _table(columns, rows, row_classes_fn=None, brief=False):
         # Basic thousands separators for untransformed numeric data
         display_value = '{:,}'.format(base_value)
       else:
-        display_value = unicode(base_value)
+        try:
+          display_value = unicode(base_value)
+        except:
+          pass # already unicode in py3
 
       out += '<td class="{cell_classes}">{value}</td>'.format(
         cell_classes=" ".join(cell_classes),
@@ -685,7 +694,7 @@ def category_table(category, rows, row_classes_fn=None, brief=False):
 
 def full_games_table(games, **pars):
   if not pars.get('columns'):
-    if pars.has_key('win'):
+    if 'win' in pars:
       win = pars['win']
     else:
       win = True

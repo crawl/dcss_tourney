@@ -1,5 +1,6 @@
 <%
-   import query, html, crawl_utils
+   import query, crawl_utils
+   import tourney_html as html
 
    c = attributes['cursor']
 
