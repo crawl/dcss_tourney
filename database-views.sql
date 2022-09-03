@@ -97,39 +97,30 @@ SELECT g.*, JSON_OBJECT('source_file', g.source_file,
   ON g.player = g2.player AND g.end_time > g2.end_time
   WHERE g2.end_time IS NULL;
 
+-- the alternative technique of a left outer join of games with itself is
+-- excruciatingly slow for some reason
 CREATE OR REPLACE VIEW highest_scores AS
-SELECT g.*, JSON_OBJECT('source_file', g.source_file,
-                    'player', g.player,
-		    'end_time', g.end_time,
-		    'charabbrev', g.charabbrev) AS morgue_json FROM games AS g
-  LEFT OUTER JOIN games AS g2 ON g.player = g2.player AND g.score < g2.score
-  WHERE g2.score IS NULL AND g.score > 0;
+SELECT a.*, JSON_OBJECT('source_file', a.source_file,
+                        'player', a.player,
+                        'end_time', a.end_time,
+                        'charabbrev', a.charabbrev) AS morgue_json
+    FROM games AS a INNER JOIN (
+        SELECT g.player, MAX(g.score) AS score
+        FROM games AS g WHERE g.score > 0 GROUP BY g.player) AS b
+    ON a.player=b.player AND a.score=b.score;
 
--- This is semantically the "clear description" of the clan_highest_scores
--- view. Best practice says not to replace it with the optimized transformation
--- below because the query optimizer can do that. Unfortunately the query
--- optimizer only does this transformation in SELECT contexts and not UPDATE
--- contexts (despite the manual claiming otherwise).
--- CREATE OR REPLACE VIEW clan_highest_scores AS
--- SELECT g.* FROM clan_games AS g
---   LEFT OUTER JOIN clan_games AS g2
---     ON g.team_captain = g2.team_captain AND g.score < g2.score
---   WHERE g2.score IS NULL AND g.score > 0;
 CREATE OR REPLACE VIEW clan_highest_scores AS
-SELECT p.team_captain,
-       JSON_OBJECT('name', teams.name, 'captain', p.team_captain) AS team_info_json,
-       g.*,
-       JSON_OBJECT('source_file', g.source_file,
-                   'player', g.player,
-                   'end_time', g.end_time,
-                   'charabbrev', g.charabbrev) AS morgue_json
-	FROM games AS g
-  INNER JOIN players AS p ON g.player = p.name
-  LEFT OUTER JOIN (players AS p2 INNER JOIN games AS g2 ON g2.player = p2.name)
-    ON p.team_captain = p2.team_captain AND g.score < g2.score
-  LEFT JOIN teams
-    ON p.team_captain = teams.owner
-  WHERE g2.score IS NULL AND g.score > 0 AND p.team_captain IS NOT NULL;
+SELECT a.*, JSON_OBJECT('source_file', a.source_file,
+                        'player', a.player,
+                        'end_time', a.end_time,
+                        'charabbrev', a.charabbrev) AS morgue_json,
+            JSON_OBJECT('name', teams.name, 'captain', a.team_captain) AS team_info_json
+    FROM clan_games AS a
+    INNER JOIN (
+        SELECT cg.team_captain, MAX(cg.score) AS score
+        FROM clan_games AS cg WHERE cg.score > 0 GROUP BY cg.team_captain) AS b
+    ON a.team_captain=b.team_captain AND a.score=b.score
+    LEFT JOIN teams on a.team_captain = teams.owner;
 
 CREATE OR REPLACE VIEW lowest_turncount_wins AS
 SELECT g.*, JSON_OBJECT('source_file', g.source_file,
