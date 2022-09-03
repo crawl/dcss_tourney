@@ -52,6 +52,8 @@ def render(c, page, dest=None, pars=None, top_level_pars=False):
   f = open(target, 'w')
   try:
     f.write(template_data.decode("utf-8"))
+  except:
+    f.write(template_data) # py27, sigh
   finally:
     f.close()
 
