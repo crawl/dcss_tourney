@@ -382,7 +382,7 @@ class MasterXlogReader(object):
     if proc > 0:
       info("Done processing %d lines." % proc)
 
-def connect_db(host=None, password=None, retry=False):
+def connect_db(host=None, password=None, retry=True):
   # type: (Optional[str], Optional[str], bool) -> MySQLdb.Connection
   connection = None
   conn_args = {
