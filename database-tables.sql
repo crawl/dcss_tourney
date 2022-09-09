@@ -197,7 +197,7 @@ CREATE TABLE milestones (
   src VARCHAR(10),
 
   -- The actual game that this milestone is linked with.
-  game_id BIGINT,
+  game_id BIGINT, -- warning: not implemented, should be removed or implemented.
 
   version VARCHAR(10),
   lv VARCHAR(8),

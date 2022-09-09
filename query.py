@@ -1196,16 +1196,14 @@ def game_did_visit_branch(c, player, start_time):
 
 def count_gods_abandoned_no_rejoin(c, player):
   return query_first(c,
-      '''SELECT COUNT(DISTINCT m.noun)
-           FROM milestones AS m
-LEFT OUTER JOIN milestones AS m2
-             ON m.player = m2.player AND m.game_id = m2.game_id
-                AND m.turn < m2.turn
-          WHERE m.player = %s
-            AND m.verb = 'god.renounce'
-            AND NOT (m2.verb = 'god.worship' AND m2.noun = m.noun)
-            AND m.noun NOT IN ('the Shining One', 'Zin', 'Elyvilon',
-                             'Ru', 'Beogh')''', player)
+    '''SELECT COUNT(DISTINCT m0.noun) FROM milestones AS m0
+        WHERE m0.verb='god.renounce' AND m0.player=%s
+        AND m0.noun NOT IN ('the Shining One', 'Zin', 'Elyvilon', 'Ru', 'Beogh')
+        AND m0.start_time NOT IN (
+            SELECT m.start_time FROM milestones AS m LEFT OUTER JOIN milestones AS m2
+                ON m.start_time = m2.start_time AND m.turn < m2.turn
+            WHERE m.verb='god_renounce' AND m2.verb='god.worship' AND m.noun=m2.noun
+                AND m0.noun=m.noun AND m.player=%s)''', player, player)
 
 def count_gods_mollified(c, player):
   return query_first(c, '''SELECT COUNT(DISTINCT t.noun) FROM
