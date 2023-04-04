@@ -172,22 +172,29 @@ SELECT
     AND g.team_captain IS NOT NULL
     AND g2.start_time IS NULL;
 
-CREATE OR REPLACE VIEW nonhep_nonfe_wins AS
-SELECT * FROM wins AS g
-  WHERE NOT EXISTS (SELECT m.id FROM milestones AS m
-                        WHERE m.src = g.src AND m.start_time = g.start_time
-                        AND (m.verb = 'god.renounce' OR m.verb='god.worship')
-                        AND m.noun = 'Hepliaklqana')
-	AND NOT g.raceabbr = 'Fe';
-
-CREATE OR REPLACE VIEW low_xl_nonhep_nonfe_wins AS
+CREATE OR REPLACE VIEW most_pacific_wins AS
 SELECT g.*, JSON_OBJECT('source_file', g.source_file,
                     'player', g.player,
 		    'end_time', g.end_time,
-		    'charabbrev', g.charabbrev) AS morgue_json  FROM nonhep_nonfe_wins AS g
-  LEFT OUTER JOIN nonhep_nonfe_wins AS g2
-  ON g.player = g2.player AND (g.xl, g.start_time) > (g2.xl, g2.start_time)
-  WHERE g2.start_time IS NULL AND g.xl < 27;
+		    'charabbrev', g.charabbrev) AS morgue_json FROM wins AS g
+  LEFT OUTER JOIN wins AS g2
+  ON g.player = g2.player AND g.kills > g2.kills
+  WHERE g2.kills IS NULL;
+
+CREATE OR REPLACE VIEW clan_most_pacific_wins AS
+SELECT
+    JSON_OBJECT('name', teams.name, 'captain', g.team_captain) AS team_info_json,
+    g.*,
+    JSON_OBJECT('source_file', g.source_file,
+                'player', g.player,
+                'end_time', g.end_time,
+                'charabbrev', g.charabbrev) AS morgue_json
+  FROM wins AS g
+  LEFT OUTER JOIN wins AS g2
+    ON g.team_captain = g2.team_captain AND g.kills > g2.kills
+  LEFT JOIN teams
+    ON g.team_captain = teams.owner
+  WHERE g.team_captain IS NOT NULL AND g2.kills IS NULL;
 
 CREATE OR REPLACE VIEW player_win_perc AS
 SELECT player,

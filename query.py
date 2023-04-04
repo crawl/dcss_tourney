@@ -1513,6 +1513,15 @@ def fastest_win_order(c, limit = None):
 
   return [ row_to_xdict(x) for x in query.rows(c) ]
 
+def most_pacific_win_order(c, limit = None):
+  fields = logfile_fields('g.')
+  query = Query('''SELECT ''' + logfile_fields()
+                + ''' FROM most_pacific_wins ORDER BY kills''')
+  if limit:
+    query.append(' LIMIT %d' % limit)
+
+  return [ row_to_xdict(x) for x in query.rows(c) ]
+
 def low_xl_win_order(c, limit = None):
   fields = logfile_fields('g.')
   query = Query('''SELECT ''' + logfile_fields()
