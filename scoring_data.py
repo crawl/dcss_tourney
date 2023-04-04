@@ -292,7 +292,7 @@ INDIVIDUAL_CATEGORIES = (
     Category(
         "individual",
         "Piety",
-        "Elyvilon thinks it's important to evaluate what all the gods have to offer. Elyvilon awards 1 point for becoming the champion (****** piety) of the first god worshipped in a game and an additional point for a win after championing that god. Three gods (Gozag, Ignis, and Xom) do not have the usual ****** piety system; to get the points for these gods, you must never worship another god during the game.",
+        "Ignis thinks it's important to evaluate what all the gods have to offer. Ignis awards 1 point for becoming the champion (****** piety) of the first god worshipped in a game and an additional point for a win after championing that god. Three gods (Gozag, Ignis, and Xom) do not have the usual ****** piety system; to get the points for these gods, you must never worship another god during the game.",
         "piety",
         True,
         50,
@@ -473,16 +473,17 @@ INDIVIDUAL_CATEGORIES = (
     ),
     Category(
         "individual",
-        "Lowest XL Win",
-        "Vehumet values ruthless efficiency, and recognises the players who win at the lowest XL. Waiting around for an ancestor to return from memory is inefficient, as is dying repeatedly, so Felid games and games where Hepliaklqana is worshipped do not count in this category. For the purposes of this category, players who have not won and players who have won only at XL 27 are both ranked last.", "low_xl_win",
+        "Most Pacific Win",
+        "Elyvilon wishes for peace among the dungeon denizens and ranks the players on their wins with the fewest amount of kills. Monsters killing each other intentionally or otherwise is not considered pacific and is thus counted towards the kills as well.",
+        "most_pacific_win",
         False,
         None,
         True,
-        "low_xl_nonhep_nonfe_wins",
-        "xl",
+        "most_pacific_wins",
+        "kills",
         None,
         [
-            ColumnDisplaySpec("xl", "XL", True, True, None),
+            ColumnDisplaySpec("kills", "Kills", True, True, None),
             ColumnDisplaySpec("race", "Species", False, False, None),
             ColumnDisplaySpec("class", "Background", False, False, None),
             ColumnDisplaySpec(
@@ -767,6 +768,27 @@ CLAN_CATEGORIES = (
     ),
     Category(
         "clan",
+        "Most Pacific Win",
+        "Clans are ranked by the fewest amount of kills win of any of their members.", 
+        "most_pacific_win",
+        False,
+        None,
+        True,
+        "clan_most_pacific_wins",
+        "kills",
+        None,
+        [
+            ColumnDisplaySpec("kills", "Kills", True, True, None),
+            ColumnDisplaySpec("player", "Player", False, False, None),
+            ColumnDisplaySpec("race", "Species", False, False, None),
+            ColumnDisplaySpec("class", "Background", False, False, None),
+            ColumnDisplaySpec(
+                "morgue_json", "Morgue", False, False, _json_to_morgue_link
+            ),
+        ],
+    ),
+    Category(
+        "clan",
         "Ziggurat Diving",
         "Clans are ranked in this category based on the Ziggurat Dive of their best player.",
         "ziggurat_dive",
@@ -856,11 +878,11 @@ BANNERS = [
         "#330033",
     ),
     Banner(
-        "Elyvilon",
+        "Ignis",
         "Pious",
         BannerTiers("Champion a god.", "Champion 5 gods.", "Champion 13 gods."),
-        'Elyvilon thinks it&apos;s important to check out what all the gods have to offer and thus will recognize as <code>PIOUS</code> any player who becomes the Champion (******) of as many gods as possible.',
-        "elyvilon",
+        'Ignis thinks it&apos;s important to check out what all the gods have to offer and thus will recognize as <code>PIOUS</code> any player who becomes the Champion (******) of as many gods as possible.',
+        "ignis",
         "#ffffff",
     ),
     Banner(
