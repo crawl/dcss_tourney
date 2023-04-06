@@ -474,7 +474,7 @@ INDIVIDUAL_CATEGORIES = (
     Category(
         "individual",
         "Most Pacific Win",
-        "Elyvilon wishes for peace among the dungeon denizens and ranks the players on their wins with the fewest amount of kills. Monsters killing each other intentionally or otherwise is not considered pacific.",
+        "Elyvilon wishes for peace among the dungeon denizens and ranks the players on their wins with the fewest amount of kills. Monsters killing each other intentionally or otherwise is not considered pacific and is thus counted towards the kills as well.",
         "most_pacific_win",
         False,
         None,
