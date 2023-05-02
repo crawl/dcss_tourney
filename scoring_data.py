@@ -1069,9 +1069,9 @@ BANNERS = [
         "Vehumet",
         "Ruthless Efficiency",
         BannerTiers(
-            "Reach the last level of the Lair as a non-formicid before reaching experience level 12.",
-            "Find a rune before reaching experience level 14.",
-            "Win the game before reaching experience level 19.",
+            "Reach the last level of the Lair as a non-formicid before reaching experience level 13.",
+            "Find a rune before reaching experience level 17.",
+            "Win the game before reaching experience level 22.",
         ),
         'Vehumet values focus and dedication, and will reward those who demonstrate <code>RUTHLESS EFFICIENCY</code> by achieving their goals without stopping to gain unnecessary experience. Waiting around for an ancestor to return from memory is inefficient, so games where Hepliaklqana is worshipped do not count for this banner. Followers of Ru who sacrifice their experience are inefficient and will be disqualified from this banner. With the exception of Zeor, Vehumet detests cats and will not award any banner to Felids',
         "vehumet",

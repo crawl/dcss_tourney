@@ -169,7 +169,7 @@ def do_milestone_rune(c, mile):
     if mile['potionsused'] == 0 and mile['scrollsused'] == 0:
       banner.award_banner(c, mile['name'], 'ru', 3)
   if mile['urune'] == 1:
-    if mile['xl'] < 14:
+    if mile['xl'] < 17:
       if not query.did_sacrifice(c, 'experience', mile['name'], mile['start'], mile['time']) and not query.did_worship_god(c, 'Hepliaklqana',
                       mile['name'], mile['start'], mile['time']) and not mile['race'] == 'Felid':
         banner.award_banner(c, mile['name'], 'vehumet', 2)
@@ -219,7 +219,7 @@ def do_milestone_br_end(c, mile):
     if mile['sklev'] < 13 and mile['race'] != 'Formicid' and mile['race'] != 'Gnoll':
       if not query.did_worship_god(c, 'Ashenzari', mile['name'], mile['start'], mile['time']):
         banner.award_banner(c, mile['name'], 'sif', 1)
-    if mile['xl'] < 12 and mile['race'] != 'Formicid':
+    if mile['xl'] < 13 and mile['race'] != 'Formicid':
       if not query.did_sacrifice(c, 'experience', mile['name'], mile['start'],
               mile['time']) and not query.did_worship_god(c, 'Hepliaklqana',
                       mile['name'], mile['start'], mile['time']) and not mile['race'] == 'Felid':
@@ -368,7 +368,7 @@ def crunch_winner(c, game, filename):
       else:
         banner.award_banner(c, player, 'sif', 2)
 
-  if game['xl'] < 19:
+  if game['xl'] < 22:
     if not query.did_sacrifice(c, 'experience', player, game['start'], game['end']) and not query.did_worship_god(c, 'Hepliaklqana',
                       game['name'], game['start'], game['end']) and not game['race'] == 'Felid':
       banner.award_banner(c, player, 'vehumet', 3)

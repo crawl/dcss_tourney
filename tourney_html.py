@@ -145,9 +145,9 @@ BANNER_TEXT = \
           'Enter the final floor of Gehenna in under 27000 turns.',
         ],
       'vehumet':
-        [ 'Reach the last level of the Lair as a non-formicid before reaching experience level 12.',
-          'Find a rune before reaching experience level 14.',
-          'Win the game before reaching experience level 19.',
+        [ 'Reach the last level of the Lair as a non-formicid before reaching experience level 13.',
+          'Find a rune before reaching experience level 17.',
+          'Win the game before reaching experience level 22.',
         ],
       'xom':
         [ 'Enter the Abyss.',
