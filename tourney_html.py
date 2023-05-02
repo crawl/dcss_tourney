@@ -636,7 +636,7 @@ def _table(columns, rows, row_classes_fn=None, brief=False):
         try:
           display_value = unicode(base_value)
         except:
-          pass # already unicode in py3
+          display_value = base_value # already unicode in py3
 
       out += '<td class="{cell_classes}">{value}</td>'.format(
         cell_classes=" ".join(cell_classes),
