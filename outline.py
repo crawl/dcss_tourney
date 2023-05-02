@@ -228,7 +228,7 @@ def do_milestone_br_end(c, mile):
       banner.award_banner(c, mile['name'], 'trog', 1)
     if mile['potionsused'] == 0 and mile['scrollsused'] == 0:
       banner.award_banner(c, mile['name'], 'ru', 2)
-  if mile['noun'] == 'Elf' and mile['turn'] < 9000:
+  if mile['noun'] == 'Elf' and mile['turn'] < 12000:
     banner.award_banner(c, mile['name'], 'wu_jian', 2)
   if mile['noun'] == 'Geh' and mile['turn'] < 27000:
     banner.award_banner(c, mile['name'], 'wu_jian', 3)

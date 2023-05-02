@@ -1082,7 +1082,7 @@ BANNERS = [
         "Sifu",
         BannerTiers(
             "Enter the Temple in under 3,000 turns.",
-            "Enter the third floor of the Elven Halls in under 9,000 turns.",
+            "Enter the third floor of the Elven Halls in under 12,000 turns.",
             "Enter the final floor of Gehenna in under 27,000 turns.",
         ),
         'The Wu Jian Council admires the elegance of a <code>SIFU</code> and will recognize players who demonstrate their mastery with a deep dive.',
