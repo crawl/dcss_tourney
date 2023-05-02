@@ -42,16 +42,7 @@ def pantheon(c, player):
   elif len(distinct_gods) >= 1:
     award_banner(c, player, 'elyvilon', 1)
 
-def mollified(c, player):
-  mollified_gods = query.count_gods_mollified(c, player)
-  if mollified_gods >= 3:
-    award_banner(c, player, 'beogh', 3)
-  elif mollified_gods >= 1:
-    award_banner(c, player, 'beogh', 2)
-  elif query.count_gods_abandoned_no_rejoin(c,player) >= 1:
-    award_banner(c, player, 'beogh', 1)
-
-BANNERS = [['beogh', mollified], ['elyvilon', pantheon]]
+BANNERS = [['elyvilon', pantheon]]
 
 def process_banners(c, player):
   for banner in BANNERS:

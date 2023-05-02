@@ -163,8 +163,6 @@ def do_milestone_rune(c, mile):
       banner.award_banner(c, player, 'the_shining_one', 2)
   #if query.time_from_str(mile['time']) - query.time_from_str(mile['start']) <= datetime.timedelta(hours=27):
   #  banner.award_banner(c, mile['name'], 'oldbanner', 1)
-  if query.is_unbeliever(c, mile):
-    banner.award_banner(c, mile['name'], 'trog', 2)
   if rune != 'slimy' and rune != 'abyssal':
     if mile['potionsused'] == 0 and mile['scrollsused'] == 0:
       banner.award_banner(c, mile['name'], 'ru', 3)
@@ -224,8 +222,6 @@ def do_milestone_br_end(c, mile):
               mile['time']) and not query.did_worship_god(c, 'Hepliaklqana',
                       mile['name'], mile['start'], mile['time']) and not mile['race'] == 'Felid':
         banner.award_banner(c, mile['name'], 'vehumet', 1)
-    if query.is_unbeliever(c, mile):
-      banner.award_banner(c, mile['name'], 'trog', 1)
     if mile['potionsused'] == 0 and mile['scrollsused'] == 0:
       banner.award_banner(c, mile['name'], 'ru', 2)
   if mile['noun'] == 'Elf' and mile['turn'] < 12000:
@@ -397,9 +393,6 @@ def crunch_winner(c, game, filename):
        and not nemelex.player_has_nemelex_win(c, player, charabbrev):
     nemelex.award_nemelex_win(c, game, filename)
     banner.award_banner(c, player, 'nemelex', 3)
-
-  if query.is_unbeliever(c, game):
-    banner.award_banner(c, player, 'trog', 3)
 
   if query.did_use_ecumenical_altar(c, game['name'], game['start'], game['end']) \
       and not query.did_renounce_god(c, game['name'], game['start'], game['end']):

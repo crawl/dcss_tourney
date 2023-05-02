@@ -842,18 +842,6 @@ BANNERS = [
         "#ffbb99",
     ),
     Banner(
-        "Beogh",
-        "Heretic",
-        BannerTiers(
-            "Abandon a god and do not rejoin them during the game",
-            "Abandon and mollify one god",
-            "Abandon and mollify 3 different gods in 3 different games",
-        ),
-        'Beogh hates all the other gods and admires <code>HERETICS</code> who go out of their way to incur their wrath. The good gods (Elyvilon, the Shining One, and Zin) and Ru are insufficiently wrathful, so abandoning them does not impress Beogh. Any god except the good gods, Ru, and Beogh are hence applicable for this banner. Only the first god abandoned in a game counts for this banner, Beogh wants the heresies spread around!',
-        "beogh",
-        "#e6b800",
-    ),
-    Banner(
         "Cheibriados",
         "Slow &amp; Steady",
         BannerTiers(
@@ -1040,18 +1028,6 @@ BANNERS = [
         'The Shining One thinks each player should take a <code>VOW OF COURAGE</code> and face great terrors before entering the Depths.',
         "the_shining_one",
         "#ffd633",
-    ),
-    Banner(
-        "Trog",
-        "Brute Force",
-        BannerTiers(
-            "Reach the last level of the Lair as a non-demigod without worshipping a god.",
-            "Find a rune as a non-demigod without worshipping a god.",
-            "Win a game as a non-demigod without worshipping a god.",
-        ),
-        'Trog thinks players should rely on <code>BRUTE FORCE</code> and persevere without worshipping any god at all. Demigods cannot win Trog&apos;s praise for this, since they do not have a choice in the matter.',
-        "trog",
-        "#990000",
     ),
     Banner(
         "Uskayaw",

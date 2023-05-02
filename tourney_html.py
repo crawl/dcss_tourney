@@ -14,7 +14,6 @@ PseudoCol = collections.namedtuple("PseudoCol", ("html_display_name", "numeric_d
 
 BANNER_IMAGES = \
     { 'ashenzari': [ 'banner_ashenzari.png', 'The Explorer' ],
-      'beogh': [ 'banner_beogh.png', 'The Heretic' ],
       'cheibriados': [ 'banner_cheibriados.png', 'Slow and Steady' ],
       'dithmenos': [ 'banner_dithmenos.png', 'The Politician' ],
       'elyvilon': [ 'banner_elyvilon.png', 'The Pious' ],
@@ -31,7 +30,6 @@ BANNER_IMAGES = \
       'ru': [ 'banner_ru.png', 'The Ascetic' ],
       'sif': [ 'banner_sif.png', 'The Lorekeeper' ],
       'the_shining_one': [ 'banner_the_shining_one.png', 'Vow of Courage' ],
-      'trog': [ 'banner_trog.png', 'Brute Force' ],
       'uskayaw': [ 'banner_uskayaw.png', 'Graceful' ],
       'vehumet': [ 'banner_vehumet.png', 'Ruthless Efficiency' ],
       'xom': [ 'banner_xom.png', 'Descent into Madness' ],
@@ -48,11 +46,6 @@ BANNER_TEXT = \
         [ 'Enter a branch of the dungeon that contains a rune.',
           'Find 5 distinct runes over the course of the tourney.',
           'Find 17 distinct runes over the course of the tourney.',
-        ],
-      'beogh':
-        [ 'Abandon and mollify a god excluding Beogh, Elyvilon, Ru, The Shining One, and Zin.',
-          'Over the course of the tournament, abandon and mollify three gods excluding Beogh, Elyvilon, Ru, The Shining One, and Zin.',
-          'Over the course of the tournament, abandon and mollify nine gods excluding Beogh, Elyvilon, Ru, The Shining One, and Zin.'
         ],
       'cheibriados':
         [ 'Reach experience level 9 in two consecutive games.',
@@ -133,11 +126,6 @@ BANNER_TEXT = \
         [ 'Kill Sigmund before entering the Depths.',
           'Get four runes before entering the Depths.',
           'Get six runes before entering the Depths.',
-        ],
-      'trog':
-        [ 'Reach the last level of the Lair as a non-demigod without worshipping a god.',
-          'Find a rune as a non-demigod without worshipping a god.',
-          'Win a game as a non-demigod without worshipping a god.',
         ],
       'uskayaw':
         [ 'Enter the Temple in under 3000 turns.',
