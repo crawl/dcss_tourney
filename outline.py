@@ -213,7 +213,7 @@ def do_milestone_br_end(c, mile):
     if not query.game_did_visit_lair(c, mile['name'], mile['start'], mile['time']):
       banner.award_banner(c, mile['name'], 'kikubaaqudgha', 2)
   if mile['noun'] == 'D':
-    if mile['dur'] <= 1620 and mile['race'] != 'Formicid':
+    if mile['dur'] <= 3240 and mile['race'] != 'Formicid':
       banner.award_banner(c, mile['name'], 'makhleb', 1)
   if mile['noun'] == 'Lair':
     if mile['sklev'] < 13 and mile['race'] != 'Formicid' and mile['race'] != 'Gnoll':

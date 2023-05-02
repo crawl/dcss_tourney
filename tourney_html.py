@@ -100,7 +100,7 @@ BANNER_TEXT = \
           'Win a game in which you become the champion of Ru and then abandon Ru before entering any branches other than the Temple and the Lair.',
         ],
       'makhleb':
-        [ 'Reach D:15 in 27 minutes as a non-formicid.',
+        [ 'Reach D:15 in 54 minutes as a non-formicid.',
           'Find a rune in 81 minutes.',
           'Win the game in 3 hours.',
         ],

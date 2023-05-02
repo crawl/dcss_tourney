@@ -961,7 +961,7 @@ BANNERS = [
         "Makhleb",
         "Speed Demon",
         BannerTiers(
-            "Reach D:15 in 27 minutes as a non-Formicid.",
+            "Reach D:15 in 54 minutes as a non-Formicid.",
             "Find a rune in 81 minutes.",
             "Win the game in 3 hours.",
         ),
