@@ -41,6 +41,7 @@ BANNER_IMAGES = \
       'footer': ['banner_footer.png', '' ],
     }
 
+# TODO: this seems redundant with the data in outline.py?
 BANNER_TEXT = \
     { 'ashenzari':
         [ 'Enter a branch of the dungeon that contains a rune.',
@@ -121,6 +122,11 @@ BANNER_TEXT = \
         [ 'Reach the last level of the Lair as a non-formicid without raising any skill to 13.',
           'Win without raising any skill to 20.',
           'Win without raising any skill to 13.',
+        ],
+      'trog':
+        [ 'Enter the Vaults with no runes.',
+          'Pick up the silver rune before any other runes.',
+          'Pick up the golden rune before any other runes.',
         ],
       'the_shining_one':
         [ 'Kill Sigmund before entering the Depths.',

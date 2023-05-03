@@ -1030,6 +1030,18 @@ BANNERS = [
         "#ffd633",
     ),
     Banner(
+        "Trog",
+        "Rage",
+        BannerTiers(
+            "Enter the Vaults with no runes.",
+            "Pick up the silver rune before any other runes.",
+            "Pick up the golden rune before any other runes.",
+        ),
+        'Trog thinks players should stop bothering with the lair and take their <code>RAGE</code> to where the most magic is as soon as possible.',
+        "trog",
+        "#990000",
+    ),
+    Banner(
         "Uskayaw",
         "Graceful",
         BannerTiers(

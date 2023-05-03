@@ -131,6 +131,11 @@ def do_milestone_rune(c, mile):
     banner.award_banner(c, player, 'ashenzari', 3)
   elif runes_found >= 5:
     banner.award_banner(c, player, 'ashenzari', 2)
+  elif runes_found == 1:
+    if rune == 'silver':
+      banner.award_banner(c, player, 'trog', 2)
+    elif rune == 'golden':
+      banner.award_banner(c, player, 'trog', 3)
   if rune == 'golden' and num_rune == 1:
     banner.award_banner(c, player, 'fedhas', 2)
   if rune == 'silver' and num_rune == 1:
@@ -202,6 +207,8 @@ def do_milestone_br_enter(c, mile):
       banner.award_banner(c, mile['name'], 'ru', 1)
     if mile['turn'] < 3000:
       banner.award_banner(c, mile['name'], 'wu_jian', 1)
+  if mile['noun'] == 'Vaults' and query.player_count_distinct_runes(c, player) == 0:
+    banner.award_banner(c, mile['name'], 'trog', 1)
 
 def do_milestone_br_end(c, mile):
   if mile['noun'] == 'Orc':
