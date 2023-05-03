@@ -1095,7 +1095,7 @@ BANNERS = [
         BannerTiers(
             "Kill 27 distinct uniques over the course of the tournament.",
             "Kill 54 distinct uniques over the course of the tournament.",
-            "Kill 85 distinct uniques over the course of the tournament.",
+            "Kill 81 distinct uniques over the course of the tournament.",
         ),
         'Yredelemnul demands that you kill as many uniques as possible and will recognise success by awarding <code>THE HARVEST</code>. There are 85 uniques in DCSS.',
         "yredelemnul",

@@ -149,9 +149,9 @@ BANNER_TEXT = \
           'Leave a ziggurat from its lowest floor.',
         ],
       'yredelemnul':
-        [ 'Kill 32 distinct uniques over the course of the tournament.',
-          'Kill 52 distinct uniques over the course of the tournament.',
-          'Kill 72 distinct uniques over the course of the tournament.',
+        [ 'Kill 27 distinct uniques over the course of the tournament.',
+          'Kill 54 distinct uniques over the course of the tournament.',
+          'Kill 81 distinct uniques over the course of the tournament.',
         ],
       'zin':
         [ 'Enter either Pandemonium or any branch of Hell.',
