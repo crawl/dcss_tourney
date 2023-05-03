@@ -294,10 +294,13 @@
   <!-- Changes -->
   <div class="row">
     <div class="col">
-      <h2 id="changes">Changes from the 0.28 tournament</h2>
+      <h2 id="changes">Changes from the 0.29 tournament</h2>
       <p>
       <ul>
-        <li>Meteorans are newly added in 0.29, but unlike other species, they are not permitted to set <i>class</i> high scores. They are allowed to set their combo high scores and the meteoran species high score normally. This aspect may be re-assessed in the 0.30 tournament, especially if high score becomes based on action duration (arbitrary units of time) instead of turns.</li>
+        <li>The lowest XL win category is replaced by the Most Pacific Win category: win with as few kills as possible. (The corresponding Vehumet banner still remains.)</li>
+        <li>The Heretic (Beogh) banner is removed.</li>
+        <li>The Brute Force (Trog) banner is removed and replaced with a new Trog banner (Rage) that rewards entering the Vaults with no runes.</li>
+        <li>Banner tweaks: The Makhleb (Speed Demon) tier 1 required time is doubled. Vehumet (Ruthless Efficiency) tier requirements are adjusted. The Wu Jian Council (Sifu) banner tier 2 is changed to 12k turns.</li>
       </ul>
       </p>
     </div>
