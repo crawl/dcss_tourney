@@ -373,7 +373,7 @@ INDIVIDUAL_CATEGORIES = (
     Category(
         "individual",
         "Nemelex' Choice",
-        u"Nemelex Xobeh wants to see players struggle against randomness and ranks players who persevere with combos randomly chosen and announced throughout the tournament. The first nine players to win a given Nemelex' choice combo earn a point in this category and Nemelex ranks players by their score in this category. The possible combos are those with no more than 49 online wins that were also not chosen in the last tournament.",
+        u"Nemelex Xobeh wants to see players struggle against randomness and ranks players who persevere with combos randomly chosen and announced throughout the tournament. The first nine players to win a given Nemelex' choice combo earn a point in this category and Nemelex ranks players by their score in this category. The possible combos are those with no more than 60 online wins that were also not chosen in the last tournament.",
         "nemelex_score",
         False,
         None,
@@ -965,7 +965,7 @@ BANNERS = [
             "Get a rune with a Nemelex' choice combo.",
             "Win a given Nemelex' choice combo. (Awarded even if you're not in the first 9.)",
         ),
-        'Nemelex Xobeh wants to see players struggle and loves randomness, and so will give the <code>NEMELEX&apos; CHOICE</code> award to players who persevere with one of several combos randomly chosen and announced throughout the tournament. The possible combos are those with no more than 52 online wins that were also not chosen in the last tournament.',
+        'Nemelex Xobeh wants to see players struggle and loves randomness, and so will give the <code>NEMELEX&apos; CHOICE</code> award to players who persevere with one of several combos randomly chosen and announced throughout the tournament. The possible combos are those with no more than 60 online wins that were also not chosen in the last tournament.',
         "nemelex",
         "#ff66ff",
     ),
