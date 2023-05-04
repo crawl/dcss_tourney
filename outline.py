@@ -207,7 +207,7 @@ def do_milestone_br_enter(c, mile):
       banner.award_banner(c, mile['name'], 'ru', 1)
     if mile['turn'] < 3000:
       banner.award_banner(c, mile['name'], 'wu_jian', 1)
-  if mile['noun'] == 'Vaults' and query.player_count_distinct_runes(c, player) == 0:
+  if mile['noun'] == 'Vaults' and query.player_count_distinct_runes(c, mile['name']) == 0:
     banner.award_banner(c, mile['name'], 'trog', 1)
 
 def do_milestone_br_end(c, mile):
