@@ -27,23 +27,23 @@ import sys
 from query_class import Query
 from test_data import USE_TEST, TEST_YEAR, TEST_VERSION, TEST_START_TIME, TEST_END_TIME, TEST_HARE_START_TIME, TEST_LOGS, TEST_MILESTONES, TEST_CLAN_DEADLINE, LogSpec
 
-T_YEAR = TEST_YEAR or '2022'
-T_VERSION = TEST_VERSION or '0.29'
+T_YEAR = TEST_YEAR or '2023'
+T_VERSION = TEST_VERSION or '0.30'
 
 # Start and end of the tournament, UTC.
-START_TIME = TEST_START_TIME or (T_YEAR + '08262000')
-END_TIME   = TEST_END_TIME or (T_YEAR + '09112000')
+START_TIME = TEST_START_TIME or (T_YEAR + '05052000')
+END_TIME   = TEST_END_TIME or (T_YEAR + '05212000')
 
 # Deadline for forming teams.
 CLAN_DEADLINE = (TEST_CLAN_DEADLINE or
-                datetime.datetime(2022, 9, 2, 20))
+                datetime.datetime(2023, 5, 12, 20))
 
 DATE_FORMAT = '%Y%m%d%H%M'
 
 GAME_VERSION = T_VERSION
 
 # One day before tourney end
-HARE_START_TIME = TEST_HARE_START_TIME or (T_YEAR + '09102000')
+HARE_START_TIME = TEST_HARE_START_TIME or (T_YEAR + '05202000')
 
 # Bot users to be excluded from the overall tournament stats and the realtime
 # categories. Note that the database views must also be updated with this user
@@ -63,29 +63,29 @@ LLD = 'http://lazy-life.ddo.jp/'
 
 # Log and milestone files. The url is what we 'wget -c' from.
 LOGS = TEST_LOGS or [
-            LogSpec('cao', 'logfiles/cao-logfile-0.29', CAO + 'logfile29'),
-            LogSpec('cbr2', 'logfiles/cbr2-logfile-0.29', CBR2 + 'meta/0.29/logfile'),
-            LogSpec('cdi', 'logfiles/cdi-logfile-0.29', CDI + 'meta/crawl-bot-0.29/logfile'),
-#           LogSpec('cdo', 'logfiles/cdo-logfile-0.29', CDO + 'allgames-0.29.txt'),
-            LogSpec('cko', 'logfiles/cko-logfile-0.29', CKO + 'meta/0.29/logfile'),
-            LogSpec('cpo', 'logfiles/cpo-logfile-0.29', CPO + 'dcss-logfiles-0.29'),
-            LogSpec('cue', 'logfiles/cue-logfile-0.29', CUE + 'meta/0.29/logfile'),
-            LogSpec('cwz', 'logfiles/cwz-logfile-0.29', CWZ + '0.29/logfile'),
-            LogSpec('cxc', 'logfiles/cxc-logfile-0.29', CXC + 'meta/0.29/logfile'),
-            LogSpec('lld', 'logfiles/lld-logfile-0.29', LLD + 'mirror/meta/0.29/logfile'),
+            LogSpec('cao', 'logfiles/cao-logfile-0.30', CAO + 'logfile30'),
+            LogSpec('cbr2', 'logfiles/cbr2-logfile-0.30', CBR2 + 'meta/0.30/logfile'),
+#           LogSpec('cdi', 'logfiles/cdi-logfile-0.30', CDI + 'meta/crawl-bot-0.30/logfile'),
+#           LogSpec('cdo', 'logfiles/cdo-logfile-0.30', CDO + 'allgames-0.30.txt'),
+            LogSpec('cko', 'logfiles/cko-logfile-0.30', CKO + 'meta/0.30/logfile'),
+            LogSpec('cpo', 'logfiles/cpo-logfile-0.30', CPO + 'dcss-logfiles-0.30'),
+            LogSpec('cue', 'logfiles/cue-logfile-0.30', CUE + 'meta/0.30/logfile'),
+            LogSpec('cwz', 'logfiles/cwz-logfile-0.30', CWZ + '0.30/logfile'),
+            LogSpec('cxc', 'logfiles/cxc-logfile-0.30', CXC + 'meta/0.30/logfile'),
+            LogSpec('lld', 'logfiles/lld-logfile-0.30', LLD + 'mirror/meta/0.30/logfile'),
   ]
 
 MILESTONES = TEST_MILESTONES or [
-            LogSpec('cao', 'milestones/cao-milestones-0.29', CAO + 'milestones29'),
-            LogSpec('cbr2', 'milestones/cbr2-milestones-0.29', CBR2 + 'meta/0.29/milestones'),
-            LogSpec('cdi', 'milestones/cdi-logfile-0.29', CDI + 'meta/crawl-bot-0.29/milestones'),
-#           LogSpec('cdo', 'milestones/cdo-milestones-0.29', CDO + 'milestones-0.29.txt'),
-            LogSpec('cko', 'milestones/cko-milestones-0.29', CKO + 'meta/0.29/milestones'),
-            LogSpec('cpo', 'milestones/cpo-milestones-0.29', CPO + 'dcss-milestones-0.29'),
-            LogSpec('cue', 'milestones/cue-milestones-0.29', CUE + 'meta/0.29/milestones'),
-            LogSpec('cwz', 'milestones/cwz-milestones-0.29', CWZ + '0.29/milestones'),
-            LogSpec('cxc', 'milestones/cxc-milestones-0.29', CXC + 'meta/0.29/milestones'),
-            LogSpec('lld', 'milestones/lld-milestones-0.29', LLD + 'mirror/meta/0.29/milestones'),
+            LogSpec('cao', 'milestones/cao-milestones-0.30', CAO + 'milestones30'),
+            LogSpec('cbr2', 'milestones/cbr2-milestones-0.30', CBR2 + 'meta/0.30/milestones'),
+#           LogSpec('cdi', 'milestones/cdi-logfile-0.30', CDI + 'meta/crawl-bot-0.30/milestones'),
+#           LogSpec('cdo', 'milestones/cdo-milestones-0.30', CDO + 'milestones-0.30.txt'),
+            LogSpec('cko', 'milestones/cko-milestones-0.30', CKO + 'meta/0.30/milestones'),
+            LogSpec('cpo', 'milestones/cpo-milestones-0.30', CPO + 'dcss-milestones-0.30'),
+            LogSpec('cue', 'milestones/cue-milestones-0.30', CUE + 'meta/0.30/milestones'),
+            LogSpec('cwz', 'milestones/cwz-milestones-0.30', CWZ + '0.30/milestones'),
+            LogSpec('cxc', 'milestones/cxc-milestones-0.30', CXC + 'meta/0.30/milestones'),
+            LogSpec('lld', 'milestones/lld-milestones-0.30', LLD + 'mirror/meta/0.30/milestones'),
   ]
 
 GAME_BLOCKLIST_FILE = 'game_blocklist.txt'
@@ -102,7 +102,9 @@ EXTENSION_FILE = 'modules.ext'
 TOURNAMENT_DB = 'tournament'
 COMMIT_INTERVAL = 3000
 # These rcfiles need to be updated from the servers every few hours.
-CRAWLRC_DIRECTORY_LIST = ['rcfiles/cao/', 'rcfiles/cbr2/', 'rcfiles/cdi/', 'rcfiles/cdo/', 'rcfiles/cko/', 'rcfiles/cpo/','rcfiles/cue/','rcfiles/cwz/','rcfiles/cxc/','rcfiles/lld/']
+CRAWLRC_DIRECTORY_LIST = ['rcfiles/cao/', 'rcfiles/cbr2/', 'rcfiles/cdi/',
+    'rcfiles/cdo/', 'rcfiles/cko/', 'rcfiles/cpo/','rcfiles/cue/',
+    'rcfiles/cwz/', 'rcfiles/cxc/', 'rcfiles/lld/']
 
 LISTENERS = [ ]
 TIMERS = [ ]

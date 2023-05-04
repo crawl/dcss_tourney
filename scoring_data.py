@@ -7,9 +7,9 @@ import json
 import random
 from query_class import Query
 
-TOURNAMENT_VERSION = "0.29"
-YEAR = "2022"
-START_TIME = datetime.datetime(2022, 8, 26, 20, 0)
+TOURNAMENT_VERSION = "0.30"
+YEAR = "2023"
+START_TIME = datetime.datetime(2023, 5, 5, 20, 0)
 END_TIME = START_TIME + datetime.timedelta(days=16)
 CLAN_CUTOFF_TIME = START_TIME + datetime.timedelta(days=7)
 
