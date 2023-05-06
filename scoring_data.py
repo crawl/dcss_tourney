@@ -866,14 +866,6 @@ BANNERS = [
         "#330033",
     ),
     Banner(
-        "Ignis",
-        "Pious",
-        BannerTiers("Champion a god.", "Champion 5 gods.", "Champion 13 gods."),
-        'Ignis thinks it&apos;s important to check out what all the gods have to offer and thus will recognize as <code>PIOUS</code> any player who becomes the Champion (******) of as many gods as possible.',
-        "ignis",
-        "#ffffff",
-    ),
-    Banner(
         "Fedhas",
         "Nature's Ally",
         BannerTiers(
@@ -908,6 +900,14 @@ BANNERS = [
         'Hepliaklqana bestows a geas upon you: recall the forgotten deities forth from the mists. Worship at a faded altar to become <code>THE INHERITOR</code> of memory!',
         "hepliaklqana",
         "#00b359",
+    ),
+    Banner(
+        "Ignis",
+        "Pious",
+        BannerTiers("Champion a god.", "Champion 5 gods.", "Champion 13 gods."),
+        'Ignis thinks it&apos;s important to check out what all the gods have to offer and thus will recognize as <code>PIOUS</code> any player who becomes the Champion (******) of as many gods as possible.',
+        "ignis",
+        "#ffffff",
     ),
     Banner(
         "Jiyva",

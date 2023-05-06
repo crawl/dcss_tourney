@@ -16,10 +16,10 @@ BANNER_IMAGES = \
     { 'ashenzari': [ 'banner_ashenzari.png', 'The Explorer' ],
       'cheibriados': [ 'banner_cheibriados.png', 'Slow and Steady' ],
       'dithmenos': [ 'banner_dithmenos.png', 'The Politician' ],
-      'elyvilon': [ 'banner_elyvilon.png', 'The Pious' ],
       'fedhas': [ 'banner_fedhas.png', "Nature's Ally" ],
       'gozag': [ 'banner_gozag.png', "Avarice" ],
       'hepliaklqana': [ 'banner_hepliaklqana.png', 'The Inheritor' ],
+      'ignis': [ 'banner_ignis.png', 'The Pious' ],
       'jiyva': [ 'banner_jiyva.png', 'Gelatinous Body' ],
       'kikubaaqudgha': [ 'banner_kikubaaqudgha.png', 'Lord of Darkness' ],
       'lugonu': [ 'banner_lugonu.png', 'Spiteful' ],
@@ -58,11 +58,6 @@ BANNER_TEXT = \
           'Steal a combo high score for a previously won combo.',
           'Steal a species or background high score that was previously of at least 10,000,000 points.',
         ],
-      'elyvilon':
-        [ 'Become the champion of any god.',
-          'Become the champion of five different gods over the course of the tournament.',
-          'Become the champion of thirteen different gods over the course of the tournament.',
-        ],
       'fedhas':
         [ 'Enter the Crypt.',
           'Get the golden rune.',
@@ -77,6 +72,11 @@ BANNER_TEXT = \
         [ 'Enter the Lair of beasts while worshipping a god from a faded altar, having worshipped no other gods.',
           'Find a rune while worshipping a god from a faded altar, having worshipped no other gods.',
           'Win a game while worshipping a god from a faded altar, having worshipped no other gods.',
+        ],
+      'ignis':
+        [ 'Become the champion of any god.',
+          'Become the champion of five different gods over the course of the tournament.',
+          'Become the champion of thirteen different gods over the course of the tournament.',
         ],
       'jiyva':
         [ 'Reach experience level 9 with at least 5 distinct species and at least 5 distinct backgrounds.',

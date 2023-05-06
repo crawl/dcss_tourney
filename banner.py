@@ -34,15 +34,15 @@ def award_banner(c, player, banner, prestige, temp=False):
              player, banner, prestige, temp)
 
 def pantheon(c, player):
-  distinct_gods = query.player_distinct_gods(c, player) 
+  distinct_gods = query.player_distinct_gods(c, player)
   if len(distinct_gods) >= 13:
-    award_banner(c, player, 'elyvilon', 3)
+    award_banner(c, player, 'ignis', 3)
   elif len(distinct_gods) >= 5:
-    award_banner(c, player, 'elyvilon', 2)
+    award_banner(c, player, 'ignis', 2)
   elif len(distinct_gods) >= 1:
-    award_banner(c, player, 'elyvilon', 1)
+    award_banner(c, player, 'ignis', 1)
 
-BANNERS = [['elyvilon', pantheon]]
+BANNERS = [['ignis', pantheon]]
 
 def process_banners(c, player):
   for banner in BANNERS:
