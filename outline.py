@@ -131,7 +131,7 @@ def do_milestone_rune(c, mile):
     banner.award_banner(c, player, 'ashenzari', 3)
   elif runes_found >= 5:
     banner.award_banner(c, player, 'ashenzari', 2)
-  elif runes_found == 1:
+  if mile['urune'] == 1:
     if rune == 'silver':
       banner.award_banner(c, player, 'trog', 2)
     elif rune == 'golden':
