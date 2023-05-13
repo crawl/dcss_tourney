@@ -30,7 +30,7 @@ LogSpec = collections.namedtuple('LogSpec', ('src', 'local_path', 'url'))
 TEST_LOGS = USE_TEST and [
              LogSpec('cao', 'logfiles/cao-logfile-0.30', CAO + 'logfile30'),
              LogSpec('cbr2', 'logfiles/cbr2-logfile-0.30', CBR2 + 'meta/0.30/logfile'),
-#            LogSpec('cdi', 'logfiles/cdi-logfile-0.30', CDI + 'meta/crawl-bot-0.30/logfile'),
+             LogSpec('cdi', 'logfiles/cdi-logfile-0.30', CDI + 'meta/crawl-bot-0.30/logfile'),
 #            LogSpec('cdo', 'logfiles/cdo-logfile-0.30', CDO + 'allgames-0.30.txt'),
              LogSpec('cko', 'logfiles/cko-logfile-0.30', CKO + 'meta/0.30/logfile'),
              LogSpec('cpo', 'logfiles/cpo-logfile-0.30', CPO + 'dcss-logfiles-0.30'),
@@ -43,7 +43,7 @@ TEST_LOGS = USE_TEST and [
 TEST_MILESTONES = USE_TEST and [
              LogSpec('cao', 'milestones/cao-milestones-0.30', CAO + 'milestones30'),
              LogSpec('cbr2', 'milestones/cbr2-milestones-0.30', CBR2 + 'meta/0.30/milestones'),
-#            LogSpec('cdi', 'milestones/cdi-logfile-0.30', CDI + 'meta/crawl-bot-0.30/milestones'),
+             LogSpec('cdi', 'milestones/cdi-logfile-0.30', CDI + 'meta/crawl-bot-0.30/milestones'),
 #            LogSpec('cdo', 'milestones/cdo-milestones-0.30', CDO + 'milestones-0.30.txt'),
              LogSpec('cko', 'milestones/cko-milestones-0.30', CKO + 'meta/0.30/milestones'),
              LogSpec('cpo', 'milestones/cpo-milestones-0.30', CPO + 'dcss-milestones-0.30'),
