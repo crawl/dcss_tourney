@@ -720,17 +720,6 @@ def hyperlink_games(games, field):
            for link, g in zip(hyperlinks, games) ]
   return ", ".join(text)
 
-def best_ziggurats(c):
-  ziggurats = query.get_top_ziggurats(c)
-
-  def fixup_ziggurats(zigs):
-    for z in zigs:
-      z[2] = pretty_date(z[2])
-    return zigs
-
-  return table_text( [ 'Player', 'Ziggurat Depth', 'Time' ],
-                     fixup_ziggurats(ziggurats) )
-
 def youngest_rune_finds(c):
   runes = query.youngest_rune_finds(c)
   runes = [list(r) for r in runes]
