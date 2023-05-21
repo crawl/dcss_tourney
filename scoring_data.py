@@ -561,13 +561,13 @@ INDIVIDUAL_CATEGORIES = (
         """The other DCSS gods are too busy with divine affairs to rank an entire category, but every DCSS god rewards players for certain achievements with tiered banners. Players are awarded points for each banner, with tier one banners worth 1 point, tier 2 worth 2 points, and tier 3 worth 4 points.""",
         "banner_score",
         True,
-        100,
+        96,
         None,
         "player_banner_score",
         "bscore",
         None,
         [
-            ColumnDisplaySpec("bscore", "Banner Completion / 100", True, True, None),
+            ColumnDisplaySpec("bscore", "Banner Completion / 96", True, True, None),
             ColumnDisplaySpec(
                 "banners", "Banners Completed", False, False, _pretty_banners
             ),
@@ -815,13 +815,13 @@ CLAN_CATEGORIES = (
         members for each banner.""",
         "banner_score",
         True,
-        100,
+        96,
         None,
         "clan_banner_score",
         "bscore",
         None,
         [
-            ColumnDisplaySpec("bscore", "Banner Progress / 100", True, True, None),
+            ColumnDisplaySpec("bscore", "Banner Progress / 96", True, True, None),
             ColumnDisplaySpec(
                 "banners", "Banners Completed", False, False, _pretty_banners
             ),
