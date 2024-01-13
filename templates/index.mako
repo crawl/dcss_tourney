@@ -294,13 +294,10 @@
   <!-- Changes -->
   <div class="row">
     <div class="col">
-      <h2 id="changes">Changes from the 0.29 tournament</h2>
+      <h2 id="changes">Changes from the 0.30 tournament</h2>
       <p>
       <ul>
-        <li>The lowest XL win category is replaced by the Most Pacific Win category: win with as few kills as possible. (The corresponding Vehumet banner still remains.)</li>
-        <li>The Heretic (Beogh) banner is removed.</li>
-        <li>The Brute Force (Trog) banner is removed and replaced with a new Trog banner (Rage) that rewards entering the Vaults with no runes.</li>
-        <li>Banner tweaks: The Makhleb (Speed Demon) tier 1 required time is doubled. Vehumet (Ruthless Efficiency) tier requirements are adjusted. The Wu Jian Council (Sifu) banner tier 2 is changed to 12k turns. The Yredelemnul (Harvest) tier 3 banner is adjusted to 81.</li>
+        <li>This will be updated once the 0.31 tournament changes are final</li>
       </ul>
       </p>
     </div>
