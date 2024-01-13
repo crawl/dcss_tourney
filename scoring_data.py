@@ -20,6 +20,7 @@ SERVERS = {
     "CPO": "https://crawl.project357.org/",
     "CAO": "http://crawl.akrasiac.org:8080/",
     "CBR2": "https://cbro.berotato.org:8443/",
+# Don't include CDI in instructions server list, since only qw can play there.
 #   "CDI": "https://crawl.dcss.io/",
 #   "CDO": None,
     "CKO": "https://crawl.kelbi.org/",
@@ -665,7 +666,7 @@ CLAN_CATEGORIES = (
     Category(
         "clan",
         "Combo High Scores",
-        "The clan is awarded points in this category in the same way as the individual Combo High scores category using all of the members' games.  Each combo high score at XL &ge; 9 gives 1 point, with bonus points for winning the game (+9) and being a species/background high score (+27 each). Therefore, a single game can give a maximum of 64 points. As in the individual category, Meteorans can't set background high scores.",
+        "The clan is awarded points in this category in the same way as the individual Combo High scores category using all of the members' games. Each combo high score at XL &ge; 9 gives 1 point, with bonus points for winning the game (+9) and being a species/background high score (+27 each). Therefore, a single game can give a maximum of 64 points. As in the individual category, Meteorans can't set background high scores.",
         "combo_score",
         False,
         None,
@@ -769,7 +770,7 @@ CLAN_CATEGORIES = (
     Category(
         "clan",
         "Most Pacific Win",
-        "Clans are ranked by the fewest amount of kills win of any of their members.", 
+        "Clans are ranked by the fewest amount of kills win of any of their members.",
         "most_pacific_win",
         False,
         None,

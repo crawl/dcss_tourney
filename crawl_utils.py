@@ -27,7 +27,7 @@ else:
 LOCK = None
 
 # Where data needed for tournament calculations are stored. If BASEDIR env
-# variable is defined, use that as the base directory.  Otherwise, use $HOME if
+# variable is defined, use that as the base directory. Otherwise, use $HOME if
 # we are LOCAL_TEST and a default if not.
 if "BASEDIR" in os.environ:
     BASEDIR = os.environ["BASEDIR"]

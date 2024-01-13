@@ -63,8 +63,8 @@
             <li><a href="#banners">Banners</a></li>
           </ol>
         </li>
-	<li><a href="#changes">Changes</a></li>
-	<li><a href="#conduct">Conduct</a></li>
+        <li><a href="#changes">Changes</a></li>
+        <li><a href="#conduct">Conduct</a></li>
       </ol>
     </div>
   </div>
@@ -130,25 +130,25 @@
       <p>
         In a <span class="font-weight-bold">proportionally scored
         category</span> you receive points based on your progress towards a
-        maximum score in the category. The points recieved are: 
-        <code>(progress / category maximum) * ${"{:,}".format(scoring_data.MAX_CATEGORY_SCORE)}</code>. 
+        maximum score in the category. The points recieved are:
+        <code>(progress / category maximum) * ${"{:,}".format(scoring_data.MAX_CATEGORY_SCORE)}</code>.
       </p>
       <p>
         In a <span class="font-weight-bold">relative category</span> your
-	performance in that category determines how many point you win from it.
-	The points received are either:
+        performance in that category determines how many point you win from it.
+        The points received are either:
         <code>(your result / category best) *
-	${"{:,}".format(scoring_data.MAX_CATEGORY_SCORE)}</code> or
-	<code>(category best / your result) *
-	${"{:,}".format(scoring_data.MAX_CATEGORY_SCORE)}</code>, depending on
-	whether the category asks to maximize or minimize its result (for
-	example, high score uses the first formula, low turn count the second).
+        ${"{:,}".format(scoring_data.MAX_CATEGORY_SCORE)}</code> or
+        <code>(category best / your result) *
+        ${"{:,}".format(scoring_data.MAX_CATEGORY_SCORE)}</code>, depending on
+        whether the category asks to maximize or minimize its result (for
+        example, high score uses the first formula, low turn count the second).
         <div class="alert alert-dark text-dark" role="alert">
           If you place last in a category, you will always receive 0 points.
         </div>
         <div class="alert alert-dark text-dark" role="alert">
           The points you receive in each relative category will change as the
-	  tournament progresses and the leader changes.
+          tournament progresses and the leader changes.
         </div>
       </p>
       <p>
@@ -181,10 +181,10 @@
           <h3 class="card-title">${category.name}</h3>
           <p class="card-text small">
             ${category.desc}
-	    % if category.proportional:
-	    This is a proportionally scored category with a maximum possible
-	    score of <code>${category.max}</code>.
-	    % endif
+            % if category.proportional:
+            This is a proportionally scored category with a maximum possible
+            score of <code>${category.max}</code>.
+            % endif
           </p>
         </div>
         <div class="card-footer">
@@ -226,10 +226,10 @@
           <h3 class="card-title">${category.name}</h3>
           <p class="card-text small">
             ${category.desc}
-	    % if category.proportional:
-	    This is a proportionally scored category with a maximum possible
-	    score of <code>${category.max}</code>.
-	    % endif
+            % if category.proportional:
+            This is a proportionally scored category with a maximum possible
+            score of <code>${category.max}</code>.
+            % endif
           </p>
         </div>
         <div class="card-footer">
@@ -270,9 +270,9 @@
       >
       <div class="card-body">
         <h2 class="card-title">${banner.name}</h2>
-	<p class="card-text small">
-	  ${banner.flavortext}
-	</p>
+        <p class="card-text small">
+          ${banner.flavortext}
+        </p>
         <ul class="list-group list-group-flush">
           % for tier in (0, 1, 2):
           <li class="list-group-item bg-dark px-0 py-1">
@@ -321,16 +321,16 @@
         </li>
 
         <li>
-	  Please do not do anything that would give you an unfair competitive
-	  advantage over other players or clans. This includes things like
-	  scumming crash-on-demand bugs, using alt accounts to inflate the
-	  score of your main account, or using bots or input macros on your
-	  account to gain an advantage for speedrun points – just remember that
-	  the objective here is to have fun. We generally do not monitor games
-	  or RC files and hold players to the honor system. In extreme cases
-	  that come to our attention, we may, at our discretion, disqualify
-	  users and remove their games from the scoring database. Ignorance and
-	  negligence are not excuses for poor behavior.
+          Please do not do anything that would give you an unfair competitive
+          advantage over other players or clans. This includes things like
+          scumming crash-on-demand bugs, using alt accounts to inflate the
+          score of your main account, or using bots or input macros on your
+          account to gain an advantage for speedrun points – just remember that
+          the objective here is to have fun. We generally do not monitor games
+          or RC files and hold players to the honor system. In extreme cases
+          that come to our attention, we may, at our discretion, disqualify
+          users and remove their games from the scoring database. Ignorance and
+          negligence are not excuses for poor behavior.
         </li>
 
         <li>
@@ -360,7 +360,7 @@
             </li>
             <li>
               Thanks to many others, including <b>advil</b>, <b>|amethyst</b>,
-	      <b>elliptic</b>, and <b>gammafunk</b>, for contributing fixes and
+              <b>elliptic</b>, and <b>gammafunk</b>, for contributing fixes and
               enhancements.
             </li>
             <li>
@@ -378,16 +378,16 @@
           through present, and thanks to <b>elliptic</b> for running the
           tournaments from versions 0.8 through 0.17.
         </li>
-	<li>
-	  Thanks to <b>Wensley</b>, <b>ChrisOelmueller</b>, <b>Grunt</b>, and
+        <li>
+          Thanks to <b>Wensley</b>, <b>ChrisOelmueller</b>, <b>Grunt</b>, and
           <b>CanOfWorms</b> for creating the banner images.
         </li>
         <li>
-	  Thanks to all <a href="https://github.com/crawl/crawl/blob/master/crawl-ref/CREDITS.txt">contributors</a>
+          Thanks to all <a href="https://github.com/crawl/crawl/blob/master/crawl-ref/CREDITS.txt">contributors</a>
           who help make DCSS possible!
         </li>
         <li>
-	  Thank you to all the artists whose work is used on this tournament
+          Thank you to all the artists whose work is used on this tournament
           website! All artwork used is released under
           <a href="https://creativecommons.org/share-your-work/public-domain/cc0/"> CC0</a>
           or with explicit permission from the artist.
