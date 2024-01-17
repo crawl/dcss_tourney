@@ -836,7 +836,7 @@ BANNERS = [
         "Ashenzari",
         "Explorer",
         BannerTiers(
-            "Enter a rune branch other than the Abyss", "Collect 5 distinct runes", "Collect all 17 runes",
+            "Enter a rune branch other than the Abyss.", "Collect 5 distinct runes.", "Collect all 17 runes.",
         ),
         'Ashenzari thinks that an <code>EXPLORER</code> should be be busy looking for runes of Zot.',
         "ashenzari",
