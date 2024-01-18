@@ -9,6 +9,5 @@ GODS = ['No God', 'Zin', 'the Shining One', 'Kikubaaqudgha',
         'Qazlal', 'Ru', 'Gozag', 'Hepliaklqana', 'Uskayaw', 'Wu Jian']
 
 MAGIC_SKILLS = ['Spellcasting', 'Conjurations', 'Hexes', 'Charms',
-                'Summonings', 'Necromancy', 'Translocations',
-                'Transmutations', 'Fire Magic', 'Ice Magic',
-                'Air Magic', 'Earth Magic', 'Poison Magic']
+        'Summonings', 'Necromancy', 'Translocations', 'Alchemy',
+        'Fire Magic', 'Ice Magic', 'Air Magic', 'Earth Magic']
