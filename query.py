@@ -28,6 +28,7 @@ import time
 import json
 
 MAX_RUNES = 15
+MAX_GEMS = 11
 
 LOG_FIELDS = [ 'source_file' ] + [ x[1] for x in loaddb.LOG_DB_MAPPINGS ]
 
@@ -101,7 +102,7 @@ def get_game_god(c, game):
   game_god = game.get('god') or 'No God'
   if (game_god == 'Xom' or game_god == 'Gozag' or game_god == 'No God' \
     or game_god =='Ignis') \
-	and not did_renounce_god(c, game['name'], game['start'], game['end']):
+        and not did_renounce_god(c, game['name'], game['start'], game['end']):
     return game_god
   return get_first_max_piety(c, game['name'], game['start'])
 
@@ -138,7 +139,7 @@ def did_renounce_god(c, name, start, end):
                       '''SELECT COUNT(*) FROM milestones
                           WHERE player = %s AND start_time = %s
                             AND verb = 'god.renounce'
-			    AND milestone_time < %s ''',
+                            AND milestone_time < %s ''',
                       name, start, end) > 0)
 
 def did_worship_god(c, god, name, start, end):
@@ -169,6 +170,15 @@ def did_get_rune(c, rune, name, start, end):
                             AND noun = %s
                             AND milestone_time < %s ''',
                       name, start, rune, end) > 0)
+
+def did_found_gem(c, gem, name, start, end):
+  return (query_first(c,
+                      '''SELECT COUNT(*) FROM milestones
+                          WHERE player = %s AND start_time = %s
+                            AND verb = 'gem.found'
+                            AND noun = %s
+                            AND milestone_time < %s ''',
+                      name, start, gem, end) > 0)
 
 def did_exit_branch(c, br, name, start, end):
   return (query_first(c,
@@ -214,7 +224,7 @@ def did_champion(c, god, name, start, end):
 
 def win_query(selected, order_by = None,
               player=None, charabbr=None, character_race=None, raceabbr=None,
-              character_class=None, classabbr=None, runes=None,
+              character_class=None, classabbr=None, runes=None, found_gems=None, intact_gems=None,
               before=None, after=None, limit=None):
 
   table = 'games'
@@ -234,6 +244,10 @@ def win_query(selected, order_by = None,
     query.append(' AND MID(charabbrev,3,2) = %s', classabbr)
   if (runes):
     query.append(' AND runes >= %s', runes)
+  if (found_gems):
+    query.append(' AND found_gems >= %s', found_gems)
+  if (intact_gems):
+    query.append(' AND intact_gems >= %s', intact_gems)
   if before:
     query.append(' AND end_time < %s', before)
   if after:
@@ -445,8 +459,9 @@ def check_xl9_streak(c, player, start):
   return False
 
 def count_wins(c, **selectors):
-  """Return the number wins recorded for the given player, optionally with
-     a specific race, class, minimum number of runes, or any combination"""
+  """Return the number wins recorded for the given player, optionally with a
+  specific race, class, minimum number of runes, found gems, intact gems, or
+  any combination"""
   return win_query('COUNT(start_time)', **selectors).count(c)
 
 def get_wins(c, **selectors):
@@ -780,6 +795,12 @@ def count_player_unique_kills(cursor, player, unique):
 def player_count_distinct_runes(c, player):
   return query_first(c, '''SELECT COUNT(DISTINCT rune)
                              FROM rune_finds
+                            WHERE player = %s''',
+                     player)
+
+def player_count_distinct_found_gems(c, player):
+  return query_first(c, '''SELECT COUNT(gem)
+                             FROM player_gems
                             WHERE player = %s''',
                      player)
 
@@ -1597,7 +1618,7 @@ def update_streak(c, streak):
 def streak_order(c, limit=None):
   query = Query('''SELECT s.player, s.src, s.start_time, s.length
                    FROM streaks AS s LEFT OUTER JOIN streaks AS s2
-                   ON s.player = s2.player AND (s.length, s.start_time) < 
+                   ON s.player = s2.player AND (s.length, s.start_time) <
                    (s2.length, s2.start_time)
                    WHERE s2.start_time IS NULL ORDER BY s.length DESC''')
   if limit:

@@ -473,19 +473,20 @@ def strip_unique_qualifier(x):
 def xlog_milestone_fixup(d):
   for field in [x for x in ['uid'] if x in d]:
     del d[field]
+
   if not d.get('milestone'):
     d['milestone'] = ' '
+
   verb = d['type']
   milestone = d['milestone']
   noun = None
 
   if verb == 'unique':
     verb = 'uniq'
-
-  if verb == 'enter':
+  elif verb == 'enter':
     verb = 'br.enter'
 
-  if verb == 'uniq':
+  elif verb == 'uniq':
     match = R_MILE_UNIQ.findall(milestone)
     if match[0][0] == 'banished':
       verb = 'uniq.ban'
@@ -497,23 +498,28 @@ def xlog_milestone_fixup(d):
       verb = 'uniq.sli'
     noun = strip_unique_qualifier(match[0][1])
 
-  if verb == 'br.enter':
+  elif verb == 'br.enter':
     noun = R_BRANCH_ENTER.findall(d['place'])[0]
-  if verb == 'br.end':
+  elif verb == 'br.end':
     noun = R_BRANCH_END.findall(d['place'])[0]
-  if verb == 'br.exit':
+  elif verb == 'br.exit':
     noun = R_BRANCH_EXIT.findall(d['oplace'])[0]
 
-  if verb == 'ghost':
+  elif verb == 'ghost':
     match = R_MILE_GHOST.findall(milestone)
     if match[0][0] == 'banished':
       verb = 'ghost.ban'
     elif match[0][0] == 'pacified':
       verb = 'ghost.pac'
     noun = match[0][1]
-  if verb == 'rune':
+
+  elif verb == 'rune':
     noun = R_RUNE.findall(milestone)[0]
-  if verb == 'god.worship':
+
+  elif verb == 'gem.found':
+    noun = R_GEM.findall(milestone)[0]
+
+  elif verb == 'god.worship':
     noun = R_GOD_WORSHIP.findall(milestone)[0]
   elif verb == 'god.renounce':
     noun = R_GOD_RENOUNCE.findall(milestone)[0]
@@ -521,10 +527,11 @@ def xlog_milestone_fixup(d):
     noun = R_GOD_MOLLIFY.findall(milestone)[0]
   elif verb == 'god.maxpiety':
     noun = R_GOD_MAXPIETY.findall(milestone)[0]
-  if verb == 'orb':
+  elif verb == 'orb':
     noun = 'orb'
-  if verb == 'sacrifice':
+  elif verb == 'sacrifice':
     noun = R_SACRIFICE.findall(milestone)[0]
+
   noun = noun or milestone
   d['verb'] = verb
   d['type'] = verb
@@ -630,6 +637,8 @@ LOG_DB_MAPPINGS = [
     LogDbMapping('kills', 'kills', str),
     LogDbMapping('nrune', 'nrune', int),
     LogDbMapping('urune', 'runes', int),
+    LogDbMapping('fgem', 'found_gems', int),
+    LogDbMapping('igem', 'intact_gems', int),
     LogDbMapping('gold', 'gold', int),
     LogDbMapping('goldfound', 'gold_found', int),
     LogDbMapping('goldspent', 'gold_spent', int),
@@ -669,6 +678,8 @@ MILE_DB_MAPPINGS = [
     [ 'piety', 'piety' ],
     [ 'nrune', 'nrune' ],
     [ 'urune', 'runes' ],
+    [ 'fgem', 'found_gems' ],
+    [ 'igem', 'intact_gems' ],
     [ 'verb', 'verb' ],
     [ 'noun', 'noun' ],
     [ 'milestone', 'milestone' ],
@@ -689,6 +700,7 @@ R_KILL_UNIQUE = re.compile(r'^killed (.*)\.$')
 R_MILE_UNIQ = re.compile(r'^(\w+) (.*)\.$')
 R_MILE_GHOST = re.compile(r'^(\w+) the ghost of ([^,]+) the [^,]+,')
 R_RUNE = re.compile(r"found an? (.*) rune")
+R_GEM = re.compile(r"found an? (.*) gem")
 R_HYDRA = re.compile(r'^an? (\w+)-headed hydra')
 R_PLACE_DEPTH = re.compile(r'^\w+:(\d+)')
 R_GOD_WORSHIP = re.compile(r'^became a worshipper of (.*)\.$')
@@ -762,6 +774,8 @@ dbfield_to_sqltype = {
         'terse_msg':varchar,
         'verb_msg':varchar,
         'nrune':sql_int,
+        'found_gems':sql_int,
+        'intact_gems':sql_int,
         'kills': sql_int,
         'gold': sql_int,
         'gold_found': sql_int,
@@ -1041,6 +1055,9 @@ def extract_milestone_ghost_name(milestone):
 def extract_rune(milestone):
   return R_RUNE.findall(milestone)[0]
 
+def extract_gem(milestone):
+  return R_GEM.findall(milestone)[0]
+
 def process_log(cursor, filename, offset, d):
   if is_not_tourney(d):
     return
@@ -1114,6 +1131,12 @@ def add_rune_milestone(cursor, game):
            game['name'], game['start'], game['time'],
            extract_rune(game['milestone']), game['xl'])
 
+def add_gem_found_milestone(cursor, game):
+  query_do(cursor,
+           '''INSERT INTO player_gems (player, gem)
+              VALUES (%s, %s);''',
+           game['name'], extract_gem(game['milestone']))
+
 def add_br_enter_milestone(cursor, game):
   if game['noun'] == 'Arena':
       return
@@ -1168,6 +1191,7 @@ MILESTONE_HANDLERS = {
   'uniq' : add_unique_milestone,
   'ghost' : add_ghost_milestone,
   'rune' : add_rune_milestone,
+  'gem.found' : add_gem_found_milestone,
   'br.enter': add_br_enter_milestone,
   'br.end': add_br_end_milestone,
   'zig.enter': add_ziggurat_milestone,

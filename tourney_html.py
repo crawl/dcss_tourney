@@ -134,9 +134,9 @@ BANNER_TEXT = \
           'Get six runes before entering the Depths.',
         ],
       'uskayaw':
-        [ 'Enter the Temple in under 3000 turns.',
-          'Enter the third floor of the Elven Halls in under 9000 turns.',
-          'Enter the final floor of Gehenna in under 27000 turns.',
+        [ 'Collect a gem.',
+          'Win with three gems intact.',
+          'Win with all 11 gems intact.',
         ],
       'vehumet':
         [ 'Reach the last level of the Lair as a non-formicid before reaching experience level 13.',

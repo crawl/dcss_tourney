@@ -1,6 +1,7 @@
 #! /usr/bin/python
 
 NRUNES = 17
+NGEMS= 13
 
 GODS = ['No God', 'Zin', 'the Shining One', 'Kikubaaqudgha',
         'Yredelemnul', 'Xom', 'Vehumet', 'Okawaru', 'Makhleb',

@@ -78,8 +78,8 @@ SELECT *
 CREATE OR REPLACE VIEW first_wins AS
 SELECT g.*, JSON_OBJECT('source_file', g.source_file,
                     'player', g.player,
-		    'end_time', g.end_time,
-		    'charabbrev', g.charabbrev) AS morgue_json  FROM wins AS g
+                    'end_time', g.end_time,
+                    'charabbrev', g.charabbrev) AS morgue_json  FROM wins AS g
   LEFT OUTER JOIN wins AS g2
   ON g.player = g2.player AND g.end_time > g2.end_time
   WHERE g2.end_time IS NULL;
@@ -90,8 +90,8 @@ SELECT * FROM wins WHERE killertype = 'winning' AND runes = 15;
 CREATE OR REPLACE VIEW first_allrune_wins AS
 SELECT g.*, JSON_OBJECT('source_file', g.source_file,
                     'player', g.player,
-		    'end_time', g.end_time,
-		    'charabbrev', g.charabbrev) AS morgue_json  FROM
+                    'end_time', g.end_time,
+                    'charabbrev', g.charabbrev) AS morgue_json  FROM
   allrune_wins AS g
   LEFT OUTER JOIN allrune_wins AS g2
   ON g.player = g2.player AND g.end_time > g2.end_time
@@ -125,8 +125,8 @@ SELECT a.*, JSON_OBJECT('source_file', a.source_file,
 CREATE OR REPLACE VIEW lowest_turncount_wins AS
 SELECT g.*, JSON_OBJECT('source_file', g.source_file,
                     'player', g.player,
-		    'end_time', g.end_time,
-		    'charabbrev', g.charabbrev) AS morgue_json FROM wins AS g
+                    'end_time', g.end_time,
+                    'charabbrev', g.charabbrev) AS morgue_json FROM wins AS g
   LEFT OUTER JOIN wins AS g2
   ON g.player = g2.player AND g.turn > g2.turn
   WHERE g2.turn IS NULL;
@@ -149,8 +149,8 @@ SELECT
 CREATE OR REPLACE VIEW fastest_wins AS
 SELECT g.*, JSON_OBJECT('source_file', g.source_file,
                     'player', g.player,
-		    'end_time', g.end_time,
-		    'charabbrev', g.charabbrev) AS morgue_json  FROM wins AS g
+                    'end_time', g.end_time,
+                    'charabbrev', g.charabbrev) AS morgue_json  FROM wins AS g
   LEFT OUTER JOIN wins AS g2
   ON g.player = g2.player AND (g.duration, g.start_time) > (g2.duration, g2.start_time)
   WHERE g.player NOT IN ('qw','tstbtto') AND g2.start_time IS NULL;
@@ -175,8 +175,8 @@ SELECT
 CREATE OR REPLACE VIEW most_pacific_wins AS
 SELECT g.*, JSON_OBJECT('source_file', g.source_file,
                     'player', g.player,
-		    'end_time', g.end_time,
-		    'charabbrev', g.charabbrev) AS morgue_json FROM wins AS g
+                    'end_time', g.end_time,
+                    'charabbrev', g.charabbrev) AS morgue_json FROM wins AS g
   LEFT OUTER JOIN wins AS g2
   ON g.player = g2.player AND g.kills > g2.kills
   WHERE g2.kills IS NULL;
@@ -218,8 +218,8 @@ SELECT wg.player, mp.god AS max_piety, wg.god AS won
 
 CREATE OR REPLACE VIEW player_piety_score AS
 SELECT player, JSON_ARRAYAGG(max_piety) AS champion,
-	  JSON_ARRAYAGG(won) AS won,
-	  COUNT(DISTINCT max_piety) + COUNT(DISTINCT won) AS piety
+          JSON_ARRAYAGG(won) AS won,
+          COUNT(DISTINCT max_piety) + COUNT(DISTINCT won) AS piety
   FROM player_god_usage
   GROUP BY player;
 
@@ -228,7 +228,7 @@ SELECT p.team_captain,
     JSON_OBJECT('name', teams.name, 'captain', p.team_captain) AS team_info_json,
     JSON_ARRAYAGG(g.max_piety) AS champion,
     JSON_ARRAYAGG(g.won) AS won,
-	  COUNT(DISTINCT g.max_piety) + COUNT(DISTINCT g.won) AS piety
+          COUNT(DISTINCT g.max_piety) + COUNT(DISTINCT g.won) AS piety
   FROM player_god_usage AS g
     INNER JOIN players AS p ON g.player = p.name
     LEFT JOIN teams ON p.team_captain = teams.owner
@@ -291,6 +291,25 @@ SELECT p.team_captain, 3*COUNT(DISTINCT r.rune) AS score,
        JSON_ARRAYAGG(rune) AS data
   FROM rune_finds AS r INNER JOIN players AS p ON r.player = p.name
   GROUP BY p.team_captain;
+
+CREATE OR REPLACE VIEW player_gem_score AS
+SELECT player, COUNT(DISTINCT gem) AS score,
+       JSON_ARRAYAGG(gem) AS gems
+  FROM player_gems GROUP BY player;
+
+CREATE OR REPLACE VIEW clan_player_gems AS
+SELECT p.team_captain, g.gem
+  FROM player_gems AS g INNER JOIN players AS p ON g.player = p.name
+  WHERE p.team_captain IS NOT NULL
+  GROUP BY p.team_captain, g.gem;
+
+CREATE OR REPLACE VIEW clan_gem_score AS
+SELECT team_captain,
+    JSON_OBJECT('name', teams.name, 'captain', team_captain) AS team_info_json,
+    COUNT(DISTINCT gem) AS score,
+    JSON_ARRAYAGG(gem) AS gems
+  FROM clan_player_gems LEFT JOIN teams ON team_captain = teams.owner
+  GROUP BY team_captain;
 
 CREATE OR REPLACE VIEW exploration_union AS
 SELECT player, score AS score, "enters" AS mt, data AS data
@@ -374,11 +393,11 @@ SELECT c.player AS player,
        COUNT(sp.raceabbr) AS sp_hs, COUNT(cl.class) AS cls_hs,
        JSON_ARRAYAGG(JSON_OBJECT('source_file', c.source_file,
                     'player', c.player,
-		    'end_time', c.end_time,
-		    'charabbrev', c.charabbrev,
-	            'won', c.killertype='winning',
-	            'sp_hs', sp.raceabbr,
-	            'cls_hs', MID(cl.charabbrev,3,2))) AS games_json
+                    'end_time', c.end_time,
+                    'charabbrev', c.charabbrev,
+                    'won', c.killertype='winning',
+                    'sp_hs', sp.raceabbr,
+                    'cls_hs', MID(cl.charabbrev,3,2))) AS games_json
   FROM combo_highscores AS c
   LEFT OUTER JOIN species_highscores AS sp
     ON c.player = sp.player AND c.charabbrev = sp.charabbrev
@@ -396,11 +415,11 @@ SELECT p.team_captain,
        COUNT(sp.raceabbr) AS sp_hs, COUNT(cl.class) AS cls_hs,
        JSON_ARRAYAGG(JSON_OBJECT('source_file', c.source_file,
                     'player', c.player,
-		    'end_time', c.end_time,
-		    'charabbrev', c.charabbrev,
-	            'won', c.killertype='winning',
-	            'sp_hs', sp.raceabbr,
-	            'cls_hs', MID(cl.charabbrev,3,2))) AS games_json
+                    'end_time', c.end_time,
+                    'charabbrev', c.charabbrev,
+                    'won', c.killertype='winning',
+                    'sp_hs', sp.raceabbr,
+                    'cls_hs', MID(cl.charabbrev,3,2))) AS games_json
   FROM combo_highscores AS c
   LEFT OUTER JOIN species_highscores AS sp
     ON c.player = sp.player AND c.charabbrev = sp.charabbrev
@@ -415,11 +434,11 @@ SELECT p.team_captain,
 
 CREATE OR REPLACE VIEW player_nem_scored_wins AS
 SELECT IF(ROW_NUMBER() OVER (PARTITION BY charabbrev ORDER BY end_time) < 10,
-	1, 0) AS nem_counts, n.player, n.charabbrev,
-	JSON_OBJECT('source_file', n.source_file,
+        1, 0) AS nem_counts, n.player, n.charabbrev,
+        JSON_OBJECT('source_file', n.source_file,
                     'player', n.player,
-		    'end_time', n.end_time,
-		    'charabbrev', n.charabbrev) AS xdict
+                    'end_time', n.end_time,
+                    'charabbrev', n.charabbrev) AS xdict
   FROM player_nemelex_wins AS n;
 
 CREATE OR REPLACE VIEW player_nemelex_score AS
@@ -434,17 +453,17 @@ GROUP BY player;
 CREATE OR REPLACE VIEW clan_nemelex_wins AS
 SELECT p.team_captain,
        ROW_NUMBER() OVER (PARTITION BY p.team_captain, n.charabbrev
-	                  ORDER BY end_time) AS clan_finish, n.*
+                          ORDER BY end_time) AS clan_finish, n.*
   FROM player_nemelex_wins AS n INNER JOIN players AS p ON n.player = p.name
   WHERE p.team_captain IS NOT NULL;
 
 CREATE OR REPLACE VIEW clan_nem_scored_wins AS
 SELECT IF(ROW_NUMBER() OVER (PARTITION BY charabbrev ORDER BY end_time) < 10,
-	  1, 0) AS nem_counts, n.team_captain, n.charabbrev,
-	JSON_OBJECT('source_file', source_file,
+          1, 0) AS nem_counts, n.team_captain, n.charabbrev,
+        JSON_OBJECT('source_file', source_file,
                     'player', player,
-		    'end_time', end_time,
-		    'charabbrev', charabbrev) AS xdict
+                    'end_time', end_time,
+                    'charabbrev', charabbrev) AS xdict
   FROM clan_nemelex_wins AS n WHERE n.clan_finish = 1;
 
 CREATE OR REPLACE VIEW clan_nemelex_score AS

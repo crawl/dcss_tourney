@@ -88,8 +88,8 @@ def act_on_milestone(c, mile):
     do_milestone_unique(c, mile)
   elif miletype == 'rune':
     do_milestone_rune(c, mile)
-  elif miletype == 'ghost':
-    do_milestone_ghost(c, mile)
+  elif miletype == 'gem.found':
+    do_milestone_gem_found(c, mile)
   elif miletype == 'br.enter':
     do_milestone_br_enter(c, mile)
   elif miletype == 'br.end':
@@ -106,8 +106,6 @@ def act_on_milestone(c, mile):
     do_milestone_abyss_exit(c, mile)
   elif miletype == 'god.mollify':
     do_milestone_mollify(c, mile)
-  elif miletype == 'orb':
-    do_milestone_orb(c, mile)
 
 def do_milestone_unique(c, mile):
   """This function takes a parsed milestone known to commemorate the death of
@@ -141,9 +139,9 @@ def do_milestone_rune(c, mile):
   if rune == 'silver' and num_rune == 1:
     banner.award_banner(c, player, 'gozag', 2)
   did_ecu = query.did_use_ecumenical_altar(c, mile['name'], mile['start'],
-		mile['time'])
+                mile['time'])
   did_renounce = query.did_renounce_god(c, mile['name'], mile['start'],
-			mile['time'])
+                        mile['time'])
   if (did_ecu and not did_renounce):
     banner.award_banner(c, player, 'hepliaklqana', 2)
 
@@ -177,15 +175,9 @@ def do_milestone_rune(c, mile):
                       mile['name'], mile['start'], mile['time']) and not mile['race'] == 'Felid':
         banner.award_banner(c, mile['name'], 'vehumet', 2)
 
-  if mile['br'] in [ 'Shoals', 'Slime', 'Snake', 'Spider', 'Swamp'] and mile['turn'] - query.branch_end_turn(c, mile['br'], mile['name'], mile['start']) <= 810:
-      banner.award_banner(c, mile['name'], 'uskayaw', 1)
-  if rune == 'silver' and mile['turn'] - query.branch_end_turn(c, 'Vaults', mile['name'], mile['start']) <= 540:
-      banner.award_banner(c, mile['name'], 'uskayaw', 2)
-
-def do_milestone_ghost(c, mile):
-  """Currently this isn't terribly remarkable. The DB already records the ghost
-     kill and there are no banners associated."""
-  return
+def do_milestone_gem_found(c, mile):
+  """Give out banners for gems collected."""
+  banner.award_banner(c, mile['name'], 'uskayaw', 1)
 
 def do_milestone_br_enter(c, mile):
   """Give out banners for branch entry."""
@@ -273,11 +265,6 @@ def do_milestone_mollify(c, mile):
   god = mile.get('god') or 'No God'
   #if god != mile['noun']:
   #  banner.award_banner(c, mile['name'], 'lugonu', 1)
-
-def do_milestone_orb(c, mile):
-  if mile['turn'] - query.branch_end_turn(c, 'Zot', mile['name'],
-          mile['start']) <= 270:
-    banner.award_banner(c, mile['name'], 'uskayaw', 3)
 
 def act_on_logfile_line(c, this_game, filename):
   """Actually assign things and write to the db based on a logfile line
@@ -431,6 +418,11 @@ def crunch_winner(c, game, filename):
   banner_god = game_god.lower().replace(' ', '_')
   if (not game_god == 'faithless'):
     query.record_won_god(c, game['name'], game_god)
+
+  if game.get('igem') == 3:
+      banner.award_banner(c, player, 'uskayaw', 2)
+  elif game.get('igem') == query.MAX_GEMS:
+      banner.award_banner(c, player, 'uskayaw', 3)
 
 def is_all_runer(game):
   """Did this game get every rune? This _might_ require checking the milestones

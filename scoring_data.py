@@ -171,6 +171,17 @@ def _pretty_exploration(explore_data):
 
     return outstr
 
+def _pretty_gems(gem_data):
+    if isinstance(gem_data, str):
+        gem_data = json.loads(gem_data)
+
+    if gem_data is None:
+        return ''
+
+    gems = list(set(gem_data))
+    gems.sort()
+    return ", ".join(gem_data) + ' '
+
 def _pretty_harvest(data):
     if isinstance(data, str):
         data = json.loads(data)
@@ -558,6 +569,21 @@ INDIVIDUAL_CATEGORIES = (
     ),
     Category(
         "individual",
+        "Gem Collection",
+        "Uskayaw wants players to gracefully step through the dungeon with precision and seek out the Ancient Gems. In this category, players earn 1 point per distinct ancient gem collected.",
+        "gem_score",
+        True,
+        13,
+        None,
+        "player_gem_score",
+        "score",
+        None,
+        [ColumnDisplaySpec("score", "Progress / 13", True, True, None),
+         ColumnDisplaySpec("gems", "Gems Collected", False, False,
+             _pretty_gems),],
+    ),
+    Category(
+        "individual",
         "Banner Collection",
         """The other DCSS gods are too busy with divine affairs to rank an entire category, but every DCSS god rewards players for certain achievements with tiered banners. Players are awarded points for each banner, with tier one banners worth 1 point, tier 2 worth 2 points, and tier 3 worth 4 points.""",
         "banner_score",
@@ -787,6 +813,21 @@ CLAN_CATEGORIES = (
                 "morgue_json", "Morgue", False, False, _json_to_morgue_link
             ),
         ],
+    ),
+    Category(
+        "clan",
+        "Gem Collection",
+        "Clans are awarded points and subsequently ranked in the same way as the individual Gem Collection category using all of the members' games.",
+        "gem_score",
+        True,
+        13,
+        None,
+        "clan_gem_score",
+        "score",
+        None,
+        [ColumnDisplaySpec("score", "Progress / 13", True, True, None),
+         ColumnDisplaySpec("gems", "Gems Collected", False, False,
+             _pretty_gems),],
     ),
     Category(
         "clan",
@@ -1046,11 +1087,11 @@ BANNERS = [
         "Uskayaw",
         "Graceful",
         BannerTiers(
-            "Collect a rune from a Lair branch within 810 turns of entering the branch end.",
-            "Collect the silver rune within 540 turns of entering Vaults:5.",
-            "Collect the orb of Zot within 270 turns of entering Zot:5.",
+            "Collect a gem.",
+            "Win with 3 gems intact.",
+            "Win with all 11 gems intact.",
         ),
-        'Uskayaw requires all prospective students to prove themselves <code>GRACEFUL</code>. Step with precision and efficiency while on the deepest floors of the Dungeon!',
+        'Uskayaw requires all prospective students to prove themselves <code>GRACEFUL</code>. Step with precision and efficiency to collect the Ancient Gems!',
         "uskayaw",
         "#4d0026",
     ),

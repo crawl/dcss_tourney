@@ -5,6 +5,7 @@ DROP TABLE IF EXISTS player_maxed_skills;
 DROP TABLE IF EXISTS player_fifteen_skills;
 DROP TABLE IF EXISTS clan_banners;
 DROP TABLE IF EXISTS player_banners;
+DROP TABLE IF EXISTS player_gems;
 DROP TABLE IF EXISTS player_won_gods;
 DROP TABLE IF EXISTS player_max_piety;
 DROP TABLE IF EXISTS whereis_table;
@@ -50,6 +51,7 @@ CREATE TABLE IF NOT EXISTS players (
   harvest INT,
   combo_score INT,
   nemelex_score INT,
+  gem_score INT,
   ziggurat_dive INT,
   FOREIGN KEY (team_captain) REFERENCES players (name)
   ON DELETE SET NULL
@@ -73,6 +75,7 @@ CREATE TABLE teams (
   exploration INT,
   combo_score INT,
   nemelex_score INT,
+  gem_score INT,
   ziggurat_dive INT,
   banner_score INT,
   PRIMARY KEY (owner),
@@ -140,6 +143,8 @@ CREATE TABLE games (
   terse_msg VARCHAR(255),
   verb_msg VARCHAR(255),
   nrune INT DEFAULT 0,
+  found_gems INT,
+  intact_gems INT,
 
   mapname VARCHAR(80) DEFAULT '',
   mapdesc VARCHAR(80) DEFAULT '',
@@ -198,7 +203,8 @@ CREATE TABLE milestones (
   src VARCHAR(10),
 
   -- The actual game that this milestone is linked with.
-  game_id BIGINT, -- warning: not implemented, should be removed or implemented.
+  -- warning: not implemented, should be removed or implemented.
+  game_id BIGINT,
 
   version VARCHAR(10),
   lv VARCHAR(8),
@@ -231,6 +237,8 @@ CREATE TABLE milestones (
   turn BIGINT,
   runes INT,
   nrune INT,
+  found_gems INT,
+  intact_gems INT,
   zigscompleted INT,
 
   -- Game start time.
@@ -240,7 +248,7 @@ CREATE TABLE milestones (
   milestone_time DATETIME,
 
   -- Known milestones: abyss.enter, abyss.exit, rune, orb, ghost, uniq,
-  -- uniq.ban, br.enter, br.end, br.exit.
+  -- uniq.ban, br.enter, br.end, br.exit, gem.found, gem.lost.
   verb VARCHAR(20),
   noun VARCHAR(200),
 
@@ -392,6 +400,16 @@ CREATE TABLE player_banners (
   FOREIGN KEY (player) REFERENCES players (name) ON DELETE CASCADE
   );
 CREATE INDEX player_banners_player ON player_banners (player);
+
+-- Tracks gems found by each player. We only care about whether a player has
+-- ever found a given gem, not how many times it's been found.
+CREATE TABLE player_gems (
+  player VARCHAR(20),
+  gem VARCHAR(20),
+  PRIMARY KEY (player, gem),
+  FOREIGN KEY (player) REFERENCES players (name) ON DELETE CASCADE
+  );
+CREATE INDEX player_gems_player ON player_gems (player);
 
 CREATE TABLE clan_banners (
   team_captain VARCHAR(20),
