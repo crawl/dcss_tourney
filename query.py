@@ -346,7 +346,6 @@ def previous_class_highscore(c, game):
                          FROM games
                          WHERE MID(charabbrev,3,2) = %s
                          AND end_time < %s
-                         AND race <> 'Meteoran'
                          ORDER BY score DESC''',
                    game['char'][2:], game['end'])
 

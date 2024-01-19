@@ -975,8 +975,7 @@ def update_highscore_table(c, xdict, filename, offset, table, field, value):
                                    "SELECT score FROM " + table +
                                    " WHERE " + field + " = %s",
                                    value)
-  if (not (table == "class_highscores" and xdict['race'] == "Meteoran")
-      and xdict['sc'] > existing_score):
+  if xdict['sc'] > existing_score:
     if existing_score > 0:
       query_do(c, "DELETE FROM " + table + " WHERE " + field + " = %s",
                value)
