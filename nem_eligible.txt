@@ -109,6 +109,7 @@ OnCj
 OnCK
 OnDe
 OnEE
+OnEn
 OnFE
 OnFi
 OnGl
@@ -117,6 +118,7 @@ OnHu
 OnHW
 OnIE
 OnMo
+OnNe
 OnRe
 OnSh
 OnSu
