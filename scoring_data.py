@@ -1091,7 +1091,7 @@ BANNERS = [
             "Win with 3 gems intact.",
             "Win with all 11 gems intact.",
         ),
-        'Uskayaw requires all prospective students to prove themselves <code>GRACEFUL</code>. Step with precision and efficiency to collect the Ancient Gems!',
+        'Uskayaw requires all prospective students to prove themselves <code>GRACEFUL</code>. Step with precision and efficiency to collect the Ancient Gems! Note: Gem hunters can add <code>always_show_gems = true</code> to their RC file to always see turns remaining to collect a gem. Add <code>more_gem_info = true</code> to see information about when collected gems will shatter.',
         "uskayaw",
         "#4d0026",
     ),
