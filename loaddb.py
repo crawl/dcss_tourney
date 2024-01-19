@@ -1133,9 +1133,10 @@ def add_rune_milestone(cursor, game):
 
 def add_gem_found_milestone(cursor, game):
   query_do(cursor,
-           '''INSERT INTO player_gems (player, gem)
-              VALUES (%s, %s);''',
-           game['name'], extract_gem(game['milestone']))
+           '''INSERT INTO gem_finds (player, start_time, gem_time, gem, xl)
+              VALUES (%s, %s, %s, %s, %s);''',
+           game['name'], game['start'], game['time'],
+           extract_gem(game['milestone']), game['xl'])
 
 def add_br_enter_milestone(cursor, game):
   if game['noun'] == 'Arena':

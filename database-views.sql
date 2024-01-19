@@ -295,11 +295,11 @@ SELECT p.team_captain, 3*COUNT(DISTINCT r.rune) AS score,
 CREATE OR REPLACE VIEW player_gem_score AS
 SELECT player, COUNT(DISTINCT gem) AS score,
        JSON_ARRAYAGG(gem) AS gems
-  FROM player_gems GROUP BY player;
+  FROM gem_finds GROUP BY player;
 
 CREATE OR REPLACE VIEW clan_player_gems AS
 SELECT p.team_captain, g.gem
-  FROM player_gems AS g INNER JOIN players AS p ON g.player = p.name
+  FROM gem_finds AS g INNER JOIN players AS p ON g.player = p.name
   WHERE p.team_captain IS NOT NULL
   GROUP BY p.team_captain, g.gem;
 

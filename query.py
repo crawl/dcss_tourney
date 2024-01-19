@@ -799,8 +799,8 @@ def player_count_distinct_runes(c, player):
                      player)
 
 def player_count_distinct_found_gems(c, player):
-  return query_first(c, '''SELECT COUNT(gem)
-                             FROM player_gems
+  return query_first(c, '''SELECT COUNT(DISTINCT gem)
+                             FROM gem_finds
                             WHERE player = %s''',
                      player)
 

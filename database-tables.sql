@@ -5,7 +5,7 @@ DROP TABLE IF EXISTS player_maxed_skills;
 DROP TABLE IF EXISTS player_fifteen_skills;
 DROP TABLE IF EXISTS clan_banners;
 DROP TABLE IF EXISTS player_banners;
-DROP TABLE IF EXISTS player_gems;
+DROP TABLE IF EXISTS gem_finds;
 DROP TABLE IF EXISTS player_won_gods;
 DROP TABLE IF EXISTS player_max_piety;
 DROP TABLE IF EXISTS whereis_table;
@@ -296,6 +296,16 @@ CREATE TABLE rune_finds (
   );
 CREATE INDEX rune_finds_p ON rune_finds (player, rune);
 
+CREATE TABLE gem_finds (
+  player VARCHAR(20),
+  start_time DATETIME,
+  gem_time DATETIME,
+  gem VARCHAR(20),
+  xl INT,
+  FOREIGN KEY (player) REFERENCES players (name) ON DELETE CASCADE
+  );
+CREATE INDEX gem_finds_p ON gem_finds (player, gem);
+
 CREATE TABLE branch_enters (
   player VARCHAR(20),
   start_time DATETIME,
@@ -400,16 +410,6 @@ CREATE TABLE player_banners (
   FOREIGN KEY (player) REFERENCES players (name) ON DELETE CASCADE
   );
 CREATE INDEX player_banners_player ON player_banners (player);
-
--- Tracks gems found by each player. We only care about whether a player has
--- ever found a given gem, not how many times it's been found.
-CREATE TABLE player_gems (
-  player VARCHAR(20),
-  gem VARCHAR(20),
-  PRIMARY KEY (player, gem),
-  FOREIGN KEY (player) REFERENCES players (name) ON DELETE CASCADE
-  );
-CREATE INDEX player_gems_player ON player_gems (player);
 
 CREATE TABLE clan_banners (
   team_captain VARCHAR(20),
