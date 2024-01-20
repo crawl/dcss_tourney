@@ -332,6 +332,10 @@ class Xlogfile(object):
         sys.stderr.write("Error processing line: " + line + "\n")
         raise
 
+      # Don't record crash milestones.
+      if xdict.get('verb') == 'crash':
+        continue
+
       xdict['src'] = self.src
 
       xline = Xlogline( owner=self, filename=self.filename,
