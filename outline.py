@@ -418,7 +418,7 @@ def crunch_winner(c, game, filename):
   if (not game_god == 'faithless'):
     query.record_won_god(c, game['name'], game_god)
 
-  if game.get('igem') == 3:
+  if game.get('igem') >= 3:
       banner.award_banner(c, player, 'uskayaw', 2)
   elif game.get('igem') == query.MAX_GEMS:
       banner.award_banner(c, player, 'uskayaw', 3)
