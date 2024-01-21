@@ -496,8 +496,8 @@ def xlog_milestone_fixup(d):
       verb = 'uniq.ban'
     elif match[0][0] == 'pacified':
       verb = 'uniq.pac'
-    elif match[0][0] == 'enslaved':
-      verb = 'uniq.ens'
+    elif match[0][0] == 'charmed':
+      verb = 'uniq.cha'
     elif match[0][0] == 'slimified':
       verb = 'uniq.sli'
     noun = strip_unique_qualifier(match[0][1])
