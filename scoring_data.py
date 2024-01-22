@@ -180,7 +180,7 @@ def _pretty_gems(gem_data):
 
     gems = list(set(gem_data))
     gems.sort()
-    return ", ".join(gem_data) + ' '
+    return ", ".join(gems) + ' '
 
 def _pretty_harvest(data):
     if isinstance(data, str):
