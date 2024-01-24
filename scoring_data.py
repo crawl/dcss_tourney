@@ -160,13 +160,13 @@ def _pretty_exploration(explore_data):
 
     outstr = ''
     if explore_data.get("enters", None):
-        explore_data["enters"] = list(set(explore_data["enters"]))
+        explore_data["enters"] = sorted(list(set(explore_data["enters"])))
         outstr += '<b>Branches Entered:</b> ' + ", ".join(explore_data["enters"]) + ' '
     if explore_data.get("ends", None):
-        explore_data["ends"] = list(set(explore_data["ends"]))
+        explore_data["ends"] = sorted(list(set(explore_data["ends"])))
         outstr += '<b>Branch Ends Reached:</b> ' + ", ".join(explore_data["ends"]) + ' '
     if explore_data.get("runes", None):
-        explore_data["runes"] = list(set(explore_data["runes"]))
+        explore_data["runes"] = sorted(list(set(explore_data["runes"])))
         outstr += '<b>Runes Collected:</b> ' + ", ".join(explore_data["runes"]) + ' '
 
     return outstr
@@ -179,8 +179,7 @@ def _pretty_gems(gem_data):
         return ''
 
     gems = list(set(gem_data))
-    gems.sort()
-    return ", ".join(gems) + ' '
+    return ", ".join(sorted(gems)) + ' '
 
 def _pretty_harvest(data):
     if isinstance(data, str):
@@ -190,8 +189,7 @@ def _pretty_harvest(data):
     if data.get("uniques", None):
         # weird data normalization from the union
         data["uniques"] = json.loads(data["uniques"])
-        data["uniques"] = list(set(data["uniques"]))
-        data["uniques"].sort()
+        data["uniques"] = sorted(list(set(data["uniques"])))
         outstr += ", ".join(data["uniques"])
         if data.get("ghosts", None):
             outstr += ", and "
