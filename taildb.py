@@ -32,6 +32,7 @@ def tail_logfiles(logs, milestones, interval):
       except IOError as e:
         error("IOError: %s" % e)
 
+      info("All updates completed. Sleeping for {} seconds.".format(interval))
       time.sleep(interval)
       elapsed_time += interval
 
