@@ -5,7 +5,7 @@ import fcntl
 import sys
 
 # Update every so often (seconds)
-UPDATE_INTERVAL = 7 * 60
+UPDATE_INTERVAL = 5 * 60
 
 # Are we testing locally? If so, use file:/// urls. The urls will be have the
 # script working directory and then the SCORE_FILE_DIR added.

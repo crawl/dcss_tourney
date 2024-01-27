@@ -12,7 +12,7 @@ from logging import debug, info, warn, error
 def interval_work(cursor, interval, master):
   master.tail_all(cursor)
 
-def tail_logfiles(logs, milestones, interval=60):
+def tail_logfiles(logs, milestones, interval):
   db = loaddb.connect_db()
   loaddb.init_listeners(db)
 
@@ -56,4 +56,4 @@ if __name__ == '__main__':
                       filename = (crawl_utils.BASEDIR + '/taildb.log'))
   loaddb.load_extensions()
   crawl_utils.daemonize()
-  tail_logfiles( loaddb.LOGS, loaddb.MILESTONES, 30 )
+  tail_logfiles(loaddb.LOGS, loaddb.MILESTONES, crawl_utils.UPDATE_INTERVAL)
