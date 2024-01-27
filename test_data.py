@@ -35,7 +35,7 @@ TEST_LOGS = USE_TEST and [
               LogSpec('cko', 'logfiles/cko-logfile-0.31', CKO + 'meta/0.31/logfile'),
               LogSpec('cpo', 'logfiles/cpo-logfile-0.31', CPO + 'dcss-logfiles-0.31'),
               LogSpec('cue', 'logfiles/cue-logfile-0.31', CUE + 'meta/0.31/logfile'),
-#             LogSpec('cwz', 'logfiles/cwz-logfile-0.31', CWZ + '0.31/logfile'),
+              LogSpec('cwz', 'logfiles/cwz-logfile-0.31', CWZ + '0.31/logfile'),
               LogSpec('cxc', 'logfiles/cxc-logfile-0.31', CXC + 'meta/0.31/logfile'),
               LogSpec('lld', 'logfiles/lld-logfile-0.31', LLD + 'mirror/meta/0.31/logfile'),
   ]
@@ -48,7 +48,7 @@ TEST_MILESTONES = USE_TEST and [
               LogSpec('cko', 'milestones/cko-milestones-0.31', CKO + 'meta/0.31/milestones'),
               LogSpec('cpo', 'milestones/cpo-milestones-0.31', CPO + 'dcss-milestones-0.31'),
               LogSpec('cue', 'milestones/cue-milestones-0.31', CUE + 'meta/0.31/milestones'),
-#             LogSpec('cwz', 'milestones/cwz-milestones-0.31', CWZ + '0.31/milestones'),
+              LogSpec('cwz', 'milestones/cwz-milestones-0.31', CWZ + '0.31/milestones'),
               LogSpec('cxc', 'milestones/cxc-milestones-0.31', CXC + 'meta/0.31/milestones'),
               LogSpec('lld', 'milestones/lld-milestones-0.31', LLD + 'mirror/meta/0.31/milestones'),
   ]
