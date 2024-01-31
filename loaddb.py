@@ -88,7 +88,7 @@ MILESTONES = TEST_MILESTONES or [
              LogSpec('lld', 'milestones/lld-milestones-0.31', LLD + 'mirror/meta/0.31/milestones'),
   ]
 
-GAME_BLOCKLIST_FILE = 'game_blocklist.txt'
+GAME_ALLOWLIST_FILE = 'game_allowlist.txt'
 
 PLAYER_BLOCKLIST_FILE = 'player_blocklist.txt'
 player_blocklist = []
@@ -117,24 +117,40 @@ def support_mysql57(c):
         modes = [m for m in modes if m != 'ONLY_FULL_GROUP_BY']
         c.execute("SET SESSION sql_mode = '%s'" % ','.join(modes))
 
-class GameBlocklist(object):
+class GameAllowlist(object):
   def __init__(self, filename):
     self.filename = filename
+    self.allowlist = {}
     if os.path.exists(filename):
-      info("Loading game blocklist from " + filename)
-      self.load_blocklist()
+      info("Loading game allowlist from " + filename)
+      self.load_allowlist()
 
-  def load_blocklist(self):
+  def load_allowlist(self):
     fh = open(self.filename)
     lines = fh.readlines()
     fh.close()
-    self.blocklist = [apply_dbtypes(parse_logline(x.strip()))
-                      for x in lines if x.strip()]
+    for l in lines:
+        l = l.strip()
+        name, sources = l.split(":")
+        name = name.lower()
+        sources = [s.lower() for s in sources.split(",") if s.strip()]
 
-  def is_blocklisted(self, game):
-    for b in self.blocklist:
-      if xlog_match(b, game):
-        return True
+        if not name or not sources:
+            continue
+
+        self.allowlist[name] = sources
+
+        c = active_cursor()
+        query_do(c, "DELETE FROM games WHERE player = %s AND src NOT IN ("
+                + ", ".join(["'{}'".format(s) for s in sources]) + ");", name)
+        query_do(c, "DELETE FROM milestones WHERE player = %s AND src NOT IN ("
+                + ", ".join(["'{}'".format(s) for s in sources]) + ");", name)
+
+  def is_blocked(self, game):
+    name = game['name'].lower()
+    if name in self.allowlist and game['src'].lower() not in self.allowlist[name]:
+      return True
+
     return False
 
 class CrawlEventListener(object):
@@ -231,7 +247,7 @@ class Xlogline(object):
       raise
 
 class Xlogfile(object):
-  def __init__(self, filename, url, src, tell_op, proc_op, blocklist=None):
+  def __init__(self, filename, url, src, tell_op, proc_op, allowlist=None):
     self.local = url is None
     self.filename = filename
     self.url = url
@@ -241,7 +257,7 @@ class Xlogfile(object):
     self.tell_op = tell_op
     self.proc_op = proc_op
     self.size  = None
-    self.blocklist = blocklist
+    self.allowlist = allowlist
 
   def reinit(self):
     """Reinitialize for a further read from this file."""
@@ -274,15 +290,6 @@ class Xlogfile(object):
       return True
     self._open()
     return self.handle
-
-  def apply_blocklist(self, xdict):
-    # Blocked games are mauled here:
-    xdict['ktyp'] = 'blocked'
-    xdict['place'] = 'D:1'
-    xdict['xl'] = 1
-    xdict['lvl'] = 1
-    xdict['tmsg'] = 'was blocked.'
-    xdict['vmsg'] = 'was blocked.'
 
   def line(self, cursor):
     if not self.have_handle():
@@ -326,8 +333,7 @@ class Xlogfile(object):
 
       try:
         xdict = apply_dbtypes( xlog_dict(line) )
-        if self.blocklist and self.blocklist.is_blocklisted(xdict):
-          self.apply_blocklist(xdict)
+        xdict['src'] = self.src
       except:
         sys.stderr.write("Error processing line: " + line + "\n")
         raise
@@ -336,7 +342,8 @@ class Xlogfile(object):
       if xdict.get('verb') == 'crash':
         continue
 
-      xdict['src'] = self.src
+      if self.allowlist and self.allowlist.is_blocked(xdict):
+        continue
 
       xline = Xlogline( owner=self, filename=self.filename,
                         offset=line_offset,
@@ -345,14 +352,14 @@ class Xlogfile(object):
       return xline
 
 class Logfile (Xlogfile):
-  def __init__(self, filename, url, src, blocklist):
+  def __init__(self, filename, url, src, allowlist):
     Xlogfile.__init__(self, filename=filename, url=url, src=src,
-      tell_op=logfile_offset, proc_op=process_log, blocklist=blocklist)
+      tell_op=logfile_offset, proc_op=process_log, allowlist=allowlist)
 
 class MilestoneFile (Xlogfile):
-  def __init__(self, filename, url, src):
+  def __init__(self, filename, url, src, allowlist):
     Xlogfile.__init__(self, filename=filename, url=url, src=src,
-      tell_op=milestone_offset, proc_op=add_milestone_record)
+      tell_op=milestone_offset, proc_op=add_milestone_record, allowlist=allowlist)
 
 class MasterXlogReader(object):
   """Given a list of Xlogfile objects, calls the process operation on the oldest
@@ -1272,11 +1279,12 @@ def cleanup_listeners(db):
     e.cleanup(db)
 
 def create_master_reader():
-  blocklist = GameBlocklist(GAME_BLOCKLIST_FILE)
-  processors = ([ MilestoneFile(filename=x.local_path, url=x.url, src=x.src)
+  allowlist = GameAllowlist(GAME_ALLOWLIST_FILE)
+  processors = ([ MilestoneFile(filename=x.local_path, url=x.url, src=x.src,
+                    allowlist=allowlist)
                   for x in MILESTONES ] +
                 [ Logfile(filename=x.local_path, url=x.url, src=x.src,
-                    blocklist=blocklist)
+                    allowlist=allowlist)
                   for x in LOGS ])
   return MasterXlogReader(processors)
 
