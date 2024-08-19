@@ -805,7 +805,7 @@ def make_milestone_string(w, src, make_links=False):
 def whereis(c, *players):
   where_data = []
   for p in players:
-    for src in ['cao','cbr2','cdo', 'cko', 'cpo', 'cue','cwz','cxc','lld']:
+    for src in ['cao','cbr2','cdi','cdo', 'cpo', 'cnc','cue','cxc','lld']:
       where = query.whereis_player(c, p, src)
       if not where:
         continue

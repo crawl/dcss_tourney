@@ -294,7 +294,8 @@
   <!-- Changes -->
   <div class="row">
     <div class="col">
-      <h2 id="changes">Changes from the 0.30 tournament</h2>
+      <h2 id="changes">Changes from the 0.31 tournament</h2>
+      <!--
       <p>
       <ul>
         <li>
@@ -312,6 +313,7 @@
         </li>
       </ul>
       </p>
+      -->
     </div>
   </div>
 

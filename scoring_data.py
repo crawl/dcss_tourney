@@ -7,9 +7,9 @@ import json
 import random
 from query_class import Query
 
-TOURNAMENT_VERSION = "0.31"
+TOURNAMENT_VERSION = "0.32"
 YEAR = "2024"
-START_TIME = datetime.datetime(2024, 1, 19, 20, 0)
+START_TIME = datetime.datetime(2024, 8, 30, 20, 0)
 END_TIME = START_TIME + datetime.timedelta(days=16)
 CLAN_CUTOFF_TIME = START_TIME + datetime.timedelta(days=7)
 
@@ -18,15 +18,13 @@ MAX_CATEGORY_SCORE = 10000
 
 SERVERS = {
     "CPO": "https://crawl.project357.org/",
-    "CAO": "http://crawl.akrasiac.org:8080/",
+    "CAO": "https://crawl.akrasiac.org:8443/",
     "CBR2": "https://cbro.berotato.org:8443/",
-# Don't include CDI in instructions server list, since only qw can play there.
-#   "CDI": "https://crawl.dcss.io/",
+    "CDI": "https://crawl.dcss.io/",
 #   "CDO": None,
-    "CKO": "https://crawl.kelbi.org/",
+    "CNC": "https://crawl.nemelex.cards/",
     "CUE": "https://underhound.eu:8080/",
-    "CWZ": "http://webzook.net:8080/",
-    "CXC": "http://crawl.xtahua.com/",
+    "CXC": "https://crawl.xtahua.com/",
     "LLD": "http://lazy-life.ddo.jp:8080/",
 }
 
