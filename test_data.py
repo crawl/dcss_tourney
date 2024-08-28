@@ -11,15 +11,15 @@ CNC = 'https://archive.nemelex.cards/'
 CXC = 'http://crawl.xtahua.com/crawl/'
 LLD = 'http://lazy-life.ddo.jp/'
 
-USE_TEST = False
+USE_TEST = True
 
 TEST_YEAR = USE_TEST and '2024'
 TEST_VERSION = USE_TEST and '0.32'
-TEST_START_TIME = USE_TEST and (TEST_YEAR + '08162000')
+TEST_START_TIME = USE_TEST and (TEST_YEAR + '08262000')
 TEST_END_TIME   = USE_TEST and (TEST_YEAR + '08302000')
 TEST_CLAN_DEADLINE = (USE_TEST and
-                     datetime.datetime(2024, 8, 23, 20))
-TEST_HARE_START_TIME = USE_TEST and (TEST_YEAR + '08292000')
+                     datetime.datetime(2024, 8, 29, 20))
+TEST_HARE_START_TIME = USE_TEST and (TEST_YEAR + '08282000')
 
 # src: str: Name of server this file comes from
 # local_path: str: Path this file is stored at
