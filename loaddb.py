@@ -63,26 +63,26 @@ LLD = 'http://lazy-life.ddo.jp/'
 # Log and milestone files. The url is what we 'wget -c' from.
 LOGS = TEST_LOGS or [
 #             LogSpec('cao', 'logfiles/cao-logfile-0.32', CAO + 'logfile32'),
-#             LogSpec('cbr2', 'logfiles/cbr2-logfile-0.32', CBR2 + 'meta/0.32/logfile'),
-#             LogSpec('cdi', 'logfiles/cdi-logfile-0.32', CDI + 'meta/crawl-bot-0.32/logfile'),
+              LogSpec('cbr2', 'logfiles/cbr2-logfile-0.32', CBR2 + 'meta/0.32/logfile'),
+              LogSpec('cdi', 'logfiles/cdi-logfile-0.32', CDI + 'meta/crawl-0.32/logfile'),
 #             LogSpec('cdo', 'logfiles/cdo-logfile-0.32', CDO + 'allgames-0.32.txt'),
-#             LogSpec('cpo', 'logfiles/cpo-logfile-0.32', CPO + 'dcss-logfiles-0.32'),
-#             LogSpec('cnc', 'logfiles/cnc-logfile-0.32', CNC + '0.32/logfile'),
+              LogSpec('cpo', 'logfiles/cpo-logfile-0.32', CPO + 'dcss-logfiles-0.32'),
+              LogSpec('cnc', 'logfiles/cnc-logfile-0.32', CNC + 'meta/crawl-0.32/logfile'),
 #             LogSpec('cue', 'logfiles/cue-logfile-0.32', CUE + 'meta/0.32/logfile'),
-#             LogSpec('cxc', 'logfiles/cxc-logfile-0.32', CXC + 'meta/0.32/logfile'),
-#             LogSpec('lld', 'logfiles/lld-logfile-0.32', LLD + 'mirror/meta/0.32/logfile'),
+              LogSpec('cxc', 'logfiles/cxc-logfile-0.32', CXC + 'meta/0.32/logfile'),
+              LogSpec('lld', 'logfiles/lld-logfile-0.32', LLD + 'mirror/meta/0.32/logfile'),
   ]
 
 MILESTONES = TEST_MILESTONES or [
 #             LogSpec('cao', 'milestones/cao-milestones-0.32', CAO + 'milestones32'),
-#             LogSpec('cbr2', 'milestones/cbr2-milestones-0.32', CBR2 + 'meta/0.32/milestones'),
-#             LogSpec('cdi', 'milestones/cdi-logfile-0.32', CDI + 'meta/crawl-bot-0.32/milestones'),
+              LogSpec('cbr2', 'milestones/cbr2-milestones-0.32', CBR2 + 'meta/0.32/milestones'),
+              LogSpec('cdi', 'milestones/cdi-logfile-0.32', CDI + 'meta/crawl-0.32/milestones'),
 #             LogSpec('cdo', 'milestones/cdo-milestones-0.32', CDO + 'milestones-0.32.txt'),
-#             LogSpec('cpo', 'milestones/cpo-milestones-0.32', CPO + 'dcss-milestones-0.32'),
-#             LogSpec('cnc', 'milestones/cnc-milestones-0.32', CNC + '0.32/milestones'),
+              LogSpec('cpo', 'milestones/cpo-milestones-0.32', CPO + 'dcss-milestones-0.32'),
+              LogSpec('cnc', 'milestones/cnc-milestones-0.32', CNC + 'meta/crawl-0.32/milestones'),
 #             LogSpec('cue', 'milestones/cue-milestones-0.32', CUE + 'meta/0.32/milestones'),
-#             LogSpec('cxc', 'milestones/cxc-milestones-0.32', CXC + 'meta/0.32/milestones'),
-#             LogSpec('lld', 'milestones/lld-milestones-0.32', LLD + 'mirror/meta/0.32/milestones'),
+              LogSpec('cxc', 'milestones/cxc-milestones-0.32', CXC + 'meta/0.32/milestones'),
+              LogSpec('lld', 'milestones/lld-milestones-0.32', LLD + 'mirror/meta/0.32/milestones'),
   ]
 
 GAME_ALLOWLIST_FILE = 'game_allowlist.txt'
