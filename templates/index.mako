@@ -295,25 +295,14 @@
   <div class="row">
     <div class="col">
       <h2 id="changes">Changes from the 0.31 tournament</h2>
-      <!--
       <p>
       <ul>
         <li>
-          Gems now have their own category for players and clans based on the
-          number of distinct gems found across games.
-        </li>
-        <li>
-          The Uskayaw banner has been reworked with tiers based on (1) finding
-          a gem, (2) winning with at least 3 gems intact, and (3) winning with
-          all 11 gems intact.
-        </li>
-        <li>
-          Felids are now allowed for the Ruthless Efficiency banner, since they
-          no longer lose an XL upon death.
+          The Ziggurat Diving player and clan categories are capped at 5
+          ziggurats completed instead of 27.
         </li>
       </ul>
       </p>
-      -->
     </div>
   </div>
 

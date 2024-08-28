@@ -502,11 +502,11 @@ FROM clan_streaks AS s
 GROUP BY s.team_captain, s.length;
 
 CREATE OR REPLACE VIEW player_ziggurats AS
-SELECT z.player, LEAST(28 * z.completed + z.deepest, 756) AS floors, z.completed, z.deepest
+SELECT z.player, LEAST(28 * z.completed + z.deepest, 140) AS floors, z.completed, z.deepest
   FROM ziggurats AS z;
 
 CREATE OR REPLACE VIEW clan_ziggurats AS
-SELECT p.team_captain, z.player, LEAST(28 * z.completed + z.deepest, 756) AS floors,
+SELECT p.team_captain, z.player, LEAST(28 * z.completed + z.deepest, 140) AS floors,
        z.completed, z.deepest
   FROM ziggurats AS z INNER JOIN players AS p ON p.name = z.player
   WHERE p.team_captain IS NOT NULL;
