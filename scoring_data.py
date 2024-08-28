@@ -16,17 +16,17 @@ CLAN_CUTOFF_TIME = START_TIME + datetime.timedelta(days=7)
 # Maximum score for placing first in a category. Player score is "10,000 / rank"
 MAX_CATEGORY_SCORE = 10000
 
-SERVERS = {
-    "CPO": "https://crawl.project357.org/",
-    "CAO": "https://crawl.akrasiac.org:8443/",
-    "CBR2": "https://cbro.berotato.org:8443/",
-    "CDI": "https://crawl.dcss.io/",
-#   "CDO": None,
-    "CNC": "https://crawl.nemelex.cards/",
-    "CUE": "https://underhound.eu:8080/",
-    "CXC": "https://crawl.xtahua.com/",
-    "LLD": "http://lazy-life.ddo.jp:8080/",
-}
+SERVERS = [
+    ("CAO", "https://crawl.akrasiac.org:8443/"),
+    ("CBR2", "https://cbro.berotato.org:8443/"),
+    ("CDI", "https://crawl.dcss.io/"),
+#   ("CDO", None),
+    ("CNC", "https://crawl.nemelex.cards/"),
+    ("CPO", "https://crawl.project357.org/"),
+    ("CUE", "https://underhound.eu:8080/"),
+    ("CXC", "https://crawl.xtahua.com/"),
+    ("LLD", "http://lazy-life.ddo.jp:8080/"),
+]
 
 ColumnDisplaySpec = collections.namedtuple(
     "ColumnDisplaySpec",

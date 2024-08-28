@@ -76,7 +76,7 @@
       <p>
         <%
           linked_servers = []
-          for server, url in scoring_data.SERVERS.items():
+          for server, url in scoring_data.SERVERS:
             if url is not None:
               linked_server = '<a href="{url}">{server}</a>'.format(server=server, url=url)
             else:
