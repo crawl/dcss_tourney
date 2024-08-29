@@ -27,7 +27,7 @@ TEST_HARE_START_TIME = USE_TEST and (TEST_YEAR + '08282000')
 LogSpec = collections.namedtuple('LogSpec', ('src', 'local_path', 'url'))
 
 TEST_LOGS = USE_TEST and [
-#              LogSpec('cao', 'logfiles/cao-logfile-0.32', CAO + 'logfile32'),
+               LogSpec('cao', 'logfiles/cao-logfile-0.32', CAO + 'logfile32'),
                LogSpec('cbr2', 'logfiles/cbr2-logfile-0.32', CBR2 + 'meta/0.32/logfile'),
                LogSpec('cdi', 'logfiles/cdi-logfile-0.32', CDI + 'meta/crawl-0.32/logfile'),
 #              LogSpec('cdo', 'logfiles/cdo-logfile-0.32', CDO + 'allgames-0.32.txt'),
@@ -39,7 +39,7 @@ TEST_LOGS = USE_TEST and [
   ]
 
 TEST_MILESTONES = USE_TEST and [
-#              LogSpec('cao', 'milestones/cao-milestones-0.32', CAO + 'milestones32'),
+               LogSpec('cao', 'milestones/cao-milestones-0.32', CAO + 'milestones32'),
                LogSpec('cbr2', 'milestones/cbr2-milestones-0.32', CBR2 + 'meta/0.32/milestones'),
                LogSpec('cdi', 'milestones/cdi-logfile-0.32', CDI + 'meta/crawl-0.32/milestones'),
 #              LogSpec('cdo', 'milestones/cdo-milestones-0.32', CDO + 'milestones-0.32.txt'),
