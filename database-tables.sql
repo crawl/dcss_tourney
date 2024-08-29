@@ -247,8 +247,7 @@ CREATE TABLE milestones (
   -- Milestone time.
   milestone_time DATETIME,
 
-  -- Known milestones: abyss.enter, abyss.exit, rune, orb, ghost, uniq,
-  -- uniq.ban, br.enter, br.end, br.exit, gem.found, gem.lost.
+  -- Some milestone verbs/nouns are modified by xlog_milestone_fixup().
   verb VARCHAR(20),
   noun VARCHAR(200),
 

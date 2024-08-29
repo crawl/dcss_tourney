@@ -497,13 +497,15 @@ def xlog_milestone_fixup(d):
   elif verb == 'uniq':
     match = R_MILE_UNIQ.findall(milestone)
     if match[0][0] == 'banished':
-      verb = 'uniq.ban'
+      verb = 'uniq.banished'
     elif match[0][0] == 'pacified':
-      verb = 'uniq.pac'
+      verb = 'uniq.pacified'
     elif match[0][0] == 'charmed':
-      verb = 'uniq.cha'
+      verb = 'uniq.charmed'
     elif match[0][0] == 'slimified':
-      verb = 'uniq.sli'
+      verb = 'uniq.slimified'
+    elif match[0][0] == 'bound':
+      verb = 'uniq.bound'
     noun = strip_unique_qualifier(match[0][1])
 
   elif verb == 'br.enter':
@@ -516,9 +518,9 @@ def xlog_milestone_fixup(d):
   elif verb == 'ghost':
     match = R_MILE_GHOST.findall(milestone)
     if match[0][0] == 'banished':
-      verb = 'ghost.ban'
+      verb = 'ghost.banished'
     elif match[0][0] == 'pacified':
-      verb = 'ghost.pac'
+      verb = 'ghost.pacified'
     noun = match[0][1]
 
   elif verb == 'rune':
