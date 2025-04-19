@@ -125,8 +125,8 @@ BANNER_TEXT = \
         ],
       'trog':
         [ 'Enter the Vaults with no runes.',
-          'Pick up the silver rune before any other runes.',
-          'Pick up the golden rune before any other runes.',
+          'Pick up the silver rune as your first rune before any entering any other rune branch than Vaults, Tomb or Abyss.',
+          'Pick up the golden rune as your first rune before any entering any other rune branch than Vaults, Tomb or Abyss.',
         ],
       'the_shining_one':
         [ 'Kill Sigmund before entering the Depths.',
