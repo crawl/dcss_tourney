@@ -129,11 +129,6 @@ def do_milestone_rune(c, mile):
     banner.award_banner(c, player, 'ashenzari', 3)
   elif runes_found >= 5:
     banner.award_banner(c, player, 'ashenzari', 2)
-  if mile['urune'] == 1:
-    if rune == 'silver':
-      banner.award_banner(c, player, 'trog', 2)
-    elif rune == 'golden':
-      banner.award_banner(c, player, 'trog', 3)
   if rune == 'golden' and num_rune == 1:
     banner.award_banner(c, player, 'fedhas', 2)
   if rune == 'silver' and num_rune == 1:
@@ -156,6 +151,19 @@ def do_milestone_rune(c, mile):
         break
     if eligible:
       banner.award_banner(c, player, 'gozag', 3)
+
+  if mile['urune'] == 1:
+    other_rune_branches = ['Shoals', 'Snake', 'Spider', 'Swamp', 'Slime', 'Pan', 'Coc', 'Geh', 'Tar', 'Dis']
+    eligible = True
+    for br in other_rune_branches:
+      if query.did_enter_branch(c, br, player, mile['start'], mile['time']):
+        eligible = False
+        break
+    if eligible:
+      if rune == 'silver':
+        banner.award_banner(c, player, 'trog', 2)
+      elif rune == 'golden':
+        banner.award_banner(c, player, 'trog', 3)
 
   if nemelex.is_nemelex_choice(mile['char'], mile['time']):
     banner.award_banner(c, player, 'nemelex', 2)
