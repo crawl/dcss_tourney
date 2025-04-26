@@ -27,33 +27,33 @@ import sys
 from query_class import Query
 from test_data import USE_TEST, TEST_YEAR, TEST_VERSION, TEST_START_TIME, TEST_END_TIME, TEST_HARE_START_TIME, TEST_LOGS, TEST_MILESTONES, TEST_CLAN_DEADLINE, LogSpec
 
-T_YEAR = TEST_YEAR or '2024'
-T_VERSION = TEST_VERSION or '0.32'
+T_YEAR = TEST_YEAR or '2025'
+T_VERSION = TEST_VERSION or '0.33'
 
 # Start and end of the tournament, UTC.
-START_TIME = TEST_START_TIME or (T_YEAR + '08302000')
-END_TIME   = TEST_END_TIME or (T_YEAR + '09152000')
+START_TIME = TEST_START_TIME or (T_YEAR + '05022000')
+END_TIME   = TEST_END_TIME or (T_YEAR + '05182000')
 
 # Deadline for forming teams.
 CLAN_DEADLINE = (TEST_CLAN_DEADLINE or
-                datetime.datetime(2024, 9, 6, 20))
+                datetime.datetime(2025, 5, 9, 20))
 
 DATE_FORMAT = '%Y%m%d%H%M'
 
 GAME_VERSION = T_VERSION
 
 # One day before tourney end
-HARE_START_TIME = TEST_HARE_START_TIME or (T_YEAR + '09142000')
+HARE_START_TIME = TEST_HARE_START_TIME or (T_YEAR + '05172000')
 
 # Bot users to be excluded from the overall tournament stats and the realtime
 # categories. Note that the database views must also be updated with this user
 # list.
 BOT_USERS = ['qw', 'tstbtto']
 
-CAO = 'http://crawl.akrasiac.org/'
+CAO = 'https://crawl.akrasiac.org/'
 CBR2 = 'https://cbro.berotato.org/'
 CDI = 'https://crawl.dcss.io/crawl/'
-CDO = 'http://crawl.develz.org/'
+CDO = 'https://crawl.develz.org/'
 CPO = 'https://crawl.project357.org/'
 CNC = 'https://archive.nemelex.cards/'
 CUE = 'https://underhound.eu/crawl/'
@@ -62,27 +62,27 @@ LLD = 'http://lazy-life.ddo.jp/'
 
 # Log and milestone files. The url is what we 'wget -c' from.
 LOGS = TEST_LOGS or [
-              LogSpec('cao', 'logfiles/cao-logfile-0.32', CAO + 'logfile32'),
-              LogSpec('cbr2', 'logfiles/cbr2-logfile-0.32', CBR2 + 'meta/0.32/logfile'),
-              LogSpec('cdi', 'logfiles/cdi-logfile-0.32', CDI + 'meta/crawl-0.32/logfile'),
-#             LogSpec('cdo', 'logfiles/cdo-logfile-0.32', CDO + 'allgames-0.32.txt'),
-              LogSpec('cpo', 'logfiles/cpo-logfile-0.32', CPO + 'dcss-logfiles-0.32'),
-              LogSpec('cnc', 'logfiles/cnc-logfile-0.32', CNC + 'meta/crawl-0.32/logfile'),
-              LogSpec('cue', 'logfiles/cue-logfile-0.32', CUE + 'meta/0.32/logfile'),
-              LogSpec('cxc', 'logfiles/cxc-logfile-0.32', CXC + 'meta/0.32/logfile'),
-              LogSpec('lld', 'logfiles/lld-logfile-0.32', LLD + 'mirror/meta/0.32/logfile'),
+#              LogSpec('cao', 'logfiles/cao-logfile-0.33', CAO + 'logfile33'),
+#              LogSpec('cbr2', 'logfiles/cbr2-logfile-0.33', CBR2 + 'meta/0.33/logfile'),
+#              LogSpec('cdi', 'logfiles/cdi-logfile-0.33', CDI + 'meta/crawl-0.33/logfile'),
+#              LogSpec('cdo', 'logfiles/cdo-logfile-0.33', CDO + 'allgames-0.33.txt'),
+#              LogSpec('cpo', 'logfiles/cpo-logfile-0.33', CPO + 'dcss-logfiles-0.33'),
+#              LogSpec('cnc', 'logfiles/cnc-logfile-0.33', CNC + 'meta/crawl-0.33/logfile'),
+#              LogSpec('cue', 'logfiles/cue-logfile-0.33', CUE + 'meta/0.33/logfile'),
+#              LogSpec('cxc', 'logfiles/cxc-logfile-0.33', CXC + 'meta/0.33/logfile'),
+#              LogSpec('lld', 'logfiles/lld-logfile-0.33', LLD + 'mirror/meta/0.33/logfile'),
   ]
 
 MILESTONES = TEST_MILESTONES or [
-              LogSpec('cao', 'milestones/cao-milestones-0.32', CAO + 'milestones32'),
-              LogSpec('cbr2', 'milestones/cbr2-milestones-0.32', CBR2 + 'meta/0.32/milestones'),
-              LogSpec('cdi', 'milestones/cdi-logfile-0.32', CDI + 'meta/crawl-0.32/milestones'),
-#             LogSpec('cdo', 'milestones/cdo-milestones-0.32', CDO + 'milestones-0.32.txt'),
-              LogSpec('cpo', 'milestones/cpo-milestones-0.32', CPO + 'dcss-milestones-0.32'),
-              LogSpec('cnc', 'milestones/cnc-milestones-0.32', CNC + 'meta/crawl-0.32/milestones'),
-              LogSpec('cue', 'milestones/cue-milestones-0.32', CUE + 'meta/0.32/milestones'),
-              LogSpec('cxc', 'milestones/cxc-milestones-0.32', CXC + 'meta/0.32/milestones'),
-              LogSpec('lld', 'milestones/lld-milestones-0.32', LLD + 'mirror/meta/0.32/milestones'),
+#              LogSpec('cao', 'milestones/cao-milestones-0.33', CAO + 'milestones33'),
+#              LogSpec('cbr2', 'milestones/cbr2-milestones-0.33', CBR2 + 'meta/0.33/milestones'),
+#              LogSpec('cdi', 'milestones/cdi-logfile-0.33', CDI + 'meta/crawl-0.33/milestones'),
+#              LogSpec('cdo', 'milestones/cdo-milestones-0.33', CDO + 'milestones-0.33.txt'),
+#              LogSpec('cpo', 'milestones/cpo-milestones-0.33', CPO + 'dcss-milestones-0.33'),
+#              LogSpec('cnc', 'milestones/cnc-milestones-0.33', CNC + 'meta/crawl-0.33/milestones'),
+#              LogSpec('cue', 'milestones/cue-milestones-0.33', CUE + 'meta/0.33/milestones'),
+#              LogSpec('cxc', 'milestones/cxc-milestones-0.33', CXC + 'meta/0.33/milestones'),
+#              LogSpec('lld', 'milestones/lld-milestones-0.33', LLD + 'mirror/meta/0.33/milestones'),
   ]
 
 GAME_ALLOWLIST_FILE = 'game_allowlist.txt'
