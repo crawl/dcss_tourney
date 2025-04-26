@@ -294,12 +294,11 @@
   <!-- Changes -->
   <div class="row">
     <div class="col">
-      <h2 id="changes">Changes from the 0.31 tournament</h2>
+      <h2 id="changes">Changes from the 0.32 tournament</h2>
       <p>
       <ul>
         <li>
-          The Ziggurat Diving player and clan categories are capped at 5
-          ziggurats completed instead of 27.
+          There are no changes from the 0.32 tournament as of now.
         </li>
       </ul>
       </p>
