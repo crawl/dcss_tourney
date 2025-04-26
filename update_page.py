@@ -110,7 +110,6 @@ def player_pages(c):
 def index_page(c):
   info("Updating index page")
   render(c, 'index')
-  #render(c, 'unique-list')
 
 def team_page(c, captain):
   clan_info = query.get_clan_info(c, captain)
