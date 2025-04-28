@@ -57,7 +57,7 @@ CDO = 'https://crawl.develz.org/'
 CPO = 'https://crawl.project357.org/'
 CNC = 'https://archive.nemelex.cards/'
 CUE = 'https://underhound.eu/crawl/'
-CXC = 'http://crawl.xtahua.com/crawl/'
+CXC = 'https://crawl.xtahua.com/crawl/'
 LLD = 'http://lazy-life.ddo.jp/'
 
 # Log and milestone files. The url is what we 'wget -c' from.

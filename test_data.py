@@ -8,7 +8,7 @@ CDO = 'https://crawl.develz.org/'
 CPO = 'https://crawl.project357.org/'
 CUE = 'https://underhound.eu/crawl/'
 CNC = 'https://archive.nemelex.cards/'
-CXC = 'http://crawl.xtahua.com/crawl/'
+CXC = 'https://crawl.xtahua.com/crawl/'
 LLD = 'http://lazy-life.ddo.jp/'
 
 USE_TEST = True

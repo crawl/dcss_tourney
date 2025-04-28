@@ -58,7 +58,7 @@ CUE_MORGUE_BASE = 'https://underhound.eu/crawl/morgue'
 CBR2_MORGUE_BASE = 'https://cbro.berotato.org/morgue'
 CPO_MORGUE_BASE = 'https://crawl.project357.org/morgue'
 CNC_MORGUE_BASE = 'https://archive.nemelex.cards/morgue'
-CXC_MORGUE_BASE = 'http://crawl.xtahua.com/crawl/morgue'
+CXC_MORGUE_BASE = 'https://crawl.xtahua.com/crawl/morgue'
 LLD_MORGUE_BASE = 'http://lazy-life.ddo.jp:8080/morgue-0.33'
 
 if LOCAL_TEST:
