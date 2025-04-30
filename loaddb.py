@@ -1148,7 +1148,7 @@ def add_gem_found_milestone(cursor, game):
            extract_gem(game['milestone']), game['xl'])
 
 def add_br_enter_milestone(cursor, game):
-  if game['noun'] == 'Arena':
+  if game['noun'] == 'Arena' or game['noun'] == 'Crucible':
       return
   query_do(cursor,
            '''INSERT INTO branch_enters (player, start_time, mile_time, br)
