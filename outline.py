@@ -160,7 +160,10 @@ def do_milestone_rune(c, mile):
         eligible = False
         break
 
-    if rune == 'golden' and query.did_branch_end(c, 'Vaults', player, mile['start'], mile['time']):
+    if (eligible
+        and rune == 'golden'
+        and query.did_branch_end(c, 'Vaults', player, mile['start'],
+                                 mile['time'])):
       eligible = False
 
     if eligible:
