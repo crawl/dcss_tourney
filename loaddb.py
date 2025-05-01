@@ -68,9 +68,9 @@ LOGS = TEST_LOGS or [
 #              LogSpec('cdo', 'logfiles/cdo-logfile-0.33', CDO + 'allgames-0.33.txt'),
                LogSpec('cpo', 'logfiles/cpo-logfile-0.33', CPO + 'dcss-logfiles-0.33'),
                LogSpec('cnc', 'logfiles/cnc-logfile-0.33', CNC + 'meta/crawl-0.33/logfile'),
-#              LogSpec('cue', 'logfiles/cue-logfile-0.33', CUE + 'meta/0.33/logfile'),
+               LogSpec('cue', 'logfiles/cue-logfile-0.33', CUE + 'meta/0.33/logfile'),
                LogSpec('cxc', 'logfiles/cxc-logfile-0.33', CXC + 'meta/0.33/logfile'),
-#              LogSpec('lld', 'logfiles/lld-logfile-0.33', LLD + 'mirror/meta/0.33/logfile'),
+               LogSpec('lld', 'logfiles/lld-logfile-0.33', LLD + 'mirror/meta/0.33/logfile'),
   ]
 
 MILESTONES = TEST_MILESTONES or [
@@ -80,9 +80,9 @@ MILESTONES = TEST_MILESTONES or [
 #              LogSpec('cdo', 'milestones/cdo-milestones-0.33', CDO + 'milestones-0.33.txt'),
                LogSpec('cpo', 'milestones/cpo-milestones-0.33', CPO + 'dcss-milestones-0.33'),
                LogSpec('cnc', 'milestones/cnc-milestones-0.33', CNC + 'meta/crawl-0.33/milestones'),
-#              LogSpec('cue', 'milestones/cue-milestones-0.33', CUE + 'meta/0.33/milestones'),
+               LogSpec('cue', 'milestones/cue-milestones-0.33', CUE + 'meta/0.33/milestones'),
                LogSpec('cxc', 'milestones/cxc-milestones-0.33', CXC + 'meta/0.33/milestones'),
-#              LogSpec('lld', 'milestones/lld-milestones-0.33', LLD + 'mirror/meta/0.33/milestones'),
+               LogSpec('lld', 'milestones/lld-milestones-0.33', LLD + 'mirror/meta/0.33/milestones'),
   ]
 
 GAME_ALLOWLIST_FILE = 'game_allowlist.txt'
