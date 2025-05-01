@@ -152,13 +152,17 @@ def do_milestone_rune(c, mile):
     if eligible:
       banner.award_banner(c, player, 'gozag', 3)
 
-  if mile['urune'] == 1:
+  if mile['urune'] == 1 and (rune == 'silver' or rune == 'golden'):
     other_rune_branches = ['Shoals', 'Snake', 'Spider', 'Swamp', 'Slime', 'Pan', 'Coc', 'Geh', 'Tar', 'Dis']
     eligible = True
     for br in other_rune_branches:
       if query.did_enter_branch(c, br, player, mile['start'], mile['time']):
         eligible = False
         break
+
+    if rune == 'golden' and query.did_branch_end(c, 'Vaults', player, mile['start'], mile['time']):
+      eligible = False
+
     if eligible:
       if rune == 'silver':
         banner.award_banner(c, player, 'trog', 2)

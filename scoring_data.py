@@ -1072,8 +1072,8 @@ BANNERS = [
         "Rage",
         BannerTiers(
             "Enter the Vaults with no runes.",
-            "Pick up the silver rune as your first rune before any entering any other rune branch than Vaults, Tomb or Abyss.",
-            "Pick up the golden rune as your first rune before any entering any other rune branch than Vaults, Tomb or Abyss.",
+            "Pick up the silver rune as your first rune before any entering any rune branch other than Vaults, Tomb, or Abyss.",
+            "Pick up the golden rune as your first rune before any entering any rune branch other than Vaults, Tomb, or Abyss, and before entering Vaults:5.",
         ),
         'Trog thinks players should stop bothering with the lair and take their <code>RAGE</code> to where the most magic is as soon as possible.',
         "trog",
