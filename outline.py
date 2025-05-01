@@ -140,31 +140,39 @@ def do_milestone_rune(c, mile):
   if (did_ecu and not did_renounce):
     banner.award_banner(c, player, 'hepliaklqana', 2)
 
-  # The abyssal rune is the only rune that the player can get before the iron
-  # rune for Avarice 3.
+  # The Abyss and Dis are the only rune branches that the player can enter
+  # before getting the iron rune for Avarice 3.
   if rune == 'iron' and mile['urune'] <= 2:
-    other_rune_branches = ['Vaults', 'Shoals', 'Snake', 'Spider', 'Swamp', 'Slime', 'Pan', 'Coc', 'Geh', 'Tar']
+    unallowed_branches = ['Vaults', 'Shoals', 'Snake', 'Spider', 'Swamp',
+                          'Slime', 'Pan', 'Coc', 'Geh', 'Tar']
     eligible = True
-    for br in other_rune_branches:
+    for br in unallowed_branches:
       if query.did_enter_branch(c, br, player, mile['start'], mile['time']):
         eligible = False
         break
+
     if eligible:
       banner.award_banner(c, player, 'gozag', 3)
 
+  # For Trog 2, the only branches we can enter are the Abyss and Vaults. For
+  # Trog 3, it's Abyss, Vaults, and Tomb, and we additionally can't enter
+  # Vaults:5.
   if mile['urune'] == 1 and (rune == 'silver' or rune == 'golden'):
-    other_rune_branches = ['Shoals', 'Snake', 'Spider', 'Swamp', 'Slime', 'Pan', 'Coc', 'Geh', 'Tar', 'Dis']
+    unallowed_branches = ['Shoals', 'Snake', 'Spider', 'Swamp', 'Slime',
+                          'Pan', 'Coc', 'Geh', 'Tar', 'Dis']
     eligible = True
-    for br in other_rune_branches:
+    if rune == 'silver':
+        unallowed_branches.append('Tomb')
+    elif query.did_branch_end(c, 'Vaults', player, mile['start'],
+                              mile['time'])):
+        eligible = False
+        # Don't bother checking since we've already failed.
+        unallowed_branches = []
+
+    for br in unallowed_branches:
       if query.did_enter_branch(c, br, player, mile['start'], mile['time']):
         eligible = False
         break
-
-    if (eligible
-        and rune == 'golden'
-        and query.did_branch_end(c, 'Vaults', player, mile['start'],
-                                 mile['time'])):
-      eligible = False
 
     if eligible:
       if rune == 'silver':

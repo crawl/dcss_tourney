@@ -298,7 +298,10 @@
       <p>
       <ul>
         <li>
-          There are no changes from the 0.32 tournament as of now.
+          The Trog 2 and 3 banners now require not entering other rune branches
+          aside from Abyss and the branch holding the relevant rune. Trog 3
+          additionally requires not entering Vaults:5 before getting the golden
+          rune.
         </li>
       </ul>
       </p>
