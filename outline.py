@@ -164,7 +164,7 @@ def do_milestone_rune(c, mile):
     if rune == 'silver':
         unallowed_branches.append('Tomb')
     elif query.did_branch_end(c, 'Vaults', player, mile['start'],
-                              mile['time'])):
+                              mile['time']):
         eligible = False
         # Don't bother checking since we've already failed.
         unallowed_branches = []
