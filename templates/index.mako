@@ -303,6 +303,9 @@
           additionally requires not entering Vaults:5 before getting the golden
           rune.
         </li>
+        <li>
+          The Win Rate and Streak categories now use relative scoring.
+        </li>
       </ul>
       </p>
     </div>
