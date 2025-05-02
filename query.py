@@ -1759,7 +1759,13 @@ def leader_score(c, cat):
     '''.format( extreme = "MIN" if cat.order_asc else "MAX",
                 source_table = cat.source_table,
                 rank_column = cat.rank_order_clause )
-    return query_first(c, query_text)
+    val = query_first(c, query_text)
+    # Winrate category can have a leader score of 0, so we return None in that
+    # case to avoid division by zero.
+    if val:
+        return val
+    else:
+        return None
 
 def update_player_scores(c):
     SCOREFUNC = "CAST( (" + "+".join([ score_term(ic, leader_score(c, ic)) for
