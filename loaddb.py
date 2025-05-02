@@ -981,14 +981,20 @@ def update_last_game(c, xdict, filename):
            player, src, start_time, start_time)
 
 def update_highscore_table(c, xdict, filename, offset, table, field, value):
-  existing_score = query_first_def(c, 0,
-                                   "SELECT score FROM " + table +
-                                   " WHERE " + field + " = %s",
-                                   value)
-  if xdict['sc'] > existing_score:
-    if existing_score > 0:
+  curr_highscore = query_row(c, "SELECT player, score FROM " + table +
+                             " WHERE " + field + " = %s", value)
+  if not curr_highscore or xdict['sc'] > curr_highscore[1]:
+    if curr_highscore:
       query_do(c, "DELETE FROM " + table + " WHERE " + field + " = %s",
                value)
+      # We have to invalidate the combo_score value of the player with the
+      # previous combo score. This is because they may not have any rows in
+      # combo_highscores (and hence also in the player_combo_score view) after
+      # the above DELETE, so the subsequent query.update_all_player_ranks()
+      # won't update the previous holder's combo_score to 0.
+      query_do(c, "UPDATE players SET combo_score = 0 WHERE name = %s",
+               curr_highscore[0])
+
     iq = make_xlog_db_query(LOG_DB_MAPPINGS, xdict, filename, offset,
                             table)
     try:
