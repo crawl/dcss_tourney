@@ -334,9 +334,7 @@ INDIVIDUAL_CATEGORIES = (
     Category(
         "individual",
         "Winning",
-        "The Shining One values perseverance and courage in the face of adversity. In this category, TSO awards players points for winning a game, and additional points for winning a second distinct combo.".format(
-            first=MAX_CATEGORY_SCORE, second=MAX_CATEGORY_SCORE / 2
-        ),
+        "The Shining One values perseverance and courage in the face of adversity. In this category, TSO awards players points for winning a game, and additional points for winning a second distinct combo.",
         "nonrep_wins",
         True,
         2,
@@ -657,8 +655,7 @@ CLAN_CATEGORIES = (
         member is capped at 4. For a win to count in this category it must be
         the first win of the combo by the clan. For example, if Player A's 5th
         win is a DgWn and they win before Player B's win of DgWn then Player
-        B's win will not count in this category.""".format(
-            MAX_CATEGORY_SCORE=MAX_CATEGORY_SCORE
+        B's win will not count in this category."""
         ),
         "nonrep_wins",
         True,
