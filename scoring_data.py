@@ -655,8 +655,7 @@ CLAN_CATEGORIES = (
         member is capped at 4. For a win to count in this category it must be
         the first win of the combo by the clan. For example, if Player A's 5th
         win is a DgWn and they win before Player B's win of DgWn then Player
-        B's win will not count in this category."""
-        ),
+        B's win will not count in this category.""",
         "nonrep_wins",
         True,
         12,
