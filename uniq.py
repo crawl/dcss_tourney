@@ -10,8 +10,9 @@ UNIQUES = ["Agnes", "Aizul", "Amaemon", "Antaeus", "Arachne", "Asmodeus",
            "Louise", "Maggie", "Mara", "Margery", "Maurice", "Menkaure",
            "Mennas", "Mlioglotl", "Mnoleg", "Murray", "Natasha", "Nergalle",
            "Nessos", "Nikola", "Nobody", "Norris", "Parghit", "Pargi", "Pikel",
-           "Polyphemus", "Prince Ribbit", "Robin", "Roxanne", "the Royal
-           Jelly", "Rupert", "Saint Roka", "the Serpent of Hell", "Sigmund",
-           "Snorg", "Sojobo", "Sonja", "Sprozz", "Terence", "Tiamat", "Urug",
-           "Vashnia", "Vv", "Wiglaf", "Xak'krixis", "Xtahua", "Zenata"]
+           "Polyphemus", "Prince Ribbit", "Robin", "Roxanne",
+           "the Royal Jelly", "Rupert", "Saint Roka", "the Serpent of Hell",
+           "Sigmund", "Snorg", "Sojobo", "Sonja", "Sprozz", "Terence",
+           "Tiamat", "Urug", "Vashnia", "Vv", "Wiglaf", "Xak'krixis", "Xtahua",
+           "Zenata"]
 UNIQUES.sort()
