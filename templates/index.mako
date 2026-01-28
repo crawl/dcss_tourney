@@ -294,17 +294,11 @@
   <!-- Changes -->
   <div class="row">
     <div class="col">
-      <h2 id="changes">Changes from the 0.32 tournament</h2>
+      <h2 id="changes">Changes from the 0.33 tournament</h2>
       <p>
       <ul>
         <li>
-          The Trog 2 and 3 banners now require not entering other rune branches
-          aside from Abyss and the branch holding the relevant rune. Trog 3
-          additionally requires not entering Vaults:5 before getting the golden
-          rune.
-        </li>
-        <li>
-          The Win Rate and Streak categories now use relative scoring.
+          To be determined.
         </li>
       </ul>
       </p>
