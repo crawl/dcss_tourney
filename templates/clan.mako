@@ -19,10 +19,10 @@
     if not result.rank:
       return 0
     if category.order_asc:
-      return int(round((scoring_data.MAX_CATEGORY_SCORE * result.best) /
+      return int(round((category.max_score * result.best) /
                        result.rank, 0))
     else:
-      return int(round((scoring_data.MAX_CATEGORY_SCORE * result.rank) /
+      return int(round((category.max_score * result.rank) /
                        result.best, 0))
 
   def rank_for_result(result, category):

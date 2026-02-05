@@ -10,45 +10,15 @@
   # Set active top level menu item
   active_menu_item = 'Players'
 
-  def rank_ordinal(num):
-    if num == 0:
-      return u'last'
-    remainder = num % 10
-    suffix = 'th'
-    if remainder == 1:
-      suffix = 'st'
-    elif remainder == 2:
-      suffix = 'nd'
-    elif remainder == 3:
-      suffix = 'rd'
-    if (num % 100) in (11, 12, 13):
-      suffix = 'th'
-    return '%s<sup>%s</sup>' % (num, suffix)
-
   def points_for_result(result, category):
     if not result.rank:
       return 0
     if category.order_asc:
-      return int(round((scoring_data.MAX_CATEGORY_SCORE * result.best) /
+      return int(round((category.max_score * result.best) /
                        result.rank, 0))
     else:
-      return int(round((scoring_data.MAX_CATEGORY_SCORE * result.rank) /
+      return int(round((category.max_score * result.rank) /
                        result.best, 0))
-
-  def pretty_points(points):
-    return '{:,}'.format(int(points))
-
-  def rank_description(rank_num):
-    if rank_num is None:
-      return u"0 points <small>(rank: last)</small>"
-    else:
-      points = int(round(scoring_data.MAX_CATEGORY_SCORE / result.rank, 0)) 
-      ordinal = rank_ordinal(rank_num)
-      return u"{points} point{s} <small>(rank: {ordinal})</small>".format(
-        points=pretty_points(points),
-        s="s" if points != '1' else "",
-        ordinal=ordinal,
-      )
 %>
 
 ## Runs on render. Variables set in here are not accessible to <%blocks>. To
@@ -107,14 +77,14 @@
     <div class="col">
       <ul class="nav nav-tabs mb-2" role="tablist">
         <li class="nav-item" role="presentation">
-	  <a class="nav-link active" id="games-tab" data-toggle="tab"
-	  href="#games" role="tab" aria-controls="games"
-	  aria-selected="true">Games</a>
-	</li>
+          <a class="nav-link active" id="games-tab" data-toggle="tab"
+          href="#games" role="tab" aria-controls="games"
+          aria-selected="true">Games</a>
+        </li>
         <li class="nav-item" role="presentation">
           <a class="nav-link" id="individual-categories-tab"
-	  data-toggle="tab" href="#individual-categories" role="tab"
-	  aria-controls="individual-categories" aria-selected="false">Individual Categories</a>
+          data-toggle="tab" href="#individual-categories" role="tab"
+          aria-controls="individual-categories" aria-selected="false">Individual Categories</a>
         </li>
         <li class="nav-item" role="presentation">
           <a class="nav-link" id="banners-tab" data-toggle="tab" href="#banners" role="tab" aria-controls="banners" aria-selected="false">Banners</a>
@@ -122,13 +92,13 @@
       </ul>
       <div class="tab-content">
         <div class="tab-pane show active" id="games" role="tabpanel"
-	aria-labelledby="games-tab">
-	  <%include file="player-games.mako" args="cursor=cursor,
-	  player=player"/>
-	</div>
+        aria-labelledby="games-tab">
+          <%include file="player-games.mako" args="cursor=cursor,
+          player=player"/>
+        </div>
         <div class="tab-pane" id="individual-categories" role="tabpanel" aria-labelledby="individual-categories-tab">
           <%include file="player-individual-categories.mako"
-	  args="points_for_result=points_for_result"/>
+          args="points_for_result=points_for_result"/>
         </div>
         <div class="tab-pane" id="banners" role="tabpanel" aria-labelledby="banners-tab">
           <%include file="player-banners.mako"/>

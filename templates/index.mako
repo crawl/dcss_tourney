@@ -131,18 +131,21 @@
         In a <span class="font-weight-bold">proportionally scored
         category</span> you receive points based on your progress towards a
         maximum score in the category. The points recieved are:
-        <code>(progress / category maximum) * ${"{:,}".format(scoring_data.MAX_CATEGORY_SCORE)}</code>.
+        <code>(progress / category maximum) * ${"{:,}".format(scoring_data.DEFAULT_MAX_CATEGORY_SCORE)}</code>.
       </p>
       <p>
         In a <span class="font-weight-bold">relative category</span> your
         performance in that category determines how many point you win from it.
         The points received are either:
-        <code>(your result / category best) *
-        ${"{:,}".format(scoring_data.MAX_CATEGORY_SCORE)}</code> or
-        <code>(category best / your result) *
-        ${"{:,}".format(scoring_data.MAX_CATEGORY_SCORE)}</code>, depending on
-        whether the category asks to maximize or minimize its result (for
-        example, high score uses the first formula, low turn count the second).
+        <code>(your result / category best) * maximum score</code> or
+        <code>(category best / your result) * maximum score</code>, depending on
+        whether the category asks to maximize or minimize its result. For
+        example, Best High Score uses the first formula, Lowest Turncount Win
+        the second. The <code>maximum score</code> is
+        <code>${"{:,}".format(scoring_data.STREAK_MAX_CATEGORY_SCORE)}</code>
+        for Streak Length and
+        <code>${"{:,}".format(scoring_data.DEFAULT_MAX_CATEGORY_SCORE)}</code>
+        for all other categories.
         <div class="alert alert-dark text-dark" role="alert">
           If you place last in a category, you will always receive 0 points.
         </div>

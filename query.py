@@ -15,7 +15,7 @@ from loaddb import query_first_col, query_first_def
 from query_class import Query
 
 import scoring_data
-from scoring_data import INDIVIDUAL_CATEGORIES, MAX_CATEGORY_SCORE, CLAN_CATEGORIES
+from scoring_data import INDIVIDUAL_CATEGORIES, CLAN_CATEGORIES
 
 import combos
 import crawl
@@ -1738,9 +1738,9 @@ def score_term(cat, catmax):
         return "0.0"
 
     if cat.order_asc:
-        return "COALESCE( %5.1f * ( %5.1f / GREATEST( %5.1f, %s ) ), 0.0 )" % (MAX_CATEGORY_SCORE, catmax, catmax, cat.rank_column)
+        return "COALESCE( %5.1f * ( %5.1f / GREATEST( %5.1f, %s ) ), 0.0 )" % (cat.max_score, catmax, catmax, cat.rank_column)
 
-    return "COALESCE( %5.1f * ( LEAST( %s, %5.1f ) / %5.1f ), 0.0 )" % (MAX_CATEGORY_SCORE, cat.rank_column, catmax, catmax)
+    return "COALESCE( %5.1f * ( LEAST( %s, %5.1f ) / %5.1f ), 0.0 )" % (cat.max_score, cat.rank_column, catmax, catmax)
 
 def leader_score(c, cat):
     if cat.proportional:
