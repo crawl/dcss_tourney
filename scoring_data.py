@@ -876,7 +876,7 @@ BANNERS = [
         ),
         'Fedhas thinks that the Crypt and the Tomb are abominations against nature and will bestow the title of <code>NATURE&apos;S ALLY</code> on a player who works towards destroying them.',
         "fedhas",
-        "#808000",
+        "#0b2b26",
     ),
     Banner(
         "Gozag",
@@ -908,7 +908,7 @@ BANNERS = [
         BannerTiers("Champion a god.", "Champion 5 gods.", "Champion 13 gods."),
         'Ignis thinks it&apos;s important to check out what all the gods have to offer and thus will recognize as <code>PIOUS</code> any player who becomes the Champion (******) of as many gods as possible.',
         "ignis",
-        "#ffffff",
+        "#f5ec89",
     ),
     Banner(
         "Jiyva",
