@@ -12,166 +12,6 @@ import re
 
 PseudoCol = collections.namedtuple("PseudoCol", ("html_display_name", "numeric_data", "transform_fn"))
 
-BANNER_IMAGES = \
-    { 'ashenzari': [ 'banner_ashenzari.png', 'The Explorer' ],
-      'cheibriados': [ 'banner_cheibriados.png', 'Slow and Steady' ],
-      'dithmenos': [ 'banner_dithmenos.png', 'The Politician' ],
-      'fedhas': [ 'banner_fedhas.png', "Nature's Ally" ],
-      'gozag': [ 'banner_gozag.png', "Avarice" ],
-      'hepliaklqana': [ 'banner_hepliaklqana.png', 'The Inheritor' ],
-      'ignis': [ 'banner_ignis.png', 'The Pious' ],
-      'jiyva': [ 'banner_jiyva.png', 'Gelatinous Body' ],
-      'kikubaaqudgha': [ 'banner_kikubaaqudgha.png', 'Lord of Darkness' ],
-      'lugonu': [ 'banner_lugonu.png', 'Spiteful' ],
-      'makhleb': [ 'banner_makhleb.png', 'Speed Demon' ],
-      'nemelex': [ 'banner_nemelex.png', "Nemelex' Choice" ],
-      'okawaru': [ 'banner_okawaru.png', 'The Conqueror' ],
-      'qazlal': [ 'banner_qazlal.png', 'The Prophet' ],
-      'ru': [ 'banner_ru.png', 'The Ascetic' ],
-      'sif': [ 'banner_sif.png', 'The Lorekeeper' ],
-      'the_shining_one': [ 'banner_the_shining_one.png', 'Vow of Courage' ],
-      'uskayaw': [ 'banner_uskayaw.png', 'Graceful' ],
-      'vehumet': [ 'banner_vehumet.png', 'Ruthless Efficiency' ],
-      'xom': [ 'banner_xom.png', 'Descent into Madness' ],
-      'yredelemnul': [ 'banner_yredelemnul.png', 'The Harvest' ],
-      'zin': [ 'banner_zin.png', 'Angel of Justice' ],
-      '1top_player': [ 'player.png', 'Top Player'],
-      '2top_clan':   [ 'clan.png', 'Top Clan' ],
-      'header': ['banner_header.png', '' ],
-      'footer': ['banner_footer.png', '' ],
-    }
-
-# TODO: this seems redundant with the data in outline.py?
-BANNER_TEXT = \
-    { 'ashenzari':
-        [ 'Enter a branch of the dungeon that contains a rune.',
-          'Find 5 distinct runes over the course of the tourney.',
-          'Find 17 distinct runes over the course of the tourney.',
-        ],
-      'cheibriados':
-        [ 'Reach experience level 9 in two consecutive games.',
-          'Achieve a two-win streak.',
-          'Achieve a four-win streak with four distinct species and four distinct backgrounds.',
-        ],
-      'dithmenos':
-        [ 'Steal a combo high score that was previously of at least 1,000 points.',
-          'Steal a combo high score for a previously won combo.',
-          'Steal a species or background high score that was previously of at least 10,000,000 points.',
-        ],
-      'fedhas':
-        [ 'Enter the Crypt.',
-          'Get the golden rune.',
-          'Enter Tomb for the first time after picking up the Orb of Zot, and then get the golden rune.',
-        ],
-      'gozag':
-        [ 'Find 1000 gold in a single game.',
-          'Find the silver rune.',
-          'Find the iron rune before entering Pandemonium or any branch of the dungeon containing any other rune.',
-        ],
-      'hepliaklqana':
-        [ 'Enter the Lair of beasts while worshipping a god from a faded altar, having worshipped no other gods.',
-          'Find a rune while worshipping a god from a faded altar, having worshipped no other gods.',
-          'Win a game while worshipping a god from a faded altar, having worshipped no other gods.',
-        ],
-      'ignis':
-        [ 'Become the champion of any god.',
-          'Become the champion of five different gods over the course of the tournament.',
-          'Become the champion of thirteen different gods over the course of the tournament.',
-        ],
-      'jiyva':
-        [ 'Reach experience level 9 with at least 5 distinct species and at least 5 distinct backgrounds.',
-          'Get a rune with at least 5 distinct species and at least 5 distinct backgrounds.',
-          'Win with at least 5 distinct species and at least 5 distinct backgrounds.',
-        ],
-      'kikubaaqudgha':
-        [ 'Reach the last level of the Orcish Mines without having entered the Lair.',
-          'Reach the last level of the Depths without having entered the Lair.',
-          'Win a game without having entered the Lair, the Orcish Mines, or the Vaults.',
-        ],
-      'lugonu':
-        [ 'Become the champion of Ru',
-          'After becoming the champion of Ru, abandon Ru and become the champion of a different god.',
-          'Win a game in which you become the champion of Ru and then abandon Ru before entering any branches other than the Temple and the Lair.',
-        ],
-      'makhleb':
-        [ 'Reach D:15 in 54 minutes as a non-formicid.',
-          'Find a rune in 81 minutes.',
-          'Win the game in 3 hours.',
-        ],
-      'nemelex':
-        [ "Reach experience level 9 with a Nemelex' choice combo.",
-          "Get a rune with a Nemelex' choice combo.",
-          "Be one of the first 9 players to win a given Nemelex' choice combo.",
-        ],
-      'okawaru':
-        [ 'Reach experience level 13.',
-          'Win a game.',
-          'Win a game in under 50000 turns.',
-        ],
-      'qazlal':
-        [ 'Reach the Lair of Beasts with an Invocations title.',
-          'Win a game with an Invocations title.',
-          'Over the course of the tournament, win with three different Invocations titles.',
-        ],
-      'ru':
-        [ "Reach the Ecumenical Temple without using any potions or scrolls.",
-          "Reach the last level of the Lair of Beasts without using any potions or scrolls.",
-          "Find a rune (non-slimy, non-abyssal) without using any potions or scrolls.",
-        ],
-      'sif':
-        [ 'Reach the last level of the Lair as a non-formicid without raising any skill to 13.',
-          'Win without raising any skill to 20.',
-          'Win without raising any skill to 13.',
-        ],
-      'trog':
-        [ 'Enter the Vaults with no runes.',
-          'Pick up the silver rune as your first rune before any entering any other rune branch than Vaults, Tomb or Abyss.',
-          'Pick up the golden rune as your first rune before any entering any other rune branch than Vaults, Tomb or Abyss.',
-        ],
-      'the_shining_one':
-        [ 'Kill Sigmund before entering the Depths.',
-          'Get four runes before entering the Depths.',
-          'Get six runes before entering the Depths.',
-        ],
-      'uskayaw':
-        [ 'Collect a gem.',
-          'Win with three gems intact.',
-          'Win with all 11 gems intact.',
-        ],
-      'vehumet':
-        [ 'Reach the last level of the Lair as a non-formicid before reaching experience level 13.',
-          'Find a rune before reaching experience level 17.',
-          'Win the game before reaching experience level 22.',
-        ],
-      'xom':
-        [ 'Enter the Abyss.',
-          'Reach the 10th floor of a ziggurat.',
-          'Leave a ziggurat from its lowest floor.',
-        ],
-      'yredelemnul':
-        [ 'Kill 27 distinct uniques over the course of the tournament.',
-          'Kill 54 distinct uniques over the course of the tournament.',
-          'Kill 81 distinct uniques over the course of the tournament.',
-        ],
-      'zin':
-        [ 'Enter either Pandemonium or any branch of Hell.',
-          'Kill at least one unique pan lord and at least one unique hell lord over the course of the tournament.',
-          'Kill all four unique pan lords, all four unique hell lords, and the Serpent of Hell (at least once) over the course of the tournament.',
-        ],
-      '1top_player':
-        [ 'Individual with the most tournament points.',
-          'Individual with the second-most tournament points.',
-          'Individual with the third-most tournament points.',
-        ],
-      '2top_clan':
-        [ 'Clan with the most tournament points.',
-          'Clan with the second-most tournament points.',
-          'Clan with the third-most tournament points.',
-        ],
-      'header': [ '' ],
-      'footer': [ '' ],
-    }
-
 EXT_WIN_COLUMNS = \
     [ ('score', 'Score', True),
       ('race', 'Species'),
@@ -709,11 +549,6 @@ def deepest_xl1_games(c):
   games = query.get_deepest_xl1_games(c)
   return games_table(games, first = 'place', win=False)
 
-def most_pacific_wins(c):
-  games = query.most_pacific_wins(c)
-  return games_table(games,
-                     columns = STOCK_WIN_COLUMNS + [('kills', 'Kills')])
-
 def hyperlink_games(games, field):
   hyperlinks = [ crawl_utils.morgue_link(g) for g in games ]
   text = [ '<a href="%s">%s</a>' % (link, g[field])
@@ -737,7 +572,7 @@ def most_deaths_to_uniques(c):
 def streak_table(streaks, active=False, place=False):
   # Replace the list of streak games with hyperlinks.
   result = []
-  
+
   nplace = 0
   rplace = 0
   last_value = None
@@ -856,76 +691,6 @@ def whereis_table(c):
       PseudoCol('Location', False, None),
       PseudoCol('Time', False, None),
       PseudoCol('Server', False, None) ], where_list)
-
-def _strip_banner_suffix(banner):
-  if ':' in banner:
-    return banner[ : banner.index(':')]
-  return banner
-
-def banner_suffix(banner):
-  if ':' in banner:
-    return banner[banner.index(':') + 1 :]
-  return ''
-
-def banner_image(banner, prestige, full_name=False):
-  p = prestige
-  while p > 3:
-    p = p/10
-  i_string = ''
-  for i in range(p):
-    i_string = i_string + 'I'
-  name_suffix = banner_suffix(banner)
-  banner_subkey = _strip_banner_suffix(banner)
-  img = BANNER_IMAGES.get(banner) or BANNER_IMAGES.get(banner_subkey)
-  banner_text = BANNER_TEXT[banner_subkey][p-1]
-  name = ''
-  if img and img[1]:
-    name = img[1] + " " + i_string
-  if full_name and name_suffix:
-    name = name + " (" + name_suffix + ")"
-  if img and img[1]:
-    name = name + ": " + banner_text
-  if img and img[0]:
-    filename = img[0][:-4]+("%d" % p)+img[0][-4:]
-    return (crawl_utils.banner_link(filename), name)
-  return img
-
-def banner_img_for(b, nth):
-  if nth:
-    bid = " id=\"banner-%d\" " % nth
-  else:
-    bid = ""
-  return '''<div>
-              <img src="%s" alt="%s"
-                   title="%s" width="170" height="58"
-                   %s class="banner">
-            </div>''' % (b[0], b[1], b[1], bid)
-
-def banner_named(name, prestige):
-  img = banner_image(name, prestige)
-  if not img:
-    return None
-  return banner_img_for(img, 0)
-
-def banner_images(banners):
-  # First remove duplicates. We assume that higher prestige versions come first.
-  seen_banners = set()
-  deduped = []
-  for b in banners:
-    if not _strip_banner_suffix(b[0]) in seen_banners:
-      deduped.append(b)
-      seen_banners.add(_strip_banner_suffix(b[0]))
-  images = [banner_image(x[0],x[1]) for x in deduped]
-  images = [i for i in images if i and i[0]]
-  return images
-
-def banner_div(all_banners):
-  res = ''
-  banner_n = 1
-  for b in all_banners:
-    res += banner_img_for(b, banner_n)
-    banner_n += 1
-  return res
 
 def _scored_win_text(g, text):
   if g['killertype'] == 'winning':

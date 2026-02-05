@@ -43,7 +43,6 @@ CREATE TABLE IF NOT EXISTS players (
   highest_score INT,
   lowest_turncount_win INT,
   fastest_win INT,
-  most_pacific_win INT,
   win_perc INT,
   piety INT,
   banner_score INT,
@@ -69,7 +68,6 @@ CREATE TABLE teams (
   highest_score INT,
   lowest_turncount_win INT,
   fastest_win INT,
-  most_pacific_win INT,
   piety INT,
   harvest INT,
   exploration INT,
@@ -240,6 +238,7 @@ CREATE TABLE milestones (
   found_gems INT,
   intact_gems INT,
   zigscompleted INT,
+  kills INT,
 
   -- Game start time.
   start_time DATETIME,

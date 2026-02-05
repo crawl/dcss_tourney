@@ -172,30 +172,6 @@ SELECT
     AND g.team_captain IS NOT NULL
     AND g2.start_time IS NULL;
 
-CREATE OR REPLACE VIEW most_pacific_wins AS
-SELECT g.*, JSON_OBJECT('source_file', g.source_file,
-                    'player', g.player,
-                    'end_time', g.end_time,
-                    'charabbrev', g.charabbrev) AS morgue_json FROM wins AS g
-  LEFT OUTER JOIN wins AS g2
-  ON g.player = g2.player AND g.kills > g2.kills
-  WHERE g2.kills IS NULL;
-
-CREATE OR REPLACE VIEW clan_most_pacific_wins AS
-SELECT
-    JSON_OBJECT('name', teams.name, 'captain', g.team_captain) AS team_info_json,
-    g.*,
-    JSON_OBJECT('source_file', g.source_file,
-                'player', g.player,
-                'end_time', g.end_time,
-                'charabbrev', g.charabbrev) AS morgue_json
-  FROM wins AS g
-  LEFT OUTER JOIN wins AS g2
-    ON g.team_captain = g2.team_captain AND g.kills > g2.kills
-  LEFT JOIN teams
-    ON g.team_captain = teams.owner
-  WHERE g.team_captain IS NOT NULL AND g2.kills IS NULL;
-
 CREATE OR REPLACE VIEW player_win_perc AS
 SELECT player,
   CAST( (SUM(killertype='winning') / (COUNT(*) + 1.0)) * 100.0 AS DECIMAL(5,2)) AS win_perc,

@@ -182,21 +182,29 @@ def do_milestone_rune(c, mile):
 
   if nemelex.is_nemelex_choice(mile['char'], mile['time']):
     banner.award_banner(c, player, 'nemelex', 2)
+
   if not query.did_enter_branch(c, 'Depths', player, mile['start'], mile['time']):
     if mile['urune'] == 6:
       banner.award_banner(c, player, 'the_shining_one', 3)
     elif mile['urune'] >= 4:
       banner.award_banner(c, player, 'the_shining_one', 2)
-  #if query.time_from_str(mile['time']) - query.time_from_str(mile['start']) <= datetime.timedelta(hours=27):
-  #  banner.award_banner(c, mile['name'], 'oldbanner', 1)
-  if rune != 'slimy' and rune != 'abyssal':
-    if mile['potionsused'] == 0 and mile['scrollsused'] == 0:
-      banner.award_banner(c, mile['name'], 'ru', 3)
-  if mile['urune'] == 1:
-    if mile['xl'] < 17:
-      if (not query.did_sacrifice(c, 'experience', mile['name'], mile['start'], mile['time'])
-          and not query.did_worship_god(c, 'Hepliaklqana', mile['name'], mile['start'], mile['time'])):
-        banner.award_banner(c, mile['name'], 'vehumet', 2)
+
+  if (rune != 'slimy'
+      and rune != 'abyssal'
+      and mile['potionsused'] == 0
+      and mile['scrollsused'] == 0):
+    banner.award_banner(c, mile['name'], 'ru', 3)
+
+  if (mile['urune'] == 1
+      and mile['xl'] < 17
+      and not query.did_sacrifice(c, 'experience', mile['name'],
+                                   mile['start'], mile['time'])
+      and not query.did_worship_god(c, 'Hepliaklqana', mile['name'],
+                                         mile['start'], mile['time'])):
+    banner.award_banner(c, mile['name'], 'vehumet', 2)
+
+  if mile['urune'] == 1 and mile['kills'] < 750:
+    banner.award_banner(c, mile['name'], 'elyvilon', 1)
 
 def do_milestone_gem_found(c, mile):
   """Give out banners for gems collected."""
@@ -445,6 +453,11 @@ def crunch_winner(c, game, filename):
       banner.award_banner(c, player, 'uskayaw', 3)
   elif game.get('igem') >= 3:
       banner.award_banner(c, player, 'uskayaw', 2)
+
+  if game.get('kills') < 1000:
+      banner.award_banner(c, player, 'elyvilon', 3)
+  elif game.get('kills') < 2000:
+      banner.award_banner(c, player, 'elyvilon', 2)
 
 def is_all_runer(game):
   """Did this game get every rune? This _might_ require checking the milestones

@@ -479,63 +479,6 @@ INDIVIDUAL_CATEGORIES = (
     ),
     Category(
         "individual",
-        "Most Pacific Win",
-        "Elyvilon wishes for peace among the dungeon denizens and ranks the players on their wins with the fewest amount of kills. Monsters killing each other intentionally or otherwise is not considered pacific and is thus counted towards the kills as well.",
-        "most_pacific_win",
-        False,
-        None,
-        True,
-        "most_pacific_wins",
-        "kills",
-        None,
-        [
-            ColumnDisplaySpec("kills", "Kills", True, True, None),
-            ColumnDisplaySpec("race", "Species", False, False, None),
-            ColumnDisplaySpec("class", "Background", False, False, None),
-            ColumnDisplaySpec(
-                "morgue_json", "Morgue", False, False, _json_to_morgue_link
-            ),
-        ],
-    ),
-    #Category(
-    #    "individual",
-    #    "Tournament Win Order",
-    #    "Qazlal wants destruction and wants it as soon as possible! This category ranks players in order of their first win in the tournament.",
-    #    "first_win",
-    #    False,
-    #    None,
-    #    "first_wins",
-    #    "end_time ASC",
-    #    [
-    #        ColumnDisplaySpec("end_time", "Game End Time", True, True, lambda x: x),
-    #        ColumnDisplaySpec("race", "Species", False, False, None),
-    #        ColumnDisplaySpec("class", "Background", False, False, None),
-    #        ColumnDisplaySpec(
-    #            "morgue_json", "Morgue", False, False, _json_to_morgue_link
-    #        ),
-    #    ],
-    #),
-    #Category(
-    #    "individual",
-    #    "Tournament All Rune Win Order",
-    #    "Lugonu appreciates all planes of reality, and wants players to tour as many of them as soon as possible. Lugonu ranks players in order of their first 15-rune win in the tournament.",
-    #    "first_allrune_win",
-    #    False,
-    #    None,
-    #    "first_allrune_wins",
-    #    "end_time ASC",
-    #    [
-    #        ColumnDisplaySpec("end_time", "Game End Time", True, True, lambda x: x),
-    #        ColumnDisplaySpec("race", "Species", False, False, None),
-    #        ColumnDisplaySpec("class", "Background", False, False, None),
-    #        ColumnDisplaySpec("duration", "Duration", False, True, _pretty_duration),
-    #        ColumnDisplaySpec(
-    #            "morgue_json", "Morgue", False, False, _json_to_morgue_link
-    #        ),
-    #    ],
-    #),
-    Category(
-        "individual",
         "Ziggurat Diving",
         """Xom is entertained by a player's descent into madness, and ranks
         players by the number of consecutive Ziggurat floors they reach in a
@@ -579,16 +522,16 @@ INDIVIDUAL_CATEGORIES = (
     Category(
         "individual",
         "Banner Collection",
-        """The other DCSS gods are too busy with divine affairs to rank an entire category, but every DCSS god rewards players for certain achievements with tiered banners. Players are awarded points for each banner, with tier one banners worth 1 point, tier 2 worth 2 points, and tier 3 worth 4 points.""",
+        """Some DCSS gods are too busy with divine affairs to rank an entire category, but most gods rewards players for certain achievements with tiered banners. Players are awarded points for each banner, with tier one banners worth 1 point, tier 2 worth 2 points, and tier 3 worth 4 points.""",
         "banner_score",
         True,
-        96,
+        100,
         None,
         "player_banner_score",
         "bscore",
         None,
         [
-            ColumnDisplaySpec("bscore", "Banner Completion / 96", True, True, None),
+            ColumnDisplaySpec("bscore", "Banner Completion / 100", True, True, None),
             ColumnDisplaySpec(
                 "banners", "Banners Completed", False, False, _pretty_banners
             ),
@@ -787,27 +730,6 @@ CLAN_CATEGORIES = (
     ),
     Category(
         "clan",
-        "Most Pacific Win",
-        "Clans are ranked by the fewest amount of kills win of any of their members.",
-        "most_pacific_win",
-        False,
-        None,
-        True,
-        "clan_most_pacific_wins",
-        "kills",
-        None,
-        [
-            ColumnDisplaySpec("kills", "Kills", True, True, None),
-            ColumnDisplaySpec("player", "Player", False, False, None),
-            ColumnDisplaySpec("race", "Species", False, False, None),
-            ColumnDisplaySpec("class", "Background", False, False, None),
-            ColumnDisplaySpec(
-                "morgue_json", "Morgue", False, False, _json_to_morgue_link
-            ),
-        ],
-    ),
-    Category(
-        "clan",
         "Gem Collection",
         "Clans are awarded points and subsequently ranked in the same way as the individual Gem Collection category using all of the members' games.",
         "gem_score",
@@ -849,13 +771,13 @@ CLAN_CATEGORIES = (
         members for each banner.""",
         "banner_score",
         True,
-        96,
+        100,
         None,
         "clan_banner_score",
         "bscore",
         None,
         [
-            ColumnDisplaySpec("bscore", "Banner Progress / 96", True, True, None),
+            ColumnDisplaySpec("bscore", "Banner Progress / 100", True, True, None),
             ColumnDisplaySpec(
                 "banners", "Banners Completed", False, False, _pretty_banners
             ),
@@ -898,6 +820,18 @@ BANNERS = [
         'Dithmenos appreciates the subtlety of a <code>POLITICIAN</code> and will thus reward any player who steals a high score from another player.',
         "dithmenos",
         "#330033",
+    ),
+    Banner(
+        "Elyvilon",
+        "Pacifist",
+        BannerTiers(
+            "Collect a first rune with fewer than 750 kills.",
+            "Win with fewer than 2000 kills.",
+            "Win with fewer than 1000 kills.",
+        ),
+        "Elyvilon wishes for peace among the dungeon denizens and will bestow the title of <code>PACIFIST</code> on a player who kills as few monsters as possible. Monsters killing each other intentionally or otherwise is not considered pacific and is thus counted towards the kills as well.",
+        "elyvilon",
+        "#ff69b4",
     ),
     Banner(
         "Fedhas",

@@ -694,7 +694,8 @@ MILE_DB_MAPPINGS = [
     [ 'noun', 'noun' ],
     [ 'milestone', 'milestone' ],
     [ 'time', 'milestone_time' ],
-    [ 'zigscompleted', 'zigscompleted']
+    [ 'zigscompleted', 'zigscompleted'],
+    [ 'kills', 'kills' ],
     ]
 
 LOGLINE_TO_DBFIELD = dict((item.field, item.column) for item in LOG_DB_MAPPINGS)
