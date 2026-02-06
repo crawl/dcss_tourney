@@ -11,7 +11,7 @@ CNC = 'https://archive.nemelex.cards/'
 CXC = 'https://crawl.xtahua.com/crawl/'
 LLD = 'http://lazy-life.ddo.jp/'
 
-USE_TEST = True
+USE_TEST = False
 
 TEST_YEAR = USE_TEST and '2026'
 TEST_VERSION = USE_TEST and '0.34'
