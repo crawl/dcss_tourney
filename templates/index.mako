@@ -301,7 +301,10 @@
       <p>
       <ul>
         <li>
-          To be determined.
+          The Streak Length category now awards double points, with a maximum of 20,000 instead of 10,000.
+        </li>
+        <li>
+          The Most Pacific Win category is replaced with an Elyvilon Pacifist banner.
         </li>
       </ul>
       </p>
