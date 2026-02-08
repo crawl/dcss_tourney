@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS players (
   highest_score INT,
   lowest_turncount_win INT,
   fastest_win INT,
-  win_perc INT,
+  win_perc DECIMAL(5,2),
   piety INT,
   banner_score INT,
   exploration INT,
